@@ -77,9 +77,75 @@ dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y\}
       </tags>
   </entry>
   <entry>
-    <title>lecture_grpah_2</title>
+    <title>Lecture series on graph theory 2</title>
     <url>/2022/03/28/lecture-grpah-2/</url>
-    <content><![CDATA[
+    <content><![CDATA[<p>First, we try to prove the Mantel's Theorem, which was presented as a question in the last blog post.</p>
+<p><strong>Thm(Mantel's Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong> <span class="math display">\[
+\lvert E(G)\rvert\leq\frac{n^2}{4}
+\]</span> Before the proof begin, we introduce what triangle means.</p>
+<span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" /></p>
+<p><font color=red><span class="math inline">\(C=v_1v_2v_3v_4v_5v_1\)</span> is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font></p>
+<p>Now, let's take a few examples to find potential patterns which may help to prove this theorem.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" /></p>
+<p><font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=<span class="math inline">\(\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}\)</span>, if n is odd, #edges=<span class="math inline">\(\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}\)</span></font></p>
+<hr />
+<p><strong>Proof of the Mantel's Theorem</strong></p>
+<p>Let G be an n-vertex graph without a triangle.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" /></p>
+<p><span class="math inline">\(\forall x,y\in V(G)\)</span>, if <span class="math inline">\(xy\in E(G)\)</span>, <span class="math inline">\(N_G(x)\cap N_G(y)=\emptyset\)</span> because G has no triangle.</p>
+<p>Because <span class="math inline">\(N_G(x)\cup N_G(y)\subset V(G)\)</span>, <span class="math inline">\(d_G(x)+d_G(y)\leq n\)</span></p>
+<p>From the above formula, we have <span class="math display">\[
+\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}
+\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" /></p>
+<p>We find that <span class="math inline">\(d_G(x)\)</span> appears in <span class="math inline">\(d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})\)</span> <span class="math display">\[
+So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}
+\]</span> From (1) &amp; (2), we have <span class="math display">\[
+\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}
+\]</span> According to the relationship between degree and edge: <span class="math inline">\(\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert\)</span> and the Cauchy-Schwarz inequality:<span class="math inline">\((\sum_{k=1}^n a_k^2)(\sum_{k=1}^n b_k^2)\geq(\sum_{k=1}^na_kb_k)^2\)</span>, we have <span class="math display">\[
+\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}
+\]</span> From (3) &amp; (4), <span class="math inline">\(\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert\)</span> which implies <span class="math inline">\(\lvert E(G)\rvert \leq\frac{n^2}{4}\)</span></p>
+<hr />
+<p>If a graph G has more than <span class="math inline">\(\frac{n^2}{4}\)</span> edges, then G has a triangle.</p>
+<p><font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font></p>
+<p>Tree: A tree is a connected graph without cycles.</p>
+<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that <span class="math inline">\(u,v\in V(P),\ uv\in E(P)\)</span> and u is the end vertex of P, but <span class="math inline">\(d_G(u)&gt;1\)</span>.</p>
+<p>Case 1:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" /></p>
+<p><span class="math inline">\(w\not\in V(P)\)</span> and <span class="math inline">\(wu\in E(G)\)</span>,then <span class="math inline">\(\tilde{P}=P+wu\)</span> is longer than P. This contradicts the fact that P is the longest path.</p>
+<p>Case 2:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" /></p>
+<p><span class="math inline">\(w\in V(P),w\not=v\)</span> and <span class="math inline">\(wu\in E(G)\)</span>, then we can find that there is a cycle. This contradicts the fact that G is a tree.</p>
+<hr />
+<p>A vertex of a tree is a leaf if it has degree one.</p>
+<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p><span class="math inline">\(\Rightarrow\)</span> n=1, G has no edges.</p>
+<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
+<p>Since <span class="math inline">\(n\ge2\)</span>, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,<span class="math inline">\(\lvert E(G-v)\rvert=(n-1)-1\)</span>. <span class="math display">\[
+\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1
+\]</span> <span class="math inline">\(\Leftarrow\)</span> Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
+<p>We prove this claim first.If not, <span class="math inline">\(\forall x\in V(G)\)</span>, assume <span class="math inline">\(d_G(x)\ge2\)</span></p>
+<p>Then we have <span class="math inline">\(\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1\)</span> which contradicts that <span class="math inline">\(\lvert E(G)\rvert=n-1\)</span>. The contradiction implies the claim holds.</p>
+<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and <span class="math inline">\((n-1)-1\)</span> edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
+<hr />
+<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
+<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
+<p><font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font></p>
+<p>Now we introduce two classic search algorithms in graph theory.</p>
+<p>A breadth-first-search tree of a graph (BFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
 ]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
   </entry>
 </search>
