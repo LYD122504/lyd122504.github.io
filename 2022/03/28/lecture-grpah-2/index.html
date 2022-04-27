@@ -36,8 +36,9 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg">
 <meta property="article:published_time" content="2022-03-28T14:47:31.000Z">
-<meta property="article:modified_time" content="2022-04-05T03:41:59.596Z">
+<meta property="article:modified_time" content="2022-04-27T01:24:32.643Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Operation Research">
@@ -262,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-05 11:41:59" itemprop="dateModified" datetime="2022-04-05T11:41:59+08:00">2022-04-05</time>
+      <time title="Modified: 2022-04-27 09:24:32" itemprop="dateModified" datetime="2022-04-27T09:24:32+08:00">2022-04-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -288,14 +289,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>4k</span>
+      <span>6.4k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>4 mins.</span>
+      <span>6 mins.</span>
     </span>
 </div>
 
@@ -366,6 +367,45 @@ So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\
 <p>Now we introduce two classic search algorithms in graph theory.</p>
 <p>A breadth-first-search tree of a graph (BFS-tree)</p>
 <p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
+<ol type="i">
+<li><p>Start at <span class="math inline">\(x=x_0\)</span> and join x to all neighbors of x, Let <span class="math inline">\(N_1=N_G(x)\)</span></p></li>
+<li><p>For each <span class="math inline">\(y\in N_i\)</span>, join y to all neighbors of y without creating cycles and let <span class="math inline">\(N_{i+1}=\cup_{y\in N_i}N_G(y)\)</span></p></li>
+</ol>
+<p>The algorithm will take <span class="math inline">\(\Omicron(\lvert V\rvert+\lvert E\rvert)\)</span> steps to find a BFS-tree rooted at <span class="math inline">\(x_0\)</span>.</p>
+<p>A deepth-first-search tree of a graph (DFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
+<ol type="i">
+<li><p>Start at <span class="math inline">\(x=x_0\)</span> and <span class="math inline">\(T_0=\{x_0\}\)</span></p></li>
+<li><p>Join x to one of its neighbor <span class="math inline">\(x_1\in N_G(x_0)\)</span> and<span class="math inline">\(T_1=\{x_0,x_1\}\)</span></p></li>
+<li><p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i\not=\emptyset\)</span>, then join <span class="math inline">\(x_i\)</span> to a vertex <span class="math inline">\(x_{i+1}\in N_i\)</span> and let <span class="math inline">\(T_{i+1}=T_i\cup\{x_{i+1}\}\)</span> and <span class="math inline">\(x_{i+1}\to x_i\)</span></p></li>
+</ol>
+<p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i=\emptyset\)</span>, then set <span class="math inline">\(x_{i-1}\to x_{i}\)</span> and <span class="math inline">\(N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i\)</span> and continue.</p>
+<p>Eulerian graph:</p>
+<p><font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font></p>
+<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
+<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
+<hr />
+<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by <span class="math inline">\(T=v_1e_1v_2e_2\cdots v_me_mv_1\)</span>. So G is connected.</p>
+<p>Now, orient the edges of G along the trail T such that, for an edge <span class="math inline">\(e_i\)</span> in T, orient <span class="math inline">\(e_i\)</span> from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_{i+1}\)</span>. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex <span class="math inline">\(v_i\)</span>, T visits <span class="math inline">\(v_i\)</span> and then leaves <span class="math inline">\(v_i\)</span>, which implies <span class="math display">\[
+\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i
+\]</span> But the degree of <span class="math inline">\(v_i\)</span> satisfies <span class="math display">\[
+\begin{aligned}
+d_G(v_i)&amp;=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
+&amp;\equiv0(mod\ 2)
+\end{aligned}
+\]</span> So every vertex of G has an even degree.</p>
+<hr />
+<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles <span class="math inline">\(D=\{C_1,C_2,\dots,C_k\}\)</span> such that<br />
+<span class="math display">\[
+\cup_{C_i\in D}E(C_i)=E(G)
+\]</span> <strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
+<hr />
+<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
+<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
+<p>So assume that<span class="math inline">\(\delta(G)\ge2\)</span>. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, <span class="math inline">\(D\cup\{C\}\)</span> is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
+<hr />
+<p><font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font></p>
+<p><font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?<span class="math inline">\(\lvert D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
 
     </div>
 
@@ -420,14 +460,14 @@ So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">8k</span>
+    <span title="Symbols count total">11k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">8 mins.</span>
+    <span title="Reading time total">10 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">
