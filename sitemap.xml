@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2022/05/20/Graph3/</loc>
+    <loc>https://lyd122504.github.io/2022/05/20/Graph3/</loc>
     
     <lastmod>2022-05-21</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/04/27/love-letter-1/</loc>
+    <loc>https://lyd122504.github.io/2022/04/27/love-letter-1/</loc>
     
     <lastmod>2022-04-30</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/03/28/Graph2/</loc>
+    <loc>https://lyd122504.github.io/2022/03/28/Graph2/</loc>
     
     <lastmod>2022-04-27</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/03/28/Graph1/</loc>
+    <loc>https://lyd122504.github.io/2022/03/28/Graph1/</loc>
     
     <lastmod>2022-04-05</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://lyd122504.github.io/categories/index.html</loc>
     
     <lastmod>2022-03-28</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://lyd122504.github.io/tags/index.html</loc>
     
     <lastmod>2022-03-28</lastmod>
     
@@ -57,7 +57,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://lyd122504.github.io/</loc>
     <lastmod>2022-05-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -65,21 +65,21 @@
 
   
   <url>
-    <loc>http://example.com/tags/Math/</loc>
+    <loc>https://lyd122504.github.io/tags/Math/</loc>
     <lastmod>2022-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Operation-Research/</loc>
+    <loc>https://lyd122504.github.io/tags/Operation-Research/</loc>
     <lastmod>2022-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Love-Letter/</loc>
+    <loc>https://lyd122504.github.io/tags/Love-Letter/</loc>
     <lastmod>2022-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -88,14 +88,14 @@
 
   
   <url>
-    <loc>http://example.com/categories/Graph-Theory/</loc>
+    <loc>https://lyd122504.github.io/categories/Graph-Theory/</loc>
     <lastmod>2022-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/Love/</loc>
+    <loc>https://lyd122504.github.io/categories/Love/</loc>
     <lastmod>2022-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
