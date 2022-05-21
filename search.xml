@@ -267,13 +267,12 @@ n-m+f=2
 <p>A basis <span class="math inline">\(B\)</span> of a vector space is orthonormal if <span class="math inline">\(||\vec{X}||=1\)</span> for any <span class="math inline">\(\vec{X}\in B\)</span>, and <span class="math inline">\(&lt;\vec{X_1},\vec{X_2}&gt;=0\)</span> for any <span class="math inline">\(\vec{X_1},\vec{X_2}\in B\)</span></p>
 <p><strong>Thm. Let A be a real symmetric <span class="math inline">\((n\times n)\)</span>-matrix. Then A is a diagonizable and <span class="math inline">\(\mathbb{R}^n\)</span> has orthonormal basis of eigenvectos of A</strong> <span class="math display">\[
 A\sim 
- \begin{bmatrix}
-   \lambda_1 &amp; 0 &amp; \cdots &amp;0\\
-   0 &amp; \lambda_2 &amp; \cdots &amp;0\\
-    \vdots&amp; \vdots &amp; \ddots&amp;\vdots\\
-   0&amp;0&amp;\cdots&amp;\lambda_n\\
-  \end{bmatrix}
-\]</span></p>
+ \begin{pmatrix}
+   \lambda_1 &amp; 0 &amp; \cdots &amp;0\\\\
+   0 &amp; \lambda_2 &amp; \cdots &amp;0\\\\
+   \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\\
+  \end{pmatrix}
+\]</span> $$</p>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
