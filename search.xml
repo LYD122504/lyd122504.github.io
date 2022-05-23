@@ -439,4 +439,50 @@ n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=
         <tag>Operation Research</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Lecture series on graph theory 5</title>
+    <url>/2022/05/22/Graph5/</url>
+    <content><![CDATA[<p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex <span class="math inline">\(v\)</span> .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if <span class="math inline">\(d_G(v)=d\)</span>, each of these edges is chosen with probability 1/d)</font></p>
+<p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
+<span id="more"></span>
+<p>Let M(G) be the matrix whose rows and columns are indexed by vertices <span class="math inline">\(v_1,\dots,v_n\)</span>, we assume that <span class="math inline">\(m_{ij}\)</span> is the <span class="math inline">\((i,j)\)</span>-entry of M(G), which satisfies the following formula <span class="math display">\[
+m_{ij}=\frac{a_{ij}}{d_i}
+\]</span> where <span class="math inline">\(a_{ij}\)</span> is the number of edges between <span class="math inline">\(v_i\)</span> and <span class="math inline">\(v_j\)</span>. The <span class="math inline">\(m_{ij}\)</span> is probability that if one starts at <span class="math inline">\(v_i\)</span> and then the next step will be at <span class="math inline">\(v_j\)</span>.</p>
+<p><font color='red'>Recall: the number of k-walks from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span>= the <span class="math inline">\((i,j)\)</span>-entry of <span class="math inline">\(A(G)^k\)</span></font></p>
+<p><span class="math inline">\(\exists v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j,\ P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)=\frac{a_{ii_1}}{d_i}\frac{a_{i_1i_2}}{d_{i_1}}\cdots\frac{a_{i_{k-1}i_j}}{d_{i_{k-1}}}=m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}\)</span> <span class="math display">\[
+\begin{aligned}
+P(v_i\to v_j\ in\ k\ steps)&amp;=\sum_{k-walk\ from\ v_i\to v_j} P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)\\
+&amp;=\sum m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}=(i,j)-entry\ of\ M(G)^k
+\end{aligned}
+\]</span> Assume the probability to pick <span class="math inline">\(v_i\)</span> is <span class="math inline">\(p(v_i)\)</span> for <span class="math inline">\(i\in\{1,\dots,n\}\)</span> s.t. <span class="math inline">\(\sum_{i=1}^n p(v_i)=1\)</span></p>
+<p>Let <span class="math inline">\(P=[\begin{matrix}p(v_1)&amp;p(v_2)&amp;\cdots&amp;p(v_n)\end{matrix}]\)</span>. Then the probability of a walk ending up at <span class="math inline">\(v_i\)</span> in k steps is <span class="math display">\[
+P(there\ is\ a\ walk\ ending\ up\ at\ v_i\ in\ k\ steps)=[PM(G)^k]_i
+\]</span> If G is k regular <font color='red'>( every vertex has degree k)</font> then <span class="math inline">\(M(G)=\frac{1}{d}A(G)\)</span></p>
+<p>Then the eigenvalue <span class="math inline">\(\beta_i\)</span> of <span class="math inline">\(M(G)\)</span> satisfies <span class="math inline">\(\beta_1=\frac{1}{d}\lambda_i\)</span> where <span class="math inline">\(\lambda_i\)</span> is an eigenvalue of G. <span class="math display">\[
+P(\exist\ a\ closed\ k-walk\ starting\ v)=\beta_1^k+\cdots+\beta_n^k=\frac{1}{d^k}(\lambda_1^k+\cdots+\lambda_n^k)
+\]</span> <strong>Weighted graphs and digraphs</strong></p>
+<p>Let G be a graph. A weighted graph is a graph G associated with a weight function: <span class="math inline">\(w:E(G)\to\mathbb{F}\)</span> where <span class="math inline">\(\mathbb{F}\)</span> is a field, denote by <span class="math inline">\((G,w)\)</span>. Most of the time, we consider the case that <span class="math inline">\(\mathbb{F}=\mathbb{R}\)</span>.</p>
+<p>The adjacency matrix of a weighted graph is a real symmetric matrix <span class="math inline">\(A(G,w)=(a_{ij})_{n\times n}\)</span> with <span class="math inline">\(a_{ij}=w(v_iv_j)\)</span>, the weight of the edge of <span class="math inline">\(v_iv_j\)</span>.</p>
+<p>Let H be a subgraph of <span class="math inline">\((G,w)\)</span>. The weight of H is defined as <span class="math inline">\(w(H)=\sum_{e\in E(H)}w(e)\)</span></p>
+<p>For example, how to find a minimum weight path between two given vertices? How to find a minimum spanning tree or how to find a cycle or walk with large weight<font color='red'>( so-called heavy cycles or walks)</font></p>
+<p>A digraph is a graph with an orientation which assigns an orientation to each edge.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg" /></p>
+<p><font color='red'>An orientation edge (or arc) from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span> is an ordered pair of vertices , denoted by <span class="math inline">\((v_i,v_j)\)</span> where <span class="math inline">\(v_i\)</span> is called the tail and <span class="math inline">\(v_j\)</span> is called the head of arc.</font> <span class="math display">\[
+A(D,w)=[a_{ij}]_{n\times n}\  where\ a_{ij}=\left\{\begin{aligned}&amp; w(v_iv_j),\quad v_i\to v_j\\
+&amp;-w(v_iv_j),\quad v_j\to v_i\\
+&amp;0,\quad otherwise\end{aligned}\right. 
+\]</span> Then <span class="math inline">\(A(D,w)\)</span> is no longer symmetric <font color='red'>but skew-symmetric:<span class="math inline">\(A+A^T=O\)</span></font></p>
+<p>For a given graph G, let D be an orientation of G, <span class="math inline">\(\vec{B}\)</span> is an oriented incidence matrix <span class="math display">\[
+\vec{B}\cdot \vec{f}=\vec{b}\ where\ \vec{b}\in\mathbb{R}^{|V(G)|},\ \vec{f}\in\mathbb{R}^{|E(G)|}
+\]</span> A solution to <span class="math inline">\(\vec{B}\cdot \vec{f}=\vec{b}\)</span> is called a network flow. <span class="math inline">\(\vec{b}\)</span> is called a boundary condition.</p>
+<p>If <span class="math inline">\(\vec{b}=\vec{0},\ \vec{B}\cdot \vec{f}=\vec{0}.\qquad(*)\)</span> A vector <span class="math inline">\(\vec{f}\)</span> satisfies <span class="math inline">\((*)\)</span></p>
+]]></content>
+      <categories>
+        <category>Graph theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
 </search>
