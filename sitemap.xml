@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://lyd122504.github.io/2022/05/22/Graph5/</loc>
+    <loc>https://lyd122504.github.io/2022/05/22/Graph4/</loc>
     
     <lastmod>2022-05-23</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>https://lyd122504.github.io/2022/05/22/Graph4/</loc>
+    <loc>https://lyd122504.github.io/2022/05/22/Graph5/</loc>
     
-    <lastmod>2022-05-22</lastmod>
+    <lastmod>2022-05-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -113,14 +113,14 @@
   </url>
   
   <url>
-    <loc>https://lyd122504.github.io/categories/Love/</loc>
+    <loc>https://lyd122504.github.io/categories/Graph-theory/</loc>
     <lastmod>2022-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lyd122504.github.io/categories/Graph-theory/</loc>
+    <loc>https://lyd122504.github.io/categories/Love/</loc>
     <lastmod>2022-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
