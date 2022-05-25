@@ -1,6 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Lecture series on graph theory 1</title>
+    <url>/2022/03/28/Graph1/</url>
+    <content><![CDATA[<p>Def. A graph is a <font color=red>discrete structure/combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
+<p>Usually, a vertex is represented by a dot and an edge is represented by a line (straight or curved) joining two vertices.</p>
+<span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg" /></p>
+<center>
+<font color=red size=4>The green points mean crossing of the edges,rather than vertices  </font>
+</center>
+<p>A vertex is incident with an edge if the edge join the vertex to another vertex, which is also called the end of the edge.</p>
+<p>Two vertices are adjacent to each other if there is an edge joinging them.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg" /></p>
+<center>
+<font color=red size=4>We say that the vertex v is incident with the edge e<br>The vertex u is adjacent to the vertex v because uv is an edge of G</font>
+</center>
+<p>A graph is simple if there is at most one edge between any two vertices and there is no edge joining a vertex itself.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg" /></p>
+<p>In short, a graph is simple if and only if it has no multi-edges and no loops.Next, unless otherwise specified, we will discuss simple graphs by default.</p>
+<p>For any given simple graph <span class="math inline">\(G(V,E)\)</span>，V is the vertex set and E is the edge set. <span class="math display">\[
+if\ \lvert V\rvert=n,\lvert E\rvert\leq\binom{n}{2}
+\]</span> A graph is complete if the graph has an edge between every pair of vertices.A complete graph of n vertices is usually denoted by <span class="math inline">\(K_n\)</span></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg" /></p>
+<p>The degree of a vertex v of G, denoted by <span class="math inline">\(d_G(v)\)</span>, is the number of edges incident with it.</p>
+<p>The maximum degree of G is defined as <span class="math inline">\(\Delta(G):=\max\{d_G(x)|v\in V(G)\}\)</span></p>
+<p>The minimum degree of G is defined as <span class="math inline">\(\delta G:=\min\{d_G(v)|v\in V(G)\}\)</span></p>
+<p>The average degree of G is defined as <span class="math inline">\(d(G):=\frac{\lvert E(G)\rvert}{\lvert V(G)\rvert}\)</span>, this index is used to measure the density of the graph.According to this index, graph can be divided into dense graph and sparse graph</p>
+<p>A neighbor of v in G is a vertex joined to v by an edge of G.The neighborhood of a vertex v in G is the set of all neighbors of v in G, denoted by <span class="math inline">\(N_G(v)=\{u|u\in V(G),uv\in E(G)\}\)</span>.We have <span class="math inline">\(d_G(v)=\lvert N_G(v)\rvert\)</span> easily.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg" /></p>
+<p><font color=red>This picture shows the multi-level neighbors of v. If u is both a second-level neighbor and a third-level neighbor of v, it is classified as a second-level neighbor. <br>Here we give the set representation of neighbors: <br><span class="math inline">\(N_1(v)=N_G(v),N_2(v)=N_G(N_1(v))-N_1(v)\cup\{v\},\ N_3(v)=N_G(N_2(v))-N_1(v)\)</span><br>and if <span class="math inline">\(w\in N_3(v),\ distance(w,v)=3\)</span></font></p>
+<p>A graph is even if every vertex of G has an even degree.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" /></p>
+<p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even number of vertices with odd degree.</strong></p>
+<p>Proof.</p>
+<p>Let <span class="math display">\[
+\left\{\begin{aligned}X&amp;=\{x|x\in V(G)\ and\
+ d_G(x)\equiv0(mod\ 2)\}\\Y&amp;=\{y|y\in V(G)\ and\
+ d_G(y)\equiv1(mod\ 2)\}\end{aligned}\right.
+\]</span> Then,<span class="math inline">\(\sum_{x\in X}d_G(x)+\sum_{y\in Y}d_G(y)=2\lvert E(G)\rvert\)</span></p>
+<p>So, <span class="math inline">\(\sum_{y\in Y}d_G(y)\equiv0(mod\ 2)\)</span>.It follows immediately that <span class="math inline">\(\lvert Y\rvert\equiv0(mod\ 2)\)</span></p>
+<p>So the proposition holds.</p>
+<p>Question:Let G be an n-vertex graph.How many edges will force G to have a triangle?(Mantel's Theorem)</p>
+<p>Def A walk of G is <font color=red>a sequence of vertices and edges of G</font>such that (i)both the first element and the last element of the sequence are vertices and (ii) any two consecutive elements in the sequence contains one vertex and one edge which are incident with each other.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg" /></p>
+<p><font color=red>We give two different walks: <span class="math inline">\(w_{1}=v_1e_1v_2e_2v_3e_2v_2e_1v_1,\  w_2=v_2e_2v_3e_3v_4e_4v_2\)</span><br>For walk,vertex can be repeated, edge can be repeated.</font></p>
+<p>A walk is open if the first vertex is not equal to the last vertex. <font color=red><span class="math inline">\(w_0=v_2e_2v_3e_3v_4e_4v_2e_1v_1\)</span></font></p>
+<p>A walk is a trail if it does not have repeated edges. <font color=red><span class="math inline">\(w_0\)</span> is a trail</font></p>
+<p>A trail is a path if it does not have repeated vertices.</p>
+<p><font color=red><span class="math inline">\(w_3=v_1e_1v_2e_2v_3e_3v_4=v_1v_2v_3v_4\)</span> is a path</font></p>
+<p>A cycle is a closed trail( or path) without repeated vertices (vertices and edges) <font color =red>except the first vertex and the last vertex. <span class="math inline">\(w_4=v_2e_2v_3e_3v_4e_4v_2\)</span></font></p>
+<p>A graph is connected if for any two vertices x and y, there is a path joining x and y.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg" /></p>
+<p>A subgraph H of G is a graph with <span class="math inline">\(V(H)\subset V(G),E(H)\subset E(G)\)</span></p>
+<p>A maximal connected subgraph of G is called a connected component. <font color=red>Maximal means anything bigger than it is not connected</font></p>
+<p>An edge e of G is bridge or cut-edge if #connected components of G-e&gt;#connected components of G</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" /></p>
+<p><font color=red>#connected components of G-<span class="math inline">\(e_1\)</span>=3&gt;2=#connected components of G<br>Both <span class="math inline">\(e_1\)</span> and<span class="math inline">\(e_2\)</span> are bridges/cut-edges</font></p>
+<p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of cycles which covers every edge exactly 2k times for any integer <span class="math inline">\(k\ge2\)</span></strong></p>
+<p>A subgraph H is spanning if <span class="math inline">\(V(H)=V(G)\)</span></p>
+<p>A subgraph H is induced by <font color=red> <span class="math inline">\(S\subset V(G)\)</span></font>, if <span class="math inline">\(V(H)=S\)</span> and for any two vertices <span class="math inline">\(x,y\in S\)</span>, <span class="math inline">\(xy\in E(H)\Leftrightarrow xy\in E(G)\)</span></p>
+<p>A subgraph H is induced by <font color=red> <span class="math inline">\(S\subset E(G)\)</span></font>, if <span class="math inline">\(E(H)=S\)</span> and <span class="math inline">\(v\in V(H)\)</span>a if and only if v is incident with an edge in S.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg" /></p>
+<p>Let <span class="math inline">\(x,y\in V(G)\)</span>, the distance between x and y in G is the length of the shortest path joining x and y, denoted by <span class="math inline">\(dist_G(x,y)\)</span>. In other words, <span class="math display">\[
+dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y\}
+\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
+<p><font color=red><span class="math inline">\(dist_G(x,y)=k\)</span>, this means finding a shortest path between any two vertices x and y is easy</font></p>
+<p><font color=red>However, finding a longest path between any two vertices x and y.Given an integer k, is there an (x,y)-path with length k?They are NPC problems</font></p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lecture series on graph theory 2</title>
+    <url>/2022/03/28/Graph2/</url>
+    <content><![CDATA[<p>First, we try to prove the Mantel's Theorem, which was presented as a question in the last blog post.</p>
+<p><strong>Thm(Mantel's Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong> <span class="math display">\[
+\lvert E(G)\rvert\leq\frac{n^2}{4}
+\]</span> Before the proof begin, we introduce what triangle means.</p>
+<span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" /></p>
+<p><font color=red><span class="math inline">\(C=v_1v_2v_3v_4v_5v_1\)</span> is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font></p>
+<p>Now, let's take a few examples to find potential patterns which may help to prove this theorem.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" /></p>
+<p><font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=<span class="math inline">\(\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}\)</span>, if n is odd, #edges=<span class="math inline">\(\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}\)</span></font></p>
+<hr />
+<p><strong>Proof of the Mantel's Theorem</strong></p>
+<p>Let G be an n-vertex graph without a triangle.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" /></p>
+<p><span class="math inline">\(\forall x,y\in V(G)\)</span>, if <span class="math inline">\(xy\in E(G)\)</span>, <span class="math inline">\(N_G(x)\cap N_G(y)=\emptyset\)</span> because G has no triangle.</p>
+<p>Because <span class="math inline">\(N_G(x)\cup N_G(y)\subset V(G)\)</span>, <span class="math inline">\(d_G(x)+d_G(y)\leq n\)</span></p>
+<p>From the above formula, we have <span class="math display">\[
+\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}
+\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" /></p>
+<p>We find that <span class="math inline">\(d_G(x)\)</span> appears in <span class="math inline">\(d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})\)</span> <span class="math display">\[
+So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}
+\]</span> From (1) &amp; (2), we have <span class="math display">\[
+\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}
+\]</span> According to the relationship between degree and edge: <span class="math inline">\(\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert\)</span> and the Cauchy-Schwarz inequality:<span class="math inline">\((\sum_{k=1}^n a_k^2)(\sum_{k=1}^n b_k^2)\geq(\sum_{k=1}^na_kb_k)^2\)</span>, we have <span class="math display">\[
+\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}
+\]</span> From (3) &amp; (4), <span class="math inline">\(\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert\)</span> which implies <span class="math inline">\(\lvert E(G)\rvert \leq\frac{n^2}{4}\)</span></p>
+<hr />
+<p>If a graph G has more than <span class="math inline">\(\frac{n^2}{4}\)</span> edges, then G has a triangle.</p>
+<p><font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font></p>
+<p>Tree: A tree is a connected graph without cycles.</p>
+<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that <span class="math inline">\(u,v\in V(P),\ uv\in E(P)\)</span> and u is the end vertex of P, but <span class="math inline">\(d_G(u)&gt;1\)</span>.</p>
+<p>Case 1:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" /></p>
+<p><span class="math inline">\(w\not\in V(P)\)</span> and <span class="math inline">\(wu\in E(G)\)</span>,then <span class="math inline">\(\tilde{P}=P+wu\)</span> is longer than P. This contradicts the fact that P is the longest path.</p>
+<p>Case 2:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" /></p>
+<p><span class="math inline">\(w\in V(P),w\not=v\)</span> and <span class="math inline">\(wu\in E(G)\)</span>, then we can find that there is a cycle. This contradicts the fact that G is a tree.</p>
+<hr />
+<p>A vertex of a tree is a leaf if it has degree one.</p>
+<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p><span class="math inline">\(\Rightarrow\)</span> n=1, G has no edges.</p>
+<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
+<p>Since <span class="math inline">\(n\ge2\)</span>, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,<span class="math inline">\(\lvert E(G-v)\rvert=(n-1)-1\)</span>. <span class="math display">\[
+\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1
+\]</span> <span class="math inline">\(\Leftarrow\)</span> Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
+<p>We prove this claim first.If not, <span class="math inline">\(\forall x\in V(G)\)</span>, assume <span class="math inline">\(d_G(x)\ge2\)</span></p>
+<p>Then we have <span class="math inline">\(\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1\)</span> which contradicts that <span class="math inline">\(\lvert E(G)\rvert=n-1\)</span>. The contradiction implies the claim holds.</p>
+<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and <span class="math inline">\((n-1)-1\)</span> edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
+<hr />
+<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
+<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
+<p><font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font></p>
+<p>Now we introduce two classic search algorithms in graph theory.</p>
+<p>A breadth-first-search tree of a graph (BFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
+<ol type="i">
+<li><p>Start at <span class="math inline">\(x=x_0\)</span> and join x to all neighbors of x, Let <span class="math inline">\(N_1=N_G(x)\)</span></p></li>
+<li><p>For each <span class="math inline">\(y\in N_i\)</span>, join y to all neighbors of y without creating cycles and let <span class="math inline">\(N_{i+1}=\cup_{y\in N_i}N_G(y)\)</span></p></li>
+</ol>
+<p>The algorithm will take <span class="math inline">\(\Omicron(\lvert V\rvert+\lvert E\rvert)\)</span> steps to find a BFS-tree rooted at <span class="math inline">\(x_0\)</span>.</p>
+<p>A deepth-first-search tree of a graph (DFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
+<ol type="i">
+<li><p>Start at <span class="math inline">\(x=x_0\)</span> and <span class="math inline">\(T_0=\{x_0\}\)</span></p></li>
+<li><p>Join x to one of its neighbor <span class="math inline">\(x_1\in N_G(x_0)\)</span> and<span class="math inline">\(T_1=\{x_0,x_1\}\)</span></p></li>
+<li><p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i\not=\emptyset\)</span>, then join <span class="math inline">\(x_i\)</span> to a vertex <span class="math inline">\(x_{i+1}\in N_i\)</span> and let <span class="math inline">\(T_{i+1}=T_i\cup\{x_{i+1}\}\)</span> and <span class="math inline">\(x_{i+1}\to x_i\)</span></p></li>
+</ol>
+<p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i=\emptyset\)</span>, then set <span class="math inline">\(x_{i-1}\to x_{i}\)</span> and <span class="math inline">\(N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i\)</span> and continue.</p>
+<p>Eulerian graph:</p>
+<p><font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font></p>
+<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
+<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
+<hr />
+<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by <span class="math inline">\(T=v_1e_1v_2e_2\cdots v_me_mv_1\)</span>. So G is connected.</p>
+<p>Now, orient the edges of G along the trail T such that, for an edge <span class="math inline">\(e_i\)</span> in T, orient <span class="math inline">\(e_i\)</span> from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_{i+1}\)</span>. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex <span class="math inline">\(v_i\)</span>, T visits <span class="math inline">\(v_i\)</span> and then leaves <span class="math inline">\(v_i\)</span>, which implies <span class="math display">\[
+\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i
+\]</span> But the degree of <span class="math inline">\(v_i\)</span> satisfies <span class="math display">\[
+\begin{aligned}
+d_G(v_i)&amp;=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
+&amp;\equiv0(mod\ 2)
+\end{aligned}
+\]</span> So every vertex of G has an even degree.</p>
+<hr />
+<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles <span class="math inline">\(D=\{C_1,C_2,\dots,C_k\}\)</span> such that<br />
+<span class="math display">\[
+\cup_{C_i\in D}E(C_i)=E(G)
+\]</span> <strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
+<hr />
+<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
+<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
+<p>So assume that<span class="math inline">\(\delta(G)\ge2\)</span>. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, <span class="math inline">\(D\cup\{C\}\)</span> is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
+<hr />
+<p><font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font></p>
+<p><font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?<span class="math inline">\(\lvert D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lecture series on graph theory 3</title>
     <url>/2022/05/20/Graph3/</url>
     <content><![CDATA[<p>Given a graph G, <span class="math inline">\(T=\{v|d_G(v)\equiv1\ mod\ 2\}\)</span>, a subgraph P is called a parity subgraph if <span class="math display">\[
@@ -106,186 +293,6 @@ A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad whe
 \]</span> <span class="math inline">\(\Leftarrow\)</span> Let <span class="math inline">\(A=B^TB\)</span>.</p>
 <p>Then for any <span class="math inline">\(\vec{X}\in\mathbb{R}^n\)</span>, <span class="math inline">\(\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0\)</span></p>
 <p>So A is positive semi-definite.</p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 1</title>
-    <url>/2022/03/28/Graph1/</url>
-    <content><![CDATA[<p>Def. A graph is a <font color=red>discrete structure/combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
-<p>Usually, a vertex is represented by a dot and an edge is represented by a line (straight or curved) joining two vertices.</p>
-<span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg" /></p>
-<center>
-<font color=red size=4>The green points mean crossing of the edges,rather than vertices  </font>
-</center>
-<p>A vertex is incident with an edge if the edge join the vertex to another vertex, which is also called the end of the edge.</p>
-<p>Two vertices are adjacent to each other if there is an edge joinging them.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg" /></p>
-<center>
-<font color=red size=4>We say that the vertex v is incident with the edge e<br>The vertex u is adjacent to the vertex v because uv is an edge of G</font>
-</center>
-<p>A graph is simple if there is at most one edge between any two vertices and there is no edge joining a vertex itself.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg" /></p>
-<p>In short, a graph is simple if and only if it has no multi-edges and no loops.Next, unless otherwise specified, we will discuss simple graphs by default.</p>
-<p>For any given simple graph <span class="math inline">\(G(V,E)\)</span>，V is the vertex set and E is the edge set. <span class="math display">\[
-if\ \lvert V\rvert=n,\lvert E\rvert\leq\binom{n}{2}
-\]</span> A graph is complete if the graph has an edge between every pair of vertices.A complete graph of n vertices is usually denoted by <span class="math inline">\(K_n\)</span></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg" /></p>
-<p>The degree of a vertex v of G, denoted by <span class="math inline">\(d_G(v)\)</span>, is the number of edges incident with it.</p>
-<p>The maximum degree of G is defined as <span class="math inline">\(\Delta(G):=\max\{d_G(x)|v\in V(G)\}\)</span></p>
-<p>The minimum degree of G is defined as <span class="math inline">\(\delta G:=\min\{d_G(v)|v\in V(G)\}\)</span></p>
-<p>The average degree of G is defined as <span class="math inline">\(d(G):=\frac{\lvert E(G)\rvert}{\lvert V(G)\rvert}\)</span>, this index is used to measure the density of the graph.According to this index, graph can be divided into dense graph and sparse graph</p>
-<p>A neighbor of v in G is a vertex joined to v by an edge of G.The neighborhood of a vertex v in G is the set of all neighbors of v in G, denoted by <span class="math inline">\(N_G(v)=\{u|u\in V(G),uv\in E(G)\}\)</span>.We have <span class="math inline">\(d_G(v)=\lvert N_G(v)\rvert\)</span> easily.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg" /></p>
-<p><font color=red>This picture shows the multi-level neighbors of v. If u is both a second-level neighbor and a third-level neighbor of v, it is classified as a second-level neighbor. <br>Here we give the set representation of neighbors: <br><span class="math inline">\(N_1(v)=N_G(v),N_2(v)=N_G(N_1(v))-N_1(v)\cup\{v\},\ N_3(v)=N_G(N_2(v))-N_1(v)\)</span><br>and if <span class="math inline">\(w\in N_3(v),\ distance(w,v)=3\)</span></font></p>
-<p>A graph is even if every vertex of G has an even degree.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" /></p>
-<p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even number of vertices with odd degree.</strong></p>
-<p>Proof.</p>
-<p>Let <span class="math display">\[
-\left\{\begin{aligned}X&amp;=\{x|x\in V(G)\ and\
- d_G(x)\equiv0(mod\ 2)\}\\Y&amp;=\{y|y\in V(G)\ and\
- d_G(y)\equiv1(mod\ 2)\}\end{aligned}\right.
-\]</span> Then,<span class="math inline">\(\sum_{x\in X}d_G(x)+\sum_{y\in Y}d_G(y)=2\lvert E(G)\rvert\)</span></p>
-<p>So, <span class="math inline">\(\sum_{y\in Y}d_G(y)\equiv0(mod\ 2)\)</span>.It follows immediately that <span class="math inline">\(\lvert Y\rvert\equiv0(mod\ 2)\)</span></p>
-<p>So the proposition holds.</p>
-<p>Question:Let G be an n-vertex graph.How many edges will force G to have a triangle?(Mantel's Theorem)</p>
-<p>Def A walk of G is <font color=red>a sequence of vertices and edges of G</font>such that (i)both the first element and the last element of the sequence are vertices and (ii) any two consecutive elements in the sequence contains one vertex and one edge which are incident with each other.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg" /></p>
-<p><font color=red>We give two different walks: <span class="math inline">\(w_{1}=v_1e_1v_2e_2v_3e_2v_2e_1v_1,\  w_2=v_2e_2v_3e_3v_4e_4v_2\)</span><br>For walk,vertex can be repeated, edge can be repeated.</font></p>
-<p>A walk is open if the first vertex is not equal to the last vertex. <font color=red><span class="math inline">\(w_0=v_2e_2v_3e_3v_4e_4v_2e_1v_1\)</span></font></p>
-<p>A walk is a trail if it does not have repeated edges. <font color=red><span class="math inline">\(w_0\)</span> is a trail</font></p>
-<p>A trail is a path if it does not have repeated vertices.</p>
-<p><font color=red><span class="math inline">\(w_3=v_1e_1v_2e_2v_3e_3v_4=v_1v_2v_3v_4\)</span> is a path</font></p>
-<p>A cycle is a closed trail( or path) without repeated vertices (vertices and edges) <font color =red>except the first vertex and the last vertex. <span class="math inline">\(w_4=v_2e_2v_3e_3v_4e_4v_2\)</span></font></p>
-<p>A graph is connected if for any two vertices x and y, there is a path joining x and y.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg" /></p>
-<p>A subgraph H of G is a graph with <span class="math inline">\(V(H)\subset V(G),E(H)\subset E(G)\)</span></p>
-<p>A maximal connected subgraph of G is called a connected component. <font color=red>Maximal means anything bigger than it is not connected</font></p>
-<p>An edge e of G is bridge or cut-edge if #connected components of G-e&gt;#connected components of G</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" /></p>
-<p><font color=red>#connected components of G-<span class="math inline">\(e_1\)</span>=3&gt;2=#connected components of G<br>Both <span class="math inline">\(e_1\)</span> and<span class="math inline">\(e_2\)</span> are bridges/cut-edges</font></p>
-<p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of cycles which covers every edge exactly 2k times for any integer <span class="math inline">\(k\ge2\)</span></strong></p>
-<p>A subgraph H is spanning if <span class="math inline">\(V(H)=V(G)\)</span></p>
-<p>A subgraph H is induced by <font color=red> <span class="math inline">\(S\subset V(G)\)</span></font>, if <span class="math inline">\(V(H)=S\)</span> and for any two vertices <span class="math inline">\(x,y\in S\)</span>, <span class="math inline">\(xy\in E(H)\Leftrightarrow xy\in E(G)\)</span></p>
-<p>A subgraph H is induced by <font color=red> <span class="math inline">\(S\subset E(G)\)</span></font>, if <span class="math inline">\(E(H)=S\)</span> and <span class="math inline">\(v\in V(H)\)</span>a if and only if v is incident with an edge in S.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg" /></p>
-<p>Let <span class="math inline">\(x,y\in V(G)\)</span>, the distance between x and y in G is the length of the shortest path joining x and y, denoted by <span class="math inline">\(dist_G(x,y)\)</span>. In other words, <span class="math display">\[
-dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y\}
-\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
-<p><font color=red><span class="math inline">\(dist_G(x,y)=k\)</span>, this means finding a shortest path between any two vertices x and y is easy</font></p>
-<p><font color=red>However, finding a longest path between any two vertices x and y.Given an integer k, is there an (x,y)-path with length k?They are NPC problems</font></p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 4</title>
-    <url>/2022/05/22/Graph4/</url>
-    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
-<span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" /></p>
-<p><font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between <span class="math inline">\(R_j\)</span> and <span class="math inline">\(C_j\)</span>, <span class="math inline">\(P(R_j\sim C_j)=\frac{1}{2}\)</span>, <span class="math inline">\(\ P(R_j\not\sim C_j)=\frac{1}{2}\)</span></font> <span class="math display">\[
-P(A(G)\ is \ invertible)=P(M\ is\ invertible)
-\]</span> <strong>Thm Let G be a graph. The number of walks from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span> of length k is equal to the <span class="math inline">\((i,j)\)</span>-entry of <span class="math inline">\((A(G))^k\)</span></strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let <span class="math inline">\(A(G)=(a_{ij})_{n\times n}\)</span>. Then <span class="math inline">\((i,j)\)</span>-entry of <span class="math inline">\((A(G))^k\)</span> is given by <span class="math display">\[
-[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
-\]</span> where the sum ranges over all sequences <span class="math inline">\((i_1,i_2,\dots,i_{k-1})\)</span> with <span class="math inline">\(i_t\in[n]=\{1,2,\dots,n\}\)</span> <span class="math display">\[
-\begin{aligned}
-(A(G))^2_{ij}&amp;=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
-(A(G))^3_{ij}&amp;=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
-\end{aligned}
-\]</span> By the definition of adjacency matrix, <span class="math inline">\(a_j=1\Leftrightarrow v_iv_j\in E(G)\)</span></p>
-<p>It follows that the summand <span class="math inline">\(a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}\)</span> is 1 <span class="math inline">\(\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j\)</span> is a walk of length k. Hence the summing over all <span class="math inline">\((i_1,\cdots,i_{k-1})\)</span> just gives the total number of walks of length k from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span></p>
-<hr />
-<p>A(G) is <span class="math inline">\(n\times n\)</span> symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy <span class="math display">\[
-\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
-\]</span> <font color='red'>Note that <span class="math inline">\(\lambda_1+\lambda_2+\cdots+\lambda_n=0\)</span>,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font></p>
-<p><strong>Thm Let G be a graph with eigenvalues <span class="math inline">\(\lambda_1,\cdots,\lambda_n\)</span>. Then the number of closed walks in G of length k is given by</strong> <span class="math display">\[
-w_G(k)=\lambda_1^k+\cdots+\lambda_n^k
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that <span class="math display">\[
-w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)
-\]</span> Since A(G) has <span class="math inline">\(\lambda_i\)</span> as an eigenvalue with <span class="math inline">\(i\in\{1,2,\cdots,n\}\)</span>, the matrix <span class="math inline">\(A(G)^k\)</span> has eigenvalue <span class="math inline">\(\lambda_i^k\)</span>for <span class="math inline">\(i\in\{1,2,\cdots,n\}\)</span></p>
-<p><font color='red'><span class="math inline">\(A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}\)</span></font></p>
-<p>Then, <span class="math inline">\(tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span>, so <span class="math inline">\(w_G(k)=tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span></p>
-<hr />
-<p><strong>Incidence matrix and Laplacian matrix</strong></p>
-<p>Let G be a graph s.t. <span class="math inline">\(V(G)=\{v_1,v_2,\cdots,v_n\}\)</span> and <span class="math inline">\(E(G)=\{e_1,e_2,\cdots,e_m\}\)</span> <span class="math display">\[
-B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\\
-&amp;0\quad v_i\ isn&#39;t\ incident\ with\ e_j\end{aligned}\right.
-\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" /></p>
-<p><font color='red'>We can find that evey column has two non-zero entries.</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" /></p>
-<p><font color='red'>We can find that each column of <span class="math inline">\(\vec{B}\)</span> has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" /></p>
-<p><span class="math inline">\(D(G)\)</span> is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
-<p>Laplacian matrix of G: <span class="math inline">\(L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T\)</span></p>
-<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong> <span class="math display">\[
-\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0
-\]</span> <span class="math inline">\(\tau(G)\)</span>= the total number of spanning trees in G.</p>
-<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices <span class="math inline">\(v_1,\dots,v_n\)</span>. Then <span class="math inline">\(\tau(G)=det(L_0(G))\)</span> where <span class="math inline">\(L_0(G)\)</span> is obtained from <span class="math inline">\(L(G)\)</span> by deleting the i-th row and i-th column for any <span class="math inline">\(i\in[n]=\{1,2,\dots,n\}\)</span></strong></p>
-<hr />
-<p><strong>Proof.</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" /></p>
-<p>If T is a spanning tree, either <span class="math inline">\(e\in T\)</span> or <span class="math inline">\(e\not\in T\)</span>.</p>
-<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by <span class="math inline">\(G\cdot e\)</span>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" /></p>
-<p>If <span class="math inline">\(e\not\in T\)</span>, T is a spanning tree of G-e; if <span class="math inline">\(e\in T\)</span>, <span class="math inline">\(T\cdot e\)</span> is a spanning tree of <span class="math inline">\(G\cdot e\)</span>.</p>
-<p>Therefore, <span class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot e)\)</span></p>
-<p>Use induction on the number of edges of G.</p>
-<p>If G has no edges and n=1, so <span class="math inline">\(\tau(G)=1=det(L_0(G))\)</span> where <span class="math inline">\(L_0(G)\)</span> is a <span class="math inline">\(0\times 0\)</span> matrix with determinant 1 by convenience.</p>
-<p>If <span class="math inline">\(n&gt;1\)</span>, then <span class="math inline">\(\tau(G)=0\)</span>, and <span class="math inline">\(L_0(G)\)</span> is a 0-matrix in which every entry is 0. So <span class="math inline">\(\tau(G)=det(L_0(G))\)</span> .</p>
-<p>Therefore, the statement holds for <span class="math inline">\(|E(G)|=0\)</span>.</p>
-<p>Assume the statement holds all graph with number of edges less than <span class="math inline">\(|E(G)|\)</span>.</p>
-<p>By recordering the vertices of G, we may assume that <span class="math inline">\(i=1\)</span> and <span class="math inline">\(v_1v_2\in E(G)\)</span>, Let <span class="math inline">\(e=v_1v_2\)</span>. Then <span class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot e)\)</span>.</p>
-<p>By inductive hypothesis, <span class="math inline">\(\tau(G-e)=det(L_0(G-e))\)</span> and <span class="math inline">\(\tau(G\cdot e)=det(L_0(G\cdot e))\)</span>.</p>
-<p>Assume <span class="math inline">\(L_0(G)=\begin{pmatrix}d_2&amp;P\\P^T&amp;R\end{pmatrix}\)</span> obtained from <span class="math inline">\(L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\\hdashline1&amp;d_2&amp;P\\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)\)</span> by deleting the first row and the first column.</p>
-<p>Then <span class="math inline">\(L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\\P^T&amp;R\end{pmatrix}\)</span> and <span class="math inline">\(L_0(G\cdot e)=R\)</span></p>
-<p>Note that <span class="math inline">\(L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\\vec{0}^T&amp;R\end{pmatrix}\)</span></p>
-<p>Using the Laplace expansion along the first row, <span class="math display">\[
-det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)
-\]</span></p>
-<hr />
-<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are <span class="math inline">\(\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n=0\)</span>. Then</strong> <span class="math display">\[
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let <span class="math inline">\(L(G)\)</span> be the Laplacian matrix and let <span class="math display">\[
-det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)
-\]</span> So the cofficient of <span class="math inline">\(\lambda\)</span> term is <span class="math inline">\(-\mu_1\mu_2\cdots\mu_{n-1}\)</span>. Note that, consider <span class="math inline">\(L(G)-\lambda I\)</span>.</p>
-<p>Add all rows of <span class="math inline">\(L(G)-\lambda I\)</span> except the first row to the first row, and let <span class="math inline">\(M(\lambda)\)</span> be the new resulting matrix.</p>
-<p>Then <span class="math inline">\(det(M(\lambda))=det(L(G)-\lambda I)\)</span> and the first row of <span class="math inline">\(M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]\)</span>.</p>
-<p>Let <span class="math inline">\(N(\lambda)\)</span> be the resulting matrix obtained from <span class="math inline">\(M(\lambda)\)</span> by factoring out <span class="math inline">\(-\lambda\)</span>.</p>
-<p>Then <span class="math inline">\(M(\lambda)=-\lambda N(\lambda)\)</span> and <span class="math inline">\(det(M(\lambda))=-\lambda det(N(\lambda))\)</span>, So <span class="math display">\[
-det(L(G)-\lambda I)=-\lambda det(N(\lambda))
-\]</span> Therefore, the cofficient of <span class="math inline">\(\lambda\)</span> term in <span class="math inline">\(det(L(G)-\lambda I)\)</span>is equal to <span class="math inline">\(-det(N(0))\)</span>.</p>
-<p>Add all columns of <span class="math inline">\(N(0)\)</span> except the first column to the first column.</p>
-<p><font color='red'>(Note that <span class="math inline">\(i^{th}\)</span>-row <span class="math inline">\((i&gt;1)\)</span> of <span class="math inline">\(N(0)\)</span> is the same as the  <span class="math inline">\(i^{th}\)</span>-row <span class="math inline">\((i&gt;1)\)</span> of <span class="math inline">\(L(G)\)</span></font></p>
-<p>Then the first column of the new matrix is <span class="math inline">\(\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T\)</span>.</p>
-<p>Use Laplace expansion along the <span class="math inline">\(1^{st}\)</span> column, <span class="math inline">\(det(N(0))=n\cdot det(L_0(G))\)</span> <span class="math display">\[
-n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
-\]</span> By previous theorem, <span class="math display">\[
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
-\]</span></p>
-<hr />
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -417,135 +424,6 @@ A\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matri
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 2</title>
-    <url>/2022/03/28/Graph2/</url>
-    <content><![CDATA[<p>First, we try to prove the Mantel's Theorem, which was presented as a question in the last blog post.</p>
-<p><strong>Thm(Mantel's Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong> <span class="math display">\[
-\lvert E(G)\rvert\leq\frac{n^2}{4}
-\]</span> Before the proof begin, we introduce what triangle means.</p>
-<span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" /></p>
-<p><font color=red><span class="math inline">\(C=v_1v_2v_3v_4v_5v_1\)</span> is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font></p>
-<p>Now, let's take a few examples to find potential patterns which may help to prove this theorem.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" /></p>
-<p><font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=<span class="math inline">\(\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}\)</span>, if n is odd, #edges=<span class="math inline">\(\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}\)</span></font></p>
-<hr />
-<p><strong>Proof of the Mantel's Theorem</strong></p>
-<p>Let G be an n-vertex graph without a triangle.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" /></p>
-<p><span class="math inline">\(\forall x,y\in V(G)\)</span>, if <span class="math inline">\(xy\in E(G)\)</span>, <span class="math inline">\(N_G(x)\cap N_G(y)=\emptyset\)</span> because G has no triangle.</p>
-<p>Because <span class="math inline">\(N_G(x)\cup N_G(y)\subset V(G)\)</span>, <span class="math inline">\(d_G(x)+d_G(y)\leq n\)</span></p>
-<p>From the above formula, we have <span class="math display">\[
-\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}
-\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" /></p>
-<p>We find that <span class="math inline">\(d_G(x)\)</span> appears in <span class="math inline">\(d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})\)</span> <span class="math display">\[
-So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}
-\]</span> From (1) &amp; (2), we have <span class="math display">\[
-\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}
-\]</span> According to the relationship between degree and edge: <span class="math inline">\(\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert\)</span> and the Cauchy-Schwarz inequality:<span class="math inline">\((\sum_{k=1}^n a_k^2)(\sum_{k=1}^n b_k^2)\geq(\sum_{k=1}^na_kb_k)^2\)</span>, we have <span class="math display">\[
-\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}
-\]</span> From (3) &amp; (4), <span class="math inline">\(\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert\)</span> which implies <span class="math inline">\(\lvert E(G)\rvert \leq\frac{n^2}{4}\)</span></p>
-<hr />
-<p>If a graph G has more than <span class="math inline">\(\frac{n^2}{4}\)</span> edges, then G has a triangle.</p>
-<p><font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font></p>
-<p>Tree: A tree is a connected graph without cycles.</p>
-<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that <span class="math inline">\(u,v\in V(P),\ uv\in E(P)\)</span> and u is the end vertex of P, but <span class="math inline">\(d_G(u)&gt;1\)</span>.</p>
-<p>Case 1:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" /></p>
-<p><span class="math inline">\(w\not\in V(P)\)</span> and <span class="math inline">\(wu\in E(G)\)</span>,then <span class="math inline">\(\tilde{P}=P+wu\)</span> is longer than P. This contradicts the fact that P is the longest path.</p>
-<p>Case 2:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" /></p>
-<p><span class="math inline">\(w\in V(P),w\not=v\)</span> and <span class="math inline">\(wu\in E(G)\)</span>, then we can find that there is a cycle. This contradicts the fact that G is a tree.</p>
-<hr />
-<p>A vertex of a tree is a leaf if it has degree one.</p>
-<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p><span class="math inline">\(\Rightarrow\)</span> n=1, G has no edges.</p>
-<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
-<p>Since <span class="math inline">\(n\ge2\)</span>, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,<span class="math inline">\(\lvert E(G-v)\rvert=(n-1)-1\)</span>. <span class="math display">\[
-\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1
-\]</span> <span class="math inline">\(\Leftarrow\)</span> Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
-<p>We prove this claim first.If not, <span class="math inline">\(\forall x\in V(G)\)</span>, assume <span class="math inline">\(d_G(x)\ge2\)</span></p>
-<p>Then we have <span class="math inline">\(\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1\)</span> which contradicts that <span class="math inline">\(\lvert E(G)\rvert=n-1\)</span>. The contradiction implies the claim holds.</p>
-<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and <span class="math inline">\((n-1)-1\)</span> edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
-<hr />
-<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
-<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
-<p><font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font></p>
-<p>Now we introduce two classic search algorithms in graph theory.</p>
-<p>A breadth-first-search tree of a graph (BFS-tree)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
-<ol type="i">
-<li><p>Start at <span class="math inline">\(x=x_0\)</span> and join x to all neighbors of x, Let <span class="math inline">\(N_1=N_G(x)\)</span></p></li>
-<li><p>For each <span class="math inline">\(y\in N_i\)</span>, join y to all neighbors of y without creating cycles and let <span class="math inline">\(N_{i+1}=\cup_{y\in N_i}N_G(y)\)</span></p></li>
-</ol>
-<p>The algorithm will take <span class="math inline">\(\Omicron(\lvert V\rvert+\lvert E\rvert)\)</span> steps to find a BFS-tree rooted at <span class="math inline">\(x_0\)</span>.</p>
-<p>A deepth-first-search tree of a graph (DFS-tree)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
-<ol type="i">
-<li><p>Start at <span class="math inline">\(x=x_0\)</span> and <span class="math inline">\(T_0=\{x_0\}\)</span></p></li>
-<li><p>Join x to one of its neighbor <span class="math inline">\(x_1\in N_G(x_0)\)</span> and<span class="math inline">\(T_1=\{x_0,x_1\}\)</span></p></li>
-<li><p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i\not=\emptyset\)</span>, then join <span class="math inline">\(x_i\)</span> to a vertex <span class="math inline">\(x_{i+1}\in N_i\)</span> and let <span class="math inline">\(T_{i+1}=T_i\cup\{x_{i+1}\}\)</span> and <span class="math inline">\(x_{i+1}\to x_i\)</span></p></li>
-</ol>
-<p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i=\emptyset\)</span>, then set <span class="math inline">\(x_{i-1}\to x_{i}\)</span> and <span class="math inline">\(N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i\)</span> and continue.</p>
-<p>Eulerian graph:</p>
-<p><font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font></p>
-<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
-<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
-<hr />
-<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by <span class="math inline">\(T=v_1e_1v_2e_2\cdots v_me_mv_1\)</span>. So G is connected.</p>
-<p>Now, orient the edges of G along the trail T such that, for an edge <span class="math inline">\(e_i\)</span> in T, orient <span class="math inline">\(e_i\)</span> from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_{i+1}\)</span>. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex <span class="math inline">\(v_i\)</span>, T visits <span class="math inline">\(v_i\)</span> and then leaves <span class="math inline">\(v_i\)</span>, which implies <span class="math display">\[
-\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i
-\]</span> But the degree of <span class="math inline">\(v_i\)</span> satisfies <span class="math display">\[
-\begin{aligned}
-d_G(v_i)&amp;=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
-&amp;\equiv0(mod\ 2)
-\end{aligned}
-\]</span> So every vertex of G has an even degree.</p>
-<hr />
-<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles <span class="math inline">\(D=\{C_1,C_2,\dots,C_k\}\)</span> such that<br />
-<span class="math display">\[
-\cup_{C_i\in D}E(C_i)=E(G)
-\]</span> <strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
-<hr />
-<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
-<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
-<p>So assume that<span class="math inline">\(\delta(G)\ge2\)</span>. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, <span class="math inline">\(D\cup\{C\}\)</span> is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
-<hr />
-<p><font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font></p>
-<p><font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?<span class="math inline">\(\lvert D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Love letter</title>
-    <url>/2022/04/27/love-letter-1/</url>
-    <content><![CDATA[<p>佳铭卿卿如晤。</p>
-<span id="more"></span>
-<p>今提笔书此文，无非是因相思过盛，却拙于言辞，故诉诸笔尖以求微解相思之意。然四年的数学生涯，虽说还留有些许高中矫揉造作之文风，更多的已是平铺平淡之言语。</p>
-<p>今提笔所忆往昔，唯记昔日初见佳人，方叹如此天人，深感姑娘倾国倾城之貌，落雁沉鱼之容，又观姑娘谈吐非凡，博闻强识之才，何人能不为君倾倒？故今书此文，但求与姑娘修百年之好，三生之缘，不负今朝明昔。</p>
-<p>小生性情愚钝，往昔心醉功名，比不得柳郎潇洒所云'忍把浮名，换得浅酌低唱'。今日方悟对姑娘情思之深重，每每所忆尽皆羞愧万分，悔恨当初。至那般宵小之徒与姑娘窃表情思，不才方知若不言说情思，定遗恨残生。得姑娘允应，吾不胜欢喜，而今舍江山社稷而为佳人，弃江湖风尘而伴红颜，海誓山盟，三生莫渝。</p>
-<p>嗟夫！小生不才，貌难敌安仁，又何来掷果盈车；才不似子建，又怎能高吟洛神；富不如陶朱，权岂倾朝野？天赐你我良缘，虽才不敌子建，然愿为君书几番雪月风花，花前柳下；虽富不如陶朱，但予君明月一轮，清风一阵，不负良辰美景，低吟"执子之手，与子偕老"。行江南雨巷，观烟雨渺渺；赏塞北冰轮，望烽烟阵阵；吟洛水之畔，待长河落日；愿相濡以沫，朝见云卷云舒，夜待花开花谢。叹今你我分离两地，吾求北风一阵，御风与君前诉相思之苦；求壶公一术，夜行与君畔共演西厢未完；求星辰点点，日夜相思言语送耳畔。于汝，痴情一世，爱慕三生。夫昆仑不敌此情高，九幽难比此情深，海枯莫似此情久，金石何比此情真？爱恋之情，时时增矣，难语难言，诉诸笔尖，却恨腹中草莽，怎能书尽所恋百分？</p>
-<p>今书此番言语，虽情愫万千，然提笔难书，但书情深一纸，却叹纸短情长，言虽尽，然情未绝。今日书此文以表与君之情，昭告之于天下，愿常伴于君左右，数明星点点，诉情深许许；赏春花多多，语相思种种。吾对君之心之情，天地可鉴，日月可表，若违此言，天厌之！天弃之！</p>
-]]></content>
-      <categories>
-        <category>Love</category>
-      </categories>
-      <tags>
-        <tag>Love Letter</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Lecture series on graph theory 6</title>
     <url>/2022/05/24/Graph6/</url>
     <content><![CDATA[<p><strong>Interlacing Theorem</strong></p>
@@ -631,7 +509,12 @@ S_n^2=\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]\left[
 |X|\geq\left\lceil \frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|
 \]</span> It follows that the interlacing theorem that <span class="math display">\[
 1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1
-\]</span></p>
+\]</span> The completes the proof.</p>
+<hr />
+<p><font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font></p>
+<p><font color='red'>A: No</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" /></p>
+<p><font color='red'>Conjecture(Ban&amp;Linal,2016) Every cubic graph has an unfriendly almost balanced partition <span class="math inline">\((X,Y)\)</span> s.t. <span class="math inline">\(\Big||X|-|Y|\Big|\leq2\)</span></font></p>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -639,6 +522,128 @@ S_n^2=\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]\left[
       <tags>
         <tag>Math</tag>
         <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lecture series on graph theory 4</title>
+    <url>/2022/05/22/Graph4/</url>
+    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
+<span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" /></p>
+<p><font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between <span class="math inline">\(R_j\)</span> and <span class="math inline">\(C_j\)</span>, <span class="math inline">\(P(R_j\sim C_j)=\frac{1}{2}\)</span>, <span class="math inline">\(\ P(R_j\not\sim C_j)=\frac{1}{2}\)</span></font> <span class="math display">\[
+P(A(G)\ is \ invertible)=P(M\ is\ invertible)
+\]</span> <strong>Thm Let G be a graph. The number of walks from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span> of length k is equal to the <span class="math inline">\((i,j)\)</span>-entry of <span class="math inline">\((A(G))^k\)</span></strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let <span class="math inline">\(A(G)=(a_{ij})_{n\times n}\)</span>. Then <span class="math inline">\((i,j)\)</span>-entry of <span class="math inline">\((A(G))^k\)</span> is given by <span class="math display">\[
+[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
+\]</span> where the sum ranges over all sequences <span class="math inline">\((i_1,i_2,\dots,i_{k-1})\)</span> with <span class="math inline">\(i_t\in[n]=\{1,2,\dots,n\}\)</span> <span class="math display">\[
+\begin{aligned}
+(A(G))^2_{ij}&amp;=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
+(A(G))^3_{ij}&amp;=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
+\end{aligned}
+\]</span> By the definition of adjacency matrix, <span class="math inline">\(a_j=1\Leftrightarrow v_iv_j\in E(G)\)</span></p>
+<p>It follows that the summand <span class="math inline">\(a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}\)</span> is 1 <span class="math inline">\(\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j\)</span> is a walk of length k. Hence the summing over all <span class="math inline">\((i_1,\cdots,i_{k-1})\)</span> just gives the total number of walks of length k from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_j\)</span></p>
+<hr />
+<p>A(G) is <span class="math inline">\(n\times n\)</span> symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy <span class="math display">\[
+\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
+\]</span> <font color='red'>Note that <span class="math inline">\(\lambda_1+\lambda_2+\cdots+\lambda_n=0\)</span>,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font></p>
+<p><strong>Thm Let G be a graph with eigenvalues <span class="math inline">\(\lambda_1,\cdots,\lambda_n\)</span>. Then the number of closed walks in G of length k is given by</strong> <span class="math display">\[
+w_G(k)=\lambda_1^k+\cdots+\lambda_n^k
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that <span class="math display">\[
+w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)
+\]</span> Since A(G) has <span class="math inline">\(\lambda_i\)</span> as an eigenvalue with <span class="math inline">\(i\in\{1,2,\cdots,n\}\)</span>, the matrix <span class="math inline">\(A(G)^k\)</span> has eigenvalue <span class="math inline">\(\lambda_i^k\)</span>for <span class="math inline">\(i\in\{1,2,\cdots,n\}\)</span></p>
+<p><font color='red'><span class="math inline">\(A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}\)</span></font></p>
+<p>Then, <span class="math inline">\(tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span>, so <span class="math inline">\(w_G(k)=tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span></p>
+<hr />
+<p><strong>Incidence matrix and Laplacian matrix</strong></p>
+<p>Let G be a graph s.t. <span class="math inline">\(V(G)=\{v_1,v_2,\cdots,v_n\}\)</span> and <span class="math inline">\(E(G)=\{e_1,e_2,\cdots,e_m\}\)</span> <span class="math display">\[
+B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\\
+&amp;0\quad v_i\ isn&#39;t\ incident\ with\ e_j\end{aligned}\right.
+\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" /></p>
+<p><font color='red'>We can find that evey column has two non-zero entries.</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" /></p>
+<p><font color='red'>We can find that each column of <span class="math inline">\(\vec{B}\)</span> has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" /></p>
+<p><span class="math inline">\(D(G)\)</span> is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
+<p>Laplacian matrix of G: <span class="math inline">\(L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T\)</span></p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong> <span class="math display">\[
+\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0
+\]</span> <span class="math inline">\(\tau(G)\)</span>= the total number of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices <span class="math inline">\(v_1,\dots,v_n\)</span>. Then <span class="math inline">\(\tau(G)=det(L_0(G))\)</span> where <span class="math inline">\(L_0(G)\)</span> is obtained from <span class="math inline">\(L(G)\)</span> by deleting the i-th row and i-th column for any <span class="math inline">\(i\in[n]=\{1,2,\dots,n\}\)</span></strong></p>
+<hr />
+<p><strong>Proof.</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" /></p>
+<p>If T is a spanning tree, either <span class="math inline">\(e\in T\)</span> or <span class="math inline">\(e\not\in T\)</span>.</p>
+<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by <span class="math inline">\(G\cdot e\)</span>.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" /></p>
+<p>If <span class="math inline">\(e\not\in T\)</span>, T is a spanning tree of G-e; if <span class="math inline">\(e\in T\)</span>, <span class="math inline">\(T\cdot e\)</span> is a spanning tree of <span class="math inline">\(G\cdot e\)</span>.</p>
+<p>Therefore, <span class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot e)\)</span></p>
+<p>Use induction on the number of edges of G.</p>
+<p>If G has no edges and n=1, so <span class="math inline">\(\tau(G)=1=det(L_0(G))\)</span> where <span class="math inline">\(L_0(G)\)</span> is a <span class="math inline">\(0\times 0\)</span> matrix with determinant 1 by convenience.</p>
+<p>If <span class="math inline">\(n&gt;1\)</span>, then <span class="math inline">\(\tau(G)=0\)</span>, and <span class="math inline">\(L_0(G)\)</span> is a 0-matrix in which every entry is 0. So <span class="math inline">\(\tau(G)=det(L_0(G))\)</span> .</p>
+<p>Therefore, the statement holds for <span class="math inline">\(|E(G)|=0\)</span>.</p>
+<p>Assume the statement holds all graph with number of edges less than <span class="math inline">\(|E(G)|\)</span>.</p>
+<p>By recordering the vertices of G, we may assume that <span class="math inline">\(i=1\)</span> and <span class="math inline">\(v_1v_2\in E(G)\)</span>, Let <span class="math inline">\(e=v_1v_2\)</span>. Then <span class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot e)\)</span>.</p>
+<p>By inductive hypothesis, <span class="math inline">\(\tau(G-e)=det(L_0(G-e))\)</span> and <span class="math inline">\(\tau(G\cdot e)=det(L_0(G\cdot e))\)</span>.</p>
+<p>Assume <span class="math inline">\(L_0(G)=\begin{pmatrix}d_2&amp;P\\P^T&amp;R\end{pmatrix}\)</span> obtained from <span class="math inline">\(L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\\hdashline1&amp;d_2&amp;P\\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)\)</span> by deleting the first row and the first column.</p>
+<p>Then <span class="math inline">\(L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\\P^T&amp;R\end{pmatrix}\)</span> and <span class="math inline">\(L_0(G\cdot e)=R\)</span></p>
+<p>Note that <span class="math inline">\(L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\\vec{0}^T&amp;R\end{pmatrix}\)</span></p>
+<p>Using the Laplace expansion along the first row, <span class="math display">\[
+det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)
+\]</span></p>
+<hr />
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are <span class="math inline">\(\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n=0\)</span>. Then</strong> <span class="math display">\[
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let <span class="math inline">\(L(G)\)</span> be the Laplacian matrix and let <span class="math display">\[
+det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)
+\]</span> So the cofficient of <span class="math inline">\(\lambda\)</span> term is <span class="math inline">\(-\mu_1\mu_2\cdots\mu_{n-1}\)</span>. Note that, consider <span class="math inline">\(L(G)-\lambda I\)</span>.</p>
+<p>Add all rows of <span class="math inline">\(L(G)-\lambda I\)</span> except the first row to the first row, and let <span class="math inline">\(M(\lambda)\)</span> be the new resulting matrix.</p>
+<p>Then <span class="math inline">\(det(M(\lambda))=det(L(G)-\lambda I)\)</span> and the first row of <span class="math inline">\(M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]\)</span>.</p>
+<p>Let <span class="math inline">\(N(\lambda)\)</span> be the resulting matrix obtained from <span class="math inline">\(M(\lambda)\)</span> by factoring out <span class="math inline">\(-\lambda\)</span>.</p>
+<p>Then <span class="math inline">\(M(\lambda)=-\lambda N(\lambda)\)</span> and <span class="math inline">\(det(M(\lambda))=-\lambda det(N(\lambda))\)</span>, So <span class="math display">\[
+det(L(G)-\lambda I)=-\lambda det(N(\lambda))
+\]</span> Therefore, the cofficient of <span class="math inline">\(\lambda\)</span> term in <span class="math inline">\(det(L(G)-\lambda I)\)</span>is equal to <span class="math inline">\(-det(N(0))\)</span>.</p>
+<p>Add all columns of <span class="math inline">\(N(0)\)</span> except the first column to the first column.</p>
+<p><font color='red'>(Note that <span class="math inline">\(i^{th}\)</span>-row <span class="math inline">\((i&gt;1)\)</span> of <span class="math inline">\(N(0)\)</span> is the same as the  <span class="math inline">\(i^{th}\)</span>-row <span class="math inline">\((i&gt;1)\)</span> of <span class="math inline">\(L(G)\)</span></font></p>
+<p>Then the first column of the new matrix is <span class="math inline">\(\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T\)</span>.</p>
+<p>Use Laplace expansion along the <span class="math inline">\(1^{st}\)</span> column, <span class="math inline">\(det(N(0))=n\cdot det(L_0(G))\)</span> <span class="math display">\[
+n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
+\]</span> By previous theorem, <span class="math display">\[
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
+\]</span></p>
+<hr />
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Love letter</title>
+    <url>/2022/04/27/love-letter-1/</url>
+    <content><![CDATA[<p>佳铭卿卿如晤。</p>
+<span id="more"></span>
+<p>今提笔书此文，无非是因相思过盛，却拙于言辞，故诉诸笔尖以求微解相思之意。然四年的数学生涯，虽说还留有些许高中矫揉造作之文风，更多的已是平铺平淡之言语。</p>
+<p>今提笔所忆往昔，唯记昔日初见佳人，方叹如此天人，深感姑娘倾国倾城之貌，落雁沉鱼之容，又观姑娘谈吐非凡，博闻强识之才，何人能不为君倾倒？故今书此文，但求与姑娘修百年之好，三生之缘，不负今朝明昔。</p>
+<p>小生性情愚钝，往昔心醉功名，比不得柳郎潇洒所云'忍把浮名，换得浅酌低唱'。今日方悟对姑娘情思之深重，每每所忆尽皆羞愧万分，悔恨当初。至那般宵小之徒与姑娘窃表情思，不才方知若不言说情思，定遗恨残生。得姑娘允应，吾不胜欢喜，而今舍江山社稷而为佳人，弃江湖风尘而伴红颜，海誓山盟，三生莫渝。</p>
+<p>嗟夫！小生不才，貌难敌安仁，又何来掷果盈车；才不似子建，又怎能高吟洛神；富不如陶朱，权岂倾朝野？天赐你我良缘，虽才不敌子建，然愿为君书几番雪月风花，花前柳下；虽富不如陶朱，但予君明月一轮，清风一阵，不负良辰美景，低吟"执子之手，与子偕老"。行江南雨巷，观烟雨渺渺；赏塞北冰轮，望烽烟阵阵；吟洛水之畔，待长河落日；愿相濡以沫，朝见云卷云舒，夜待花开花谢。叹今你我分离两地，吾求北风一阵，御风与君前诉相思之苦；求壶公一术，夜行与君畔共演西厢未完；求星辰点点，日夜相思言语送耳畔。于汝，痴情一世，爱慕三生。夫昆仑不敌此情高，九幽难比此情深，海枯莫似此情久，金石何比此情真？爱恋之情，时时增矣，难语难言，诉诸笔尖，却恨腹中草莽，怎能书尽所恋百分？</p>
+<p>今书此番言语，虽情愫万千，然提笔难书，但书情深一纸，却叹纸短情长，言虽尽，然情未绝。今日书此文以表与君之情，昭告之于天下，愿常伴于君左右，数明星点点，诉情深许许；赏春花多多，语相思种种。吾对君之心之情，天地可鉴，日月可表，若违此言，天厌之！天弃之！</p>
+]]></content>
+      <categories>
+        <category>Love</category>
+      </categories>
+      <tags>
+        <tag>Love Letter</tag>
       </tags>
   </entry>
 </search>
