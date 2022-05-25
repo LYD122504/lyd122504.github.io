@@ -22,38 +22,35 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lyd122504.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="First, we try to prove the Mantel&#39;s Theorem, which was presented as a question in the last blog post. Thm(Mantel&#39;s Theorem)Let G be a graph with n vertices. If G does not contain a triangle, then \[">
+    <meta name="description" content="Interlacing Theorem Thm(Eigenvalue Interlacing Theorem)Let A be a symmetric real \(n\times n\) and let B be an m-th principal submatrix(obtained by deleting both i-th row and i-th column for some n-m">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture series on graph theory 2">
-<meta property="og:url" content="https://lyd122504.github.io/2022/03/28/Graph2/index.html">
+<meta property="og:title" content="Lecture series on graph theory 6">
+<meta property="og:url" content="https://lyd122504.github.io/2022/05/24/Graph6/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="First, we try to prove the Mantel&#39;s Theorem, which was presented as a question in the last blog post. Thm(Mantel&#39;s Theorem)Let G be a graph with n vertices. If G does not contain a triangle, then \[">
+<meta property="og:description" content="Interlacing Theorem Thm(Eigenvalue Interlacing Theorem)Let A be a symmetric real \(n\times n\) and let B be an m-th principal submatrix(obtained by deleting both i-th row and i-th column for some n-m">
 <meta property="og:locale">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg">
-<meta property="article:published_time" content="2022-03-28T14:47:31.000Z">
-<meta property="article:modified_time" content="2022-04-27T01:24:32.643Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg">
+<meta property="article:published_time" content="2022-05-23T17:15:47.000Z">
+<meta property="article:modified_time" content="2022-05-25T16:00:07.450Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Operation Research">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg">
 
 
-<link rel="canonical" href="https://lyd122504.github.io/2022/03/28/Graph2/">
+<link rel="canonical" href="https://lyd122504.github.io/2022/05/24/Graph6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh_Hans","comments":true,"permalink":"https://lyd122504.github.io/2022/03/28/Graph2/","path":"2022/03/28/Graph2/","title":"Lecture series on graph theory 2"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh_Hans","comments":true,"permalink":"https://lyd122504.github.io/2022/05/24/Graph6/","path":"2022/05/24/Graph6/","title":"Lecture series on graph theory 6"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Lecture series on graph theory 2 | 还施水阁</title>
+<title>Lecture series on graph theory 6 | 还施水阁</title>
   
 
 
@@ -227,7 +224,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh_Hans">
-    <link itemprop="mainEntityOfPage" href="https://lyd122504.github.io/2022/03/28/Graph2/">
+    <link itemprop="mainEntityOfPage" href="https://lyd122504.github.io/2022/05/24/Graph6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -240,12 +237,12 @@
     </span>
     
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Lecture series on graph theory 2 | 还施水阁">
+      <meta itemprop="name" content="Lecture series on graph theory 6 | 还施水阁">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lecture series on graph theory 2
+          Lecture series on graph theory 6
         </h1>
 
         <div class="post-meta-container">
@@ -256,14 +253,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2022-03-28 22:47:31" itemprop="dateCreated datePublished" datetime="2022-03-28T22:47:31+08:00">2022-03-28</time>
+      <time title="Created: 2022-05-24 01:15:47" itemprop="dateCreated datePublished" datetime="2022-05-24T01:15:47+08:00">2022-05-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-27 09:24:32" itemprop="dateModified" datetime="2022-04-27T09:24:32+08:00">2022-04-27</time>
+      <time title="Modified: 2022-05-26 00:00:07" itemprop="dateModified" datetime="2022-05-26T00:00:07+08:00">2022-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -289,7 +286,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>6.4k</span>
+      <span>7k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -307,105 +304,90 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>First, we try to prove the Mantel's Theorem, which was presented as a question in the last blog post.</p>
-<p><strong>Thm(Mantel's Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong> <span class="math display">\[
-\lvert E(G)\rvert\leq\frac{n^2}{4}
-\]</span> Before the proof begin, we introduce what triangle means.</p>
-<span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" /></p>
-<p><font color=red><span class="math inline">\(C=v_1v_2v_3v_4v_5v_1\)</span> is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font></p>
-<p>Now, let's take a few examples to find potential patterns which may help to prove this theorem.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" /></p>
-<p><font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=<span class="math inline">\(\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}\)</span>, if n is odd, #edges=<span class="math inline">\(\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}\)</span></font></p>
-<hr />
-<p><strong>Proof of the Mantel's Theorem</strong></p>
-<p>Let G be an n-vertex graph without a triangle.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" /></p>
-<p><span class="math inline">\(\forall x,y\in V(G)\)</span>, if <span class="math inline">\(xy\in E(G)\)</span>, <span class="math inline">\(N_G(x)\cap N_G(y)=\emptyset\)</span> because G has no triangle.</p>
-<p>Because <span class="math inline">\(N_G(x)\cup N_G(y)\subset V(G)\)</span>, <span class="math inline">\(d_G(x)+d_G(y)\leq n\)</span></p>
-<p>From the above formula, we have <span class="math display">\[
-\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}
-\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" /></p>
-<p>We find that <span class="math inline">\(d_G(x)\)</span> appears in <span class="math inline">\(d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})\)</span> <span class="math display">\[
-So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}
-\]</span> From (1) &amp; (2), we have <span class="math display">\[
-\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}
-\]</span> According to the relationship between degree and edge: <span class="math inline">\(\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert\)</span> and the Cauchy-Schwarz inequality:<span class="math inline">\((\sum_{k=1}^n a_k^2)(\sum_{k=1}^n b_k^2)\geq(\sum_{k=1}^na_kb_k)^2\)</span>, we have <span class="math display">\[
-\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}
-\]</span> From (3) &amp; (4), <span class="math inline">\(\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert\)</span> which implies <span class="math inline">\(\lvert E(G)\rvert \leq\frac{n^2}{4}\)</span></p>
-<hr />
-<p>If a graph G has more than <span class="math inline">\(\frac{n^2}{4}\)</span> edges, then G has a triangle.</p>
-<p><font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font></p>
-<p>Tree: A tree is a connected graph without cycles.</p>
-<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
+        <p><strong>Interlacing Theorem</strong></p>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real <span class="math inline">\(n\times n\)</span> and let B be an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues <span class="math inline">\(\lambda_1\geq\cdots\geq\lambda_n\)</span>, and B has eigenvalues <span class="math inline">\(\beta_1\geq\cdots\geq\beta_m\)</span>.Then</strong> <span class="math display">\[
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m
+\]</span> <span id="more"></span></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" /></p>
+<p>Further,if <span class="math inline">\(m=n-1\)</span>, then <span class="math display">\[
+\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}
+\]</span></p>
 <hr />
 <p><strong>Proof</strong></p>
-<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that <span class="math inline">\(u,v\in V(P),\ uv\in E(P)\)</span> and u is the end vertex of P, but <span class="math inline">\(d_G(u)&gt;1\)</span>.</p>
-<p>Case 1:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" /></p>
-<p><span class="math inline">\(w\not\in V(P)\)</span> and <span class="math inline">\(wu\in E(G)\)</span>,then <span class="math inline">\(\tilde{P}=P+wu\)</span> is longer than P. This contradicts the fact that P is the longest path.</p>
-<p>Case 2:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" /></p>
-<p><span class="math inline">\(w\in V(P),w\not=v\)</span> and <span class="math inline">\(wu\in E(G)\)</span>, then we can find that there is a cycle. This contradicts the fact that G is a tree.</p>
-<hr />
-<p>A vertex of a tree is a leaf if it has degree one.</p>
-<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p><span class="math inline">\(\Rightarrow\)</span> n=1, G has no edges.</p>
-<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
-<p>Since <span class="math inline">\(n\ge2\)</span>, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,<span class="math inline">\(\lvert E(G-v)\rvert=(n-1)-1\)</span>. <span class="math display">\[
-\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1
-\]</span> <span class="math inline">\(\Leftarrow\)</span> Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
-<p>We prove this claim first.If not, <span class="math inline">\(\forall x\in V(G)\)</span>, assume <span class="math inline">\(d_G(x)\ge2\)</span></p>
-<p>Then we have <span class="math inline">\(\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1\)</span> which contradicts that <span class="math inline">\(\lvert E(G)\rvert=n-1\)</span>. The contradiction implies the claim holds.</p>
-<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and <span class="math inline">\((n-1)-1\)</span> edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
-<hr />
-<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
-<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
-<p><font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font></p>
-<p>Now we introduce two classic search algorithms in graph theory.</p>
-<p>A breadth-first-search tree of a graph (BFS-tree)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
-<ol type="i">
-<li><p>Start at <span class="math inline">\(x=x_0\)</span> and join x to all neighbors of x, Let <span class="math inline">\(N_1=N_G(x)\)</span></p></li>
-<li><p>For each <span class="math inline">\(y\in N_i\)</span>, join y to all neighbors of y without creating cycles and let <span class="math inline">\(N_{i+1}=\cup_{y\in N_i}N_G(y)\)</span></p></li>
-</ol>
-<p>The algorithm will take <span class="math inline">\(\Omicron(\lvert V\rvert+\lvert E\rvert)\)</span> steps to find a BFS-tree rooted at <span class="math inline">\(x_0\)</span>.</p>
-<p>A deepth-first-search tree of a graph (DFS-tree)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
-<ol type="i">
-<li><p>Start at <span class="math inline">\(x=x_0\)</span> and <span class="math inline">\(T_0=\{x_0\}\)</span></p></li>
-<li><p>Join x to one of its neighbor <span class="math inline">\(x_1\in N_G(x_0)\)</span> and<span class="math inline">\(T_1=\{x_0,x_1\}\)</span></p></li>
-<li><p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i\not=\emptyset\)</span>, then join <span class="math inline">\(x_i\)</span> to a vertex <span class="math inline">\(x_{i+1}\in N_i\)</span> and let <span class="math inline">\(T_{i+1}=T_i\cup\{x_{i+1}\}\)</span> and <span class="math inline">\(x_{i+1}\to x_i\)</span></p></li>
-</ol>
-<p>If <span class="math inline">\(N_i=N_G(x_i)\backslash T_i=\emptyset\)</span>, then set <span class="math inline">\(x_{i-1}\to x_{i}\)</span> and <span class="math inline">\(N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i\)</span> and continue.</p>
-<p>Eulerian graph:</p>
-<p><font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font></p>
-<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
-<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
-<hr />
-<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by <span class="math inline">\(T=v_1e_1v_2e_2\cdots v_me_mv_1\)</span>. So G is connected.</p>
-<p>Now, orient the edges of G along the trail T such that, for an edge <span class="math inline">\(e_i\)</span> in T, orient <span class="math inline">\(e_i\)</span> from <span class="math inline">\(v_i\)</span> to <span class="math inline">\(v_{i+1}\)</span>. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex <span class="math inline">\(v_i\)</span>, T visits <span class="math inline">\(v_i\)</span> and then leaves <span class="math inline">\(v_i\)</span>, which implies <span class="math display">\[
-\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i
-\]</span> But the degree of <span class="math inline">\(v_i\)</span> satisfies <span class="math display">\[
+<p>Without loss of generality, assume that <span class="math inline">\(A=\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\)</span> and <span class="math inline">\(\lambda_i\vec{x}_i=A\vec{x}_i\)</span> for <span class="math inline">\(i\in[n]\)</span> such that all <span class="math inline">\(\vec{x}_i\)</span> are linearly independent and normalized, and <span class="math inline">\(\beta_j\vec{y}_j=B\vec{y}_j\)</span> for <span class="math inline">\(j\in[m]\)</span> s.t. all <span class="math inline">\(\vec{y}_j\)</span> are linearly independent and normalized.</p>
+<p>Let <span class="math inline">\(V=span\{\vec{x}_k,\cdots,\vec{x}_n\}\)</span> and <span class="math inline">\(W=span\{\vec{y}_1,\cdots,\vec{y}_k\}\)</span>. Extend <span class="math inline">\(W\)</span> to a subspace of <span class="math inline">\(\mathbb{R}^n\)</span> s.t. <span class="math display">\[
+\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n
+\]</span> Then <span class="math inline">\(\dim(V)=n-k+1\)</span> and <span class="math inline">\(\dim(\widetilde{W})=\dim(W)=k\)</span></p>
+<p>Note that both <span class="math inline">\(V\subset \mathbb{R}^n\)</span> and <span class="math inline">\(\widetilde{W}\subset \mathbb{R}^n\)</span>, and <span class="math display">\[
+\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)
+\]</span> It follows that there exists a vector <span class="math inline">\(\tilde{w}\)</span> which satisfies <span class="math inline">\(\tilde{w}\in V\cap\widetilde{W}\)</span>.</p>
+<p><font color='red'><span class="math inline">\(\lambda_k\)</span> is the largest eigenvalue with an eigenvector in V; <span class="math inline">\(\beta_k\)</span> is the smallest eigenvalue with an eigenvector in W.</font></p>
+<p>Therefore, <span class="math display">\[
 \begin{aligned}
-d_G(v_i)&amp;=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
-&amp;\equiv0(mod\ 2)
+\lambda_k&amp;=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&amp;\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&amp;=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
 \end{aligned}
-\]</span> So every vertex of G has an even degree.</p>
+\]</span> So we have <span class="math inline">\(\lambda_k\geq\beta_k\)</span>.</p>
+<p>On the other hand, let <span class="math inline">\(V=span\{\vec{x}_1,\cdots,\vec{x}_{k+n-m}\}\)</span> <font color='red'>(i.e. <span class="math inline">\(\lambda_{k+n-m}\)</span> is the smallest eigenvalue with an eigenvector in V)</font> and <span class="math inline">\(W=span\{\vec{y}_1,\cdots,\vec{y}_{k+n-m}\}\)</span> <font color='red'>(i.e. <span class="math inline">\(\beta_k\)</span> is the largest eigenvalue with an eigenvector in W)</font>.</p>
+<p>Let <span class="math inline">\(\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n\)</span>. Then <span class="math inline">\(\dim(V)=k+n-m\)</span> and <span class="math inline">\(\dim(\widetilde{W})=m-k+1\)</span>.</p>
+<p>Therefore, <span class="math inline">\(\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)\)</span></p>
+<p>It follows that there exists a vector <span class="math inline">\(\tilde{w}\)</span> which satisfies <span class="math inline">\(\tilde{w}\in V\cap\widetilde{W}\)</span>. <span class="math display">\[
+\begin{aligned}
+\lambda_{k+n-m}&amp;=\min\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&amp;\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&amp;=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}
+\]</span> So <span class="math inline">\(\lambda_{k+n-m}\leq\beta_k\)</span>.</p>
+<p><strong>Bounding degree of induced subgraph</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" /></p>
+<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube <span class="math inline">\(Q_n\)</span>. If <span class="math inline">\(|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}\)</span>,then <span class="math inline">\(\Delta (H)\geq\sqrt{n}\)</span></strong></p>
+<p><font color='red'><strong>n-dimensional hypercube <span class="math inline">\(Q_n\)</span></strong></font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" /></p>
+<p><font color='red'>An n-dimensional hypercube <span class="math inline">\(Q_n\)</span> is a graph with vertex set consisting of all <span class="math inline">\(\{0,1\}\)</span>-sequences of length n and two vertices are adjacent to each other if and only if the two <span class="math inline">\(\{0,1\}\)</span>-sequences has exactly one position different</font></p>
+<p>The adjacency matrix of n-dimensional hypercube <span class="math inline">\(Q_n\)</span> satisfies the following</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" /></p>
+<p>If we give every edge in n-dimensional hypercube <span class="math inline">\(Q_n\)</span> a sign, we can get a signed adjacency matrix.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" /></p>
+<p><strong>Lemma The signed n-dimensional hypercube with adjacency matrix <span class="math inline">\(S_n\)</span> has an eigenvalue <span class="math inline">\(\sqrt{n}\)</span> of multiplicity <span class="math inline">\(2^{n-1}\)</span> and eigenvalue <span class="math inline">\(-\sqrt{n}\)</span> with multiplicity <span class="math inline">\(2^{n-1}\)</span></strong></p>
 <hr />
-<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles <span class="math inline">\(D=\{C_1,C_2,\dots,C_k\}\)</span> such that<br />
-<span class="math display">\[
-\cup_{C_i\in D}E(C_i)=E(G)
-\]</span> <strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
+<p><strong>Proof</strong></p>
+<p><strong>claim: <span class="math inline">\(S_n^2=nI\)</span></strong></p>
+<p>If <span class="math inline">\(n=1\)</span>, <span class="math inline">\(S_1=\left[\begin{matrix}0&amp;1\\1&amp;0\end{matrix}\right],S_1^2=I\)</span>. Assume that <span class="math inline">\(S_{n-1}^2=(n-1)I\)</span></p>
+<p>Then <span class="math display">\[
+S_n^2=\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&amp;O\\O&amp;S_{n-1}^2+I\end{matrix}\right]=nI
+\]</span> So claim holds.</p>
+<p>Note that <span class="math inline">\(nI\)</span> has eigenvalues n. Therefore, <span class="math inline">\(S_n\)</span> has eigenvalues either <span class="math inline">\(\sqrt{n}\)</span> or <span class="math inline">\(-\sqrt{n}\)</span>.</p>
+<p>Since the trace of <span class="math inline">\(S_n\)</span> is 0, <span class="math inline">\(S_n\)</span> has eigenvalues <span class="math inline">\(\sqrt{n}\)</span> of multiplicity <span class="math inline">\(2^{n-1}\)</span> and <span class="math inline">\(-\sqrt{n}\)</span> with multiplicity <span class="math inline">\(2^{n-1}\)</span>.</p>
 <hr />
-<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
-<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
-<p>So assume that<span class="math inline">\(\delta(G)\ge2\)</span>. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, <span class="math inline">\(D\cup\{C\}\)</span> is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
+<p><strong>Proof of Huang's Theorem</strong></p>
+<p>Let H be a induced subgraph of <span class="math inline">\(Q_n\)</span> with more than <span class="math inline">\(2^{n-1}\)</span> vertices. It suffices to show that every subgraph H with exactly <span class="math inline">\(2^{n-1}+1\)</span> vertices has maximum degree at least <span class="math inline">\(\sqrt{n}\)</span>.</p>
+<p>Let <span class="math inline">\((Q_n,\sigma)\)</span> be the signed graph with adjacency matrix <span class="math inline">\(S_n\)</span> as defined above. Then <span class="math inline">\((H,\sigma)\)</span> is a signed induced subgraph of <span class="math inline">\((Q_n,\sigma)\)</span>, whose adjacency matrix <span class="math inline">\(A\)</span> is a <span class="math inline">\((2^{n-1}+1)\)</span>-principle submatrix of <span class="math inline">\(S_n\)</span>.</p>
+<p>By the proposition <font color='red'>(i.e. <span class="math inline">\(|\lambda(H,\sigma)|\leq\Delta (H)\)</span></font> and the interlacing theorem <span class="math display">\[
+\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}
+\]</span> <span class="math inline">\(\lambda_1(A)\)</span> means the largest eigenvalue of A.</p>
 <hr />
-<p><font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font></p>
-<p><font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?<span class="math inline">\(\lvert D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
+<p><strong>Unfriendly partitions of subcubic graphs</strong></p>
+<p>A graph G is subcubic if the maximum degree of G is at most 3. <font color='red'>(<span class="math inline">\(\Delta(G)\leq3\)</span>)</font></p>
+<p><font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval<span class="math inline">\([-1,1]\)</span>. There exists a constant c such that if <span class="math inline">\(|V(G)|\geq|c|\)</span>, then <span class="math inline">\(\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]\)</span></font></p>
+<p>Let G be a graph. A partition <span class="math inline">\((X,Y)\)</span> of <span class="math inline">\(V(G)\)</span> is unfriendly if every vertex has at least the same number of neighbors in the other subset as in it owns.</p>
+<p><font color='red'>In other words, for every vertex v of G, <span class="math inline">\(d_{G[x]}(v)\leq\frac{1}{2}d_G(v)\)</span> and <span class="math inline">\(d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)\)</span></font></p>
+<p>If <span class="math inline">\((X,Y)\)</span> is an unfriendly partition of a subcubic graph <span class="math inline">\(G\)</span>, then the maximum degree of the induced subgraph <span class="math inline">\(G[X]\)</span> and <span class="math inline">\(G[Y]\)</span> is at most 1.</p>
+<p>An unfriendly partition <span class="math inline">\((X,Y)\)</span> is unbalanced if <span class="math inline">\(|X|\not=|Y|\)</span></p>
+<p>A partition is a bisection if <span class="math inline">\(\Big||X|-|Y|\Big|\leq1\)</span></p>
+<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong> <span class="math display">\[
+\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let G be a subcubic graph with n vertices and <span class="math inline">\((X,Y)\)</span> be an unbalanced unfriendly partition.</p>
+<p>Without loss of generality, assume that <span class="math inline">\(|X|&gt;|Y|\)</span></p>
+<p>Then <span class="math inline">\(\lambda_1(X)\leq\Delta(X)\leq1\)</span> and <span class="math inline">\(\lambda_1(Y)\leq\Delta(Y)\leq1\)</span>. So both X and Y are bipartite.</p>
+<p>All eigenvalues of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> belong to <span class="math inline">\([-1,1]\)</span>. Since <span class="math inline">\(|X|&gt;|Y|\)</span>, it holds that <span class="math display">\[
+|X|\geq\left\lceil \frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|
+\]</span> It follows that the interlacing theorem that <span class="math display">\[
+1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1
+\]</span></p>
 
     </div>
 
@@ -423,14 +405,11 @@ d_G(v_i)&amp;=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/03/28/Graph1/" rel="prev" title="Lecture series on graph theory 1">
-                  <i class="fa fa-chevron-left"></i> Lecture series on graph theory 1
+                <a href="/2022/05/22/Graph5/" rel="prev" title="Lecture series on graph theory 5">
+                  <i class="fa fa-chevron-left"></i> Lecture series on graph theory 5
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/04/27/love-letter-1/" rel="next" title="Love letter">
-                  Love letter <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
