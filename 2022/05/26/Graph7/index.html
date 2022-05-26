@@ -31,7 +31,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_011010.4crr6n46e6o.jpg">
 <meta property="article:published_time" content="2022-05-25T17:00:49.000Z">
-<meta property="article:modified_time" content="2022-05-26T08:41:43.788Z">
+<meta property="article:modified_time" content="2022-05-26T13:42:38.058Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Operation Research">
@@ -250,7 +250,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-05-26 01:00:49 / Modified: 16:41:43" itemprop="dateCreated datePublished" datetime="2022-05-26T01:00:49+08:00">2022-05-26</time>
+      <time title="Created: 2022-05-26 01:00:49 / Modified: 21:42:38" itemprop="dateCreated datePublished" datetime="2022-05-26T01:00:49+08:00">2022-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -276,7 +276,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>2k</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -323,7 +323,10 @@
 <p>If G is k-colorable, let <span class="math inline">\(c:V(G)\to[k]\)</span> be a k-colorable. <span class="math inline">\(c^{-1}(i)\)</span>, the preimage of color i, is an independent set. Independent number of G: <span class="math inline">\(\alpha(G)\geq\max\left\{|c^{-1}(i)|\big|i\in[k]\right\}\geq n/k\)</span>.</p>
 <p>So <span class="math inline">\(\alpha(G)\geq n/\chi(G)\geq n/(1+\lambda_1(G))\)</span>.</p>
 <p><strong>Coloring, Integer flow</strong></p>
-<p>Let G be a graph. An integer flow of G is an ordered pair <span class="math inline">\((D,f)\)</span> where <span class="math inline">\(D\)</span> is an orientation of <span class="math inline">\(G\)</span> and <span class="math inline">\(f\)</span> is an integer function <span class="math inline">\(f:E(G)\to\mathbb{Z}\)</span> s.t. for every vertex v of G</p>
+<p>Let G be a graph. An integer flow of G is an ordered pair <span class="math inline">\((D,f)\)</span> where <span class="math inline">\(D\)</span> is an orientation of <span class="math inline">\(G\)</span> and <span class="math inline">\(f\)</span> is an integer function <span class="math inline">\(f:E(G)\to\mathbb{Z}\)</span> s.t. for every vertex v of G <span class="math inline">\(\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)\)</span> where <span class="math inline">\(E^{+}(v)\)</span> is the set of all arcs with <span class="math inline">\(v\)</span> as tail and <span class="math inline">\(E^{-}(v)\)</span> is the set of all arcs with v as head.</p>
+<p><font color='red'>Recall: this incidence matrix of D is matrix is <span class="math inline">\(\vec{B}\)</span> and <span class="math inline">\(\vec{f}=&lt;f(e_1),\cdots,f(e_m)&gt;\in\mathbb{Z}^m\)</span> where <span class="math inline">\(m=|E(G)|\)</span> , then <span class="math inline">\(\vec{B}\cdot\vec{f}=0\)</span>. This vector <span class="math inline">\(\vec{f}\)</span> is called an integer flow of G.</font></p>
+<p>An integer flow <span class="math inline">\((D,f)\)</span> is nowhere-zero if <span class="math inline">\(f(e)\not=0\)</span> for all edges of <span class="math inline">\(G\)</span> <font color='red'>i.e. <span class="math inline">\(\vec{f}\)</span> has no zero component.</font></p>
+<p>An integer flow</p>
 
     </div>
 
