@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://lyd122504.github.io/2022/05/27/Graph8/</loc>
+    <loc>https://lyd122504.github.io/2022/07/23/freefem1/</loc>
     
-    <lastmod>2022-05-27</lastmod>
+    <lastmod>2022-07-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,16 @@
   <url>
     <loc>https://lyd122504.github.io/2022/05/26/Graph7/</loc>
     
-    <lastmod>2022-05-26</lastmod>
+    <lastmod>2022-07-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lyd122504.github.io/2022/05/27/Graph8/</loc>
+    
+    <lastmod>2022-05-27</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -50,15 +59,6 @@
     <loc>https://lyd122504.github.io/2022/05/20/Graph3/</loc>
     
     <lastmod>2022-05-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lyd122504.github.io/2022/04/27/love-letter-1/</loc>
-    
-    <lastmod>2022-04-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -103,7 +103,7 @@
 
   <url>
     <loc>https://lyd122504.github.io/</loc>
-    <lastmod>2022-05-27</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -111,21 +111,28 @@
   
   <url>
     <loc>https://lyd122504.github.io/tags/Math/</loc>
-    <lastmod>2022-05-27</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lyd122504.github.io/tags/Operation-Research/</loc>
-    <lastmod>2022-05-27</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lyd122504.github.io/tags/Love-Letter/</loc>
-    <lastmod>2022-05-27</lastmod>
+    <loc>https://lyd122504.github.io/tags/Coding/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lyd122504.github.io/tags/Freefem/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -134,14 +141,14 @@
   
   <url>
     <loc>https://lyd122504.github.io/categories/Graph-Theory/</loc>
-    <lastmod>2022-05-27</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lyd122504.github.io/categories/Love/</loc>
-    <lastmod>2022-05-27</lastmod>
+    <loc>https://lyd122504.github.io/categories/Freefem/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
