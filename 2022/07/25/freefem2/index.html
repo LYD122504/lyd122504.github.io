@@ -22,33 +22,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lyd122504.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Proof of the coloring-flow duality theorem">
+    <meta name="description" content="Description of the Heat Exchanger problem &amp;emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture series on graph theory 8">
-<meta property="og:url" content="https://lyd122504.github.io/2022/05/27/Graph8/index.html">
+<meta property="og:title" content="Learning by Examples——Heat Exchange">
+<meta property="og:url" content="https://lyd122504.github.io/2022/07/25/freefem2/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Proof of the coloring-flow duality theorem">
+<meta property="og:description" content="Description of the Heat Exchanger problem &amp;emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如">
 <meta property="og:locale">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg">
-<meta property="article:published_time" content="2022-05-27T03:24:05.000Z">
-<meta property="article:modified_time" content="2022-05-27T13:01:30.636Z">
+<meta property="og:image" content="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172304.6xddfzspub40.jpg?raw=true">
+<meta property="og:image" content="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172314.6hu72hyk6uo0.jpg?raw=true">
+<meta property="article:published_time" content="2022-07-25T03:21:50.000Z">
+<meta property="article:modified_time" content="2022-07-26T09:31:06.319Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
-<meta property="article:tag" content="Operation Research">
+<meta property="article:tag" content="Coding">
+<meta property="article:tag" content="Freefem++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg">
+<meta name="twitter:image" content="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172304.6xddfzspub40.jpg?raw=true">
 
 
-<link rel="canonical" href="https://lyd122504.github.io/2022/05/27/Graph8/">
+<link rel="canonical" href="https://lyd122504.github.io/2022/07/25/freefem2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh_Hans","comments":true,"permalink":"https://lyd122504.github.io/2022/05/27/Graph8/","path":"2022/05/27/Graph8/","title":"Lecture series on graph theory 8"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh_Hans","comments":true,"permalink":"https://lyd122504.github.io/2022/07/25/freefem2/","path":"2022/07/25/freefem2/","title":"Learning by Examples——Heat Exchange"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Lecture series on graph theory 8 | 还施水阁</title>
+<title>Learning by Examples——Heat Exchange | 还施水阁</title>
   
 
 
@@ -222,7 +222,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh_Hans">
-    <link itemprop="mainEntityOfPage" href="https://lyd122504.github.io/2022/05/27/Graph8/">
+    <link itemprop="mainEntityOfPage" href="https://lyd122504.github.io/2022/07/25/freefem2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -235,12 +235,12 @@
     </span>
     
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Lecture series on graph theory 8 | 还施水阁">
+      <meta itemprop="name" content="Learning by Examples——Heat Exchange | 还施水阁">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lecture series on graph theory 8
+          Learning by Examples——Heat Exchange
         </h1>
 
         <div class="post-meta-container">
@@ -250,9 +250,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-05-27 11:24:05 / Modified: 21:01:30" itemprop="dateCreated datePublished" datetime="2022-05-27T11:24:05+08:00">2022-05-27</time>
+      <time title="Created: 2022-07-25 11:21:50" itemprop="dateCreated datePublished" datetime="2022-07-25T11:21:50+08:00">2022-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-26 17:31:06" itemprop="dateModified" datetime="2022-07-26T17:31:06+08:00">2022-07-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -260,7 +266,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+          <a href="/categories/Freefem/" itemprop="url" rel="index"><span itemprop="name">Freefem++</span></a>
         </span>
     </span>
 
@@ -278,14 +284,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>5.1k</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>5 mins.</span>
+      <span>1 mins.</span>
     </span>
 </div>
 
@@ -296,78 +302,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>Proof of the coloring-flow duality theorem</strong></p>
-<span id="more"></span>
-<p><span class="math inline">\(\Rightarrow\)</span> Assume that G is face k-colorable (proper coloring)</p>
-<p>We need to show that G has a nowhere-zero k-flow <span class="math inline">\((D,f)\)</span> <span class="math display">\[
-\begin{aligned}
-(i.e. &amp;f:E(G)\to\{-(k-1),-(k-2),\cdots,-1,1,\cdots,k-2,k-1\}\\&amp; s,t,\forall v\in V(G),\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e))
-\end{aligned}
-\]</span> Let <span class="math inline">\(F(G)\)</span> be the set of all faces of G and let <span class="math inline">\(c:F(G)\to[k]\)</span> be a face coloring.</p>
-<p>Assign an orientation <span class="math inline">\(D\)</span> to <span class="math inline">\(E(G)\)</span>: each edge <span class="math inline">\(e\in E(G)\)</span> is oriented such that the face with a smaller color index is on the right side of the arc.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg" /></p>
-<p>Define a function <span class="math inline">\(f:E(G)\to[k-1]\)</span> such that <span class="math inline">\(f(e)\)</span> is the absolute value of the difference of the colors of two faces incident with e.</p>
-<p><font color='blue'><strong>claim: <span class="math inline">\((D,f)\)</span> is a nowhere-zero k-flow</strong></font></p>
-<hr />
-<p><strong><font color='blue'>Proof of claim:</font></strong></p>
-<p><font color='blue'>Clearly, <span class="math inline">\(0&lt;f(e)&lt;k\)</span>, because the smallest color index is 1 and the largest color index is k;and two faces share edges have different color indices.So f is nowhere-zero.</font></p>
-<p><font color='blue'>Let v be vertex of G and <span class="math inline">\(v_1,v_2,\cdots,v_d\)</span> be all neighbors of v appearing around v in a clockwise order.Let <span class="math inline">\(f_i\)</span> be the face containing edges <span class="math inline">\(vv_1\)</span> and <span class="math inline">\(vv_{i+1}\)</span> . Note that, for any <span class="math inline">\(i\not=j,f_i\not=f_j\)</span> because G is 2-connected.</font></p>
-<p><font color='blue'>Define</font> <span class="math display">\[
-\textcolor{blue}{\epsilon_i=\left\{\begin{aligned}&amp;-1,\quad if\ v\to v_i\ in\ D\\&amp;1,\quad if\ v_i\to v\ in\ D
-\end{aligned}\right.}
-\]</span> <font color='blue'>Then, for each <span class="math inline">\(i\in[d]\)</span></font> <span class="math display">\[
-\textcolor{blue}{c(f_i)=c(f_d)+\sum_{j=1}^i\epsilon_if(vv_j) \tag{*}}
-\]</span> <img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg" /> <span class="math display">\[
-\begin{aligned}&amp;\textcolor{blue}{c(f_1)=c(f_d)}+\textcolor{red}{f(vv_1)}\\&amp;\textcolor{blue}{c(f_2)=c(f_1)-f(vv_2)=c(f_d)+f(vv_1)-f(vv_2)=c(f_d)+\sum_{j=1}^2\epsilon_jf(vv_j)}\end{aligned}
-\]</span> <font color='blue'>From (*), <span class="math inline">\(c(f_i)=c(f_d)+\sum_{j=1}^i\epsilon_if(vv_j)\)</span>. It follows that</font> <span class="math display">\[
-\textcolor{blue}{\sum_{j=1}^d\epsilon_jf(vv_j)=0\Rightarrow\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)}
-\]</span></p>
-<hr />
-<p><span class="math inline">\(\Leftarrow\)</span> Assume that G has a nowhere-zero k-flow <span class="math inline">\((D,f)\)</span>.</p>
-<p>Define a map <span class="math inline">\(c:F(G)\to\{1,2,\cdots,k-1\}\)</span></p>
-<p>Choose an arbitrary face <span class="math inline">\(f_0\)</span> and let <span class="math inline">\(c(f_0)=1\)</span>. For each arc <span class="math inline">\(e_i\)</span> in D, let <span class="math inline">\(f_i&#39;\)</span> and <span class="math inline">\(f_i&#39;&#39;\)</span> be two faces incident with <span class="math inline">\(e_i\)</span>. If one of <span class="math inline">\(f_i&#39;\)</span> and <span class="math inline">\(f_i&#39;&#39;\)</span> is colored, then the color of another face is given by the following equality <span class="math display">\[
-c(f_i&#39;&#39;)=c(f_i&#39;)+f(e_i)(mod\ k)
-\]</span> It suffices to show that the vertex coloring is well-defined.<font color ='red'>In other words, the process does not color one face by two or more different colors.</font></p>
-<p>Let <span class="math inline">\(f_1\)</span> be uncolored face incident with two colored faces <span class="math inline">\(f_2\)</span> and <span class="math inline">\(f_3\)</span>.Let <span class="math inline">\(e_i\)</span> be the edge on the boundary of <span class="math inline">\(f_1\)</span> and <span class="math inline">\(f_i\)</span> for <span class="math inline">\(i=2,3\)</span>. Without loss of generality, let <span class="math inline">\(f_i\)</span> be on the left side of the arcs <span class="math inline">\(e_2\)</span> and <span class="math inline">\(e_3\)</span>.</p>
-<p><font color='blue'><strong>claim: <span class="math inline">\(c(f_2)+f(e_2)\equiv c(f_3)+f(e_3)(mod\ k)\)</span></strong></font></p>
-<hr />
-<p><font color='blue'><strong>Proof of claim:</strong></font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg" /></p>
-<p><font color='blue'>Consider the dual graph <span class="math inline">\(G^\star\)</span> of G.</font></p>
-<p><font color='blue'>The vertex subset <span class="math inline">\(X^\star=\{f\in V(G^\star)\big|f\in F(G)\ is\ colored\ already\}\)</span> induces a connected subgraph of <span class="math inline">\(G^\star\)</span>. Thus, there is a cycle <span class="math inline">\(C^\star\)</span> of <span class="math inline">\(G^\star\)</span> containing <span class="math inline">\(f_1,f_2\)</span> and <span class="math inline">\(f_3\)</span>.The cycles <span class="math inline">\(C^\star\)</span> also contains the edge <span class="math inline">\(f_1f_2\)</span> and<span class="math inline">\(f_1f_3\)</span>, <span class="math inline">\(V(C^\star)\backslash \{f_1\}\subset X^\star\)</span>.</font></p>
-<p><font color='blue'>Since all edges of G corresponding to the edge of <span class="math inline">\(C^\star\)</span>​ separate G into two parts</font> <font color='red'>(i.e. these edges form an edge-cut)</font><font color='blue'>, Let X be the set of vertices in one part. It follows from a lemma that </font> <span class="math display">\[
-\textcolor{blue}{\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)=0}
-\]</span> <font color='blue'>So the clain follows.</font></p>
-<hr />
-<p>This completes the whole proof.</p>
-<p><font color='red'>Recall: Every Eulerian graph G has a cycle decomposition: edges of G can be decomposed into edge-disjoint cycles.</font></p>
-<p>A cycle cover of a graph is a family of cycles which cover all edges of G.</p>
-<p>A graph has a cycle cover <span class="math inline">\(\Leftrightarrow\)</span> it has even-subgraph cover.</p>
-<p><strong>Thm If a graph G has k-even-subgraph cover, then G has a nowhere-zero <span class="math inline">\(2^k\)</span>-flow</strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>For each even-subgraph <span class="math inline">\(H_i\)</span>, it has a 2-flow <span class="math inline">\((D,f_i)\)</span>.</p>
-<p>So <span class="math inline">\((D,f)\)</span> is a nowhere-zero <span class="math inline">\(2^k\)</span>-flow where <span class="math inline">\(f=\sum_{e\in E(G)}2^{i-1}f_i(e)\)</span></p>
-<hr />
-<p><strong>(8-flow theorem,Jaeger) Every bridgeless graph has nowhere-zero 8-flow</strong></p>
-<p><strong>(Splitting Lemma) Let G be a connected graph without cut-edge.If G has a vertex v of degree at least four. Then there are two edges <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span> incident with v s.t. the resulting graph after splitting <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span> from v remains to be connected and without cut-edge.</strong></p>
-<p><font color='red'>(Cycle double cover conjecture,1970s) Every connected cubic graph without cut-edge has a family of cycles covering every edge exactly twice.</font></p>
-<p>A proper k-edge-coloring of a graph G is a map <span class="math inline">\(c:E(G)\to[k]\)</span> s.t. <span class="math inline">\(c(e)\not=c(e&#39;)\)</span> if <span class="math inline">\(e\)</span> and <span class="math inline">\(e&#39;\)</span> have a common end vertex.</p>
-<p><strong>Thm Every 3-edge-colorable cubic graph has a family of cycles which cover every edge exactly twice</strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let <span class="math inline">\(c:E(G)\to[3]\)</span>. Then <span class="math inline">\(c^{-1}(1)\cup c^{-1}(2)\)</span> is a family of cycles, <span class="math inline">\(c^{-1}(1)\cup c^{-1}(3)\)</span> is a family of cycles, <span class="math inline">\(c^{-1}(2)\cup c^{-1}(3)\)</span> is a family of cycles. <span class="math display">\[
-l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2)\cup c^{-1}(3)
-\]</span> So <span class="math inline">\(l_{e_1}\cup l_{e_2}\cup l_{e_3}\)</span> is a family of cycles which cover every edge exactly twice.</p>
-<hr />
-<p><font color='blue'>(3-flow conjecture) Every 5-edge connected graph has a nowhere-zero 3-flow.</font></p>
-<p><font color='red'>A graph is a k-edge-connected if for any two vertices x ang y, the graph has k edge-disjoint paths joining x and y.</font></p>
-<p><font color='blue'>(Tutte-Nashwillam Theorem) Every 2k-edge-connected graph has a k edge-disjoint spanning trees.</font></p>
-<p><font color='blue'>(Lovasz,Wu,Thomassen,Zhang,2012) Every 6-edge-connected graph has a nowhere-zero 3-flow.</font></p>
-<p><font color='blue'>(5-flow conjecture.1950s) Every bridgeless graph has a nowhere-zero 5-flow</font></p>
-<p><font color='blue'>(Seymour,1980) Every bridgeless graph has a nowhere-zero 6-flow.</font></p>
-<p><font color='blue'>For cubic graph,cycle double cover conjecture<span class="math inline">\(\approx\)</span> the strong embedding conjecture</font></p>
-<p><font color='blue'>(Strong Embedding Conjecture,1980s) Every 2-connected graph can be embedded on a closed surface such that every face is bounded by a cycle.</font></p>
+        <p><strong>Description of the Heat Exchanger problem</strong></p>
+<p>&emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如下微分方程</p>
+<script type="math/tex; mode=display">\nabla\cdot(\kappa\nabla u)=0\ in\ \Omega,\quad u|_\Gamma=g</script><span id="more"></span>
+<p>其中 $\Omega$ 是 $C_0$ 的内部减去导体 $C_1$, $\Gamma$ 是 $\Omega$ 的边界,即 $C_0\cup C_1$,此处的 $g$ 是关于x的任意函数且在 $C_i$ 上等于 $u_i$<br>&emsp;为了简便起见,我们假设 $C_0$ 是以原点为圆心,半径为5的圆,$C_i$ 是矩形,$C_1$ 维持 $u_1=60$°C的恒温.<br>&emsp;利用Freefem++编写程序如下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> C1=<span class="number">99</span>,C2=<span class="number">98</span>;</span><br><span class="line"><span class="function">border <span class="title">C0</span><span class="params">(t=<span class="number">0</span>,<span class="number">2</span>*pi)</span></span>&#123;x=<span class="number">5</span>*<span class="built_in">cos</span>(t);y=<span class="number">5</span>*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">C11</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>+t;y=<span class="number">3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C12</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C13</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>-t;y=<span class="number">-3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C14</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C21</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>+t;y=<span class="number">3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C22</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C23</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>-t;y=<span class="number">-3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C24</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="built_in">plot</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>),wait=<span class="literal">true</span>,ps=<span class="string">&quot;heatexb.eps&quot;</span>);</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>));</span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>);</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P1)</span></span>;</span><br><span class="line">Vh u,v;</span><br><span class="line">Vh kappa=<span class="number">1</span>+<span class="number">2</span>*(x&lt;<span class="number">-1</span>)*(x&gt;<span class="number">-2</span>)*(y&lt;<span class="number">3</span>)*(y&gt;<span class="number">-3</span>);</span><br><span class="line"><span class="function">solve <span class="title">a</span><span class="params">(u,v)</span></span>=<span class="built_in">int2d</span>(Th)(kappa*(<span class="built_in">dx</span>(u)*<span class="built_in">dx</span>(v)+<span class="built_in">dy</span>(u)*<span class="built_in">dy</span>(v)))</span><br><span class="line">            +<span class="built_in">on</span>(C0,u=<span class="number">20</span>)+<span class="built_in">on</span>(C1,u=<span class="number">60</span>);</span><br><span class="line"><span class="built_in">plot</span>(u,wait=<span class="literal">true</span>, value=<span class="literal">true</span>, fill=<span class="literal">true</span>, ps=<span class="string">&quot;heatex.eps&quot;</span>);</span><br></pre></td></tr></table></figure><br><strong><font color='red'>Remark</font></strong></p>
+<ul>
+<li>$C_0$ 和 $C_2$ 关于 $t$ 是逆时针方向,而 $C_1$ 关于 $t$ 是顺时针方向,因此 $C_1$ 在网格剖分过程中被认定成一个洞.</li>
+<li>$C_1$ 和 $C_2$ 在程序中是以拼接线段的形式构成的,为了能将那些线段作为一个逻辑单元同时取出,我们人为的给这些线段加以标签,从而可以以一种易读的方式为其添加边界条件.</li>
+<li>网格密度由指定的每条边界的顶点个数决定.虽然我们无法决定顶点的分布,但是一段边界可以通过被切分成小段.<br>运行结果如下:<center>
+<img src="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172304.6xddfzspub40.jpg?raw=true" style="width: 70%">
+<img src="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172314.6hu72hyk6uo0.jpg?raw=true" style="width: 70%">
+</center></li>
+</ul>
 
     </div>
 
@@ -378,21 +324,19 @@ l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Math/" rel="tag"># Math</a>
-              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+              <a href="/tags/Coding/" rel="tag"># Coding</a>
+              <a href="/tags/Freefem/" rel="tag"># Freefem++</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/05/26/Graph7/" rel="prev" title="Lecture series on graph theory 7">
-                  <i class="fa fa-chevron-left"></i> Lecture series on graph theory 7
+                <a href="/2022/07/23/freefem1/" rel="prev" title="Learning by Examples——Membranes">
+                  <i class="fa fa-chevron-left"></i> Learning by Examples——Membranes
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/07/23/freefem1/" rel="next" title="Learning by Examples——Membranes">
-                  Learning by Examples——Membranes <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
