@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh_Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Def.  A graph is a discrete structure&#x2F;combinational structure consisting of vertices and edges which connect to a pair of vertices. Usually, a vertex is represented by a dot and an edge is repres">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lecture series on graph theory 1">
+<meta property="og:url" content="http://example.com/2022/03/28/Graph1/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Def.  A graph is a discrete structure&#x2F;combinational structure consisting of vertices and edges which connect to a pair of vertices. Usually, a vertex is represented by a dot and an edge is repres">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg">
+<meta property="article:published_time" content="2022-03-28T09:57:01.000Z">
+<meta property="article:modified_time" content="2022-08-17T14:57:40.614Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Operation Research">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg">
+
+<link rel="canonical" href="http://example.com/2022/03/28/Graph1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_Hans'
+  };
+</script>
+
+  <title>Lecture series on graph theory 1 | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/28/Graph1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lecture series on graph theory 1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2022-03-28 17:57:01" itemprop="dateCreated datePublished" datetime="2022-03-28T17:57:01+08:00">2022-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2022-08-17 22:57:40" itemprop="dateModified" datetime="2022-08-17T22:57:40+08:00">2022-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Def.  A graph is a <font color=red>discrete structure&#x2F;combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
+<p>Usually, a vertex is represented by a dot and an edge is represented by a line (straight or curved)  joining two vertices.</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg"></p>
+<center><font color=red size=4>The green points mean crossing of the edges,rather than vertices  </font></center>
+
+<p>A vertex is incident with an edge if the edge join the vertex to another vertex, which is also called the end of the edge.</p>
+<p>Two vertices are adjacent to each other if there is an edge joinging them.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg"></p>
+<center><font color=red size=4>We say that the vertex v is incident with the edge e<br>The vertex u is adjacent to the vertex v because uv is an edge of G</font></center>
+
+<p>A graph is simple if there is at most one edge between any two vertices and there is no edge joining a vertex itself.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg"></p>
+<p>In short, a graph is simple if and only if it has no multi-edges and no loops.Next, unless otherwise specified, we will discuss simple graphs by default.</p>
+<p>For any given simple graph $G(V,E)$，V is the vertex set and E is the edge set.<br>$$<br>if\ \lvert V\rvert&#x3D;n,\lvert E\rvert\leq\binom{n}{2}<br>$$<br>A graph is complete if the graph has an edge between every pair of vertices.A complete graph of n vertices is usually denoted by $K_n$</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg"></p>
+<p>The degree of a vertex v of G, denoted by $d_G(v)$, is the number of edges incident with it.</p>
+<p>The maximum degree of G is defined as $\Delta(G):&#x3D;\max{d_G(x)|v\in V(G)}$</p>
+<p>The minimum degree of G is defined as $\delta G:&#x3D;\min{d_G(v)|v\in V(G)}$</p>
+<p>The average degree of G is defined as $d(G):&#x3D;\frac{\lvert E(G)\rvert}{\lvert V(G)\rvert}$, this index is used to measure the density of the graph.According to this index, graph can be divided into dense graph and sparse graph</p>
+<p>A neighbor of v in G is a vertex joined to v by an edge of G.The neighborhood of a vertex v in G is the set of all neighbors of v in G, denoted by $N_G(v)&#x3D;{u|u\in V(G),uv\in E(G)}$.We have $d_G(v)&#x3D;\lvert N_G(v)\rvert$ easily.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg"></p>
+<p><font color=red>This picture shows the multi-level neighbors of v. If u is both a second-level neighbor and a third-level neighbor of v, it is classified as a second-level neighbor. <br>Here we give the set representation of neighbors: <br>$N_1(v)&#x3D;N_G(v),N_2(v)&#x3D;N_G(N_1(v))-N_1(v)\cup{v},\ N_3(v)&#x3D;N_G(N_2(v))-N_1(v)$<br>and if $w\in N_3(v),\ distance(w,v)&#x3D;3$</font></p>
+<p>A graph is even if every vertex of G has an even degree.</p>
+<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" />
+
+<p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even number of vertices with odd degree.</strong></p>
+<p>Proof. </p>
+<p>Let<br>$$<br>\left{\begin{aligned}X&amp;&#x3D;{x|x\in V(G)\ and<br> d_G(x)\equiv0(mod\ 2)}\Y&amp;&#x3D;{y|y\in V(G)\ and<br> d_G(y)\equiv1(mod\ 2)}\end{aligned}\right.<br>$$<br>Then,$\sum_{x\in X}d_G(x)+\sum_{y\in Y}d_G(y)&#x3D;2\lvert E(G)\rvert$</p>
+<p>So, $\sum_{y\in Y}d_G(y)\equiv0(mod\ 2)$.It follows immediately that $\lvert Y\rvert\equiv0(mod\ 2)$</p>
+<p>So the proposition holds. </p>
+<p>Question:Let G be an n-vertex graph.How many edges will force G to have a triangle?(Mantel’s Theorem)</p>
+<p>Def A walk of G is  <font color=red>a sequence of vertices and edges of G</font>such that (i)both the first element and  the last element of the sequence are vertices and (ii) any two consecutive elements in the sequence contains one vertex and one edge which are incident with each other.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg"></p>
+<p><font color=red>We give two different walks: $w_{1}&#x3D;v_1e_1v_2e_2v_3e_2v_2e_1v_1,\  w_2&#x3D;v_2e_2v_3e_3v_4e_4v_2$<br>For walk,vertex can be repeated, edge can be repeated.</font></p>
+<p>A walk is open if the first vertex is not equal to the last vertex. <font color=red>$w_0&#x3D;v_2e_2v_3e_3v_4e_4v_2e_1v_1$</font></p>
+<p>A walk is a trail if it does not have repeated edges. <font color=red>$w_0$ is a trail</font></p>
+<p>A trail is a path if it does not have repeated vertices. </p>
+<p><font color=red>$w_3&#x3D;v_1e_1v_2e_2v_3e_3v_4&#x3D;v_1v_2v_3v_4$ is a path</font></p>
+<p>A cycle is a closed trail( or path) without repeated vertices (vertices and edges) <font color =red>except the first vertex and the last vertex. $w_4&#x3D;v_2e_2v_3e_3v_4e_4v_2$</font> </p>
+<p>A graph is connected if for any two vertices x and y, there is a path joining x and y.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg"></p>
+<p>A subgraph H of G is a graph with $V(H)\subset V(G),E(H)\subset E(G)$</p>
+<p>A maximal connected subgraph of G is called a connected component. <font color=red>Maximal means anything bigger than it is not connected</font></p>
+<p>An edge e of G is bridge or cut-edge if #connected components of G-e&gt;#connected components of G</p>
+<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" />
+
+<p><font color=red>#connected components of G-$e_1$&#x3D;3&gt;2&#x3D;#connected components of G<br>Both $e_1$ and$e_2$ are bridges&#x2F;cut-edges</font></p>
+<p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of cycles which covers every edge exactly 2k times for any integer $k\ge2$</strong></p>
+<p>A subgraph H is spanning if $V(H)&#x3D;V(G)$</p>
+<p>A subgraph H is induced by <font color=red> $S\subset V(G)$</font>, if $V(H)&#x3D;S$ and for any two vertices $x,y\in S$, $xy\in E(H)\Leftrightarrow xy\in E(G)$</p>
+<p>A subgraph H is induced by <font color=red> $S\subset E(G)$</font>, if $E(H)&#x3D;S$ and $v\in V(H)$a if and only if v is incident with an edge in S.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg"></p>
+<p>Let $x,y\in V(G)$, the distance between x and y in G is the length of the shortest path joining x and y, denoted by $dist_G(x,y)$. In other words,<br>$$<br>dist_G(x,y)&#x3D;\min{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y}<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
+<p><font color=red>$dist_G(x,y)&#x3D;k$, this means finding a shortest path between any two vertices x and y is easy</font></p>
+<p><font color=red>However, finding a longest path between any two vertices x and y.Given an integer k, is there an (x,y)-path with length k?They are NPC problems</font></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/28/Graph2/" rel="next" title="Lecture series on graph theory 2">
+      Lecture series on graph theory 2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">Kategorien</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">schlagwörter</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

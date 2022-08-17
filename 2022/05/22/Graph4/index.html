@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh_Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Proposition. The adjacency matrix of a graph is a real symmetric matrix.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lecture series on graph theory 4">
+<meta property="og:url" content="http://example.com/2022/05/22/Graph4/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Proposition. The adjacency matrix of a graph is a real symmetric matrix.">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg">
+<meta property="article:published_time" content="2022-05-22T05:13:37.000Z">
+<meta property="article:modified_time" content="2022-08-17T14:57:37.744Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Operation Research">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg">
+
+<link rel="canonical" href="http://example.com/2022/05/22/Graph4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_Hans'
+  };
+</script>
+
+  <title>Lecture series on graph theory 4 | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/22/Graph4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lecture series on graph theory 4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2022-05-22 13:13:37" itemprop="dateCreated datePublished" datetime="2022-05-22T13:13:37+08:00">2022-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2022-08-17 22:57:37" itemprop="dateModified" datetime="2022-08-17T22:57:37+08:00">2022-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg"></p>
+<p><font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)&#x3D;\frac{1}{2}$, $\ P(R_j\not\sim C_j)&#x3D;\frac{1}{2}$</font><br>$$<br>P(A(G)\ is \ invertible)&#x3D;P(M\ is\ invertible)<br>$$<br><strong>Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let $A(G)&#x3D;(a_{ij})<em>{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by<br>$$<br>[(A(G))^k]</em>{ij}&#x3D;\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}<br>$$<br>where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]&#x3D;{1,2,\dots,n}$<br>$$<br>\begin{aligned}<br>(A(G))^2_{ij}&amp;&#x3D;(A(G)\cdot A(G))<em>{ij}&#x3D;\sum</em>{i_1&#x3D;1}^na_{ii_1}a_{i_1j}\<br>(A(G))^3_{ij}&amp;&#x3D;((A(G))^2\cdot A(G))<em>{ij}&#x3D;\sum</em>{i_2&#x3D;1}^n(\sum_{i_1&#x3D;1}^na_{ii_1}a_{i_1i_2})a_{i_2j}&#x3D;\sum_{i_1,i_2&#x3D;1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\<br>\end{aligned}<br>$$<br>By the definition of adjacency matrix, $a_j&#x3D;1\Leftrightarrow v_iv_j\in E(G)$</p>
+<p>It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$</p>
+<hr>
+<p>A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy<br>$$<br>\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n<br>$$<br><font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n&#x3D;0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font></p>
+<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong><br>$$<br>w_G(k)&#x3D;\lambda_1^k+\cdots+\lambda_n^k<br>$$</p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that<br>$$<br>w_G(k)&#x3D;\sum_{i&#x3D;1}^n[(A(G))^k]_{ii}&#x3D;tr(A(G)^k)<br>$$<br>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
+<p><font color='red'>$A(G)\vec{v_i}&#x3D;\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}&#x3D;A(G)^{k-1}A(G)\vec{v_i}&#x3D;A(G)^{k-1}\lambda\vec{v_i}&#x3D;\lambda_i^k\vec{v_i}$</font></p>
+<p>Then, $tr(A(G)^k)&#x3D;\sum_{i&#x3D;1}^n\lambda_i^k$, so $w_G(k)&#x3D;tr(A(G)^k)&#x3D;\sum_{i&#x3D;1}^n\lambda_i^k$</p>
+<hr>
+<p><strong>Incidence matrix and Laplacian matrix</strong></p>
+<p>Let G be a graph s.t. $V(G)&#x3D;{v_1,v_2,\cdots,v_n}$ and $E(G)&#x3D;{e_1,e_2,\cdots,e_m}$<br>$$<br>B(G)&#x3D;(b_{ij})<em>{n\times m}\ where\ b</em>{ij}&#x3D;\left{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\<br>&amp;0\quad v_i\ isn’t\ incident\ with\ e_j\end{aligned}\right.<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg"></p>
+<p><font color='red'>We can find that evey column has two non-zero entries.</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg"></p>
+<p><font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg"></p>
+<p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
+<p>Laplacian matrix of G: $L(G)&#x3D; D(G)-A(G)&#x3D;\vec{B}\cdot\vec{B}^T$</p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong><br>$$<br>\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0<br>$$<br>$\tau(G)$&#x3D; the total number of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)&#x3D;det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]&#x3D;{1,2,\dots,n}$</strong></p>
+<hr>
+<p><strong>Proof.</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg"></p>
+<p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
+<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg"></p>
+<p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
+<p>Therefore, $\tau(G)&#x3D;\tau(G-e)+\tau(G\cdot e)$</p>
+<p>Use induction on the number of edges of G.</p>
+<p>If G has no edges and n&#x3D;1, so $\tau(G)&#x3D;1&#x3D;det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
+<p>If $n&gt;1$, then $\tau(G)&#x3D;0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)&#x3D;det(L_0(G))$ .</p>
+<p>Therefore, the statement holds for $|E(G)|&#x3D;0$.</p>
+<p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
+<p>By recordering the vertices of G, we may assume that $i&#x3D;1$ and $v_1v_2\in E(G)$, Let $e&#x3D;v_1v_2$. Then  $\tau(G)&#x3D;\tau(G-e)+\tau(G\cdot e)$.</p>
+<p>By inductive hypothesis, $\tau(G-e)&#x3D;det(L_0(G-e))$ and $\tau(G\cdot e)&#x3D;det(L_0(G\cdot e))$.</p>
+<p>Assume $L_0(G)&#x3D;\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)&#x3D;\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
+<p>Then $L_0(G-e)&#x3D;\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)&#x3D;R$</p>
+<p>Note that $L_0(G)&#x3D;L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
+<p>Using the Laplace expansion along the first row,<br>$$<br>det(L_0(G))&#x3D;det(L_0(G-e))+det(L_0(G\cdot e))&#x3D;\tau(G-e)+\tau(G\cdot e)&#x3D;\tau(G)<br>$$</p>
+<hr>
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n&#x3D;0$. Then</strong><br>$$<br>\tau(G)&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$</p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let $L(G)$ be the  Laplacian matrix and let<br>$$<br>det(L(G)-\lambda I)&#x3D;(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)&#x3D;-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)<br>$$<br>So the cofficient of $\lambda$ term is $-\mu_1\mu_2\cdots\mu_{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
+<p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
+<p>Then $det(M(\lambda))&#x3D;det(L(G)-\lambda I)$ and the first row of $M(\lambda)&#x3D;[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
+<p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
+<p>Then $M(\lambda)&#x3D;-\lambda N(\lambda)$ and $det(M(\lambda))&#x3D;-\lambda det(N(\lambda))$, So<br>$$<br>det(L(G)-\lambda I)&#x3D;-\lambda det(N(\lambda))<br>$$<br>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
+<p>Add all columns of $N(0)$ except the first column to the first column.</p>
+<p><font color='red'>(Note that $i^{th}$-row $(i&gt;1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i&gt;1)$ of $L(G)$</font></p>
+<p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
+<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))&#x3D;n\cdot det(L_0(G))$<br>$$<br>n\cdot det(L_0(G))&#x3D;(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$<br>By previous theorem,<br>$$<br>\tau(G)&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/20/Graph3/" rel="prev" title="Lecture series on graph theory 3">
+      <i class="fa fa-chevron-left"></i> Lecture series on graph theory 3
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/22/Graph5/" rel="next" title="Lecture series on graph theory 5">
+      Lecture series on graph theory 5 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">Kategorien</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">schlagwörter</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh_Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .(v could be chosen randomly according to some probably distribution or could be sp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lecture series on graph theory 5">
+<meta property="og:url" content="http://example.com/2022/05/22/Graph5/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .(v could be chosen randomly according to some probably distribution or could be sp">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg">
+<meta property="article:published_time" content="2022-05-22T13:44:57.000Z">
+<meta property="article:modified_time" content="2022-08-17T14:57:37.725Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Operation Research">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg">
+
+<link rel="canonical" href="http://example.com/2022/05/22/Graph5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_Hans'
+  };
+</script>
+
+  <title>Lecture series on graph theory 5 | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/22/Graph5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lecture series on graph theory 5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2022-05-22 21:44:57" itemprop="dateCreated datePublished" datetime="2022-05-22T21:44:57+08:00">2022-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2022-08-17 22:57:37" itemprop="dateModified" datetime="2022-08-17T22:57:37+08:00">2022-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)&#x3D;d$, each of these edges is chosen with probability 1&#x2F;d)</font> </p>
+<p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
+<span id="more"></span>
+
+<p>Let M(G) be the matrix whose rows and columns are indexed by vertices $v_1,\dots,v_n$, we assume that $m_{ij}$ is the $(i,j)$-entry of M(G), which satisfies the following formula<br>$$<br>m_{ij}&#x3D;\frac{a_{ij}}{d_i}<br>$$<br>where $a_{ij}$ is the number of edges between $v_i$ and $v_j$. The $m_{ij}$ is probability that if one starts at $v_i$ and then the next step will be at $v_j$.</p>
+<p><font color='red'>Recall: the number of k-walks from $v_i$ to $v_j$&#x3D; the $(i,j)$-entry of $A(G)^k$</font></p>
+<p>$\exists v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j,\ P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)&#x3D;\frac{a_{ii_1}}{d_i}\frac{a_{i_1i_2}}{d_{i_1}}\cdots\frac{a_{i_{k-1}i_j}}{d_{i_{k-1}}}&#x3D;m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}$<br>$$<br>\begin{aligned}<br>P(v_i\to v_j\ in\ k\ steps)&amp;&#x3D;\sum_{k-walk\ from\ v_i\to v_j} P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)\<br>&amp;&#x3D;\sum m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}&#x3D;(i,j)-entry\ of\ M(G)^k<br>\end{aligned}<br>$$<br>Assume the probability to pick $v_i$ is $p(v_i)$ for $i\in{1,\dots,n}$ s.t. $\sum_{i&#x3D;1}^n p(v_i)&#x3D;1$</p>
+<p>Let $P&#x3D;[\begin{matrix}p(v_1)&amp;p(v_2)&amp;\cdots&amp;p(v_n)\end{matrix}]$. Then the probability of a walk ending up at $v_i$ in k steps is<br>$$<br>P(there\ is\ a\ walk\ ending\ up\ at\ v_i\ in\ k\ steps)&#x3D;[PM(G)^k]_i<br>$$<br>If G is k regular <font color='red'>( every vertex has degree k)</font> then $M(G)&#x3D;\frac{1}{d}A(G)$</p>
+<p>Then the eigenvalue $\beta_i$ of $M(G)$ satisfies $\beta_1&#x3D;\frac{1}{d}\lambda_i$ where $\lambda_i$ is an eigenvalue of G.<br>$$<br>P(\exists\ a\ closed\ k-walk\ starting\ v)&#x3D;\beta_1^k+\cdots+\beta_n^k&#x3D;\frac{1}{d^k}(\lambda_1^k+\cdots+\lambda_n^k)<br>$$<br><strong>Weighted graphs and digraphs</strong></p>
+<p>Let G be a graph. A weighted graph is a graph G associated with a weight function: $w:E(G)\to\mathbb{F}$ where $\mathbb{F}$ is a field, denote by $(G,w)$. Most of the time, we consider the case that $\mathbb{F}&#x3D;\mathbb{R}$.</p>
+<p>The adjacency matrix of a weighted graph is a real symmetric matrix $A(G,w)&#x3D;(a_{ij})<em>{n\times n}$ with $a</em>{ij}&#x3D;w(v_iv_j)$, the weight of the edge of $v_iv_j$.</p>
+<p>Let H be a subgraph of $(G,w)$. The weight of H is defined as $w(H)&#x3D;\sum_{e\in E(H)}w(e)$</p>
+<p>For example, how to find a minimum weight path between two given vertices? How to find a minimum spanning tree or how to find a cycle or walk with large weight<font color='red'>( so-called heavy cycles or walks)</font></p>
+<p>A digraph is a graph with an orientation which assigns an orientation to each edge.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg"></p>
+<p><font color='red'>An orientation edge (or arc) from $v_i$ to $v_j$ is an ordered pair of vertices , denoted by $(v_i,v_j)$ where $v_i$ is called the tail and $v_j$ is called the head of arc.</font><br>$$<br>A(D,w)&#x3D;[a_{ij}]<em>{n\times n}\  where\ a</em>{ij}&#x3D;\left{\begin{aligned}&amp; w(v_iv_j),\quad v_i\to v_j\<br>&amp;-w(v_iv_j),\quad v_j\to v_i\<br>&amp;0,\quad otherwise\end{aligned}\right.<br>$$<br>Then $A(D,w)$ is no longer symmetric <font color='red'>but skew-symmetric:$A+A^T&#x3D;O$</font></p>
+<p>For a given graph G, let D be an orientation of G, $\vec{B}$ is an oriented incidence matrix<br>$$<br>\vec{B}\cdot \vec{f}&#x3D;\vec{b}\ where\ \vec{b}\in\mathbb{R}^{|V(G)|},\ \vec{f}\in\mathbb{R}^{|E(G)|}<br>$$<br>A solution to $\vec{B}\cdot \vec{f}&#x3D;\vec{b}$ is called a network flow. $\vec{b}$ is called a boundary condition.</p>
+<p>If $\vec{b}&#x3D;\vec{0},\ \vec{B}\cdot \vec{f}&#x3D;\vec{0}.\qquad(*)$  </p>
+<p>A vector $\vec{f}$ satisfies $(*)$ is called a circulation or real flow if $\vec{f}\in\mathbb{R}^{|E(G)|}$.</p>
+<p>If a solution to $(*)$ satisfies $\vec{f}\in\mathbb{Z}^{|E(G)|}$, then $\vec{f}$ is called an integer flow.</p>
+<p><font color='red'>Tutte’s five-flow conjecture: For a graph without bridge, it has a nowhere zero 5-flow i.e. $\exists \vec{f}\in\mathbb{Z}^{|E(G)|}$ and every component of f is not zero and absolute value of every component is at most 4. $\vec{f}&#x3D;[f_1, f_2,\cdots,f_m]$ where $m&#x3D;|E(G)|,\ f_i\in{-4,-3,-2,-1,0,1,2,3,4}$</font></p>
+<p>**Eigenvalues and subgraphs **</p>
+<p>Let G be a graph with n vertices, $A(G)$ be the adjacency matrix.</p>
+<p>All n eigenvalues of $A(G)$ are real because $A(G)$ is real and symmertic<br>$$<br>\lambda_1(G)\geq\lambda_2(G)\geq\cdots\geq\lambda_{\lceil \frac{n+1}{2}\rceil}\geq\lambda_{\lfloor \frac{n+1}{2}\rfloor}\geq\lambda_n(G)<br>$$<br>where $\lambda_{\lceil \frac{n+1}{2}\rceil},\lambda_{\lfloor \frac{n+1}{2}\rfloor}$ are median eigenvalues.</p>
+<p>The largest eigenvalues $\lambda_1(G)$ is usually called the spectral radius of G.</p>
+<p><strong>Proposition. Let G be an n-vertex graph and A be its adjacency matrix.Let $\lambda_1\geq\cdots\geq\lambda_n$ be the eigenvalues of A<br>Then 1. $\lambda_1 &#x3D;\max_{\vec{x}\not&#x3D;\vec{0}}\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}$,   2. $\lambda_1\geq|\lambda_n|$</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>1.The eigenvalues of A (say $\vec{u}_1,\vec{u}_2,\dots,\vec{u}_n$) can be chosen as a standard orthogonal basis of $\mathbb{R}^n$. </p>
+<p>Assume that array ($x_1,x_2,\dots,x_n$) is the coordinate of $\vec{x}$ under this basis<br>$$<br>\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}&#x3D;\frac{\lambda_1x_1^2+\cdots+\lambda_nx_n^2}{x_1^2+\cdots+x_n^2}\leq\lambda_1<br>$$<br>with equality holds if and only if $x_1\not&#x3D; 0$ and $x_i&#x3D;0$ for $i&#x3D;{2,\cdots,n}$, i.e. $\vec{x}$ is exactly an eigenvector of $\lambda_1$.</p>
+<ol start="2">
+<li><p>Let $\vec{v}$ be get from $\vec{u}_n$ by convert each component into its absolute value (i.e. $\vec{v}&#x3D;(|\vec{u}_n(1)|,|\vec{u}_n(2)|,\cdots,|\vec{u}_n(n)|)$)</p>
+<p>From proof of 1. we can write $\lambda_n$ as<br>$$<br>|\lambda_n|&#x3D;|\frac{\vec{u}^T_nA\vec{u}_n}{\vec{u}_n^T\vec{u}_n}|&#x3D;|\vec{u}^T_nA\vec{u}<em>n|\leq\sum</em>{i,j\in[n]}A(i,j)|\vec{u}_n(i)\vec{u}_n(j)|&#x3D;|\frac{\vec{v}^TA\vec{v}}{\vec{v}^T\vec{v}}|\leq\lambda_1<br>$$<br>We have used triangle inequality at the first inequality and the result of 1. at the second inequality.</p>
+</li>
+</ol>
+<hr>
+<p>**Propsition. Let G be a graph, and $\Delta (G)$ be the maximum degree and $d(G)$ be the average degree. Then we have **<br>$$<br>d(G)\leq\lambda_1\leq\Delta (G)<br>$$</p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Note that, there exist $\vec{x}\not&#x3D;\vec{0}$, s.t. $A\vec{x}&#x3D;\lambda\vec{x}$ where A is the adjacency matrix.<br>$$<br>\lambda_1&#x3D;\sup{\vec{x}^TA\vec{x}\Big|||\vec{x}||&#x3D;1\ and\ \vec{x}\in\mathbb{R}^n}<br>$$<br>Let $\vec{x}_1&#x3D;\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T$, then<br>$$<br>\begin{aligned}\lambda_1&amp;\geq \vec{x}_1^TA\vec{x}<em>1&#x3D;\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]A\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T\<br>&amp;&#x3D;\frac{1}{n}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}][\begin{matrix}d(v_1)&amp;d(v_2)&amp;\cdots&amp;d(v_n)\end{matrix}]^T\<br>&amp;&#x3D;\frac{1}{n}\sum</em>{i&#x3D;1}^nd(v_i)&#x3D;d(G)\end{aligned}<br>$$<br>For the upper bound, let $\vec{x}$ s.t. $A\vec{x}&#x3D;\lambda_1\vec{x}$ where $\vec{x}&#x3D;[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$</p>
+<p>Let $x_i$ be the largest value among all components of $\vec{x}$. Then,<br>$$<br>\lambda_1 x_i&#x3D;\sum_{v_iv_j\in E(G)}x_j\leq\Delta(G)x_j<br>$$<br>So $\lambda_1\leq\Delta (G)$ follows.</p>
+<hr>
+<p><strong>Corollary Let G be a k-regular graph. Then $\lambda_1(G)&#x3D;k$</strong></p>
+<p>A signed graph $(G,\sigma)$ is a weighted graph s.t. $\sigma:\ E(G)\to{-1,1}$<br>$$<br>A(G,\sigma)&#x3D;[a_{ij}]<em>{n\times n}\ where\ a</em>{ij}&#x3D;\left{\begin{aligned}&amp;\sigma(v_iv_j),\quad v_iv_j\in E(G)\&amp;0,\quad otherwise\end{aligned}\right.<br>$$<br>So $A(G,\sigma)$ is a symmetric real matrix.</p>
+<p>We can assume that $\lambda_1(G,\sigma)\geq\lambda_2(G,\sigma)\geq\cdots\geq\lambda_n(G,\sigma)$, <font color='red'>but $\lambda_1(G,\sigma)\geq|\lambda_n(G,\sigma)|$ may not hold.</font></p>
+<p><strong>Prop. Let $(G,\sigma)$ be a signed graph with maximum degree $\Delta (G)$. Then</strong><br>$$<br>|\lambda(G,\sigma)|\leq\Delta(G)\ where\ \lambda(G,\sigma)\ is\ an\ eigenvalue\ of\ G<br>$$</p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let $\vec{x}$ be an eigenvector of $\lambda$ s.t. $\lambda\vec{x}&#x3D;A\vec{x}$.</p>
+<p>Let $\vec{x}&#x3D;[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$ and $x_i$ has the largest absolute value among all $x_j$’s.</p>
+<p>Then<br>$$<br>|\lambda x_i|&#x3D;|(A\vec{x})<em>i|&#x3D;|\sum</em>{v_iv_j\in E(G)}\sigma(v_iv_j)x_j|\leq\sum_{v_iv_j\in E(G)}|x_j|\leq\Delta(G)|x_i|<br>$$<br>So $|\lambda|\leq\Delta(G)$</p>
+<hr>
+<p><strong>Thm A graph G is bipartite $\Leftrightarrow$ its spectrum is symmetric about the origin.</strong></p>
+<p><font color='red'>(i.e. $\lambda_i$ is an eigenvalue of G $\Leftrightarrow$ $-\lambda_i$ is an eigenvalue of G)</font></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>$\Rightarrow$ Assume that G is bipartite.Let A be The adjacency matrix of G.<br>$$<br>A&#x3D;\left[\begin{matrix}O&amp;B\B^T&amp;O\end{matrix}\right]\ where\ B\ is\ the\ bipartite\ adjacency\ matrix.<br>$$<br>Let $\lambda$ be an eigenvalue of G with $\vec{x}&#x3D;(\begin{matrix}\vec{x}_1^T&amp;\vec{x}_2^T\end{matrix})^T$</p>
+<p>Then<br>$$<br>A\vec{x}&#x3D;\left(\begin{matrix}O&amp;B\B^T&amp;O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\vec{x}_2\end{matrix}\right)&#x3D;\left(\begin{matrix}B\vec{x}_2\B^T\vec{x}_1\end{matrix}\right)&#x3D;\lambda\left(\begin{matrix}\vec{x}_1\\vec{x}_2\end{matrix}\right)<br>$$<br>Then<br>$$<br>A\left(\begin{matrix}\vec{x}_1\-\vec{x}_2\end{matrix}\right)&#x3D;\left(\begin{matrix}O&amp;B\B^T&amp;O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\-\vec{x}_2\end{matrix}\right)&#x3D;\left(\begin{matrix}-B\vec{x}_2\B^T\vec{x}_1\end{matrix}\right)&#x3D;-\lambda\left(\begin{matrix}\vec{x}_1\-\vec{x}_2\end{matrix}\right)<br>$$<br>So $-\lambda$ is also an eigenvalue of A.</p>
+<p>$\Leftarrow$ Let $\lambda_1\geq\cdots\geq\lambda_n$ be all eigenvalues of G.<font color='red'>(i.e. $\lambda_i&#x3D;-\lambda_{n-i+1}$)</font></p>
+<p>For any positive integer k, the matrix $A^k$ has eigenvalues $\lambda_1^k,\lambda_2^k,\cdots,\lambda_n^k$</p>
+<p>Because G has symmetric specturm, it follows that $\lambda_1^k+\cdots+\lambda_n^k&#x3D;0$ if k is an odd integer.<br>$$<br>0&#x3D;\lambda_1^k+\cdots+\lambda_n^k&#x3D;w_k(G)<br>$$<br><font color='red'>$w_k(G)$ is the total number of close k-walks.</font></p>
+<p>So every closed walk have an even length. Therefore G is bipartite.</p>
+<hr>
+<p><font color='red'>Problem: characterize graphs which satisfy # positive eigenvalues&#x3D;# negative eigenvalues</font></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/22/Graph4/" rel="prev" title="Lecture series on graph theory 4">
+      <i class="fa fa-chevron-left"></i> Lecture series on graph theory 4
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/24/Graph6/" rel="next" title="Lecture series on graph theory 6">
+      Lecture series on graph theory 6 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">Kategorien</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">schlagwörter</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

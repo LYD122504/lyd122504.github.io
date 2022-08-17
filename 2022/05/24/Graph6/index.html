@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh_Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Interlacing Theorem Thm(Eigenvalue Interlacing Theorem)Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix(obtained by deleting both i-th row and i-th column for some n-m v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lecture series on graph theory 6">
+<meta property="og:url" content="http://example.com/2022/05/24/Graph6/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Interlacing Theorem Thm(Eigenvalue Interlacing Theorem)Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix(obtained by deleting both i-th row and i-th column for some n-m v">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg">
+<meta property="article:published_time" content="2022-05-23T17:15:47.000Z">
+<meta property="article:modified_time" content="2022-08-17T14:57:36.218Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Operation Research">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg">
+
+<link rel="canonical" href="http://example.com/2022/05/24/Graph6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_Hans'
+  };
+</script>
+
+  <title>Lecture series on graph theory 6 | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/24/Graph6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lecture series on graph theory 6
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2022-05-24 01:15:47" itemprop="dateCreated datePublished" datetime="2022-05-24T01:15:47+08:00">2022-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2022-08-17 22:57:36" itemprop="dateModified" datetime="2022-08-17T22:57:36+08:00">2022-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>Interlacing Theorem</strong></p>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong><br>$$<br>\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k&#x3D;1,2,\dots,m<br>$$</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg"></p>
+<p>Further,if $m&#x3D;n-1$, then<br>$$<br>\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}<br>$$</p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Without loss of generality, assume that $A&#x3D;\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i&#x3D;A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j&#x3D;B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
+<p>Let $V&#x3D;span{\vec{x}_k,\cdots,\vec{x}_n}$ and $W&#x3D;span{\vec{y}_1,\cdots,\vec{y}_k}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.<br>$$<br>\widetilde{W}&#x3D;\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n<br>$$<br>Then $\dim(V)&#x3D;n-k+1$ and $\dim(\widetilde{W})&#x3D;\dim(W)&#x3D;k$</p>
+<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and<br>$$<br>\dim(V)+\dim(\widetilde{W})&#x3D;n-k+1+k&#x3D;n+1&gt;\dim(\mathbb{R}^n)<br>$$<br>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<p><font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font></p>
+<p>Therefore,<br>$$<br>\begin{aligned}<br>\lambda_k&amp;&#x3D;\max{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||&#x3D;1}\<br>&amp;\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}&#x3D;\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right&#x2F;\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\<br>&amp;&#x3D;\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||&#x3D;1}&#x3D;\beta_k<br>\end{aligned}<br>$$<br>So we have $\lambda_k\geq\beta_k$.</p>
+<p>On the other hand, let $V&#x3D;span{\vec{x}<em>1,\cdots,\vec{x}</em>{k+n-m}}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W&#x3D;span{\vec{y}<em>1,\cdots,\vec{y}</em>{k+n-m}}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
+<p>Let $\widetilde{W}&#x3D;\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n$. Then $\dim(V)&#x3D;k+n-m$ and $\dim(\widetilde{W})&#x3D;m-k+1$.</p>
+<p>Therefore, $\dim(V)+\dim(\widetilde{W})&#x3D;n-k+1+k&#x3D;n+1&gt;\dim(\mathbb{R}^n)$</p>
+<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.<br>$$<br>\begin{aligned}<br>\lambda_{k+n-m}&amp;&#x3D;\min{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||&#x3D;1}\<br>&amp;\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}&#x3D;\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right&#x2F;\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\<br>&amp;&#x3D;\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||&#x3D;1}&#x3D;\beta_k<br>\end{aligned}<br>$$<br>So $\lambda_{k+n-m}\leq\beta_k$.</p>
+<p><strong>Bounding degree of induced subgraph</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg"></p>
+<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}&#x3D;\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
+<p><font color='red'><strong>n-dimensional hypercube $Q_n$</strong></font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg"></p>
+<p><font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all ${0,1}$-sequences of length n and two vertices are adjacent to each other if and only if the two ${0,1}$-sequences has exactly one position different</font></p>
+<p>The adjacency matrix of n-dimensional hypercube $Q_n$ satisfies the following</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg"></p>
+<p>If we give every edge in n-dimensional hypercube $Q_n$ a sign, we can get a signed adjacency matrix.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg"></p>
+<p><strong>Lemma The signed n-dimensional hypercube with adjacency matrix $S_n$ has an eigenvalue $\sqrt{n}$ of multiplicity $2^{n-1}$ and eigenvalue $-\sqrt{n}$ with multiplicity $2^{n-1}$</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p><strong>claim: $S_n^2&#x3D;nI$</strong></p>
+<p>If $n&#x3D;1$, $S_1&#x3D;\left[\begin{matrix}0&amp;1\1&amp;0\end{matrix}\right],S_1^2&#x3D;I$. Assume that $S_{n-1}^2&#x3D;(n-1)I$</p>
+<p>Then<br>$$<br>S_n^2&#x3D;\left[\begin{matrix}S_{n-1}&amp;I\I&amp;-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&amp;I\I&amp;-S_{n-1}\end{matrix}\right]&#x3D;\left[\begin{matrix}S_{n-1}^2+I&amp;O\O&amp;S_{n-1}^2+I\end{matrix}\right]&#x3D;nI<br>$$<br>So claim holds.</p>
+<p>Note that $nI$ has eigenvalues n. Therefore, $S_n$ has eigenvalues either $\sqrt{n}$ or $-\sqrt{n}$.</p>
+<p>Since the trace of $S_n$ is 0, $S_n$ has eigenvalues $\sqrt{n}$ of multiplicity $2^{n-1}$ and $-\sqrt{n}$ with multiplicity $2^{n-1}$.</p>
+<hr>
+<p><strong>Proof of Huang’s Theorem</strong></p>
+<p>Let H be a induced subgraph of $Q_n$ with more than $2^{n-1}$ vertices. It suffices to show that every subgraph H with exactly $2^{n-1}+1$ vertices has maximum degree at least $\sqrt{n}$.</p>
+<p>Let $(Q_n,\sigma)$ be  the signed graph with adjacency matrix $S_n$ as defined above. Then $(H,\sigma)$ is a signed induced subgraph of $(Q_n,\sigma)$, whose adjacency matrix $A$ is a $(2^{n-1}+1)$-principle submatrix of $S_n$.</p>
+<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem<br>$$<br>\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)&#x3D;\lambda_{2^{n-1}}(S_n)&#x3D;\sqrt{n}<br>$$<br>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
+<hr>
+<p><strong>Unfriendly partitions of subcubic graphs</strong></p>
+<p>A graph G is subcubic if the maximum degree of G is at most 3. <font color='red'>($\Delta(G)\leq3$)</font></p>
+<p><font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font></p>
+<p>Let G be a graph. A partition $(X,Y)$ of $V(G)$ is unfriendly if every vertex has at least the same number of neighbors in the other subset as in it owns.</p>
+<p><font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font></p>
+<p>If $(X,Y)$ is an unfriendly partition of a subcubic graph $G$, then the maximum degree of the induced subgraph $G[X]$ and $G[Y]$ is at most 1.</p>
+<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not&#x3D;|Y|$</p>
+<p>A partition is a bisection if $\Big||X|-|Y|\Big|\leq1$</p>
+<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong><br>$$<br>\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]<br>$$</p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let G be a subcubic graph with n vertices and $(X,Y)$ be an unbalanced unfriendly partition.</p>
+<p>Without loss of generality, assume that $|X|&gt;|Y|$</p>
+<p>Then $\lambda_1(X)\leq\Delta(X)\leq1$ and $\lambda_1(Y)\leq\Delta(Y)\leq1$. So both X and Y are bipartite.</p>
+<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that<br>$$<br>|X|\geq\left\lceil \frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|<br>$$<br>It follows that the interlacing theorem that<br>$$<br>1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1<br>$$<br>The completes the proof.</p>
+<hr>
+<p><font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font></p>
+<p><font color='red'>A: No</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg"></p>
+<p><font color='red'>Conjecture(Ban&amp;Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/22/Graph5/" rel="prev" title="Lecture series on graph theory 5">
+      <i class="fa fa-chevron-left"></i> Lecture series on graph theory 5
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/26/Graph7/" rel="next" title="Lecture series on graph theory 7">
+      Lecture series on graph theory 7 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">Kategorien</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">schlagwörter</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
