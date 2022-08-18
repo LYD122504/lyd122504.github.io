@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Description of the Heat Exchanger problem &amp;emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如">
+  <meta name="description" content="Description of the Heat Exchanger problem  我们假设有一个外壳\(C_0\),外壳内有\(\{C_i\}_{1,2}\)两个热导体.其中一个保持恒温\(u_1\),另一个的热导率\(\kappa\)比外壳\(C_0\)的大五倍.我们假设外壳\(C_0\)的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域 \(\Omega\)各点的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Learning by Examples——Heat Exchange">
 <meta property="og:url" content="http://example.com/2022/07/25/freefem2/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Description of the Heat Exchanger problem &amp;emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如">
+<meta property="og:description" content="Description of the Heat Exchanger problem  我们假设有一个外壳\(C_0\),外壳内有\(\{C_i\}_{1,2}\)两个热导体.其中一个保持恒温\(u_1\),另一个的热导率\(\kappa\)比外壳\(C_0\)的大五倍.我们假设外壳\(C_0\)的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域 \(\Omega\)各点的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172304.6xddfzspub40.jpg?raw=true">
 <meta property="og:image" content="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172314.6hu72hyk6uo0.jpg?raw=true">
 <meta property="article:published_time" content="2022-07-25T03:21:50.000Z">
-<meta property="article:modified_time" content="2022-08-17T14:57:41.060Z">
+<meta property="article:modified_time" content="2022-08-18T03:29:03.612Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Coding">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-17 22:57:41" itemprop="dateModified" datetime="2022-08-17T22:57:41+08:00">2022-08-17</time>
+                <time title="修改时间：2022-08-18 11:29:03" itemprop="dateModified" datetime="2022-08-18T11:29:03+08:00">2022-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,17 +267,48 @@
 
       
         <p><strong>Description of the Heat Exchanger problem</strong></p>
-<p>&emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如下微分方程</p>
-<script type="math/tex; mode=display">\nabla\cdot(\kappa\nabla u)=0\ in\ \Omega,\quad u|_\Gamma=g</script><span id="more"></span>
-<p>其中 $\Omega$ 是 $C_0$ 的内部减去导体 $C_1$, $\Gamma$ 是 $\Omega$ 的边界,即 $C_0\cup C_1$,此处的 $g$ 是关于x的任意函数且在 $C_i$ 上等于 $u_i$<br>&emsp;为了简便起见,我们假设 $C_0$ 是以原点为圆心,半径为5的圆,$C_i$ 是矩形,$C_1$ 维持 $u_1=60$°C的恒温.<br>&emsp;利用Freefem++编写程序如下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> C1=<span class="number">99</span>,C2=<span class="number">98</span>;</span><br><span class="line"><span class="function">border <span class="title">C0</span><span class="params">(t=<span class="number">0</span>,<span class="number">2</span>*pi)</span></span>&#123;x=<span class="number">5</span>*<span class="built_in">cos</span>(t);y=<span class="number">5</span>*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">C11</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>+t;y=<span class="number">3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C12</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C13</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>-t;y=<span class="number">-3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C14</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C21</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>+t;y=<span class="number">3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C22</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C23</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>-t;y=<span class="number">-3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C24</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="built_in">plot</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>),wait=<span class="literal">true</span>,ps=<span class="string">&quot;heatexb.eps&quot;</span>);</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>));</span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>);</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P1)</span></span>;</span><br><span class="line">Vh u,v;</span><br><span class="line">Vh kappa=<span class="number">1</span>+<span class="number">2</span>*(x&lt;<span class="number">-1</span>)*(x&gt;<span class="number">-2</span>)*(y&lt;<span class="number">3</span>)*(y&gt;<span class="number">-3</span>);</span><br><span class="line"><span class="function">solve <span class="title">a</span><span class="params">(u,v)</span></span>=<span class="built_in">int2d</span>(Th)(kappa*(<span class="built_in">dx</span>(u)*<span class="built_in">dx</span>(v)+<span class="built_in">dy</span>(u)*<span class="built_in">dy</span>(v)))</span><br><span class="line">            +<span class="built_in">on</span>(C0,u=<span class="number">20</span>)+<span class="built_in">on</span>(C1,u=<span class="number">60</span>);</span><br><span class="line"><span class="built_in">plot</span>(u,wait=<span class="literal">true</span>, value=<span class="literal">true</span>, fill=<span class="literal">true</span>, ps=<span class="string">&quot;heatex.eps&quot;</span>);</span><br></pre></td></tr></table></figure><br><strong><font color='red'>Remark</font></strong></p>
-<ul>
-<li>$C_0$ 和 $C_2$ 关于 $t$ 是逆时针方向,而 $C_1$ 关于 $t$ 是顺时针方向,因此 $C_1$ 在网格剖分过程中被认定成一个洞.</li>
-<li>$C_1$ 和 $C_2$ 在程序中是以拼接线段的形式构成的,为了能将那些线段作为一个逻辑单元同时取出,我们人为的给这些线段加以标签,从而可以以一种易读的方式为其添加边界条件.</li>
-<li>网格密度由指定的每条边界的顶点个数决定.虽然我们无法决定顶点的分布,但是一段边界可以通过被切分成小段.<br>运行结果如下:<center>
+ 我们假设有一个外壳<span
+class="math inline">\(C_0\)</span>,外壳内有<span
+class="math inline">\(\{C_i\}_{1,2}\)</span>两个热导体.其中一个保持恒温<span
+class="math inline">\(u_1\)</span>,另一个的热导率<span
+class="math inline">\(\kappa\)</span>比外壳<span
+class="math inline">\(C_0\)</span>的大五倍.我们假设外壳<span
+class="math inline">\(C_0\)</span>的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域
+<span
+class="math inline">\(\Omega\)</span>各点的温度分布,我们需要求解如下微分方程
+<span class="math display">\[\nabla\cdot(\kappa\nabla u)=0\ in\
+\Omega,\quad u|_\Gamma=g\]</span> <span id="more"></span> 其中 <span
+class="math inline">\(\Omega\)</span> 是 <span
+class="math inline">\(C_0\)</span> 的内部减去导体 <span
+class="math inline">\(C_1\)</span>, <span
+class="math inline">\(\Gamma\)</span> 是 <span
+class="math inline">\(\Omega\)</span> 的边界,即 <span
+class="math inline">\(C_0\cup C_1\)</span>,此处的 <span
+class="math inline">\(g\)</span> 是关于x的任意函数且在 <span
+class="math inline">\(C_i\)</span> 上等于 <span
+class="math inline">\(u_i\)</span>  为了简便起见,我们假设 <span
+class="math inline">\(C_0\)</span> 是以原点为圆心,半径为5的圆,<span
+class="math inline">\(C_i\)</span> 是矩形,<span
+class="math inline">\(C_1\)</span> 维持 <span
+class="math inline">\(u_1=60\)</span>°C的恒温.
+ 利用Freefem++编写程序如下 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> C1=<span class="number">99</span>,C2=<span class="number">98</span>;</span><br><span class="line"><span class="function">border <span class="title">C0</span><span class="params">(t=<span class="number">0</span>,<span class="number">2</span>*pi)</span></span>&#123;x=<span class="number">5</span>*<span class="built_in">cos</span>(t);y=<span class="number">5</span>*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">C11</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>+t;y=<span class="number">3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C12</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C13</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>-t;y=<span class="number">-3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C14</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C21</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>+t;y=<span class="number">3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C22</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C23</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>-t;y=<span class="number">-3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C24</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="built_in">plot</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>),wait=<span class="literal">true</span>,ps=<span class="string">&quot;heatexb.eps&quot;</span>);</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>));</span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>);</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P1)</span></span>;</span><br><span class="line">Vh u,v;</span><br><span class="line">Vh kappa=<span class="number">1</span>+<span class="number">2</span>*(x&lt;<span class="number">-1</span>)*(x&gt;<span class="number">-2</span>)*(y&lt;<span class="number">3</span>)*(y&gt;<span class="number">-3</span>);</span><br><span class="line"><span class="function">solve <span class="title">a</span><span class="params">(u,v)</span></span>=<span class="built_in">int2d</span>(Th)(kappa*(<span class="built_in">dx</span>(u)*<span class="built_in">dx</span>(v)+<span class="built_in">dy</span>(u)*<span class="built_in">dy</span>(v)))</span><br><span class="line">            +<span class="built_in">on</span>(C0,u=<span class="number">20</span>)+<span class="built_in">on</span>(C1,u=<span class="number">60</span>);</span><br><span class="line"><span class="built_in">plot</span>(u,wait=<span class="literal">true</span>, value=<span class="literal">true</span>, fill=<span class="literal">true</span>, ps=<span class="string">&quot;heatex.eps&quot;</span>);</span><br></pre></td></tr></table></figure>
+<strong><font color='red'>Remark</font></strong> * <span
+class="math inline">\(C_0\)</span> 和 <span
+class="math inline">\(C_2\)</span> 关于 <span
+class="math inline">\(t\)</span> 是逆时针方向,而 <span
+class="math inline">\(C_1\)</span> 关于 <span
+class="math inline">\(t\)</span> 是顺时针方向,因此 <span
+class="math inline">\(C_1\)</span> 在网格剖分过程中被认定成一个洞. *
+<span class="math inline">\(C_1\)</span> 和 <span
+class="math inline">\(C_2\)</span>
+在程序中是以拼接线段的形式构成的,为了能将那些线段作为一个逻辑单元同时取出,我们人为的给这些线段加以标签,从而可以以一种易读的方式为其添加边界条件.
+*
+网格密度由指定的每条边界的顶点个数决定.虽然我们无法决定顶点的分布,但是一段边界可以通过被切分成小段.
+运行结果如下:
+<center>
 <img src="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172304.6xddfzspub40.jpg?raw=true" style="width: 70%">
 <img src="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172314.6hu72hyk6uo0.jpg?raw=true" style="width: 70%">
-</center></li>
-</ul>
+</center>
 
     </div>
 
@@ -509,6 +540,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

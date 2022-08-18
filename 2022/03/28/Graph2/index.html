@@ -22,28 +22,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post. Thm(Mantel’s Theorem)Let G be a graph with n vertices. If G does not contain a triangle, then  \lv">
+  <meta name="description" content="First, we try to prove the Mantel&#39;s Theorem, which was presented as a question in the last blog post. Thm(Mantel&#39;s Theorem)Let G be a graph with n vertices. If G does not contain a triangle, then \">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lecture series on graph theory 2">
 <meta property="og:url" content="http://example.com/2022/03/28/Graph2/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post. Thm(Mantel’s Theorem)Let G be a graph with n vertices. If G does not contain a triangle, then  \lv">
+<meta property="og:description" content="First, we try to prove the Mantel&#39;s Theorem, which was presented as a question in the last blog post. Thm(Mantel&#39;s Theorem)Let G be a graph with n vertices. If G does not contain a triangle, then \">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg">
 <meta property="article:published_time" content="2022-03-28T14:47:31.000Z">
-<meta property="article:modified_time" content="2022-08-17T14:57:39.220Z">
+<meta property="article:modified_time" content="2022-08-18T03:30:41.943Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Operation Research">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg">
 
 <link rel="canonical" href="http://example.com/2022/03/28/Graph2/">
 
@@ -241,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-17 22:57:39" itemprop="dateModified" datetime="2022-08-17T22:57:39+08:00">2022-08-17</time>
+                <time title="修改时间：2022-08-18 11:30:41" itemprop="dateModified" datetime="2022-08-18T11:30:41+08:00">2022-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,106 +265,233 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
-<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong></p>
-<script type="math/tex; mode=display">
-\lvert E(G)\rvert\leq\frac{n^2}{4}</script><p>Before the proof begin, we introduce what triangle means.</p>
+        <p>First, we try to prove the Mantel's Theorem, which was presented as a
+question in the last blog post.</p>
+<p><strong>Thm(Mantel's Theorem)<br>Let G be a graph with n vertices. If
+G does not contain a triangle, then</strong> <span
+class="math display">\[
+\lvert E(G)\rvert\leq\frac{n^2}{4}
+\]</span> Before the proof begin, we introduce what triangle means.</p>
 <span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" alt=""></p>
-<font color=red>$C=v_1v_2v_3v_4v_5v_1$ is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font>
-
-<p>Now, let’s take a few examples to find potential patterns which may help to prove this theorem.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" alt=""></p>
-<font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=$\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}$, if n is odd, #edges=$\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}$</font>
-
-<hr>
-<p><strong>Proof of the Mantel’s Theorem</strong></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" /></p>
+<p><font color=red><span
+class="math inline">\(C=v_1v_2v_3v_4v_5v_1\)</span> is a
+5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle
+as a triangle</font></p>
+<p>Now, let's take a few examples to find potential patterns which may
+help to prove this theorem.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" /></p>
+<p><font color=red>In general, we can divide n vertices into two groups,
+then we add all edges between two groups.Because there is no edge
+joining the vertices from the same side, if there is a cycle in graph,
+it must be an even cycle, such as alternating left-hand and right-hand
+sides.<br>If n is even, #edges=<span
+class="math inline">\(\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}\)</span>,
+if n is odd, #edges=<span
+class="math inline">\(\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}\)</span></font></p>
+<hr />
+<p><strong>Proof of the Mantel's Theorem</strong></p>
 <p>Let G be an n-vertex graph without a triangle.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" alt=""></p>
-<p>$\forall x,y\in V(G)$, if $xy\in E(G)$, $N_G(x)\cap N_G(y)=\emptyset$ because G has no triangle.</p>
-<p>Because $N_G(x)\cup N_G(y)\subset V(G)$, $d_G(x)+d_G(y)\leq n$</p>
-<p>From the above formula, we have </p>
-<script type="math/tex; mode=display">
-\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" alt=""></p>
-<p>We find that $d_G(x)$ appears in $d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})$</p>
-<script type="math/tex; mode=display">
-So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}</script><p>From (1) &amp; (2), we have </p>
-<script type="math/tex; mode=display">
-\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}</script><p>According to the relationship between degree and edge: $\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert$ and  the Cauchy-Schwarz inequality:$(\sum_{k=1}^n a_k^2)(\sum_{k=1}^n b_k^2)\geq(\sum_{k=1}^na_kb_k)^2$, we have</p>
-<script type="math/tex; mode=display">
-\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}</script><p>From (3) &amp; (4), $\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert$ which implies $\lvert E(G)\rvert \leq\frac{n^2}{4}$</p>
-<hr>
-<p>If a graph G has more than $\frac{n^2}{4}$ edges, then G has a triangle.</p>
-<font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font>
-
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" /></p>
+<p><span class="math inline">\(\forall x,y\in V(G)\)</span>, if <span
+class="math inline">\(xy\in E(G)\)</span>, <span
+class="math inline">\(N_G(x)\cap N_G(y)=\emptyset\)</span> because G has
+no triangle.</p>
+<p>Because <span class="math inline">\(N_G(x)\cup N_G(y)\subset
+V(G)\)</span>, <span class="math inline">\(d_G(x)+d_G(y)\leq
+n\)</span></p>
+<p>From the above formula, we have <span class="math display">\[
+\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert
+E(G)\rvert \tag{1}
+\]</span> <img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" /></p>
+<p>We find that <span class="math inline">\(d_G(x)\)</span> appears in
+<span
+class="math inline">\(d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})\)</span>
+<span class="math display">\[
+So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot
+d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}
+\]</span> From (1) &amp; (2), we have <span class="math display">\[
+\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}
+\]</span> According to the relationship between degree and edge: <span
+class="math inline">\(\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert\)</span>
+and the Cauchy-Schwarz inequality:<span
+class="math inline">\((\sum_{k=1}^n a_k^2)(\sum_{k=1}^n
+b_k^2)\geq(\sum_{k=1}^na_kb_k)^2\)</span>, we have <span
+class="math display">\[
+\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in
+V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}
+\]</span> From (3) &amp; (4), <span class="math inline">\(\frac{4\lvert
+E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert
+E(G)\rvert\)</span> which implies <span class="math inline">\(\lvert
+E(G)\rvert \leq\frac{n^2}{4}\)</span></p>
+<hr />
+<p>If a graph G has more than <span
+class="math inline">\(\frac{n^2}{4}\)</span> edges, then G has a
+triangle.</p>
+<p><font color=red>Furthermore, we can extend the triangle to k-cycle
+and obtain the Erdős-Gallai's Theorem <br>We can also extend the
+triangle to a complete graph with k vetices, which are called k-clique
+and obtain the Turán's Theorem</font></p>
 <p>Tree: A tree is a connected graph without cycles.</p>
-<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
-<hr>
+<p><strong>Proposition: Every tree with at least two vetices has at
+least two vertices of degree one</strong></p>
+<hr />
 <p><strong>Proof</strong></p>
-<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that $u,v\in V(P),\ uv\in E(P)$ and u is the end vertex of P, but $d_G(u)&gt;1$.</p>
+<p>Let P be the longest path of G. Then both end vertices of P have
+degree one in G.If not, we suppose that <span
+class="math inline">\(u,v\in V(P),\ uv\in E(P)\)</span> and u is the end
+vertex of P, but <span class="math inline">\(d_G(u)&gt;1\)</span>.</p>
 <p>Case 1:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" alt=""></p>
-<p>$w\not\in V(P)$ and $wu\in E(G)$,then $\tilde{P}=P+wu$ is longer than P. This contradicts the fact that P is the longest path.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" /></p>
+<p><span class="math inline">\(w\not\in V(P)\)</span> and <span
+class="math inline">\(wu\in E(G)\)</span>,then <span
+class="math inline">\(\tilde{P}=P+wu\)</span> is longer than P. This
+contradicts the fact that P is the longest path.</p>
 <p>Case 2:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" alt=""></p>
-<p>$w\in V(P),w\not=v$ and $wu\in E(G)$, then we can find that there is a cycle. This  contradicts the fact that G is a tree.</p>
-<hr>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" /></p>
+<p><span class="math inline">\(w\in V(P),w\not=v\)</span> and <span
+class="math inline">\(wu\in E(G)\)</span>, then we can find that there
+is a cycle. This contradicts the fact that G is a tree.</p>
+<hr />
 <p>A vertex of a tree is a leaf if it has degree one.</p>
-<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
-<hr>
+<p><strong>Proposition: A connected graph with n vertices is a tree if
+and only if it has n-1 edges. </strong></p>
+<hr />
 <p><strong>Proof</strong></p>
-<p>$\Rightarrow$ n=1, G has no edges.</p>
-<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
-<p>Since $n\ge2$, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,$\lvert E(G-v)\rvert=(n-1)-1$.</p>
-<script type="math/tex; mode=display">
-\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1</script><p>$\Leftarrow$ Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
-<p>We prove this claim first.If not, $\forall x\in V(G)$, assume $d_G(x)\ge2$</p>
-<p>Then we have $\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1$ which contradicts that $\lvert E(G)\rvert=n-1$. The contradiction implies the claim holds.</p>
-<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and $(n-1)-1$ edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
-<hr>
-<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
-<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
-<font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font>
-
+<p><span class="math inline">\(\Rightarrow\)</span> n=1, G has no
+edges.</p>
+<p>Now, we assume that it is correct for a tree with n-1 vertices to
+have n-2 edges.From this assumption, we want to deduce that a tree with
+n vertices has n-1 edges.</p>
+<p>Since <span class="math inline">\(n\ge2\)</span>, G has a vertex v of
+degree one. Let u be the only neighbor of v in G. Because G is a tree
+with n vertices, G-v is a tree with n-1 vertices. According to the
+asssumption,<span class="math inline">\(\lvert
+E(G-v)\rvert=(n-1)-1\)</span>. <span class="math display">\[
+\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1
+\]</span> <span class="math inline">\(\Leftarrow\)</span> Let G be a
+connected graph with n vertices and n-1 edges. We claim that G has a
+vertex of degree one.</p>
+<p>We prove this claim first.If not, <span class="math inline">\(\forall
+x\in V(G)\)</span>, assume <span
+class="math inline">\(d_G(x)\ge2\)</span></p>
+<p>Then we have <span class="math inline">\(\lvert
+E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert
+V(G)\rvert=n&gt;n-1\)</span> which contradicts that <span
+class="math inline">\(\lvert E(G)\rvert=n-1\)</span>. The contradiction
+implies the claim holds.</p>
+<p>From this claim, G has a vertex of degree one. Use the induction on
+G-v. Since G-v has n-1 vertices and <span
+class="math inline">\((n-1)-1\)</span> edges. By inductive hypothsis,
+G-v is a tree and has no cycles.Since v is a degree one vertex, G has no
+cycles. Therefore, G is a tree.</p>
+<hr />
+<p><strong>Corollary: Every graph with minimum degree at least two
+contains a cycle.</strong></p>
+<p>A spanning tree of G is a connected spanning subgraph of G without
+cycles.</p>
+<p><font color=red>Problem: counting the number of edge-disjoint
+spanning trees in a graph.<br>If the number of edge-disjoint spanning
+trees is large, the graph is well-connected. (Related to
+edge-connectivity of the graph)</font></p>
 <p>Now we introduce two classic search algorithms in graph theory.</p>
 <p>A breadth-first-search tree of a graph (BFS-tree)</p>
 <p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
-<p>(i) Start at $x=x_0$ and join x to all neighbors of x, Let $N_1=N_G(x)$</p>
-<p>(ii) For each $y\in N_i$, join y to all neighbors of y without creating cycles and let $N_{i+1}=\cup_{y\in N_i}N_G(y)$</p>
-<p>The algorithm will take $\Omicron(\lvert V\rvert+\lvert E\rvert)$ steps to find a BFS-tree rooted at $x_0$.</p>
+<ol type="i">
+<li><p>Start at <span class="math inline">\(x=x_0\)</span> and join x to
+all neighbors of x, Let <span
+class="math inline">\(N_1=N_G(x)\)</span></p></li>
+<li><p>For each <span class="math inline">\(y\in N_i\)</span>, join y to
+all neighbors of y without creating cycles and let <span
+class="math inline">\(N_{i+1}=\cup_{y\in N_i}N_G(y)\)</span></p></li>
+</ol>
+<p>The algorithm will take <span class="math inline">\(\Omicron(\lvert
+V\rvert+\lvert E\rvert)\)</span> steps to find a BFS-tree rooted at
+<span class="math inline">\(x_0\)</span>.</p>
 <p>A deepth-first-search tree of a graph (DFS-tree)</p>
 <p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
-<p>(i) Start at $x=x_0$ and $T_0=\{x_0\}$ </p>
-<p>(ii) Join x to one of its neighbor $x_1\in N_G(x_0)$ and$T_1=\{x_0,x_1\}$</p>
-<p>(iii) If $N_i=N_G(x_i)\backslash T_i\not=\emptyset$, then join $x_i$ to a vertex $x_{i+1}\in N_i$ and let $T_{i+1}=T_i\cup\{x_{i+1}\}$ and $x_{i+1}\to x_i$</p>
-<p>If $N_i=N_G(x_i)\backslash T_i=\emptyset$, then set $x_{i-1}\to x_{i}$ and $N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i$ and continue.</p>
-<p>Eulerian graph: </p>
-<font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font>
-
-<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
-<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
-<hr>
-<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by $T=v_1e_1v_2e_2\cdots v_me_mv_1$. So G is connected.</p>
-<p>Now, orient the edges of G along the trail T such that, for an edge $e_i$ in T, orient $e_i$ from $v_i$ to $v_{i+1}$. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex $v_i$, T visits $v_i$ and then leaves $v_i$, which implies</p>
-<script type="math/tex; mode=display">
-\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i</script><p>But the degree of $v_i$ satisfies</p>
-<script type="math/tex; mode=display">
+<ol type="i">
+<li><p>Start at <span class="math inline">\(x=x_0\)</span> and <span
+class="math inline">\(T_0=\{x_0\}\)</span></p></li>
+<li><p>Join x to one of its neighbor <span class="math inline">\(x_1\in
+N_G(x_0)\)</span> and<span
+class="math inline">\(T_1=\{x_0,x_1\}\)</span></p></li>
+<li><p>If <span class="math inline">\(N_i=N_G(x_i)\backslash
+T_i\not=\emptyset\)</span>, then join <span
+class="math inline">\(x_i\)</span> to a vertex <span
+class="math inline">\(x_{i+1}\in N_i\)</span> and let <span
+class="math inline">\(T_{i+1}=T_i\cup\{x_{i+1}\}\)</span> and <span
+class="math inline">\(x_{i+1}\to x_i\)</span></p></li>
+</ol>
+<p>If <span class="math inline">\(N_i=N_G(x_i)\backslash
+T_i=\emptyset\)</span>, then set <span class="math inline">\(x_{i-1}\to
+x_{i}\)</span> and <span
+class="math inline">\(N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i\)</span>
+and continue.</p>
+<p>Eulerian graph:</p>
+<p><font color=red>Problem: Let G be a graph.When does G have a closed
+trail which contains all edges of G?</font></p>
+<p>A closed trail is Eulerian if the trail go through all edges of G. A
+graph is called Eulerian if it has an Eulerian trail.</p>
+<p><strong>Proposition: Every Eulerian graph is a connected graph which
+has only even-degree vertices</strong></p>
+<hr />
+<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an
+Eulerian trail, denoted by <span
+class="math inline">\(T=v_1e_1v_2e_2\cdots v_me_mv_1\)</span>. So G is
+connected.</p>
+<p>Now, orient the edges of G along the trail T such that, for an edge
+<span class="math inline">\(e_i\)</span> in T, orient <span
+class="math inline">\(e_i\)</span> from <span
+class="math inline">\(v_i\)</span> to <span
+class="math inline">\(v_{i+1}\)</span>. Since T has no repeated edges,
+every edge receives exactly one orientation. For each vertex <span
+class="math inline">\(v_i\)</span>, T visits <span
+class="math inline">\(v_i\)</span> and then leaves <span
+class="math inline">\(v_i\)</span>, which implies <span
+class="math display">\[
+\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i
+\]</span> But the degree of <span class="math inline">\(v_i\)</span>
+satisfies <span class="math display">\[
 \begin{aligned}
-d_G(v_i)&=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
-&\equiv0(mod\ 2)
-\end{aligned}</script><p>So every vertex of G has an even degree.</p>
-<hr>
-<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles $D=\{C_1,C_2,\dots,C_k\}$ such that  </p>
-<script type="math/tex; mode=display">
-\cup_{C_i\in D}E(C_i)=E(G)</script><p><strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
-<hr>
-<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
-<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a   subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
-<p>So assume that$\delta(G)\ge2$. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, $D\cup\{C\}$ is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
-<hr>
-<font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font>
-
-<font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?$\lvert D\rvert\le\frac{n-1}{2}$?</font>
+d_G(v_i)&amp;=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\
+from\ v_i\\
+&amp;\equiv0(mod\ 2)
+\end{aligned}
+\]</span> So every vertex of G has an even degree.</p>
+<hr />
+<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles
+<span class="math inline">\(D=\{C_1,C_2,\dots,C_k\}\)</span> such
+that<br />
+<span class="math display">\[
+\cup_{C_i\in D}E(C_i)=E(G)
+\]</span> <strong>Proposition: Every even graph has a cycle
+decomposition.</strong></p>
+<hr />
+<p><strong>Proof</strong> Let G be an even graph. Suppose to the
+contrary that G does not have a cycle decomposition.</p>
+<p>Assume G is a minimal counterexample.If G has a vertex v of degress
+zero, the G-v is a subgraph of G and hence is not a counterexample. So
+G-v has a cycle decomposition. So does G, a contradiction to that G is a
+counterexample.</p>
+<p>So assume that<span class="math inline">\(\delta(G)\ge2\)</span>.
+Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of
+G. So G-E(C) has a cycle decomposition D. Then, <span
+class="math inline">\(D\cup\{C\}\)</span> is a cycle-decomposition of G,
+which contradicts that G is a counterexample. So prop. holds.</p>
+<hr />
+<p><font color='red'>Corollary: Every Eulerian graph has a cycle
+decomposition.</font></p>
+<p><font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n
+vertex. How many cycles in a cycle decomposition D?<span
+class="math inline">\(\lvert
+D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
 
     </div>
 
@@ -601,6 +722,61 @@ d_G(v_i)&=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
