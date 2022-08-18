@@ -195,76 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/17/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/17/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-08-17 23:39:54" itemprop="dateCreated datePublished" datetime="2022-08-17T23:39:54+08:00">2022-08-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/26/freefem3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -384,7 +314,8 @@
 
       
           <p><strong>Description of the Heat Exchanger problem</strong></p>
-<p>&amp;emsp;我们假设有一个外壳$C_0$,外壳内有${C_i}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如下微分方程<br>$$\nabla\cdot(\kappa\nabla u)&#x3D;0\ in\ \Omega,\quad u|_\Gamma&#x3D;g$$</p>
+<p>&emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如下微分方程</p>
+<script type="math/tex; mode=display">\nabla\cdot(\kappa\nabla u)=0\ in\ \Omega,\quad u|_\Gamma=g</script>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/07/25/freefem2/#more" rel="contents">
@@ -466,7 +397,8 @@
 
       
           <p><strong>Description of the Membranes Problem</strong></p>
-<p>&amp;emsp;我们假设弹性薄膜 $\Omega$ 被固定在硬性支撑 $\Gamma$ 上，同时在表面的每个单元 $\mathrm{d}x&#x3D;\mathrm{d}x_1\mathrm{d}x_2$ 上均施加有大小为 $f(x)\mathrm{d}x$ 的外力。薄膜在垂直方向上的位移 $\phi(x)$ 可以通过求解Laplace方程来得到<br>$$\begin{aligned}-\Delta \phi&#x3D;f\ in\ \Omega\end{aligned}$$</p>
+<p>&emsp;我们假设弹性薄膜 $\Omega$ 被固定在硬性支撑 $\Gamma$ 上，同时在表面的每个单元 $\mathrm{d}x=\mathrm{d}x_1\mathrm{d}x_2$ 上均施加有大小为 $f(x)\mathrm{d}x$ 的外力。薄膜在垂直方向上的位移 $\phi(x)$ 可以通过求解Laplace方程来得到</p>
+<script type="math/tex; mode=display">\begin{aligned}-\Delta \phi=f\ in\ \Omega\end{aligned}</script>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/07/23/freefem1/#more" rel="contents">
@@ -629,8 +561,10 @@
 
       
           <p><strong>Thm(Wilf,1967) Let G be a graph. Then $\chi(G)\leq\lambda_1(G)+1$, where $\chi(G)$ is the chromatic number</strong></p>
-<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not&#x3D;c(v_j)$ if $v_iv_j\in E(G)$.</p>
-<p>A graph is a k-colorable if there exists a proper vertex coloring<br>$$<br>c:V(G)\to{1,2,\cdots,k}&#x3D;[k].<br>$$</p>
+<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not=c(v_j)$ if $v_iv_j\in E(G)$.</p>
+<p>A graph is a k-colorable if there exists a proper vertex coloring </p>
+<script type="math/tex; mode=display">
+c:V(G)\to\{1,2,\cdots,k\}=[k].</script>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/26/Graph7/#more" rel="contents">
@@ -712,7 +646,9 @@
 
       
           <p><strong>Interlacing Theorem</strong></p>
-<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong><br>$$<br>\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k&#x3D;1,2,\dots,m<br>$$</p>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m</script>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/24/Graph6/#more" rel="contents">
@@ -793,7 +729,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)&#x3D;d$, each of these edges is chosen with probability 1&#x2F;d)</font> </p>
+          <p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)=d$, each of these edges is chosen with probability 1/d)</font> </p>
 <p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
           <!--noindex-->
             <div class="post-button">
@@ -956,10 +892,101 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Given a graph G, $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if<br>$$<br>d_P(v)\equiv\left{<br>\begin{aligned}<br>&amp;0\ mod\ 2,\ v\not\in T\<br>&amp;1\ mod\ 2,\ v\in T<br>\end{aligned}<br>\right.\qquad i.e.\ d_P(v)\equiv d_G(v)<br>$$<br>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
+          <p>Given a graph G, $T=\{v|d_G(v)\equiv1\ mod\ 2\}$, a subgraph P is called a parity subgraph if </p>
+<script type="math/tex; mode=display">
+d_P(v)\equiv\left\{
+\begin{aligned}
+&0\ mod\ 2,\ v\not\in T\\
+&1\ mod\ 2,\ v\in T
+\end{aligned}
+\right.\qquad i.e.\ d_P(v)\equiv d_G(v)</script><p>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/20/Graph3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/28/Graph2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/28/Graph2/" class="post-title-link" itemprop="url">Lecture series on graph theory 2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-28 22:47:31" itemprop="dateCreated datePublished" datetime="2022-03-28T22:47:31+08:00">2022-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-17 22:57:39" itemprop="dateModified" datetime="2022-08-17T22:57:39+08:00">2022-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
+<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong></p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\frac{n^2}{4}</script><p>Before the proof begin, we introduce what triangle means.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/28/Graph2/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1050,7 +1077,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1177,6 +1204,8 @@
 
 
 
+
+  
 
   
 

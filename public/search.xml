@@ -3,63 +3,73 @@
   <entry>
     <title>Lecture series on graph theory 1</title>
     <url>/2022/03/28/Graph1/</url>
-    <content><![CDATA[<p>Def.  A graph is a <font color=red>discrete structure&#x2F;combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
+    <content><![CDATA[<p>Def.  A graph is a <font color=red>discrete structure/combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
 <p>Usually, a vertex is represented by a dot and an edge is represented by a line (straight or curved)  joining two vertices.</p>
 <span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg"></p>
-<center><font color=red size=4>The green points mean crossing of the edges,rather than vertices  </font></center>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg" alt=""></p>
+<center><font color=red size=4>The green points mean crossing of the edges,rather than vertices  </font></center>
 
 <p>A vertex is incident with an edge if the edge join the vertex to another vertex, which is also called the end of the edge.</p>
 <p>Two vertices are adjacent to each other if there is an edge joinging them.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg" alt=""></p>
 <center><font color=red size=4>We say that the vertex v is incident with the edge e<br>The vertex u is adjacent to the vertex v because uv is an edge of G</font></center>
 
 <p>A graph is simple if there is at most one edge between any two vertices and there is no edge joining a vertex itself.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg" alt=""></p>
 <p>In short, a graph is simple if and only if it has no multi-edges and no loops.Next, unless otherwise specified, we will discuss simple graphs by default.</p>
-<p>For any given simple graph $G(V,E)$，V is the vertex set and E is the edge set.<br>$$<br>if\ \lvert V\rvert&#x3D;n,\lvert E\rvert\leq\binom{n}{2}<br>$$<br>A graph is complete if the graph has an edge between every pair of vertices.A complete graph of n vertices is usually denoted by $K_n$</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg"></p>
+<p>For any given simple graph $G(V,E)$，V is the vertex set and E is the edge set.</p>
+<script type="math/tex; mode=display">
+if\ \lvert V\rvert=n,\lvert E\rvert\leq\binom{n}{2}</script><p>A graph is complete if the graph has an edge between every pair of vertices.A complete graph of n vertices is usually denoted by $K_n$</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg" alt=""></p>
 <p>The degree of a vertex v of G, denoted by $d_G(v)$, is the number of edges incident with it.</p>
-<p>The maximum degree of G is defined as $\Delta(G):&#x3D;\max{d_G(x)|v\in V(G)}$</p>
-<p>The minimum degree of G is defined as $\delta G:&#x3D;\min{d_G(v)|v\in V(G)}$</p>
-<p>The average degree of G is defined as $d(G):&#x3D;\frac{\lvert E(G)\rvert}{\lvert V(G)\rvert}$, this index is used to measure the density of the graph.According to this index, graph can be divided into dense graph and sparse graph</p>
-<p>A neighbor of v in G is a vertex joined to v by an edge of G.The neighborhood of a vertex v in G is the set of all neighbors of v in G, denoted by $N_G(v)&#x3D;{u|u\in V(G),uv\in E(G)}$.We have $d_G(v)&#x3D;\lvert N_G(v)\rvert$ easily.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg"></p>
-<p><font color=red>This picture shows the multi-level neighbors of v. If u is both a second-level neighbor and a third-level neighbor of v, it is classified as a second-level neighbor. <br>Here we give the set representation of neighbors: <br>$N_1(v)&#x3D;N_G(v),N_2(v)&#x3D;N_G(N_1(v))-N_1(v)\cup{v},\ N_3(v)&#x3D;N_G(N_2(v))-N_1(v)$<br>and if $w\in N_3(v),\ distance(w,v)&#x3D;3$</font></p>
-<p>A graph is even if every vertex of G has an even degree.</p>
-<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" />
+<p>The maximum degree of G is defined as $\Delta(G):=\max\{d_G(x)|v\in V(G)\}$</p>
+<p>The minimum degree of G is defined as $\delta G:=\min\{d_G(v)|v\in V(G)\}$</p>
+<p>The average degree of G is defined as $d(G):=\frac{\lvert E(G)\rvert}{\lvert V(G)\rvert}$, this index is used to measure the density of the graph.According to this index, graph can be divided into dense graph and sparse graph</p>
+<p>A neighbor of v in G is a vertex joined to v by an edge of G.The neighborhood of a vertex v in G is the set of all neighbors of v in G, denoted by $N_G(v)=\{u|u\in V(G),uv\in E(G)\}$.We have $d_G(v)=\lvert N_G(v)\rvert$ easily.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg" alt=""></p>
+<font color=red>This picture shows the multi-level neighbors of v. If u is both a second-level neighbor and a third-level neighbor of v, it is classified as a second-level neighbor. <br>Here we give the set representation of neighbors: <br>$N_1(v)=N_G(v),N_2(v)=N_G(N_1(v))-N_1(v)\cup\{v\},\ N_3(v)=N_G(N_2(v))-N_1(v)$<br>and if $w\in N_3(v),\ distance(w,v)=3$</font>
 
+<p>A graph is even if every vertex of G has an even degree.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" /></p>
 <p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even number of vertices with odd degree.</strong></p>
 <p>Proof. </p>
-<p>Let<br>$$<br>\left{\begin{aligned}X&amp;&#x3D;{x|x\in V(G)\ and<br> d_G(x)\equiv0(mod\ 2)}\Y&amp;&#x3D;{y|y\in V(G)\ and<br> d_G(y)\equiv1(mod\ 2)}\end{aligned}\right.<br>$$<br>Then,$\sum_{x\in X}d_G(x)+\sum_{y\in Y}d_G(y)&#x3D;2\lvert E(G)\rvert$</p>
+<p>Let </p>
+<script type="math/tex; mode=display">
+\left\{\begin{aligned}X&=\{x|x\in V(G)\ and\
+ d_G(x)\equiv0(mod\ 2)\}\\Y&=\{y|y\in V(G)\ and\
+ d_G(y)\equiv1(mod\ 2)\}\end{aligned}\right.</script><p>Then,$\sum_{x\in X}d_G(x)+\sum_{y\in Y}d_G(y)=2\lvert E(G)\rvert$</p>
 <p>So, $\sum_{y\in Y}d_G(y)\equiv0(mod\ 2)$.It follows immediately that $\lvert Y\rvert\equiv0(mod\ 2)$</p>
 <p>So the proposition holds. </p>
 <p>Question:Let G be an n-vertex graph.How many edges will force G to have a triangle?(Mantel’s Theorem)</p>
-<p>Def A walk of G is  <font color=red>a sequence of vertices and edges of G</font>such that (i)both the first element and  the last element of the sequence are vertices and (ii) any two consecutive elements in the sequence contains one vertex and one edge which are incident with each other.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg"></p>
-<p><font color=red>We give two different walks: $w_{1}&#x3D;v_1e_1v_2e_2v_3e_2v_2e_1v_1,\  w_2&#x3D;v_2e_2v_3e_3v_4e_4v_2$<br>For walk,vertex can be repeated, edge can be repeated.</font></p>
-<p>A walk is open if the first vertex is not equal to the last vertex. <font color=red>$w_0&#x3D;v_2e_2v_3e_3v_4e_4v_2e_1v_1$</font></p>
+<p>Def A walk of G is  <font color=red>a sequence of vertices and edges of G</font>such that (i)both the first element and  the last element of the sequence are vertices and (ii) any two consecutive elements in the sequence contains one vertex and one edge which are incident with each other.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg" alt=""></p>
+<font color=red>We give two different walks: $w_{1}=v_1e_1v_2e_2v_3e_2v_2e_1v_1,\  w_2=v_2e_2v_3e_3v_4e_4v_2$<br>For walk,vertex can be repeated, edge can be repeated.</font>
+
+<p>A walk is open if the first vertex is not equal to the last vertex. <font color=red>$w_0=v_2e_2v_3e_3v_4e_4v_2e_1v_1$</font></p>
 <p>A walk is a trail if it does not have repeated edges. <font color=red>$w_0$ is a trail</font></p>
 <p>A trail is a path if it does not have repeated vertices. </p>
-<p><font color=red>$w_3&#x3D;v_1e_1v_2e_2v_3e_3v_4&#x3D;v_1v_2v_3v_4$ is a path</font></p>
-<p>A cycle is a closed trail( or path) without repeated vertices (vertices and edges) <font color =red>except the first vertex and the last vertex. $w_4&#x3D;v_2e_2v_3e_3v_4e_4v_2$</font> </p>
+<font color=red>$w_3=v_1e_1v_2e_2v_3e_3v_4=v_1v_2v_3v_4$ is a path</font>
+
+<p>A cycle is a closed trail( or path) without repeated vertices (vertices and edges) <font color =red>except the first vertex and the last vertex. $w_4=v_2e_2v_3e_3v_4e_4v_2$</font> </p>
 <p>A graph is connected if for any two vertices x and y, there is a path joining x and y.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg" alt=""></p>
 <p>A subgraph H of G is a graph with $V(H)\subset V(G),E(H)\subset E(G)$</p>
 <p>A maximal connected subgraph of G is called a connected component. <font color=red>Maximal means anything bigger than it is not connected</font></p>
 <p>An edge e of G is bridge or cut-edge if #connected components of G-e&gt;#connected components of G</p>
-<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" />
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" /></p>
+<font color=red>#connected components of G-$e_1$=3>2=#connected components of G<br>Both $e_1$ and$e_2$ are bridges/cut-edges</font>
 
-<p><font color=red>#connected components of G-$e_1$&#x3D;3&gt;2&#x3D;#connected components of G<br>Both $e_1$ and$e_2$ are bridges&#x2F;cut-edges</font></p>
 <p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of cycles which covers every edge exactly 2k times for any integer $k\ge2$</strong></p>
-<p>A subgraph H is spanning if $V(H)&#x3D;V(G)$</p>
-<p>A subgraph H is induced by <font color=red> $S\subset V(G)$</font>, if $V(H)&#x3D;S$ and for any two vertices $x,y\in S$, $xy\in E(H)\Leftrightarrow xy\in E(G)$</p>
-<p>A subgraph H is induced by <font color=red> $S\subset E(G)$</font>, if $E(H)&#x3D;S$ and $v\in V(H)$a if and only if v is incident with an edge in S.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg"></p>
-<p>Let $x,y\in V(G)$, the distance between x and y in G is the length of the shortest path joining x and y, denoted by $dist_G(x,y)$. In other words,<br>$$<br>dist_G(x,y)&#x3D;\min{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y}<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
-<p><font color=red>$dist_G(x,y)&#x3D;k$, this means finding a shortest path between any two vertices x and y is easy</font></p>
-<p><font color=red>However, finding a longest path between any two vertices x and y.Given an integer k, is there an (x,y)-path with length k?They are NPC problems</font></p>
+<p>A subgraph H is spanning if $V(H)=V(G)$</p>
+<p>A subgraph H is induced by <font color=red> $S\subset V(G)$</font>, if $V(H)=S$ and for any two vertices $x,y\in S$, $xy\in E(H)\Leftrightarrow xy\in E(G)$</p>
+<p>A subgraph H is induced by <font color=red> $S\subset E(G)$</font>, if $E(H)=S$ and $v\in V(H)$a if and only if v is incident with an edge in S.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg" alt=""></p>
+<p>Let $x,y\in V(G)$, the distance between x and y in G is the length of the shortest path joining x and y, denoted by $dist_G(x,y)$. In other words,</p>
+<script type="math/tex; mode=display">
+dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y\}</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
+<font color=red>$dist_G(x,y)=k$, this means finding a shortest path between any two vertices x and y is easy</font>
+
+<font color=red>However, finding a longest path between any two vertices x and y.Given an integer k, is there an (x,y)-path with length k?They are NPC problems</font>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -70,84 +80,113 @@
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 2</title>
-    <url>/2022/03/28/Graph2/</url>
-    <content><![CDATA[<p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
-<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong><br>$$<br>\lvert E(G)\rvert\leq\frac{n^2}{4}<br>$$<br>Before the proof begin, we introduce what triangle means.</p>
+    <title>Lecture series on graph theory 3</title>
+    <url>/2022/05/20/Graph3/</url>
+    <content><![CDATA[<p>Given a graph G, $T=\{v|d_G(v)\equiv1\ mod\ 2\}$, a subgraph P is called a parity subgraph if </p>
+<script type="math/tex; mode=display">
+d_P(v)\equiv\left\{
+\begin{aligned}
+&0\ mod\ 2,\ v\not\in T\\
+&1\ mod\ 2,\ v\in T
+\end{aligned}
+\right.\qquad i.e.\ d_P(v)\equiv d_G(v)</script><p>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
 <span id="more"></span>
+<p>More general, let $T\subset V(G)$, a set of edges $J$ is called a $T$-join if all the edges of $J$ induce a subgraph, s.t. $d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in T$, <font color='red'>A parity subgraph of G is a $T$-join of G where $T=\{v|d_G(v)\equiv1\ mod\ 2\}$<br>Problem: To find a $T$-join with the minimum number of edges.</font></p>
+<p><strong>Bipartite Graph</strong></p>
+<p>A graph is bipartite if its vertex set can be partitioned into two sets X and Y such that every edge of G joins a vertex of X and a vertex of Y.</p>
+<font color='red'>For example.</font>
 
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg"></p>
-<p><font color=red>$C&#x3D;v_1v_2v_3v_4v_5v_1$ is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font></p>
-<p>Now, let’s take a few examples to find potential patterns which may help to prove this theorem.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg"></p>
-<p><font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges&#x3D;$\frac{n}{2}\cdot\frac{n}{2}&#x3D;\frac{n^2}{4}$, if n is odd, #edges&#x3D;$\frac{n+1}{2}\cdot\frac{n-1}{2}&#x3D;\frac{n^2-1}{4}\leq\frac{n^2}{4}$</font></p>
-<hr>
-<p><strong>Proof of the Mantel’s Theorem</strong></p>
-<p>Let G be an n-vertex graph without a triangle.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg"></p>
-<p>$\forall x,y\in V(G)$, if $xy\in E(G)$, $N_G(x)\cap N_G(y)&#x3D;\emptyset$ because G has no triangle.</p>
-<p>Because $N_G(x)\cup N_G(y)\subset V(G)$, $d_G(x)+d_G(y)\leq n$</p>
-<p>From the above formula, we have<br>$$<br>\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n&#x3D;n\cdot\lvert E(G)\rvert \tag{1}<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg"></p>
-<p>We find that $d_G(x)$ appears in $d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})$<br>$$<br>So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))&#x3D;\sum_{x\in V(G)}d_G(x)\cdot d_G(x)&#x3D;\sum_{x\in V(G)}d_G(x)^2\tag{2}<br>$$<br>From (1) &amp; (2), we have<br>$$<br>\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}<br>$$<br>According to the relationship between degree and edge: $\sum_{x\in V(G)}d_G(x)&#x3D;2\lvert E(G)\rvert$ and  the Cauchy-Schwarz inequality:$(\sum_{k&#x3D;1}^n a_k^2)(\sum_{k&#x3D;1}^n b_k^2)\geq(\sum_{k&#x3D;1}^na_kb_k)^2$, we have<br>$$<br>\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}&#x3D;\frac{4\lvert E(G)\rvert^2}{n}\tag{4}<br>$$<br>From (3) &amp; (4), $\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert$ which implies $\lvert E(G)\rvert \leq\frac{n^2}{4}$</p>
-<hr>
-<p>If a graph G has more than $\frac{n^2}{4}$ edges, then G has a triangle.</p>
-<p><font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai’s Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán’s Theorem</font></p>
-<p>Tree: A tree is a connected graph without cycles.</p>
-<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg" alt="2022-05-21_121856"></p>
+<p><strong>Proposition. A graph is bipartite $\Leftrightarrow$ it has no odd cycles</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
-<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that $u,v\in V(P),\ uv\in E(P)$ and u is the end vertex of P, but $d_G(u)&gt;1$.</p>
-<p>Case 1:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg"></p>
-<p>$w\not\in V(P)$ and $wu\in E(G)$,then $\tilde{P}&#x3D;P+wu$ is longer than P. This contradicts the fact that P is the longest path.</p>
-<p>Case 2:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg"></p>
-<p>$w\in V(P),w\not&#x3D;v$ and $wu\in E(G)$, then we can find that there is a cycle. This  contradicts the fact that G is a tree.</p>
+<p>$\Rightarrow$ Let $G$ be a bipartite graph and let $(X,Y)$ be a bipartition of $G$. Color vertices in X by            red and vertices in Y by blue. Let $C$ be a cycle. Then the red vertices and blue vertices appear alternatively on $C$. So $C$ has an even number of vertices. Therefore, $G$ has no odd cycles.</p>
+<p>$\Leftarrow$ Let v be a vertex of $G$. Let $X=\{x|d_G(x,v)\equiv0(mod\ 2)\}$ and $Y=\{y|d_G(y,v)\equiv 1(mod\ 2)\}$</p>
+<p>Since $G$ has no odd cycle, there is no edges joining two vertices from the same part. So G is bipartite. </p>
 <hr>
-<p>A vertex of a tree is a leaf if it has degree one.</p>
-<p>**Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. **</p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>$\Rightarrow$ n&#x3D;1, G has no edges.</p>
-<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
-<p>Since $n\ge2$, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,$\lvert E(G-v)\rvert&#x3D;(n-1)-1$.<br>$$<br>\lvert E(G)\rvert&#x3D;\lvert E(G-v)\rvert+1&#x3D;(n-1)-1+1&#x3D;n-1<br>$$<br>$\Leftarrow$ Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
-<p>We prove this claim first.If not, $\forall x\in V(G)$, assume $d_G(x)\ge2$</p>
-<p>Then we have $\lvert E(G)\rvert&#x3D;\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert&#x3D;n&gt;n-1$ which contradicts that $\lvert E(G)\rvert&#x3D;n-1$. The contradiction implies the claim holds.</p>
-<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and $(n-1)-1$ edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
-<hr>
-<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
-<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
-<p><font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font></p>
-<p>Now we introduce two classic search algorithms in graph theory.</p>
-<p>A breadth-first-search tree of a graph (BFS-tree)</p>
-<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" />
+<font color='red'>Every part in the bipartition induce the graph without edges.</font>
 
-<p>(i) Start at $x&#x3D;x_0$ and join x to all neighbors of x, Let $N_1&#x3D;N_G(x)$</p>
-<p>(ii) For each $y\in N_i$, join y to all neighbors of y without creating cycles and let $N_{i+1}&#x3D;\cup_{y\in N_i}N_G(y)$</p>
-<p>The algorithm will take $\Omicron(\lvert V\rvert+\lvert E\rvert)$ steps to find a BFS-tree rooted at $x_0$.</p>
-<p>A deepth-first-search tree of a graph (DFS-tree)</p>
-<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" />
+<p>A vertex subset $I$ of $V(G)$ is independent  if $G$ has no edges joining any two vertices of $I$.</p>
+<p>The maximum cardinality of independent sets is called the independent number of $G$.</p>
+<font color='red'>Problem: Determine the independent number of a given graph $G$ (NPC)</font>
 
-<p>(i) Start at $x&#x3D;x_0$ and $T_0&#x3D;{x_0}$ </p>
-<p>(ii) Join x to one of its neighbor $x_1\in N_G(x_0)$ and$T_1&#x3D;{x_0,x_1}$</p>
-<p>(iii) If $N_i&#x3D;N_G(x_i)\backslash T_i\not&#x3D;\emptyset$, then join $x_i$ to a vertex $x_{i+1}\in N_i$ and let $T_{i+1}&#x3D;T_i\cup{x_{i+1}}$ and $x_{i+1}\to x_i$</p>
-<p>If $N_i&#x3D;N_G(x_i)\backslash T_i&#x3D;\emptyset$, then set $x_{i-1}\to x_{i}$ and $N_{i-1}&#x3D;N_G(x_{i-1})\backslash T_i\to N_i$ and continue.</p>
-<p>Eulerian graph: </p>
-<p><font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font></p>
-<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
-<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
+<p>If G is bipartite, the its independent number $\alpha(G)\geq\frac{n}{2}$.</p>
+<font color='red'>**(The Four color problem) Every graph drawn on the plane without crossing edges has a vertex partition into four independent sets.<br>According to the above, if G is a plane graph, $\alpha(G)\geq\frac{\lvert V(G)\rvert}{4}$**</font>
+
 <hr>
-<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by $T&#x3D;v_1e_1v_2e_2\cdots v_me_mv_1$. So G is connected.</p>
-<p>Now, orient the edges of G along the trail T such that, for an edge $e_i$ in T, orient $e_i$ from $v_i$ to $v_{i+1}$. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex $v_i$, T visits $v_i$ and then leaves $v_i$, which implies<br>$$<br># edges\ oriented\ towards\ v_i&#x3D;#edges\ oriented\ away\ from\ v_i<br>$$<br>But the degree of $v_i$ satisfies<br>$$<br>\begin{aligned}<br>d_G(v_i)&amp;&#x3D;# edges\ oriented\ towards\ v_i+#edges\ oriented\ away\ from\ v_i\<br>&amp;\equiv0(mod\ 2)<br>\end{aligned}<br>$$<br>So every vertex of G has an even degree.</p>
+<p><strong>Second Proof of the Mantel’s Theorem</strong></p>
+<font color='red'>Recall: Let G be an n-vertex graph without triangle, then $\lvert E(G)\rvert\leq\frac{n^2}{4}$</font>
+
+<p>Let x be a vertex of G such that $d_G(x)=\Delta(G)$. So $N_G(x)$ is an independent set of G.</p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta (G)=(n-d_G(x))d_G(x)\leq\frac{n^2}{4}</script><p> and equality holds $\Leftrightarrow n-d_G(x)=d_G(x),\ i.e.\ d_G(x)=\frac{n}{2}$</p>
 <hr>
-<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles $D&#x3D;{C_1,C_2,\dots,C_k}$ such that<br>$$<br>\cup_{C_i\in D}E(C_i)&#x3D;E(G)<br>$$<br><strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
+<p><strong>Degenerated Graph</strong></p>
+<p>A graph G is k-degenerate if every subgraph of G has a vertex of degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
+<p>A graph G is k-colorable if the vertex of G can be colored by k different colors such that any vertex subset with same color is an independent set. i.e. the vertex set of G can be partitioned into k independent subsets.</p>
+<p><strong>Proposition: A k-degenerated graph is (k+1)-colorable</strong></p>
 <hr>
-<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
-<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a   subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
-<p>So assume that$\delta(G)\ge2$. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, $D\cup{C}$ is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
+<p><strong>Proof.</strong> Let G be k-degenerate graph. Then G has a vertex v of degree at most k. </p>
+<p>Use induction on the number of vertex.</p>
+<p> The inductive hypothesis implies that $G-v$ is (k+1)-colorable. All vertices in $N_G(x)$ have been colored by at most k different colors in any (k+1)-coloring of G-v. Then color v by the (k+1)th color. So G is (k+1)-colorable.</p>
 <hr>
-<p><font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font></p>
-<p><font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?$\lvert D\rvert\le\frac{n-1}{2}$?</font></p>
+<font color='red'>1-factor is a spanning subgraph in which every vertex has degree one.</font>
+
+<font color='red'>1-degenerate graph is a tree(or a forest)</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg" alt="2022-05-21_190614"></p>
+<p><strong>Corollary. Every graph G is $(\Delta(G)+1)$-degenerate</strong></p>
+<p><strong>Def. A Planar graph is a graph with a drawing on the plane $\mathbb{R}^2$</strong> . A connected region of $\mathbb{R}^2-G$ is a face of G.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg" alt="2022-05-21_191223"></p>
+<p><strong>Thm(Euler Formula) Let G be a planar graph, and let n,m and f be the numbers of vertex,edges and faces of G, Then </strong></p>
+<script type="math/tex; mode=display">
+n-m+f=2</script><p><strong>Proposition. Every planar graph is 5-degenerate</strong></p>
+<hr>
+<p><strong>Proof.</strong> Let G be a planar graph. It suffices to show that G has a vertex of degree at most five. Without loss of generality, assume that G is a maximal planar graph (<font color='red'>i.e. every face is bounded by a triangle</font>). Otherwise, we can add edges to G to keep it to be a planar graph.</p>
+<p>Since every edge appears on the boundaries of two faces and every face contains exactly three edges, it follows that </p>
+<script type="math/tex; mode=display">
+3f=2m\Rightarrow f=\frac{2}{3}m</script><p>Let $\delta=\delta(G)$, the minimum degree of G, then </p>
+<script type="math/tex; mode=display">
+\delta n\leq\sum_{x\in V(G)}d_G(x)=2m\Rightarrow n\leq\frac{2}{\delta}m</script><p>By Euler’s Formula: $n-m+f=2$</p>
+<script type="math/tex; mode=display">
+2=n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m</script><p>Therefore, $\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow \delta&lt;6\Leftrightarrow \delta\leq5$</p>
+<p>Every planar graph has a vertex of degree at most 5, which implies a planar graph is 5-degenerate.</p>
+<hr>
+<p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
+<font color='red'>Actually we can use Kempe chain to prove the proposition that every planar graph is 5-colorable.<br>Problem:What kind of Eulerian graphs having an even-cycle decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n vertices has an induced 2-degenerate graph with at least n/2 vertices.<br>Conjecture(Albertson&Berman,1970s) Every planar graph with n vertices has an induced 1-degenerate graph with at least n/2 vertices.</font>
+
+<p><strong>Matrices and Graphs</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg" alt=""></p>
+<font color='red'>A is a symmetric matrix and because we only consider simple graphs, its diagonal elements are all zero.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg" alt=""></p>
+<p>A square matrix A is symmetric if $A^T=A$</p>
+<p>A scalar $\lambda$ is eigenvalue of A if there exists a non-zero vector $\vec{X}$, s.t. $A\vec{X}=\lambda\vec{X}$ and $\vec{X}$ is called an eigenvector of A with respect to $\lambda$.</p>
+<p>A basis $B$ of a vector space is orthonormal if $||\vec{X}||=1$ for any $\vec{X}\in B$, and $&lt;\vec{X_1},\vec{X_2}&gt;=0$ for any $\vec{X_1},\vec{X_2}\in B$</p>
+<p><strong>Thm. Let A be a real symmetric $(n\times n)$-matrix. Then A is a diagonizable and $\mathbb{R}^n$ has orthonormal basis of eigenvectos of A</strong></p>
+<script type="math/tex; mode=display">
+A\sim\left(\begin{matrix}
+   \lambda_1 & \dots &0\\
+   \vdots & \ddots &\vdots\\
+   0 & \dots &\lambda_n\\
+  \end{matrix}\right)</script><p><strong>Proposition. All eigenvalues of a real symmetric $(n\times n)$-matrix is real</strong></p>
+<hr>
+<p><strong>Proof</strong> We assume that A is a $n\times n$ matrix, $\lambda$ is an eignevalue of A.</p>
+<p>Assume that $\vec{X}$ is an eigenvector of $\lambda$, Then</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda||\vec{X}||&=<\lambda\vec{X},\vec{X}>=<A\vec{X},\vec{X}>=\vec{X^T}A\vec{X}\\&=\vec{X^T}A^T\vec{X}=(A\vec{X})^T\vec{X}=<\vec{X},A\vec{X}>=\bar{\lambda}||\vec{X}||
+\end{aligned}</script><p>So $\lambda=\bar{\lambda}\Rightarrow\lambda$ is real.</p>
+<hr>
+<p>A real symmetric matrix A is positive semi-definite if ,for all $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}\geq0$ and A is positive definite if $\vec{X}^TA\vec{X}&gt;0$</p>
+<p><strong>Proposition. All eigenvalues of a positive semi-definite $\Leftrightarrow\ \exists$ a matrix B, s.t. $A=B^TB$</strong></p>
+<hr>
+<p><strong>Proof.</strong>$\Rightarrow$ We assume that A is a positive semi-definite matrix.</p>
+<p>Then A is diagonaizable and assume that $A=Q^TDQ$ where D is a diagonable matrix with eigenalues on its diagonal. Note that all egienvalues of A are non-negative.</p>
+<script type="math/tex; mode=display">
+A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad where\ B=\sqrt{D}Q</script><p>$\Leftarrow$ Let $A=B^TB$.</p>
+<p> Then for any $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0$</p>
+<p>So A is positive semi-definite.</p>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -162,65 +201,111 @@
     <url>/2022/05/22/Graph4/</url>
     <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
 <span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" alt=""></p>
+<font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)=\frac{1}{2}$, $\ P(R_j\not\sim C_j)=\frac{1}{2}$</font>
+$$
+P(A(G)\ is \ invertible)=P(M\ is\ invertible)
+$$
+**Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$**
 
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg"></p>
-<p><font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)&#x3D;\frac{1}{2}$, $\ P(R_j\not\sim C_j)&#x3D;\frac{1}{2}$</font><br>$$<br>P(A(G)\ is \ invertible)&#x3D;P(M\ is\ invertible)<br>$$<br><strong>Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$</strong></p>
-<hr>
+---
+
+**Proof**
+
+Let $A(G)=(a_{ij})_{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by 
+$$
+[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
+$$
+where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]=\{1,2,\dots,n\}$
+$$
+\begin{aligned}
+(A(G))^2_{ij}&=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
+(A(G))^3_{ij}&=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
+\end{aligned}
+$$
+By the definition of adjacency matrix, $a_j=1\Leftrightarrow v_iv_j\in E(G)$
+
+It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$
+
+---
+
+A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy 
+$$
+\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
+$$
+<font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n=0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font>
+
+<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong></p>
+<script type="math/tex; mode=display">
+w_G(k)=\lambda_1^k+\cdots+\lambda_n^k</script><hr>
 <p><strong>Proof</strong></p>
-<p>Let $A(G)&#x3D;(a_{ij})<em>{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by<br>$$<br>[(A(G))^k]</em>{ij}&#x3D;\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}<br>$$<br>where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]&#x3D;{1,2,\dots,n}$<br>$$<br>\begin{aligned}<br>(A(G))^2_{ij}&amp;&#x3D;(A(G)\cdot A(G))<em>{ij}&#x3D;\sum</em>{i_1&#x3D;1}^na_{ii_1}a_{i_1j}\<br>(A(G))^3_{ij}&amp;&#x3D;((A(G))^2\cdot A(G))<em>{ij}&#x3D;\sum</em>{i_2&#x3D;1}^n(\sum_{i_1&#x3D;1}^na_{ii_1}a_{i_1i_2})a_{i_2j}&#x3D;\sum_{i_1,i_2&#x3D;1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\<br>\end{aligned}<br>$$<br>By the definition of adjacency matrix, $a_j&#x3D;1\Leftrightarrow v_iv_j\in E(G)$</p>
-<p>It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$</p>
-<hr>
-<p>A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy<br>$$<br>\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n<br>$$<br><font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n&#x3D;0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font></p>
-<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong><br>$$<br>w_G(k)&#x3D;\lambda_1^k+\cdots+\lambda_n^k<br>$$</p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that<br>$$<br>w_G(k)&#x3D;\sum_{i&#x3D;1}^n[(A(G))^k]_{ii}&#x3D;tr(A(G)^k)<br>$$<br>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
-<p><font color='red'>$A(G)\vec{v_i}&#x3D;\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}&#x3D;A(G)^{k-1}A(G)\vec{v_i}&#x3D;A(G)^{k-1}\lambda\vec{v_i}&#x3D;\lambda_i^k\vec{v_i}$</font></p>
-<p>Then, $tr(A(G)^k)&#x3D;\sum_{i&#x3D;1}^n\lambda_i^k$, so $w_G(k)&#x3D;tr(A(G)^k)&#x3D;\sum_{i&#x3D;1}^n\lambda_i^k$</p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that</p>
+<script type="math/tex; mode=display">
+w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)</script><p>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in\{1,2,\cdots,n\}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in\{1,2,\cdots,n\}$</p>
+<font color='red'>$A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}$</font>
+
+<p>Then, $tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k$, so $w_G(k)=tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k$</p>
 <hr>
 <p><strong>Incidence matrix and Laplacian matrix</strong></p>
-<p>Let G be a graph s.t. $V(G)&#x3D;{v_1,v_2,\cdots,v_n}$ and $E(G)&#x3D;{e_1,e_2,\cdots,e_m}$<br>$$<br>B(G)&#x3D;(b_{ij})<em>{n\times m}\ where\ b</em>{ij}&#x3D;\left{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\<br>&amp;0\quad v_i\ isn’t\ incident\ with\ e_j\end{aligned}\right.<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg"></p>
-<p><font color='red'>We can find that evey column has two non-zero entries.</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg"></p>
-<p><font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg"></p>
+<p>Let G be a graph s.t. $V(G)=\{v_1,v_2,\cdots,v_n\}$ and $E(G)=\{e_1,e_2,\cdots,e_m\}$</p>
+<script type="math/tex; mode=display">
+B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&1\quad v_i\ is\ incident\ with\ e_j\\
+&0\quad v_i\ isn't\ incident\ with\ e_j\end{aligned}\right.</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" alt=""></p>
+<font color='red'>We can find that evey column has two non-zero entries.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" alt=""></p>
+<font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" alt=""></p>
 <p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
-<p>Laplacian matrix of G: $L(G)&#x3D; D(G)-A(G)&#x3D;\vec{B}\cdot\vec{B}^T$</p>
-<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong><br>$$<br>\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0<br>$$<br>$\tau(G)$&#x3D; the total number of spanning trees in G.</p>
-<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)&#x3D;det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]&#x3D;{1,2,\dots,n}$</strong></p>
+<p>Laplacian matrix of G: $L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T$</p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong></p>
+<script type="math/tex; mode=display">
+\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0</script><p>$\tau(G)$= the total number of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)=det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]=\{1,2,\dots,n\}$</strong></p>
 <hr>
 <p><strong>Proof.</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" alt=""></p>
 <p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
 <p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" alt=""></p>
 <p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
-<p>Therefore, $\tau(G)&#x3D;\tau(G-e)+\tau(G\cdot e)$</p>
+<p>Therefore, $\tau(G)=\tau(G-e)+\tau(G\cdot e)$</p>
 <p>Use induction on the number of edges of G.</p>
-<p>If G has no edges and n&#x3D;1, so $\tau(G)&#x3D;1&#x3D;det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
-<p>If $n&gt;1$, then $\tau(G)&#x3D;0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)&#x3D;det(L_0(G))$ .</p>
-<p>Therefore, the statement holds for $|E(G)|&#x3D;0$.</p>
+<p>If G has no edges and n=1, so $\tau(G)=1=det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
+<p>If $n&gt;1$, then $\tau(G)=0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)=det(L_0(G))$ .</p>
+<p>Therefore, the statement holds for $|E(G)|=0$.</p>
 <p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
-<p>By recordering the vertices of G, we may assume that $i&#x3D;1$ and $v_1v_2\in E(G)$, Let $e&#x3D;v_1v_2$. Then  $\tau(G)&#x3D;\tau(G-e)+\tau(G\cdot e)$.</p>
-<p>By inductive hypothesis, $\tau(G-e)&#x3D;det(L_0(G-e))$ and $\tau(G\cdot e)&#x3D;det(L_0(G\cdot e))$.</p>
-<p>Assume $L_0(G)&#x3D;\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)&#x3D;\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
-<p>Then $L_0(G-e)&#x3D;\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)&#x3D;R$</p>
-<p>Note that $L_0(G)&#x3D;L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
-<p>Using the Laplace expansion along the first row,<br>$$<br>det(L_0(G))&#x3D;det(L_0(G-e))+det(L_0(G\cdot e))&#x3D;\tau(G-e)+\tau(G\cdot e)&#x3D;\tau(G)<br>$$</p>
-<hr>
-<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n&#x3D;0$. Then</strong><br>$$<br>\tau(G)&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$</p>
-<hr>
+<p>By recordering the vertices of G, we may assume that $i=1$ and $v_1v_2\in E(G)$, Let $e=v_1v_2$. Then  $\tau(G)=\tau(G-e)+\tau(G\cdot e)$.</p>
+<p>By inductive hypothesis, $\tau(G-e)=det(L_0(G-e))$ and $\tau(G\cdot e)=det(L_0(G\cdot e))$.</p>
+<p>Assume $L_0(G)=\begin{pmatrix}d_2&amp;P\\P^T&amp;R\end{pmatrix}$ obtained from $L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\\hdashline1&amp;d_2&amp;P\\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
+<p>Then $L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)=R$</p>
+<p>Note that $L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\\vec{0}^T&amp;R\end{pmatrix}$</p>
+<p>Using the Laplace expansion along the first row,</p>
+<script type="math/tex; mode=display">
+det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)</script><hr>
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n=0$. Then</strong></p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 <p><strong>Proof</strong></p>
-<p>Let $L(G)$ be the  Laplacian matrix and let<br>$$<br>det(L(G)-\lambda I)&#x3D;(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)&#x3D;-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)<br>$$<br>So the cofficient of $\lambda$ term is $-\mu_1\mu_2\cdots\mu_{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
+<p>Let $L(G)$ be the  Laplacian matrix and let </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)</script><p>So the cofficient of $\lambda$ term is $-\mu_1\mu_2\cdots\mu_{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
 <p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
-<p>Then $det(M(\lambda))&#x3D;det(L(G)-\lambda I)$ and the first row of $M(\lambda)&#x3D;[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
+<p>Then $det(M(\lambda))=det(L(G)-\lambda I)$ and the first row of $M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
 <p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
-<p>Then $M(\lambda)&#x3D;-\lambda N(\lambda)$ and $det(M(\lambda))&#x3D;-\lambda det(N(\lambda))$, So<br>$$<br>det(L(G)-\lambda I)&#x3D;-\lambda det(N(\lambda))<br>$$<br>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
+<p>Then $M(\lambda)=-\lambda N(\lambda)$ and $det(M(\lambda))=-\lambda det(N(\lambda))$, So </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=-\lambda det(N(\lambda))</script><p>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
 <p>Add all columns of $N(0)$ except the first column to the first column.</p>
-<p><font color='red'>(Note that $i^{th}$-row $(i&gt;1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i&gt;1)$ of $L(G)$</font></p>
+<font color='red'>(Note that $i^{th}$-row $(i>1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i>1)$ of $L(G)$</font>
+
 <p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
-<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))&#x3D;n\cdot det(L_0(G))$<br>$$<br>n\cdot det(L_0(G))&#x3D;(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$<br>By previous theorem,<br>$$<br>\tau(G)&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$</p>
-<hr>
+<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))=n\cdot det(L_0(G))$</p>
+<script type="math/tex; mode=display">
+n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><p>By previous theorem,</p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -231,153 +316,108 @@
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 3</title>
-    <url>/2022/05/20/Graph3/</url>
-    <content><![CDATA[<p>Given a graph G, $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if<br>$$<br>d_P(v)\equiv\left{<br>\begin{aligned}<br>&amp;0\ mod\ 2,\ v\not\in T\<br>&amp;1\ mod\ 2,\ v\in T<br>\end{aligned}<br>\right.\qquad i.e.\ d_P(v)\equiv d_G(v)<br>$$<br>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
+    <title>Lecture series on graph theory 2</title>
+    <url>/2022/03/28/Graph2/</url>
+    <content><![CDATA[<p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
+<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong></p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\frac{n^2}{4}</script><p>Before the proof begin, we introduce what triangle means.</p>
 <span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" alt=""></p>
+<font color=red>$C=v_1v_2v_3v_4v_5v_1$ is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font>
 
-<p>More general, let $T\subset V(G)$, a set of edges $J$ is called a $T$-join if all the edges of $J$ induce a subgraph, s.t. $d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in T$, <font color='red'>A parity subgraph of G is a $T$-join of G where $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$<br>Problem: To find a $T$-join with the minimum number of edges.</font></p>
-<p><strong>Bipartite Graph</strong></p>
-<p>A graph is bipartite if its vertex set can be partitioned into two sets X and Y such that every edge of G joins a vertex of X and a vertex of Y.</p>
-<p><font color='red'>For example.</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg" alt="2022-05-21_121856"></p>
-<p><strong>Proposition. A graph is bipartite $\Leftrightarrow$ it has no odd cycles</strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>$\Rightarrow$ Let $G$ be a bipartite graph and let $(X,Y)$ be a bipartition of $G$. Color vertices in X by            red and vertices in Y by blue. Let $C$ be a cycle. Then the red vertices and blue vertices appear alternatively on $C$. So $C$ has an even number of vertices. Therefore, $G$ has no odd cycles.</p>
-<p>$\Leftarrow$ Let v be a vertex of $G$. Let $X&#x3D;{x|d_G(x,v)\equiv0(mod\ 2)}$ and $Y&#x3D;{y|d_G(y,v)\equiv 1(mod\ 2)}$</p>
-<p>Since $G$ has no odd cycle, there is no edges joining two vertices from the same part. So G is bipartite. </p>
-<hr>
-<p><font color='red'>Every part in the bipartition induce the graph without edges.</font></p>
-<p>A vertex subset $I$ of $V(G)$ is independent  if $G$ has no edges joining any two vertices of $I$.</p>
-<p>The maximum cardinality of independent sets is called the independent number of $G$.</p>
-<p><font color='red'>Problem: Determine the independent number of a given graph $G$ (NPC)</font></p>
-<p>If G is bipartite, the its independent number $\alpha(G)\geq\frac{n}{2}$.</p>
-<p><font color='red'><strong>(The Four color problem) Every graph drawn on the plane without crossing edges has a vertex partition into four independent sets.<br>According to the above, if G is a plane graph, $\alpha(G)\geq\frac{\lvert V(G)\rvert}{4}$</strong></font></p>
-<hr>
-<p><strong>Second Proof of the Mantel’s Theorem</strong></p>
-<p><font color='red'>Recall: Let G be an n-vertex graph without triangle, then $\lvert E(G)\rvert\leq\frac{n^2}{4}$</font></p>
-<p>Let x be a vertex of G such that $d_G(x)&#x3D;\Delta(G)$. So $N_G(x)$ is an independent set of G.<br>$$<br>\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta (G)&#x3D;(n-d_G(x))d_G(x)\leq\frac{n^2}{4}<br>$$<br> and equality holds $\Leftrightarrow n-d_G(x)&#x3D;d_G(x),\ i.e.\ d_G(x)&#x3D;\frac{n}{2}$</p>
-<hr>
-<p><strong>Degenerated Graph</strong></p>
-<p>A graph G is k-degenerate if every subgraph of G has a vertex of degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
-<p>A graph G is k-colorable if the vertex of G can be colored by k different colors such that any vertex subset with same color is an independent set. i.e. the vertex set of G can be partitioned into k independent subsets.</p>
-<p><strong>Proposition: A k-degenerated graph is (k+1)-colorable</strong></p>
-<hr>
-<p><strong>Proof.</strong> Let G be k-degenerate graph. Then G has a vertex v of degree at most k. </p>
-<p>Use induction on the number of vertex.</p>
-<p> The inductive hypothesis implies that $G-v$ is (k+1)-colorable. All vertices in $N_G(x)$ have been colored by at most k different colors in any (k+1)-coloring of G-v. Then color v by the (k+1)th color. So G is (k+1)-colorable.</p>
-<hr>
-<p><font color='red'>1-factor is a spanning subgraph in which every vertex has degree one.</font></p>
-<p><font color='red'>1-degenerate graph is a tree(or a forest)</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg" alt="2022-05-21_190614"></p>
-<p><strong>Corollary. Every graph G is $(\Delta(G)+1)$-degenerate</strong></p>
-<p><strong>Def. A Planar graph is a graph with a drawing on the plane $\mathbb{R}^2$</strong> . A connected region of $\mathbb{R}^2-G$ is a face of G.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg" alt="2022-05-21_191223"></p>
-<p>**Thm(Euler Formula) Let G be a planar graph, and let n,m and f be the numbers of vertex,edges and faces of G, Then **<br>$$<br>n-m+f&#x3D;2<br>$$<br><strong>Proposition. Every planar graph is 5-degenerate</strong></p>
-<hr>
-<p><strong>Proof.</strong> Let G be a planar graph. It suffices to show that G has a vertex of degree at most five. Without loss of generality, assume that G is a maximal planar graph (<font color='red'>i.e. every face is bounded by a triangle</font>). Otherwise, we can add edges to G to keep it to be a planar graph.</p>
-<p>Since every edge appears on the boundaries of two faces and every face contains exactly three edges, it follows that<br>$$<br>3f&#x3D;2m\Rightarrow f&#x3D;\frac{2}{3}m<br>$$<br>Let $\delta&#x3D;\delta(G)$, the minimum degree of G, then<br>$$<br>\delta n\leq\sum_{x\in V(G)}d_G(x)&#x3D;2m\Rightarrow n\leq\frac{2}{\delta}m<br>$$<br>By Euler’s Formula: $n-m+f&#x3D;2$<br>$$<br>2&#x3D;n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m<br>$$<br>Therefore, $\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow \delta&lt;6\Leftrightarrow \delta\leq5$</p>
-<p>Every planar graph has a vertex of degree at most 5, which implies a planar graph is 5-degenerate.</p>
-<hr>
-<p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
-<p><font color='red'>Actually we can use Kempe chain to prove the proposition that every planar graph is 5-colorable.<br>Problem:What kind of Eulerian graphs having an even-cycle decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n vertices has an induced 2-degenerate graph with at least n&#x2F;2 vertices.<br>Conjecture(Albertson&amp;Berman,1970s) Every planar graph with n vertices has an induced 1-degenerate graph with at least n&#x2F;2 vertices.</font></p>
-<p><strong>Matrices and Graphs</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg"></p>
-<p><font color='red'>A is a symmetric matrix and because we only consider simple graphs, its diagonal elements are all zero.</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg"></p>
-<p>A square matrix A is symmetric if $A^T&#x3D;A$</p>
-<p>A scalar $\lambda$ is eigenvalue of A if there exists a non-zero vector $\vec{X}$, s.t. $A\vec{X}&#x3D;\lambda\vec{X}$ and $\vec{X}$ is called an eigenvector of A with respect to $\lambda$.</p>
-<p>A basis $B$ of a vector space is orthonormal if $||\vec{X}||&#x3D;1$ for any $\vec{X}\in B$, and $&lt;\vec{X_1},\vec{X_2}&gt;&#x3D;0$ for any $\vec{X_1},\vec{X_2}\in B$</p>
-<p><strong>Thm. Let A be a real symmetric $(n\times n)$-matrix. Then A is a diagonizable and $\mathbb{R}^n$ has orthonormal basis of eigenvectos of A</strong><br>$$<br>A\sim\left(\begin{matrix}<br>   \lambda_1 &amp; \dots &amp;0\<br>   \vdots &amp; \ddots &amp;\vdots\<br>   0 &amp; \dots &amp;\lambda_n\<br>  \end{matrix}\right)<br>$$</p>
-<p><strong>Proposition. All eigenvalues of a real symmetric $(n\times n)$-matrix is real</strong></p>
-<hr>
-<p><strong>Proof</strong> We assume that A is a $n\times n$ matrix, $\lambda$ is an eignevalue of A.</p>
-<p>Assume that $\vec{X}$ is an eigenvector of $\lambda$, Then<br>$$<br>\begin{aligned}<br>\lambda||\vec{X}||&amp;&#x3D;&lt;\lambda\vec{X},\vec{X}&gt;&#x3D;&lt;A\vec{X},\vec{X}&gt;&#x3D;\vec{X^T}A\vec{X}\&amp;&#x3D;\vec{X^T}A^T\vec{X}&#x3D;(A\vec{X})^T\vec{X}&#x3D;&lt;\vec{X},A\vec{X}&gt;&#x3D;\bar{\lambda}||\vec{X}||<br>\end{aligned}<br>$$<br>So $\lambda&#x3D;\bar{\lambda}\Rightarrow\lambda$ is real.</p>
-<hr>
-<p>A real symmetric matrix A is positive semi-definite if ,for all $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}\geq0$ and A is positive definite if $\vec{X}^TA\vec{X}&gt;0$</p>
-<p><strong>Proposition. All eigenvalues of a positive semi-definite $\Leftrightarrow\ \exists$ a matrix B, s.t. $A&#x3D;B^TB$</strong></p>
-<hr>
-<p><strong>Proof.</strong>$\Rightarrow$ We assume that A is a positive semi-definite matrix.</p>
-<p>Then A is diagonaizable and assume that $A&#x3D;Q^TDQ$ where D is a diagonable matrix with eigenalues on its diagonal. Note that all egienvalues of A are non-negative.<br>$$<br>A&#x3D;Q^TDQ&#x3D;Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q&#x3D;(\sqrt{D}Q)^T(\sqrt{D}Q)&#x3D;B^TB,\quad where\ B&#x3D;\sqrt{D}Q<br>$$<br>$\Leftarrow$ Let $A&#x3D;B^TB$.</p>
-<p> Then for any $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}&#x3D;\vec{X}^TB^TB\vec{X}&#x3D;(B\vec{X})^TB\vec{X}&#x3D;||B\vec{X}||\geq0$</p>
-<p>So A is positive semi-definite.</p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 5</title>
-    <url>/2022/05/22/Graph5/</url>
-    <content><![CDATA[<p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)&#x3D;d$, each of these edges is chosen with probability 1&#x2F;d)</font> </p>
-<p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
-<span id="more"></span>
+<p>Now, let’s take a few examples to find potential patterns which may help to prove this theorem.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" alt=""></p>
+<font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=$\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}$, if n is odd, #edges=$\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}$</font>
 
-<p>Let M(G) be the matrix whose rows and columns are indexed by vertices $v_1,\dots,v_n$, we assume that $m_{ij}$ is the $(i,j)$-entry of M(G), which satisfies the following formula<br>$$<br>m_{ij}&#x3D;\frac{a_{ij}}{d_i}<br>$$<br>where $a_{ij}$ is the number of edges between $v_i$ and $v_j$. The $m_{ij}$ is probability that if one starts at $v_i$ and then the next step will be at $v_j$.</p>
-<p><font color='red'>Recall: the number of k-walks from $v_i$ to $v_j$&#x3D; the $(i,j)$-entry of $A(G)^k$</font></p>
-<p>$\exists v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j,\ P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)&#x3D;\frac{a_{ii_1}}{d_i}\frac{a_{i_1i_2}}{d_{i_1}}\cdots\frac{a_{i_{k-1}i_j}}{d_{i_{k-1}}}&#x3D;m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}$<br>$$<br>\begin{aligned}<br>P(v_i\to v_j\ in\ k\ steps)&amp;&#x3D;\sum_{k-walk\ from\ v_i\to v_j} P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)\<br>&amp;&#x3D;\sum m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}&#x3D;(i,j)-entry\ of\ M(G)^k<br>\end{aligned}<br>$$<br>Assume the probability to pick $v_i$ is $p(v_i)$ for $i\in{1,\dots,n}$ s.t. $\sum_{i&#x3D;1}^n p(v_i)&#x3D;1$</p>
-<p>Let $P&#x3D;[\begin{matrix}p(v_1)&amp;p(v_2)&amp;\cdots&amp;p(v_n)\end{matrix}]$. Then the probability of a walk ending up at $v_i$ in k steps is<br>$$<br>P(there\ is\ a\ walk\ ending\ up\ at\ v_i\ in\ k\ steps)&#x3D;[PM(G)^k]_i<br>$$<br>If G is k regular <font color='red'>( every vertex has degree k)</font> then $M(G)&#x3D;\frac{1}{d}A(G)$</p>
-<p>Then the eigenvalue $\beta_i$ of $M(G)$ satisfies $\beta_1&#x3D;\frac{1}{d}\lambda_i$ where $\lambda_i$ is an eigenvalue of G.<br>$$<br>P(\exists\ a\ closed\ k-walk\ starting\ v)&#x3D;\beta_1^k+\cdots+\beta_n^k&#x3D;\frac{1}{d^k}(\lambda_1^k+\cdots+\lambda_n^k)<br>$$<br><strong>Weighted graphs and digraphs</strong></p>
-<p>Let G be a graph. A weighted graph is a graph G associated with a weight function: $w:E(G)\to\mathbb{F}$ where $\mathbb{F}$ is a field, denote by $(G,w)$. Most of the time, we consider the case that $\mathbb{F}&#x3D;\mathbb{R}$.</p>
-<p>The adjacency matrix of a weighted graph is a real symmetric matrix $A(G,w)&#x3D;(a_{ij})<em>{n\times n}$ with $a</em>{ij}&#x3D;w(v_iv_j)$, the weight of the edge of $v_iv_j$.</p>
-<p>Let H be a subgraph of $(G,w)$. The weight of H is defined as $w(H)&#x3D;\sum_{e\in E(H)}w(e)$</p>
-<p>For example, how to find a minimum weight path between two given vertices? How to find a minimum spanning tree or how to find a cycle or walk with large weight<font color='red'>( so-called heavy cycles or walks)</font></p>
-<p>A digraph is a graph with an orientation which assigns an orientation to each edge.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg"></p>
-<p><font color='red'>An orientation edge (or arc) from $v_i$ to $v_j$ is an ordered pair of vertices , denoted by $(v_i,v_j)$ where $v_i$ is called the tail and $v_j$ is called the head of arc.</font><br>$$<br>A(D,w)&#x3D;[a_{ij}]<em>{n\times n}\  where\ a</em>{ij}&#x3D;\left{\begin{aligned}&amp; w(v_iv_j),\quad v_i\to v_j\<br>&amp;-w(v_iv_j),\quad v_j\to v_i\<br>&amp;0,\quad otherwise\end{aligned}\right.<br>$$<br>Then $A(D,w)$ is no longer symmetric <font color='red'>but skew-symmetric:$A+A^T&#x3D;O$</font></p>
-<p>For a given graph G, let D be an orientation of G, $\vec{B}$ is an oriented incidence matrix<br>$$<br>\vec{B}\cdot \vec{f}&#x3D;\vec{b}\ where\ \vec{b}\in\mathbb{R}^{|V(G)|},\ \vec{f}\in\mathbb{R}^{|E(G)|}<br>$$<br>A solution to $\vec{B}\cdot \vec{f}&#x3D;\vec{b}$ is called a network flow. $\vec{b}$ is called a boundary condition.</p>
-<p>If $\vec{b}&#x3D;\vec{0},\ \vec{B}\cdot \vec{f}&#x3D;\vec{0}.\qquad(*)$  </p>
-<p>A vector $\vec{f}$ satisfies $(*)$ is called a circulation or real flow if $\vec{f}\in\mathbb{R}^{|E(G)|}$.</p>
-<p>If a solution to $(*)$ satisfies $\vec{f}\in\mathbb{Z}^{|E(G)|}$, then $\vec{f}$ is called an integer flow.</p>
-<p><font color='red'>Tutte’s five-flow conjecture: For a graph without bridge, it has a nowhere zero 5-flow i.e. $\exists \vec{f}\in\mathbb{Z}^{|E(G)|}$ and every component of f is not zero and absolute value of every component is at most 4. $\vec{f}&#x3D;[f_1, f_2,\cdots,f_m]$ where $m&#x3D;|E(G)|,\ f_i\in{-4,-3,-2,-1,0,1,2,3,4}$</font></p>
-<p>**Eigenvalues and subgraphs **</p>
-<p>Let G be a graph with n vertices, $A(G)$ be the adjacency matrix.</p>
-<p>All n eigenvalues of $A(G)$ are real because $A(G)$ is real and symmertic<br>$$<br>\lambda_1(G)\geq\lambda_2(G)\geq\cdots\geq\lambda_{\lceil \frac{n+1}{2}\rceil}\geq\lambda_{\lfloor \frac{n+1}{2}\rfloor}\geq\lambda_n(G)<br>$$<br>where $\lambda_{\lceil \frac{n+1}{2}\rceil},\lambda_{\lfloor \frac{n+1}{2}\rfloor}$ are median eigenvalues.</p>
-<p>The largest eigenvalues $\lambda_1(G)$ is usually called the spectral radius of G.</p>
-<p><strong>Proposition. Let G be an n-vertex graph and A be its adjacency matrix.Let $\lambda_1\geq\cdots\geq\lambda_n$ be the eigenvalues of A<br>Then 1. $\lambda_1 &#x3D;\max_{\vec{x}\not&#x3D;\vec{0}}\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}$,   2. $\lambda_1\geq|\lambda_n|$</strong></p>
+<hr>
+<p><strong>Proof of the Mantel’s Theorem</strong></p>
+<p>Let G be an n-vertex graph without a triangle.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" alt=""></p>
+<p>$\forall x,y\in V(G)$, if $xy\in E(G)$, $N_G(x)\cap N_G(y)=\emptyset$ because G has no triangle.</p>
+<p>Because $N_G(x)\cup N_G(y)\subset V(G)$, $d_G(x)+d_G(y)\leq n$</p>
+<p>From the above formula, we have </p>
+<script type="math/tex; mode=display">
+\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" alt=""></p>
+<p>We find that $d_G(x)$ appears in $d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y_{d_G(x)})$</p>
+<script type="math/tex; mode=display">
+So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}</script><p>From (1) &amp; (2), we have </p>
+<script type="math/tex; mode=display">
+\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}</script><p>According to the relationship between degree and edge: $\sum_{x\in V(G)}d_G(x)=2\lvert E(G)\rvert$ and  the Cauchy-Schwarz inequality:$(\sum_{k=1}^n a_k^2)(\sum_{k=1}^n b_k^2)\geq(\sum_{k=1}^na_kb_k)^2$, we have</p>
+<script type="math/tex; mode=display">
+\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}</script><p>From (3) &amp; (4), $\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert$ which implies $\lvert E(G)\rvert \leq\frac{n^2}{4}$</p>
+<hr>
+<p>If a graph G has more than $\frac{n^2}{4}$ edges, then G has a triangle.</p>
+<font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font>
+
+<p>Tree: A tree is a connected graph without cycles.</p>
+<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
-<p>1.The eigenvalues of A (say $\vec{u}_1,\vec{u}_2,\dots,\vec{u}_n$) can be chosen as a standard orthogonal basis of $\mathbb{R}^n$. </p>
-<p>Assume that array ($x_1,x_2,\dots,x_n$) is the coordinate of $\vec{x}$ under this basis<br>$$<br>\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}&#x3D;\frac{\lambda_1x_1^2+\cdots+\lambda_nx_n^2}{x_1^2+\cdots+x_n^2}\leq\lambda_1<br>$$<br>with equality holds if and only if $x_1\not&#x3D; 0$ and $x_i&#x3D;0$ for $i&#x3D;{2,\cdots,n}$, i.e. $\vec{x}$ is exactly an eigenvector of $\lambda_1$.</p>
-<ol start="2">
-<li><p>Let $\vec{v}$ be get from $\vec{u}_n$ by convert each component into its absolute value (i.e. $\vec{v}&#x3D;(|\vec{u}_n(1)|,|\vec{u}_n(2)|,\cdots,|\vec{u}_n(n)|)$)</p>
-<p>From proof of 1. we can write $\lambda_n$ as<br>$$<br>|\lambda_n|&#x3D;|\frac{\vec{u}^T_nA\vec{u}_n}{\vec{u}_n^T\vec{u}_n}|&#x3D;|\vec{u}^T_nA\vec{u}<em>n|\leq\sum</em>{i,j\in[n]}A(i,j)|\vec{u}_n(i)\vec{u}_n(j)|&#x3D;|\frac{\vec{v}^TA\vec{v}}{\vec{v}^T\vec{v}}|\leq\lambda_1<br>$$<br>We have used triangle inequality at the first inequality and the result of 1. at the second inequality.</p>
-</li>
-</ol>
+<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that $u,v\in V(P),\ uv\in E(P)$ and u is the end vertex of P, but $d_G(u)&gt;1$.</p>
+<p>Case 1:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" alt=""></p>
+<p>$w\not\in V(P)$ and $wu\in E(G)$,then $\tilde{P}=P+wu$ is longer than P. This contradicts the fact that P is the longest path.</p>
+<p>Case 2:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" alt=""></p>
+<p>$w\in V(P),w\not=v$ and $wu\in E(G)$, then we can find that there is a cycle. This  contradicts the fact that G is a tree.</p>
 <hr>
-<p>**Propsition. Let G be a graph, and $\Delta (G)$ be the maximum degree and $d(G)$ be the average degree. Then we have **<br>$$<br>d(G)\leq\lambda_1\leq\Delta (G)<br>$$</p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>Note that, there exist $\vec{x}\not&#x3D;\vec{0}$, s.t. $A\vec{x}&#x3D;\lambda\vec{x}$ where A is the adjacency matrix.<br>$$<br>\lambda_1&#x3D;\sup{\vec{x}^TA\vec{x}\Big|||\vec{x}||&#x3D;1\ and\ \vec{x}\in\mathbb{R}^n}<br>$$<br>Let $\vec{x}_1&#x3D;\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T$, then<br>$$<br>\begin{aligned}\lambda_1&amp;\geq \vec{x}_1^TA\vec{x}<em>1&#x3D;\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]A\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T\<br>&amp;&#x3D;\frac{1}{n}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}][\begin{matrix}d(v_1)&amp;d(v_2)&amp;\cdots&amp;d(v_n)\end{matrix}]^T\<br>&amp;&#x3D;\frac{1}{n}\sum</em>{i&#x3D;1}^nd(v_i)&#x3D;d(G)\end{aligned}<br>$$<br>For the upper bound, let $\vec{x}$ s.t. $A\vec{x}&#x3D;\lambda_1\vec{x}$ where $\vec{x}&#x3D;[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$</p>
-<p>Let $x_i$ be the largest value among all components of $\vec{x}$. Then,<br>$$<br>\lambda_1 x_i&#x3D;\sum_{v_iv_j\in E(G)}x_j\leq\Delta(G)x_j<br>$$<br>So $\lambda_1\leq\Delta (G)$ follows.</p>
-<hr>
-<p><strong>Corollary Let G be a k-regular graph. Then $\lambda_1(G)&#x3D;k$</strong></p>
-<p>A signed graph $(G,\sigma)$ is a weighted graph s.t. $\sigma:\ E(G)\to{-1,1}$<br>$$<br>A(G,\sigma)&#x3D;[a_{ij}]<em>{n\times n}\ where\ a</em>{ij}&#x3D;\left{\begin{aligned}&amp;\sigma(v_iv_j),\quad v_iv_j\in E(G)\&amp;0,\quad otherwise\end{aligned}\right.<br>$$<br>So $A(G,\sigma)$ is a symmetric real matrix.</p>
-<p>We can assume that $\lambda_1(G,\sigma)\geq\lambda_2(G,\sigma)\geq\cdots\geq\lambda_n(G,\sigma)$, <font color='red'>but $\lambda_1(G,\sigma)\geq|\lambda_n(G,\sigma)|$ may not hold.</font></p>
-<p><strong>Prop. Let $(G,\sigma)$ be a signed graph with maximum degree $\Delta (G)$. Then</strong><br>$$<br>|\lambda(G,\sigma)|\leq\Delta(G)\ where\ \lambda(G,\sigma)\ is\ an\ eigenvalue\ of\ G<br>$$</p>
+<p>A vertex of a tree is a leaf if it has degree one.</p>
+<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
 <hr>
 <p><strong>Proof</strong></p>
-<p>Let $\vec{x}$ be an eigenvector of $\lambda$ s.t. $\lambda\vec{x}&#x3D;A\vec{x}$.</p>
-<p>Let $\vec{x}&#x3D;[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$ and $x_i$ has the largest absolute value among all $x_j$’s.</p>
-<p>Then<br>$$<br>|\lambda x_i|&#x3D;|(A\vec{x})<em>i|&#x3D;|\sum</em>{v_iv_j\in E(G)}\sigma(v_iv_j)x_j|\leq\sum_{v_iv_j\in E(G)}|x_j|\leq\Delta(G)|x_i|<br>$$<br>So $|\lambda|\leq\Delta(G)$</p>
+<p>$\Rightarrow$ n=1, G has no edges.</p>
+<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
+<p>Since $n\ge2$, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,$\lvert E(G-v)\rvert=(n-1)-1$.</p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1</script><p>$\Leftarrow$ Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
+<p>We prove this claim first.If not, $\forall x\in V(G)$, assume $d_G(x)\ge2$</p>
+<p>Then we have $\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1$ which contradicts that $\lvert E(G)\rvert=n-1$. The contradiction implies the claim holds.</p>
+<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and $(n-1)-1$ edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
 <hr>
-<p><strong>Thm A graph G is bipartite $\Leftrightarrow$ its spectrum is symmetric about the origin.</strong></p>
-<p><font color='red'>(i.e. $\lambda_i$ is an eigenvalue of G $\Leftrightarrow$ $-\lambda_i$ is an eigenvalue of G)</font></p>
+<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
+<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
+<font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font>
+
+<p>Now we introduce two classic search algorithms in graph theory.</p>
+<p>A breadth-first-search tree of a graph (BFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
+<p>(i) Start at $x=x_0$ and join x to all neighbors of x, Let $N_1=N_G(x)$</p>
+<p>(ii) For each $y\in N_i$, join y to all neighbors of y without creating cycles and let $N_{i+1}=\cup_{y\in N_i}N_G(y)$</p>
+<p>The algorithm will take $\Omicron(\lvert V\rvert+\lvert E\rvert)$ steps to find a BFS-tree rooted at $x_0$.</p>
+<p>A deepth-first-search tree of a graph (DFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
+<p>(i) Start at $x=x_0$ and $T_0=\{x_0\}$ </p>
+<p>(ii) Join x to one of its neighbor $x_1\in N_G(x_0)$ and$T_1=\{x_0,x_1\}$</p>
+<p>(iii) If $N_i=N_G(x_i)\backslash T_i\not=\emptyset$, then join $x_i$ to a vertex $x_{i+1}\in N_i$ and let $T_{i+1}=T_i\cup\{x_{i+1}\}$ and $x_{i+1}\to x_i$</p>
+<p>If $N_i=N_G(x_i)\backslash T_i=\emptyset$, then set $x_{i-1}\to x_{i}$ and $N_{i-1}=N_G(x_{i-1})\backslash T_i\to N_i$ and continue.</p>
+<p>Eulerian graph: </p>
+<font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font>
+
+<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
+<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
 <hr>
-<p><strong>Proof</strong></p>
-<p>$\Rightarrow$ Assume that G is bipartite.Let A be The adjacency matrix of G.<br>$$<br>A&#x3D;\left[\begin{matrix}O&amp;B\B^T&amp;O\end{matrix}\right]\ where\ B\ is\ the\ bipartite\ adjacency\ matrix.<br>$$<br>Let $\lambda$ be an eigenvalue of G with $\vec{x}&#x3D;(\begin{matrix}\vec{x}_1^T&amp;\vec{x}_2^T\end{matrix})^T$</p>
-<p>Then<br>$$<br>A\vec{x}&#x3D;\left(\begin{matrix}O&amp;B\B^T&amp;O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\vec{x}_2\end{matrix}\right)&#x3D;\left(\begin{matrix}B\vec{x}_2\B^T\vec{x}_1\end{matrix}\right)&#x3D;\lambda\left(\begin{matrix}\vec{x}_1\\vec{x}_2\end{matrix}\right)<br>$$<br>Then<br>$$<br>A\left(\begin{matrix}\vec{x}_1\-\vec{x}_2\end{matrix}\right)&#x3D;\left(\begin{matrix}O&amp;B\B^T&amp;O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\-\vec{x}_2\end{matrix}\right)&#x3D;\left(\begin{matrix}-B\vec{x}_2\B^T\vec{x}_1\end{matrix}\right)&#x3D;-\lambda\left(\begin{matrix}\vec{x}_1\-\vec{x}_2\end{matrix}\right)<br>$$<br>So $-\lambda$ is also an eigenvalue of A.</p>
-<p>$\Leftarrow$ Let $\lambda_1\geq\cdots\geq\lambda_n$ be all eigenvalues of G.<font color='red'>(i.e. $\lambda_i&#x3D;-\lambda_{n-i+1}$)</font></p>
-<p>For any positive integer k, the matrix $A^k$ has eigenvalues $\lambda_1^k,\lambda_2^k,\cdots,\lambda_n^k$</p>
-<p>Because G has symmetric specturm, it follows that $\lambda_1^k+\cdots+\lambda_n^k&#x3D;0$ if k is an odd integer.<br>$$<br>0&#x3D;\lambda_1^k+\cdots+\lambda_n^k&#x3D;w_k(G)<br>$$<br><font color='red'>$w_k(G)$ is the total number of close k-walks.</font></p>
-<p>So every closed walk have an even length. Therefore G is bipartite.</p>
+<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by $T=v_1e_1v_2e_2\cdots v_me_mv_1$. So G is connected.</p>
+<p>Now, orient the edges of G along the trail T such that, for an edge $e_i$ in T, orient $e_i$ from $v_i$ to $v_{i+1}$. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex $v_i$, T visits $v_i$ and then leaves $v_i$, which implies</p>
+<script type="math/tex; mode=display">
+\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i</script><p>But the degree of $v_i$ satisfies</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+d_G(v_i)&=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
+&\equiv0(mod\ 2)
+\end{aligned}</script><p>So every vertex of G has an even degree.</p>
 <hr>
-<p><font color='red'>Problem: characterize graphs which satisfy # positive eigenvalues&#x3D;# negative eigenvalues</font></p>
+<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles $D=\{C_1,C_2,\dots,C_k\}$ such that  </p>
+<script type="math/tex; mode=display">
+\cup_{C_i\in D}E(C_i)=E(G)</script><p><strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
+<hr>
+<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
+<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a   subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
+<p>So assume that$\delta(G)\ge2$. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, $D\cup\{C\}$ is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
+<hr>
+<font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font>
+
+<font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?$\lvert D\rvert\le\frac{n-1}{2}$?</font>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -391,66 +431,99 @@
     <title>Lecture series on graph theory 6</title>
     <url>/2022/05/24/Graph6/</url>
     <content><![CDATA[<p><strong>Interlacing Theorem</strong></p>
-<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong><br>$$<br>\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k&#x3D;1,2,\dots,m<br>$$</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg"></p>
-<p>Further,if $m&#x3D;n-1$, then<br>$$<br>\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}<br>$$</p>
-<hr>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m</script><span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" alt=""></p>
+<p>Further,if $m=n-1$, then </p>
+<script type="math/tex; mode=display">
+\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}</script><hr>
 <p><strong>Proof</strong></p>
-<p>Without loss of generality, assume that $A&#x3D;\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i&#x3D;A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j&#x3D;B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
-<p>Let $V&#x3D;span{\vec{x}_k,\cdots,\vec{x}_n}$ and $W&#x3D;span{\vec{y}_1,\cdots,\vec{y}_k}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.<br>$$<br>\widetilde{W}&#x3D;\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n<br>$$<br>Then $\dim(V)&#x3D;n-k+1$ and $\dim(\widetilde{W})&#x3D;\dim(W)&#x3D;k$</p>
-<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and<br>$$<br>\dim(V)+\dim(\widetilde{W})&#x3D;n-k+1+k&#x3D;n+1&gt;\dim(\mathbb{R}^n)<br>$$<br>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
-<p><font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font></p>
-<p>Therefore,<br>$$<br>\begin{aligned}<br>\lambda_k&amp;&#x3D;\max{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||&#x3D;1}\<br>&amp;\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}&#x3D;\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right&#x2F;\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\<br>&amp;&#x3D;\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||&#x3D;1}&#x3D;\beta_k<br>\end{aligned}<br>$$<br>So we have $\lambda_k\geq\beta_k$.</p>
-<p>On the other hand, let $V&#x3D;span{\vec{x}<em>1,\cdots,\vec{x}</em>{k+n-m}}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W&#x3D;span{\vec{y}<em>1,\cdots,\vec{y}</em>{k+n-m}}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
-<p>Let $\widetilde{W}&#x3D;\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n$. Then $\dim(V)&#x3D;k+n-m$ and $\dim(\widetilde{W})&#x3D;m-k+1$.</p>
-<p>Therefore, $\dim(V)+\dim(\widetilde{W})&#x3D;n-k+1+k&#x3D;n+1&gt;\dim(\mathbb{R}^n)$</p>
-<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.<br>$$<br>\begin{aligned}<br>\lambda_{k+n-m}&amp;&#x3D;\min{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||&#x3D;1}\<br>&amp;\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}&#x3D;\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right&#x2F;\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\<br>&amp;&#x3D;\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||&#x3D;1}&#x3D;\beta_k<br>\end{aligned}<br>$$<br>So $\lambda_{k+n-m}\leq\beta_k$.</p>
+<p>Without loss of generality, assume that $A=\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i=A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j=B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
+<p>Let $V=span\{\vec{x}_k,\cdots,\vec{x}_n\}$ and $W=span\{\vec{y}_1,\cdots,\vec{y}_k\}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.</p>
+<script type="math/tex; mode=display">
+\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n</script><p>Then $\dim(V)=n-k+1$ and $\dim(\widetilde{W})=\dim(W)=k$</p>
+<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and </p>
+<script type="math/tex; mode=display">
+\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1>\dim(\mathbb{R}^n)</script><p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font>
+
+<p>Therefore,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda_k&=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}</script><p>So we have $\lambda_k\geq\beta_k$.</p>
+<p>On the other hand, let $V=span\{\vec{x}_1,\cdots,\vec{x}_{k+n-m}\}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W=span\{\vec{y}_1,\cdots,\vec{y}_{k+n-m}\}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
+<p>Let $\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n$. Then $\dim(V)=k+n-m$ and $\dim(\widetilde{W})=m-k+1$.</p>
+<p>Therefore, $\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)$</p>
+<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda_{k+n-m}&=\min\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}</script><p>So $\lambda_{k+n-m}\leq\beta_k$.</p>
 <p><strong>Bounding degree of induced subgraph</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg"></p>
-<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}&#x3D;\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
-<p><font color='red'><strong>n-dimensional hypercube $Q_n$</strong></font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg"></p>
-<p><font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all ${0,1}$-sequences of length n and two vertices are adjacent to each other if and only if the two ${0,1}$-sequences has exactly one position different</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" alt=""></p>
+<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
+<font color='red'>**n-dimensional hypercube $Q_n$**</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" alt=""></p>
+<font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all $\{0,1\}$-sequences of length n and two vertices are adjacent to each other if and only if the two $\{0,1\}$-sequences has exactly one position different</font>
+
 <p>The adjacency matrix of n-dimensional hypercube $Q_n$ satisfies the following</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" alt=""></p>
 <p>If we give every edge in n-dimensional hypercube $Q_n$ a sign, we can get a signed adjacency matrix.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" alt=""></p>
 <p><strong>Lemma The signed n-dimensional hypercube with adjacency matrix $S_n$ has an eigenvalue $\sqrt{n}$ of multiplicity $2^{n-1}$ and eigenvalue $-\sqrt{n}$ with multiplicity $2^{n-1}$</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
-<p><strong>claim: $S_n^2&#x3D;nI$</strong></p>
-<p>If $n&#x3D;1$, $S_1&#x3D;\left[\begin{matrix}0&amp;1\1&amp;0\end{matrix}\right],S_1^2&#x3D;I$. Assume that $S_{n-1}^2&#x3D;(n-1)I$</p>
-<p>Then<br>$$<br>S_n^2&#x3D;\left[\begin{matrix}S_{n-1}&amp;I\I&amp;-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&amp;I\I&amp;-S_{n-1}\end{matrix}\right]&#x3D;\left[\begin{matrix}S_{n-1}^2+I&amp;O\O&amp;S_{n-1}^2+I\end{matrix}\right]&#x3D;nI<br>$$<br>So claim holds.</p>
+<p><strong>claim: $S_n^2=nI$</strong></p>
+<p>If $n=1$, $S_1=\left[\begin{matrix}0&amp;1\\1&amp;0\end{matrix}\right],S_1^2=I$. Assume that $S_{n-1}^2=(n-1)I$</p>
+<p>Then </p>
+<script type="math/tex; mode=display">
+S_n^2=\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&O\\O&S_{n-1}^2+I\end{matrix}\right]=nI</script><p>So claim holds.</p>
 <p>Note that $nI$ has eigenvalues n. Therefore, $S_n$ has eigenvalues either $\sqrt{n}$ or $-\sqrt{n}$.</p>
 <p>Since the trace of $S_n$ is 0, $S_n$ has eigenvalues $\sqrt{n}$ of multiplicity $2^{n-1}$ and $-\sqrt{n}$ with multiplicity $2^{n-1}$.</p>
 <hr>
 <p><strong>Proof of Huang’s Theorem</strong></p>
 <p>Let H be a induced subgraph of $Q_n$ with more than $2^{n-1}$ vertices. It suffices to show that every subgraph H with exactly $2^{n-1}+1$ vertices has maximum degree at least $\sqrt{n}$.</p>
 <p>Let $(Q_n,\sigma)$ be  the signed graph with adjacency matrix $S_n$ as defined above. Then $(H,\sigma)$ is a signed induced subgraph of $(Q_n,\sigma)$, whose adjacency matrix $A$ is a $(2^{n-1}+1)$-principle submatrix of $S_n$.</p>
-<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem<br>$$<br>\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)&#x3D;\lambda_{2^{n-1}}(S_n)&#x3D;\sqrt{n}<br>$$<br>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
+<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem</p>
+<script type="math/tex; mode=display">
+\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}</script><p>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
 <hr>
 <p><strong>Unfriendly partitions of subcubic graphs</strong></p>
 <p>A graph G is subcubic if the maximum degree of G is at most 3. <font color='red'>($\Delta(G)\leq3$)</font></p>
-<p><font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font></p>
+<font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font>
+
 <p>Let G be a graph. A partition $(X,Y)$ of $V(G)$ is unfriendly if every vertex has at least the same number of neighbors in the other subset as in it owns.</p>
-<p><font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font></p>
+<font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font>
+
 <p>If $(X,Y)$ is an unfriendly partition of a subcubic graph $G$, then the maximum degree of the induced subgraph $G[X]$ and $G[Y]$ is at most 1.</p>
-<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not&#x3D;|Y|$</p>
+<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not=|Y|$</p>
 <p>A partition is a bisection if $\Big||X|-|Y|\Big|\leq1$</p>
-<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong><br>$$<br>\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]<br>$$</p>
-<hr>
+<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]</script><hr>
 <p><strong>Proof</strong></p>
 <p>Let G be a subcubic graph with n vertices and $(X,Y)$ be an unbalanced unfriendly partition.</p>
 <p>Without loss of generality, assume that $|X|&gt;|Y|$</p>
 <p>Then $\lambda_1(X)\leq\Delta(X)\leq1$ and $\lambda_1(Y)\leq\Delta(Y)\leq1$. So both X and Y are bipartite.</p>
-<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that<br>$$<br>|X|\geq\left\lceil \frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|<br>$$<br>It follows that the interlacing theorem that<br>$$<br>1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1<br>$$<br>The completes the proof.</p>
+<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that </p>
+<script type="math/tex; mode=display">
+|X|\geq\left\lceil \frac{n}{2}\right\rceil+1>\frac{n}{2}>\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|</script><p>It follows that the interlacing theorem that </p>
+<script type="math/tex; mode=display">
+1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1</script><p>The completes the proof.</p>
 <hr>
-<p><font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font></p>
-<p><font color='red'>A: No</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg"></p>
-<p><font color='red'>Conjecture(Ban&amp;Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font></p>
+<font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font>
+
+<font color='red'>A: No</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" alt=""></p>
+<font color='red'>Conjecture(Ban&Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -461,55 +534,341 @@
       </tags>
   </entry>
   <entry>
+    <title>Lecture series on graph theory 8</title>
+    <url>/2022/05/27/Graph8/</url>
+    <content><![CDATA[<p><strong>Proof of the coloring-flow duality theorem</strong></p>
+<span id="more"></span>
+<p>$\Rightarrow$ Assume that G is face k-colorable (proper coloring)</p>
+<p>We need to show that G has a nowhere-zero k-flow $(D,f)$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(i.e. &f:E(G)\to\{-(k-1),-(k-2),\cdots,-1,1,\cdots,k-2,k-1\}\\& s,t,\forall v\in V(G),\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e))
+\end{aligned}</script><p>Let $F(G)$ be the set of all faces of G and let $c:F(G)\to[k]$ be a face coloring.</p>
+<p>Assign an orientation $D$ to $E(G)$: each edge $e\in E(G)$ is oriented such that the face with a smaller color index is on the right side of the arc.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg" alt=""></p>
+<p>Define a function $f:E(G)\to[k-1]$ such that $f(e)$ is the absolute value of the difference of the colors of two faces incident with e.</p>
+<font color='blue'>**claim: $(D,f)$ is a nowhere-zero k-flow**</font>
+
+<hr>
+<p><strong><font color='blue'>Proof of claim:</font></strong></p>
+<font color='blue'>Clearly, $0<f(e)<k$, because the smallest color index is 1 and the largest color index is k;and two faces share edges have different color indices.So f is nowhere-zero.</font>
+
+<font color='blue'>Let v be vertex of G and $v_1,v_2,\cdots,v_d$ be all neighbors of v appearing around v in a clockwise order.Let $f_i$ be the face containing edges $vv_1$ and $vv_{i+1}$ . Note that, for any $i\not=j,f_i\not=f_j$ because G is 2-connected.</font>
+
+<font color='blue'>Define</font>
+$$
+\textcolor{blue}{\epsilon_i=\left\{\begin{aligned}&-1,\quad if\ v\to v_i\ in\ D\\&1,\quad if\ v_i\to v\ in\ D
+\end{aligned}\right.}
+$$
+<font color='blue'>Then, for each $i\in[d]$</font>
+$$
+\textcolor{blue}{c(f_i)=c(f_d)+\sum_{j=1}^i\epsilon_if(vv_j) \tag{*}}
+$$
+![](https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg)
+$$
+\begin{aligned}&\textcolor{blue}{c(f_1)=c(f_d)}+\textcolor{red}{f(vv_1)}\\&\textcolor{blue}{c(f_2)=c(f_1)-f(vv_2)=c(f_d)+f(vv_1)-f(vv_2)=c(f_d)+\sum_{j=1}^2\epsilon_jf(vv_j)}\end{aligned}
+$$
+<font color='blue'>From (*), $c(f_i)=c(f_d)+\sum_{j=1}^i\epsilon_if(vv_j)$. It follows that</font>
+$$
+\textcolor{blue}{\sum_{j=1}^d\epsilon_jf(vv_j)=0\Rightarrow\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)}
+$$
+
+---
+
+$\Leftarrow$ Assume that G has a nowhere-zero k-flow $(D,f)$. 
+
+Define a map $c:F(G)\to\{1,2,\cdots,k-1\}$
+
+Choose an arbitrary face $f_0$ and let $c(f_0)=1$. For each arc $e_i$ in D, let $f_i'$ and $f_i''$ be two faces incident with $e_i$. If one of  $f_i'$ and $f_i''$ is colored, then the color of another face is given by the following equality
+$$
+c(f_i'')=c(f_i')+f(e_i)(mod\ k)
+$$
+It suffices to show that the vertex coloring is well-defined.<font color ='red'>In other words, the process does not color one face by two or more different colors.</font>
+
+<p>Let $f_1$ be uncolored face incident with two colored faces $f_2$ and $f_3$.Let $e_i$ be the edge on the boundary of $f_1$ and $f_i$ for $i=2,3$. Without loss of generality, let $f_i$ be on the left side of the arcs $e_2$ and $e_3$.</p>
+<font color='blue'>**claim: $c(f_2)+f(e_2)\equiv c(f_3)+f(e_3)(mod\ k)$**</font>
+
+<hr>
+<font color='blue'>**Proof of claim:**</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg" alt=""></p>
+<font color='blue'>Consider the dual graph $G^\star$ of G.</font>
+
+<font color='blue'>The vertex subset $X^\star=\{f\in V(G^\star)\big|f\in F(G)\ is\ colored\ already\}$ induces a connected subgraph of $G^\star$. Thus, there is a cycle $C^\star$ of $G^\star$ containing $f_1,f_2$ and $f_3$.The cycles $C^\star$ also contains the edge $f_1f_2$ and$f_1f_3$, $V(C^\star)\backslash \{f_1\}\subset X^\star$.</font>
+
+<font color='blue'>Since all edges of G corresponding to the edge of $C^\star$​ separate G into two parts</font> <font color='red'>(i.e. these edges form an edge-cut)</font><font color='blue'>, Let X be the set of vertices in one part. It follows from a lemma that </font> 
+$$
+\textcolor{blue}{\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)=0}
+$$
+<font color='blue'>So the clain follows.</font>
+
+<hr>
+<p>This completes the whole proof.</p>
+<font color='red'>Recall: Every Eulerian graph G has a cycle decomposition: edges of G can be decomposed into edge-disjoint cycles.</font>
+
+<p>A cycle cover of a graph is a family of cycles which cover all edges of G.</p>
+<p>A graph has a cycle cover $\Leftrightarrow$ it has even-subgraph cover.</p>
+<p><strong>Thm If a graph G has k-even-subgraph cover, then G has a nowhere-zero $2^k$-flow</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>For each even-subgraph $H_i$, it has a 2-flow $(D,f_i)$.</p>
+<p>So $(D,f)$ is a nowhere-zero $2^k$-flow where $f=\sum_{e\in E(G)}2^{i-1}f_i(e)$</p>
+<hr>
+<p><strong>(8-flow theorem,Jaeger) Every bridgeless graph has nowhere-zero 8-flow</strong></p>
+<p><strong>(Splitting Lemma) Let G be a connected graph without cut-edge.If G has a vertex v of degree at least four. Then there are two edges $e_1$ and $e_2$ incident with v s.t. the resulting graph after splitting $e_1$ and $e_2$ from v remains to be connected and without cut-edge.</strong></p>
+<font color='red'>(Cycle double cover conjecture,1970s) Every connected cubic graph without cut-edge has a family of cycles covering every edge exactly twice.</font>
+
+<p>A proper k-edge-coloring of a graph G is a map $c:E(G)\to[k]$ s.t. $c(e)\not=c(e’)$ if $e$ and $e’$ have a common end vertex.</p>
+<p><strong>Thm Every 3-edge-colorable cubic graph has a family of cycles which cover every edge exactly twice</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let $c:E(G)\to[3]$. Then $c^{-1}(1)\cup c^{-1}(2)$ is a family of cycles, $c^{-1}(1)\cup c^{-1}(3)$ is a family of cycles, $c^{-1}(2)\cup c^{-1}(3)$ is a family of cycles.</p>
+<script type="math/tex; mode=display">
+l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2)\cup c^{-1}(3)</script><p>So $l_{e_1}\cup l_{e_2}\cup l_{e_3}$ is a family of cycles which cover every edge exactly twice.</p>
+<hr>
+<font color='blue'>(3-flow conjecture) Every 5-edge connected graph has a nowhere-zero 3-flow.</font>
+
+<font color='red'>A graph is a k-edge-connected if for any two vertices x ang y, the graph has k edge-disjoint paths joining x and y.</font>
+
+<font color='blue'>(Tutte-Nashwillam Theorem) Every 2k-edge-connected graph has a k edge-disjoint spanning trees.</font>
+
+<font color='blue'>(Lovasz,Wu,Thomassen,Zhang,2012) Every 6-edge-connected graph has a nowhere-zero 3-flow.</font>
+
+<font color='blue'>(5-flow conjecture.1950s) Every bridgeless graph has a nowhere-zero 5-flow</font>
+
+<font color='blue'>(Seymour,1980) Every bridgeless graph has a nowhere-zero 6-flow.</font>
+
+<font color='blue'>For cubic graph,cycle double cover conjecture$\approx$ the strong embedding conjecture</font>
+
+<font color='blue'>(Strong Embedding Conjecture,1980s) Every 2-connected graph can be embedded on a closed surface such that every face is bounded by a cycle.</font>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Learning by Examples——Membranes</title>
+    <url>/2022/07/23/freefem1/</url>
+    <content><![CDATA[<p><strong>Description of the Membranes Problem</strong></p>
+<p>&emsp;我们假设弹性薄膜 $\Omega$ 被固定在硬性支撑 $\Gamma$ 上，同时在表面的每个单元 $\mathrm{d}x=\mathrm{d}x_1\mathrm{d}x_2$ 上均施加有大小为 $f(x)\mathrm{d}x$ 的外力。薄膜在垂直方向上的位移 $\phi(x)$ 可以通过求解Laplace方程来得到</p>
+<script type="math/tex; mode=display">\begin{aligned}-\Delta \phi=f\ in\ \Omega\end{aligned}</script><span id="more"></span>
+<p>&emsp;如果固定薄膜的支撑是一个平面,那么薄膜的垂直位移满足:<script type="math/tex">\phi\big|_\Gamma=0</script><br>&emsp;但是如果固定薄膜的支撑并不是一个平面,而是在点 $(x_1,x_2)$ 处的高度为 $z(x_1,x_2)$ ,那么其满足非齐次Dirichlet边界条件.</p>
+<script type="math/tex; mode=display">\phi\big|_\Gamma=z</script><p>&emsp;如果薄膜边界的一部分 $\Gamma_2$ 不固定在支撑上,而是允许自由滑动,由于薄膜本身刚性性质,$\Gamma_2$ 上的任意一点的法向量 $\vec{n}$ 是0,因此边界条件为</p>
+<script type="math/tex; mode=display">\phi\big|_{\Gamma_1}=z,\frac{\partial \phi}{\partial \vec{n}}\big|_{\Gamma_2}=0</script><p>其中 $\Gamma_1=\Gamma-\Gamma_2$</p>
+<p><strong>Examples</strong></p>
+<p>&emsp;如果有一个椭圆，其半长轴的长度为 $a=2$，半短轴的长度为 $b=1$，在椭圆表面施加一个大小为1的外力，利用Freefem++编程如下：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">real theta=<span class="number">4.</span>*pi/<span class="number">3.</span>;</span><br><span class="line">real a=<span class="number">2.</span>,b=<span class="number">1.</span>;<span class="comment">//the length of the semimajor axis and semiminor axis</span></span><br><span class="line">func z=x;</span><br><span class="line"></span><br><span class="line"><span class="function">border <span class="title">Gamma1</span><span class="params">(t=<span class="number">0</span>,theta)</span> </span>&#123;x=a*<span class="built_in">cos</span>(t); y=b*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">Gamma2</span><span class="params">(t=theta,<span class="number">2</span>*pi)</span> </span>&#123;x=a*<span class="built_in">cos</span>(t);y=b*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">Gamma1</span>(<span class="number">100</span>)+<span class="built_in">Gamma2</span>(<span class="number">50</span>));</span><br><span class="line"></span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P2)</span></span>;<span class="comment">//P2 conforming triangular FEM</span></span><br><span class="line">Vh phi,w,f=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">solve <span class="title">Laplace</span><span class="params">(phi,w)</span></span>=<span class="built_in">int2d</span>(Th)(<span class="built_in">dx</span>(phi)*<span class="built_in">dx</span>(w)+<span class="built_in">dy</span>(phi)*<span class="built_in">dy</span>(w))</span><br><span class="line">                    -<span class="built_in">int2d</span>(Th)(f*w)+<span class="built_in">on</span>(Gamma1,phi=z);</span><br><span class="line"><span class="built_in">plot</span>(phi,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membrane.eps&quot;</span>);<span class="comment">//plot phi</span></span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membraneTh.eps&quot;</span>);<span class="comment">//plot Th</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">savemesh</span>(Th,<span class="string">&quot;Th.msh&quot;</span>);</span><br></pre></td></tr></table></figure><br>&emsp;网格剖分结果图<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_101445.39ksbvpbv0m0.jpg" alt=""><br>&emsp;解的结果图<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_101431.3aemdihjkny0.jpg" alt=""><br>&emsp;buildmesh表示建立区域的三角剖分,它调用了一个基于的Delaunay测试的三角剖分子程序.Delaunay测试首先通过三角化边界点再通过细分边加入内部点.通过其得到的三角剖分的精细程度由最近的一条边界的尺寸来确定.</p>
+<p>&emsp;为了验证这个方法的有效性,我们通过给出一个特殊的参数,来精确求解误差及收敛率.在单位圆上,当 $z=0,f=-4(\cos(x^2+y^2-1)-(x^2+y^2)\sin(x^2+y^2-1))$,其精确解为$\phi_e=\sin(x^2+y^2-1)$,但其在$\Gamma_2$上法向量并非为0,而是2.利用Freefem++编程如下<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">verbosity =<span class="number">0</span>; <span class="comment">// to remove all default output</span></span><br><span class="line">real theta=<span class="number">4.</span>*pi/<span class="number">3.</span>;</span><br><span class="line">real a=<span class="number">1.</span>,b=<span class="number">1.</span>; <span class="comment">// the length of the semimajor axis and semiminor axis</span></span><br><span class="line"><span class="function">border <span class="title">Gamma1</span><span class="params">(t=<span class="number">0</span>,theta)</span> </span>&#123; x = a * <span class="built_in">cos</span>(t); y = b*<span class="built_in">sin</span>(t); &#125;</span><br><span class="line"><span class="function">border <span class="title">Gamma2</span><span class="params">(t=theta,<span class="number">2</span>*pi)</span> </span>&#123; x = a * <span class="built_in">cos</span>(t); y = b*<span class="built_in">sin</span>(t); &#125;</span><br><span class="line">func f=<span class="number">-4</span>*(<span class="built_in">cos</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>) -(x^<span class="number">2</span>+y^<span class="number">2</span>)*<span class="built_in">sin</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>));</span><br><span class="line">func phiexact=<span class="built_in">sin</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>);</span><br><span class="line">real[<span class="type">int</span>] <span class="built_in">L2error</span>(<span class="number">2</span>); <span class="comment">// an array two values</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> n=<span class="number">0</span>;n&lt;<span class="number">2</span>;n++)</span><br><span class="line">&#123;</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">Gamma1</span>(<span class="number">20</span>*(n+<span class="number">1</span>))+<span class="built_in">Gamma2</span>(<span class="number">10</span>*(n+<span class="number">1</span>)));</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P2)</span></span>;</span><br><span class="line">Vh phi,w;</span><br><span class="line"><span class="function">solve <span class="title">laplace</span><span class="params">(phi,w)</span></span>=<span class="built_in">int2d</span>(Th)(<span class="built_in">dx</span>(phi)*<span class="built_in">dx</span>(w) + <span class="built_in">dy</span>(phi)*<span class="built_in">dy</span>(w))</span><br><span class="line">- <span class="built_in">int2d</span>(Th)(f*w) - <span class="built_in">int1d</span>(Th,Gamma2)(<span class="number">2</span>*w)+ <span class="built_in">on</span>(Gamma1,phi=<span class="number">0</span>);</span><br><span class="line"><span class="built_in">plot</span>(Th,phi,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membrane.eps&quot;</span>); <span class="comment">// Plot Th and phi</span></span><br><span class="line">L2error[n]= <span class="built_in">sqrt</span>(<span class="built_in">int2d</span>(Th)((phi-phiexact)^<span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> n=<span class="number">0</span>;n&lt;<span class="number">2</span>;n++)</span><br><span class="line">cout &lt;&lt; <span class="string">&quot; L2error &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; = &quot;</span>&lt;&lt; L2error[n] &lt;&lt;endl;</span><br><span class="line">cout &lt;&lt;<span class="string">&quot; convergence rate = &quot;</span>&lt;&lt; <span class="built_in">log</span>(L2error[<span class="number">0</span>]/L2error[<span class="number">1</span>])/<span class="built_in">log</span>(<span class="number">2.</span>) &lt;&lt;endl;</span><br></pre></td></tr></table></figure><br>&emsp;结果如下所示</p>
+<p><center>
+<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104705.4zsjpr37e500.jpg style="width:70%;">
+<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104718.3eeywtiihfs0.jpg style="width:70%;">
+<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104731.bdx6vziosds.jpg style="width:70%;">
+</center><br>&emsp;我们会发现此处计算得到的收敛率仅1.98,但理论上收敛率应该达到3,实际上是因为网格剖分的几何结构是多边形结构,与实际的有一定差异因此,在收敛率上有一定的降低.</p>
+]]></content>
+      <categories>
+        <category>Freefem++</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Coding</tag>
+        <tag>Freefem++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lecture series on graph theory 7</title>
     <url>/2022/05/26/Graph7/</url>
     <content><![CDATA[<p><strong>Thm(Wilf,1967) Let G be a graph. Then $\chi(G)\leq\lambda_1(G)+1$, where $\chi(G)$ is the chromatic number</strong></p>
-<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not&#x3D;c(v_j)$ if $v_iv_j\in E(G)$.</p>
-<p>A graph is a k-colorable if there exists a proper vertex coloring<br>$$<br>c:V(G)\to{1,2,\cdots,k}&#x3D;[k].<br>$$</p>
-<span id="more"></span>
-
+<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not=c(v_j)$ if $v_iv_j\in E(G)$.</p>
+<p>A graph is a k-colorable if there exists a proper vertex coloring </p>
+<script type="math/tex; mode=display">
+c:V(G)\to\{1,2,\cdots,k\}=[k].</script><span id="more"></span>
 <p>The chromatic number of a graph is the smallest integer k s.t. G is k-colorable, denoted by $\chi(G)$.</p>
 <p><strong>(Four color Theorem) Every planar graph is 4-colorable</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_011010.4crr6n46e6o.jpg"></p>
-<p><strong>Lemma Let G be a graph. Then</strong><br>$$<br>\chi(G)\leq1+p<br>$$<br><strong>where $p&#x3D;\max{\delta(H)|\text{H is an induced subgraph of G}}$, <font color='red'>$\delta(G)$ is minimum degree of H.</font></strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_011010.4crr6n46e6o.jpg" alt=""></p>
+<p><strong>Lemma Let G be a graph. Then</strong></p>
+<script type="math/tex; mode=display">
+\chi(G)\leq1+p</script><p><strong>where $p=\max\{\delta(H)|\text{H is an induced subgraph of G}\}$, <font color='red'>$\delta(G)$ is minimum degree of H.</font></strong></p>
 <hr>
 <p><strong>Proof of Lemma</strong></p>
 <p>Use greedy algorithm:</p>
 <p>Consider that $c:V(G)\to\mathbb{N}$ such that color the first vertex by the smallest value and color the k-th vertex by using the smallest value that has not been used to color any of the first k-1 vertices that are adjacent to the k-th vertex. So it suffices to show that there is an ordering of the vertices of G for which the greedy algorithm gives an (1+p)-coloring of G.</p>
-<p>Let $x_n$ be a vertex of $G&#x3D;H_n$ having degree at most p.<font color='red'>（$x_n$ could be the vertex of G with the degree $\delta(G)$</font></p>
-<p>By the definition of the value of p, the subgraph $H_{n-1}&#x3D;G-x_n$ has a vertex $x_{n-1}$ of degree at most p. Continue this process, let $H_{n-1}&#x3D;G-{x_n,x_{n-1},\cdots,x_{n-i+1}}$ which again has a vertex of degree at most p, denoted by $x_{n-i}$ for $i\in[n]$</p>
-<p>Then $H_{1}&#x3D;G-{x_n,x_{n-1},\cdots,x_{2}}$ is an isolated vertex of degree 0.</p>
+<p>Let $x_n$ be a vertex of $G=H_n$ having degree at most p.<font color='red'>（$x_n$ could be the vertex of G with the degree $\delta(G)$</font></p>
+<p>By the definition of the value of p, the subgraph $H_{n-1}=G-x_n$ has a vertex $x_{n-1}$ of degree at most p. Continue this process, let $H_{n-1}=G-\{x_n,x_{n-1},\cdots,x_{n-i+1}\}$ which again has a vertex of degree at most p, denoted by $x_{n-i}$ for $i\in[n]$</p>
+<p>Then $H_{1}=G-\{x_n,x_{n-1},\cdots,x_{2}\}$ is an isolated vertex of degree 0.</p>
 <p> Then the ordering $x_1,x_2,\cdots,x_n$ is a desired one.</p>
 <hr>
 <p><strong>Proof of Wilf’s Theorem</strong></p>
 <p>Let G be a graph. For any induced subgraph H of G, $\delta(G)\leq d(G)\leq\lambda_1(H)\leq\lambda_1(G)$</p>
-<p>Therefore, $p&#x3D;\max{\delta(H)|\text{H is an induced subgraph of G}}\leq\lambda_1(G)$</p>
-<p>It follows from the above Lemma<br>$$<br>\chi(G)\leq 1+p\leq1+\lambda_1(G)<br>$$</p>
-<hr>
-<p>If G is k-colorable, let $c:V(G)\to[k]$ be a k-colorable. $c^{-1}(i)$, the preimage of color i, is an independent set. Independent number of G: $\alpha(G)\geq\max\left{|c^{-1}(i)|\big|i\in[k]\right}\geq n&#x2F;k$.</p>
-<p>So $\alpha(G)\geq n&#x2F;\chi(G)\geq n&#x2F;(1+\lambda_1(G))$.</p>
+<p>Therefore, $p=\max\{\delta(H)|\text{H is an induced subgraph of G}\}\leq\lambda_1(G)$</p>
+<p>It follows from the above Lemma</p>
+<script type="math/tex; mode=display">
+\chi(G)\leq 1+p\leq1+\lambda_1(G)</script><hr>
+<p>If G is k-colorable, let $c:V(G)\to[k]$ be a k-colorable. $c^{-1}(i)$, the preimage of color i, is an independent set. Independent number of G: $\alpha(G)\geq\max\left\{|c^{-1}(i)|\big|i\in[k]\right\}\geq n/k$.</p>
+<p>So $\alpha(G)\geq n/\chi(G)\geq n/(1+\lambda_1(G))$.</p>
 <p><strong>Coloring, Integer flow</strong></p>
-<p>Let G be a graph. An integer flow of G is an ordered pair $(D,f)$ where $D$ is an orientation of $G$ and $f$ is an integer function $f:E(G)\to\mathbb{Z}$ s.t. for every vertex v of G $\sum_{e\in E^{+}(v)}f(e)&#x3D;\sum_{e\in E^{-}(v)}f(e)$ where $E^{+}(v)$ is the set of all arcs with $v$ as tail and $E^{-}(v)$ is the set of all arcs with v as head.</p>
-<p><font color='red'>Recall: this incidence matrix of D is matrix is $\vec{B}$ and $\vec{f}&#x3D;&lt;f(e_1),\cdots,f(e_m)&gt;\in\mathbb{Z}^m$ where $m&#x3D;|E(G)|$ , then $\vec{B}\cdot\vec{f}&#x3D;0$. This vector $\vec{f}$ is called an integer flow of G.</font></p>
-<p>An integer flow $(D,f)$ is nowhere-zero if $f(e)\not&#x3D;0$ for all edges of $G$ <font color='red'>i.e. $\vec{f}$ has no zero component.</font></p>
-<p>An integer flow $(D,f)$ is a k-flow if $|f(e)|&lt;k$ <font color='red'>i.e. every component of $\vec{f}$ has absolute value less than k.</font></p>
+<p>Let G be a graph. An integer flow of G is an ordered pair $(D,f)$ where $D$ is an orientation of $G$ and $f$ is an integer function $f:E(G)\to\mathbb{Z}$ s.t. for every vertex v of G $\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)$ where $E^{+}(v)$ is the set of all arcs with $v$ as tail and $E^{-}(v)$ is the set of all arcs with v as head.</p>
+<font color='red'>Recall: this incidence matrix of D is matrix is $\vec{B}$ and $\vec{f}=<f(e_1),\cdots,f(e_m)>\in\mathbb{Z}^m$ where $m=|E(G)|$ , then $\vec{B}\cdot\vec{f}=0$. This vector $\vec{f}$ is called an integer flow of G.</font>
+
+<p>An integer flow $(D,f)$ is nowhere-zero if $f(e)\not=0$ for all edges of $G$ <font color='red'>i.e. $\vec{f}$ has no zero component.</font></p>
+<p>An integer flow $(D,f)$ is a k-flow if $|f(e)|<k$ <font color='red'>i.e. every component of $\vec{f}$ has absolute value less than k.&lt;/font&gt;</p>
 <p>If G has a k-flow, the orientation in the k-flow does not matter.</p>
 <p><strong>Proposition Every Eulerian graph has nowhere 2-flow. A connected graph with a nowhere-zero 2-flow is Eulerian.</strong></p>
-<p><strong>Lemma Let $(D,f)$ be a flow of G, then for each $X\subset V(G)$, it holds that</strong><br>$$<br>\sum_{e\in E^{+}X}f(e)&#x3D;\sum_{e\in E^{-}(X)}f(e)<br>$$</p>
-<hr>
+<p><strong>Lemma Let $(D,f)$ be a flow of G, then for each $X\subset V(G)$, it holds that</strong>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </p>
+<script type="math/tex; mode=display">
+\sum_{e\in E^{+}X}f(e)=\sum_{e\in E^{-}(X)}f(e)</script><hr>
 <p><strong>Proof</strong></p>
-<p>Since $(D,f)$ is a flow, it follows that, for every vertex v,<br>$$<br>\sum_{e\in E^{+}(v)}f(e)&#x3D;\sum_{e\in E^{-}(v)}f(e)<br>$$<br>So $\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)&#x3D;0$</p>
-<p>Note that<br>$$<br>0&#x3D;\sum_{v\in X}(\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e))&#x3D;\sum_{e\in E^{+}(X)}f(e)-\sum_{e\in E^{-}(X)}f(e)<br>$$</p>
-<hr>
+<p>Since $(D,f)$ is a flow, it follows that, for every vertex v,</p>
+<script type="math/tex; mode=display">
+\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)</script><p>So $\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)=0$</p>
+<p>Note that</p>
+<script type="math/tex; mode=display">
+0=\sum_{v\in X}(\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e))=\sum_{e\in E^{+}(X)}f(e)-\sum_{e\in E^{-}(X)}f(e)</script><hr>
 <p><strong>Corollary A graph has a nowhere-zero integer flow $\Leftrightarrow$ it has no cut-edge.</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
 <p>$\Rightarrow$ It follows directly from the above lemma.</p>
 <p>$\Leftarrow$ Assume that G has no cut-edge. Then every edge of G belongs to a cycle. </p>
-<p>Let $C&#x3D;{C_1,C_2,\cdots,C_k}$ be a set of cycles covering all edges of G.</p>
-<p>Every $C_1$ has nowhere-zero 2-flow $(D,f_1)$<br>$$<br>f:E(G)\to\mathbb{N}\quad s.t.\ f(e)&#x3D;\sum_{i&#x3D;1}^k 2^if_i(e)<br>$$<br>Then $(D,f)$ is a nowhere-zero integer flow.</p>
+<p>Let $C=\{C_1,C_2,\cdots,C_k\}$ be a set of cycles covering all edges of G.</p>
+<p>Every $C_1$ has nowhere-zero 2-flow $(D,f_1)$</p>
+<script type="math/tex; mode=display">
+f:E(G)\to\mathbb{N}\quad s.t.\ f(e)=\sum_{i=1}^k 2^if_i(e)</script><p>Then $(D,f)$ is a nowhere-zero integer flow.</p>
 <hr>
 <p><strong>The Coloring-Flow Duality Theorem (Tutte)<br>Let G be a 2-connected planar graph. Then G is proper face k-colorable if and only if G has a nowhere-zero k-flow. In other words, let $G^{\star}$ be its planar dual. Then $G^{\star}$ is proper k-colorable $\Leftrightarrow$ G has a nowhere-zero k-flow.</strong></p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>freefem3</title>
+    <url>/2022/07/26/freefem3/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Lecture series on graph theory 5</title>
+    <url>/2022/05/22/Graph5/</url>
+    <content><![CDATA[<p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)=d$, each of these edges is chosen with probability 1/d)</font> </p>
+<p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
+<span id="more"></span>
+<p>Let M(G) be the matrix whose rows and columns are indexed by vertices $v_1,\dots,v_n$, we assume that $m_{ij}$ is the $(i,j)$-entry of M(G), which satisfies the following formula</p>
+<script type="math/tex; mode=display">
+m_{ij}=\frac{a_{ij}}{d_i}</script><p>where $a_{ij}$ is the number of edges between $v_i$ and $v_j$. The $m_{ij}$ is probability that if one starts at $v_i$ and then the next step will be at $v_j$.</p>
+<font color='red'>Recall: the number of k-walks from $v_i$ to $v_j$= the $(i,j)$-entry of $A(G)^k$</font>
+
+<p>$\exists v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j,\ P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)=\frac{a_{ii_1}}{d_i}\frac{a_{i_1i_2}}{d_{i_1}}\cdots\frac{a_{i_{k-1}i_j}}{d_{i_{k-1}}}=m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P(v_i\to v_j\ in\ k\ steps)&=\sum_{k-walk\ from\ v_i\to v_j} P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)\\
+&=\sum m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}=(i,j)-entry\ of\ M(G)^k
+\end{aligned}</script><p>Assume the probability to pick $v_i$ is $p(v_i)$ for $i\in\{1,\dots,n\}$ s.t. $\sum_{i=1}^n p(v_i)=1$</p>
+<p>Let $P=[\begin{matrix}p(v_1)&amp;p(v_2)&amp;\cdots&amp;p(v_n)\end{matrix}]$. Then the probability of a walk ending up at $v_i$ in k steps is </p>
+<script type="math/tex; mode=display">
+P(there\ is\ a\ walk\ ending\ up\ at\ v_i\ in\ k\ steps)=[PM(G)^k]_i</script><p>If G is k regular <font color='red'>( every vertex has degree k)</font> then $M(G)=\frac{1}{d}A(G)$</p>
+<p>Then the eigenvalue $\beta_i$ of $M(G)$ satisfies $\beta_1=\frac{1}{d}\lambda_i$ where $\lambda_i$ is an eigenvalue of G.</p>
+<script type="math/tex; mode=display">
+P(\exists\ a\ closed\ k-walk\ starting\ v)=\beta_1^k+\cdots+\beta_n^k=\frac{1}{d^k}(\lambda_1^k+\cdots+\lambda_n^k)</script><p><strong>Weighted graphs and digraphs</strong></p>
+<p>Let G be a graph. A weighted graph is a graph G associated with a weight function: $w:E(G)\to\mathbb{F}$ where $\mathbb{F}$ is a field, denote by $(G,w)$. Most of the time, we consider the case that $\mathbb{F}=\mathbb{R}$.</p>
+<p>The adjacency matrix of a weighted graph is a real symmetric matrix $A(G,w)=(a_{ij})_{n\times n}$ with $a_{ij}=w(v_iv_j)$, the weight of the edge of $v_iv_j$.</p>
+<p>Let H be a subgraph of $(G,w)$. The weight of H is defined as $w(H)=\sum_{e\in E(H)}w(e)$</p>
+<p>For example, how to find a minimum weight path between two given vertices? How to find a minimum spanning tree or how to find a cycle or walk with large weight<font color='red'>( so-called heavy cycles or walks)</font></p>
+<p>A digraph is a graph with an orientation which assigns an orientation to each edge.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg" alt=""></p>
+<font color='red'>An orientation edge (or arc) from $v_i$ to $v_j$ is an ordered pair of vertices , denoted by $(v_i,v_j)$ where $v_i$ is called the tail and $v_j$ is called the head of arc.</font>
+$$
+A(D,w)=[a_{ij}]_{n\times n}\  where\ a_{ij}=\left\{\begin{aligned}& w(v_iv_j),\quad v_i\to v_j\\
+&-w(v_iv_j),\quad v_j\to v_i\\
+&0,\quad otherwise\end{aligned}\right. 
+$$
+Then $A(D,w)$ is no longer symmetric <font color='red'>but skew-symmetric:$A+A^T=O$</font>
+
+<p>For a given graph G, let D be an orientation of G, $\vec{B}$ is an oriented incidence matrix</p>
+<script type="math/tex; mode=display">
+\vec{B}\cdot \vec{f}=\vec{b}\ where\ \vec{b}\in\mathbb{R}^{|V(G)|},\ \vec{f}\in\mathbb{R}^{|E(G)|}</script><p>A solution to $\vec{B}\cdot \vec{f}=\vec{b}$ is called a network flow. $\vec{b}$ is called a boundary condition.</p>
+<p>If $\vec{b}=\vec{0},\ \vec{B}\cdot \vec{f}=\vec{0}.\qquad(*)$  </p>
+<p>A vector $\vec{f}$ satisfies $(*)$ is called a circulation or real flow if $\vec{f}\in\mathbb{R}^{|E(G)|}$.</p>
+<p>If a solution to $(*)$ satisfies $\vec{f}\in\mathbb{Z}^{|E(G)|}$, then $\vec{f}$ is called an integer flow.</p>
+<font color='red'>Tutte's five-flow conjecture: For a graph without bridge, it has a nowhere zero 5-flow i.e. $\exists \vec{f}\in\mathbb{Z}^{|E(G)|}$ and every component of f is not zero and absolute value of every component is at most 4. $\vec{f}=[f_1, f_2,\cdots,f_m]$ where $m=|E(G)|,\ f_i\in\{-4,-3,-2,-1,0,1,2,3,4\}$</font>
+
+<p><strong>Eigenvalues and subgraphs </strong></p>
+<p>Let G be a graph with n vertices, $A(G)$ be the adjacency matrix.</p>
+<p>All n eigenvalues of $A(G)$ are real because $A(G)$ is real and symmertic</p>
+<script type="math/tex; mode=display">
+\lambda_1(G)\geq\lambda_2(G)\geq\cdots\geq\lambda_{\lceil \frac{n+1}{2}\rceil}\geq\lambda_{\lfloor \frac{n+1}{2}\rfloor}\geq\lambda_n(G)</script><p>where $\lambda_{\lceil \frac{n+1}{2}\rceil},\lambda_{\lfloor \frac{n+1}{2}\rfloor}$ are median eigenvalues.</p>
+<p>The largest eigenvalues $\lambda_1(G)$ is usually called the spectral radius of G.</p>
+<p><strong>Proposition. Let G be an n-vertex graph and A be its adjacency matrix.Let $\lambda_1\geq\cdots\geq\lambda_n$ be the eigenvalues of A<br>Then 1. $\lambda_1 =\max_{\vec{x}\not=\vec{0}}\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}$,   2. $\lambda_1\geq|\lambda_n|$</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>1.The eigenvalues of A (say $\vec{u}_1,\vec{u}_2,\dots,\vec{u}_n$) can be chosen as a standard orthogonal basis of $\mathbb{R}^n$. </p>
+<p>Assume that array ($x_1,x_2,\dots,x_n$) is the coordinate of $\vec{x}$ under this basis</p>
+<script type="math/tex; mode=display">
+\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}=\frac{\lambda_1x_1^2+\cdots+\lambda_nx_n^2}{x_1^2+\cdots+x_n^2}\leq\lambda_1</script><p>with equality holds if and only if $x_1\not= 0$ and $x_i=0$ for $i=\{2,\cdots,n\}$, i.e. $\vec{x}$ is exactly an eigenvector of $\lambda_1$.</p>
+<ol>
+<li><p>Let $\vec{v}$ be get from $\vec{u}_n$ by convert each component into its absolute value (i.e. $\vec{v}=(|\vec{u}_n(1)|,|\vec{u}_n(2)|,\cdots,|\vec{u}_n(n)|)$)</p>
+<p>From proof of 1. we can write $\lambda_n$ as</p>
+<script type="math/tex; mode=display">
+|\lambda_n|=|\frac{\vec{u}^T_nA\vec{u}_n}{\vec{u}_n^T\vec{u}_n}|=|\vec{u}^T_nA\vec{u}_n|\leq\sum_{i,j\in[n]}A(i,j)|\vec{u}_n(i)\vec{u}_n(j)|=|\frac{\vec{v}^TA\vec{v}}{\vec{v}^T\vec{v}}|\leq\lambda_1</script><p>We have used triangle inequality at the first inequality and the result of 1. at the second inequality.</p>
+</li>
+</ol>
+<hr>
+<p><strong>Propsition. Let G be a graph, and $\Delta (G)$ be the maximum degree and $d(G)$ be the average degree. Then we have </strong></p>
+<script type="math/tex; mode=display">
+d(G)\leq\lambda_1\leq\Delta (G)</script><hr>
+<p><strong>Proof</strong></p>
+<p>Note that, there exist $\vec{x}\not=\vec{0}$, s.t. $A\vec{x}=\lambda\vec{x}$ where A is the adjacency matrix.</p>
+<script type="math/tex; mode=display">
+\lambda_1=\sup\{\vec{x}^TA\vec{x}\Big|||\vec{x}||=1\ and\ \vec{x}\in\mathbb{R}^n\}</script><p>Let $\vec{x}_1=\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T$, then</p>
+<script type="math/tex; mode=display">
+\begin{aligned}\lambda_1&\geq \vec{x}_1^TA\vec{x}_1=\frac{1}{\sqrt{n}}[\begin{matrix}1&1&\dots&1\end{matrix}]A\frac{1}{\sqrt{n}}[\begin{matrix}1&1&\dots&1\end{matrix}]^T\\
+&=\frac{1}{n}[\begin{matrix}1&1&\dots&1\end{matrix}][\begin{matrix}d(v_1)&d(v_2)&\cdots&d(v_n)\end{matrix}]^T\\
+&=\frac{1}{n}\sum_{i=1}^nd(v_i)=d(G)\end{aligned}</script><p>For the upper bound, let $\vec{x}$ s.t. $A\vec{x}=\lambda_1\vec{x}$ where $\vec{x}=[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$</p>
+<p>Let $x_i$ be the largest value among all components of $\vec{x}$. Then, </p>
+<script type="math/tex; mode=display">
+\lambda_1 x_i=\sum_{v_iv_j\in E(G)}x_j\leq\Delta(G)x_j</script><p>So $\lambda_1\leq\Delta (G)$ follows.</p>
+<hr>
+<p><strong>Corollary Let G be a k-regular graph. Then $\lambda_1(G)=k$</strong></p>
+<p>A signed graph $(G,\sigma)$ is a weighted graph s.t. $\sigma:\ E(G)\to\{-1,1\}$</p>
+<script type="math/tex; mode=display">
+A(G,\sigma)=[a_{ij}]_{n\times n}\ where\ a_{ij}=\left\{\begin{aligned}&\sigma(v_iv_j),\quad v_iv_j\in E(G)\\&0,\quad otherwise\end{aligned}\right.</script><p>So $A(G,\sigma)$ is a symmetric real matrix.</p>
+<p>We can assume that $\lambda_1(G,\sigma)\geq\lambda_2(G,\sigma)\geq\cdots\geq\lambda_n(G,\sigma)$, <font color='red'>but $\lambda_1(G,\sigma)\geq|\lambda_n(G,\sigma)|$ may not hold.</font></p>
+<p><strong>Prop. Let $(G,\sigma)$ be a signed graph with maximum degree $\Delta (G)$. Then</strong></p>
+<script type="math/tex; mode=display">
+|\lambda(G,\sigma)|\leq\Delta(G)\ where\ \lambda(G,\sigma)\ is\ an\ eigenvalue\ of\ G</script><hr>
+<p><strong>Proof</strong></p>
+<p>Let $\vec{x}$ be an eigenvector of $\lambda$ s.t. $\lambda\vec{x}=A\vec{x}$.</p>
+<p>Let $\vec{x}=[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$ and $x_i$ has the largest absolute value among all $x_j$’s.</p>
+<p>Then </p>
+<script type="math/tex; mode=display">
+|\lambda x_i|=|(A\vec{x})_i|=|\sum_{v_iv_j\in E(G)}\sigma(v_iv_j)x_j|\leq\sum_{v_iv_j\in E(G)}|x_j|\leq\Delta(G)|x_i|</script><p>So $|\lambda|\leq\Delta(G)$</p>
+<hr>
+<p><strong>Thm A graph G is bipartite $\Leftrightarrow$ its spectrum is symmetric about the origin.</strong></p>
+<font color='red'>(i.e. $\lambda_i$ is an eigenvalue of G $\Leftrightarrow$ $-\lambda_i$ is an eigenvalue of G)</font>
+
+<hr>
+<p><strong>Proof</strong></p>
+<p>$\Rightarrow$ Assume that G is bipartite.Let A be The adjacency matrix of G.</p>
+<script type="math/tex; mode=display">
+A=\left[\begin{matrix}O&B\\B^T&O\end{matrix}\right]\ where\ B\ is\ the\ bipartite\ adjacency\ matrix.</script><p>Let $\lambda$ be an eigenvalue of G with $\vec{x}=(\begin{matrix}\vec{x}_1^T&amp;\vec{x}_2^T\end{matrix})^T$</p>
+<p>Then</p>
+<script type="math/tex; mode=display">
+A\vec{x}=\left(\begin{matrix}O&B\\B^T&O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}B\vec{x}_2\\B^T\vec{x}_1\end{matrix}\right)=\lambda\left(\begin{matrix}\vec{x}_1\\\vec{x}_2\end{matrix}\right)</script><p>Then</p>
+<script type="math/tex; mode=display">
+A\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}O&B\\B^T&O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}-B\vec{x}_2\\B^T\vec{x}_1\end{matrix}\right)=-\lambda\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)</script><p>So $-\lambda$ is also an eigenvalue of A.</p>
+<p>$\Leftarrow$ Let $\lambda_1\geq\cdots\geq\lambda_n$ be all eigenvalues of G.<font color='red'>(i.e. $\lambda_i=-\lambda_{n-i+1}$)</font></p>
+<p>For any positive integer k, the matrix $A^k$ has eigenvalues $\lambda_1^k,\lambda_2^k,\cdots,\lambda_n^k$</p>
+<p>Because G has symmetric specturm, it follows that $\lambda_1^k+\cdots+\lambda_n^k=0$ if k is an odd integer.</p>
+<script type="math/tex; mode=display">
+0=\lambda_1^k+\cdots+\lambda_n^k=w_k(G)</script><font color='red'>$w_k(G)$ is the total number of close k-walks.</font>
+
+<p>So every closed walk have an even length. Therefore G is bipartite.</p>
+<hr>
+<font color='red'>Problem: characterize graphs which satisfy # positive eigenvalues=# negative eigenvalues</font>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -523,11 +882,9 @@
     <title>Learning by Examples——Heat Exchange</title>
     <url>/2022/07/25/freefem2/</url>
     <content><![CDATA[<p><strong>Description of the Heat Exchanger problem</strong></p>
-<p>&amp;emsp;我们假设有一个外壳$C_0$,外壳内有${C_i}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如下微分方程<br>$$\nabla\cdot(\kappa\nabla u)&#x3D;0\ in\ \Omega,\quad u|_\Gamma&#x3D;g$$</p>
-<span id="more"></span>
-<p>其中 $\Omega$ 是 $C_0$ 的内部减去导体 $C_1$, $\Gamma$ 是 $\Omega$ 的边界,即 $C_0\cup C_1$,此处的 $g$ 是关于x的任意函数且在 $C_i$ 上等于 $u_i$<br>&amp;emsp;为了简便起见,我们假设 $C_0$ 是以原点为圆心,半径为5的圆,$C_i$ 是矩形,$C_1$ 维持 $u_1&#x3D;60$°C的恒温.<br>&amp;emsp;利用Freefem++编写程序如下</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> C1=<span class="number">99</span>,C2=<span class="number">98</span>;</span><br><span class="line"><span class="function">border <span class="title">C0</span><span class="params">(t=<span class="number">0</span>,<span class="number">2</span>*pi)</span></span>&#123;x=<span class="number">5</span>*<span class="built_in">cos</span>(t);y=<span class="number">5</span>*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">C11</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>+t;y=<span class="number">3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C12</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C13</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>-t;y=<span class="number">-3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C14</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C21</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>+t;y=<span class="number">3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C22</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C23</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>-t;y=<span class="number">-3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C24</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="built_in">plot</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>),wait=<span class="literal">true</span>,ps=<span class="string">&quot;heatexb.eps&quot;</span>);</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>));</span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>);</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P1)</span></span>;</span><br><span class="line">Vh u,v;</span><br><span class="line">Vh kappa=<span class="number">1</span>+<span class="number">2</span>*(x&lt;<span class="number">-1</span>)*(x&gt;<span class="number">-2</span>)*(y&lt;<span class="number">3</span>)*(y&gt;<span class="number">-3</span>);</span><br><span class="line"><span class="function">solve <span class="title">a</span><span class="params">(u,v)</span></span>=<span class="built_in">int2d</span>(Th)(kappa*(<span class="built_in">dx</span>(u)*<span class="built_in">dx</span>(v)+<span class="built_in">dy</span>(u)*<span class="built_in">dy</span>(v)))</span><br><span class="line">            +<span class="built_in">on</span>(C0,u=<span class="number">20</span>)+<span class="built_in">on</span>(C1,u=<span class="number">60</span>);</span><br><span class="line"><span class="built_in">plot</span>(u,wait=<span class="literal">true</span>, value=<span class="literal">true</span>, fill=<span class="literal">true</span>, ps=<span class="string">&quot;heatex.eps&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p><strong><font color='red'>Remark</font></strong></p>
+<p>&emsp;我们假设有一个外壳$C_0$,外壳内有$\{C_i\}_{1,2}$两个热导体.其中一个保持恒温$u_1$,另一个的热导率$\kappa$比外壳$C_0$的大五倍.我们假设外壳$C_0$的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域$\Omega$各点的温度分布,我们需要求解如下微分方程</p>
+<script type="math/tex; mode=display">\nabla\cdot(\kappa\nabla u)=0\ in\ \Omega,\quad u|_\Gamma=g</script><span id="more"></span>
+<p>其中 $\Omega$ 是 $C_0$ 的内部减去导体 $C_1$, $\Gamma$ 是 $\Omega$ 的边界,即 $C_0\cup C_1$,此处的 $g$ 是关于x的任意函数且在 $C_i$ 上等于 $u_i$<br>&emsp;为了简便起见,我们假设 $C_0$ 是以原点为圆心,半径为5的圆,$C_i$ 是矩形,$C_1$ 维持 $u_1=60$°C的恒温.<br>&emsp;利用Freefem++编写程序如下<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> C1=<span class="number">99</span>,C2=<span class="number">98</span>;</span><br><span class="line"><span class="function">border <span class="title">C0</span><span class="params">(t=<span class="number">0</span>,<span class="number">2</span>*pi)</span></span>&#123;x=<span class="number">5</span>*<span class="built_in">cos</span>(t);y=<span class="number">5</span>*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">C11</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>+t;y=<span class="number">3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C12</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C13</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>-t;y=<span class="number">-3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C14</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C21</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>+t;y=<span class="number">3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C22</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C23</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>-t;y=<span class="number">-3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C24</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="built_in">plot</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>),wait=<span class="literal">true</span>,ps=<span class="string">&quot;heatexb.eps&quot;</span>);</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>));</span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>);</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P1)</span></span>;</span><br><span class="line">Vh u,v;</span><br><span class="line">Vh kappa=<span class="number">1</span>+<span class="number">2</span>*(x&lt;<span class="number">-1</span>)*(x&gt;<span class="number">-2</span>)*(y&lt;<span class="number">3</span>)*(y&gt;<span class="number">-3</span>);</span><br><span class="line"><span class="function">solve <span class="title">a</span><span class="params">(u,v)</span></span>=<span class="built_in">int2d</span>(Th)(kappa*(<span class="built_in">dx</span>(u)*<span class="built_in">dx</span>(v)+<span class="built_in">dy</span>(u)*<span class="built_in">dy</span>(v)))</span><br><span class="line">            +<span class="built_in">on</span>(C0,u=<span class="number">20</span>)+<span class="built_in">on</span>(C1,u=<span class="number">60</span>);</span><br><span class="line"><span class="built_in">plot</span>(u,wait=<span class="literal">true</span>, value=<span class="literal">true</span>, fill=<span class="literal">true</span>, ps=<span class="string">&quot;heatex.eps&quot;</span>);</span><br></pre></td></tr></table></figure><br><strong><font color='red'>Remark</font></strong></p>
 <ul>
 <li>$C_0$ 和 $C_2$ 关于 $t$ 是逆时针方向,而 $C_1$ 关于 $t$ 是顺时针方向,因此 $C_1$ 在网格剖分过程中被认定成一个洞.</li>
 <li>$C_1$ 和 $C_2$ 在程序中是以拼接线段的形式构成的,为了能将那些线段作为一个逻辑单元同时取出,我们人为的给这些线段加以标签,从而可以以一种易读的方式为其添加边界条件.</li>
@@ -537,124 +894,6 @@
 </center></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>Freefem++</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Coding</tag>
-        <tag>Freefem++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>freefem3</title>
-    <url>/2022/07/26/freefem3/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 8</title>
-    <url>/2022/05/27/Graph8/</url>
-    <content><![CDATA[<p><strong>Proof of the coloring-flow duality theorem</strong></p>
-<span id="more"></span>
-
-<p>$\Rightarrow$ Assume that G is face k-colorable (proper coloring)</p>
-<p>We need to show that G has a nowhere-zero k-flow $(D,f)$<br>$$<br>\begin{aligned}<br>(i.e. &amp;f:E(G)\to{-(k-1),-(k-2),\cdots,-1,1,\cdots,k-2,k-1}\&amp; s,t,\forall v\in V(G),\sum_{e\in E^{+}(v)}f(e)&#x3D;\sum_{e\in E^{-}(v)}f(e))<br>\end{aligned}<br>$$<br>Let $F(G)$ be the set of all faces of G and let $c:F(G)\to[k]$ be a face coloring.</p>
-<p>Assign an orientation $D$ to $E(G)$: each edge $e\in E(G)$ is oriented such that the face with a smaller color index is on the right side of the arc.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg"></p>
-<p>Define a function $f:E(G)\to[k-1]$ such that $f(e)$ is the absolute value of the difference of the colors of two faces incident with e.</p>
-<p><font color='blue'><strong>claim: $(D,f)$ is a nowhere-zero k-flow</strong></font></p>
-<hr>
-<p><strong><font color='blue'>Proof of claim:</font></strong></p>
-<p><font color='blue'>Clearly, $0&lt;f(e)&lt;k$, because the smallest color index is 1 and the largest color index is k;and two faces share edges have different color indices.So f is nowhere-zero.</font></p>
-<p><font color='blue'>Let v be vertex of G and $v_1,v_2,\cdots,v_d$ be all neighbors of v appearing around v in a clockwise order.Let $f_i$ be the face containing edges $vv_1$ and $vv_{i+1}$ . Note that, for any $i\not&#x3D;j,f_i\not&#x3D;f_j$ because G is 2-connected.</font></p>
-<p><font color='blue'>Define</font><br>$$<br>\textcolor{blue}{\epsilon_i&#x3D;\left{\begin{aligned}&amp;-1,\quad if\ v\to v_i\ in\ D\&amp;1,\quad if\ v_i\to v\ in\ D<br>\end{aligned}\right.}<br>$$<br><font color='blue'>Then, for each $i\in[d]$</font><br>$$<br>\textcolor{blue}{c(f_i)&#x3D;c(f_d)+\sum_{j&#x3D;1}^i\epsilon_if(vv_j) \tag{<em>}}<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg"><br>$$<br>\begin{aligned}&amp;\textcolor{blue}{c(f_1)&#x3D;c(f_d)}+\textcolor{red}{f(vv_1)}\&amp;\textcolor{blue}{c(f_2)&#x3D;c(f_1)-f(vv_2)&#x3D;c(f_d)+f(vv_1)-f(vv_2)&#x3D;c(f_d)+\sum_{j&#x3D;1}^2\epsilon_jf(vv_j)}\end{aligned}<br>$$<br><font color='blue'>From (</em>), $c(f_i)&#x3D;c(f_d)+\sum_{j&#x3D;1}^i\epsilon_if(vv_j)$. It follows that</font><br>$$<br>\textcolor{blue}{\sum_{j&#x3D;1}^d\epsilon_jf(vv_j)&#x3D;0\Rightarrow\sum_{e\in E^{+}(v)}f(e)&#x3D;\sum_{e\in E^{-}(v)}f(e)}<br>$$</p>
-<hr>
-<p>$\Leftarrow$ Assume that G has a nowhere-zero k-flow $(D,f)$. </p>
-<p>Define a map $c:F(G)\to{1,2,\cdots,k-1}$</p>
-<p>Choose an arbitrary face $f_0$ and let $c(f_0)&#x3D;1$. For each arc $e_i$ in D, let $f_i’$ and $f_i’’$ be two faces incident with $e_i$. If one of  $f_i’$ and $f_i’’$ is colored, then the color of another face is given by the following equality<br>$$<br>c(f_i’’)&#x3D;c(f_i’)+f(e_i)(mod\ k)<br>$$<br>It suffices to show that the vertex coloring is well-defined.<font color ='red'>In other words, the process does not color one face by two or more different colors.</font></p>
-<p>Let $f_1$ be uncolored face incident with two colored faces $f_2$ and $f_3$.Let $e_i$ be the edge on the boundary of $f_1$ and $f_i$ for $i&#x3D;2,3$. Without loss of generality, let $f_i$ be on the left side of the arcs $e_2$ and $e_3$.</p>
-<p><font color='blue'><strong>claim: $c(f_2)+f(e_2)\equiv c(f_3)+f(e_3)(mod\ k)$</strong></font></p>
-<hr>
-<p><font color='blue'><strong>Proof of claim:</strong></font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg"></p>
-<p><font color='blue'>Consider the dual graph $G^\star$ of G.</font></p>
-<p><font color='blue'>The vertex subset $X^\star&#x3D;{f\in V(G^\star)\big|f\in F(G)\ is\ colored\ already}$ induces a connected subgraph of $G^\star$. Thus, there is a cycle $C^\star$ of $G^\star$ containing $f_1,f_2$ and $f_3$.The cycles $C^\star$ also contains the edge $f_1f_2$ and$f_1f_3$, $V(C^\star)\backslash {f_1}\subset X^\star$.</font></p>
-<p><font color='blue'>Since all edges of G corresponding to the edge of $C^\star$​ separate G into two parts</font> <font color='red'>(i.e. these edges form an edge-cut)</font><font color='blue'>, Let X be the set of vertices in one part. It follows from a lemma that </font><br>$$<br>\textcolor{blue}{\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)&#x3D;0}<br>$$<br><font color='blue'>So the clain follows.</font></p>
-<hr>
-<p>This completes the whole proof.</p>
-<p><font color='red'>Recall: Every Eulerian graph G has a cycle decomposition: edges of G can be decomposed into edge-disjoint cycles.</font></p>
-<p>A cycle cover of a graph is a family of cycles which cover all edges of G.</p>
-<p>A graph has a cycle cover $\Leftrightarrow$ it has even-subgraph cover.</p>
-<p><strong>Thm If a graph G has k-even-subgraph cover, then G has a nowhere-zero $2^k$-flow</strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>For each even-subgraph $H_i$, it has a 2-flow $(D,f_i)$.</p>
-<p>So $(D,f)$ is a nowhere-zero $2^k$-flow where $f&#x3D;\sum_{e\in E(G)}2^{i-1}f_i(e)$</p>
-<hr>
-<p><strong>(8-flow theorem,Jaeger) Every bridgeless graph has nowhere-zero 8-flow</strong></p>
-<p><strong>(Splitting Lemma) Let G be a connected graph without cut-edge.If G has a vertex v of degree at least four. Then there are two edges $e_1$ and $e_2$ incident with v s.t. the resulting graph after splitting $e_1$ and $e_2$ from v remains to be connected and without cut-edge.</strong></p>
-<p><font color='red'>(Cycle double cover conjecture,1970s) Every connected cubic graph without cut-edge has a family of cycles covering every edge exactly twice.</font></p>
-<p>A proper k-edge-coloring of a graph G is a map $c:E(G)\to[k]$ s.t. $c(e)\not&#x3D;c(e’)$ if $e$ and $e’$ have a common end vertex.</p>
-<p><strong>Thm Every 3-edge-colorable cubic graph has a family of cycles which cover every edge exactly twice</strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>Let $c:E(G)\to[3]$. Then $c^{-1}(1)\cup c^{-1}(2)$ is a family of cycles, $c^{-1}(1)\cup c^{-1}(3)$ is a family of cycles, $c^{-1}(2)\cup c^{-1}(3)$ is a family of cycles.<br>$$<br>l_{e_1}&#x3D;c^{-1}(1)\cup c^{-1}(2),l_{e_2}&#x3D;c^{-1}(1)\cup c^{-1}(3),l_{e_3}&#x3D;c^{-1}(2)\cup c^{-1}(3)<br>$$<br>So $l_{e_1}\cup l_{e_2}\cup l_{e_3}$ is a family of cycles which cover every edge exactly twice.</p>
-<hr>
-<p><font color='blue'>(3-flow conjecture) Every 5-edge connected graph has a nowhere-zero 3-flow.</font></p>
-<p><font color='red'>A graph is a k-edge-connected if for any two vertices x ang y, the graph has k edge-disjoint paths joining x and y.</font></p>
-<p><font color='blue'>(Tutte-Nashwillam Theorem) Every 2k-edge-connected graph has a k edge-disjoint spanning trees.</font></p>
-<p><font color='blue'>(Lovasz,Wu,Thomassen,Zhang,2012) Every 6-edge-connected graph has a nowhere-zero 3-flow.</font></p>
-<p><font color='blue'>(5-flow conjecture.1950s) Every bridgeless graph has a nowhere-zero 5-flow</font></p>
-<p><font color='blue'>(Seymour,1980) Every bridgeless graph has a nowhere-zero 6-flow.</font></p>
-<p><font color='blue'>For cubic graph,cycle double cover conjecture$\approx$ the strong embedding conjecture</font></p>
-<p><font color='blue'>(Strong Embedding Conjecture,1980s) Every 2-connected graph can be embedded on a closed surface such that every face is bounded by a cycle.</font></p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/08/17/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Learning by Examples——Membranes</title>
-    <url>/2022/07/23/freefem1/</url>
-    <content><![CDATA[<p><strong>Description of the Membranes Problem</strong></p>
-<p>&amp;emsp;我们假设弹性薄膜 $\Omega$ 被固定在硬性支撑 $\Gamma$ 上，同时在表面的每个单元 $\mathrm{d}x&#x3D;\mathrm{d}x_1\mathrm{d}x_2$ 上均施加有大小为 $f(x)\mathrm{d}x$ 的外力。薄膜在垂直方向上的位移 $\phi(x)$ 可以通过求解Laplace方程来得到<br>$$\begin{aligned}-\Delta \phi&#x3D;f\ in\ \Omega\end{aligned}$$</p>
-<span id="more"></span>
-<p>&amp;emsp;如果固定薄膜的支撑是一个平面,那么薄膜的垂直位移满足:$$\phi\big|<em>\Gamma&#x3D;0$$<br>&amp;emsp;但是如果固定薄膜的支撑并不是一个平面,而是在点 $(x_1,x_2)$ 处的高度为 $z(x_1,x_2)$ ,那么其满足非齐次Dirichlet边界条件.<br>$$\phi\big|<em>\Gamma&#x3D;z$$<br>&amp;emsp;如果薄膜边界的一部分 $\Gamma_2$ 不固定在支撑上,而是允许自由滑动,由于薄膜本身刚性性质,$\Gamma_2$ 上的任意一点的法向量 $\vec{n}$ 是0,因此边界条件为<br>$$\phi\big|</em>{\Gamma_1}&#x3D;z,\frac{\partial \phi}{\partial \vec{n}}\big|</em>{\Gamma_2}&#x3D;0$$<br>其中 $\Gamma_1&#x3D;\Gamma-\Gamma_2$</p>
-<p><strong>Examples</strong></p>
-<p>&amp;emsp;如果有一个椭圆，其半长轴的长度为 $a&#x3D;2$，半短轴的长度为 $b&#x3D;1$，在椭圆表面施加一个大小为1的外力，利用Freefem++编程如下：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">real theta=<span class="number">4.</span>*pi/<span class="number">3.</span>;</span><br><span class="line">real a=<span class="number">2.</span>,b=<span class="number">1.</span>;<span class="comment">//the length of the semimajor axis and semiminor axis</span></span><br><span class="line">func z=x;</span><br><span class="line"></span><br><span class="line"><span class="function">border <span class="title">Gamma1</span><span class="params">(t=<span class="number">0</span>,theta)</span> </span>&#123;x=a*<span class="built_in">cos</span>(t); y=b*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">Gamma2</span><span class="params">(t=theta,<span class="number">2</span>*pi)</span> </span>&#123;x=a*<span class="built_in">cos</span>(t);y=b*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">Gamma1</span>(<span class="number">100</span>)+<span class="built_in">Gamma2</span>(<span class="number">50</span>));</span><br><span class="line"></span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P2)</span></span>;<span class="comment">//P2 conforming triangular FEM</span></span><br><span class="line">Vh phi,w,f=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">solve <span class="title">Laplace</span><span class="params">(phi,w)</span></span>=<span class="built_in">int2d</span>(Th)(<span class="built_in">dx</span>(phi)*<span class="built_in">dx</span>(w)+<span class="built_in">dy</span>(phi)*<span class="built_in">dy</span>(w))</span><br><span class="line">                    -<span class="built_in">int2d</span>(Th)(f*w)+<span class="built_in">on</span>(Gamma1,phi=z);</span><br><span class="line"><span class="built_in">plot</span>(phi,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membrane.eps&quot;</span>);<span class="comment">//plot phi</span></span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membraneTh.eps&quot;</span>);<span class="comment">//plot Th</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">savemesh</span>(Th,<span class="string">&quot;Th.msh&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>&amp;emsp;网格剖分结果图<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_101445.39ksbvpbv0m0.jpg"><br>&amp;emsp;解的结果图<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_101431.3aemdihjkny0.jpg"><br>&amp;emsp;buildmesh表示建立区域的三角剖分,它调用了一个基于的Delaunay测试的三角剖分子程序.Delaunay测试首先通过三角化边界点再通过细分边加入内部点.通过其得到的三角剖分的精细程度由最近的一条边界的尺寸来确定.</p>
-<p>&amp;emsp;为了验证这个方法的有效性,我们通过给出一个特殊的参数,来精确求解误差及收敛率.在单位圆上,当 $z&#x3D;0,f&#x3D;-4(\cos(x^2+y^2-1)-(x^2+y^2)\sin(x^2+y^2-1))$,其精确解为$\phi_e&#x3D;\sin(x^2+y^2-1)$,但其在$\Gamma_2$上法向量并非为0,而是2.利用Freefem++编程如下</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">verbosity =<span class="number">0</span>; <span class="comment">// to remove all default output</span></span><br><span class="line">real theta=<span class="number">4.</span>*pi/<span class="number">3.</span>;</span><br><span class="line">real a=<span class="number">1.</span>,b=<span class="number">1.</span>; <span class="comment">// the length of the semimajor axis and semiminor axis</span></span><br><span class="line"><span class="function">border <span class="title">Gamma1</span><span class="params">(t=<span class="number">0</span>,theta)</span> </span>&#123; x = a * <span class="built_in">cos</span>(t); y = b*<span class="built_in">sin</span>(t); &#125;</span><br><span class="line"><span class="function">border <span class="title">Gamma2</span><span class="params">(t=theta,<span class="number">2</span>*pi)</span> </span>&#123; x = a * <span class="built_in">cos</span>(t); y = b*<span class="built_in">sin</span>(t); &#125;</span><br><span class="line">func f=<span class="number">-4</span>*(<span class="built_in">cos</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>) -(x^<span class="number">2</span>+y^<span class="number">2</span>)*<span class="built_in">sin</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>));</span><br><span class="line">func phiexact=<span class="built_in">sin</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>);</span><br><span class="line">real[<span class="type">int</span>] <span class="built_in">L2error</span>(<span class="number">2</span>); <span class="comment">// an array two values</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> n=<span class="number">0</span>;n&lt;<span class="number">2</span>;n++)</span><br><span class="line">&#123;</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">Gamma1</span>(<span class="number">20</span>*(n+<span class="number">1</span>))+<span class="built_in">Gamma2</span>(<span class="number">10</span>*(n+<span class="number">1</span>)));</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P2)</span></span>;</span><br><span class="line">Vh phi,w;</span><br><span class="line"><span class="function">solve <span class="title">laplace</span><span class="params">(phi,w)</span></span>=<span class="built_in">int2d</span>(Th)(<span class="built_in">dx</span>(phi)*<span class="built_in">dx</span>(w) + <span class="built_in">dy</span>(phi)*<span class="built_in">dy</span>(w))</span><br><span class="line">- <span class="built_in">int2d</span>(Th)(f*w) - <span class="built_in">int1d</span>(Th,Gamma2)(<span class="number">2</span>*w)+ <span class="built_in">on</span>(Gamma1,phi=<span class="number">0</span>);</span><br><span class="line"><span class="built_in">plot</span>(Th,phi,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membrane.eps&quot;</span>); <span class="comment">// Plot Th and phi</span></span><br><span class="line">L2error[n]= <span class="built_in">sqrt</span>(<span class="built_in">int2d</span>(Th)((phi-phiexact)^<span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> n=<span class="number">0</span>;n&lt;<span class="number">2</span>;n++)</span><br><span class="line">cout &lt;&lt; <span class="string">&quot; L2error &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; = &quot;</span>&lt;&lt; L2error[n] &lt;&lt;endl;</span><br><span class="line">cout &lt;&lt;<span class="string">&quot; convergence rate = &quot;</span>&lt;&lt; <span class="built_in">log</span>(L2error[<span class="number">0</span>]/L2error[<span class="number">1</span>])/<span class="built_in">log</span>(<span class="number">2.</span>) &lt;&lt;endl;</span><br></pre></td></tr></table></figure>
-<p>&amp;emsp;结果如下所示</p>
-<center>
-<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104705.4zsjpr37e500.jpg style="width:70%;">
-<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104718.3eeywtiihfs0.jpg style="width:70%;">
-<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104731.bdx6vziosds.jpg style="width:70%;">
-</center>
-&emsp;我们会发现此处计算得到的收敛率仅1.98,但理论上收敛率应该达到3,实际上是因为网格剖分的几何结构是多边形结构,与实际的有一定差异因此,在收敛率上有一定的降低.]]></content>
       <categories>
         <category>Freefem++</category>
       </categories>

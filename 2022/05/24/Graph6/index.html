@@ -270,66 +270,99 @@
 
       
         <p><strong>Interlacing Theorem</strong></p>
-<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong><br>$$<br>\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k&#x3D;1,2,\dots,m<br>$$</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg"></p>
-<p>Further,if $m&#x3D;n-1$, then<br>$$<br>\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}<br>$$</p>
-<hr>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m</script><span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" alt=""></p>
+<p>Further,if $m=n-1$, then </p>
+<script type="math/tex; mode=display">
+\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}</script><hr>
 <p><strong>Proof</strong></p>
-<p>Without loss of generality, assume that $A&#x3D;\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i&#x3D;A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j&#x3D;B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
-<p>Let $V&#x3D;span{\vec{x}_k,\cdots,\vec{x}_n}$ and $W&#x3D;span{\vec{y}_1,\cdots,\vec{y}_k}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.<br>$$<br>\widetilde{W}&#x3D;\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n<br>$$<br>Then $\dim(V)&#x3D;n-k+1$ and $\dim(\widetilde{W})&#x3D;\dim(W)&#x3D;k$</p>
-<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and<br>$$<br>\dim(V)+\dim(\widetilde{W})&#x3D;n-k+1+k&#x3D;n+1&gt;\dim(\mathbb{R}^n)<br>$$<br>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
-<p><font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font></p>
-<p>Therefore,<br>$$<br>\begin{aligned}<br>\lambda_k&amp;&#x3D;\max{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||&#x3D;1}\<br>&amp;\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}&#x3D;\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right&#x2F;\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\<br>&amp;&#x3D;\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||&#x3D;1}&#x3D;\beta_k<br>\end{aligned}<br>$$<br>So we have $\lambda_k\geq\beta_k$.</p>
-<p>On the other hand, let $V&#x3D;span{\vec{x}<em>1,\cdots,\vec{x}</em>{k+n-m}}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W&#x3D;span{\vec{y}<em>1,\cdots,\vec{y}</em>{k+n-m}}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
-<p>Let $\widetilde{W}&#x3D;\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n$. Then $\dim(V)&#x3D;k+n-m$ and $\dim(\widetilde{W})&#x3D;m-k+1$.</p>
-<p>Therefore, $\dim(V)+\dim(\widetilde{W})&#x3D;n-k+1+k&#x3D;n+1&gt;\dim(\mathbb{R}^n)$</p>
-<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.<br>$$<br>\begin{aligned}<br>\lambda_{k+n-m}&amp;&#x3D;\min{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||&#x3D;1}\<br>&amp;\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}&#x3D;\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right&#x2F;\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\<br>&amp;&#x3D;\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||&#x3D;1}&#x3D;\beta_k<br>\end{aligned}<br>$$<br>So $\lambda_{k+n-m}\leq\beta_k$.</p>
+<p>Without loss of generality, assume that $A=\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i=A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j=B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
+<p>Let $V=span\{\vec{x}_k,\cdots,\vec{x}_n\}$ and $W=span\{\vec{y}_1,\cdots,\vec{y}_k\}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.</p>
+<script type="math/tex; mode=display">
+\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n</script><p>Then $\dim(V)=n-k+1$ and $\dim(\widetilde{W})=\dim(W)=k$</p>
+<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and </p>
+<script type="math/tex; mode=display">
+\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1>\dim(\mathbb{R}^n)</script><p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font>
+
+<p>Therefore,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda_k&=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}</script><p>So we have $\lambda_k\geq\beta_k$.</p>
+<p>On the other hand, let $V=span\{\vec{x}_1,\cdots,\vec{x}_{k+n-m}\}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W=span\{\vec{y}_1,\cdots,\vec{y}_{k+n-m}\}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
+<p>Let $\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n$. Then $\dim(V)=k+n-m$ and $\dim(\widetilde{W})=m-k+1$.</p>
+<p>Therefore, $\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)$</p>
+<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda_{k+n-m}&=\min\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}</script><p>So $\lambda_{k+n-m}\leq\beta_k$.</p>
 <p><strong>Bounding degree of induced subgraph</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg"></p>
-<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}&#x3D;\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
-<p><font color='red'><strong>n-dimensional hypercube $Q_n$</strong></font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg"></p>
-<p><font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all ${0,1}$-sequences of length n and two vertices are adjacent to each other if and only if the two ${0,1}$-sequences has exactly one position different</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" alt=""></p>
+<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
+<font color='red'>**n-dimensional hypercube $Q_n$**</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" alt=""></p>
+<font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all $\{0,1\}$-sequences of length n and two vertices are adjacent to each other if and only if the two $\{0,1\}$-sequences has exactly one position different</font>
+
 <p>The adjacency matrix of n-dimensional hypercube $Q_n$ satisfies the following</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" alt=""></p>
 <p>If we give every edge in n-dimensional hypercube $Q_n$ a sign, we can get a signed adjacency matrix.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" alt=""></p>
 <p><strong>Lemma The signed n-dimensional hypercube with adjacency matrix $S_n$ has an eigenvalue $\sqrt{n}$ of multiplicity $2^{n-1}$ and eigenvalue $-\sqrt{n}$ with multiplicity $2^{n-1}$</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
-<p><strong>claim: $S_n^2&#x3D;nI$</strong></p>
-<p>If $n&#x3D;1$, $S_1&#x3D;\left[\begin{matrix}0&amp;1\1&amp;0\end{matrix}\right],S_1^2&#x3D;I$. Assume that $S_{n-1}^2&#x3D;(n-1)I$</p>
-<p>Then<br>$$<br>S_n^2&#x3D;\left[\begin{matrix}S_{n-1}&amp;I\I&amp;-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&amp;I\I&amp;-S_{n-1}\end{matrix}\right]&#x3D;\left[\begin{matrix}S_{n-1}^2+I&amp;O\O&amp;S_{n-1}^2+I\end{matrix}\right]&#x3D;nI<br>$$<br>So claim holds.</p>
+<p><strong>claim: $S_n^2=nI$</strong></p>
+<p>If $n=1$, $S_1=\left[\begin{matrix}0&amp;1\\1&amp;0\end{matrix}\right],S_1^2=I$. Assume that $S_{n-1}^2=(n-1)I$</p>
+<p>Then </p>
+<script type="math/tex; mode=display">
+S_n^2=\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&O\\O&S_{n-1}^2+I\end{matrix}\right]=nI</script><p>So claim holds.</p>
 <p>Note that $nI$ has eigenvalues n. Therefore, $S_n$ has eigenvalues either $\sqrt{n}$ or $-\sqrt{n}$.</p>
 <p>Since the trace of $S_n$ is 0, $S_n$ has eigenvalues $\sqrt{n}$ of multiplicity $2^{n-1}$ and $-\sqrt{n}$ with multiplicity $2^{n-1}$.</p>
 <hr>
 <p><strong>Proof of Huang’s Theorem</strong></p>
 <p>Let H be a induced subgraph of $Q_n$ with more than $2^{n-1}$ vertices. It suffices to show that every subgraph H with exactly $2^{n-1}+1$ vertices has maximum degree at least $\sqrt{n}$.</p>
 <p>Let $(Q_n,\sigma)$ be  the signed graph with adjacency matrix $S_n$ as defined above. Then $(H,\sigma)$ is a signed induced subgraph of $(Q_n,\sigma)$, whose adjacency matrix $A$ is a $(2^{n-1}+1)$-principle submatrix of $S_n$.</p>
-<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem<br>$$<br>\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)&#x3D;\lambda_{2^{n-1}}(S_n)&#x3D;\sqrt{n}<br>$$<br>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
+<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem</p>
+<script type="math/tex; mode=display">
+\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}</script><p>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
 <hr>
 <p><strong>Unfriendly partitions of subcubic graphs</strong></p>
 <p>A graph G is subcubic if the maximum degree of G is at most 3. <font color='red'>($\Delta(G)\leq3$)</font></p>
-<p><font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font></p>
+<font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font>
+
 <p>Let G be a graph. A partition $(X,Y)$ of $V(G)$ is unfriendly if every vertex has at least the same number of neighbors in the other subset as in it owns.</p>
-<p><font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font></p>
+<font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font>
+
 <p>If $(X,Y)$ is an unfriendly partition of a subcubic graph $G$, then the maximum degree of the induced subgraph $G[X]$ and $G[Y]$ is at most 1.</p>
-<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not&#x3D;|Y|$</p>
+<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not=|Y|$</p>
 <p>A partition is a bisection if $\Big||X|-|Y|\Big|\leq1$</p>
-<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong><br>$$<br>\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]<br>$$</p>
-<hr>
+<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]</script><hr>
 <p><strong>Proof</strong></p>
 <p>Let G be a subcubic graph with n vertices and $(X,Y)$ be an unbalanced unfriendly partition.</p>
 <p>Without loss of generality, assume that $|X|&gt;|Y|$</p>
 <p>Then $\lambda_1(X)\leq\Delta(X)\leq1$ and $\lambda_1(Y)\leq\Delta(Y)\leq1$. So both X and Y are bipartite.</p>
-<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that<br>$$<br>|X|\geq\left\lceil \frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|<br>$$<br>It follows that the interlacing theorem that<br>$$<br>1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1<br>$$<br>The completes the proof.</p>
+<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that </p>
+<script type="math/tex; mode=display">
+|X|\geq\left\lceil \frac{n}{2}\right\rceil+1>\frac{n}{2}>\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|</script><p>It follows that the interlacing theorem that </p>
+<script type="math/tex; mode=display">
+1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1</script><p>The completes the proof.</p>
 <hr>
-<p><font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font></p>
-<p><font color='red'>A: No</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg"></p>
-<p><font color='red'>Conjecture(Ban&amp;Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font></p>
+<font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font>
+
+<font color='red'>A: No</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" alt=""></p>
+<font color='red'>Conjecture(Ban&Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font>
 
     </div>
 
@@ -429,7 +462,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -556,6 +589,8 @@
 
 
 
+
+  
 
   
 

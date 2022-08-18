@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Given a graph G, $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if$$d_P(v)\equiv\left{\begin{aligned}&amp;0\ mod\ 2,\ v\not\in T\&amp;1\ mod\ 2,\ v\in T\end{aligned}\righ">
+  <meta name="description" content="Given a graph G, $T&#x3D;\{v|d_G(v)\equiv1\ mod\ 2\}$, a subgraph P is called a parity subgraph if   d_P(v)\equiv\left\{ \begin{aligned} &amp;0\ mod\ 2,\ v\not\in T\\ &amp;1\ mod\ 2,\ v\in T \end{aligned} \right.\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lecture series on graph theory 3">
 <meta property="og:url" content="http://example.com/2022/05/20/Graph3/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Given a graph G, $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if$$d_P(v)\equiv\left{\begin{aligned}&amp;0\ mod\ 2,\ v\not\in T\&amp;1\ mod\ 2,\ v\in T\end{aligned}\righ">
+<meta property="og:description" content="Given a graph G, $T&#x3D;\{v|d_G(v)\equiv1\ mod\ 2\}$, a subgraph P is called a parity subgraph if   d_P(v)\equiv\left\{ \begin{aligned} &amp;0\ mod\ 2,\ v\not\in T\\ &amp;1\ mod\ 2,\ v\in T \end{aligned} \right.\">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg">
@@ -268,31 +268,44 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Given a graph G, $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if<br>$$<br>d_P(v)\equiv\left{<br>\begin{aligned}<br>&amp;0\ mod\ 2,\ v\not\in T\<br>&amp;1\ mod\ 2,\ v\in T<br>\end{aligned}<br>\right.\qquad i.e.\ d_P(v)\equiv d_G(v)<br>$$<br>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
+        <p>Given a graph G, $T=\{v|d_G(v)\equiv1\ mod\ 2\}$, a subgraph P is called a parity subgraph if </p>
+<script type="math/tex; mode=display">
+d_P(v)\equiv\left\{
+\begin{aligned}
+&0\ mod\ 2,\ v\not\in T\\
+&1\ mod\ 2,\ v\in T
+\end{aligned}
+\right.\qquad i.e.\ d_P(v)\equiv d_G(v)</script><p>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
 <span id="more"></span>
-
-<p>More general, let $T\subset V(G)$, a set of edges $J$ is called a $T$-join if all the edges of $J$ induce a subgraph, s.t. $d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in T$, <font color='red'>A parity subgraph of G is a $T$-join of G where $T&#x3D;{v|d_G(v)\equiv1\ mod\ 2}$<br>Problem: To find a $T$-join with the minimum number of edges.</font></p>
+<p>More general, let $T\subset V(G)$, a set of edges $J$ is called a $T$-join if all the edges of $J$ induce a subgraph, s.t. $d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in T$, <font color='red'>A parity subgraph of G is a $T$-join of G where $T=\{v|d_G(v)\equiv1\ mod\ 2\}$<br>Problem: To find a $T$-join with the minimum number of edges.</font></p>
 <p><strong>Bipartite Graph</strong></p>
 <p>A graph is bipartite if its vertex set can be partitioned into two sets X and Y such that every edge of G joins a vertex of X and a vertex of Y.</p>
-<p><font color='red'>For example.</font></p>
+<font color='red'>For example.</font>
+
 <p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg" alt="2022-05-21_121856"></p>
 <p><strong>Proposition. A graph is bipartite $\Leftrightarrow$ it has no odd cycles</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
 <p>$\Rightarrow$ Let $G$ be a bipartite graph and let $(X,Y)$ be a bipartition of $G$. Color vertices in X by            red and vertices in Y by blue. Let $C$ be a cycle. Then the red vertices and blue vertices appear alternatively on $C$. So $C$ has an even number of vertices. Therefore, $G$ has no odd cycles.</p>
-<p>$\Leftarrow$ Let v be a vertex of $G$. Let $X&#x3D;{x|d_G(x,v)\equiv0(mod\ 2)}$ and $Y&#x3D;{y|d_G(y,v)\equiv 1(mod\ 2)}$</p>
+<p>$\Leftarrow$ Let v be a vertex of $G$. Let $X=\{x|d_G(x,v)\equiv0(mod\ 2)\}$ and $Y=\{y|d_G(y,v)\equiv 1(mod\ 2)\}$</p>
 <p>Since $G$ has no odd cycle, there is no edges joining two vertices from the same part. So G is bipartite. </p>
 <hr>
-<p><font color='red'>Every part in the bipartition induce the graph without edges.</font></p>
+<font color='red'>Every part in the bipartition induce the graph without edges.</font>
+
 <p>A vertex subset $I$ of $V(G)$ is independent  if $G$ has no edges joining any two vertices of $I$.</p>
 <p>The maximum cardinality of independent sets is called the independent number of $G$.</p>
-<p><font color='red'>Problem: Determine the independent number of a given graph $G$ (NPC)</font></p>
+<font color='red'>Problem: Determine the independent number of a given graph $G$ (NPC)</font>
+
 <p>If G is bipartite, the its independent number $\alpha(G)\geq\frac{n}{2}$.</p>
-<p><font color='red'><strong>(The Four color problem) Every graph drawn on the plane without crossing edges has a vertex partition into four independent sets.<br>According to the above, if G is a plane graph, $\alpha(G)\geq\frac{\lvert V(G)\rvert}{4}$</strong></font></p>
+<font color='red'>**(The Four color problem) Every graph drawn on the plane without crossing edges has a vertex partition into four independent sets.<br>According to the above, if G is a plane graph, $\alpha(G)\geq\frac{\lvert V(G)\rvert}{4}$**</font>
+
 <hr>
 <p><strong>Second Proof of the Mantel’s Theorem</strong></p>
-<p><font color='red'>Recall: Let G be an n-vertex graph without triangle, then $\lvert E(G)\rvert\leq\frac{n^2}{4}$</font></p>
-<p>Let x be a vertex of G such that $d_G(x)&#x3D;\Delta(G)$. So $N_G(x)$ is an independent set of G.<br>$$<br>\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta (G)&#x3D;(n-d_G(x))d_G(x)\leq\frac{n^2}{4}<br>$$<br> and equality holds $\Leftrightarrow n-d_G(x)&#x3D;d_G(x),\ i.e.\ d_G(x)&#x3D;\frac{n}{2}$</p>
+<font color='red'>Recall: Let G be an n-vertex graph without triangle, then $\lvert E(G)\rvert\leq\frac{n^2}{4}$</font>
+
+<p>Let x be a vertex of G such that $d_G(x)=\Delta(G)$. So $N_G(x)$ is an independent set of G.</p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta (G)=(n-d_G(x))d_G(x)\leq\frac{n^2}{4}</script><p> and equality holds $\Leftrightarrow n-d_G(x)=d_G(x),\ i.e.\ d_G(x)=\frac{n}{2}$</p>
 <hr>
 <p><strong>Degenerated Graph</strong></p>
 <p>A graph G is k-degenerate if every subgraph of G has a vertex of degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
@@ -303,39 +316,62 @@
 <p>Use induction on the number of vertex.</p>
 <p> The inductive hypothesis implies that $G-v$ is (k+1)-colorable. All vertices in $N_G(x)$ have been colored by at most k different colors in any (k+1)-coloring of G-v. Then color v by the (k+1)th color. So G is (k+1)-colorable.</p>
 <hr>
-<p><font color='red'>1-factor is a spanning subgraph in which every vertex has degree one.</font></p>
-<p><font color='red'>1-degenerate graph is a tree(or a forest)</font></p>
+<font color='red'>1-factor is a spanning subgraph in which every vertex has degree one.</font>
+
+<font color='red'>1-degenerate graph is a tree(or a forest)</font>
+
 <p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg" alt="2022-05-21_190614"></p>
 <p><strong>Corollary. Every graph G is $(\Delta(G)+1)$-degenerate</strong></p>
 <p><strong>Def. A Planar graph is a graph with a drawing on the plane $\mathbb{R}^2$</strong> . A connected region of $\mathbb{R}^2-G$ is a face of G.</p>
 <p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg" alt="2022-05-21_191223"></p>
-<p>**Thm(Euler Formula) Let G be a planar graph, and let n,m and f be the numbers of vertex,edges and faces of G, Then **<br>$$<br>n-m+f&#x3D;2<br>$$<br><strong>Proposition. Every planar graph is 5-degenerate</strong></p>
+<p><strong>Thm(Euler Formula) Let G be a planar graph, and let n,m and f be the numbers of vertex,edges and faces of G, Then </strong></p>
+<script type="math/tex; mode=display">
+n-m+f=2</script><p><strong>Proposition. Every planar graph is 5-degenerate</strong></p>
 <hr>
 <p><strong>Proof.</strong> Let G be a planar graph. It suffices to show that G has a vertex of degree at most five. Without loss of generality, assume that G is a maximal planar graph (<font color='red'>i.e. every face is bounded by a triangle</font>). Otherwise, we can add edges to G to keep it to be a planar graph.</p>
-<p>Since every edge appears on the boundaries of two faces and every face contains exactly three edges, it follows that<br>$$<br>3f&#x3D;2m\Rightarrow f&#x3D;\frac{2}{3}m<br>$$<br>Let $\delta&#x3D;\delta(G)$, the minimum degree of G, then<br>$$<br>\delta n\leq\sum_{x\in V(G)}d_G(x)&#x3D;2m\Rightarrow n\leq\frac{2}{\delta}m<br>$$<br>By Euler’s Formula: $n-m+f&#x3D;2$<br>$$<br>2&#x3D;n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m<br>$$<br>Therefore, $\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow \delta&lt;6\Leftrightarrow \delta\leq5$</p>
+<p>Since every edge appears on the boundaries of two faces and every face contains exactly three edges, it follows that </p>
+<script type="math/tex; mode=display">
+3f=2m\Rightarrow f=\frac{2}{3}m</script><p>Let $\delta=\delta(G)$, the minimum degree of G, then </p>
+<script type="math/tex; mode=display">
+\delta n\leq\sum_{x\in V(G)}d_G(x)=2m\Rightarrow n\leq\frac{2}{\delta}m</script><p>By Euler’s Formula: $n-m+f=2$</p>
+<script type="math/tex; mode=display">
+2=n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m</script><p>Therefore, $\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow \delta&lt;6\Leftrightarrow \delta\leq5$</p>
 <p>Every planar graph has a vertex of degree at most 5, which implies a planar graph is 5-degenerate.</p>
 <hr>
 <p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
-<p><font color='red'>Actually we can use Kempe chain to prove the proposition that every planar graph is 5-colorable.<br>Problem:What kind of Eulerian graphs having an even-cycle decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n vertices has an induced 2-degenerate graph with at least n&#x2F;2 vertices.<br>Conjecture(Albertson&amp;Berman,1970s) Every planar graph with n vertices has an induced 1-degenerate graph with at least n&#x2F;2 vertices.</font></p>
+<font color='red'>Actually we can use Kempe chain to prove the proposition that every planar graph is 5-colorable.<br>Problem:What kind of Eulerian graphs having an even-cycle decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n vertices has an induced 2-degenerate graph with at least n/2 vertices.<br>Conjecture(Albertson&Berman,1970s) Every planar graph with n vertices has an induced 1-degenerate graph with at least n/2 vertices.</font>
+
 <p><strong>Matrices and Graphs</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg"></p>
-<p><font color='red'>A is a symmetric matrix and because we only consider simple graphs, its diagonal elements are all zero.</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg"></p>
-<p>A square matrix A is symmetric if $A^T&#x3D;A$</p>
-<p>A scalar $\lambda$ is eigenvalue of A if there exists a non-zero vector $\vec{X}$, s.t. $A\vec{X}&#x3D;\lambda\vec{X}$ and $\vec{X}$ is called an eigenvector of A with respect to $\lambda$.</p>
-<p>A basis $B$ of a vector space is orthonormal if $||\vec{X}||&#x3D;1$ for any $\vec{X}\in B$, and $&lt;\vec{X_1},\vec{X_2}&gt;&#x3D;0$ for any $\vec{X_1},\vec{X_2}\in B$</p>
-<p><strong>Thm. Let A be a real symmetric $(n\times n)$-matrix. Then A is a diagonizable and $\mathbb{R}^n$ has orthonormal basis of eigenvectos of A</strong><br>$$<br>A\sim\left(\begin{matrix}<br>   \lambda_1 &amp; \dots &amp;0\<br>   \vdots &amp; \ddots &amp;\vdots\<br>   0 &amp; \dots &amp;\lambda_n\<br>  \end{matrix}\right)<br>$$</p>
-<p><strong>Proposition. All eigenvalues of a real symmetric $(n\times n)$-matrix is real</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg" alt=""></p>
+<font color='red'>A is a symmetric matrix and because we only consider simple graphs, its diagonal elements are all zero.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg" alt=""></p>
+<p>A square matrix A is symmetric if $A^T=A$</p>
+<p>A scalar $\lambda$ is eigenvalue of A if there exists a non-zero vector $\vec{X}$, s.t. $A\vec{X}=\lambda\vec{X}$ and $\vec{X}$ is called an eigenvector of A with respect to $\lambda$.</p>
+<p>A basis $B$ of a vector space is orthonormal if $||\vec{X}||=1$ for any $\vec{X}\in B$, and $&lt;\vec{X_1},\vec{X_2}&gt;=0$ for any $\vec{X_1},\vec{X_2}\in B$</p>
+<p><strong>Thm. Let A be a real symmetric $(n\times n)$-matrix. Then A is a diagonizable and $\mathbb{R}^n$ has orthonormal basis of eigenvectos of A</strong></p>
+<script type="math/tex; mode=display">
+A\sim\left(\begin{matrix}
+   \lambda_1 & \dots &0\\
+   \vdots & \ddots &\vdots\\
+   0 & \dots &\lambda_n\\
+  \end{matrix}\right)</script><p><strong>Proposition. All eigenvalues of a real symmetric $(n\times n)$-matrix is real</strong></p>
 <hr>
 <p><strong>Proof</strong> We assume that A is a $n\times n$ matrix, $\lambda$ is an eignevalue of A.</p>
-<p>Assume that $\vec{X}$ is an eigenvector of $\lambda$, Then<br>$$<br>\begin{aligned}<br>\lambda||\vec{X}||&amp;&#x3D;&lt;\lambda\vec{X},\vec{X}&gt;&#x3D;&lt;A\vec{X},\vec{X}&gt;&#x3D;\vec{X^T}A\vec{X}\&amp;&#x3D;\vec{X^T}A^T\vec{X}&#x3D;(A\vec{X})^T\vec{X}&#x3D;&lt;\vec{X},A\vec{X}&gt;&#x3D;\bar{\lambda}||\vec{X}||<br>\end{aligned}<br>$$<br>So $\lambda&#x3D;\bar{\lambda}\Rightarrow\lambda$ is real.</p>
+<p>Assume that $\vec{X}$ is an eigenvector of $\lambda$, Then</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda||\vec{X}||&=<\lambda\vec{X},\vec{X}>=<A\vec{X},\vec{X}>=\vec{X^T}A\vec{X}\\&=\vec{X^T}A^T\vec{X}=(A\vec{X})^T\vec{X}=<\vec{X},A\vec{X}>=\bar{\lambda}||\vec{X}||
+\end{aligned}</script><p>So $\lambda=\bar{\lambda}\Rightarrow\lambda$ is real.</p>
 <hr>
 <p>A real symmetric matrix A is positive semi-definite if ,for all $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}\geq0$ and A is positive definite if $\vec{X}^TA\vec{X}&gt;0$</p>
-<p><strong>Proposition. All eigenvalues of a positive semi-definite $\Leftrightarrow\ \exists$ a matrix B, s.t. $A&#x3D;B^TB$</strong></p>
+<p><strong>Proposition. All eigenvalues of a positive semi-definite $\Leftrightarrow\ \exists$ a matrix B, s.t. $A=B^TB$</strong></p>
 <hr>
 <p><strong>Proof.</strong>$\Rightarrow$ We assume that A is a positive semi-definite matrix.</p>
-<p>Then A is diagonaizable and assume that $A&#x3D;Q^TDQ$ where D is a diagonable matrix with eigenalues on its diagonal. Note that all egienvalues of A are non-negative.<br>$$<br>A&#x3D;Q^TDQ&#x3D;Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q&#x3D;(\sqrt{D}Q)^T(\sqrt{D}Q)&#x3D;B^TB,\quad where\ B&#x3D;\sqrt{D}Q<br>$$<br>$\Leftarrow$ Let $A&#x3D;B^TB$.</p>
-<p> Then for any $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}&#x3D;\vec{X}^TB^TB\vec{X}&#x3D;(B\vec{X})^TB\vec{X}&#x3D;||B\vec{X}||\geq0$</p>
+<p>Then A is diagonaizable and assume that $A=Q^TDQ$ where D is a diagonable matrix with eigenalues on its diagonal. Note that all egienvalues of A are non-negative.</p>
+<script type="math/tex; mode=display">
+A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad where\ B=\sqrt{D}Q</script><p>$\Leftarrow$ Let $A=B^TB$.</p>
+<p> Then for any $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0$</p>
 <p>So A is positive semi-definite.</p>
 
     </div>
@@ -436,7 +472,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -563,6 +599,8 @@
 
 
 
+
+  
 
   
 

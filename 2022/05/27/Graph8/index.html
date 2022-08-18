@@ -30,7 +30,6 @@
 <meta property="og:description" content="Proof of the coloring-flow duality theorem">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg">
 <meta property="article:published_time" content="2022-05-27T03:24:05.000Z">
 <meta property="article:modified_time" content="2022-08-17T14:57:37.130Z">
@@ -268,58 +267,109 @@
       
         <p><strong>Proof of the coloring-flow duality theorem</strong></p>
 <span id="more"></span>
-
 <p>$\Rightarrow$ Assume that G is face k-colorable (proper coloring)</p>
-<p>We need to show that G has a nowhere-zero k-flow $(D,f)$<br>$$<br>\begin{aligned}<br>(i.e. &amp;f:E(G)\to{-(k-1),-(k-2),\cdots,-1,1,\cdots,k-2,k-1}\&amp; s,t,\forall v\in V(G),\sum_{e\in E^{+}(v)}f(e)&#x3D;\sum_{e\in E^{-}(v)}f(e))<br>\end{aligned}<br>$$<br>Let $F(G)$ be the set of all faces of G and let $c:F(G)\to[k]$ be a face coloring.</p>
+<p>We need to show that G has a nowhere-zero k-flow $(D,f)$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(i.e. &f:E(G)\to\{-(k-1),-(k-2),\cdots,-1,1,\cdots,k-2,k-1\}\\& s,t,\forall v\in V(G),\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e))
+\end{aligned}</script><p>Let $F(G)$ be the set of all faces of G and let $c:F(G)\to[k]$ be a face coloring.</p>
 <p>Assign an orientation $D$ to $E(G)$: each edge $e\in E(G)$ is oriented such that the face with a smaller color index is on the right side of the arc.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_121553.4l885wgltpq0.jpg" alt=""></p>
 <p>Define a function $f:E(G)\to[k-1]$ such that $f(e)$ is the absolute value of the difference of the colors of two faces incident with e.</p>
-<p><font color='blue'><strong>claim: $(D,f)$ is a nowhere-zero k-flow</strong></font></p>
+<font color='blue'>**claim: $(D,f)$ is a nowhere-zero k-flow**</font>
+
 <hr>
 <p><strong><font color='blue'>Proof of claim:</font></strong></p>
-<p><font color='blue'>Clearly, $0&lt;f(e)&lt;k$, because the smallest color index is 1 and the largest color index is k;and two faces share edges have different color indices.So f is nowhere-zero.</font></p>
-<p><font color='blue'>Let v be vertex of G and $v_1,v_2,\cdots,v_d$ be all neighbors of v appearing around v in a clockwise order.Let $f_i$ be the face containing edges $vv_1$ and $vv_{i+1}$ . Note that, for any $i\not&#x3D;j,f_i\not&#x3D;f_j$ because G is 2-connected.</font></p>
-<p><font color='blue'>Define</font><br>$$<br>\textcolor{blue}{\epsilon_i&#x3D;\left{\begin{aligned}&amp;-1,\quad if\ v\to v_i\ in\ D\&amp;1,\quad if\ v_i\to v\ in\ D<br>\end{aligned}\right.}<br>$$<br><font color='blue'>Then, for each $i\in[d]$</font><br>$$<br>\textcolor{blue}{c(f_i)&#x3D;c(f_d)+\sum_{j&#x3D;1}^i\epsilon_if(vv_j) \tag{<em>}}<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg"><br>$$<br>\begin{aligned}&amp;\textcolor{blue}{c(f_1)&#x3D;c(f_d)}+\textcolor{red}{f(vv_1)}\&amp;\textcolor{blue}{c(f_2)&#x3D;c(f_1)-f(vv_2)&#x3D;c(f_d)+f(vv_1)-f(vv_2)&#x3D;c(f_d)+\sum_{j&#x3D;1}^2\epsilon_jf(vv_j)}\end{aligned}<br>$$<br><font color='blue'>From (</em>), $c(f_i)&#x3D;c(f_d)+\sum_{j&#x3D;1}^i\epsilon_if(vv_j)$. It follows that</font><br>$$<br>\textcolor{blue}{\sum_{j&#x3D;1}^d\epsilon_jf(vv_j)&#x3D;0\Rightarrow\sum_{e\in E^{+}(v)}f(e)&#x3D;\sum_{e\in E^{-}(v)}f(e)}<br>$$</p>
+<font color='blue'>Clearly, $0<f(e)<k$, because the smallest color index is 1 and the largest color index is k;and two faces share edges have different color indices.So f is nowhere-zero.</font>
+
+<font color='blue'>Let v be vertex of G and $v_1,v_2,\cdots,v_d$ be all neighbors of v appearing around v in a clockwise order.Let $f_i$ be the face containing edges $vv_1$ and $vv_{i+1}$ . Note that, for any $i\not=j,f_i\not=f_j$ because G is 2-connected.</font>
+
+<font color='blue'>Define</font>
+$$
+\textcolor{blue}{\epsilon_i=\left\{\begin{aligned}&-1,\quad if\ v\to v_i\ in\ D\\&1,\quad if\ v_i\to v\ in\ D
+\end{aligned}\right.}
+$$
+<font color='blue'>Then, for each $i\in[d]$</font>
+$$
+\textcolor{blue}{c(f_i)=c(f_d)+\sum_{j=1}^i\epsilon_if(vv_j) \tag{*}}
+$$
+![](https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_124414.4gsbkbgif9u0.jpg)
+$$
+\begin{aligned}&\textcolor{blue}{c(f_1)=c(f_d)}+\textcolor{red}{f(vv_1)}\\&\textcolor{blue}{c(f_2)=c(f_1)-f(vv_2)=c(f_d)+f(vv_1)-f(vv_2)=c(f_d)+\sum_{j=1}^2\epsilon_jf(vv_j)}\end{aligned}
+$$
+<font color='blue'>From (*), $c(f_i)=c(f_d)+\sum_{j=1}^i\epsilon_if(vv_j)$. It follows that</font>
+$$
+\textcolor{blue}{\sum_{j=1}^d\epsilon_jf(vv_j)=0\Rightarrow\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)}
+$$
+
+---
+
+$\Leftarrow$ Assume that G has a nowhere-zero k-flow $(D,f)$. 
+
+Define a map $c:F(G)\to\{1,2,\cdots,k-1\}$
+
+Choose an arbitrary face $f_0$ and let $c(f_0)=1$. For each arc $e_i$ in D, let $f_i'$ and $f_i''$ be two faces incident with $e_i$. If one of  $f_i'$ and $f_i''$ is colored, then the color of another face is given by the following equality
+$$
+c(f_i'')=c(f_i')+f(e_i)(mod\ k)
+$$
+It suffices to show that the vertex coloring is well-defined.<font color ='red'>In other words, the process does not color one face by two or more different colors.</font>
+
+<p>Let $f_1$ be uncolored face incident with two colored faces $f_2$ and $f_3$.Let $e_i$ be the edge on the boundary of $f_1$ and $f_i$ for $i=2,3$. Without loss of generality, let $f_i$ be on the left side of the arcs $e_2$ and $e_3$.</p>
+<font color='blue'>**claim: $c(f_2)+f(e_2)\equiv c(f_3)+f(e_3)(mod\ k)$**</font>
+
 <hr>
-<p>$\Leftarrow$ Assume that G has a nowhere-zero k-flow $(D,f)$. </p>
-<p>Define a map $c:F(G)\to{1,2,\cdots,k-1}$</p>
-<p>Choose an arbitrary face $f_0$ and let $c(f_0)&#x3D;1$. For each arc $e_i$ in D, let $f_i’$ and $f_i’’$ be two faces incident with $e_i$. If one of  $f_i’$ and $f_i’’$ is colored, then the color of another face is given by the following equality<br>$$<br>c(f_i’’)&#x3D;c(f_i’)+f(e_i)(mod\ k)<br>$$<br>It suffices to show that the vertex coloring is well-defined.<font color ='red'>In other words, the process does not color one face by two or more different colors.</font></p>
-<p>Let $f_1$ be uncolored face incident with two colored faces $f_2$ and $f_3$.Let $e_i$ be the edge on the boundary of $f_1$ and $f_i$ for $i&#x3D;2,3$. Without loss of generality, let $f_i$ be on the left side of the arcs $e_2$ and $e_3$.</p>
-<p><font color='blue'><strong>claim: $c(f_2)+f(e_2)\equiv c(f_3)+f(e_3)(mod\ k)$</strong></font></p>
-<hr>
-<p><font color='blue'><strong>Proof of claim:</strong></font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg"></p>
-<p><font color='blue'>Consider the dual graph $G^\star$ of G.</font></p>
-<p><font color='blue'>The vertex subset $X^\star&#x3D;{f\in V(G^\star)\big|f\in F(G)\ is\ colored\ already}$ induces a connected subgraph of $G^\star$. Thus, there is a cycle $C^\star$ of $G^\star$ containing $f_1,f_2$ and $f_3$.The cycles $C^\star$ also contains the edge $f_1f_2$ and$f_1f_3$, $V(C^\star)\backslash {f_1}\subset X^\star$.</font></p>
-<p><font color='blue'>Since all edges of G corresponding to the edge of $C^\star$​ separate G into two parts</font> <font color='red'>(i.e. these edges form an edge-cut)</font><font color='blue'>, Let X be the set of vertices in one part. It follows from a lemma that </font><br>$$<br>\textcolor{blue}{\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)&#x3D;0}<br>$$<br><font color='blue'>So the clain follows.</font></p>
+<font color='blue'>**Proof of claim:**</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-27_164800.1de6ecdbpaps.jpg" alt=""></p>
+<font color='blue'>Consider the dual graph $G^\star$ of G.</font>
+
+<font color='blue'>The vertex subset $X^\star=\{f\in V(G^\star)\big|f\in F(G)\ is\ colored\ already\}$ induces a connected subgraph of $G^\star$. Thus, there is a cycle $C^\star$ of $G^\star$ containing $f_1,f_2$ and $f_3$.The cycles $C^\star$ also contains the edge $f_1f_2$ and$f_1f_3$, $V(C^\star)\backslash \{f_1\}\subset X^\star$.</font>
+
+<font color='blue'>Since all edges of G corresponding to the edge of $C^\star$​ separate G into two parts</font> <font color='red'>(i.e. these edges form an edge-cut)</font><font color='blue'>, Let X be the set of vertices in one part. It follows from a lemma that </font> 
+$$
+\textcolor{blue}{\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)=0}
+$$
+<font color='blue'>So the clain follows.</font>
+
 <hr>
 <p>This completes the whole proof.</p>
-<p><font color='red'>Recall: Every Eulerian graph G has a cycle decomposition: edges of G can be decomposed into edge-disjoint cycles.</font></p>
+<font color='red'>Recall: Every Eulerian graph G has a cycle decomposition: edges of G can be decomposed into edge-disjoint cycles.</font>
+
 <p>A cycle cover of a graph is a family of cycles which cover all edges of G.</p>
 <p>A graph has a cycle cover $\Leftrightarrow$ it has even-subgraph cover.</p>
 <p><strong>Thm If a graph G has k-even-subgraph cover, then G has a nowhere-zero $2^k$-flow</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
 <p>For each even-subgraph $H_i$, it has a 2-flow $(D,f_i)$.</p>
-<p>So $(D,f)$ is a nowhere-zero $2^k$-flow where $f&#x3D;\sum_{e\in E(G)}2^{i-1}f_i(e)$</p>
+<p>So $(D,f)$ is a nowhere-zero $2^k$-flow where $f=\sum_{e\in E(G)}2^{i-1}f_i(e)$</p>
 <hr>
 <p><strong>(8-flow theorem,Jaeger) Every bridgeless graph has nowhere-zero 8-flow</strong></p>
 <p><strong>(Splitting Lemma) Let G be a connected graph without cut-edge.If G has a vertex v of degree at least four. Then there are two edges $e_1$ and $e_2$ incident with v s.t. the resulting graph after splitting $e_1$ and $e_2$ from v remains to be connected and without cut-edge.</strong></p>
-<p><font color='red'>(Cycle double cover conjecture,1970s) Every connected cubic graph without cut-edge has a family of cycles covering every edge exactly twice.</font></p>
-<p>A proper k-edge-coloring of a graph G is a map $c:E(G)\to[k]$ s.t. $c(e)\not&#x3D;c(e’)$ if $e$ and $e’$ have a common end vertex.</p>
+<font color='red'>(Cycle double cover conjecture,1970s) Every connected cubic graph without cut-edge has a family of cycles covering every edge exactly twice.</font>
+
+<p>A proper k-edge-coloring of a graph G is a map $c:E(G)\to[k]$ s.t. $c(e)\not=c(e’)$ if $e$ and $e’$ have a common end vertex.</p>
 <p><strong>Thm Every 3-edge-colorable cubic graph has a family of cycles which cover every edge exactly twice</strong></p>
 <hr>
 <p><strong>Proof</strong></p>
-<p>Let $c:E(G)\to[3]$. Then $c^{-1}(1)\cup c^{-1}(2)$ is a family of cycles, $c^{-1}(1)\cup c^{-1}(3)$ is a family of cycles, $c^{-1}(2)\cup c^{-1}(3)$ is a family of cycles.<br>$$<br>l_{e_1}&#x3D;c^{-1}(1)\cup c^{-1}(2),l_{e_2}&#x3D;c^{-1}(1)\cup c^{-1}(3),l_{e_3}&#x3D;c^{-1}(2)\cup c^{-1}(3)<br>$$<br>So $l_{e_1}\cup l_{e_2}\cup l_{e_3}$ is a family of cycles which cover every edge exactly twice.</p>
+<p>Let $c:E(G)\to[3]$. Then $c^{-1}(1)\cup c^{-1}(2)$ is a family of cycles, $c^{-1}(1)\cup c^{-1}(3)$ is a family of cycles, $c^{-1}(2)\cup c^{-1}(3)$ is a family of cycles.</p>
+<script type="math/tex; mode=display">
+l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2)\cup c^{-1}(3)</script><p>So $l_{e_1}\cup l_{e_2}\cup l_{e_3}$ is a family of cycles which cover every edge exactly twice.</p>
 <hr>
-<p><font color='blue'>(3-flow conjecture) Every 5-edge connected graph has a nowhere-zero 3-flow.</font></p>
-<p><font color='red'>A graph is a k-edge-connected if for any two vertices x ang y, the graph has k edge-disjoint paths joining x and y.</font></p>
-<p><font color='blue'>(Tutte-Nashwillam Theorem) Every 2k-edge-connected graph has a k edge-disjoint spanning trees.</font></p>
-<p><font color='blue'>(Lovasz,Wu,Thomassen,Zhang,2012) Every 6-edge-connected graph has a nowhere-zero 3-flow.</font></p>
-<p><font color='blue'>(5-flow conjecture.1950s) Every bridgeless graph has a nowhere-zero 5-flow</font></p>
-<p><font color='blue'>(Seymour,1980) Every bridgeless graph has a nowhere-zero 6-flow.</font></p>
-<p><font color='blue'>For cubic graph,cycle double cover conjecture$\approx$ the strong embedding conjecture</font></p>
-<p><font color='blue'>(Strong Embedding Conjecture,1980s) Every 2-connected graph can be embedded on a closed surface such that every face is bounded by a cycle.</font></p>
+<font color='blue'>(3-flow conjecture) Every 5-edge connected graph has a nowhere-zero 3-flow.</font>
+
+<font color='red'>A graph is a k-edge-connected if for any two vertices x ang y, the graph has k edge-disjoint paths joining x and y.</font>
+
+<font color='blue'>(Tutte-Nashwillam Theorem) Every 2k-edge-connected graph has a k edge-disjoint spanning trees.</font>
+
+<font color='blue'>(Lovasz,Wu,Thomassen,Zhang,2012) Every 6-edge-connected graph has a nowhere-zero 3-flow.</font>
+
+<font color='blue'>(5-flow conjecture.1950s) Every bridgeless graph has a nowhere-zero 5-flow</font>
+
+<font color='blue'>(Seymour,1980) Every bridgeless graph has a nowhere-zero 6-flow.</font>
+
+<font color='blue'>For cubic graph,cycle double cover conjecture$\approx$ the strong embedding conjecture</font>
+
+<font color='blue'>(Strong Embedding Conjecture,1980s) Every 2-connected graph can be embedded on a closed surface such that every face is bounded by a cycle.</font>
 
     </div>
 
@@ -419,7 +469,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -546,6 +596,8 @@
 
 
 
+
+  
 
   
 

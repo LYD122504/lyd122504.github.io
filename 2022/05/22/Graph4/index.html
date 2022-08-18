@@ -271,65 +271,111 @@
       
         <p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
 <span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" alt=""></p>
+<font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)=\frac{1}{2}$, $\ P(R_j\not\sim C_j)=\frac{1}{2}$</font>
+$$
+P(A(G)\ is \ invertible)=P(M\ is\ invertible)
+$$
+**Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$**
 
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg"></p>
-<p><font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)&#x3D;\frac{1}{2}$, $\ P(R_j\not\sim C_j)&#x3D;\frac{1}{2}$</font><br>$$<br>P(A(G)\ is \ invertible)&#x3D;P(M\ is\ invertible)<br>$$<br><strong>Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$</strong></p>
-<hr>
+---
+
+**Proof**
+
+Let $A(G)=(a_{ij})_{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by 
+$$
+[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
+$$
+where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]=\{1,2,\dots,n\}$
+$$
+\begin{aligned}
+(A(G))^2_{ij}&=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
+(A(G))^3_{ij}&=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
+\end{aligned}
+$$
+By the definition of adjacency matrix, $a_j=1\Leftrightarrow v_iv_j\in E(G)$
+
+It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$
+
+---
+
+A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy 
+$$
+\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
+$$
+<font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n=0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font>
+
+<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong></p>
+<script type="math/tex; mode=display">
+w_G(k)=\lambda_1^k+\cdots+\lambda_n^k</script><hr>
 <p><strong>Proof</strong></p>
-<p>Let $A(G)&#x3D;(a_{ij})<em>{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by<br>$$<br>[(A(G))^k]</em>{ij}&#x3D;\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}<br>$$<br>where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]&#x3D;{1,2,\dots,n}$<br>$$<br>\begin{aligned}<br>(A(G))^2_{ij}&amp;&#x3D;(A(G)\cdot A(G))<em>{ij}&#x3D;\sum</em>{i_1&#x3D;1}^na_{ii_1}a_{i_1j}\<br>(A(G))^3_{ij}&amp;&#x3D;((A(G))^2\cdot A(G))<em>{ij}&#x3D;\sum</em>{i_2&#x3D;1}^n(\sum_{i_1&#x3D;1}^na_{ii_1}a_{i_1i_2})a_{i_2j}&#x3D;\sum_{i_1,i_2&#x3D;1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\<br>\end{aligned}<br>$$<br>By the definition of adjacency matrix, $a_j&#x3D;1\Leftrightarrow v_iv_j\in E(G)$</p>
-<p>It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$</p>
-<hr>
-<p>A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy<br>$$<br>\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n<br>$$<br><font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n&#x3D;0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font></p>
-<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong><br>$$<br>w_G(k)&#x3D;\lambda_1^k+\cdots+\lambda_n^k<br>$$</p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that<br>$$<br>w_G(k)&#x3D;\sum_{i&#x3D;1}^n[(A(G))^k]_{ii}&#x3D;tr(A(G)^k)<br>$$<br>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
-<p><font color='red'>$A(G)\vec{v_i}&#x3D;\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}&#x3D;A(G)^{k-1}A(G)\vec{v_i}&#x3D;A(G)^{k-1}\lambda\vec{v_i}&#x3D;\lambda_i^k\vec{v_i}$</font></p>
-<p>Then, $tr(A(G)^k)&#x3D;\sum_{i&#x3D;1}^n\lambda_i^k$, so $w_G(k)&#x3D;tr(A(G)^k)&#x3D;\sum_{i&#x3D;1}^n\lambda_i^k$</p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that</p>
+<script type="math/tex; mode=display">
+w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)</script><p>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in\{1,2,\cdots,n\}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in\{1,2,\cdots,n\}$</p>
+<font color='red'>$A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}$</font>
+
+<p>Then, $tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k$, so $w_G(k)=tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k$</p>
 <hr>
 <p><strong>Incidence matrix and Laplacian matrix</strong></p>
-<p>Let G be a graph s.t. $V(G)&#x3D;{v_1,v_2,\cdots,v_n}$ and $E(G)&#x3D;{e_1,e_2,\cdots,e_m}$<br>$$<br>B(G)&#x3D;(b_{ij})<em>{n\times m}\ where\ b</em>{ij}&#x3D;\left{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\<br>&amp;0\quad v_i\ isn’t\ incident\ with\ e_j\end{aligned}\right.<br>$$<br><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg"></p>
-<p><font color='red'>We can find that evey column has two non-zero entries.</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg"></p>
-<p><font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg"></p>
+<p>Let G be a graph s.t. $V(G)=\{v_1,v_2,\cdots,v_n\}$ and $E(G)=\{e_1,e_2,\cdots,e_m\}$</p>
+<script type="math/tex; mode=display">
+B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&1\quad v_i\ is\ incident\ with\ e_j\\
+&0\quad v_i\ isn't\ incident\ with\ e_j\end{aligned}\right.</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" alt=""></p>
+<font color='red'>We can find that evey column has two non-zero entries.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" alt=""></p>
+<font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" alt=""></p>
 <p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
-<p>Laplacian matrix of G: $L(G)&#x3D; D(G)-A(G)&#x3D;\vec{B}\cdot\vec{B}^T$</p>
-<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong><br>$$<br>\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0<br>$$<br>$\tau(G)$&#x3D; the total number of spanning trees in G.</p>
-<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)&#x3D;det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]&#x3D;{1,2,\dots,n}$</strong></p>
+<p>Laplacian matrix of G: $L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T$</p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong></p>
+<script type="math/tex; mode=display">
+\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0</script><p>$\tau(G)$= the total number of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)=det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]=\{1,2,\dots,n\}$</strong></p>
 <hr>
 <p><strong>Proof.</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" alt=""></p>
 <p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
 <p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" alt=""></p>
 <p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
-<p>Therefore, $\tau(G)&#x3D;\tau(G-e)+\tau(G\cdot e)$</p>
+<p>Therefore, $\tau(G)=\tau(G-e)+\tau(G\cdot e)$</p>
 <p>Use induction on the number of edges of G.</p>
-<p>If G has no edges and n&#x3D;1, so $\tau(G)&#x3D;1&#x3D;det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
-<p>If $n&gt;1$, then $\tau(G)&#x3D;0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)&#x3D;det(L_0(G))$ .</p>
-<p>Therefore, the statement holds for $|E(G)|&#x3D;0$.</p>
+<p>If G has no edges and n=1, so $\tau(G)=1=det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
+<p>If $n&gt;1$, then $\tau(G)=0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)=det(L_0(G))$ .</p>
+<p>Therefore, the statement holds for $|E(G)|=0$.</p>
 <p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
-<p>By recordering the vertices of G, we may assume that $i&#x3D;1$ and $v_1v_2\in E(G)$, Let $e&#x3D;v_1v_2$. Then  $\tau(G)&#x3D;\tau(G-e)+\tau(G\cdot e)$.</p>
-<p>By inductive hypothesis, $\tau(G-e)&#x3D;det(L_0(G-e))$ and $\tau(G\cdot e)&#x3D;det(L_0(G\cdot e))$.</p>
-<p>Assume $L_0(G)&#x3D;\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)&#x3D;\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
-<p>Then $L_0(G-e)&#x3D;\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)&#x3D;R$</p>
-<p>Note that $L_0(G)&#x3D;L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
-<p>Using the Laplace expansion along the first row,<br>$$<br>det(L_0(G))&#x3D;det(L_0(G-e))+det(L_0(G\cdot e))&#x3D;\tau(G-e)+\tau(G\cdot e)&#x3D;\tau(G)<br>$$</p>
-<hr>
-<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n&#x3D;0$. Then</strong><br>$$<br>\tau(G)&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$</p>
-<hr>
+<p>By recordering the vertices of G, we may assume that $i=1$ and $v_1v_2\in E(G)$, Let $e=v_1v_2$. Then  $\tau(G)=\tau(G-e)+\tau(G\cdot e)$.</p>
+<p>By inductive hypothesis, $\tau(G-e)=det(L_0(G-e))$ and $\tau(G\cdot e)=det(L_0(G\cdot e))$.</p>
+<p>Assume $L_0(G)=\begin{pmatrix}d_2&amp;P\\P^T&amp;R\end{pmatrix}$ obtained from $L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\\hdashline1&amp;d_2&amp;P\\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
+<p>Then $L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)=R$</p>
+<p>Note that $L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\\vec{0}^T&amp;R\end{pmatrix}$</p>
+<p>Using the Laplace expansion along the first row,</p>
+<script type="math/tex; mode=display">
+det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)</script><hr>
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n=0$. Then</strong></p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 <p><strong>Proof</strong></p>
-<p>Let $L(G)$ be the  Laplacian matrix and let<br>$$<br>det(L(G)-\lambda I)&#x3D;(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)&#x3D;-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)<br>$$<br>So the cofficient of $\lambda$ term is $-\mu_1\mu_2\cdots\mu_{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
+<p>Let $L(G)$ be the  Laplacian matrix and let </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)</script><p>So the cofficient of $\lambda$ term is $-\mu_1\mu_2\cdots\mu_{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
 <p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
-<p>Then $det(M(\lambda))&#x3D;det(L(G)-\lambda I)$ and the first row of $M(\lambda)&#x3D;[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
+<p>Then $det(M(\lambda))=det(L(G)-\lambda I)$ and the first row of $M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
 <p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
-<p>Then $M(\lambda)&#x3D;-\lambda N(\lambda)$ and $det(M(\lambda))&#x3D;-\lambda det(N(\lambda))$, So<br>$$<br>det(L(G)-\lambda I)&#x3D;-\lambda det(N(\lambda))<br>$$<br>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
+<p>Then $M(\lambda)=-\lambda N(\lambda)$ and $det(M(\lambda))=-\lambda det(N(\lambda))$, So </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=-\lambda det(N(\lambda))</script><p>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
 <p>Add all columns of $N(0)$ except the first column to the first column.</p>
-<p><font color='red'>(Note that $i^{th}$-row $(i&gt;1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i&gt;1)$ of $L(G)$</font></p>
+<font color='red'>(Note that $i^{th}$-row $(i>1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i>1)$ of $L(G)$</font>
+
 <p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
-<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))&#x3D;n\cdot det(L_0(G))$<br>$$<br>n\cdot det(L_0(G))&#x3D;(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$<br>By previous theorem,<br>$$<br>\tau(G)&#x3D;\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}<br>$$</p>
-<hr>
+<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))=n\cdot det(L_0(G))$</p>
+<script type="math/tex; mode=display">
+n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><p>By previous theorem,</p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 
     </div>
 
@@ -429,7 +475,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -556,6 +602,8 @@
 
 
 
+
+  
 
   
 
