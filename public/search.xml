@@ -1799,123 +1799,200 @@ face is bounded by a cycle.</font></p>
       </tags>
   </entry>
   <entry>
-    <title>Learning by Examples——Heat Exchange</title>
-    <url>/2022/07/25/freefem2/</url>
-    <content><![CDATA[<p><strong>Description of the Heat Exchanger problem</strong></p>
- 我们假设有一个外壳<span
-class="math inline">\(C_0\)</span>,外壳内有<span
-class="math inline">\(\{C_i\}_{1,2}\)</span>两个热导体.其中一个保持恒温<span
-class="math inline">\(u_1\)</span>,另一个的热导率<span
-class="math inline">\(\kappa\)</span>比外壳<span
-class="math inline">\(C_0\)</span>的大五倍.我们假设外壳<span
-class="math inline">\(C_0\)</span>的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域
+    <title>Spectral Method 1</title>
+    <url>/2022/12/22/spectral1/</url>
+    <content><![CDATA[<p>##预备知识   我们先在 <span class="math inline">\(L^2(\Omega),
+\Omega=[a,b]\)</span> 上讨论, 即 <span class="math display">\[
+    \forall u\in
+L^2(\Omega)\Rightarrow\left(\int_a^b|u|^2\mathrm{d}x\right)^{\frac{1}{2}}&lt;+\infty.
+    \]</span> <span id="more"></span>   我们在此空间上定义带权重的内积 <span
+class="math display">\[
+    (u,v)_{w}=\int_\Omega u\cdot\overline{v}\cdot w\mathrm{d}x,
+    \]</span> 其中 <span class="math inline">\(v\)</span>
+取共轭的含义在于v可能取到复值, 同时对w有一定要求, <span
+class="math inline">\(w\geq0\)</span>.   由于我们已经定义了带权重的内积,
+因此我们可以进一步给出带权重的范数的定义如下 <span
+class="math display">\[
+    \Vert u\Vert_w^2=(u,u)_w,
+    \]</span> 若 <span class="math inline">\(\omega=1\)</span>, 则 <span
+class="math inline">\((u,v)_w=(u,v),\ \Vert u\Vert_w=\Vert
+u\Vert.\)</span>   根据 <span class="math inline">\(L^2(\Omega)\)</span>
+自身的性质, 我们可以找到 <span
+class="math inline">\(L^2(\Omega)\)</span> 空间的一组基, 记作 <span
+class="math inline">\(\left\{\phi_k(x)\right\}_{k=0}^{\infty}\)</span>,
+对于任意的 <span class="math inline">\(u\in L^2(\Omega)\)</span>,
+我们都有 <span class="math display">\[
+    u=\sum_{k=0}^\infty \hat{u}_k\phi_k(x).
+    \]</span></p>
+<p>特别地, 我们考虑 <span class="math inline">\(\phi_k\)</span>
+互相正交的情况. 首先我们先给出正交的定义.</p>
+<p>  若 <span
+class="math inline">\(\left\{\phi_k(x)\right\}_{k=0}^{\infty}\)</span>
+正交, 则有 <span class="math display">\[
+    (\phi_k,\phi_m)=c_k\delta_{km},\ \text{其中}\
+\delta_{km}=\left\{\begin{aligned}&amp;1,\quad k=m\\&amp;0,\quad
+k\not=m\end{aligned}\right.
+    \]</span></p>
+<p>  我们借助上面定义的正交来确定 <span
+class="math inline">\(\hat{u}_k\)</span> 的取值 <span
+class="math display">\[
+    \begin{aligned}
+        (u,\phi_m)=&amp;(\sum_{k=0}^\infty\phi_k,\phi_m)=\sum_{k=0}^\infty\hat{u}_k(\phi_k.\phi_m)=\sum_{k=0}^\infty\hat{u}_kc_k\delta_{km}=\hat{u}_mc_m\\
+        &amp;\Rightarrow\hat{u}_m=\frac{1}{c_m}(u,\phi_m),\
+m=0,\cdots,+\infty.
+    \end{aligned}
+    \]</span>   在此, 我们讨论区间 <span
+class="math inline">\(\Omega=[0,2\pi]\)</span>, 其中 <span
+class="math inline">\(\left\{e^{ikx}\right\}_{-\infty}^{+\infty}\)</span>
+为一组正交基.</p>
+<p>  定义内积运算为 <span class="math display">\[
+    (u,v)=\frac{1}{\color{red}{2\pi}}\int_0^{2\pi}u\cdot\overline{v}\mathrm{d}x,
+    \]</span> 其中 <span class="math inline">\(2\pi\)</span>
+的作用在于后续计算的归一化.</p>
+<p>  验证其正交性如下: <span class="math display">\[
+    (e^{ikx},e^{imx})=\frac{1}{2\pi}\int_0^{2\pi}e^{i(k-m)x}\mathrm{d}x=\left\{\begin{aligned}
+        &amp;1,\quad k=m\\
+        &amp;0,\quad else
+    \end{aligned}\right.
+    \]</span></p>
+<p><font color=red>Remark: 由于 <span
+class="math inline">\(\left\{e^{ikx}\right\}_{-\infty}^{+\infty}\)</span>
+的周期性, 因此傅里叶谱方法仅适用于逼近周期函数,作用的空间也为 <span
+class="math inline">\(L_p^2\)</span>.</font></p>
+<p><span
+class="math display">\[(u,e^{imx})=(\sum_{k=-\infty}^{+\infty}\hat{u}_ke^{ikx},e^{imx})=\sum_{k=-\infty}^{+\infty}\hat{u}_k(e^{ikx},e^{imx})=\sum_{k=-\infty}^{+\infty}\hat{u}_k\delta_{km}=\hat{u}_m.\]</span>
+<font color=red>但上述过程中要求计算从 <span
+class="math inline">\(-\infty\)</span> 到 <span
+class="math inline">\(+\infty\)</span>, 是无法处理的,
+因此接下来我们讨论其对应的数值格式.</font></p>
+<p>  从朴素的角度来说, 我们对 <span
+class="math inline">\(u=\sum_{k=-\infty}^{+\infty}\hat{u}_ke^{ikx}\)</span>
+做一个截断得到 <span
+class="math inline">\(u_N=\sum_{k=-N}^{N}\hat{u}_ke^{ikx}\)</span>,
+同时要求截断所形成的误差尽可能地小.
+下面我们通过定义投影映射来验证此事.</p>
+<p>  定义空间 <span
+class="math inline">\(X_N=span\{e^{-iNx},e^{i(1-N)x},\cdots,e^{i(N-1)x},e^{iNx}\}\)</span>,
+同时定义其上的投影映射 <span class="math inline">\(\Pi_N: L^2\to
+X_N\)</span> 满足 <span class="math inline">\((\Pi_Nu-u,v)=0,\ v\in
+X_N\)</span>, 接下来我们要验证 <span
+class="math inline">\(\Pi_Nu=\sum_{k=-N}^{N}\hat{u}_ke^{ikx}\)</span>.</p>
+<p><strong>Proof.</strong> <span
+class="math display">\[\because\Pi_Nu\in X_N,\
+\therefore\Pi_Nu=\sum_{k=-N}^{N}\hat{z}_ke^{ikx}.\]</span>
+故证明转为验证 <span
+class="math inline">\(\hat{z}_k=\hat{u}_k\)</span>u, 而由投影的定义知,
+<span class="math inline">\((\Pi_Nu,e^{imx})=(u,e^{imx})\)</span>,
+证毕.</p>
+<p>  为了后续验证截断误差方便, 我们先引入几个范数的定义 <span
+class="math display">\[\Vert
+u\Vert^2=\sum_{k=-\infty}^{+\infty}\left|\hat{u}_k\right|^2,\quad
+\left|u\right|_m^2=\sum_{k=-\infty}^{+\infty}k^{2m}\left|\hat{u}_k\right|^2,\quad
+\Vert u\Vert_m=\sqrt{\Vert u\Vert^2+|u|^2_m},\]</span> 其中 <span
+class="math inline">\(u\in H_p^m\)</span>.</p>
+<p>  虽然上面定义的范数针对的是 <span class="math inline">\(u\)</span>
+分解成无穷多个基函数的组合, 但实际上 <span
+class="math inline">\(u\)</span>
+如果被分解成有限多个基函数的组合上面的范数也是类似的结果,
+我们在此给出这种情况的范数.</p>
+<p>  若 <span
+class="math inline">\(V=\sum_{k=-N}^N\hat{v}_ke^{ikx}\)</span>, <span
+class="math inline">\(N\)</span> 若为无穷大,那么我们已经得到了范数形式,
+因此我们仅讨论如果 <span class="math inline">\(N\)</span>
+为有限值这一情况, 我们对 <span class="math inline">\(N\)</span>
+做一个延拓, <span class="math display">\[c_k=\left\{\begin{aligned}
+    &amp;\hat{v}_k,\quad |k|\leq N\\
+    &amp;0,\quad else
+\end{aligned}\right.,\]</span>那么 <span
+class="math inline">\(V\)</span> 就可以改写成无穷多个基函数的组合 <span
+class="math inline">\(V=\sum_{k=-\infty}^{\infty}
+\hat{c}_ke^{ikx}\)</span>, 那么我们就可以得到有限多个基函数组合的范数为
+<span class="math display">\[\Vert
+u\Vert^2=\sum_{k=-N}^{N}\left|\hat{u}_k\right|^2,\quad
+\left|u\right|_m^2=\sum_{k=-N}^{N}k^{2m}\left|\hat{u}_k\right|^2.\]</span>
+<strong>Thm 1</strong><span class="math display">\[\forall u\in
+H_p^m(m&gt;1),\ \Vert \Pi_Nu-u\Vert\leq CN^{-m}\Vert u\Vert_m.\]</span>
+<strong>Proof.</strong> 由于 <span
+class="math inline">\(\Pi_Nu=\sum_{k=-N}^N\hat{u}_ke^{ikx}\)</span>,故
+<span class="math inline">\(u-\Pi_Nu=\sum_{|k|\geq
+N+1}\hat{u}_ke^{ikx}\)</span>. <span class="math display">\[
+    \begin{aligned}
+    \Vert u-\Pi_Nu\Vert^2=\sum_{|k|\geq N+1}|\hat{u}_k|^2=\sum_{|k|\geq
+N+1}{\color{red}k^{-2m}\cdot k^{2m}}|\hat{u}_k|^2\tag{$\star$}.
+    \end{aligned}
+    \]</span>   由 <span class="math inline">\((\star)\)</span> 式知
+<span class="math inline">\(|k|\geq N+1,\)</span> <span
+class="math inline">\(\therefore k^{2m}\geq(N+1)^{2m}\geq C_1N^{2m},\
+k^{-2m}\leq CN^{-2m}.\)</span>   因此我们有<span
+class="math display">\[\begin{aligned}\Vert u-\Pi_Nu\Vert^2&amp;\leq
+CN^{-2m}\sum_{|k|\geq N+1}k^{2m}|\hat{u}_k|^2\leq
+CN^{-2m}|u|_m^2\\&amp;\Rightarrow\Vert\Pi_Nu-u\Vert\leq
+C_2N^{-m}|u|_m\end{aligned}.\]</span> 显然 <span
+class="math inline">\(|u|_m\leq\Vert u\Vert_m\)</span>, 故证毕.
+  我们已经介绍了傅里叶谱方法的理论,
+现在我们开始考虑如何将傅里叶谱方法应用到数值计算上去.
+我们考虑如下形式的泊松方程 <span class="math display">\[
+    \left\{\begin{aligned}
+&amp;-\Delta u=f\\
+&amp;u\text{
+为周期函数}\color{red}(u(0)=u(2\pi),u&#39;(0)=u&#39;(2\pi),\cdots,u^{(k)}(0)=u^{(k)}(2\pi))
+\end{aligned}\right..\]</span> 若直接用 <span
+class="math inline">\(u_N\)</span> 代替 <span
+class="math inline">\(u\)</span>, 那么原方程可以导出 <span
+class="math inline">\(2N+1\)</span> 个方程从而可以求解得到 <span
+class="math inline">\(u_N\)</span>.</p>
+<p>  一般而言, 我们并不会采用这种直接带入的方法, 而是借助 Galerkin
+方法的弱解形式求解. 在此之前我们先讨论一下所谓强解与弱解的概念.</p>
+<p>  强解表示解 <span class="math inline">\(u\in H^2\)</span> 满足 <span
+class="math inline">\(-\Delta u=f\)</span>, 而弱解则仅要求解 <span
+class="math inline">\(u\)</span> 满足 <span
+class="math inline">\(-(\Delta u,v)=(f,v),\ v\in L_p^2\)</span>,
+我们仅在一维情形下考虑, 进一步对弱解需要满足的要求进行化简如下, <span
+class="math display">\[\begin{aligned}
+    -(\Delta u,v)&amp;=(f,v),\\
+    \int u_{xx}v\mathrm{d}x&amp;=\int v\mathrm{d}u_x=vu_x\Big|-\int
+v_xu_x\mathrm{d}x=-\int v_xu_x\mathrm{d}x,\\
+    -\int v_xu_x\mathrm{d}x&amp;=\int fv\mathrm{d}x.
+\end{aligned}
+\]</span>   同理, 我们不加推导地写出多维情况下弱解形式的化简结果: <span
+class="math display">\[(f,v)=-(\Delta u,v)=(\nabla u,\nabla v),\ u\in
+H^1.\]</span></p>
+<p><font color=red>Hint:强解在 <span class="math inline">\(H^2\)</span>
+上列方程的话可以列出 <span class="math inline">\(\aleph\)</span> 个,
+而弱解在 <span class="math inline">\(L_p^2\)</span> 上列方程的话可以列出
+<span class="math inline">\(\aleph_0\)</span> 个,
+因此可以认为求弱解实际上也是一个降维操作.</font></p>
+<p>  我们根据上面得到的弱解格式和前面已经推得的傅里叶分解, 导出数值格式.
 <span
-class="math inline">\(\Omega\)</span>各点的温度分布,我们需要求解如下微分方程
-<span class="math display">\[\nabla\cdot(\kappa\nabla u)=0\ in\
-\Omega,\quad u|_\Gamma=g\]</span> <span id="more"></span> 其中 <span
-class="math inline">\(\Omega\)</span> 是 <span
-class="math inline">\(C_0\)</span> 的内部减去导体 <span
-class="math inline">\(C_1\)</span>, <span
-class="math inline">\(\Gamma\)</span> 是 <span
-class="math inline">\(\Omega\)</span> 的边界,即 <span
-class="math inline">\(C_0\cup C_1\)</span>,此处的 <span
-class="math inline">\(g\)</span> 是关于x的任意函数且在 <span
-class="math inline">\(C_i\)</span> 上等于 <span
-class="math inline">\(u_i\)</span>  为了简便起见,我们假设 <span
-class="math inline">\(C_0\)</span> 是以原点为圆心,半径为5的圆,<span
-class="math inline">\(C_i\)</span> 是矩形,<span
-class="math inline">\(C_1\)</span> 维持 <span
-class="math inline">\(u_1=60\)</span>°C的恒温.
- 利用Freefem++编写程序如下 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> C1=<span class="number">99</span>,C2=<span class="number">98</span>;</span><br><span class="line"><span class="function">border <span class="title">C0</span><span class="params">(t=<span class="number">0</span>,<span class="number">2</span>*pi)</span></span>&#123;x=<span class="number">5</span>*<span class="built_in">cos</span>(t);y=<span class="number">5</span>*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">C11</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>+t;y=<span class="number">3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C12</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C13</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">2</span>-t;y=<span class="number">-3</span>;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C14</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">1</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C1;&#125;</span><br><span class="line"><span class="function">border <span class="title">C21</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>+t;y=<span class="number">3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C22</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>;y=<span class="number">3</span><span class="number">-6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C23</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-1</span>-t;y=<span class="number">-3</span>;label=C2;&#125;</span><br><span class="line"><span class="function">border <span class="title">C24</span><span class="params">(t=<span class="number">0</span>,<span class="number">1</span>)</span></span>&#123;x=<span class="number">-2</span>;y=<span class="number">-3</span>+<span class="number">6</span>*t;label=C2;&#125;</span><br><span class="line"><span class="built_in">plot</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>),wait=<span class="literal">true</span>,ps=<span class="string">&quot;heatexb.eps&quot;</span>);</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">C0</span>(<span class="number">50</span>)+<span class="built_in">C11</span>(<span class="number">5</span>)+<span class="built_in">C12</span>(<span class="number">20</span>)+<span class="built_in">C13</span>(<span class="number">5</span>)+<span class="built_in">C14</span>(<span class="number">20</span>)+<span class="built_in">C21</span>(<span class="number">-5</span>)+<span class="built_in">C22</span>(<span class="number">-20</span>)+<span class="built_in">C23</span>(<span class="number">-5</span>)+<span class="built_in">C24</span>(<span class="number">-20</span>));</span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>);</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P1)</span></span>;</span><br><span class="line">Vh u,v;</span><br><span class="line">Vh kappa=<span class="number">1</span>+<span class="number">2</span>*(x&lt;<span class="number">-1</span>)*(x&gt;<span class="number">-2</span>)*(y&lt;<span class="number">3</span>)*(y&gt;<span class="number">-3</span>);</span><br><span class="line"><span class="function">solve <span class="title">a</span><span class="params">(u,v)</span></span>=<span class="built_in">int2d</span>(Th)(kappa*(<span class="built_in">dx</span>(u)*<span class="built_in">dx</span>(v)+<span class="built_in">dy</span>(u)*<span class="built_in">dy</span>(v)))</span><br><span class="line">            +<span class="built_in">on</span>(C0,u=<span class="number">20</span>)+<span class="built_in">on</span>(C1,u=<span class="number">60</span>);</span><br><span class="line"><span class="built_in">plot</span>(u,wait=<span class="literal">true</span>, value=<span class="literal">true</span>, fill=<span class="literal">true</span>, ps=<span class="string">&quot;heatex.eps&quot;</span>);</span><br></pre></td></tr></table></figure>
-<strong><font color='red'>Remark</font></strong> * <span
-class="math inline">\(C_0\)</span> 和 <span
-class="math inline">\(C_2\)</span> 关于 <span
-class="math inline">\(t\)</span> 是逆时针方向,而 <span
-class="math inline">\(C_1\)</span> 关于 <span
-class="math inline">\(t\)</span> 是顺时针方向,因此 <span
-class="math inline">\(C_1\)</span> 在网格剖分过程中被认定成一个洞. *
-<span class="math inline">\(C_1\)</span> 和 <span
-class="math inline">\(C_2\)</span>
-在程序中是以拼接线段的形式构成的,为了能将那些线段作为一个逻辑单元同时取出,我们人为的给这些线段加以标签,从而可以以一种易读的方式为其添加边界条件.
-*
-网格密度由指定的每条边界的顶点个数决定.虽然我们无法决定顶点的分布,但是一段边界可以通过被切分成小段.
-运行结果如下:
-<center>
-<img src="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172304.6xddfzspub40.jpg?raw=true" style="width: 70%">
-<img src="https://git.poker/LYD122504/picture/blob/main/20220226/2022-07-26_172314.6hu72hyk6uo0.jpg?raw=true" style="width: 70%">
-</center>
+class="math display">\[\begin{aligned}(-\partial_{xx}u,v_N)&amp;=(f,v_N),\
+v_N\in X_N,\\
+-(\partial_{xx}\sum_{k=-N}^{N}\hat{u}_ke^{ikx},e^{imx})&amp;=(f,e^{imx}),\
+v_m=\{e^{imx}\}_{m=-N}^N,\\
+\text{记}\ f_m=(f,e^{imx})&amp;\quad a_{km}=(e^{ikx},e^{imx})k^2,\\
+(\sum_{k=-N}^N\hat{u}_kk^2e^{ikx},e^{imx})&amp;=\sum_{k=-N}^N\hat{u}_kk^2(e^{ikx},e^{imx})=\sum_{k=-N}^N\hat{u}_ka_{km},\\
+\hat{u}=(\hat{u}_{-N},\cdots,\hat{u}_N)^T&amp;\quad
+F=(f_{-N},\cdots,f_N)^T,\\
+\end{aligned}\]</span> <span class="math display">\[
+A=\begin{pmatrix}
+    a_{-N,-N}&amp;\cdots&amp;a_{N,-N}\\
+    \vdots&amp; &amp;\vdots\\
+    a_{-N,N}&amp;\cdots&amp;a_{N,N}
+\end{pmatrix}\Rightarrow A\hat{u}=F.\]</span>
+  上述过程我们将求解偏微分方程问题转换为求解一个线性代数方程组问题,
+而且由于我们所选取的基互相正交, 因此 <span
+class="math inline">\(A\)</span> 实际上是一个对角矩阵,
+故求解起来十分轻松. 但由于我们选取的方程可能不太好, 因此,
+如果直接利用上述的 <span class="math inline">\(A\)</span>, <span
+class="math inline">\(A\)</span> 其实是一个奇异矩阵, 为了消除其奇异性,
+我们可以对对角线元素加一个 <span
+class="math inline">\(\epsilon\)</span>.</p>
 ]]></content>
       <categories>
-        <category>Freefem++</category>
+        <category>Spectral Method</category>
       </categories>
       <tags>
         <tag>Math</tag>
-        <tag>Coding</tag>
-        <tag>Freefem++</tag>
+        <tag>Computing Science</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Learning by Examples——Membranes</title>
-    <url>/2022/07/23/freefem1/</url>
-    <content><![CDATA[<p><strong>Description of the Membranes Problem</strong></p>
-<p> 我们假设弹性薄膜 <span class="math inline">\(\Omega\)</span>
-被固定在硬性支撑 <span class="math inline">\(\Gamma\)</span>
-上，同时在表面的每个单元 <span
-class="math inline">\(\mathrm{d}x=\mathrm{d}x_1\mathrm{d}x_2\)</span>
-上均施加有大小为 <span class="math inline">\(f(x)\mathrm{d}x\)</span>
-的外力。薄膜在垂直方向上的位移 <span
-class="math inline">\(\phi(x)\)</span> 可以通过求解Laplace方程来得到
-<span class="math display">\[\begin{aligned}-\Delta \phi=f\ in\
-\Omega\end{aligned}\]</span> <span id="more"></span>
- 如果固定薄膜的支撑是一个平面,那么薄膜的垂直位移满足:<span
-class="math display">\[\phi\big|_\Gamma=0\]</span>
- 但是如果固定薄膜的支撑并不是一个平面,而是在点 <span
-class="math inline">\((x_1,x_2)\)</span> 处的高度为 <span
-class="math inline">\(z(x_1,x_2)\)</span>
-,那么其满足非齐次Dirichlet边界条件. <span
-class="math display">\[\phi\big|_\Gamma=z\]</span>  如果薄膜边界的一部分
-<span class="math inline">\(\Gamma_2\)</span>
-不固定在支撑上,而是允许自由滑动,由于薄膜本身刚性性质,<span
-class="math inline">\(\Gamma_2\)</span> 上的任意一点的法向量 <span
-class="math inline">\(\vec{n}\)</span> 是0,因此边界条件为 <span
-class="math display">\[\phi\big|_{\Gamma_1}=z,\frac{\partial
-\phi}{\partial \vec{n}}\big|_{\Gamma_2}=0\]</span> 其中 <span
-class="math inline">\(\Gamma_1=\Gamma-\Gamma_2\)</span></p>
-<p><strong>Examples</strong></p>
-<p> 如果有一个椭圆，其半长轴的长度为 <span
-class="math inline">\(a=2\)</span>，半短轴的长度为 <span
-class="math inline">\(b=1\)</span>，在椭圆表面施加一个大小为1的外力，利用Freefem++编程如下：
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">real theta=<span class="number">4.</span>*pi/<span class="number">3.</span>;</span><br><span class="line">real a=<span class="number">2.</span>,b=<span class="number">1.</span>;<span class="comment">//the length of the semimajor axis and semiminor axis</span></span><br><span class="line">func z=x;</span><br><span class="line"></span><br><span class="line"><span class="function">border <span class="title">Gamma1</span><span class="params">(t=<span class="number">0</span>,theta)</span> </span>&#123;x=a*<span class="built_in">cos</span>(t); y=b*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line"><span class="function">border <span class="title">Gamma2</span><span class="params">(t=theta,<span class="number">2</span>*pi)</span> </span>&#123;x=a*<span class="built_in">cos</span>(t);y=b*<span class="built_in">sin</span>(t);&#125;</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">Gamma1</span>(<span class="number">100</span>)+<span class="built_in">Gamma2</span>(<span class="number">50</span>));</span><br><span class="line"></span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P2)</span></span>;<span class="comment">//P2 conforming triangular FEM</span></span><br><span class="line">Vh phi,w,f=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">solve <span class="title">Laplace</span><span class="params">(phi,w)</span></span>=<span class="built_in">int2d</span>(Th)(<span class="built_in">dx</span>(phi)*<span class="built_in">dx</span>(w)+<span class="built_in">dy</span>(phi)*<span class="built_in">dy</span>(w))</span><br><span class="line">                    -<span class="built_in">int2d</span>(Th)(f*w)+<span class="built_in">on</span>(Gamma1,phi=z);</span><br><span class="line"><span class="built_in">plot</span>(phi,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membrane.eps&quot;</span>);<span class="comment">//plot phi</span></span><br><span class="line"><span class="built_in">plot</span>(Th,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membraneTh.eps&quot;</span>);<span class="comment">//plot Th</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">savemesh</span>(Th,<span class="string">&quot;Th.msh&quot;</span>);</span><br></pre></td></tr></table></figure>  网格剖分结果图 <img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_101445.39ksbvpbv0m0.jpg" />
- 解的结果图 <img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_101431.3aemdihjkny0.jpg" />
- buildmesh表示建立区域的三角剖分,它调用了一个基于的Delaunay测试的三角剖分子程序.Delaunay测试首先通过三角化边界点再通过细分边加入内部点.通过其得到的三角剖分的精细程度由最近的一条边界的尺寸来确定.</p>
- 为了验证这个方法的有效性,我们通过给出一个特殊的参数,来精确求解误差及收敛率.在单位圆上,当
-<span
-class="math inline">\(z=0,f=-4(\cos(x^2+y^2-1)-(x^2+y^2)\sin(x^2+y^2-1))\)</span>,其精确解为<span
-class="math inline">\(\phi_e=\sin(x^2+y^2-1)\)</span>,但其在<span
-class="math inline">\(\Gamma_2\)</span>上法向量并非为0,而是2.利用Freefem++编程如下
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">verbosity =<span class="number">0</span>; <span class="comment">// to remove all default output</span></span><br><span class="line">real theta=<span class="number">4.</span>*pi/<span class="number">3.</span>;</span><br><span class="line">real a=<span class="number">1.</span>,b=<span class="number">1.</span>; <span class="comment">// the length of the semimajor axis and semiminor axis</span></span><br><span class="line"><span class="function">border <span class="title">Gamma1</span><span class="params">(t=<span class="number">0</span>,theta)</span> </span>&#123; x = a * <span class="built_in">cos</span>(t); y = b*<span class="built_in">sin</span>(t); &#125;</span><br><span class="line"><span class="function">border <span class="title">Gamma2</span><span class="params">(t=theta,<span class="number">2</span>*pi)</span> </span>&#123; x = a * <span class="built_in">cos</span>(t); y = b*<span class="built_in">sin</span>(t); &#125;</span><br><span class="line">func f=<span class="number">-4</span>*(<span class="built_in">cos</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>) -(x^<span class="number">2</span>+y^<span class="number">2</span>)*<span class="built_in">sin</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>));</span><br><span class="line">func phiexact=<span class="built_in">sin</span>(x^<span class="number">2</span>+y^<span class="number">2</span><span class="number">-1</span>);</span><br><span class="line">real[<span class="type">int</span>] <span class="built_in">L2error</span>(<span class="number">2</span>); <span class="comment">// an array two values</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> n=<span class="number">0</span>;n&lt;<span class="number">2</span>;n++)</span><br><span class="line">&#123;</span><br><span class="line">mesh Th=<span class="built_in">buildmesh</span>(<span class="built_in">Gamma1</span>(<span class="number">20</span>*(n+<span class="number">1</span>))+<span class="built_in">Gamma2</span>(<span class="number">10</span>*(n+<span class="number">1</span>)));</span><br><span class="line"><span class="function">fespace <span class="title">Vh</span><span class="params">(Th,P2)</span></span>;</span><br><span class="line">Vh phi,w;</span><br><span class="line"><span class="function">solve <span class="title">laplace</span><span class="params">(phi,w)</span></span>=<span class="built_in">int2d</span>(Th)(<span class="built_in">dx</span>(phi)*<span class="built_in">dx</span>(w) + <span class="built_in">dy</span>(phi)*<span class="built_in">dy</span>(w))</span><br><span class="line">- <span class="built_in">int2d</span>(Th)(f*w) - <span class="built_in">int1d</span>(Th,Gamma2)(<span class="number">2</span>*w)+ <span class="built_in">on</span>(Gamma1,phi=<span class="number">0</span>);</span><br><span class="line"><span class="built_in">plot</span>(Th,phi,wait=<span class="literal">true</span>,ps=<span class="string">&quot;membrane.eps&quot;</span>); <span class="comment">// Plot Th and phi</span></span><br><span class="line">L2error[n]= <span class="built_in">sqrt</span>(<span class="built_in">int2d</span>(Th)((phi-phiexact)^<span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> n=<span class="number">0</span>;n&lt;<span class="number">2</span>;n++)</span><br><span class="line">cout &lt;&lt; <span class="string">&quot; L2error &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; = &quot;</span>&lt;&lt; L2error[n] &lt;&lt;endl;</span><br><span class="line">cout &lt;&lt;<span class="string">&quot; convergence rate = &quot;</span>&lt;&lt; <span class="built_in">log</span>(L2error[<span class="number">0</span>]/L2error[<span class="number">1</span>])/<span class="built_in">log</span>(<span class="number">2.</span>) &lt;&lt;endl;</span><br></pre></td></tr></table></figure>  结果如下所示
-<center>
-<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104705.4zsjpr37e500.jpg style="width:70%;">
-<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104718.3eeywtiihfs0.jpg style="width:70%;">
-<img src=https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-07-25_104731.bdx6vziosds.jpg style="width:70%;">
-</center>
-<p> 我们会发现此处计算得到的收敛率仅1.98,但理论上收敛率应该达到3,实际上是因为网格剖分的几何结构是多边形结构,与实际的有一定差异因此,在收敛率上有一定的降低.</p>
-]]></content>
-      <categories>
-        <category>Freefem++</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Coding</tag>
-        <tag>Freefem++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>freefem3</title>
-    <url>/2022/07/26/freefem3/</url>
-    <content><![CDATA[
-]]></content>
   </entry>
 </search>

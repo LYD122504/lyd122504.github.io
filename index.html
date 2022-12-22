@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/26/freefem3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/22/spectral1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -209,7 +209,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/07/26/freefem3/" class="post-title-link" itemprop="url">freefem3</a>
+            <a href="/2022/12/22/spectral1/" class="post-title-link" itemprop="url">Spectral Method 1</a>
         </h2>
 
         <div class="post-meta">
@@ -218,88 +218,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-07-26 17:34:38" itemprop="dateCreated datePublished" datetime="2022-07-26T17:34:38+08:00">2022-07-26</time>
+              <time title="创建时间：2022-12-22 12:03:02 / 修改时间：13:07:00" itemprop="dateCreated datePublished" datetime="2022-12-22T12:03:02+08:00">2022-12-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-17 22:57:40" itemprop="dateModified" datetime="2022-08-17T22:57:40+08:00">2022-08-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/25/freefem2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/25/freefem2/" class="post-title-link" itemprop="url">Learning by Examples——Heat Exchange</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-25 11:21:50" itemprop="dateCreated datePublished" datetime="2022-07-25T11:21:50+08:00">2022-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-18 11:29:03" itemprop="dateModified" datetime="2022-08-18T11:29:03+08:00">2022-08-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Freefem/" itemprop="url" rel="index"><span itemprop="name">Freefem++</span></a>
+                  <a href="/categories/Spectral-Method/" itemprop="url" rel="index"><span itemprop="name">Spectral Method</span></a>
                 </span>
             </span>
 
@@ -314,111 +243,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>Description of the Heat Exchanger problem</strong></p>
- 我们假设有一个外壳<span
-class="math inline">\(C_0\)</span>,外壳内有<span
-class="math inline">\(\{C_i\}_{1,2}\)</span>两个热导体.其中一个保持恒温<span
-class="math inline">\(u_1\)</span>,另一个的热导率<span
-class="math inline">\(\kappa\)</span>比外壳<span
-class="math inline">\(C_0\)</span>的大五倍.我们假设外壳<span
-class="math inline">\(C_0\)</span>的边界始终保持20°C,同时经历了足够长的时间达到了热平衡.为了得知区域
-<span
-class="math inline">\(\Omega\)</span>各点的温度分布,我们需要求解如下微分方程
-<span class="math display">\[\nabla\cdot(\kappa\nabla u)=0\ in\
-\Omega,\quad u|_\Gamma=g\]</span>
+          <p>##预备知识   我们先在 <span class="math inline">\(L^2(\Omega),
+\Omega=[a,b]\)</span> 上讨论, 即 <span class="math display">\[
+    \forall u\in
+L^2(\Omega)\Rightarrow\left(\int_a^b|u|^2\mathrm{d}x\right)^{\frac{1}{2}}&lt;+\infty.
+    \]</span>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/07/25/freefem2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/23/freefem1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/23/freefem1/" class="post-title-link" itemprop="url">Learning by Examples——Membranes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-07-23 17:30:10" itemprop="dateCreated datePublished" datetime="2022-07-23T17:30:10+08:00">2022-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-18 11:16:54" itemprop="dateModified" datetime="2022-08-18T11:16:54+08:00">2022-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Freefem/" itemprop="url" rel="index"><span itemprop="name">Freefem++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Description of the Membranes Problem</strong></p>
-<p> 我们假设弹性薄膜 <span class="math inline">\(\Omega\)</span>
-被固定在硬性支撑 <span class="math inline">\(\Gamma\)</span>
-上，同时在表面的每个单元 <span
-class="math inline">\(\mathrm{d}x=\mathrm{d}x_1\mathrm{d}x_2\)</span>
-上均施加有大小为 <span class="math inline">\(f(x)\mathrm{d}x\)</span>
-的外力。薄膜在垂直方向上的位移 <span
-class="math inline">\(\phi(x)\)</span> 可以通过求解Laplace方程来得到
-<span class="math display">\[\begin{aligned}-\Delta \phi=f\ in\
-\Omega\end{aligned}\]</span>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/23/freefem1/#more" rel="contents">
+              <a class="btn" href="/2022/12/22/spectral1/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1055,11 +887,93 @@ class="math display">\[
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/28/Graph1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/28/Graph1/" class="post-title-link" itemprop="url">Lecture series on graph theory 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-28 17:57:01" itemprop="dateCreated datePublished" datetime="2022-03-28T17:57:01+08:00">2022-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-18 11:30:34" itemprop="dateModified" datetime="2022-08-18T11:30:34+08:00">2022-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Def. A graph is a <font color=red>discrete structure/combinational
+structure</font> consisting of vertices and edges which connect to a
+pair of vertices.</p>
+<p>Usually, a vertex is represented by a dot and an edge is represented
+by a line (straight or curved) joining two vertices.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/28/Graph1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -1126,7 +1040,7 @@ class="math display">\[
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1139,7 +1053,7 @@ class="math display">\[
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
