@@ -1,6 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Lecture series on graph theory 1</title>
+    <url>/2022/03/28/Graph1/</url>
+    <content><![CDATA[<p>Def. A graph is a <font color=red>discrete structure/combinational
+structure</font> consisting of vertices and edges which connect to a
+pair of vertices.</p>
+<p>Usually, a vertex is represented by a dot and an edge is represented
+by a line (straight or curved) joining two vertices.</p>
+<span id="more"></span>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg" /></p>
+<center>
+<font color=red size=4>The green points mean crossing of the
+edges,rather than vertices  </font>
+</center>
+<p>A vertex is incident with an edge if the edge join the vertex to
+another vertex, which is also called the end of the edge.</p>
+<p>Two vertices are adjacent to each other if there is an edge joinging
+them.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg" /></p>
+<center>
+<font color=red size=4>We say that the vertex v is incident with the
+edge e<br>The vertex u is adjacent to the vertex v because uv is an edge
+of G</font>
+</center>
+<p>A graph is simple if there is at most one edge between any two
+vertices and there is no edge joining a vertex itself.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg" /></p>
+<p>In short, a graph is simple if and only if it has no multi-edges and
+no loops.Next, unless otherwise specified, we will discuss simple graphs
+by default.</p>
+<p>For any given simple graph <span
+class="math inline">\(G(V,E)\)</span>，V is the vertex set and E is the
+edge set. <span class="math display">\[
+if\ \lvert V\rvert=n,\lvert E\rvert\leq\binom{n}{2}
+\]</span> A graph is complete if the graph has an edge between every
+pair of vertices.A complete graph of n vertices is usually denoted by
+<span class="math inline">\(K_n\)</span></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg" /></p>
+<p>The degree of a vertex v of G, denoted by <span
+class="math inline">\(d_G(v)\)</span>, is the number of edges incident
+with it.</p>
+<p>The maximum degree of G is defined as <span
+class="math inline">\(\Delta(G):=\max\{d_G(x)|v\in V(G)\}\)</span></p>
+<p>The minimum degree of G is defined as <span
+class="math inline">\(\delta G:=\min\{d_G(v)|v\in V(G)\}\)</span></p>
+<p>The average degree of G is defined as <span
+class="math inline">\(d(G):=\frac{\lvert E(G)\rvert}{\lvert
+V(G)\rvert}\)</span>, this index is used to measure the density of the
+graph.According to this index, graph can be divided into dense graph and
+sparse graph</p>
+<p>A neighbor of v in G is a vertex joined to v by an edge of G.The
+neighborhood of a vertex v in G is the set of all neighbors of v in G,
+denoted by <span class="math inline">\(N_G(v)=\{u|u\in V(G),uv\in
+E(G)\}\)</span>.We have <span class="math inline">\(d_G(v)=\lvert
+N_G(v)\rvert\)</span> easily.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg" /></p>
+<p><font color=red>This picture shows the multi-level neighbors of v. If
+u is both a second-level neighbor and a third-level neighbor of v, it is
+classified as a second-level neighbor. <br>Here we give the set
+representation of neighbors: <br><span
+class="math inline">\(N_1(v)=N_G(v),N_2(v)=N_G(N_1(v))-N_1(v)\cup\{v\},\
+N_3(v)=N_G(N_2(v))-N_1(v)\)</span><br>and if <span
+class="math inline">\(w\in N_3(v),\ distance(w,v)=3\)</span></font></p>
+<p>A graph is even if every vertex of G has an even degree.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" /></p>
+<p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even
+number of vertices with odd degree.</strong></p>
+<p>Proof.</p>
+<p>Let <span class="math display">\[
+\left\{\begin{aligned}X&amp;=\{x|x\in V(G)\ and\
+d_G(x)\equiv0(mod\ 2)\}\\Y&amp;=\{y|y\in V(G)\ and\
+d_G(y)\equiv1(mod\ 2)\}\end{aligned}\right.
+\]</span> Then,<span class="math inline">\(\sum_{x\in
+X}d_G(x)+\sum_{y\in Y}d_G(y)=2\lvert E(G)\rvert\)</span></p>
+<p>So, <span class="math inline">\(\sum_{y\in Y}d_G(y)\equiv0(mod\
+2)\)</span>.It follows immediately that <span
+class="math inline">\(\lvert Y\rvert\equiv0(mod\ 2)\)</span></p>
+<p>So the proposition holds.</p>
+<p>Question:Let G be an n-vertex graph.How many edges will force G to
+have a triangle?(Mantel's Theorem)</p>
+<p>Def A walk of G is <font color=red>a sequence of vertices and edges
+of G</font>such that (i)both the first element and the last element of
+the sequence are vertices and (ii) any two consecutive elements in the
+sequence contains one vertex and one edge which are incident with each
+other.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg" /></p>
+<p><font color=red>We give two different walks: <span
+class="math inline">\(w_{1}=v_1e_1v_2e_2v_3e_2v_2e_1v_1,\ 
+w_2=v_2e_2v_3e_3v_4e_4v_2\)</span><br>For walk,vertex can be repeated,
+edge can be repeated.</font></p>
+<p>A walk is open if the first vertex is not equal to the last vertex.
+<font color=red><span
+class="math inline">\(w_0=v_2e_2v_3e_3v_4e_4v_2e_1v_1\)</span></font></p>
+<p>A walk is a trail if it does not have repeated edges.
+<font color=red><span class="math inline">\(w_0\)</span> is a
+trail</font></p>
+<p>A trail is a path if it does not have repeated vertices.</p>
+<p><font color=red><span
+class="math inline">\(w_3=v_1e_1v_2e_2v_3e_3v_4=v_1v_2v_3v_4\)</span> is
+a path</font></p>
+<p>A cycle is a closed trail( or path) without repeated vertices
+(vertices and edges) <font color =red>except the first vertex and the
+last vertex. <span
+class="math inline">\(w_4=v_2e_2v_3e_3v_4e_4v_2\)</span></font></p>
+<p>A graph is connected if for any two vertices x and y, there is a path
+joining x and y.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg" /></p>
+<p>A subgraph H of G is a graph with <span
+class="math inline">\(V(H)\subset V(G),E(H)\subset E(G)\)</span></p>
+<p>A maximal connected subgraph of G is called a connected component.
+<font color=red>Maximal means anything bigger than it is not
+connected</font></p>
+<p>An edge e of G is bridge or cut-edge if #connected components of
+G-e&gt;#connected components of G</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" /></p>
+<p><font color=red>#connected components of G-<span
+class="math inline">\(e_1\)</span>=3&gt;2=#connected components of
+G<br>Both <span class="math inline">\(e_1\)</span> and<span
+class="math inline">\(e_2\)</span> are bridges/cut-edges</font></p>
+<p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of
+cycles which covers every edge exactly 2k times for any integer <span
+class="math inline">\(k\ge2\)</span></strong></p>
+<p>A subgraph H is spanning if <span
+class="math inline">\(V(H)=V(G)\)</span></p>
+<p>A subgraph H is induced by <font color=red> <span
+class="math inline">\(S\subset V(G)\)</span></font>, if <span
+class="math inline">\(V(H)=S\)</span> and for any two vertices <span
+class="math inline">\(x,y\in S\)</span>, <span
+class="math inline">\(xy\in E(H)\Leftrightarrow xy\in E(G)\)</span></p>
+<p>A subgraph H is induced by <font color=red> <span
+class="math inline">\(S\subset E(G)\)</span></font>, if <span
+class="math inline">\(E(H)=S\)</span> and <span
+class="math inline">\(v\in V(H)\)</span>a if and only if v is incident
+with an edge in S.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg" /></p>
+<p>Let <span class="math inline">\(x,y\in V(G)\)</span>, the distance
+between x and y in G is the length of the shortest path joining x and y,
+denoted by <span class="math inline">\(dist_G(x,y)\)</span>. In other
+words, <span class="math display">\[
+dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\
+y\}
+\]</span>
+<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
+<p><font color=red><span class="math inline">\(dist_G(x,y)=k\)</span>,
+this means finding a shortest path between any two vertices x and y is
+easy</font></p>
+<p><font color=red>However, finding a longest path between any two
+vertices x and y.Given an integer k, is there an (x,y)-path with length
+k?They are NPC problems</font></p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lecture series on graph theory 2</title>
     <url>/2022/03/28/Graph2/</url>
     <content><![CDATA[<p>First, we try to prove the Mantel's Theorem, which was presented as a
@@ -240,162 +406,245 @@ D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 1</title>
-    <url>/2022/03/28/Graph1/</url>
-    <content><![CDATA[<p>Def. A graph is a <font color=red>discrete structure/combinational
-structure</font> consisting of vertices and edges which connect to a
-pair of vertices.</p>
-<p>Usually, a vertex is represented by a dot and an edge is represented
-by a line (straight or curved) joining two vertices.</p>
+    <title>Lecture series on graph theory 3</title>
+    <url>/2022/05/20/Graph3/</url>
+    <content><![CDATA[<p>Given a graph G, <span class="math inline">\(T=\{v|d_G(v)\equiv1\
+mod\ 2\}\)</span>, a subgraph P is called a parity subgraph if <span
+class="math display">\[
+d_P(v)\equiv\left\{
+\begin{aligned}
+&amp;0\ mod\ 2,\ v\not\in T\\
+&amp;1\ mod\ 2,\ v\in T
+\end{aligned}
+\right.\qquad i.e.\ d_P(v)\equiv d_G(v)
+\]</span> <span class="math inline">\(G-E(P)\)</span> is an even
+subgraph <font color='red'>( i.e. every vertex of G-E(P) has even
+degree)<br>Problem: To find a parity subgraph with the minimum number of
+edges.</font></p>
 <span id="more"></span>
+<p>More general, let <span class="math inline">\(T\subset V(G)\)</span>,
+a set of edges <span class="math inline">\(J\)</span> is called a <span
+class="math inline">\(T\)</span>-join if all the edges of <span
+class="math inline">\(J\)</span> induce a subgraph, s.t. <span
+class="math inline">\(d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in
+T\)</span>, <font color='red'>A parity subgraph of G is a <span
+class="math inline">\(T\)</span>-join of G where <span
+class="math inline">\(T=\{v|d_G(v)\equiv1\ mod\ 2\}\)</span><br>Problem:
+To find a <span class="math inline">\(T\)</span>-join with the minimum
+number of edges.</font></p>
+<p><strong>Bipartite Graph</strong></p>
+<p>A graph is bipartite if its vertex set can be partitioned into two
+sets X and Y such that every edge of G joins a vertex of X and a vertex
+of Y.</p>
+<p><font color='red'>For example.</font></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg"
+alt="2022-05-21_121856" />
+<figcaption aria-hidden="true">2022-05-21_121856</figcaption>
+</figure>
+<p><strong>Proposition. A graph is bipartite <span
+class="math inline">\(\Leftrightarrow\)</span> it has no odd
+cycles</strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Let <span
+class="math inline">\(G\)</span> be a bipartite graph and let <span
+class="math inline">\((X,Y)\)</span> be a bipartition of <span
+class="math inline">\(G\)</span>. Color vertices in X by red and
+vertices in Y by blue. Let <span class="math inline">\(C\)</span> be a
+cycle. Then the red vertices and blue vertices appear alternatively on
+<span class="math inline">\(C\)</span>. So <span
+class="math inline">\(C\)</span> has an even number of vertices.
+Therefore, <span class="math inline">\(G\)</span> has no odd cycles.</p>
+<p><span class="math inline">\(\Leftarrow\)</span> Let v be a vertex of
+<span class="math inline">\(G\)</span>. Let <span
+class="math inline">\(X=\{x|d_G(x,v)\equiv0(mod\ 2)\}\)</span> and <span
+class="math inline">\(Y=\{y|d_G(y,v)\equiv 1(mod\ 2)\}\)</span></p>
+<p>Since <span class="math inline">\(G\)</span> has no odd cycle, there
+is no edges joining two vertices from the same part. So G is
+bipartite.</p>
+<hr />
+<p><font color='red'>Every part in the bipartition induce the graph
+without edges.</font></p>
+<p>A vertex subset <span class="math inline">\(I\)</span> of <span
+class="math inline">\(V(G)\)</span> is independent if <span
+class="math inline">\(G\)</span> has no edges joining any two vertices
+of <span class="math inline">\(I\)</span>.</p>
+<p>The maximum cardinality of independent sets is called the independent
+number of <span class="math inline">\(G\)</span>.</p>
+<p><font color='red'>Problem: Determine the independent number of a
+given graph <span class="math inline">\(G\)</span> (NPC)</font></p>
+<p>If G is bipartite, the its independent number <span
+class="math inline">\(\alpha(G)\geq\frac{n}{2}\)</span>.</p>
+<p><font color='red'><strong>(The Four color problem) Every graph drawn
+on the plane without crossing edges has a vertex partition into four
+independent sets.<br>According to the above, if G is a plane graph,
+<span class="math inline">\(\alpha(G)\geq\frac{\lvert
+V(G)\rvert}{4}\)</span></strong></font></p>
+<hr />
+<p><strong>Second Proof of the Mantel's Theorem</strong></p>
+<p><font color='red'>Recall: Let G be an n-vertex graph without
+triangle, then <span class="math inline">\(\lvert
+E(G)\rvert\leq\frac{n^2}{4}\)</span></font></p>
+<p>Let x be a vertex of G such that <span
+class="math inline">\(d_G(x)=\Delta(G)\)</span>. So <span
+class="math inline">\(N_G(x)\)</span> is an independent set of G. <span
+class="math display">\[
+\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta
+(G)=(n-d_G(x))d_G(x)\leq\frac{n^2}{4}
+\]</span> and equality holds <span class="math inline">\(\Leftrightarrow
+n-d_G(x)=d_G(x),\ i.e.\ d_G(x)=\frac{n}{2}\)</span></p>
+<hr />
+<p><strong>Degenerated Graph</strong></p>
+<p>A graph G is k-degenerate if every subgraph of G has a vertex of
+degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
+<p>A graph G is k-colorable if the vertex of G can be colored by k
+different colors such that any vertex subset with same color is an
+independent set. i.e. the vertex set of G can be partitioned into k
+independent subsets.</p>
+<p><strong>Proposition: A k-degenerated graph is
+(k+1)-colorable</strong></p>
+<hr />
+<p><strong>Proof.</strong> Let G be k-degenerate graph. Then G has a
+vertex v of degree at most k.</p>
+<p>Use induction on the number of vertex.</p>
+<p>The inductive hypothesis implies that <span
+class="math inline">\(G-v\)</span> is (k+1)-colorable. All vertices in
+<span class="math inline">\(N_G(x)\)</span> have been colored by at most
+k different colors in any (k+1)-coloring of G-v. Then color v by the
+(k+1)th color. So G is (k+1)-colorable.</p>
+<hr />
+<p><font color='red'>1-factor is a spanning subgraph in which every
+vertex has degree one.</font></p>
+<p><font color='red'>1-degenerate graph is a tree(or a
+forest)</font></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg"
+alt="2022-05-21_190614" />
+<figcaption aria-hidden="true">2022-05-21_190614</figcaption>
+</figure>
+<p><strong>Corollary. Every graph G is <span
+class="math inline">\((\Delta(G)+1)\)</span>-degenerate</strong></p>
+<p><strong>Def. A Planar graph is a graph with a drawing on the plane
+<span class="math inline">\(\mathbb{R}^2\)</span></strong> . A connected
+region of <span class="math inline">\(\mathbb{R}^2-G\)</span> is a face
+of G.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg"
+alt="2022-05-21_191223" />
+<figcaption aria-hidden="true">2022-05-21_191223</figcaption>
+</figure>
+<p><strong>Thm(Euler Formula) Let G be a planar graph, and let n,m and f
+be the numbers of vertex,edges and faces of G, Then </strong> <span
+class="math display">\[
+n-m+f=2
+\]</span> <strong>Proposition. Every planar graph is
+5-degenerate</strong></p>
+<hr />
+<p><strong>Proof.</strong> Let G be a planar graph. It suffices to show
+that G has a vertex of degree at most five. Without loss of generality,
+assume that G is a maximal planar graph (<font color='red'>i.e. every
+face is bounded by a triangle</font>). Otherwise, we can add edges to G
+to keep it to be a planar graph.</p>
+<p>Since every edge appears on the boundaries of two faces and every
+face contains exactly three edges, it follows that <span
+class="math display">\[
+3f=2m\Rightarrow f=\frac{2}{3}m
+\]</span> Let <span class="math inline">\(\delta=\delta(G)\)</span>, the
+minimum degree of G, then <span class="math display">\[
+\delta n\leq\sum_{x\in V(G)}d_G(x)=2m\Rightarrow n\leq\frac{2}{\delta}m
+\]</span> By Euler's Formula: <span
+class="math inline">\(n-m+f=2\)</span> <span class="math display">\[
+2=n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m
+\]</span> Therefore, <span
+class="math inline">\(\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow
+\delta&lt;6\Leftrightarrow \delta\leq5\)</span></p>
+<p>Every planar graph has a vertex of degree at most 5, which implies a
+planar graph is 5-degenerate.</p>
+<hr />
+<p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
+<p><font color='red'>Actually we can use Kempe chain to prove the
+proposition that every planar graph is 5-colorable.<br>Problem:What kind
+of Eulerian graphs having an even-cycle
+decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n
+vertices has an induced 2-degenerate graph with at least n/2
+vertices.<br>Conjecture(Albertson&amp;Berman,1970s) Every planar graph
+with n vertices has an induced 1-degenerate graph with at least n/2
+vertices.</font></p>
+<p><strong>Matrices and Graphs</strong></p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg" /></p>
-<center>
-<font color=red size=4>The green points mean crossing of the
-edges,rather than vertices  </font>
-</center>
-<p>A vertex is incident with an edge if the edge join the vertex to
-another vertex, which is also called the end of the edge.</p>
-<p>Two vertices are adjacent to each other if there is an edge joinging
-them.</p>
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg" /></p>
+<p><font color='red'>A is a symmetric matrix and because we only
+consider simple graphs, its diagonal elements are all zero.</font></p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg" /></p>
-<center>
-<font color=red size=4>We say that the vertex v is incident with the
-edge e<br>The vertex u is adjacent to the vertex v because uv is an edge
-of G</font>
-</center>
-<p>A graph is simple if there is at most one edge between any two
-vertices and there is no edge joining a vertex itself.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg" /></p>
-<p>In short, a graph is simple if and only if it has no multi-edges and
-no loops.Next, unless otherwise specified, we will discuss simple graphs
-by default.</p>
-<p>For any given simple graph <span
-class="math inline">\(G(V,E)\)</span>，V is the vertex set and E is the
-edge set. <span class="math display">\[
-if\ \lvert V\rvert=n,\lvert E\rvert\leq\binom{n}{2}
-\]</span> A graph is complete if the graph has an edge between every
-pair of vertices.A complete graph of n vertices is usually denoted by
-<span class="math inline">\(K_n\)</span></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg" /></p>
-<p>The degree of a vertex v of G, denoted by <span
-class="math inline">\(d_G(v)\)</span>, is the number of edges incident
-with it.</p>
-<p>The maximum degree of G is defined as <span
-class="math inline">\(\Delta(G):=\max\{d_G(x)|v\in V(G)\}\)</span></p>
-<p>The minimum degree of G is defined as <span
-class="math inline">\(\delta G:=\min\{d_G(v)|v\in V(G)\}\)</span></p>
-<p>The average degree of G is defined as <span
-class="math inline">\(d(G):=\frac{\lvert E(G)\rvert}{\lvert
-V(G)\rvert}\)</span>, this index is used to measure the density of the
-graph.According to this index, graph can be divided into dense graph and
-sparse graph</p>
-<p>A neighbor of v in G is a vertex joined to v by an edge of G.The
-neighborhood of a vertex v in G is the set of all neighbors of v in G,
-denoted by <span class="math inline">\(N_G(v)=\{u|u\in V(G),uv\in
-E(G)\}\)</span>.We have <span class="math inline">\(d_G(v)=\lvert
-N_G(v)\rvert\)</span> easily.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg" /></p>
-<p><font color=red>This picture shows the multi-level neighbors of v. If
-u is both a second-level neighbor and a third-level neighbor of v, it is
-classified as a second-level neighbor. <br>Here we give the set
-representation of neighbors: <br><span
-class="math inline">\(N_1(v)=N_G(v),N_2(v)=N_G(N_1(v))-N_1(v)\cup\{v\},\
-N_3(v)=N_G(N_2(v))-N_1(v)\)</span><br>and if <span
-class="math inline">\(w\in N_3(v),\ distance(w,v)=3\)</span></font></p>
-<p>A graph is even if every vertex of G has an even degree.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" /></p>
-<p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even
-number of vertices with odd degree.</strong></p>
-<p>Proof.</p>
-<p>Let <span class="math display">\[
-\left\{\begin{aligned}X&amp;=\{x|x\in V(G)\ and\
-d_G(x)\equiv0(mod\ 2)\}\\Y&amp;=\{y|y\in V(G)\ and\
-d_G(y)\equiv1(mod\ 2)\}\end{aligned}\right.
-\]</span> Then,<span class="math inline">\(\sum_{x\in
-X}d_G(x)+\sum_{y\in Y}d_G(y)=2\lvert E(G)\rvert\)</span></p>
-<p>So, <span class="math inline">\(\sum_{y\in Y}d_G(y)\equiv0(mod\
-2)\)</span>.It follows immediately that <span
-class="math inline">\(\lvert Y\rvert\equiv0(mod\ 2)\)</span></p>
-<p>So the proposition holds.</p>
-<p>Question:Let G be an n-vertex graph.How many edges will force G to
-have a triangle?(Mantel's Theorem)</p>
-<p>Def A walk of G is <font color=red>a sequence of vertices and edges
-of G</font>such that (i)both the first element and the last element of
-the sequence are vertices and (ii) any two consecutive elements in the
-sequence contains one vertex and one edge which are incident with each
-other.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg" /></p>
-<p><font color=red>We give two different walks: <span
-class="math inline">\(w_{1}=v_1e_1v_2e_2v_3e_2v_2e_1v_1,\ 
-w_2=v_2e_2v_3e_3v_4e_4v_2\)</span><br>For walk,vertex can be repeated,
-edge can be repeated.</font></p>
-<p>A walk is open if the first vertex is not equal to the last vertex.
-<font color=red><span
-class="math inline">\(w_0=v_2e_2v_3e_3v_4e_4v_2e_1v_1\)</span></font></p>
-<p>A walk is a trail if it does not have repeated edges.
-<font color=red><span class="math inline">\(w_0\)</span> is a
-trail</font></p>
-<p>A trail is a path if it does not have repeated vertices.</p>
-<p><font color=red><span
-class="math inline">\(w_3=v_1e_1v_2e_2v_3e_3v_4=v_1v_2v_3v_4\)</span> is
-a path</font></p>
-<p>A cycle is a closed trail( or path) without repeated vertices
-(vertices and edges) <font color =red>except the first vertex and the
-last vertex. <span
-class="math inline">\(w_4=v_2e_2v_3e_3v_4e_4v_2\)</span></font></p>
-<p>A graph is connected if for any two vertices x and y, there is a path
-joining x and y.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg" /></p>
-<p>A subgraph H of G is a graph with <span
-class="math inline">\(V(H)\subset V(G),E(H)\subset E(G)\)</span></p>
-<p>A maximal connected subgraph of G is called a connected component.
-<font color=red>Maximal means anything bigger than it is not
-connected</font></p>
-<p>An edge e of G is bridge or cut-edge if #connected components of
-G-e&gt;#connected components of G</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" /></p>
-<p><font color=red>#connected components of G-<span
-class="math inline">\(e_1\)</span>=3&gt;2=#connected components of
-G<br>Both <span class="math inline">\(e_1\)</span> and<span
-class="math inline">\(e_2\)</span> are bridges/cut-edges</font></p>
-<p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of
-cycles which covers every edge exactly 2k times for any integer <span
-class="math inline">\(k\ge2\)</span></strong></p>
-<p>A subgraph H is spanning if <span
-class="math inline">\(V(H)=V(G)\)</span></p>
-<p>A subgraph H is induced by <font color=red> <span
-class="math inline">\(S\subset V(G)\)</span></font>, if <span
-class="math inline">\(V(H)=S\)</span> and for any two vertices <span
-class="math inline">\(x,y\in S\)</span>, <span
-class="math inline">\(xy\in E(H)\Leftrightarrow xy\in E(G)\)</span></p>
-<p>A subgraph H is induced by <font color=red> <span
-class="math inline">\(S\subset E(G)\)</span></font>, if <span
-class="math inline">\(E(H)=S\)</span> and <span
-class="math inline">\(v\in V(H)\)</span>a if and only if v is incident
-with an edge in S.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg" /></p>
-<p>Let <span class="math inline">\(x,y\in V(G)\)</span>, the distance
-between x and y in G is the length of the shortest path joining x and y,
-denoted by <span class="math inline">\(dist_G(x,y)\)</span>. In other
-words, <span class="math display">\[
-dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\
-y\}
-\]</span>
-<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
-<p><font color=red><span class="math inline">\(dist_G(x,y)=k\)</span>,
-this means finding a shortest path between any two vertices x and y is
-easy</font></p>
-<p><font color=red>However, finding a longest path between any two
-vertices x and y.Given an integer k, is there an (x,y)-path with length
-k?They are NPC problems</font></p>
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg" /></p>
+<p>A square matrix A is symmetric if <span
+class="math inline">\(A^T=A\)</span></p>
+<p>A scalar <span class="math inline">\(\lambda\)</span> is eigenvalue
+of A if there exists a non-zero vector <span
+class="math inline">\(\vec{X}\)</span>, s.t. <span
+class="math inline">\(A\vec{X}=\lambda\vec{X}\)</span> and <span
+class="math inline">\(\vec{X}\)</span> is called an eigenvector of A
+with respect to <span class="math inline">\(\lambda\)</span>.</p>
+<p>A basis <span class="math inline">\(B\)</span> of a vector space is
+orthonormal if <span class="math inline">\(||\vec{X}||=1\)</span> for
+any <span class="math inline">\(\vec{X}\in B\)</span>, and <span
+class="math inline">\(&lt;\vec{X_1},\vec{X_2}&gt;=0\)</span> for any
+<span class="math inline">\(\vec{X_1},\vec{X_2}\in B\)</span></p>
+<p><strong>Thm. Let A be a real symmetric <span
+class="math inline">\((n\times n)\)</span>-matrix. Then A is a
+diagonizable and <span class="math inline">\(\mathbb{R}^n\)</span> has
+orthonormal basis of eigenvectos of A</strong> <span
+class="math display">\[
+A\sim\left(\begin{matrix}
+   \lambda_1 &amp; \dots &amp;0\\
+   \vdots &amp; \ddots &amp;\vdots\\
+   0 &amp; \dots &amp;\lambda_n\\
+  \end{matrix}\right)
+\]</span></p>
+<p><strong>Proposition. All eigenvalues of a real symmetric <span
+class="math inline">\((n\times n)\)</span>-matrix is real</strong></p>
+<hr />
+<p><strong>Proof</strong> We assume that A is a <span
+class="math inline">\(n\times n\)</span> matrix, <span
+class="math inline">\(\lambda\)</span> is an eignevalue of A.</p>
+<p>Assume that <span class="math inline">\(\vec{X}\)</span> is an
+eigenvector of <span class="math inline">\(\lambda\)</span>, Then <span
+class="math display">\[
+\begin{aligned}
+\lambda||\vec{X}||&amp;=&lt;\lambda\vec{X},\vec{X}&gt;=&lt;A\vec{X},\vec{X}&gt;=\vec{X^T}A\vec{X}\\&amp;=\vec{X^T}A^T\vec{X}=(A\vec{X})^T\vec{X}=&lt;\vec{X},A\vec{X}&gt;=\bar{\lambda}||\vec{X}||
+\end{aligned}
+\]</span> So <span
+class="math inline">\(\lambda=\bar{\lambda}\Rightarrow\lambda\)</span>
+is real.</p>
+<hr />
+<p>A real symmetric matrix A is positive semi-definite if ,for all <span
+class="math inline">\(\vec{X}\in\mathbb{R}^n\)</span>, <span
+class="math inline">\(\vec{X}^TA\vec{X}\geq0\)</span> and A is positive
+definite if <span
+class="math inline">\(\vec{X}^TA\vec{X}&gt;0\)</span></p>
+<p><strong>Proposition. All eigenvalues of a positive semi-definite
+<span class="math inline">\(\Leftrightarrow\ \exists\)</span> a matrix
+B, s.t. <span class="math inline">\(A=B^TB\)</span></strong></p>
+<hr />
+<p><strong>Proof.</strong><span
+class="math inline">\(\Rightarrow\)</span> We assume that A is a
+positive semi-definite matrix.</p>
+<p>Then A is diagonaizable and assume that <span
+class="math inline">\(A=Q^TDQ\)</span> where D is a diagonable matrix
+with eigenalues on its diagonal. Note that all egienvalues of A are
+non-negative. <span class="math display">\[
+A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad
+where\ B=\sqrt{D}Q
+\]</span> <span class="math inline">\(\Leftarrow\)</span> Let <span
+class="math inline">\(A=B^TB\)</span>.</p>
+<p>Then for any <span
+class="math inline">\(\vec{X}\in\mathbb{R}^n\)</span>, <span
+class="math inline">\(\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0\)</span></p>
+<p>So A is positive semi-definite.</p>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -931,255 +1180,6 @@ bipartite.</p>
 <hr />
 <p><font color='red'>Problem: characterize graphs which satisfy #
 positive eigenvalues=# negative eigenvalues</font></p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 3</title>
-    <url>/2022/05/20/Graph3/</url>
-    <content><![CDATA[<p>Given a graph G, <span class="math inline">\(T=\{v|d_G(v)\equiv1\
-mod\ 2\}\)</span>, a subgraph P is called a parity subgraph if <span
-class="math display">\[
-d_P(v)\equiv\left\{
-\begin{aligned}
-&amp;0\ mod\ 2,\ v\not\in T\\
-&amp;1\ mod\ 2,\ v\in T
-\end{aligned}
-\right.\qquad i.e.\ d_P(v)\equiv d_G(v)
-\]</span> <span class="math inline">\(G-E(P)\)</span> is an even
-subgraph <font color='red'>( i.e. every vertex of G-E(P) has even
-degree)<br>Problem: To find a parity subgraph with the minimum number of
-edges.</font></p>
-<span id="more"></span>
-<p>More general, let <span class="math inline">\(T\subset V(G)\)</span>,
-a set of edges <span class="math inline">\(J\)</span> is called a <span
-class="math inline">\(T\)</span>-join if all the edges of <span
-class="math inline">\(J\)</span> induce a subgraph, s.t. <span
-class="math inline">\(d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in
-T\)</span>, <font color='red'>A parity subgraph of G is a <span
-class="math inline">\(T\)</span>-join of G where <span
-class="math inline">\(T=\{v|d_G(v)\equiv1\ mod\ 2\}\)</span><br>Problem:
-To find a <span class="math inline">\(T\)</span>-join with the minimum
-number of edges.</font></p>
-<p><strong>Bipartite Graph</strong></p>
-<p>A graph is bipartite if its vertex set can be partitioned into two
-sets X and Y such that every edge of G joins a vertex of X and a vertex
-of Y.</p>
-<p><font color='red'>For example.</font></p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg"
-alt="2022-05-21_121856" />
-<figcaption aria-hidden="true">2022-05-21_121856</figcaption>
-</figure>
-<p><strong>Proposition. A graph is bipartite <span
-class="math inline">\(\Leftrightarrow\)</span> it has no odd
-cycles</strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p><span class="math inline">\(\Rightarrow\)</span> Let <span
-class="math inline">\(G\)</span> be a bipartite graph and let <span
-class="math inline">\((X,Y)\)</span> be a bipartition of <span
-class="math inline">\(G\)</span>. Color vertices in X by red and
-vertices in Y by blue. Let <span class="math inline">\(C\)</span> be a
-cycle. Then the red vertices and blue vertices appear alternatively on
-<span class="math inline">\(C\)</span>. So <span
-class="math inline">\(C\)</span> has an even number of vertices.
-Therefore, <span class="math inline">\(G\)</span> has no odd cycles.</p>
-<p><span class="math inline">\(\Leftarrow\)</span> Let v be a vertex of
-<span class="math inline">\(G\)</span>. Let <span
-class="math inline">\(X=\{x|d_G(x,v)\equiv0(mod\ 2)\}\)</span> and <span
-class="math inline">\(Y=\{y|d_G(y,v)\equiv 1(mod\ 2)\}\)</span></p>
-<p>Since <span class="math inline">\(G\)</span> has no odd cycle, there
-is no edges joining two vertices from the same part. So G is
-bipartite.</p>
-<hr />
-<p><font color='red'>Every part in the bipartition induce the graph
-without edges.</font></p>
-<p>A vertex subset <span class="math inline">\(I\)</span> of <span
-class="math inline">\(V(G)\)</span> is independent if <span
-class="math inline">\(G\)</span> has no edges joining any two vertices
-of <span class="math inline">\(I\)</span>.</p>
-<p>The maximum cardinality of independent sets is called the independent
-number of <span class="math inline">\(G\)</span>.</p>
-<p><font color='red'>Problem: Determine the independent number of a
-given graph <span class="math inline">\(G\)</span> (NPC)</font></p>
-<p>If G is bipartite, the its independent number <span
-class="math inline">\(\alpha(G)\geq\frac{n}{2}\)</span>.</p>
-<p><font color='red'><strong>(The Four color problem) Every graph drawn
-on the plane without crossing edges has a vertex partition into four
-independent sets.<br>According to the above, if G is a plane graph,
-<span class="math inline">\(\alpha(G)\geq\frac{\lvert
-V(G)\rvert}{4}\)</span></strong></font></p>
-<hr />
-<p><strong>Second Proof of the Mantel's Theorem</strong></p>
-<p><font color='red'>Recall: Let G be an n-vertex graph without
-triangle, then <span class="math inline">\(\lvert
-E(G)\rvert\leq\frac{n^2}{4}\)</span></font></p>
-<p>Let x be a vertex of G such that <span
-class="math inline">\(d_G(x)=\Delta(G)\)</span>. So <span
-class="math inline">\(N_G(x)\)</span> is an independent set of G. <span
-class="math display">\[
-\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta
-(G)=(n-d_G(x))d_G(x)\leq\frac{n^2}{4}
-\]</span> and equality holds <span class="math inline">\(\Leftrightarrow
-n-d_G(x)=d_G(x),\ i.e.\ d_G(x)=\frac{n}{2}\)</span></p>
-<hr />
-<p><strong>Degenerated Graph</strong></p>
-<p>A graph G is k-degenerate if every subgraph of G has a vertex of
-degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
-<p>A graph G is k-colorable if the vertex of G can be colored by k
-different colors such that any vertex subset with same color is an
-independent set. i.e. the vertex set of G can be partitioned into k
-independent subsets.</p>
-<p><strong>Proposition: A k-degenerated graph is
-(k+1)-colorable</strong></p>
-<hr />
-<p><strong>Proof.</strong> Let G be k-degenerate graph. Then G has a
-vertex v of degree at most k.</p>
-<p>Use induction on the number of vertex.</p>
-<p>The inductive hypothesis implies that <span
-class="math inline">\(G-v\)</span> is (k+1)-colorable. All vertices in
-<span class="math inline">\(N_G(x)\)</span> have been colored by at most
-k different colors in any (k+1)-coloring of G-v. Then color v by the
-(k+1)th color. So G is (k+1)-colorable.</p>
-<hr />
-<p><font color='red'>1-factor is a spanning subgraph in which every
-vertex has degree one.</font></p>
-<p><font color='red'>1-degenerate graph is a tree(or a
-forest)</font></p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg"
-alt="2022-05-21_190614" />
-<figcaption aria-hidden="true">2022-05-21_190614</figcaption>
-</figure>
-<p><strong>Corollary. Every graph G is <span
-class="math inline">\((\Delta(G)+1)\)</span>-degenerate</strong></p>
-<p><strong>Def. A Planar graph is a graph with a drawing on the plane
-<span class="math inline">\(\mathbb{R}^2\)</span></strong> . A connected
-region of <span class="math inline">\(\mathbb{R}^2-G\)</span> is a face
-of G.</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg"
-alt="2022-05-21_191223" />
-<figcaption aria-hidden="true">2022-05-21_191223</figcaption>
-</figure>
-<p><strong>Thm(Euler Formula) Let G be a planar graph, and let n,m and f
-be the numbers of vertex,edges and faces of G, Then </strong> <span
-class="math display">\[
-n-m+f=2
-\]</span> <strong>Proposition. Every planar graph is
-5-degenerate</strong></p>
-<hr />
-<p><strong>Proof.</strong> Let G be a planar graph. It suffices to show
-that G has a vertex of degree at most five. Without loss of generality,
-assume that G is a maximal planar graph (<font color='red'>i.e. every
-face is bounded by a triangle</font>). Otherwise, we can add edges to G
-to keep it to be a planar graph.</p>
-<p>Since every edge appears on the boundaries of two faces and every
-face contains exactly three edges, it follows that <span
-class="math display">\[
-3f=2m\Rightarrow f=\frac{2}{3}m
-\]</span> Let <span class="math inline">\(\delta=\delta(G)\)</span>, the
-minimum degree of G, then <span class="math display">\[
-\delta n\leq\sum_{x\in V(G)}d_G(x)=2m\Rightarrow n\leq\frac{2}{\delta}m
-\]</span> By Euler's Formula: <span
-class="math inline">\(n-m+f=2\)</span> <span class="math display">\[
-2=n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m
-\]</span> Therefore, <span
-class="math inline">\(\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow
-\delta&lt;6\Leftrightarrow \delta\leq5\)</span></p>
-<p>Every planar graph has a vertex of degree at most 5, which implies a
-planar graph is 5-degenerate.</p>
-<hr />
-<p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
-<p><font color='red'>Actually we can use Kempe chain to prove the
-proposition that every planar graph is 5-colorable.<br>Problem:What kind
-of Eulerian graphs having an even-cycle
-decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n
-vertices has an induced 2-degenerate graph with at least n/2
-vertices.<br>Conjecture(Albertson&amp;Berman,1970s) Every planar graph
-with n vertices has an induced 1-degenerate graph with at least n/2
-vertices.</font></p>
-<p><strong>Matrices and Graphs</strong></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg" /></p>
-<p><font color='red'>A is a symmetric matrix and because we only
-consider simple graphs, its diagonal elements are all zero.</font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg" /></p>
-<p>A square matrix A is symmetric if <span
-class="math inline">\(A^T=A\)</span></p>
-<p>A scalar <span class="math inline">\(\lambda\)</span> is eigenvalue
-of A if there exists a non-zero vector <span
-class="math inline">\(\vec{X}\)</span>, s.t. <span
-class="math inline">\(A\vec{X}=\lambda\vec{X}\)</span> and <span
-class="math inline">\(\vec{X}\)</span> is called an eigenvector of A
-with respect to <span class="math inline">\(\lambda\)</span>.</p>
-<p>A basis <span class="math inline">\(B\)</span> of a vector space is
-orthonormal if <span class="math inline">\(||\vec{X}||=1\)</span> for
-any <span class="math inline">\(\vec{X}\in B\)</span>, and <span
-class="math inline">\(&lt;\vec{X_1},\vec{X_2}&gt;=0\)</span> for any
-<span class="math inline">\(\vec{X_1},\vec{X_2}\in B\)</span></p>
-<p><strong>Thm. Let A be a real symmetric <span
-class="math inline">\((n\times n)\)</span>-matrix. Then A is a
-diagonizable and <span class="math inline">\(\mathbb{R}^n\)</span> has
-orthonormal basis of eigenvectos of A</strong> <span
-class="math display">\[
-A\sim\left(\begin{matrix}
-   \lambda_1 &amp; \dots &amp;0\\
-   \vdots &amp; \ddots &amp;\vdots\\
-   0 &amp; \dots &amp;\lambda_n\\
-  \end{matrix}\right)
-\]</span></p>
-<p><strong>Proposition. All eigenvalues of a real symmetric <span
-class="math inline">\((n\times n)\)</span>-matrix is real</strong></p>
-<hr />
-<p><strong>Proof</strong> We assume that A is a <span
-class="math inline">\(n\times n\)</span> matrix, <span
-class="math inline">\(\lambda\)</span> is an eignevalue of A.</p>
-<p>Assume that <span class="math inline">\(\vec{X}\)</span> is an
-eigenvector of <span class="math inline">\(\lambda\)</span>, Then <span
-class="math display">\[
-\begin{aligned}
-\lambda||\vec{X}||&amp;=&lt;\lambda\vec{X},\vec{X}&gt;=&lt;A\vec{X},\vec{X}&gt;=\vec{X^T}A\vec{X}\\&amp;=\vec{X^T}A^T\vec{X}=(A\vec{X})^T\vec{X}=&lt;\vec{X},A\vec{X}&gt;=\bar{\lambda}||\vec{X}||
-\end{aligned}
-\]</span> So <span
-class="math inline">\(\lambda=\bar{\lambda}\Rightarrow\lambda\)</span>
-is real.</p>
-<hr />
-<p>A real symmetric matrix A is positive semi-definite if ,for all <span
-class="math inline">\(\vec{X}\in\mathbb{R}^n\)</span>, <span
-class="math inline">\(\vec{X}^TA\vec{X}\geq0\)</span> and A is positive
-definite if <span
-class="math inline">\(\vec{X}^TA\vec{X}&gt;0\)</span></p>
-<p><strong>Proposition. All eigenvalues of a positive semi-definite
-<span class="math inline">\(\Leftrightarrow\ \exists\)</span> a matrix
-B, s.t. <span class="math inline">\(A=B^TB\)</span></strong></p>
-<hr />
-<p><strong>Proof.</strong><span
-class="math inline">\(\Rightarrow\)</span> We assume that A is a
-positive semi-definite matrix.</p>
-<p>Then A is diagonaizable and assume that <span
-class="math inline">\(A=Q^TDQ\)</span> where D is a diagonable matrix
-with eigenalues on its diagonal. Note that all egienvalues of A are
-non-negative. <span class="math display">\[
-A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad
-where\ B=\sqrt{D}Q
-\]</span> <span class="math inline">\(\Leftarrow\)</span> Let <span
-class="math inline">\(A=B^TB\)</span>.</p>
-<p>Then for any <span
-class="math inline">\(\vec{X}\in\mathbb{R}^n\)</span>, <span
-class="math inline">\(\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0\)</span></p>
-<p>So A is positive semi-definite.</p>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -1801,9 +1801,9 @@ face is bounded by a cycle.</font></p>
   <entry>
     <title>Spectral Method 1</title>
     <url>/2022/12/22/spectral1/</url>
-    <content><![CDATA[<p><strong>Preliminaries</strong>   我们先在 <span
-class="math inline">\(L^2(\Omega), \Omega=[a,b]\)</span> 上讨论, 即
-<span class="math display">\[
+    <content><![CDATA[<p><strong>Preliminaries</strong></p>
+<p>  我们先在 <span class="math inline">\(L^2(\Omega),
+\Omega=[a,b]\)</span> 上讨论, 即 <span class="math display">\[
     \forall u\in
 L^2(\Omega)\Rightarrow\left(\int_a^b|u|^2\mathrm{d}x\right)^{\frac{1}{2}}&lt;+\infty.
     \]</span> <span id="more"></span>   我们在此空间上定义带权重的内积 <span
@@ -1843,7 +1843,8 @@ class="math display">\[
 m=0,\cdots,+\infty.
     \end{aligned}
     \]</span> <strong>Fourier Spectral Method and its applications on
-solving the Possion equations</strong>   在此, 我们讨论区间 <span
+solving the Possion equations</strong></p>
+<p>  在此, 我们讨论区间 <span
 class="math inline">\(\Omega=[0,2\pi]\)</span>, 其中 <span
 class="math inline">\(\left\{e^{ikx}\right\}_{-\infty}^{+\infty}\)</span>
 为一组正交基.</p>
@@ -1918,10 +1919,8 @@ H_p^m(m&gt;1),\ \Vert \Pi_Nu-u\Vert\leq CN^{-m}\Vert u\Vert_m.\]</span>
 class="math inline">\(\Pi_Nu=\sum_{k=-N}^N\hat{u}_ke^{ikx}\)</span>,故
 <span class="math inline">\(u-\Pi_Nu=\sum_{|k|\geq
 N+1}\hat{u}_ke^{ikx}\)</span>. <span class="math display">\[
-    \begin{align*}
     \Vert u-\Pi_Nu\Vert^2=\sum_{|k|\geq N+1}|\hat{u}_k|^2=\sum_{|k|\geq
-N+1}{\color{red}k^{-2m}\cdot k^{2m}}|\hat{u}_k|^2\tag{$\star$}.
-    \end{align*}
+N+1}{\color{red}k^{-2m}\cdot k^{2m}}|\hat{u}_k|^2\tag{$\star$}
     \]</span>   由 <span class="math inline">\((\star)\)</span> 式知
 <span class="math inline">\(|k|\geq N+1,\)</span> <span
 class="math inline">\(\therefore k^{2m}\geq(N+1)^{2m}\geq C_1N^{2m},\
@@ -2001,8 +2000,8 @@ class="math inline">\(\epsilon\)</span>.</p>
     <title>Spectral Method 2</title>
     <url>/2022/12/23/spectral2/</url>
     <content><![CDATA[<p><strong>Numerical integration and Discrete Fourier
-Transform(DFT)</strong> 回顾<span
-class="math display">\[\left\{\begin{aligned}
+Transform(DFT)</strong></p>
+<p>回顾<span class="math display">\[\left\{\begin{aligned}
     -\Delta u&amp;=f,\\
     u\text{是周}&amp;\text{期函数},
 \end{aligned}\right.\]</span> 将 <span
@@ -2052,7 +2051,8 @@ j}{N}},\\&amp;=\frac{1}{N}\sum_{j=0}^{N-1}(e^{\frac{2\pi i\cdot
 <p><strong>Lemma 2</strong> <span class="math display">\[
 \frac{1}{2\pi}\int_0^{2\pi}f(x)\mathrm{d}x=\frac{1}{N}\sum_{j=0}^{N-1}f_j,\
 f\in span\{e^{-i(N-1)x},\dots,e^{i(N-1)x}\}.
-\]</span> <strong>Proof.</strong> 我们假设 <span
+\]</span></p>
+<p><strong>Proof.</strong> 我们假设 <span
 class="math inline">\(f(x)=\sum_{k=-N+1}^{N-1}\hat{f}_ke^{ikx},\)</span>
 带入欲证式两边计算可得 <span
 class="math display">\[\begin{aligned}\text{左式}&amp;=\frac{1}{2\pi}\int_0^{2\pi}\sum_{k=-N+1}^{N-1}\hat{f}_ke^{ikx}\mathrm{d}x=\frac{1}{2\pi}\sum_{k=-N+1}^{N-1}\hat{f}_k\int_0^{2\pi}e^ikx\cdot1\mathrm{d}x=\hat{f}_0\\
@@ -2060,7 +2060,8 @@ class="math display">\[\begin{aligned}\text{左式}&amp;=\frac{1}{2\pi}\int_0^{2
 1=\left&lt;f_j,1\right&gt;_N\\&amp;=\sum_{k=-N+1}^{N-1}\hat{f}_k
 \left&lt;e^{ikx},1\right&gt;_N,\ k\in[-N+1,N-1],\ 1\
 \text{可视作}\  e^{i0x}\\&amp;=\hat{f}_0.\end{aligned}\]</span>
-故左式=右式,证毕. <strong>Thm 1</strong> <span
+故左式=右式,证毕.</p>
+<p><strong>Thm 1</strong> <span
 class="math display">\[\left|(f,1)-\left&lt;f,1\right&gt;_N\right|\leq
 CN^{1-m}.\]</span></p>
 <p><strong>Proof.</strong> 我们定义一个算子 <span
@@ -2088,8 +2089,8 @@ class="math inline">\(\frac{1}{N}\sum_{j=0}^{N-1}f_j\overline{g}_j\)</span>
 class="math inline">\(\mathcal{O}(N^2)\)</span>,
 近似二维的积分,其时间复杂度为 <span
 class="math inline">\(\mathcal{O}(N^4)\)</span> <strong>Discrete Fourier
-Transform(DFT)</strong>
-我们先引入离散傅里叶变换(DFT)和逆离散傅里叶变换(IDFT)的概念. <span
+Transform(DFT)</strong></p>
+<p>我们先引入离散傅里叶变换(DFT)和逆离散傅里叶变换(IDFT)的概念. <span
 class="math display">\[
 \left\{\begin{aligned}
     u_j&amp;=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_ke^{ikx_j},\\
@@ -2368,8 +2369,8 @@ class="math inline">\(\widetilde{g}\)</span>, 需要 <span
 class="math inline">\(\mathcal{O}(N^2)\)</span>.
 因此我们开始考虑是否存在一个更为快速的方法来计算得到 <span
 class="math inline">\(\widetilde{g}\)</span>.</p>
-<p><strong>Fast Fourier Transform(FFT)</strong> 我们先考虑快速乘法:
-<span class="math display">\[
+<p><strong>Fast Fourier Transform(FFT)</strong></p>
+<p>我们先考虑快速乘法: <span class="math display">\[
 A(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1},\ n\text{为}2\text{的幂次}
 \]</span> 求 <span class="math inline">\(A(x)\)</span> 在 <span
 class="math inline">\(x_0\dots x_{n-1}\)</span> 上的值, 其中 <span
