@@ -1801,8 +1801,9 @@ face is bounded by a cycle.</font></p>
   <entry>
     <title>Spectral Method 1</title>
     <url>/2022/12/22/spectral1/</url>
-    <content><![CDATA[<p>##Preliminaries   我们先在 <span class="math inline">\(L^2(\Omega),
-\Omega=[a,b]\)</span> 上讨论, 即 <span class="math display">\[
+    <content><![CDATA[<p><strong>Preliminaries</strong>   我们先在 <span
+class="math inline">\(L^2(\Omega), \Omega=[a,b]\)</span> 上讨论, 即
+<span class="math display">\[
     \forall u\in
 L^2(\Omega)\Rightarrow\left(\int_a^b|u|^2\mathrm{d}x\right)^{\frac{1}{2}}&lt;+\infty.
     \]</span> <span id="more"></span>   我们在此空间上定义带权重的内积 <span
@@ -1841,8 +1842,8 @@ class="math display">\[
         &amp;\Rightarrow\hat{u}_m=\frac{1}{c_m}(u,\phi_m),\
 m=0,\cdots,+\infty.
     \end{aligned}
-    \]</span> ##Fourier Spectral Method and its applications on solving
-the Possion equations   在此, 我们讨论区间 <span
+    \]</span> <strong>Fourier Spectral Method and its applications on
+solving the Possion equations</strong>   在此, 我们讨论区间 <span
 class="math inline">\(\Omega=[0,2\pi]\)</span>, 其中 <span
 class="math inline">\(\left\{e^{ikx}\right\}_{-\infty}^{+\infty}\)</span>
 为一组正交基.</p>
@@ -1917,10 +1918,10 @@ H_p^m(m&gt;1),\ \Vert \Pi_Nu-u\Vert\leq CN^{-m}\Vert u\Vert_m.\]</span>
 class="math inline">\(\Pi_Nu=\sum_{k=-N}^N\hat{u}_ke^{ikx}\)</span>,故
 <span class="math inline">\(u-\Pi_Nu=\sum_{|k|\geq
 N+1}\hat{u}_ke^{ikx}\)</span>. <span class="math display">\[
-    \begin{aligned}
+    \begin{align*}
     \Vert u-\Pi_Nu\Vert^2=\sum_{|k|\geq N+1}|\hat{u}_k|^2=\sum_{|k|\geq
 N+1}{\color{red}k^{-2m}\cdot k^{2m}}|\hat{u}_k|^2\tag{$\star$}.
-    \end{aligned}
+    \end{align*}
     \]</span>   由 <span class="math inline">\((\star)\)</span> 式知
 <span class="math inline">\(|k|\geq N+1,\)</span> <span
 class="math inline">\(\therefore k^{2m}\geq(N+1)^{2m}\geq C_1N^{2m},\
@@ -1999,7 +2000,8 @@ class="math inline">\(\epsilon\)</span>.</p>
   <entry>
     <title>Spectral Method 2</title>
     <url>/2022/12/23/spectral2/</url>
-    <content><![CDATA[<p>##Numerical integration and Discrete Fourier Transform(DFT) 回顾<span
+    <content><![CDATA[<p><strong>Numerical integration and Discrete Fourier
+Transform(DFT)</strong> 回顾<span
 class="math display">\[\left\{\begin{aligned}
     -\Delta u&amp;=f,\\
     u\text{是周}&amp;\text{期函数},
@@ -2015,8 +2017,8 @@ span\{e^{-iNx},\dots,e^{iNx}\},\\
 f_k=(f,e^{ikx}),\ \hat{u}=(\hat{u}_{-N},\dots,\hat{u}_N)^T.\)</span></p>
 <p>上述计算过程中的核心难题在于如何求解 <span
 class="math inline">\((f,e^{ikx})\)</span>,
-下面我们介绍数值积分的算法来解决这个问题 <span id="more"></span> ###Numerical
-Integration 按照我们之前给出的内积的定义，<span
+下面我们介绍数值积分的算法来解决这个问题 <span id="more"></span> <strong>Numerical
+Integration</strong> 按照我们之前给出的内积的定义，<span
 class="math display">\[(g_1,g_2)=\frac{1}{2\pi}\int_0^{2\pi}g_1\overline{g}_2dx,\quad\text{若记}\
 f=g_1\overline{g}_2,\ \text{则}\ (g_1,g_2)=(f,1).\]</span></p>
 <p>我们可以利用左矩形公式来给出数值积分的计算公式如下: <span
@@ -2085,8 +2087,8 @@ class="math inline">\(\frac{1}{N}\sum_{j=0}^{N-1}f_j\overline{g}_j\)</span>
 近似. 如果我们用此近似一维的积分, 其时间复杂度为 <span
 class="math inline">\(\mathcal{O}(N^2)\)</span>,
 近似二维的积分,其时间复杂度为 <span
-class="math inline">\(\mathcal{O}(N^4)\)</span> ###Discrete Fourier
-Transform(DFT)
+class="math inline">\(\mathcal{O}(N^4)\)</span> <strong>Discrete Fourier
+Transform(DFT)</strong>
 我们先引入离散傅里叶变换(DFT)和逆离散傅里叶变换(IDFT)的概念. <span
 class="math display">\[
 \left\{\begin{aligned}
@@ -2366,7 +2368,8 @@ class="math inline">\(\widetilde{g}\)</span>, 需要 <span
 class="math inline">\(\mathcal{O}(N^2)\)</span>.
 因此我们开始考虑是否存在一个更为快速的方法来计算得到 <span
 class="math inline">\(\widetilde{g}\)</span>.</p>
-<p>我们先考虑快速乘法: <span class="math display">\[
+<p><strong>Fast Fourier Transform(FFT)</strong> 我们先考虑快速乘法:
+<span class="math display">\[
 A(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1},\ n\text{为}2\text{的幂次}
 \]</span> 求 <span class="math inline">\(A(x)\)</span> 在 <span
 class="math inline">\(x_0\dots x_{n-1}\)</span> 上的值, 其中 <span
