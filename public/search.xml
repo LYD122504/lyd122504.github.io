@@ -315,7 +315,7 @@ class="math inline">\(N_1=N_G(x)\)</span></p></li>
 all neighbors of y without creating cycles and let <span
 class="math inline">\(N_{i+1}=\cup_{y\in N_i}N_G(y)\)</span></p></li>
 </ol>
-<p>The algorithm will take <span class="math inline">\(\Omicron(\lvert
+<p>The algorithm will take <span class="math inline">\(O (\lvert
 V\rvert+\lvert E\rvert)\)</span> steps to find a BFS-tree rooted at
 <span class="math inline">\(x_0\)</span>.</p>
 <p>A deepth-first-search tree of a graph (DFS-tree)</p>
@@ -1799,616 +1799,286 @@ face is bounded by a cycle.</font></p>
       </tags>
   </entry>
   <entry>
-    <title>Spectral Method 1</title>
-    <url>/2022/12/22/spectral1/</url>
-    <content><![CDATA[<p><strong>Preliminaries</strong></p>
-<p>  我们先在 <span class="math inline">\(L^2(\Omega),
-\Omega=[a,b]\)</span> 上讨论, 即 <span class="math display">\[
-    \forall u\in
-L^2(\Omega)\Rightarrow\left(\int_a^b|u|^2\mathrm{d}x\right)^{\frac{1}{2}}&lt;+\infty.
-    \]</span> <span id="more"></span>   我们在此空间上定义带权重的内积 <span
+    <title>Functional Analysis—Hahn-Banach Theorem</title>
+    <url>/2023/06/19/functional-1/</url>
+    <content><![CDATA[<h3 id="hahn-banach定理的解析形式--线性泛函延拓">1.1
+Hahn-Banach定理的解析形式--线性泛函延拓</h3>
+<p><strong>Theorem 1.1 (H-B定理解析形式)</strong><span
+class="math inline">\(\quad\)</span> 设映射 <span
+class="math inline">\(p:E\to\mathbb{R}\)</span> 满足 <span
 class="math display">\[
-    (u,v)_{w}=\int_\Omega u\cdot\overline{v}\cdot w\mathrm{d}x,
-    \]</span> 其中 <span class="math inline">\(v\)</span>
-取共轭的含义在于v可能取到复值, 同时对w有一定要求, <span
-class="math inline">\(w\geq0\)</span>.   由于我们已经定义了带权重的内积,
-因此我们可以进一步给出带权重的范数的定义如下 <span
+\begin{align}
+&amp;p(\lambda x)=\lambda p(x),\ \forall x\in E ,\ \lambda&gt;0\\
+&amp;p(x+y)\leq p(x)+p(y),\ \forall x,y\in E
+\end{align}
+\]</span> 此外, <span class="math inline">\(G\)</span> 为 <span
+class="math inline">\(E\)</span> 上的线性子空间以及线性泛函 <span
+class="math inline">\(g:G\to\mathbb{R}\)</span> 满足 <span
 class="math display">\[
-    \Vert u\Vert_w^2=(u,u)_w,
-    \]</span> 若 <span class="math inline">\(\omega=1\)</span>, 则 <span
-class="math inline">\((u,v)_w=(u,v),\ \Vert u\Vert_w=\Vert
-u\Vert.\)</span>   根据 <span class="math inline">\(L^2(\Omega)\)</span>
-自身的性质, 我们可以找到 <span
-class="math inline">\(L^2(\Omega)\)</span> 空间的一组基, 记作 <span
-class="math inline">\(\left\{\phi_k(x)\right\}_{k=0}^{\infty}\)</span>,
-对于任意的 <span class="math inline">\(u\in L^2(\Omega)\)</span>,
-我们都有 <span class="math display">\[
-    u=\sum_{k=0}^\infty \hat{u}_k\phi_k(x).
-    \]</span></p>
-<p>特别地, 我们考虑 <span class="math inline">\(\phi_k\)</span>
-互相正交的情况. 首先我们先给出正交的定义.</p>
-<p>  若 <span
-class="math inline">\(\left\{\phi_k(x)\right\}_{k=0}^{\infty}\)</span>
-正交, 则有 <span class="math display">\[
-    (\phi_k,\phi_m)=c_k\delta_{km},\ \text{其中}\
-\delta_{km}=\left\{\begin{aligned}&amp;1,\quad k=m\\&amp;0,\quad
-k\not=m\end{aligned}\right.
-    \]</span></p>
-<p>  我们借助上面定义的正交来确定 <span
-class="math inline">\(\hat{u}_k\)</span> 的取值 <span
+\begin{align}
+g(x)\leq p(x),\ \forall x\in G
+\end{align}
+\]</span> 那么存在 <span class="math inline">\(E\)</span> 上的线性泛函
+<span class="math inline">\(f\)</span> 延拓 <span
+class="math inline">\(g\)</span>, 即 <span
+class="math inline">\(f(x)=g(x),\ \forall x\in G\)</span> 且成立 <span
+class="math inline">\(f(x)\leq p(x),\ \forall x\in E\)</span>.
+<span id="more"></span></p>
+<p><strong>Zorn 引理</strong> 在介绍 Zorn 引理之前,
+我们先介绍一些后续将会用到的符号.</p>
+<p>设 <span class="math inline">\((P,\leq)\)</span>
+是一个有序集(偏序集), 我们称子集 <span class="math inline">\(Q\subset
+P\)</span> 完全有序, 若对于 <span class="math inline">\(Q\)</span>
+中任意一对 <span class="math inline">\(a,b\)</span> 有序关系 <span
+class="math inline">\(a\leq b\)</span>, <span
+class="math inline">\(b\leq a\)</span> 或者二者同时成立.</p>
+<p><strong><font color='red'>Remark 1.</font></strong>
+<font color='red'>完全有序指集 <span class="math inline">\(Q\)</span>
+中所有元素都可进行比较序关系,例如数集</font></p>
+<p>设子集 <span class="math inline">\(Q\subset P\)</span>, 称 <span
+class="math inline">\(c\in P\)</span> 是 <span
+class="math inline">\(Q\)</span> 的上界, 如果 <span
+class="math inline">\(\forall x\in Q\)</span> 都有 <span
+class="math inline">\(x\leq c\)</span> 成立. 称 <span
+class="math inline">\(m\in P\)</span> 是 <span
+class="math inline">\(P\)</span> 的极大元, 如果不存在 <span
+class="math inline">\(P\)</span> 中的元素 <span
+class="math inline">\(x\)</span> 满足 <span class="math inline">\(m\leq
+x\)</span>, 除了 <span class="math inline">\(m=x\)</span>.</p>
+<p><strong><font color='red'>Remark 2.</font></strong>
+<font color='red'>我们上面定义的极大元和最大元是不一样的, 具体的差异是,
+极大元指的是在能够比较的元素之中没有比他大的元素,
+而最大元则要求他能和全部元素可比且没有比他大的元素</font></p>
+<p>我们称集合 <span class="math inline">\(P\)</span> 是诱导的 <span
+class="math inline">\((\text{inductive})\)</span>, 如果 <span
+class="math inline">\(P\)</span> 的任意完全有序子集均有上界</p>
+<p><strong>Zorn Lemma</strong> 任意非空有序(偏序)的诱导集合有极大元</p>
+<p><strong>Proof of Theorem 1.1</strong></p>
+<p><strong><font color='red'>Key:</font></strong>
+<font color='red'>定义一个集合 <span class="math inline">\(P\)</span>
+和其上的偏序关系 <span class="math inline">\(\leq\)</span>,
+证明其是诱导的, 构造其极大元.</font></p>
+<p>考虑这样的集合</p>
+<p><span class="math display">\[
+P=\left\{h:D(h)\subset E\to\mathbb{R}\left|\begin{aligned}&amp;D(h)\
+\text{is a linear subspace of}\ E\\&amp;h\ \text{is linear},\ G\subset
+D(h)\\&amp;h\ \text{extends}\ g,\ \text{and}\ h(x)\leq p(x),\ \forall
+x\in D(h)\end{aligned}\right.\right\}
+\]</span> 在 <span class="math inline">\(P\)</span> 上我们赋予偏序关系
+<span class="math inline">\(\leq\)</span>, 即 <span
 class="math display">\[
-    \begin{aligned}
-        (u,\phi_m)=&amp;(\sum_{k=0}^\infty\phi_k,\phi_m)=\sum_{k=0}^\infty\hat{u}_k(\phi_k.\phi_m)=\sum_{k=0}^\infty\hat{u}_kc_k\delta_{km}=\hat{u}_mc_m\\
-        &amp;\Rightarrow\hat{u}_m=\frac{1}{c_m}(u,\phi_m),\
-m=0,\cdots,+\infty.
-    \end{aligned}
-    \]</span> <strong>Fourier Spectral Method and its applications on
-solving the Possion equations</strong></p>
-<p>  在此, 我们讨论区间 <span
-class="math inline">\(\Omega=[0,2\pi]\)</span>, 其中 <span
-class="math inline">\(\left\{e^{ikx}\right\}_{-\infty}^{+\infty}\)</span>
-为一组正交基.</p>
-<p>  定义内积运算为 <span class="math display">\[
-    (u,v)=\frac{1}{\color{red}{2\pi}}\int_0^{2\pi}u\cdot\overline{v}\mathrm{d}x,
-    \]</span> 其中 <span class="math inline">\(2\pi\)</span>
-的作用在于后续计算的归一化.</p>
-<p>  验证其正交性如下: <span class="math display">\[
-    (e^{ikx},e^{imx})=\frac{1}{2\pi}\int_0^{2\pi}e^{i(k-m)x}\mathrm{d}x=\left\{\begin{aligned}
-        &amp;1,\quad k=m\\
-        &amp;0,\quad else
-    \end{aligned}\right.
-    \]</span></p>
-<p><font color=red>Remark: 由于 <span
-class="math inline">\(\left\{e^{ikx}\right\}_{-\infty}^{+\infty}\)</span>
-的周期性, 因此傅里叶谱方法仅适用于逼近周期函数,作用的空间也为 <span
-class="math inline">\(L_p^2\)</span>.</font></p>
-<p><span
-class="math display">\[(u,e^{imx})=(\sum_{k=-\infty}^{+\infty}\hat{u}_ke^{ikx},e^{imx})=\sum_{k=-\infty}^{+\infty}\hat{u}_k(e^{ikx},e^{imx})=\sum_{k=-\infty}^{+\infty}\hat{u}_k\delta_{km}=\hat{u}_m.\]</span>
-<font color=red>但上述过程中要求计算从 <span
-class="math inline">\(-\infty\)</span> 到 <span
-class="math inline">\(+\infty\)</span>, 是无法处理的,
-因此接下来我们讨论其对应的数值格式.</font></p>
-<p>  从朴素的角度来说, 我们对 <span
-class="math inline">\(u=\sum_{k=-\infty}^{+\infty}\hat{u}_ke^{ikx}\)</span>
-做一个截断得到 <span
-class="math inline">\(u_N=\sum_{k=-N}^{N}\hat{u}_ke^{ikx}\)</span>,
-同时要求截断所形成的误差尽可能地小.
-下面我们通过定义投影映射来验证此事.</p>
-<p>  定义空间 <span
-class="math inline">\(X_N=span\{e^{-iNx},e^{i(1-N)x},\cdots,e^{i(N-1)x},e^{iNx}\}\)</span>,
-同时定义其上的投影映射 <span class="math inline">\(\Pi_N: L^2\to
-X_N\)</span> 满足 <span class="math inline">\((\Pi_Nu-u,v)=0,\ v\in
-X_N\)</span>, 接下来我们要验证 <span
-class="math inline">\(\Pi_Nu=\sum_{k=-N}^{N}\hat{u}_ke^{ikx}\)</span>.</p>
-<p><strong>Proof.</strong> <span
-class="math display">\[\because\Pi_Nu\in X_N,\
-\therefore\Pi_Nu=\sum_{k=-N}^{N}\hat{z}_ke^{ikx}.\]</span>
-故证明转为验证 <span
-class="math inline">\(\hat{z}_k=\hat{u}_k\)</span>u, 而由投影的定义知,
-<span class="math inline">\((\Pi_Nu,e^{imx})=(u,e^{imx})\)</span>,
-证毕.</p>
-<p>  为了后续验证截断误差方便, 我们先引入几个范数的定义 <span
-class="math display">\[\Vert
-u\Vert^2=\sum_{k=-\infty}^{+\infty}\left|\hat{u}_k\right|^2,\quad
-\left|u\right|_m^2=\sum_{k=-\infty}^{+\infty}k^{2m}\left|\hat{u}_k\right|^2,\quad
-\Vert u\Vert_m=\sqrt{\Vert u\Vert^2+|u|^2_m},\]</span> 其中 <span
-class="math inline">\(u\in H_p^m\)</span>.</p>
-<p>  虽然上面定义的范数针对的是 <span class="math inline">\(u\)</span>
-分解成无穷多个基函数的组合, 但实际上 <span
-class="math inline">\(u\)</span>
-如果被分解成有限多个基函数的组合上面的范数也是类似的结果,
-我们在此给出这种情况的范数.</p>
-<p>  若 <span
-class="math inline">\(V=\sum_{k=-N}^N\hat{v}_ke^{ikx}\)</span>, <span
-class="math inline">\(N\)</span> 若为无穷大,那么我们已经得到了范数形式,
-因此我们仅讨论如果 <span class="math inline">\(N\)</span>
-为有限值这一情况, 我们对 <span class="math inline">\(N\)</span>
-做一个延拓, <span class="math display">\[c_k=\left\{\begin{aligned}
-    &amp;\hat{v}_k,\quad |k|\leq N\\
-    &amp;0,\quad else
-\end{aligned}\right.,\]</span>那么 <span
-class="math inline">\(V\)</span> 就可以改写成无穷多个基函数的组合 <span
-class="math inline">\(V=\sum_{k=-\infty}^{\infty}
-\hat{c}_ke^{ikx}\)</span>, 那么我们就可以得到有限多个基函数组合的范数为
-<span class="math display">\[\Vert
-u\Vert^2=\sum_{k=-N}^{N}\left|\hat{u}_k\right|^2,\quad
-\left|u\right|_m^2=\sum_{k=-N}^{N}k^{2m}\left|\hat{u}_k\right|^2.\]</span>
-<strong>Thm 1</strong><span class="math display">\[\forall u\in
-H_p^m(m&gt;1),\ \Vert \Pi_Nu-u\Vert\leq CN^{-m}\Vert u\Vert_m.\]</span>
-<strong>Proof.</strong> 由于 <span
-class="math inline">\(\Pi_Nu=\sum_{k=-N}^N\hat{u}_ke^{ikx}\)</span>,故
-<span class="math inline">\(u-\Pi_Nu=\sum_{|k|\geq
-N+1}\hat{u}_ke^{ikx}\)</span>. <span class="math display">\[
-    \Vert u-\Pi_Nu\Vert^2=\sum_{|k|\geq N+1}|\hat{u}_k|^2=\sum_{|k|\geq
-N+1}{\color{red}k^{-2m}\cdot k^{2m}}|\hat{u}_k|^2\tag{$\star$}
-    \]</span>   由 <span class="math inline">\((\star)\)</span> 式知
-<span class="math inline">\(|k|\geq N+1,\)</span> <span
-class="math inline">\(\therefore k^{2m}\geq(N+1)^{2m}\geq C_1N^{2m},\
-k^{-2m}\leq CN^{-2m}.\)</span>   因此我们有<span
-class="math display">\[\begin{aligned}\Vert u-\Pi_Nu\Vert^2&amp;\leq
-CN^{-2m}\sum_{|k|\geq N+1}k^{2m}|\hat{u}_k|^2\leq
-CN^{-2m}|u|_m^2\\&amp;\Rightarrow\Vert\Pi_Nu-u\Vert\leq
-C_2N^{-m}|u|_m\end{aligned}.\]</span> 显然 <span
-class="math inline">\(|u|_m\leq\Vert u\Vert_m\)</span>, 故证毕.
-  我们已经介绍了傅里叶谱方法的理论,
-现在我们开始考虑如何将傅里叶谱方法应用到数值计算上去.
-我们考虑如下形式的泊松方程 <span class="math display">\[
-    \left\{\begin{aligned}
-&amp;-\Delta u=f\\
-&amp;u\text{
-为周期函数}\color{red}(u(0)=u(2\pi),u&#39;(0)=u&#39;(2\pi),\cdots,u^{(k)}(0)=u^{(k)}(2\pi))
-\end{aligned}\right..\]</span> 若直接用 <span
-class="math inline">\(u_N\)</span> 代替 <span
-class="math inline">\(u\)</span>, 那么原方程可以导出 <span
-class="math inline">\(2N+1\)</span> 个方程从而可以求解得到 <span
-class="math inline">\(u_N\)</span>.</p>
-<p>  一般而言, 我们并不会采用这种直接带入的方法, 而是借助 Galerkin
-方法的弱解形式求解. 在此之前我们先讨论一下所谓强解与弱解的概念.</p>
-<p>  强解表示解 <span class="math inline">\(u\in H^2\)</span> 满足 <span
-class="math inline">\(-\Delta u=f\)</span>, 而弱解则仅要求解 <span
-class="math inline">\(u\)</span> 满足 <span
-class="math inline">\(-(\Delta u,v)=(f,v),\ v\in L_p^2\)</span>,
-我们仅在一维情形下考虑, 进一步对弱解需要满足的要求进行化简如下, <span
-class="math display">\[\begin{aligned}
-    -(\Delta u,v)&amp;=(f,v),\\
-    \int u_{xx}v\mathrm{d}x&amp;=\int v\mathrm{d}u_x=vu_x\Big|-\int
-v_xu_x\mathrm{d}x=-\int v_xu_x\mathrm{d}x,\\
-    -\int v_xu_x\mathrm{d}x&amp;=\int fv\mathrm{d}x.
-\end{aligned}
-\]</span>   同理, 我们不加推导地写出多维情况下弱解形式的化简结果: <span
-class="math display">\[(f,v)=-(\Delta u,v)=(\nabla u,\nabla v),\ u\in
-H^1.\]</span></p>
-<p><font color=red>Hint:强解在 <span class="math inline">\(H^2\)</span>
-上列方程的话可以列出 <span class="math inline">\(\aleph\)</span> 个,
-而弱解在 <span class="math inline">\(L_p^2\)</span> 上列方程的话可以列出
-<span class="math inline">\(\aleph_0\)</span> 个,
-因此可以认为求弱解实际上也是一个降维操作.</font></p>
-<p>  我们根据上面得到的弱解格式和前面已经推得的傅里叶分解, 导出数值格式.
-<span
-class="math display">\[\begin{aligned}(-\partial_{xx}u,v_N)&amp;=(f,v_N),\
-v_N\in X_N,\\
--(\partial_{xx}\sum_{k=-N}^{N}\hat{u}_ke^{ikx},e^{imx})&amp;=(f,e^{imx}),\
-v_m=\{e^{imx}\}_{m=-N}^N,\\
-\text{记}\ f_m=(f,e^{imx})&amp;\quad a_{km}=(e^{ikx},e^{imx})k^2,\\
-(\sum_{k=-N}^N\hat{u}_kk^2e^{ikx},e^{imx})&amp;=\sum_{k=-N}^N\hat{u}_kk^2(e^{ikx},e^{imx})=\sum_{k=-N}^N\hat{u}_ka_{km},\\
-\hat{u}=(\hat{u}_{-N},\cdots,\hat{u}_N)^T&amp;\quad
-F=(f_{-N},\cdots,f_N)^T,\\
-\end{aligned}\]</span> <span class="math display">\[
-A=\begin{pmatrix}
-    a_{-N,-N}&amp;\cdots&amp;a_{N,-N}\\
-    \vdots&amp; &amp;\vdots\\
-    a_{-N,N}&amp;\cdots&amp;a_{N,N}
-\end{pmatrix}\Rightarrow A\hat{u}=F.\]</span>
-  上述过程我们将求解偏微分方程问题转换为求解一个线性代数方程组问题,
-而且由于我们所选取的基互相正交, 因此 <span
-class="math inline">\(A\)</span> 实际上是一个对角矩阵,
-故求解起来十分轻松. 但由于我们选取的方程可能不太好, 因此,
-如果直接利用上述的 <span class="math inline">\(A\)</span>, <span
-class="math inline">\(A\)</span> 其实是一个奇异矩阵, 为了消除其奇异性,
-我们可以对对角线元素加一个 <span
-class="math inline">\(\epsilon\)</span>.</p>
-]]></content>
-      <categories>
-        <category>Spectral Method</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Computing Science</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spectral Method 2</title>
-    <url>/2022/12/23/spectral2/</url>
-    <content><![CDATA[<p><strong>Numerical integration and Discrete Fourier
-Transform(DFT)</strong></p>
-<p>回顾<span class="math display">\[\left\{\begin{aligned}
-    -\Delta u&amp;=f,\\
-    u\text{是周}&amp;\text{期函数},
-\end{aligned}\right.\]</span> 将 <span
-class="math inline">\(u_N(x)=\sum_{k=-N}^N\hat{u}_ke^{ikx}\)</span>
-代入上述方程可得 <span class="math display">\[
-\begin{aligned}
-    &amp;\Rightarrow(\nabla u_N,\nabla \phi)=(f,\phi),\ \phi\in
-span\{e^{-iNx},\dots,e^{iNx}\},\\
-    &amp;\Rightarrow A\hat{u}=f,
-\end{aligned}
-\]</span> 其中 <span class="math inline">\(A_{kl}=(e^{ikx},e^{ilx}),\
-f_k=(f,e^{ikx}),\ \hat{u}=(\hat{u}_{-N},\dots,\hat{u}_N)^T.\)</span></p>
-<p>上述计算过程中的核心难题在于如何求解 <span
-class="math inline">\((f,e^{ikx})\)</span>,
-下面我们介绍数值积分的算法来解决这个问题 <span id="more"></span> <strong>Numerical
-Integration</strong> 按照我们之前给出的内积的定义，<span
-class="math display">\[(g_1,g_2)=\frac{1}{2\pi}\int_0^{2\pi}g_1\overline{g}_2dx,\quad\text{若记}\
-f=g_1\overline{g}_2,\ \text{则}\ (g_1,g_2)=(f,1).\]</span></p>
-<p>我们可以利用左矩形公式来给出数值积分的计算公式如下: <span
-class="math display">\[(f,1)=\frac{1}{N}\sum_{j=0}^{N-1}f(x_j),\quad
-x_j=\frac{2\pi}{N}\cdot j,\]</span> 其中左矩形公式的误差为 <span
-class="math inline">\(\mathcal{O}(\frac{1}{N})\)</span>,
-由于谱方法本身就具有误差精度 <span
-class="math inline">\(\mathcal{O}(N^{-m})\)</span>,
-如果我们直接采用左矩形公式进行计算, 那么会导致谱方法的精度退化到 <span
-class="math inline">\(\mathcal{O}(N^{-1})\)</span>.</p>
-<p>我们定义离散内积如下所示: <span
-class="math display">\[\left&lt;f,g\right&gt;_N=\frac{1}{N}\sum_{j=0}^{N-1}f_j\cdot\overline{g}_j,\
-\text{其中},\ f_j=f(x_j)\]</span></p>
-<p><strong>Lemma 1</strong>令 <span
-class="math inline">\(E=e^{ikx}\)</span>, 则 <span
-class="math inline">\(\left&lt;E_k,E_m\right&gt;=\left\{\begin{aligned}&amp;1,\
-k-m=lN,\ l\in\mathbb{Z}\\&amp;0,\ else\end{aligned}\right..\)</span></p>
-<p><strong>Proof.</strong><span
-class="math display">\[\left&lt;E_k,E_m\right&gt;=\frac{1}{N}\sum_{j=0}^{N-1}e^{ikx_j}e^{-imx_j}=\frac{1}{N}\sum_{j=0}^{N-1}e^{i(k-m)x_j}.\]</span></p>
-<p>当 <span class="math inline">\(k-m=lN\)</span> 时, <span
-class="math inline">\(\left&lt;E_k,E_m\right&gt;=\frac{1}{N}\sum_{j=0}^{N-1}e^{i\cdot
-lN\cdot \frac{2\pi j}{N}}=\frac{1}{N}\sum_{j=0}^{N-1}e^{2\pi
-ijl}=1.\)</span></p>
-<p>当 <span class="math inline">\(k-m\not=lN\)</span> 时, <span
-class="math display">\[\begin{aligned}\left&lt;E_k,E_m\right&gt;&amp;=\frac{1}{N}\sum_{j=0}^{N-1}e^{i\cdot
-(k-m)\cdot \frac{2\pi
-j}{N}},\\&amp;=\frac{1}{N}\sum_{j=0}^{N-1}(e^{\frac{2\pi i\cdot
-(k-m)}{N}})^j,\\
-    &amp;=\frac{1}{N}\frac{1-e^{i(k-m)2\pi}}{1-e^{\frac{2\pi i\cdot
-(k-m)}{N}}}=0.\end{aligned}\]</span></p>
-<p><strong>Lemma 2</strong> <span class="math display">\[
-\frac{1}{2\pi}\int_0^{2\pi}f(x)\mathrm{d}x=\frac{1}{N}\sum_{j=0}^{N-1}f_j,\
-f\in span\{e^{-i(N-1)x},\dots,e^{i(N-1)x}\}.
-\]</span></p>
-<p><strong>Proof.</strong> 我们假设 <span
-class="math inline">\(f(x)=\sum_{k=-N+1}^{N-1}\hat{f}_ke^{ikx},\)</span>
-带入欲证式两边计算可得 <span
-class="math display">\[\begin{aligned}\text{左式}&amp;=\frac{1}{2\pi}\int_0^{2\pi}\sum_{k=-N+1}^{N-1}\hat{f}_ke^{ikx}\mathrm{d}x=\frac{1}{2\pi}\sum_{k=-N+1}^{N-1}\hat{f}_k\int_0^{2\pi}e^ikx\cdot1\mathrm{d}x=\hat{f}_0\\
-    \text{右式}&amp;=\frac{1}{N}\sum_{j=0}^{N-1}f_j=\frac{1}{N}\sum_{j=0}^{N-1}f_j\cdot
-1=\left&lt;f_j,1\right&gt;_N\\&amp;=\sum_{k=-N+1}^{N-1}\hat{f}_k
-\left&lt;e^{ikx},1\right&gt;_N,\ k\in[-N+1,N-1],\ 1\
-\text{可视作}\  e^{i0x}\\&amp;=\hat{f}_0.\end{aligned}\]</span>
-故左式=右式,证毕.</p>
-<p><strong>Thm 1</strong> <span
-class="math display">\[\left|(f,1)-\left&lt;f,1\right&gt;_N\right|\leq
-CN^{1-m}.\]</span></p>
-<p><strong>Proof.</strong> 我们定义一个算子 <span
-class="math inline">\(\Pi_{N-1}\)</span> 如下所示 <span
-class="math display">\[\Pi_{N-1}f=\sum_{k=-N+1}^{N-1}\hat{f}_ke^{ikx}\]</span>
-我们借助上述定义的算子进行证明: <span class="math display">\[
-    \begin{aligned}
-        (f,1)-\left&lt;f,1\right&gt;_N&amp;=(f,1)-(\Pi_{N-1}f,1)+(\Pi_{N-1}f,1)-\left&lt;\Pi_{N-1}f,1\right&gt;_N\\&amp;+\left&lt;\Pi_{N-1}f,1\right&gt;_N-\left&lt;f,1\right&gt;_N\\
-        &amp;=(f-\Pi_{N-1}f,1)+\left&lt;\Pi_{N-1}f-f,1\right&gt;_N\\
-        &amp;\leq C\Vert f-\Pi_{N-1}f\Vert_\infty\leq CN\Vert
-f-\Pi_{N-1}f\Vert_2\leq CN^{1-m},
-    \end{aligned}
-    \]</span> 其中根据引理 2
-可以直接推导出第二个等号,而第一个不等号根据下式得到 <span
-class="math display">\[\begin{aligned}
-        (f,1)&amp;=\frac{1}{2\pi}\int_0^{2\pi}f\mathrm{d}x\leq\Vert
-f\Vert_{L^\infty}\cdot\frac{1}{2\pi}\int_0^{2\pi}1\mathrm{d}x=\Vert
-f\Vert_{L^\infty},\\
-        \left&lt;f,1\right&gt;_N&amp;=\frac{1}{N}\sum_{j=0}^{N-1}f_j\leq\Vert
-f\Vert_{L^\infty}\frac{1}{N}\sum_{j=0}^{N-1}1=\Vert f\Vert_{L^\infty}.
-    \end{aligned}\]</span> 由上述定理, 我们解决了上面提出的问题, 即
-<span class="math inline">\((f,g)\)</span> 可用 <span
-class="math inline">\(\frac{1}{N}\sum_{j=0}^{N-1}f_j\overline{g}_j\)</span>
-近似. 如果我们用此近似一维的积分, 其时间复杂度为 <span
-class="math inline">\(\mathcal{O}(N^2)\)</span>,
-近似二维的积分,其时间复杂度为 <span
-class="math inline">\(\mathcal{O}(N^4)\)</span> <strong>Discrete Fourier
-Transform(DFT)</strong></p>
-<p>我们先引入离散傅里叶变换(DFT)和逆离散傅里叶变换(IDFT)的概念. <span
+h_1\leq h_2\Leftrightarrow D(h_1)\subset D(h_2),\ h_2\ \text{延拓}\ h_1.
+\]</span> 显然 <span class="math inline">\(P\)</span> 非空, 因为 <span
+class="math inline">\(g\in P\)</span>.</p>
+<p>下面我们要说明 <span class="math inline">\(P\)</span> 是一个诱导集,
+也就是我们要说明任意一个 <span class="math inline">\(P\)</span>
+的完全有序子集都有上界.</p>
+<p>我们假设 <span class="math inline">\(Q\subset P\)</span>
+是一个完全有序集合, 我们可以记 <span
+class="math inline">\(Q=\{h_i\}_{i\in I}\)</span> (<span
+class="math inline">\(I\)</span> 是指标集), 我们定义一个线性泛函 <span
+class="math inline">\(h\)</span> 满足 <span class="math display">\[
+D(h)=\bigcup_{i\in I} D(h_i),\quad h(x)=h_i(x),\ \text{if}\ x\in D(h_i)
+\]</span> <strong><font color='red'>Remark 3.</font></strong>
+<font color='red'>对于定义的线性泛函 <span
+class="math inline">\(h\)</span> 是否是良定义的, 我们给出一定的说明.
+如果 <span class="math inline">\(D(h_1)\bigcap
+D(h_2)\not=\emptyset\)</span>, 因为 <span
+class="math inline">\(Q\)</span> 是完全有序的, 因此我们不妨假设序关系
+<span class="math inline">\(h_1\leq h_2\)</span> 成立, 故 <span
+class="math inline">\(h_2\)</span> 延拓了 <span
+class="math inline">\(h_1\)</span>, 即 <span
+class="math inline">\(h_2(x)=h_1(x),\ \forall x\in D(h_2)\bigcap
+D(h_1).\)</span></font></p>
+<p>显然 <span class="math inline">\(h\in P\)</span> 且 <span
+class="math inline">\(h\)</span> 是 <span
+class="math inline">\(Q\)</span> 的上界(指定义的伴序关系下的上界).
+因此根据 Zorn Lemma 知, 我们构造的 <span
+class="math inline">\(P\)</span> 存在极大元, 不妨设其为 <span
+class="math inline">\(f\)</span>. 下面我们证明 <span
+class="math inline">\(D(f)=E\)</span>, 我们采用反证法的技巧.</p>
+<p>如果 <span class="math inline">\(D(f)\not=E\)</span>, 也就是说存在
+<span class="math inline">\(x_0\in E\)</span> 但是 <span
+class="math inline">\(x_0\not\in D(f)\)</span>. 我们构造一个 <span
+class="math inline">\(E\)</span> 的子集 <span
+class="math inline">\(D(h)=D(f)+\mathbb{R} x_0\)</span>,
+其对应的线性泛函是 <span class="math inline">\(h\)</span>, 其满足 <span
+class="math display">\[
+h(x+tx_0)=f(x)+t\alpha,\ (t\in \mathbb{R},\ \forall x\in D(f))
+\]</span> 其中的常数 <span class="math inline">\(\alpha\)</span>
+我们将在后续讨论中给出取值方法. 我们为了推出矛盾, 要验证 <span
+class="math inline">\(h\in P\)</span>, 也就是通过选取 <span
+class="math inline">\(\alpha\)</span> 来保证 <span
+class="math inline">\(f(x)+t\alpha\leq p(x+tx_0),\ \forall t\in
+\mathbb{R},\ \forall x\in D(f)\)</span> 成立.</p>
+<p>由 (1) 式知, 我们只需要保证下式成立即可, <span
 class="math display">\[
 \left\{\begin{aligned}
-    u_j&amp;=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_ke^{ikx_j},\\
-    \widetilde{u}_k&amp;=\frac{1}{c_kN}\sum_{j=0}^{N-1}u_je^{-ikx_j}.
+&amp;f(x)+\alpha\leq p(x+x_0)\\
+&amp;f(x)-\alpha\leq p(x-x_0)
 \end{aligned}\right.
-\]</span> 其中 <span class="math inline">\(x_j=\frac{2\pi j}{N},\
-j=0,1,\cdots,N-1\)</span>, <span class="math inline">\(N\)</span>
-一般均为 <span class="math inline">\(2\)</span> 的幂次, <span
-class="math inline">\(c_k=\left\{\begin{aligned}  &amp;2,\quad
-k=\pm\frac{N}{2}\\  &amp;1,\quad else \end{aligned}\right.\)</span>.</p>
-<p>根据上述的 DFT 形式, 我们会发现如果我们已知 <span
-class="math inline">\(u_j\)</span> 的值, 我们可以通过 IDFT 来求解得到
-<span class="math inline">\(\widetilde{u}_k\)</span> ,但 <span
-class="math inline">\(\widetilde{u}_k\)</span> 却只有 <span
-class="math inline">\(N\)</span> 项, 而 <span
-class="math inline">\(u_j\)</span> 却有 <span
-class="math inline">\(N+1\)</span> 项.
-这一现象由下面介绍的两个性质来保证:</p>
-<ol type="1">
-<li><span class="math inline">\(\widetilde{u}_{k\pm N}=\frac{1}{c_{k\pm
-N}N}\sum_{j=0}^{N-1}u_je^{-i(k\pm N)\frac{2\pi
-j}{N}}=\frac{1}{c_kN}\sum_{j=0}^{N-1}u_je^{-ikx_j}\cdot e^{\pm 2\pi
-j}=\widetilde{u}_k\)</span></li>
-<li><span
-class="math inline">\(e^{i(k+\frac{N}{2})x_j}=e^{i(k-\frac{N}{2})x_j}\)</span></li>
-</ol>
-<p>我们将上述 DFT 应用到方程 <span
-class="math display">\[\left\{\begin{aligned}
-    -\Delta u&amp;=f,\\
-    u\text{是周}&amp;\text{期函数},
-\end{aligned}\right.\]</span> 的求解过程中可以得到 <span
+\]</span> 由于二者等价性比较显然, 我们隐去不谈. 根据上式知, 我们选取
+<span class="math inline">\(\alpha\)</span> 满足 <span
+class="math display">\[\sup_{y\in
+D(f)}\{f(y)-p(y-x_0)\}\leq\alpha\leq\inf_{x\in
+D(f)}\{p(x+x_0)-f(x)\}\]</span> 下面我们只用说明这样的 <span
+class="math inline">\(\alpha\)</span> 是存在的, <span
 class="math display">\[
 \begin{aligned}
--\Delta
-\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_ke^{ikx}&amp;=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_k(-\Delta
-e^{ikx})=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_kk^2e^{ikx},\\
-\text{右端}&amp;=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{f}_ke^{ikx}.
+&amp;\qquad f(x)+f(y)=f(x+y)\leq p(x+y)\leq p(y-x_0)+p(x+x_0)\\
+&amp;\Rightarrow f(y)-p(y-x_0)\leq p(x+x_0)-f(x)
 \end{aligned}
+\]</span> 这代表 <span class="math inline">\(\alpha\)</span> 是存在的,
+因此 <span class="math inline">\(h\in P\)</span> 且 <span
+class="math inline">\(f\leq h\)</span>, 这与 <span
+class="math inline">\(f\)</span> 是极大元矛盾. 因此 <span
+class="math inline">\(D(f)=E.\)</span></p>
+<p>考虑 H-B 定理的应用, 考虑集合 <span class="math inline">\(E\)</span>
+是赋范向量空间(n. v. s.)</p>
+<p>范数本质上也是一种映射 <span
+class="math inline">\(\Vert\cdot\Vert:E\to\mathbb{R}\)</span> 满足 <span
+class="math display">\[
+\begin{align}
+&amp;\Vert x+y\Vert\leq\Vert x\Vert+\Vert y\Vert,\ \forall x,y\in E\\
+&amp;\Vert\alpha x\Vert=|\alpha|\Vert x\Vert,\ \alpha\in\mathbb{R},\
+\forall x\in E\\
+&amp;\Vert x\Vert=0\Rightarrow x=0(\text{此处 }0\text{
+并不是简单的数,而是向量空间的零元})
+\end{align}
+\]</span> 我们记 <span class="math inline">\(E^\star\)</span> 为 <span
+class="math inline">\(E\)</span> 的对偶空间, 即 <span
+class="math inline">\(E\)</span> 上定义的所有连续线性泛函构成的空间,
+同样我们可以构造 <span class="math inline">\(E^\star\)</span> 上的范数为
+<span class="math display">\[
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in
+E\end{aligned}}|f(x)|=\sup_{\scriptsize   \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in E\end{aligned}}f(x)
+\]</span> <span class="math inline">\(\forall f\in E^\star, x\in
+E\)</span>, 我们称 <span class="math inline">\(&lt;f,x&gt;=f(x)\)</span>
+且称 <span class="math inline">\(&lt;\cdot,\cdot&gt;\)</span>
+是定义在对偶集 <span class="math inline">\(E,E^\star\)</span>
+的数量积.</p>
+<p><strong>Proposition</strong> <span
+class="math inline">\(E^\star\)</span> 是一个 Banach 空间,
+尽管我们并没有给出 <span class="math inline">\(E\)</span> 的完备性.
+<strong>Proof</strong> 我们要证明 <span
+class="math inline">\(E^\star\)</span> 是 Banach 空间, 等价于证明 <span
+class="math inline">\(\forall \{f_n\}\subset E^\star\)</span> 是 Cauchy
+列, 则 <span class="math inline">\(\exists f\in E^\star,\ f_n\to
+f\)</span>.</p>
+<p><span class="math inline">\(\forall x\in E\)</span>, 有 <span
+class="math inline">\(|f_n(x)-f_m(x)|\leq\Vert f_n-f_m\Vert\cdot\Vert
+x\Vert\)</span>, 且由于 <span class="math inline">\(f_n\)</span> 是
+<span class="math inline">\(E^\star\)</span> 上的 Cauchy 列, 故 <span
+class="math inline">\(\Vert f_n-f_m\Vert\to 0,\ n,m\to \infty\)</span>.
+因此 <span class="math inline">\(\forall x\in E\)</span>, 有 <span
+class="math inline">\(|f_n(x)-f_m(x)|\to 0,\ n,m\to \infty\)</span>, 即
+<span class="math inline">\(f_n(x)\)</span> 是 <span
+class="math inline">\(\mathbb{R}\)</span> 上的 Cauchy 列, <span
+class="math inline">\(f_n(x)\)</span> 收敛, 不妨我们记其收敛到 <span
+class="math inline">\(f(x)\)</span>.</p>
+<p>下面我们仅需要说明 <span class="math inline">\(f_n\)</span> 在 <span
+class="math inline">\(E^\star\)</span> 上是收敛到 <span
+class="math inline">\(f\)</span> 的, 也就是说, <span
+class="math inline">\(\forall \epsilon&gt;0,\exists N&gt;0,\forall
+n&gt;N,\Vert f_n-f\Vert\leq\epsilon.\)</span> 显然 <span
+class="math inline">\(f(x)\)</span> 是线性泛函, 由上确界的定义可得 <span
+class="math display">\[
+\forall \epsilon&gt;0,\exists x_0\in E,\ \Vert x_0\Vert=1,\
+|f_n(x_0)-f(x_0)|\geq\Vert f_n-f\Vert-\epsilon.
+\]</span> 两边取上极限得 <span class="math display">\[
+\overline{\lim_{n\to\infty}}\Vert
+f_n-f\Vert\leq\lim_{n\to\infty}|f_n(x_0)-f(x_0)|+\epsilon=\epsilon
+\]</span> 因此证毕.</p>
+<p><strong>Corollary 1</strong> 记 <span
+class="math inline">\(G\)</span> 是 <span
+class="math inline">\(E\)</span> 的子向量空间, 若 <span
+class="math inline">\(g:G\to \mathbb{R}\)</span> 是连续线性泛函, 那么在
+<span class="math inline">\(E^\star\)</span> 中存在一个线性泛函 <span
+class="math inline">\(f\)</span> 延拓了 <span
+class="math inline">\(g\)</span> 且满足 <span class="math display">\[
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
 \]</span></p>
-<p>因此我们有 <span
-class="math inline">\(\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}(k^2\widetilde{u}_k-\widetilde{f}_k)e^{ikx}=0\Rightarrow
-k^2\widetilde{u}_k-\widetilde{f}_k=0\Rightarrow \widetilde{u}_k\
-\text{可求的}.\)</span></p>
-<p>但在 Matlab 的编程中一般用如下的 DFT 形式: <span
+<p><strong>Proof.</strong> 我们令 <span class="math inline">\(p(x)=\Vert
+g\Vert_{G^\star}\Vert x\Vert\)</span>, 应用 H-B 定理知有 <span
+class="math inline">\(f(x)\leq p(x)=\Vert g\Vert_{G^\star}\Vert x\Vert,\
+\forall x\in E\)</span>, 因此 <span class="math inline">\(\Vert
+f\Vert_{E^\star}\leq\Vert g\Vert_{G^\star}\)</span>. 同时有下式成立
+<span class="math display">\[
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in
+E\end{aligned}}|f(x)|\geq\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
+\]</span> 综上所述, <span class="math inline">\(\Vert
+f\Vert_{E^\star}=\Vert g\Vert_{G^\star}\)</span>.</p>
+<p><strong>Corollary 2</strong> <span class="math inline">\(\forall
+x_0\in E,\ \exists f_0\in E^\star\)</span> 使得 <span
+class="math inline">\(\Vert f_0\Vert_{E^\star}=\Vert x_0\Vert_E\)</span>
+且 <span class="math inline">\(&lt;f_0,x_0&gt;=\Vert
+x_0\Vert^2\)</span>.</p>
+<p><strong>Proof.</strong> 考虑 <span class="math inline">\(G=\mathbb{R}
+x_0\)</span> 和 <span class="math inline">\(g(tx_0)=t\Vert
+x_0\Vert^2\)</span>. 下我们说明 <span class="math inline">\(\Vert
+g\Vert_{G^\star}=\Vert x_0\Vert^2\)</span>, 依据定义可立马得到, <span
 class="math display">\[
-\begin{aligned}
-    V_j&amp;=\frac{1}{N}\sum_{k=1}^N\widetilde{V}_ke^{\frac{2\pi
-i(j-1)(k-1)}{N}}\\
-    \widetilde{V}_j&amp;=\sum_{j=1}^N V_j e^{\frac{-2\pi
-i(j-1)(k-1)}{N}}
-\end{aligned}
-\]</span> 这一形式实际上和我们上述理论推导使用的形式是同一个,
-下面我们给出变形过程, 使二者在形式上达成一致. <span
-class="math display">\[
-\begin{aligned}
-u_j&amp;=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_ke^{ikx_j}\\
-&amp;=\sum_{k=0}^{\frac{N}{2}}\widetilde{u}_ke^{ikx_j}+\sum_{k=-\frac{N}{2}}^{-1}\widetilde{u}_ke^{ikx_j}   \\
-&amp;=\sum_{k=0}^{\frac{N}{2}}\widetilde{u}_ke^{ikx_j}+\sum_{k=\frac{N}{2}}^{N-1}\widetilde{u}_ke^{ikx_j}\\
-&amp;=\frac{1}{N}\sum_{k=1}^N\hat{u}_ke^{ikx_j},
-\end{aligned}
-\]</span> 其中 <span
-class="math inline">\(\hat{u}_k=\left\{\begin{aligned}&amp;\widetilde{u}_k,\quad
-k\not=\frac{N}{2}\\
-&amp;\widetilde{u}_{\frac{N}{2}}+\widetilde{u}_{-\frac{N}{2}}=2\widetilde{u}_{\frac{N}{2}},\quad
-k=\frac{N}{2}\end{aligned}\right..\)</span></p>
-<p>上面我们已经介绍了DFT的系数, 并且发现了在 Matlab
-编写程序过程中需要修改一下 DFT 的系数分布, 我们下面就对理论的 DFT
-的系数和 Matlab 的 DFT 的系数进行比较.</p>
-<style>
-.center 
-{
-  width: auto;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
-<p align="center">
-Table 1 理论上 DFT 对应的系数
-</p>
-<div class="center">
-<table style="width:100%;">
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">基</th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{-\frac{N}{2}ix}\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{0}\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{ix}\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{i\frac{N}{2}x}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">坐标</td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{u}_{-\frac{N}{2}}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{u}_{0}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{u}_{1}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{u}_{\frac{N}{2}}\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-<style>
-.center 
-{
-  width: auto;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
-<p align="center">
-Table 2 Matlab上实现的 DFT 对应的系数
-</p>
-<div class="center">
-<table>
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">对应的理论基</th>
-<th style="text-align: center;"><span
-class="math inline">\(e^0\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{i(\frac{N}{2}-1)x}\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{i\frac{N}{2}x}\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{i(-\frac{N}{2}+1)x}\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></th>
-<th style="text-align: center;"><span
-class="math inline">\(e^{-ix}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">基</td>
-<td style="text-align: center;"><span
-class="math inline">\(e^{0}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(e^{(\frac{N}{2}-1)ix}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(e^{\frac{N}{2}ix}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(e^{i(\frac{N}{2}+1)x}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(e^{i(N-1)x}\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">坐标</td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{v}_{1}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{v}_{\frac{N}{2}}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{v}_{\frac{N}{2}+1}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{v}_{\frac{N}{2}+2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\widetilde{v}_{N}\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">j</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{N}{2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{N}{2}+1\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{N}{2}+2\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\cdots\)</span></td>
-<td style="text-align: center;">N</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>上述两种 DFT 系数之间的关系如下所示: <span class="math display">\[
-\begin{aligned}
-    &amp;(u_0,v_1),\cdots,(u_{\frac{N}{2}-2},v_{\frac{N}{2}-1}),(u_{\frac{N}{2}-1},v_{\frac{N}{2}}),(u_{\frac{N}{2}},v_{\frac{N}{2}+1}),(u_{\frac{N}{2}+1},u_{\frac{N}{2}+1}),\cdots,(u_{N-1},v_N),\\
-    &amp;(\widetilde{u}_0,\frac{1}{N}\widetilde{v}_1),\cdots,(\widetilde{u}_{\frac{N}{2}-2},\frac{1}{N}\widetilde{v}_{\frac{N}{2}-1}),(\widetilde{u}_{\frac{N}{2}-1},\frac{1}{N}\widetilde{v}_{\frac{N}{2}}),(2\widetilde{u}_{\frac{N}{2}},\frac{1}{N}\widetilde{v}_{\frac{N}{2}+1}),(\widetilde{u}_{-\frac{N}{2}+1},\frac{1}{N}\widetilde{v}_{\frac{N}{2}+2}),\cdots,(\widetilde{u}_{-1},\frac{1}{N}\widetilde{v}_{N}).
-\end{aligned}
-\]</span> 其中 <span class="math inline">\((\cdot,\cdot)\)</span>
-的含义表示二者的数值相等.</p>
-<p>同样和上述过程可以对 <span class="math inline">\(f\)</span> 作 DFT
-并以 Matlab 形式给出 <span class="math display">\[
-f\Rightarrow f_0,\cdots,f_{N-1}\Rightarrow
-g_1,\cdots,g_N\Rightarrow\widetilde{g}_1,\cdots,\widetilde{g}_N\rightarrow\widetilde{f}_0\cdots,\widetilde{f}_{N-1}
-\]</span></p>
-<p>我们先考虑 <span class="math inline">\(u_x=f\)</span>, 其中 <span
-class="math inline">\(u\)</span> 用 <span
-class="math inline">\(u_N=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\hat{u}_ke^{ikx}\)</span>
-截断, <span class="math display">\[
-\begin{aligned}
-\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\widetilde{u}_k(e^{ikx})_x=\sum_{k=-\frac{N}{2}}^{\frac{N}{2}}\hat{f}_k&amp;e^{ikx},\
-\hat{f}_k=\frac{1}{c_kN}\sum_{j=0}^{N-1}f(x_j)e^{-ikx_j},\
-k=-\frac{N}{2},\cdots,\frac{N}{2}\\
-&amp;\therefore ik\widetilde{u}_k=\widetilde{f}_k,\
-k=-\frac{N}{2},\cdots,\frac{N}{2}
-\end{aligned}
-\]</span> 记 <span class="math inline">\(\hat{c}_k=k\)</span>, <span
-class="math inline">\(\hat{c}=(c_{-\frac{N}{2}},\cdots,c_{\frac{N}{2}}),\
-\widetilde{u}=(\widetilde{u}_{-\frac{N}{2}},\cdots,\widetilde{u}_{\frac{N}{2}}),\
-\widetilde{f}=(\widetilde{f}_{-\frac{N}{2}},\cdots,\widetilde{f}_{\frac{N}{2}})\)</span>.
-所以我们可以将上面的分量形式的方程给出向量形式的方程: <span
-class="math display">\[ic.*\widetilde{u}=\widetilde{f}\]</span>
-下面我们考虑在 Matlab 中的实现, 根据我们上面的推导,我们知道这条式子
-<span class="math inline">\((u,f)\leftrightarrow(v,g)\)</span>
-在一定对应关系下是成立的. 同样我们可以写出向量形式的方程如下所示: <span
-class="math display">\[
-iD.*\widetilde{v}=\widetilde{g},\
-\widetilde{v}=(\widetilde{v}_1,\cdots,\widetilde{v}_N),\
-D=(0,\cdots,\frac{N}{2}-1,\frac{N}{2},-\frac{N}{2}+1,\cdots,-2,-1)
-\]</span> 但我们通常看到的形式其实并不是这样, 因为 <span
-class="math inline">\(e^{ikx}=e^{i(k+N)x}\)</span> 仅在离散的意义下相等,
-而在倒数意义下其实并不一致.
-因此我们可以导出一个其他教材上比较常见的形式: <span
-class="math display">\[
-iK.*\widetilde{v}=\widetilde{g},\
-K=(0,\cdots,\frac{N}{2}-1,0,-\frac{N}{2}+1,\cdots,-2,-1)
-\]</span> 其中第 <span class="math inline">\(\frac{N}{2}+1\)</span>
-个元素为0的原因是 <span
-class="math inline">\((e^{\frac{N}{2}ix})&#39;+(e^{-\frac{N}{2}ix})&#39;=0\)</span></p>
-<p>我们从上面的推导过程中可以知道计算一个 <span
-class="math inline">\(\widetilde{g}_k=\sum_{j=0}^{N-1}g_je^{-ikx_j}\)</span>
-需要 <span class="math inline">\(\mathcal{O}(N)\)</span> 的时间复杂度,
-而且 <span class="math inline">\(\widetilde{g}_k\)</span> 一共有 <span
-class="math inline">\(N\)</span> 个, 所以我们可以知道这样计算一次 <span
-class="math inline">\(\widetilde{g}\)</span>, 需要 <span
-class="math inline">\(\mathcal{O}(N^2)\)</span>.
-因此我们开始考虑是否存在一个更为快速的方法来计算得到 <span
-class="math inline">\(\widetilde{g}\)</span>.</p>
-<p><strong>Fast Fourier Transform(FFT)</strong></p>
-<p>我们先考虑快速乘法: <span class="math display">\[
-A(x)=a_0+a_1x+\cdots+a_{n-1}x^{n-1},\ n\text{为}2\text{的幂次}
-\]</span> 求 <span class="math inline">\(A(x)\)</span> 在 <span
-class="math inline">\(x_0\dots x_{n-1}\)</span> 上的值, 其中 <span
-class="math inline">\(x_0,\dots,x_{n-1}\)</span> 是 <span
-class="math inline">\(x^n-1=0\)</span> 的根, <span
-class="math inline">\(x_k=e^{i\frac{2\pi}{n}k}\)</span>. 注意到, <span
-class="math inline">\(x_{k+\frac{n}{2}}=-x_k,\
-(x_{k+\frac{n}{2}})^2=(x_k)^2\)</span>. <span class="math display">\[
-\begin{aligned}
-A^{[0]}(x)&amp;=a_0+a_2x+\cdots+a_{n-2}x^{\frac{n}{2}-1}\\
-A^{[1]}(x)&amp;=a_1+a_3x+\cdots+a_{n-1}x^{\frac{n}{2}-1}\\
-\end{aligned}
-\]</span> <span class="math display">\[
-\left\{
-\begin{aligned}
-    A^{[0]}(x^2)&amp;=a_0+a_2x^2+\cdots+a_{n-2}x^{n-2}\\
-    A^{[1]}(x)&amp;=a_1+a_3x^2+\cdots+a_{n-1}x^{n-2}
-\end{aligned}
-\Rightarrow A(x)=A^{[0]}(x^2)+xA^{[1]}(x^2)
-\right.
-\]</span> 相当于将 <span class="math inline">\(A(x)\)</span> 在 <span
-class="math inline">\(x_0,\dots,x_{n-1}\)</span> 的求值问题分解成了
-<span class="math inline">\(A^{[0]}(x^2),\ A^{[1]}(x^2)\)</span> 在
-<span class="math inline">\(x_0,\dots,x_{n-1}\)</span>
-的求值问题.我们假设原问题的计算规模是 <span
-class="math inline">\(T(n)\)</span>,
-那么我们可以得到分解的计算规模的计算公式如下: <span
-class="math display">\[
-T(n)=2T(\frac{n}{2})+n=2(2T(\frac{n}{4})+\frac{n}{2})+2=\cdots=nT(1)+n\log(n)\approx
-n\log n
-\]</span></p>
+\Vert g\Vert_{G^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x=tx_0\end{aligned}}|g(tx_0)|=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x=tx_0\end{aligned}}t\Vert x_0\Vert^2=\Vert x_0\Vert.
+\]</span> 根据 Corollary 1的结果, 存在 <span
+class="math inline">\(f_0\in E^\star\)</span> 满足 <span
+class="math inline">\(\Vert f_0\Vert_{E^\star}=\Vert
+g\Vert_{G^\star}=\Vert x_0\Vert.\)</span> 和 <span
+class="math inline">\(&lt;f_0,x_0&gt;=f_0(x_0)=g(x_0)=\Vert
+x_0\Vert^2.\)</span></p>
+<p><strong><font color='red'>Remark 4.</font></strong>
+<font color='red'>上面我们讨论的<span class="math inline">\(f_0\)</span>
+并不是唯一的. 只有当 <span class="math inline">\(E^\star\)</span>
+严格凸, 例如当 <span class="math inline">\(E\)</span> 是 Hilbert
+空间或者 <span class="math inline">\(E\)</span> 是 <span
+class="math inline">\(L^p\)</span> 空间<span
+class="math inline">\((1&lt;p&lt;\infty)\)</span>, <span
+class="math inline">\(f_0\)</span>唯一. 记 <span
+class="math inline">\(\forall x_0\in E, F(x_0)=\{f_0\in E^\star|\Vert
+f_0\Vert=\Vert x_0\Vert,\ &lt;f_0,x_0&gt;=\Vert x_0\Vert^2\}\)</span>.
+一般而言, 映射 <span class="math inline">\(d: x_0\to F(x_0)\)</span>
+是多值映射, 我们称映射 <span class="math inline">\(d\)</span> 为 <span
+class="math inline">\(E\)</span> 到 <span
+class="math inline">\(E^\star\)</span> 的对偶映射.</font></p>
+<p><strong><font color='red'>Remark 5.</font></strong>
+<font color='red'>我们称赋范向量空间 <span
+class="math inline">\(E\)</span> 是严格凸的, 如果 <span
+class="math inline">\(\forall x,y\in E,\ \Vert x\Vert=\Vert y\Vert=1,\
+x\not=y\)</span>, 有<span class="math inline">\(\Vert
+tx+(1-t)y\Vert&lt;1,\ \forall t\in(0,1)\)</span>.</font></p>
+<p><strong>Corollary 3</strong> <span class="math inline">\(\forall x\in
+E\)</span> 有 <span class="math display">\[\Vert
+x\Vert=\sup_{\scriptsize \begin{aligned}&amp;\Vert
+f\Vert_{E^\star}\leq1\\&amp;f\in
+E^\star\end{aligned}}|&lt;f,x&gt;|=\max_{\scriptsize
+\begin{aligned}&amp;\Vert f\Vert_{E^\star}\leq1\\&amp;f\in
+E^\star\end{aligned}}|&lt;f,x&gt;|\]</span>.</p>
+<p><strong>Proof.</strong> 若 <span
+class="math inline">\(x\not=0\)</span>, 显然有 <span
+class="math inline">\(|f(x)|\leq\Vert f\Vert\Vert x\Vert\)</span>,
+也就是 <span class="math display">\[
+\sup_{\scriptsize \begin{aligned}&amp;\Vert
+f\Vert_{E^\star}\leq1\\&amp;f\in
+E^\star\end{aligned}}|&lt;f,x&gt;|\leq\Vert x\Vert
+\]</span> 根据 Corollary 2的结果知, <span class="math inline">\(\exists
+f_0\in E^\star\)</span> 满足 <span class="math inline">\(\Vert
+f_0\Vert=\Vert x\Vert,\ &lt;f_0,x&gt;=\Vert x\Vert^2\)</span>. 我们记
+<span class="math inline">\(f_1=f_0/\Vert x\Vert\)</span>, 则 <span
+class="math inline">\(\Vert f_1\Vert=1\)</span> 且 <span
+class="math inline">\(&lt;f_1,x&gt;=\Vert x\Vert\)</span>.</p>
 ]]></content>
       <categories>
-        <category>Spectral Method</category>
+        <category>Functional Analysis</category>
       </categories>
       <tags>
         <tag>Math</tag>
-        <tag>Computing Science</tag>
+        <tag>Functional Analysis</tag>
       </tags>
   </entry>
 </search>
