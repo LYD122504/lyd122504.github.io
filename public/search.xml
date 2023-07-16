@@ -1801,277 +1801,188 @@ face is bounded by a cycle.</font></p>
   <entry>
     <title>Functional Analysis—Hahn-Banach Theorem</title>
     <url>/2023/06/19/functional-1/</url>
-    <content><![CDATA[<h3 id="hahn-banach定理的解析形式--线性泛函延拓">1.1
-Hahn-Banach定理的解析形式--线性泛函延拓</h3>
-<p><strong>Theorem 1.1 (H-B定理解析形式)</strong><span
-class="math inline">\(\quad\)</span> 设映射 <span
-class="math inline">\(p:E\to\mathbb{R}\)</span> 满足 <span
-class="math display">\[
+    <content><![CDATA[<h3 id="1-1-Hahn-Banach定理的解析形式—线性泛函延拓"><a href="#1-1-Hahn-Banach定理的解析形式—线性泛函延拓" class="headerlink" title="1.1 Hahn-Banach定理的解析形式—线性泛函延拓"></a>1.1 Hahn-Banach定理的解析形式—线性泛函延拓</h3><p><strong>Theorem 1.1 (H-B定理解析形式)</strong>$\quad$ 设映射 $p:E\to\mathbb{R}$ 满足</p>
+<script type="math/tex; mode=display">
 \begin{align}
-&amp;p(\lambda x)=\lambda p(x),\ \forall x\in E ,\ \lambda&gt;0\\
-&amp;p(x+y)\leq p(x)+p(y),\ \forall x,y\in E
-\end{align}
-\]</span> 此外, <span class="math inline">\(G\)</span> 为 <span
-class="math inline">\(E\)</span> 上的线性子空间以及线性泛函 <span
-class="math inline">\(g:G\to\mathbb{R}\)</span> 满足 <span
-class="math display">\[
+&p(\lambda x)=\lambda p(x),\ \forall x\in E ,\ \lambda>0\\
+&p(x+y)\leq p(x)+p(y),\ \forall x,y\in E
+\end{align}</script><p>此外, $G$ 为 $E$ 上的线性子空间以及线性泛函 $g:G\to\mathbb{R}$ 满足</p>
+<script type="math/tex; mode=display">
 \begin{align}
 g(x)\leq p(x),\ \forall x\in G
-\end{align}
-\]</span> 那么存在 <span class="math inline">\(E\)</span> 上的线性泛函
-<span class="math inline">\(f\)</span> 延拓 <span
-class="math inline">\(g\)</span>, 即 <span
-class="math inline">\(f(x)=g(x),\ \forall x\in G\)</span> 且成立 <span
-class="math inline">\(f(x)\leq p(x),\ \forall x\in E\)</span>.
-<span id="more"></span></p>
-<p><strong>Zorn 引理</strong> 在介绍 Zorn 引理之前,
-我们先介绍一些后续将会用到的符号.</p>
-<p>设 <span class="math inline">\((P,\leq)\)</span>
-是一个有序集(偏序集), 我们称子集 <span class="math inline">\(Q\subset
-P\)</span> 完全有序, 若对于 <span class="math inline">\(Q\)</span>
-中任意一对 <span class="math inline">\(a,b\)</span> 有序关系 <span
-class="math inline">\(a\leq b\)</span>, <span
-class="math inline">\(b\leq a\)</span> 或者二者同时成立.</p>
-<p><strong><font color='red'>Remark 1.</font></strong>
-<font color='red'>完全有序指集 <span class="math inline">\(Q\)</span>
-中所有元素都可进行比较序关系,例如数集</font></p>
-<p>设子集 <span class="math inline">\(Q\subset P\)</span>, 称 <span
-class="math inline">\(c\in P\)</span> 是 <span
-class="math inline">\(Q\)</span> 的上界, 如果 <span
-class="math inline">\(\forall x\in Q\)</span> 都有 <span
-class="math inline">\(x\leq c\)</span> 成立. 称 <span
-class="math inline">\(m\in P\)</span> 是 <span
-class="math inline">\(P\)</span> 的极大元, 如果不存在 <span
-class="math inline">\(P\)</span> 中的元素 <span
-class="math inline">\(x\)</span> 满足 <span class="math inline">\(m\leq
-x\)</span>, 除了 <span class="math inline">\(m=x\)</span>.</p>
-<p><strong><font color='red'>Remark 2.</font></strong>
-<font color='red'>我们上面定义的极大元和最大元是不一样的, 具体的差异是,
-极大元指的是在能够比较的元素之中没有比他大的元素,
-而最大元则要求他能和全部元素可比且没有比他大的元素</font></p>
-<p>我们称集合 <span class="math inline">\(P\)</span> 是诱导的 <span
-class="math inline">\((\text{inductive})\)</span>, 如果 <span
-class="math inline">\(P\)</span> 的任意完全有序子集均有上界</p>
+\end{align}</script><p>那么存在 $E$ 上的线性泛函 $f$ 延拓 $g$, 即 $f(x)=g(x),\ \forall x\in G$ 且成立 $f(x)\leq p(x),\ \forall x\in E$.<br><span id="more"></span></p>
+<p><strong>Zorn 引理</strong><br>在介绍 Zorn 引理之前, 我们先介绍一些后续将会用到的符号.</p>
+<p>设 $(P,\leq)$ 是一个有序集(偏序集), 我们称子集 $Q\subset P$ 完全有序, 若对于 $Q$ 中任意一对 $a,b$ 有序关系 $a\leq b$, $b\leq a$ 或者二者同时成立.</p>
+<p><strong><font color='red'>Remark 1.</font></strong> <font color='red'>完全有序指集 $Q$ 中所有元素都可进行比较序关系,例如数集</font></p>
+<p>设子集 $Q\subset P$, 称 $c\in P$ 是 $Q$ 的上界, 如果 $\forall x\in Q$ 都有 $x\leq c$ 成立. 称 $m\in P$ 是 $P$ 的极大元, 如果不存在 $P$ 中的元素 $x$ 满足 $m\leq x$, 除了 $m=x$.</p>
+<p><strong><font color='red'>Remark 2.</font></strong> <font color='red'>我们上面定义的极大元和最大元是不一样的, 具体的差异是, 极大元指的是在能够比较的元素之中没有比他大的元素, 而最大元则要求他能和全部元素可比且没有比他大的元素</font></p>
+<p>我们称集合 $P$ 是诱导的 $(\text{inductive})$, 如果 $P$ 的任意完全有序子集均有上界 </p>
 <p><strong>Zorn Lemma</strong> 任意非空有序(偏序)的诱导集合有极大元</p>
-<p><strong>Proof of Theorem 1.1</strong></p>
-<p><strong><font color='red'>Key:</font></strong>
-<font color='red'>定义一个集合 <span class="math inline">\(P\)</span>
-和其上的偏序关系 <span class="math inline">\(\leq\)</span>,
-证明其是诱导的, 构造其极大元.</font></p>
+<p><strong>Proof of Theorem 1.1</strong> </p>
+<p><strong><font color='red'>Key:</font></strong> <font color='red'>定义一个集合 $P$ 和其上的偏序关系 $\leq$, 证明其是诱导的, 构造其极大元.</font></p>
 <p>考虑这样的集合</p>
-<p><span class="math display">\[
-P=\left\{h:D(h)\subset E\to\mathbb{R}\left|\begin{aligned}&amp;D(h)\
-\text{is a linear subspace of}\ E\\&amp;h\ \text{is linear},\ G\subset
-D(h)\\&amp;h\ \text{extends}\ g,\ \text{and}\ h(x)\leq p(x),\ \forall
-x\in D(h)\end{aligned}\right.\right\}
-\]</span> 在 <span class="math inline">\(P\)</span> 上我们赋予偏序关系
-<span class="math inline">\(\leq\)</span>, 即 <span
-class="math display">\[
-h_1\leq h_2\Leftrightarrow D(h_1)\subset D(h_2),\ h_2\ \text{延拓}\ h_1.
-\]</span> 显然 <span class="math inline">\(P\)</span> 非空, 因为 <span
-class="math inline">\(g\in P\)</span>.</p>
-<p>下面我们要说明 <span class="math inline">\(P\)</span> 是一个诱导集,
-也就是我们要说明任意一个 <span class="math inline">\(P\)</span>
-的完全有序子集都有上界.</p>
-<p>我们假设 <span class="math inline">\(Q\subset P\)</span>
-是一个完全有序集合, 我们可以记 <span
-class="math inline">\(Q=\{h_i\}_{i\in I}\)</span> (<span
-class="math inline">\(I\)</span> 是指标集), 我们定义一个线性泛函 <span
-class="math inline">\(h\)</span> 满足 <span class="math display">\[
-D(h)=\bigcup_{i\in I} D(h_i),\quad h(x)=h_i(x),\ \text{if}\ x\in D(h_i)
-\]</span> <strong><font color='red'>Remark 3.</font></strong>
-<font color='red'>对于定义的线性泛函 <span
-class="math inline">\(h\)</span> 是否是良定义的, 我们给出一定的说明.
-如果 <span class="math inline">\(D(h_1)\bigcap
-D(h_2)\not=\emptyset\)</span>, 因为 <span
-class="math inline">\(Q\)</span> 是完全有序的, 因此我们不妨假设序关系
-<span class="math inline">\(h_1\leq h_2\)</span> 成立, 故 <span
-class="math inline">\(h_2\)</span> 延拓了 <span
-class="math inline">\(h_1\)</span>, 即 <span
-class="math inline">\(h_2(x)=h_1(x),\ \forall x\in D(h_2)\bigcap
-D(h_1).\)</span></font></p>
-<p>显然 <span class="math inline">\(h\in P\)</span> 且 <span
-class="math inline">\(h\)</span> 是 <span
-class="math inline">\(Q\)</span> 的上界(指定义的伴序关系下的上界).
-因此根据 Zorn Lemma 知, 我们构造的 <span
-class="math inline">\(P\)</span> 存在极大元, 不妨设其为 <span
-class="math inline">\(f\)</span>. 下面我们证明 <span
-class="math inline">\(D(f)=E\)</span>, 我们采用反证法的技巧.</p>
-<p>如果 <span class="math inline">\(D(f)\not=E\)</span>, 也就是说存在
-<span class="math inline">\(x_0\in E\)</span> 但是 <span
-class="math inline">\(x_0\not\in D(f)\)</span>. 我们构造一个 <span
-class="math inline">\(E\)</span> 的子集 <span
-class="math inline">\(D(h)=D(f)+\mathbb{R} x_0\)</span>,
-其对应的线性泛函是 <span class="math inline">\(h\)</span>, 其满足 <span
-class="math display">\[
-h(x+tx_0)=f(x)+t\alpha,\ (t\in \mathbb{R},\ \forall x\in D(f))
-\]</span> 其中的常数 <span class="math inline">\(\alpha\)</span>
-我们将在后续讨论中给出取值方法. 我们为了推出矛盾, 要验证 <span
-class="math inline">\(h\in P\)</span>, 也就是通过选取 <span
-class="math inline">\(\alpha\)</span> 来保证 <span
-class="math inline">\(f(x)+t\alpha\leq p(x+tx_0),\ \forall t\in
-\mathbb{R},\ \forall x\in D(f)\)</span> 成立.</p>
-<p>由 (1) 式知, 我们只需要保证下式成立即可, <span
-class="math display">\[
+<script type="math/tex; mode=display">
+P=\left\{h:D(h)\subset E\to\mathbb{R}\left|\begin{aligned}&D(h)\ \text{is a linear subspace of}\ E\\&h\ \text{is linear},\ G\subset D(h)\\&h\ \text{extends}\ g,\ \text{and}\ h(x)\leq p(x),\ \forall x\in D(h)\end{aligned}\right.\right\}</script><p>在 $P$ 上我们赋予偏序关系 $\leq$, 即</p>
+<script type="math/tex; mode=display">
+h_1\leq h_2\Leftrightarrow D(h_1)\subset D(h_2),\ h_2\ \text{延拓}\ h_1.</script><p>显然 $P$ 非空, 因为 $g\in P$. </p>
+<p>下面我们要说明 $P$ 是一个诱导集, 也就是我们要说明任意一个 $P$ 的完全有序子集都有上界.</p>
+<p>我们假设 $Q\subset P$ 是一个完全有序集合, 我们可以记 $Q={h<em>i}</em>{i\in I}$ ($I$ 是指标集), 我们定义一个线性泛函 $h$ 满足</p>
+<script type="math/tex; mode=display">
+D(h)=\bigcup_{i\in I} D(h_i),\quad h(x)=h_i(x),\ \text{if}\ x\in D(h_i)</script><p><strong><font color='red'>Remark 3.</font></strong> <font color='red'>对于定义的线性泛函 $h$ 是否是良定义的, 我们给出一定的说明. 如果 $D(h_1)\bigcap D(h_2)\not=\emptyset$, 因为 $Q$ 是完全有序的, 因此我们不妨假设序关系 $h_1\leq h_2$ 成立, 故 $h_2$ 延拓了 $h_1$, 即 $h_2(x)=h_1(x),\ \forall x\in D(h_2)\bigcap D(h_1).$</font></p>
+<p>显然 $h\in P$ 且 $h$ 是 $Q$ 的上界(指定义的伴序关系下的上界). 因此根据 Zorn Lemma 知, 我们构造的 $P$ 存在极大元, 不妨设其为 $f$. 下面我们证明 $D(f)=E$, 我们采用反证法的技巧.</p>
+<p>如果 $D(f)\not=E$, 也就是说存在 $x_0\in E$ 但是 $x_0\not\in D(f)$. 我们构造一个 $E$ 的子集 $D(h)=D(f)+\mathbb{R} x_0$, 其对应的线性泛函是 $h$, 其满足</p>
+<script type="math/tex; mode=display">
+h(x+tx_0)=f(x)+t\alpha,\ (t\in \mathbb{R},\ \forall x\in D(f))</script><p>其中的常数 $\alpha$ 我们将在后续讨论中给出取值方法. 我们为了推出矛盾, 要验证 $h\in P$, 也就是通过选取 $\alpha$ 来保证 $f(x)+t\alpha\leq p(x+tx_0),\ \forall t\in \mathbb{R},\ \forall x\in D(f)$ 成立.</p>
+<p>由 (1) 式知, 我们只需要保证下式成立即可,</p>
+<script type="math/tex; mode=display">
 \left\{\begin{aligned}
-&amp;f(x)+\alpha\leq p(x+x_0)\\
-&amp;f(x)-\alpha\leq p(x-x_0)
-\end{aligned}\right.
-\]</span> 由于二者等价性比较显然, 我们隐去不谈. 根据上式知, 我们选取
-<span class="math inline">\(\alpha\)</span> 满足 <span
-class="math display">\[\sup_{y\in
-D(f)}\{f(y)-p(y-x_0)\}\leq\alpha\leq\inf_{x\in
-D(f)}\{p(x+x_0)-f(x)\}\]</span> 下面我们只用说明这样的 <span
-class="math inline">\(\alpha\)</span> 是存在的, <span
-class="math display">\[
+&f(x)+\alpha\leq p(x+x_0)\\
+&f(x)-\alpha\leq p(x-x_0)
+\end{aligned}\right.</script><p>由于二者等价性比较显然, 我们隐去不谈. 根据上式知, 我们选取 $\alpha$ 满足 <script type="math/tex">\sup_{y\in D(f)}\{f(y)-p(y-x_0)\}\leq\alpha\leq\inf_{x\in D(f)}\{p(x+x_0)-f(x)\}</script><br>下面我们只用说明这样的 $\alpha$ 是存在的,</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\qquad f(x)+f(y)=f(x+y)\leq p(x+y)\leq p(y-x_0)+p(x+x_0)\\
-&amp;\Rightarrow f(y)-p(y-x_0)\leq p(x+x_0)-f(x)
-\end{aligned}
-\]</span> 这代表 <span class="math inline">\(\alpha\)</span> 是存在的,
-因此 <span class="math inline">\(h\in P\)</span> 且 <span
-class="math inline">\(f\leq h\)</span>, 这与 <span
-class="math inline">\(f\)</span> 是极大元矛盾. 因此 <span
-class="math inline">\(D(f)=E.\)</span></p>
-<p>考虑 H-B 定理的应用, 考虑集合 <span class="math inline">\(E\)</span>
-是赋范向量空间(n. v. s.)</p>
-<p>范数本质上也是一种映射 <span
-class="math inline">\(\Vert\cdot\Vert:E\to\mathbb{R}\)</span> 满足 <span
-class="math display">\[
+&\qquad f(x)+f(y)=f(x+y)\leq p(x+y)\leq p(y-x_0)+p(x+x_0)\\
+&\Rightarrow f(y)-p(y-x_0)\leq p(x+x_0)-f(x)
+\end{aligned}</script><p>这代表 $\alpha$ 是存在的, 因此 $h\in P$ 且 $f\leq h$, 这与 $f$ 是极大元矛盾. 因此 $D(f)=E.$</p>
+<p>考虑 H-B 定理的应用, 考虑集合 $E$ 是赋范向量空间(n. v. s.) </p>
+<p>范数本质上也是一种映射 $\Vert\cdot\Vert:E\to\mathbb{R}$ 满足</p>
+<script type="math/tex; mode=display">
 \begin{align}
-&amp;\Vert x+y\Vert\leq\Vert x\Vert+\Vert y\Vert,\ \forall x,y\in E\\
-&amp;\Vert\alpha x\Vert=|\alpha|\Vert x\Vert,\ \alpha\in\mathbb{R},\
-\forall x\in E\\
-&amp;\Vert x\Vert=0\Rightarrow x=0(\text{此处 }0\text{
-并不是简单的数,而是向量空间的零元})
-\end{align}
-\]</span> 我们记 <span class="math inline">\(E^\star\)</span> 为 <span
-class="math inline">\(E\)</span> 的对偶空间, 即 <span
-class="math inline">\(E\)</span> 上定义的所有连续线性泛函构成的空间,
-同样我们可以构造 <span class="math inline">\(E^\star\)</span> 上的范数为
-<span class="math display">\[
-\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x\in
-E\end{aligned}}|f(x)|=\sup_{\scriptsize   \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x\in E\end{aligned}}f(x)
-\]</span> <span class="math inline">\(\forall f\in E^\star, x\in
-E\)</span>, 我们称 <span class="math inline">\(&lt;f,x&gt;=f(x)\)</span>
-且称 <span class="math inline">\(&lt;\cdot,\cdot&gt;\)</span>
-是定义在对偶集 <span class="math inline">\(E,E^\star\)</span>
-的数量积.</p>
-<p><strong>Proposition</strong> <span
-class="math inline">\(E^\star\)</span> 是一个 Banach 空间,
-尽管我们并没有给出 <span class="math inline">\(E\)</span> 的完备性.
-<strong>Proof</strong> 我们要证明 <span
-class="math inline">\(E^\star\)</span> 是 Banach 空间, 等价于证明 <span
-class="math inline">\(\forall \{f_n\}\subset E^\star\)</span> 是 Cauchy
-列, 则 <span class="math inline">\(\exists f\in E^\star,\ f_n\to
-f\)</span>.</p>
-<p><span class="math inline">\(\forall x\in E\)</span>, 有 <span
-class="math inline">\(|f_n(x)-f_m(x)|\leq\Vert f_n-f_m\Vert\cdot\Vert
-x\Vert\)</span>, 且由于 <span class="math inline">\(f_n\)</span> 是
-<span class="math inline">\(E^\star\)</span> 上的 Cauchy 列, 故 <span
-class="math inline">\(\Vert f_n-f_m\Vert\to 0,\ n,m\to \infty\)</span>.
-因此 <span class="math inline">\(\forall x\in E\)</span>, 有 <span
-class="math inline">\(|f_n(x)-f_m(x)|\to 0,\ n,m\to \infty\)</span>, 即
-<span class="math inline">\(f_n(x)\)</span> 是 <span
-class="math inline">\(\mathbb{R}\)</span> 上的 Cauchy 列, <span
-class="math inline">\(f_n(x)\)</span> 收敛, 不妨我们记其收敛到 <span
-class="math inline">\(f(x)\)</span>.</p>
-<p>下面我们仅需要说明 <span class="math inline">\(f_n\)</span> 在 <span
-class="math inline">\(E^\star\)</span> 上是收敛到 <span
-class="math inline">\(f\)</span> 的, 也就是说, <span
-class="math inline">\(\forall \epsilon&gt;0,\exists N&gt;0,\forall
-n&gt;N,\Vert f_n-f\Vert\leq\epsilon.\)</span> 显然 <span
-class="math inline">\(f(x)\)</span> 是线性泛函, 由上确界的定义可得 <span
-class="math display">\[
-\forall \epsilon&gt;0,\exists x_0\in E,\ \Vert x_0\Vert=1,\
-|f_n(x_0)-f(x_0)|\geq\Vert f_n-f\Vert-\epsilon.
-\]</span> 两边取上极限得 <span class="math display">\[
-\overline{\lim_{n\to\infty}}\Vert
-f_n-f\Vert\leq\lim_{n\to\infty}|f_n(x_0)-f(x_0)|+\epsilon=\epsilon
-\]</span> 因此证毕.</p>
-<p><strong>Corollary 1</strong> 记 <span
-class="math inline">\(G\)</span> 是 <span
-class="math inline">\(E\)</span> 的子向量空间, 若 <span
-class="math inline">\(g:G\to \mathbb{R}\)</span> 是连续线性泛函, 那么在
-<span class="math inline">\(E^\star\)</span> 中存在一个线性泛函 <span
-class="math inline">\(f\)</span> 延拓了 <span
-class="math inline">\(g\)</span> 且满足 <span class="math display">\[
-\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
+&\Vert x+y\Vert\leq\Vert x\Vert+\Vert y\Vert,\ \forall x,y\in E\\
+&\Vert\alpha x\Vert=|\alpha|\Vert x\Vert,\ \alpha\in\mathbb{R},\ \forall x\in E\\
+&\Vert x\Vert=0\Rightarrow x=0(\text{此处 }0\text{ 并不是简单的数,而是向量空间的零元})
+\end{align}</script><p>我们记 $E^\star$ 为 $E$ 的对偶空间, 即 $E$ 上定义的所有连续线性泛函构成的空间, 同样我们可以构造 $E^\star$ 上的范数为 </p>
+<script type="math/tex; mode=display">
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x\in E\end{aligned}}|f(x)|=\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x\in E\end{aligned}}f(x)</script><p>$\forall f\in E^\star, x\in E$, 我们称 $<f,x>=f(x)$ 且称 $&lt;\cdot,\cdot&gt;$ 是定义在对偶集 $E,E^\star$ 的数量积.</p>
+<p><strong>Proposition</strong> $E^\star$ 是一个 Banach 空间, 尽管我们并没有给出 $E$ 的完备性.</p>
+<p><strong>Proof</strong> 我们要证明 $E^\star$ 是 Banach 空间, 等价于证明 $\forall {f_n}\subset E^\star$ 是 Cauchy 列, 则 $\exists f\in E^\star,\ f_n\to f$.</p>
+<p>$\forall x\in E$, 有 $|f_n(x)-f_m(x)|\leq\Vert f_n-f_m\Vert\cdot\Vert x\Vert$, 且由于 $f_n$ 是 $E^\star$ 上的 Cauchy 列, 故 $\Vert f_n-f_m\Vert\to 0,\ n,m\to \infty$. 因此 $\forall x\in E$, 有 $|f_n(x)-f_m(x)|\to 0,\ n,m\to \infty$, 即 $f_n(x)$ 是 $\mathbb{R}$ 上的 Cauchy 列, $f_n(x)$ 收敛, 不妨我们记其收敛到 $f(x)$.</p>
+<p>下面我们仅需要说明 $f_n$ 在 $E^\star$ 上是收敛到 $f$ 的, 也就是说, $\forall \epsilon&gt;0,\exists N&gt;0,\forall n&gt;N,\Vert f_n-f\Vert\leq\epsilon.$ 显然 $f(x)$ 是线性泛函, 由上确界的定义可得</p>
+<script type="math/tex; mode=display">
+\forall \epsilon>0,\exists x_0\in E,\ \Vert x_0\Vert=1,\ |f_n(x_0)-f(x_0)|\geq\Vert f_n-f\Vert-\epsilon.</script><p>两边取上极限得</p>
+<script type="math/tex; mode=display">
+\overline{\lim_{n\to\infty}}\Vert f_n-f\Vert\leq\lim_{n\to\infty}|f_n(x_0)-f(x_0)|+\epsilon=\epsilon</script><p>因此证毕.</p>
+<p><strong>Corollary 1</strong> 记 $G$ 是 $E$ 的子向量空间, 若 $g:G\to \mathbb{R}$ 是连续线性泛函, 那么在 $E^\star$ 中存在一个线性泛函 $f$ 延拓了 $g$ 且满足</p>
+<script type="math/tex; mode=display">
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}</script><p><strong>Proof.</strong> 我们令 $p(x)=\Vert g\Vert<em>{G^\star}\Vert x\Vert$, 应用 H-B 定理知有 $f(x)\leq p(x)=\Vert g\Vert</em>{G^\star}\Vert x\Vert,\ \forall x\in E$, 因此 $\Vert f\Vert<em>{E^\star}\leq\Vert g\Vert</em>{G^\star}$. 同时有下式成立</p>
+<script type="math/tex; mode=display">
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x\in E\end{aligned}}|f(x)|\geq\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}</script><p>综上所述, $\Vert f\Vert<em>{E^\star}=\Vert g\Vert</em>{G^\star}$.</p>
+<p><strong>Corollary 2</strong> $\forall x<em>0\in E,\ \exists f_0\in E^\star$ 使得 $\Vert f_0\Vert</em>{E^\star}=\Vert x_0\Vert_E$ 且 $<f_0,x_0>=\Vert x_0\Vert^2$.</p>
+<p><strong>Proof.</strong> 考虑 $G=\mathbb{R} x<em>0$ 和 $g(tx_0)=t\Vert x_0\Vert^2$. 下我们说明 $\Vert g\Vert</em>{G^\star}=\Vert x_0\Vert^2$, 依据定义可立马得到,</p>
+<script type="math/tex; mode=display">
+\Vert g\Vert_{G^\star}=\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x=tx_0\end{aligned}}|g(tx_0)|=\sup_{\scriptsize    \begin{aligned}&\Vert x\Vert=1\\&x=tx_0\end{aligned}}t\Vert x_0\Vert^2=\Vert x_0\Vert.</script><p>根据 Corollary 1的结果, 存在 $f<em>0\in E^\star$ 满足 $\Vert f_0\Vert</em>{E^\star}=\Vert g\Vert_{G^\star}=\Vert x_0\Vert.$ 和 $<f_0,x_0>=f_0(x_0)=g(x_0)=\Vert x_0\Vert^2.$</p>
+<p><strong><font color='red'>Remark 4.</font></strong> <font color='red'>上面我们讨论的$f_0$ 并不是唯一的. 只有当 $E^\star$ 严格凸, 例如当 $E$ 是 Hilbert 空间或者 $E$ 是 $L^p$ 空间$(1<p<\infty)$, $f_0$唯一. 记 $\forall x_0\in E, F(x_0)=\{f_0\in E^\star|\Vert f_0\Vert=\Vert x_0\Vert,\ <f_0,x_0>=\Vert x_0\Vert^2}$. 一般而言, 映射 $d: x_0\to F(x_0)$ 是多值映射,\ 我们称映射 $d$ 为 $E$ 到 $E^\star$ 的对偶映射.</font></p>
+<p><strong><font color='red'>Remark 5.</font></strong> <font color='red'>我们称赋范向量空间 $E$ 是严格凸的, 如果 $\forall x,y\in E,\ \Vert x\Vert=\Vert y\Vert=1,\ x\not=y$, 有$\Vert tx+(1-t)y\Vert&lt;1,\ \forall t\in(0,1)$.</font></p>
+<p><strong>Corollary 3</strong> $\forall x\in E$ 有 <script type="math/tex">\Vert x\Vert=\sup_{\scriptsize \begin{aligned}&\Vert f\Vert\leq1\\&f\in E^\star\end{aligned}}|<f,x>|=\max_{\scriptsize \begin{aligned}&\Vert f\Vert\leq1\\&f\in E^\star\end{aligned}}|<f,x>|</script>.</p>
+<p><strong>Proof.</strong> 若 $x\not=0$, 显然有 $|f(x)|\leq\Vert f\Vert\Vert x\Vert$, 也就是</p>
+<script type="math/tex; mode=display">
+\sup_{\scriptsize \begin{aligned}&\Vert f\Vert\leq1\\&f\in E^\star\end{aligned}}|<f,x>|\leq\Vert x\Vert</script><p>根据 Corollary 2的结果知, $\exists f_0\in E^\star$ 满足 $\Vert f_0\Vert=\Vert x\Vert,\ <f_0,x>=\Vert x\Vert^2$. 我们记 $f_1=f_0/\Vert x\Vert$, 则 $\Vert f_1\Vert=1$ 且 $<f_1,x>=\Vert x\Vert$.</p>
+]]></content>
+      <categories>
+        <category>Functional Analysis</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Functional Analysis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Functional Analysis—Geometric Forms</title>
+    <url>/2023/07/03/functional-2/</url>
+    <content><![CDATA[<h3 id="hahn-banach定理几何形式凸集分离">1.2
+Hahn-Banach定理几何形式——凸集分离</h3>
+<p><strong>超平面的定义</strong></p>
+<p>超平面(hyperplane)指 <span class="math inline">\(H\subset E\)</span>
+且其形如 <span class="math inline">\(H=\{x\in
+E|f(x)=\alpha\}=[f=\alpha]\)</span>,其中 <span
+class="math inline">\(f\)</span> 为 <span
+class="math inline">\(E\)</span> 上非恒为 <span
+class="math inline">\(0\)</span> 的线性泛函, <span
+class="math inline">\(\alpha\in\mathbb{R}\)</span>
+为常数,<font color='red'>(<span class="math inline">\(f\)</span>
+不要求连续)</font>, 此时称 <span
+class="math inline">\(f(x)=\alpha\)</span> 是超平面 <span
+class="math inline">\(H\)</span> 的方程. <span id="more"></span>
+我们先针对线性泛函不一定连续这个命题做一些简单的解释.</p>
+<p><strong>Proposition 1</strong> 设 <span
+class="math inline">\(E\)</span> 是无穷维空间,那么存在 <span
+class="math inline">\(E\)</span> 中的Hamel基 <span
+class="math inline">\(\{e_i\}\)</span> 满足 <span
+class="math inline">\(\Vert e_i\Vert=1\)</span>.</p>
+<p><strong>Proof</strong> 我们记 <span class="math inline">\(P\)</span>
+为由 <span class="math inline">\(E\)</span> 中线性无关集构成的集合.显然,
+<span class="math inline">\(P\)</span> 是诱导集,利用 Zorn 引理可以得到
+<span class="math inline">\(P\)</span> 有极大元,不妨我们记其为 <span
+class="math inline">\(\{e_i\}_{i\in I}\)</span>,
+这就是我们所说的Hamel基. 此时找到的基可能不满足 <span
+class="math inline">\(\Vert
+e_i\Vert\not=1\)</span>,我们只需要做一次归一化就可以.</p>
+<p><strong>Proposition 2</strong>
+在上述命题的基础之上，我们可以得到存在这样的函数，他线性但是他不连续。
+<strong>Proof</strong> 因为 <span class="math inline">\(E\)</span>
+是无穷维空间，因此我们可以假设 <span
+class="math inline">\(\mathbb{N}\subset I\)</span>. 那我们就可以构造一个
+<span class="math inline">\(E\)</span> 上的特殊函数 <span
+class="math inline">\(f\)</span>, <span class="math display">\[
+\begin{cases}
+&amp;f(e_i)=i,\ i\in\mathbb{N}\\
+&amp;f(e_i)=0,\ i\in I\backslash\mathbb{N}
+\end{cases}
 \]</span></p>
-<p><strong>Proof.</strong> 我们令 <span class="math inline">\(p(x)=\Vert
-g\Vert_{G^\star}\Vert x\Vert\)</span>, 应用 H-B 定理知有 <span
-class="math inline">\(f(x)\leq p(x)=\Vert g\Vert_{G^\star}\Vert x\Vert,\
-\forall x\in E\)</span>, 因此 <span class="math inline">\(\Vert
-f\Vert_{E^\star}\leq\Vert g\Vert_{G^\star}\)</span>. 同时有下式成立
+<p><strong>Proposition 2</strong> 超平面 <span
+class="math inline">\(H=[f=\alpha]\)</span> 是闭的 <span
+class="math inline">\(\Leftrightarrow\)</span> <span
+class="math inline">\(f\)</span> 是连续的</p>
+<p><strong>Proof</strong> 如果 <span class="math inline">\(f\)</span>
+是连续的,显然有超平面 <span class="math inline">\(H\)</span> 是闭的.
+<br>反之如果 <span class="math inline">\(H\)</span> 是闭的,那么 <span
+class="math inline">\(H^C\)</span> 是开集并且非空<font color='red'>(由
+<span class="math inline">\(f\not\equiv0\)</span> 保证)</font>.设 <span
+class="math inline">\(x_0\in H^C\)</span>,则 <span
+class="math inline">\(f(x_0)\not=\alpha\)</span>.不妨我们假设 <span
+class="math inline">\(f(x_0)&lt;\alpha\)</span>, 我们取<span
+class="math inline">\(r&gt;0\)</span>,使 <span
+class="math inline">\(B(x_0,r)=\{x\in E|\Vert x-x_0\Vert&lt;r\}\subset
+H^C\)</span>,则成立 <span class="math inline">\(f(x)&lt;\alpha,\
+B(x_0,r)\)</span>.事实上,若存在 <span class="math inline">\(x_1\in
+B(x_0,r)\)</span>,使得 <span
+class="math inline">\(f(x_1)&gt;\alpha\)</span>,构造线段 <span
+class="math inline">\(\{x_t=(1-t)x_0+tx_1|t\in[0,1]\}\)</span> 包含在
+<span class="math inline">\(B(x_0,r)\)</span>, 可以由下面的式子保证,
 <span class="math display">\[
-\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x\in
-E\end{aligned}}|f(x)|\geq\sup_{\scriptsize    \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
-\]</span> 综上所述, <span class="math inline">\(\Vert
-f\Vert_{E^\star}=\Vert g\Vert_{G^\star}\)</span>.</p>
-<p><strong>Corollary 2</strong> <span class="math inline">\(\forall
-x_0\in E,\ \exists f_0\in E^\star\)</span> 使得 <span
-class="math inline">\(\Vert f_0\Vert_{E^\star}=\Vert x_0\Vert_E\)</span>
-且 <span class="math inline">\(&lt;f_0,x_0&gt;=\Vert
-x_0\Vert^2\)</span>.</p>
-<p><strong>Proof.</strong> 考虑 <span class="math inline">\(G=\mathbb{R}
-x_0\)</span> 和 <span class="math inline">\(g(tx_0)=t\Vert
-x_0\Vert^2\)</span>. 下我们说明 <span class="math inline">\(\Vert
-g\Vert_{G^\star}=\Vert x_0\Vert^2\)</span>, 依据定义可立马得到, <span
+\Vert x_t-x_0\Vert=\Vert t(x_1-x_0)\Vert\leq\Vert x_1-x_0\Vert&lt;r
+\]</span> 因此线段上的点也满足 <span
+class="math inline">\(f(x_t)\not=\alpha,\ \forall
+t\in[0,1].\)</span></p>
+<p>为了后续导出矛盾,我们选取一个特殊的 <span
+class="math inline">\(t=\frac{\alpha-f(x_0)}{f(x_1)-f(x_0)}\in(0,1)\)</span>,那么有<span
 class="math display">\[
-\Vert g\Vert_{G^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x=tx_0\end{aligned}}|g(tx_0)|=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
-x\Vert=1\\&amp;x=tx_0\end{aligned}}t\Vert x_0\Vert^2=\Vert x_0\Vert.
-\]</span> 根据 Corollary 1的结果, 存在 <span
-class="math inline">\(f_0\in E^\star\)</span> 满足 <span
-class="math inline">\(\Vert f_0\Vert_{E^\star}=\Vert
-g\Vert_{G^\star}=\Vert x_0\Vert.\)</span> 和 <span
-class="math inline">\(&lt;f_0,x_0&gt;=f_0(x_0)=g(x_0)=\Vert
-x_0\Vert^2.\)</span></p>
-<p><strong><font color='red'>Remark 4.</font></strong>
-<font color='red'>上面我们讨论的<span class="math inline">\(f_0\)</span>
-并不是唯一的. 只有当 <span class="math inline">\(E^\star\)</span>
-严格凸, 例如当 <span class="math inline">\(E\)</span> 是 Hilbert
-空间或者 <span class="math inline">\(E\)</span> 是 <span
-class="math inline">\(L^p\)</span> 空间<span
-class="math inline">\((1&lt;p&lt;\infty)\)</span>, <span
-class="math inline">\(f_0\)</span>唯一. 记 <span
-class="math inline">\(\forall x_0\in E, F(x_0)=\{f_0\in E^\star|\Vert
-f_0\Vert=\Vert x_0\Vert,\ &lt;f_0,x_0&gt;=\Vert x_0\Vert^2\}\)</span>.
-一般而言, 映射 <span class="math inline">\(d: x_0\to F(x_0)\)</span>
-是多值映射, 我们称映射 <span class="math inline">\(d\)</span> 为 <span
-class="math inline">\(E\)</span> 到 <span
-class="math inline">\(E^\star\)</span> 的对偶映射.</font></p>
-<p><strong><font color='red'>Remark 5.</font></strong>
-<font color='red'>我们称赋范向量空间 <span
-class="math inline">\(E\)</span> 是严格凸的, 如果 <span
-class="math inline">\(\forall x,y\in E,\ \Vert x\Vert=\Vert y\Vert=1,\
-x\not=y\)</span>, 有<span class="math inline">\(\Vert
-tx+(1-t)y\Vert&lt;1,\ \forall t\in(0,1)\)</span>.</font></p>
-<p><strong>Corollary 3</strong> <span class="math inline">\(\forall x\in
-E\)</span> 有 <span class="math display">\[\Vert
-x\Vert=\sup_{\scriptsize \begin{aligned}&amp;\Vert
-f\Vert_{E^\star}\leq1\\&amp;f\in
-E^\star\end{aligned}}|&lt;f,x&gt;|=\max_{\scriptsize
-\begin{aligned}&amp;\Vert f\Vert_{E^\star}\leq1\\&amp;f\in
-E^\star\end{aligned}}|&lt;f,x&gt;|\]</span>.</p>
-<p><strong>Proof.</strong> 若 <span
-class="math inline">\(x\not=0\)</span>, 显然有 <span
-class="math inline">\(|f(x)|\leq\Vert f\Vert\Vert x\Vert\)</span>,
-也就是 <span class="math display">\[
-\sup_{\scriptsize \begin{aligned}&amp;\Vert
-f\Vert_{E^\star}\leq1\\&amp;f\in
-E^\star\end{aligned}}|&lt;f,x&gt;|\leq\Vert x\Vert
-\]</span> 根据 Corollary 2的结果知, <span class="math inline">\(\exists
-f_0\in E^\star\)</span> 满足 <span class="math inline">\(\Vert
-f_0\Vert=\Vert x\Vert,\ &lt;f_0,x&gt;=\Vert x\Vert^2\)</span>. 我们记
-<span class="math inline">\(f_1=f_0/\Vert x\Vert\)</span>, 则 <span
-class="math inline">\(\Vert f_1\Vert=1\)</span> 且 <span
-class="math inline">\(&lt;f_1,x&gt;=\Vert x\Vert\)</span>.</p>
+f(x_t)=f((1-t)x_0+tx_1)=f(x_0)+t(f(x_1)-f(x_0))=\alpha
+\]</span> 这与 <span class="math inline">\(x_t\in H^C\)</span> 矛盾.
+因此有 <span class="math inline">\(f(x_0+rz)\alpha,\ \forall z\in
+B(0,1)\)</span>,根据 <span class="math inline">\(f\)</span> 是线性的,
+故<span
+class="math inline">\(|f(z)|&lt;\frac{1}{r}(\alpha-f(x_0))\)</span>,因此
+<span class="math inline">\(f\)</span> 满足 <span
+class="math inline">\(\Vert f\Vert\leq
+\frac{1}{r}(\alpha-f(x_0))\)</span>.根据有界算子的特性知,有界性和连续性等价.</p>
+<p><strong>Def</strong> 设 <span class="math inline">\(A\subset E,
+B\subset E\)</span>, 称 <span
+class="math inline">\(H=[f=\alpha]\)</span> 分离 <span
+class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>, 若满足 <span class="math display">\[
+f(x)\leq\alpha,\ \forall x\in A\ \text{and}\ f(x)\geq\alpha,\ \forall
+x\in B.
+\]</span> 进一步,我们称 <span class="math inline">\(H\)</span> 严格分离
+<span class="math inline">\(A,\ B\)</span>,则若 <span
+class="math inline">\(\exists \epsilon&gt;0\)</span>,使 <span
+class="math inline">\(f(x)\leq\alpha-\epsilon,\ \forall x\in A\)</span>
+且 <span class="math inline">\(f(x)\geq\alpha+\epsilon,\ \forall x\in
+B\)</span>.</p>
+<p>我们从几何上来看, <span
+class="math inline">\(A,B\)</span>分别位于由超平面 <span
+class="math inline">\(H\)</span>分割出的两个半平面上,如图所示 <img
+src="https://cdn.staticaly.com/gh/LYD122504/picture@main/20230716/2023-07-16_141025.ho3dyg35ym0.webp" /></p>
 ]]></content>
       <categories>
         <category>Functional Analysis</category>
