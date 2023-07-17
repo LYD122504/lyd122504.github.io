@@ -1983,6 +1983,36 @@ B\)</span>.</p>
 class="math inline">\(A,B\)</span>分别位于由超平面 <span
 class="math inline">\(H\)</span>分割出的两个半平面上,如图所示 <img
 src="https://cdn.staticaly.com/gh/LYD122504/picture@main/20230716/2023-07-16_141025.ho3dyg35ym0.webp" /></p>
+<p>在此重新明确一下凸集的定义: 如果 <span class="math inline">\(x,y\in
+A\)</span>,则要求 <span class="math inline">\(tx+(1-t)y\in A,\
+t\in[0,1].\)</span></p>
+<p><strong>Thm(Hahn-Banach定理第一几何形式)</strong> 设 <span
+class="math inline">\(A\subset E,\ B\subset E\)</span>
+为两个互不相交的非空凸集,若 <span class="math inline">\(A\)</span>
+是开集, 则存在闭的超平面分离 <span class="math inline">\(A,\
+B\)</span>.</p>
+<p>为了证明这个定理,我们先给出几个引理,</p>
+<p><strong>Lemma 1</strong> 设 <span class="math inline">\(C\subset
+E\)</span>是一个凸的开集并且 <span class="math inline">\(0\in
+C\)</span>, 针对任意的<span class="math inline">\(x\in C\)</span>,
+我们定义如下泛函 <span class="math display">\[
+p(x)=\inf\{\alpha&gt;0|\alpha^{-1} x\in C\}
+\]</span> 称其为 <span class="math inline">\(C\)</span> 的度量 (gauge),
+又称其为 <span class="math inline">\(C\)</span> 的 Minkowski 泛函,则
+<span class="math inline">\(p(x)\)</span> 满足下列性质 <span
+class="math display">\[\begin{aligned}&amp;1.\ p(\lambda x)=\lambda
+p(x),\ \forall x\in E,\ \lambda&gt;0,\\&amp;2.\ p(x+y)\leq p(x)+p(y),\
+\forall x,y\in E,\\&amp;3.\exists M,s.t. 0\leq p(x)\leq M,\ \forall x\in
+E\\&amp;4.C=\{x|p(x)&lt;1\}\end{aligned}\]</span> <strong>Proof</strong>
+1.显然成立,即 <span class="math display">\[
+p(\lambda x)=\inf\{\alpha&gt;0|\alpha^{-1}\lambda x\in
+C\}=\lambda\inf\{\alpha\lambda^{-1}|(\alpha\lambda^{-1})^{-1}x\in
+C\}=\lambda p(x)
+\]</span> 下面我们证明3成立,根据题目可得,设 <span
+class="math inline">\(r&gt;0\)</span>,我们可以构造一个开球 <span
+class="math inline">\(B(0,r)\subset C\)</span>. 显然有 <span
+class="math inline">\(p(x)\leq\frac{1}{r}\Vert x\Vert,\ \forall x\in
+E\)</span>.</p>
 ]]></content>
       <categories>
         <category>Functional Analysis</category>
