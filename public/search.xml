@@ -1986,7 +1986,7 @@ src="https://cdn.staticaly.com/gh/LYD122504/picture@main/20230716/2023-07-16_141
 <p>在此重新明确一下凸集的定义: 如果 <span class="math inline">\(x,y\in
 A\)</span>,则要求 <span class="math inline">\(tx+(1-t)y\in A,\
 t\in[0,1].\)</span></p>
-<p><strong>Thm(Hahn-Banach定理第一几何形式)</strong> 设 <span
+<p><strong>Thm (Hahn-Banach定理第一几何形式)</strong> 设 <span
 class="math inline">\(A\subset E,\ B\subset E\)</span>
 为两个互不相交的非空凸集,若 <span class="math inline">\(A\)</span>
 是开集, 则存在闭的超平面分离 <span class="math inline">\(A,\
@@ -2002,9 +2002,9 @@ p(x)=\inf\{\alpha&gt;0|\alpha^{-1} x\in C\}
 <span class="math inline">\(p(x)\)</span> 满足下列性质 <span
 class="math display">\[\begin{aligned}&amp;1.\ p(\lambda x)=\lambda
 p(x),\ \forall x\in E,\ \lambda&gt;0,\\&amp;2.\ p(x+y)\leq p(x)+p(y),\
-\forall x,y\in E,\\&amp;3.\exists M,s.t. 0\leq p(x)\leq M,\ \forall x\in
-E\\&amp;4.C=\{x|p(x)&lt;1\}\end{aligned}\]</span> <strong>Proof</strong>
-1.显然成立,即 <span class="math display">\[
+\forall x,y\in E,\\&amp;3.\exists M,s.t. 0\leq p(x)\leq M\Vert x\Vert,\
+\forall x\in E\\&amp;4.C=\{x|p(x)&lt;1\}\end{aligned}\]</span>
+<strong>Proof</strong> 1.显然成立,即 <span class="math display">\[
 p(\lambda x)=\inf\{\alpha&gt;0|\alpha^{-1}\lambda x\in
 C\}=\lambda\inf\{\alpha\lambda^{-1}|(\alpha\lambda^{-1})^{-1}x\in
 C\}=\lambda p(x)
@@ -2012,7 +2012,138 @@ C\}=\lambda p(x)
 class="math inline">\(r&gt;0\)</span>,我们可以构造一个开球 <span
 class="math inline">\(B(0,r)\subset C\)</span>. 显然有 <span
 class="math inline">\(p(x)\leq\frac{1}{r}\Vert x\Vert,\ \forall x\in
-E\)</span>.</p>
+E\)</span>, 下面给出一定的解释.</p>
+<p>当 <span class="math inline">\(x=0\)</span>, 有 <span
+class="math inline">\(p(x)=0\)</span>.但 <span
+class="math inline">\(x\not=0\)</span> 时,我们可以对<span
+class="math inline">\(x\)</span>做单位化,记<span
+class="math inline">\(y=\frac{x}{\Vert x\Vert}\)</span>,此处我们取 <span
+class="math inline">\(r=\sup\{\delta|\delta\cdot y\in B(0,r)\subset
+C\}\)</span>,因此 <span
+class="math inline">\(p(y)\leq\frac{1}{r}\Rightarrow
+p(x)\leq\frac{1}{r}\Vert x\Vert\)</span>.</p>
+<p>下证明 4 成立,设<span class="math inline">\(x\in C\)</span>并且 <span
+class="math inline">\(C\)</span> 是开集, 故存在<span
+class="math inline">\(\epsilon&gt;0\)</span>,使得 <span
+class="math inline">\((1+\epsilon)x\in C\)</span> 成立,因此 <span
+class="math inline">\(p(x)\leq\frac{1}{1+\epsilon}&lt;1\)</span>.反之如果有
+<span class="math inline">\(p(x)&lt;1\)</span> 成立,那么有 <span
+class="math inline">\(0&lt;\alpha&lt;1\)</span>使得 <span
+class="math inline">\(\alpha^{-1}x\in C\)</span>.从而有 <span
+class="math inline">\(x=\alpha(\alpha^{-1}x)+(1-\alpha)0\in
+C\)</span>,这由 <span class="math inline">\(C\)</span>
+的凸集性质保证.</p>
+<p>下说明 2 成立.设 <span class="math inline">\(\forall x,\ y\in
+E\)</span> 并且 <span
+class="math inline">\(\epsilon&gt;0\)</span>,由1和4可知 <span
+class="math inline">\(\frac{x}{p(x)+\epsilon},\frac{y}{p(y)+\epsilon}\in
+C\)</span>.由于C是凸集,因此 <span class="math inline">\(\forall
+t\in[0,1]\)</span>,有 <span
+class="math inline">\(t\frac{x}{p(x)+\epsilon}+(1-t)\frac{y}{p(y)+\epsilon}\in
+C\)</span>.为了给出证明,我们选取特殊的 <span
+class="math inline">\(t\)</span> 即 <span
+class="math inline">\(t=\frac{p(x)+\epsilon}{p(x)+p(y)+2\epsilon}\)</span>,代入可得
+<span class="math inline">\(\frac{x+y}{p(x)+p(y)+2\epsilon}\in
+C\)</span>.因此有 <span
+class="math inline">\(p(x+y)&lt;p(x)+p(y)+2\epsilon\)</span>,此时我们令
+<span class="math inline">\(\epsilon\to0\)</span>,式 2 即可证明.</p>
+<p><strong>Lemma 2</strong> 设 <span class="math inline">\(C\subset
+E\)</span> 并且 <span class="math inline">\(C\)</span>
+是一个非空凸开集.若 <span class="math inline">\(x_0\in E\)</span> 且
+<span class="math inline">\(x_0\not\in C\)</span>, 那么就存在 <span
+class="math inline">\(f\in E^\star\)</span>,使得 <span
+class="math inline">\(f(x)&lt;f(x_0),\ \forall x\in C\)</span>. 特别地,
+超平面 <span class="math inline">\([f=f(x_0)]\)</span> 分离了点 <span
+class="math inline">\(x_0\)</span> 和集合 <span
+class="math inline">\(C\)</span>.</p>
+<p><strong>Proof</strong> 我们假设 <span class="math inline">\(0\in
+C\)</span> 成立, 不然的话, 我们总可以通过平移来使得其成立,
+这并不会对我们的结果造成影响,因此我们直接假设其成立即可. 我们引入 Lemma
+1 中定义的 <span class="math inline">\(C\)</span> 的度量 <span
+class="math inline">\(p(x)\)</span>. 我们考虑 <span
+class="math inline">\(E\)</span> 的线性子空间 <span
+class="math inline">\(G=\mathbb{R}x_0\)</span> 和定义在其上的线性泛函
+<span class="math inline">\(g(tx_0)=t,\ t\in\mathbb{R}\)</span>.
+我们接下来要说明这个线性泛函是被我们前面引入的度量泛函控制的.</p>
+<p>1.如果 <span class="math inline">\(t&gt;0\)</span>, 根据 Lemma 1
+推导的性质知, <span
+class="math inline">\(p(tx_0)=tp(x_0)\)</span>.又根据题设知 <span
+class="math inline">\(x_0\not\in C\)</span> 并且 <span
+class="math inline">\(0\in C\)</span>, 因此 <span
+class="math inline">\(p(x_0)\geq 1,\ p(tx_0)\geq t=g(x)\)</span></p>
+<p>2.如果 <span class="math inline">\(t\leq 0\)</span>, <span
+class="math inline">\(p(x)\geq g(x)\)</span> 是显然成立的.</p>
+<p>由 Hahn-Banach 定理的解析形式, 存在 <span
+class="math inline">\(f\)</span> 是 <span
+class="math inline">\(E\)</span> 上线性泛函延拓了 <span
+class="math inline">\(g\)</span> 并且 <span
+class="math inline">\(f(x)\leq p(x),\ \forall x\in E\)</span>. 因此
+<span class="math inline">\(f(x_0)=g(x_0)=1\)</span>. 由 Lemma 1
+导出的度量泛函性质, 我们可以得到 <span class="math inline">\(f\)</span>
+也是有界泛函, 即 <span class="math inline">\(f(x)\leq p(x)\leq M\Vert
+x\Vert\)</span>, 所以 <span class="math inline">\(f\)</span>
+是连续线性泛函. 根据 Lemma 1 可知, <span
+class="math inline">\(f(x)&lt;1,\ \forall x\in C\)</span>.</p>
+<p><strong>Proof of Thm</strong> 令 <span
+class="math inline">\(C=A-B\)</span> 且 <span
+class="math inline">\(C\)</span> 是凸集. 同时 <span
+class="math inline">\(C\)</span> 是开集, 这是因为我们可以将 <span
+class="math inline">\(C\)</span> 改写成 <span
+class="math inline">\(C=\bigcup_{y\in
+B}(A-y)\)</span><font color='red'>(题设中 <span
+class="math inline">\(A\)</span> 是开集在此应用)</font>, 但是 <span
+class="math inline">\(0\not\in C\)</span>. 由 Lemma 2 可知, <span
+class="math inline">\(\exists f\in E^\star\)</span>, 使得 <span
+class="math inline">\(f(z)&lt;0,\ \forall z\in C\)</span>
+<font color='red'>(此处要求 <span
+class="math inline">\(f(0)=0\)</span>,如果不成立的话,我们只需要平移
+<span class="math inline">\(f\)</span> 即可)</font>. 此式可得到 <span
+class="math inline">\(f(x)&lt;f(y),\ \forall x\in A,\ y\in B\)</span>.
+此时我们选取 <span class="math inline">\(\alpha\)</span> 满足 <span
+class="math inline">\(\sup_{x\in A}f(x)\leq\alpha\leq\inf_{y\in
+B}f(y)\)</span>. 因此 <span class="math inline">\([f=\alpha]\)</span>
+分离了 <span class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>.</p>
+<p><strong>Thm (Hahn-Banach定理第二几何形式)</strong> 设 <span
+class="math inline">\(A\subset E,\ B\subset E\)</span>
+是两个互不相交的凸集, 设 <span class="math inline">\(A\)</span> 是闭集,
+<span class="math inline">\(B\)</span> 是紧集, 则存在闭超平面严格分离
+<span class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>.</p>
+<p><strong>Proof</strong> 令 <span class="math inline">\(C=A-B\)</span>,
+同样我们可以得到 <span class="math inline">\(C\)</span> 是凸集. 我们宣称
+<span class="math inline">\(C\)</span> 是闭集.</p>
+<p>下面给出这个宣称的证明, 若 <span
+class="math inline">\(c_n=a_n-b_n\)</span> 且 <span
+class="math inline">\(c_n\to c_0\)</span>, 我们只需要说明 <span
+class="math inline">\(c_0\in C\)</span> 即完成证明. 由于 <span
+class="math inline">\(B\)</span> 是紧集, 因此 <span
+class="math inline">\(b_n\to b_0\in B\)</span>. <span
+class="math inline">\(a_n=b_n+c_n\to b_0+c_0\in A\)</span>, 因此 <span
+class="math inline">\(A\)</span> 是闭集. 此处我们记 <span
+class="math inline">\(a_0=b_0+c_0\in A\)</span>, 因此 <span
+class="math inline">\(c_0=a_0-b_0\in C\)</span>.</p>
+<p>同样我们可知 <span class="math inline">\(0\not\in C\)</span>, 因此
+<span class="math inline">\(\exists r&gt;0\)</span>, 使得 <span
+class="math inline">\(B(0,r)\cap C=\emptyset\)</span>. 根据 Hahn-Banach
+定理第一几何形式, 存在闭超平面分离了 <span
+class="math inline">\(B(0,r)\)</span> 和 <span
+class="math inline">\(C\)</span>,即 <span class="math display">\[
+\exists f\in E^\star,\ f\not\equiv 0,\ f(x-y)\leq f(rz),\ \forall x\in
+A,\ y\in B,\ z\in B(0,1).
+\]</span> 故 <span class="math inline">\(f(x-y)\leq -r\Vert f\Vert,\
+\forall x\in A,\ y\in B.\)</span> <font color='red'>(此式的导出基于
+<span class="math inline">\(|f(rz)|=r|f(z)|\leq r\Vert
+f\Vert\)</span>)</font>.</p>
+<p>令 <span class="math inline">\(\epsilon=\frac{r}{2}\Vert
+f\Vert&gt;0\)</span>, 则有 <span class="math inline">\(f(x)+\epsilon\leq
+f(y)-\epsilon,\ \forall x\in A,\ y\in B\)</span> 成立. 因此我们选取
+<span class="math inline">\(\alpha\)</span> 满足 <span
+class="math inline">\(\sup_{x\in A}f(x)+\epsilon\leq\alpha\leq\inf_{y\in
+B}f(y)-\epsilon\)</span>, 所以闭超平面 <span
+class="math inline">\([f=\alpha]\)</span> 严格分离 <span
+class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>.</p>
 ]]></content>
       <categories>
         <category>Functional Analysis</category>
