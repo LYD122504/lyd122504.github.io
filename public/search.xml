@@ -1955,10 +1955,10 @@ x\Vert=1\\&amp;x\in
 E\end{aligned}}|f(x)|=\sup_{\scriptsize   \begin{aligned}&amp;\Vert
 x\Vert=1\\&amp;x\in E\end{aligned}}f(x)
 \]</span> <span class="math inline">\(\forall f\in E^\star, x\in
-E\)</span>, 我们称 <span class="math inline">\(&lt;f,x&gt;=f(x)\)</span>
-且称 <span class="math inline">\(&lt;\cdot,\cdot&gt;\)</span>
-是定义在对偶集 <span class="math inline">\(E,E^\star\)</span>
-的数量积.</p>
+E\)</span>, 我们称 <span class="math inline">\(\langle
+f,x\rangle=f(x)\)</span> 且称 <span
+class="math inline">\(\langle\cdot,\cdot\rangle\)</span> 是定义在对偶集
+<span class="math inline">\(E,E^\star\)</span> 的数量积.</p>
 <p><strong>Proposition</strong> <span
 class="math inline">\(E^\star\)</span> 是一个 Banach 空间,
 尽管我们并没有给出 <span class="math inline">\(E\)</span> 的完备性.</p>
@@ -2030,7 +2030,7 @@ x\Vert=1\\&amp;x=tx_0\end{aligned}}t\Vert x_0\Vert^2=\Vert x_0\Vert.
 class="math inline">\(f_0\in E^\star\)</span> 满足 <span
 class="math inline">\(\Vert f_0\Vert_{E^\star}=\Vert
 g\Vert_{G^\star}=\Vert x_0\Vert.\)</span> 和 <span
-class="math inline">\(&lt;f_0,x_0&gt;=f_0(x_0)=g(x_0)=\Vert
+class="math inline">\(\langle f_0,x_0\rangle=f_0(x_0)=g(x_0)=\Vert
 x_0\Vert^2.\)</span></p>
 <p><strong><font color='red'>Remark 4.</font></strong>
 <font color='red'>上面我们讨论的<span class="math inline">\(f_0\)</span>
@@ -2041,9 +2041,10 @@ class="math inline">\(L^p\)</span> 空间<span
 class="math inline">\((1&lt;p&lt;\infty)\)</span>, <span
 class="math inline">\(f_0\)</span>唯一. 记 <span
 class="math inline">\(\forall x_0\in E, F(x_0)=\{f_0\in E^\star|\Vert
-f_0\Vert=\Vert x_0\Vert,\ &lt;f_0,x_0&gt;=\Vert x_0\Vert^2\}\)</span>.
-一般而言, 映射 <span class="math inline">\(d: x_0\to F(x_0)\)</span>
-是多值映射, 我们称映射 <span class="math inline">\(d\)</span> 为 <span
+f_0\Vert=\Vert x_0\Vert,\ \langle f_0,x_0\rangle=\Vert
+x_0\Vert^2\}\)</span>. 一般而言, 映射 <span class="math inline">\(d:
+x_0\to F(x_0)\)</span> 是多值映射, 我们称映射 <span
+class="math inline">\(d\)</span> 为 <span
 class="math inline">\(E\)</span> 到 <span
 class="math inline">\(E^\star\)</span> 的对偶映射.</font></p>
 <p><strong><font color='red'>Remark 5.</font></strong>
@@ -2055,22 +2056,22 @@ tx+(1-t)y\Vert&lt;1,\ \forall t\in(0,1)\)</span>.</font></p>
 <p><strong>Corollary 3</strong> <span class="math inline">\(\forall x\in
 E\)</span> 有 <span class="math display">\[\Vert
 x\Vert=\sup_{\scriptsize \begin{aligned}&amp;\Vert
-f\Vert\leq1\\&amp;f\in
-E^\star\end{aligned}}|&lt;f,x&gt;|=\max_{\scriptsize
-\begin{aligned}&amp;\Vert f\Vert\leq1\\&amp;f\in
-E^\star\end{aligned}}|&lt;f,x&gt;|\]</span>.</p>
+f\Vert\leq1\\&amp;f\in E^\star\end{aligned}}|\langle
+f,x\rangle|=\max_{\scriptsize \begin{aligned}&amp;\Vert
+f\Vert\leq1\\&amp;f\in E^\star\end{aligned}}|\langle
+f,x\rangle|\]</span>.</p>
 <p><strong>Proof.</strong> 若 <span
 class="math inline">\(x\not=0\)</span>, 显然有 <span
 class="math inline">\(|f(x)|\leq\Vert f\Vert\Vert x\Vert\)</span>,
 也就是 <span class="math display">\[
 \sup_{\scriptsize \begin{aligned}&amp;\Vert f\Vert\leq1\\&amp;f\in
-E^\star\end{aligned}}|&lt;f,x&gt;|\leq\Vert x\Vert
+E^\star\end{aligned}}|\langle f,x\rangle|\leq\Vert x\Vert
 \]</span> 根据 Corollary 2的结果知, <span class="math inline">\(\exists
 f_0\in E^\star\)</span> 满足 <span class="math inline">\(\Vert
-f_0\Vert=\Vert x\Vert,\ &lt;f_0,x&gt;=\Vert x\Vert^2\)</span>. 我们记
-<span class="math inline">\(f_1=f_0/\Vert x\Vert\)</span>, 则 <span
-class="math inline">\(\Vert f_1\Vert=1\)</span> 且 <span
-class="math inline">\(&lt;f_1,x&gt;=\Vert x\Vert\)</span>.</p>
+f_0\Vert=\Vert x\Vert,\ \langle f_0,x\rangle=\Vert x\Vert^2\)</span>.
+我们记 <span class="math inline">\(f_1=f_0/\Vert x\Vert\)</span>, 则
+<span class="math inline">\(\Vert f_1\Vert=1\)</span> 且 <span
+class="math inline">\(\langle f_1,x\rangle=\Vert x\Vert\)</span>.</p>
 ]]></content>
       <categories>
         <category>Functional Analysis</category>
@@ -2338,6 +2339,36 @@ B}f(y)-\epsilon\)</span>, 所以闭超平面 <span
 class="math inline">\([f=\alpha]\)</span> 严格分离 <span
 class="math inline">\(A\)</span> 和 <span
 class="math inline">\(B\)</span>.</p>
+<p><strong>Corollary 1</strong> 设 <span class="math inline">\(F\subset
+E\)</span> 是 <span class="math inline">\(E\)</span> 的线性子空间, 使得
+<span class="math inline">\(\overline{F}\not=E\)</span>, 那么 <span
+class="math inline">\(\exists f\in E^\star\)</span> 且 <span
+class="math inline">\(f\not\equiv 0\)</span>, 使得 <span
+class="math inline">\(\langle f,x\rangle=0,\ \forall x\in
+F\)</span>.</p>
+<p><strong>Proof</strong> 由题设可知, <span
+class="math inline">\(\exists x_0\in E\)</span> 且 <span
+class="math inline">\(x_0\not\in \overline{F}\)</span>. 我们记 <span
+class="math inline">\(A=\overline{F},\ B=\{x_0\}\)</span>, 显然此处的
+<span class="math inline">\(A\)</span> 是闭的, 而 <span
+class="math inline">\(B\)</span> 则是紧的. 依托 H-B
+定理的第二几何形式可知存在一个闭超平面 <span
+class="math inline">\([f=\alpha]\)</span> 严格分离 <span
+class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>, 即 <span class="math inline">\(\langle
+f,x\rangle&lt;\alpha&lt;\langle f,x_0\rangle,\ \forall x\in F\)</span>.
+因为 <span class="math inline">\(F\)</span> 是线性子空间, 因此有 <span
+class="math inline">\(\lambda \langle f,x\rangle&lt;\alpha,\ \forall
+\lambda\in\mathbb{R}\Rightarrow \langle f,x\rangle=0,\ \forall x\in
+F\)</span>.</p>
+<p><strong><font color='red'>Remark</font></strong>
+<font color='red'>该推论一般用于判断子空间 <span
+class="math inline">\(F\subset E\)</span> 是否在 <span
+class="math inline">\(E\)</span> 上稠密. 如果稠密, 则有 <span
+class="math inline">\(\forall f\)</span> 满足 <span
+class="math inline">\(\langle f,x\rangle=0,\ \forall x\in F\)</span>,
+同时有 <span class="math inline">\(\langle f,x\rangle\equiv0,\ \forall
+x\in E\)</span></font></p>
 ]]></content>
       <categories>
         <category>Functional Analysis</category>

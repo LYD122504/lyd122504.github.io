@@ -30,7 +30,7 @@
 <meta property="og:description" content="1.2 Hahn-Banach定理几何形式——凸集分离 超平面的定义 超平面(hyperplane)指 \(H\subset E\) 且其形如 \(H&#x3D;\{x\in E|f(x)&#x3D;\alpha\}&#x3D;[f&#x3D;\alpha]\),其中 \(f\) 为 \(E\) 上非恒为 \(0\) 的线性泛函, \(\alpha\in\mathbb{R}\) 为常数,(\(f\) 不要求连续), 此时称">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-02T16:16:20.000Z">
-<meta property="article:modified_time" content="2023-07-18T12:18:20.056Z">
+<meta property="article:modified_time" content="2023-08-07T01:23:48.281Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Functional Analysis">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-18 20:18:20" itemprop="dateModified" datetime="2023-07-18T20:18:20+08:00">2023-07-18</time>
+                <time title="修改时间：2023-08-07 09:23:48" itemprop="dateModified" datetime="2023-08-07T09:23:48+08:00">2023-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -517,6 +517,36 @@ B}f(y)-\epsilon\)</span>, 所以闭超平面 <span
 class="math inline">\([f=\alpha]\)</span> 严格分离 <span
 class="math inline">\(A\)</span> 和 <span
 class="math inline">\(B\)</span>.</p>
+<p><strong>Corollary 1</strong> 设 <span class="math inline">\(F\subset
+E\)</span> 是 <span class="math inline">\(E\)</span> 的线性子空间, 使得
+<span class="math inline">\(\overline{F}\not=E\)</span>, 那么 <span
+class="math inline">\(\exists f\in E^\star\)</span> 且 <span
+class="math inline">\(f\not\equiv 0\)</span>, 使得 <span
+class="math inline">\(\langle f,x\rangle=0,\ \forall x\in
+F\)</span>.</p>
+<p><strong>Proof</strong> 由题设可知, <span
+class="math inline">\(\exists x_0\in E\)</span> 且 <span
+class="math inline">\(x_0\not\in \overline{F}\)</span>. 我们记 <span
+class="math inline">\(A=\overline{F},\ B=\{x_0\}\)</span>, 显然此处的
+<span class="math inline">\(A\)</span> 是闭的, 而 <span
+class="math inline">\(B\)</span> 则是紧的. 依托 H-B
+定理的第二几何形式可知存在一个闭超平面 <span
+class="math inline">\([f=\alpha]\)</span> 严格分离 <span
+class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>, 即 <span class="math inline">\(\langle
+f,x\rangle&lt;\alpha&lt;\langle f,x_0\rangle,\ \forall x\in F\)</span>.
+因为 <span class="math inline">\(F\)</span> 是线性子空间, 因此有 <span
+class="math inline">\(\lambda \langle f,x\rangle&lt;\alpha,\ \forall
+\lambda\in\mathbb{R}\Rightarrow \langle f,x\rangle=0,\ \forall x\in
+F\)</span>.</p>
+<p><strong><font color='red'>Remark</font></strong>
+<font color='red'>该推论一般用于判断子空间 <span
+class="math inline">\(F\subset E\)</span> 是否在 <span
+class="math inline">\(E\)</span> 上稠密. 如果稠密, 则有 <span
+class="math inline">\(\forall f\)</span> 满足 <span
+class="math inline">\(\langle f,x\rangle=0,\ \forall x\in F\)</span>,
+同时有 <span class="math inline">\(\langle f,x\rangle\equiv0,\ \forall
+x\in E\)</span></font></p>
 
     </div>
 
