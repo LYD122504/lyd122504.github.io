@@ -195,6 +195,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/07/functional-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/07/functional-3/" class="post-title-link" itemprop="url">Functional Analysis-Bidual Space and Orthogonality Relation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-07 09:43:23 / 修改时间：11:39:57" itemprop="dateCreated datePublished" datetime="2023-08-07T09:43:23+08:00">2023-08-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Functional-Analysis/" itemprop="url" rel="index"><span itemprop="name">Functional Analysis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-3-二次对偶空间和正交关系"><a href="#1-3-二次对偶空间和正交关系" class="headerlink" title="1.3 二次对偶空间和正交关系"></a>1.3 二次对偶空间和正交关系</h3><p>设 $E$ 是赋范向量空间, $E^\star$ 是其对偶空间, 其上定义的范数为</p>
+<script type="math/tex; mode=display">\Vert f\Vert_{E^\star}=\sup_{x\in E,\ \Vert
+x\Vert\leq1}|\langle f,x\rangle|,\ f\in E^\star</script><p>二次对偶空间 $E^{\star\star}$ 则是对偶空间 $E^\star$ 的对偶空间并且在其上定义的范数为</p>
+<script type="math/tex; mode=display">\Vert \xi \Vert_{E^{\star\star}}=\sup_{f\in E^\star,\ \Vert f\Vert\leq1}|\langle\xi,f\rangle|,\ \xi\in E^{\star\star}</script><p>我们定义典范内射<font color='red'>(canonical injection)</font> $J:E\to E^{\star\star}$ 如下:</p>
+<p>对于给定的 $x\in E$, 映射 $f\to\langle f,x\rangle$ 是 $E^\star$ 上的连续线性泛函, 因此 $x$ 是 $E^{\star\star}$ 的元素, 记作 $Jx$.</p>
+<p><strong><font color='red'>Remark</font></strong> <font color='red'>对于此映射, 我们固定 $x$, 讨论 $f$ 在 $E^\star$ 上变化, 则其为 $E^\star$ 上的连续线性泛函. 反之如果固定 $f$, 令 $x$ 在 $E$ 上变化, 则其为 $E$ 上的连续线性泛函.</font></p>
+<p>因此, 我们有下式成立</p>
+<script type="math/tex; mode=display">\langle Jx,f\rangle_{E^{\star\star},E^\star}=\langle f,x\rangle_{E^\star,E}=f(x),\ \forall x\in E,\ f\in E^\star</script><p>显然映射 $J$ 是线性的且等距的, 即 $\Vert Jx\Vert_{E^{\star\star}}=\Vert x\Vert$. </p>
+<p>对于等距性, 我们给出一定的解释, $\Vert Jx\Vert<em>{E^{\star\star}}=\sup</em>{f\in E^\star,\Vert f\Vert\leq1}|\langle f,x<br>\rangle|=\Vert x\Vert$, 用到了前面文章中的推论.</p>
+<p>我们定义的映射 $J$ 并不一定是满射, 也就是说 $J(E)\subset E^{\star\star}$ 可能只是子空间. 如果 $J$ 是满射, 那么我们就将 $E$ 称为自反的, 也就是 $E=E^{\star\star}$<font color='red'>(二者在等距同构意义之下是相同的)</font></p>
+<p>我们引入一些记号, 如果 $M\subset E$ 是一个线性子空间, 那么我们记 $M^\perp={f\in E^\star|\langle f,x\rangle=0,\ \forall x\in M}\subset E^\star$, 其为 $M$ 的正交空间, 同时其在 $E^\star$ 上是闭的.<font color='red'>(该集合的含义是作用在 $M$ 上为 $0$ 的连续线性泛函的集合)</font>. 同样, 我们可以定义 $E^\star$ 的线性子空间 $N$ 的正交空间为 $N^\perp={x\in E|\langle f,x\rangle=0,\ \forall f\in E^\star}$, 同样其在 $E$ 中是闭的.</p>
+<p><strong>Propsition 1</strong> 设 $M\subset E$ 是线性子空间, 则 $\left( M^\perp\right)^\perp=\overline{M}$; $N\subset E^\star$ 线性子空间, 则 $\overline{N}\subset\left(N^\perp\right)^\perp$.</p>
+<p><strong>Proof</strong> 显然有 $M\subset\left( M^\perp\right)^\perp$, 又因为 $\left( M^\perp\right)^\perp$ 为闭集, 因此有 $\overline{M}\subset\left( M^\perp\right)^\perp$. 同样, 我们可以推得 $\overline{N}\subset\left( N^\perp\right)^\perp$.</p>
+<p>下面我们要说明 $\left( M^\perp\right)^\perp\subset \overline{M}$. 我们采用反证法. 假设存在 $x_0$ 满足 $x_0\in\left( M^\perp\right)^\perp$ 但是 $x_0\not\in \overline{M}$. 依据H-B定理的第二几何形式知, 存在一个超平面严格分离 ${x_0}$ 和 $\overline{M}$, 即</p>
+<script type="math/tex; mode=display">
+\exists f\in E^\star,\ \alpha\in\mathbb{R},\ \text{使得}\ \langle f,x\rangle<\alpha<\langle f,x_0\rangle,\ \forall x\in M\Rightarrow \langle f,x\rangle=0,\ \forall x\in M.</script><p>因此 $f\in M^\perp$, 而 $\langle f,x_0\rangle&gt;0$, 又由于 $x_0\in \left( M^\perp\right)^\perp$, 应有 $\langle f,x\rangle=0$, 矛盾, 因此有 $\left( M^\perp\right)^\perp\subset \overline{M}$. 综上所述命题得证.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/03/functional-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -320,7 +403,7 @@ class="math inline">\(H\)</span> 的方程.
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-07 09:14:25" itemprop="dateModified" datetime="2023-08-07T09:14:25+08:00">2023-08-07</time>
+                <time title="修改时间：2023-08-07 10:59:11" itemprop="dateModified" datetime="2023-08-07T10:59:11+08:00">2023-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -343,28 +426,16 @@ class="math inline">\(H\)</span> 的方程.
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="hahn-banach定理的解析形式--线性泛函延拓">1.1
-Hahn-Banach定理的解析形式--线性泛函延拓</h3>
-<p><strong>Theorem 1.1 (H-B定理解析形式)</strong><span
-class="math inline">\(\quad\)</span> 设映射 <span
-class="math inline">\(p:E\to\mathbb{R}\)</span> 满足 <span
-class="math display">\[
+          <h3 id="1-1-Hahn-Banach定理的解析形式—线性泛函延拓"><a href="#1-1-Hahn-Banach定理的解析形式—线性泛函延拓" class="headerlink" title="1.1 Hahn-Banach定理的解析形式—线性泛函延拓"></a>1.1 Hahn-Banach定理的解析形式—线性泛函延拓</h3><p><strong>Theorem 1.1 (H-B定理解析形式)</strong>$\quad$ 设映射 $p:E\to\mathbb{R}$ 满足</p>
+<script type="math/tex; mode=display">
 \begin{align}
-&amp;p(\lambda x)=\lambda p(x),\ \forall x\in E ,\ \lambda&gt;0\\
-&amp;p(x+y)\leq p(x)+p(y),\ \forall x,y\in E
-\end{align}
-\]</span> 此外, <span class="math inline">\(G\)</span> 为 <span
-class="math inline">\(E\)</span> 上的线性子空间以及线性泛函 <span
-class="math inline">\(g:G\to\mathbb{R}\)</span> 满足 <span
-class="math display">\[
+&p(\lambda x)=\lambda p(x),\ \forall x\in E ,\ \lambda>0\\
+&p(x+y)\leq p(x)+p(y),\ \forall x,y\in E
+\end{align}</script><p>此外, $G$ 为 $E$ 上的线性子空间以及线性泛函 $g:G\to\mathbb{R}$ 满足</p>
+<script type="math/tex; mode=display">
 \begin{align}
 g(x)\leq p(x),\ \forall x\in G
-\end{align}
-\]</span> 那么存在 <span class="math inline">\(E\)</span> 上的线性泛函
-<span class="math inline">\(f\)</span> 延拓 <span
-class="math inline">\(g\)</span>, 即 <span
-class="math inline">\(f(x)=g(x),\ \forall x\in G\)</span> 且成立 <span
-class="math inline">\(f(x)\leq p(x),\ \forall x\in E\)</span>.
+\end{align}</script><p>那么存在 $E$ 上的线性泛函 $f$ 延拓 $g$, 即 $f(x)=g(x),\ \forall x\in G$ 且成立 $f(x)\leq p(x),\ \forall x\in E$.<br>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/06/19/functional-1/#more" rel="contents">
@@ -1004,93 +1075,11 @@ class="math display">\[
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/28/Graph1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/28/Graph1/" class="post-title-link" itemprop="url">Lecture series on graph theory 1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-28 17:57:01" itemprop="dateCreated datePublished" datetime="2022-03-28T17:57:01+08:00">2022-03-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-18 11:30:34" itemprop="dateModified" datetime="2022-08-18T11:30:34+08:00">2022-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Def. A graph is a <font color=red>discrete structure/combinational
-structure</font> consisting of vertices and edges which connect to a
-pair of vertices.</p>
-<p>Usually, a vertex is represented by a dot and an edge is represented
-by a line (straight or curved) joining two vertices.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/28/Graph1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -1157,7 +1146,7 @@ by a line (straight or curved) joining two vertices.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
