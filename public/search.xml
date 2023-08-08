@@ -2296,17 +2296,24 @@ class="math inline">\(D(\phi)=\{x\in E|\phi(x)&lt;+\infty\}\)</span>,
 class="math inline">\(\text{epi}\ \phi=\{[x,\lambda]\in
 E\times\mathbb{R}|\phi(x)\leq \lambda\}\)</span>, 其中 <span
 class="math inline">\(\mathbb{R}=(-\infty,+\infty)\)</span>.</p>
-<p>假设 <span class="math inline">\(E\)</span> 是拓扑空间, 定义 <span
+假设 <span class="math inline">\(E\)</span> 是拓扑空间, 定义 <span
 class="math inline">\(\phi: E\to(-\infty,+\infty]\)</span>
 是下半连续函数, 若 <span class="math inline">\(\forall
 \lambda\in\mathbb{R}\)</span>, 集合 <span
 class="math inline">\([\phi\leq\lambda]=\{x\in
 E|\phi(x)\leq\lambda\}\)</span> 是闭集.
-下面列举一些下半连续函数的基本性质: * <span
-class="math inline">\(\phi\)</span> 是下半连续函数, 那么其对应的上图像
-<span class="math inline">\(\text{epi}\ \phi\)</span> 是 <span
-class="math inline">\(E\times\mathbb{R}\)</span> 上的闭集, 反之亦然. *
-<span class="math inline">\(\phi\)</span> 是下半连续函数, 则</p>
+下面列举一些下半连续函数的基本性质:
+<ul>
+<li>
+<span class="math inline">\(\phi\)</span> 是下半连续函数,
+那么其对应的上图像 <span class="math inline">\(\text{epi}\ \phi\)</span>
+是 <span class="math inline">\(E\times\mathbb{R}\)</span> 上的闭集,
+反之亦然.
+</li>
+<li>
+<span class="math inline">\(\phi\)</span> 是下半连续函数, 则
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>Functional Analysis</category>
