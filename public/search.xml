@@ -2282,4 +2282,38 @@ f,x\rangle&lt;\alpha&lt;\langle f,x_0\rangle,\ \forall x\in M\Rightarrow
         <tag>Functional Analysis</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Functional Analysis-A Quick Introduction to the Theory of Conjugate Convex Functions(1)</title>
+    <url>/2023/08/08/functional-4/</url>
+    <content><![CDATA[<h3 id="共轭凸函数1">1.4 共轭凸函数(1)</h3>
+<p>我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 <span
+class="math inline">\(E\)</span> 上, 取值在 <span
+class="math inline">\((-\infty,+\infty]\)</span> 的函数 <span
+class="math inline">\(\phi\)</span>, 我们给出一些记号如 <span
+class="math inline">\(\phi\)</span> 的定义域为 <span
+class="math inline">\(D(\phi)=\{x\in E|\phi(x)&lt;+\infty\}\)</span>,
+<span class="math inline">\(\phi\)</span> 的上图像为 <span
+class="math inline">\(\text{epi}\ \phi=\{[x,\lambda]\in
+E\times\mathbb{R}|\phi(x)\leq \lambda\}\)</span>, 其中 <span
+class="math inline">\(\mathbb{R}=(-\infty,+\infty)\)</span>.</p>
+<p>假设 <span class="math inline">\(E\)</span> 是拓扑空间, 定义 <span
+class="math inline">\(\phi: E\to(-\infty,+\infty]\)</span>
+是下半连续函数, 若 <span class="math inline">\(\forall
+\lambda\in\mathbb{R}\)</span>, 集合 <span
+class="math inline">\([\phi\leq\lambda]=\{x\in
+E|\phi(x)\leq\lambda\}\)</span> 是闭集.
+下面列举一些下半连续函数的基本性质: * <span
+class="math inline">\(\phi\)</span> 是下半连续函数, 那么其对应的上图像
+<span class="math inline">\(\text{epi}\ \phi\)</span> 是 <span
+class="math inline">\(E\times\mathbb{R}\)</span> 上的闭集, 反之亦然. *
+<span class="math inline">\(\phi\)</span> 是下半连续函数, 则</p>
+]]></content>
+      <categories>
+        <category>Functional Analysis</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Functional Analysis</tag>
+      </tags>
+  </entry>
 </search>

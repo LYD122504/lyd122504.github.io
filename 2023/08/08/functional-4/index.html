@@ -22,25 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Def. A graph is a discrete structure&#x2F;combinational structure consisting of vertices and edges which connect to a pair of vertices. Usually, a vertex is represented by a dot and an edge is represent">
+  <meta name="description" content="1.4 共轭凸函数(1) 我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 \(E\) 上, 取值在 \((-\infty,+\infty]\) 的函数 \(\phi\), 我们给出一些记号如 \(\phi\) 的定义域为 \(D(\phi)&#x3D;\{x\in E|\phi(x)&lt;+\infty\}\), \(\phi\) 的上图像为 \(\text{epi}\ \phi&#x3D;\{[x,\">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture series on graph theory 1">
-<meta property="og:url" content="http://example.com/2022/03/28/Graph1/index.html">
+<meta property="og:title" content="Functional Analysis-A Quick Introduction to the Theory of Conjugate Convex Functions(1)">
+<meta property="og:url" content="http://example.com/2023/08/08/functional-4/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Def. A graph is a discrete structure&#x2F;combinational structure consisting of vertices and edges which connect to a pair of vertices. Usually, a vertex is represented by a dot and an edge is represent">
+<meta property="og:description" content="1.4 共轭凸函数(1) 我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 \(E\) 上, 取值在 \((-\infty,+\infty]\) 的函数 \(\phi\), 我们给出一些记号如 \(\phi\) 的定义域为 \(D(\phi)&#x3D;\{x\in E|\phi(x)&lt;+\infty\}\), \(\phi\) 的上图像为 \(\text{epi}\ \phi&#x3D;\{[x,\">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg">
-<meta property="article:published_time" content="2022-03-28T09:57:01.000Z">
-<meta property="article:modified_time" content="2022-08-18T03:30:34.885Z">
+<meta property="article:published_time" content="2023-08-08T03:24:05.000Z">
+<meta property="article:modified_time" content="2023-08-08T10:23:10.070Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
-<meta property="article:tag" content="Operation Research">
+<meta property="article:tag" content="Functional Analysis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg">
 
-<link rel="canonical" href="http://example.com/2022/03/28/Graph1/">
+<link rel="canonical" href="http://example.com/2023/08/08/functional-4/">
 
 
 <script id="page-configurations">
@@ -53,7 +49,7 @@
   };
 </script>
 
-  <title>Lecture series on graph theory 1 | 还施水阁</title>
+  <title>Functional Analysis-A Quick Introduction to the Theory of Conjugate Convex Functions(1) | 还施水阁</title>
   
 
 
@@ -206,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/28/Graph1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/08/functional-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -219,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lecture series on graph theory 1
+          Functional Analysis-A Quick Introduction to the Theory of Conjugate Convex Functions(1)
         </h1>
 
         <div class="post-meta">
@@ -228,23 +224,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-03-28 17:57:01" itemprop="dateCreated datePublished" datetime="2022-03-28T17:57:01+08:00">2022-03-28</time>
+              <time title="创建时间：2023-08-08 11:24:05 / 修改时间：18:23:10" itemprop="dateCreated datePublished" datetime="2023-08-08T11:24:05+08:00">2023-08-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-18 11:30:34" itemprop="dateModified" datetime="2022-08-18T11:30:34+08:00">2022-08-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                  <a href="/categories/Functional-Analysis/" itemprop="url" rel="index"><span itemprop="name">Functional Analysis</span></a>
                 </span>
             </span>
 
@@ -266,160 +256,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Def. A graph is a <font color=red>discrete structure/combinational
-structure</font> consisting of vertices and edges which connect to a
-pair of vertices.</p>
-<p>Usually, a vertex is represented by a dot and an edge is represented
-by a line (straight or curved) joining two vertices.</p>
-<span id="more"></span>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_212559.jpg" /></p>
-<center>
-<font color=red size=4>The green points mean crossing of the
-edges,rather than vertices  </font>
-</center>
-<p>A vertex is incident with an edge if the edge join the vertex to
-another vertex, which is also called the end of the edge.</p>
-<p>Two vertices are adjacent to each other if there is an edge joinging
-them.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-02-26_214218.jpg" /></p>
-<center>
-<font color=red size=4>We say that the vertex v is incident with the
-edge e<br>The vertex u is adjacent to the vertex v because uv is an edge
-of G</font>
-</center>
-<p>A graph is simple if there is at most one edge between any two
-vertices and there is no edge joining a vertex itself.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185112.jpg" /></p>
-<p>In short, a graph is simple if and only if it has no multi-edges and
-no loops.Next, unless otherwise specified, we will discuss simple graphs
-by default.</p>
-<p>For any given simple graph <span
-class="math inline">\(G(V,E)\)</span>，V is the vertex set and E is the
-edge set. <span class="math display">\[
-if\ \lvert V\rvert=n,\lvert E\rvert\leq\binom{n}{2}
-\]</span> A graph is complete if the graph has an edge between every
-pair of vertices.A complete graph of n vertices is usually denoted by
-<span class="math inline">\(K_n\)</span></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185902.jpg" /></p>
-<p>The degree of a vertex v of G, denoted by <span
-class="math inline">\(d_G(v)\)</span>, is the number of edges incident
-with it.</p>
-<p>The maximum degree of G is defined as <span
-class="math inline">\(\Delta(G):=\max\{d_G(x)|v\in V(G)\}\)</span></p>
-<p>The minimum degree of G is defined as <span
-class="math inline">\(\delta G:=\min\{d_G(v)|v\in V(G)\}\)</span></p>
-<p>The average degree of G is defined as <span
-class="math inline">\(d(G):=\frac{\lvert E(G)\rvert}{\lvert
-V(G)\rvert}\)</span>, this index is used to measure the density of the
-graph.According to this index, graph can be divided into dense graph and
-sparse graph</p>
-<p>A neighbor of v in G is a vertex joined to v by an edge of G.The
-neighborhood of a vertex v in G is the set of all neighbors of v in G,
-denoted by <span class="math inline">\(N_G(v)=\{u|u\in V(G),uv\in
-E(G)\}\)</span>.We have <span class="math inline">\(d_G(v)=\lvert
-N_G(v)\rvert\)</span> easily.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185933.jpg" /></p>
-<p><font color=red>This picture shows the multi-level neighbors of v. If
-u is both a second-level neighbor and a third-level neighbor of v, it is
-classified as a second-level neighbor. <br>Here we give the set
-representation of neighbors: <br><span
-class="math inline">\(N_1(v)=N_G(v),N_2(v)=N_G(N_1(v))-N_1(v)\cup\{v\},\
-N_3(v)=N_G(N_2(v))-N_1(v)\)</span><br>and if <span
-class="math inline">\(w\in N_3(v),\ distance(w,v)=3\)</span></font></p>
-<p>A graph is even if every vertex of G has an even degree.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_185942.jpg" style="zoom:50%;" /></p>
-<p><strong>Proposition(Handshaking Lemma)<br>Every graph has an even
-number of vertices with odd degree.</strong></p>
-<p>Proof.</p>
-<p>Let <span class="math display">\[
-\left\{\begin{aligned}X&amp;=\{x|x\in V(G)\ and\
-d_G(x)\equiv0(mod\ 2)\}\\Y&amp;=\{y|y\in V(G)\ and\
-d_G(y)\equiv1(mod\ 2)\}\end{aligned}\right.
-\]</span> Then,<span class="math inline">\(\sum_{x\in
-X}d_G(x)+\sum_{y\in Y}d_G(y)=2\lvert E(G)\rvert\)</span></p>
-<p>So, <span class="math inline">\(\sum_{y\in Y}d_G(y)\equiv0(mod\
-2)\)</span>.It follows immediately that <span
-class="math inline">\(\lvert Y\rvert\equiv0(mod\ 2)\)</span></p>
-<p>So the proposition holds.</p>
-<p>Question:Let G be an n-vertex graph.How many edges will force G to
-have a triangle?(Mantel's Theorem)</p>
-<p>Def A walk of G is <font color=red>a sequence of vertices and edges
-of G</font>such that (i)both the first element and the last element of
-the sequence are vertices and (ii) any two consecutive elements in the
-sequence contains one vertex and one edge which are incident with each
-other.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200038.jpg" /></p>
-<p><font color=red>We give two different walks: <span
-class="math inline">\(w_{1}=v_1e_1v_2e_2v_3e_2v_2e_1v_1,\ 
-w_2=v_2e_2v_3e_3v_4e_4v_2\)</span><br>For walk,vertex can be repeated,
-edge can be repeated.</font></p>
-<p>A walk is open if the first vertex is not equal to the last vertex.
-<font color=red><span
-class="math inline">\(w_0=v_2e_2v_3e_3v_4e_4v_2e_1v_1\)</span></font></p>
-<p>A walk is a trail if it does not have repeated edges.
-<font color=red><span class="math inline">\(w_0\)</span> is a
-trail</font></p>
-<p>A trail is a path if it does not have repeated vertices.</p>
-<p><font color=red><span
-class="math inline">\(w_3=v_1e_1v_2e_2v_3e_3v_4=v_1v_2v_3v_4\)</span> is
-a path</font></p>
-<p>A cycle is a closed trail( or path) without repeated vertices
-(vertices and edges) <font color =red>except the first vertex and the
-last vertex. <span
-class="math inline">\(w_4=v_2e_2v_3e_3v_4e_4v_2\)</span></font></p>
-<p>A graph is connected if for any two vertices x and y, there is a path
-joining x and y.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200053.75zqcj50zpw0.jpg" /></p>
-<p>A subgraph H of G is a graph with <span
-class="math inline">\(V(H)\subset V(G),E(H)\subset E(G)\)</span></p>
-<p>A maximal connected subgraph of G is called a connected component.
-<font color=red>Maximal means anything bigger than it is not
-connected</font></p>
-<p>An edge e of G is bridge or cut-edge if #connected components of
-G-e&gt;#connected components of G</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_200107.7d9xw8946f80.jpg" style="zoom:67%;" /></p>
-<p><font color=red>#connected components of G-<span
-class="math inline">\(e_1\)</span>=3&gt;2=#connected components of
-G<br>Both <span class="math inline">\(e_1\)</span> and<span
-class="math inline">\(e_2\)</span> are bridges/cut-edges</font></p>
-<p><strong>Thm(BJJ,Fan)<br>Every graph without bridges has a family of
-cycles which covers every edge exactly 2k times for any integer <span
-class="math inline">\(k\ge2\)</span></strong></p>
-<p>A subgraph H is spanning if <span
-class="math inline">\(V(H)=V(G)\)</span></p>
-<p>A subgraph H is induced by <font color=red> <span
-class="math inline">\(S\subset V(G)\)</span></font>, if <span
-class="math inline">\(V(H)=S\)</span> and for any two vertices <span
-class="math inline">\(x,y\in S\)</span>, <span
-class="math inline">\(xy\in E(H)\Leftrightarrow xy\in E(G)\)</span></p>
-<p>A subgraph H is induced by <font color=red> <span
-class="math inline">\(S\subset E(G)\)</span></font>, if <span
-class="math inline">\(E(H)=S\)</span> and <span
-class="math inline">\(v\in V(H)\)</span>a if and only if v is incident
-with an edge in S.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_213047.4nctxwr5lzc0.jpg" /></p>
-<p>Let <span class="math inline">\(x,y\in V(G)\)</span>, the distance
-between x and y in G is the length of the shortest path joining x and y,
-denoted by <span class="math inline">\(dist_G(x,y)\)</span>. In other
-words, <span class="math display">\[
-dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\
-y\}
-\]</span>
-<img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-28_215149.3o033gismx60.jpg" style="zoom:67%;" /></p>
-<p><font color=red><span class="math inline">\(dist_G(x,y)=k\)</span>,
-this means finding a shortest path between any two vertices x and y is
-easy</font></p>
-<p><font color=red>However, finding a longest path between any two
-vertices x and y.Given an integer k, is there an (x,y)-path with length
-k?They are NPC problems</font></p>
+        <h3 id="共轭凸函数1">1.4 共轭凸函数(1)</h3>
+<p>我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 <span
+class="math inline">\(E\)</span> 上, 取值在 <span
+class="math inline">\((-\infty,+\infty]\)</span> 的函数 <span
+class="math inline">\(\phi\)</span>, 我们给出一些记号如 <span
+class="math inline">\(\phi\)</span> 的定义域为 <span
+class="math inline">\(D(\phi)=\{x\in E|\phi(x)&lt;+\infty\}\)</span>,
+<span class="math inline">\(\phi\)</span> 的上图像为 <span
+class="math inline">\(\text{epi}\ \phi=\{[x,\lambda]\in
+E\times\mathbb{R}|\phi(x)\leq \lambda\}\)</span>, 其中 <span
+class="math inline">\(\mathbb{R}=(-\infty,+\infty)\)</span>.</p>
+<p>假设 <span class="math inline">\(E\)</span> 是拓扑空间, 定义 <span
+class="math inline">\(\phi: E\to(-\infty,+\infty]\)</span>
+是下半连续函数, 若 <span class="math inline">\(\forall
+\lambda\in\mathbb{R}\)</span>, 集合 <span
+class="math inline">\([\phi\leq\lambda]=\{x\in
+E|\phi(x)\leq\lambda\}\)</span> 是闭集.
+下面列举一些下半连续函数的基本性质: * <span
+class="math inline">\(\phi\)</span> 是下半连续函数, 那么其对应的上图像
+<span class="math inline">\(\text{epi}\ \phi\)</span> 是 <span
+class="math inline">\(E\times\mathbb{R}\)</span> 上的闭集, 反之亦然. *
+<span class="math inline">\(\phi\)</span> 是下半连续函数, 则</p>
 
     </div>
 
@@ -430,7 +288,7 @@ k?They are NPC problems</font></p>
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Math/" rel="tag"># Math</a>
-              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+              <a href="/tags/Functional-Analysis/" rel="tag"># Functional Analysis</a>
           </div>
 
         
@@ -438,11 +296,11 @@ k?They are NPC problems</font></p>
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/03/28/Graph2/" rel="next" title="Lecture series on graph theory 2">
-      Lecture series on graph theory 2 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/08/07/functional-3/" rel="prev" title="Functional Analysis-Bidual Space and Orthogonality Relation">
+      <i class="fa fa-chevron-left"></i> Functional Analysis-Bidual Space and Orthogonality Relation
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -501,6 +359,7 @@ k?They are NPC problems</font></p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%87%B8%E5%87%BD%E6%95%B01"><span class="nav-number">1.</span> <span class="nav-text">1.4 共轭凸函数(1)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
