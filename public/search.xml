@@ -2318,6 +2318,24 @@ class="math inline">\(V\)</span>, 使得 <span
 class="math inline">\(\phi(y)\geq\phi(x)-\epsilon,\ \forall y\in
 V\)</span>, 反之亦然.
 </li>
+<li>
+若 <span class="math inline">\(\phi_1,\ \phi_2\)</span> 是下半连续函数,
+那么 <span class="math inline">\(\phi_1+\phi_2\)</span>
+也是下半连续函数.
+</li>
+<li>
+<span class="math inline">\(\{\phi_i\}_{i\in I}\)</span>
+是一族下半连续函数, 那么 <span class="math inline">\(\phi=\sup_{i\in
+I}\phi_i(x)\)</span> 是下半连续函数
+</li>
+<li>
+若 <span class="math inline">\(E\)</span> 为紧空间, 而 <span
+class="math inline">\(\phi\)</span> 是下半连续的, 则 <span
+class="math inline">\(\phi\)</span> 在 <span
+class="math inline">\(E\)</span> 上可以达到下确界, 也就是 <span
+class="math inline">\(\exists x_0\in E\)</span>, 使得 <span
+class="math inline">\(\phi(x_0)=\inf_E\phi\)</span>
+</li>
 </ul>
 ]]></content>
       <categories>
