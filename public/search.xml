@@ -2021,8 +2021,11 @@ x_0\Vert^2\)</span>.</p>
 <p>Proof. 考虑 <span class="math inline">\(G=\mathbb{R} x_0\)</span> 和
 <span class="math inline">\(g(tx_0)=t\Vert x_0\Vert^2\)</span>.
 下我们说明 <span class="math inline">\(\Vert g\Vert_{G^\star}=\Vert
-x_0\Vert^2\)</span>, 依据定义可立马得到,</p>
-<p>根据 Corollary 1的结果, 存在 <span class="math inline">\(f0\in
+x_0\Vert^2\)</span>, 依据定义可立马得到, <span class="math display">\[
+\Vert g\Vert_{G^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x=tx_0\end{aligned}}|g(tx_0)|=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x=tx_0\end{aligned}}t\Vert x_0\Vert^2=\Vert x_0\Vert
+\]</span> 根据 Corollary 1的结果, 存在 <span class="math inline">\(f0\in
 E^\star\)</span> 满足 <span class="math inline">\(\Vert
 f_0\Vert{E^\star}=\Vert g\Vert_{G^\star}=\Vert x_0\Vert.\)</span> 和
 <span class="math inline">\(\langle f_0,x_0\rangle=f_0(x_0)=g(x_0)=\Vert
