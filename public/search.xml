@@ -2001,7 +2001,11 @@ class="math inline">\(g\)</span> 且满足 <span class="math display">\[
 \Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
 x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
 \]</span></p>
-<p><strong>Proof.</strong></p>
+<p><strong>Proof.</strong> 我们令 <span class="math inline">\(p(x)=\Vert
+g\Vert_{G^\star}\Vert x\Vert\)</span> , 应用 H-B 定理知有 <span
+class="math inline">\(f(x)\leq p(x)=\Vert g\Vert_{G^\star}\Vert x\Vert,\
+\forall x\in E\)</span>, 因此 <span class="math inline">\(\Vert
+f\Vert_{E^\star}\leq\Vert g\Vert_{G^\star}\)</span>.</p>
 <p><strong><font color='red'>Remark 4.</font></strong>
 <font color='red'>上面我们讨论的<span class="math inline">\(f_0\)</span>
 并不是唯一的. 只有当 <span class="math inline">\(E^\star\)</span>
