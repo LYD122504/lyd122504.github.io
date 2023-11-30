@@ -2006,16 +2006,16 @@ g\Vert_{G^\star}\Vert x\Vert\)</span> , 应用 H-B 定理知有 <span
 class="math inline">\(f(x)\leq p(x)=\Vert g\Vert_{G^\star}\Vert x\Vert,\
 \forall x\in E\)</span>, 因此 <span class="math inline">\(\Vert
 f\Vert_{E^\star}\leq\Vert g\Vert_{G^\star}\)</span>. 综上所述, <span
-class="math inline">\(\Vert f\Vert{E^\star}=\Vert
-g\Vert{G^\star}\)</span>.</p>
+class="math inline">\(\Vert f\Vert_{E^\star}=\Vert
+g\Vert_{G^\star}\)</span>.</p>
 <p>Corollary 2 <span class="math inline">\(\forall x0\in E,\ \exists
 f_0\in E^\star\)</span> 使得 <span class="math inline">\(\Vert
-f_0\Vert{E^\star}=\Vert x_0\Vert_E\)</span> 且 <span
+f_0\Vert_{E^\star}=\Vert x_0\Vert_E\)</span> 且 <span
 class="math inline">\(\langle f_0,x_0\rangle=\Vert
 x_0\Vert^2\)</span>.</p>
-<p>Proof. 考虑 <span class="math inline">\(G=\mathbb{R} x0\)</span> 和
+<p>Proof. 考虑 <span class="math inline">\(G=\mathbb{R} x_0\)</span> 和
 <span class="math inline">\(g(tx_0)=t\Vert x_0\Vert^2\)</span>.
-下我们说明 <span class="math inline">\(\Vert g\Vert{G^\star}=\Vert
+下我们说明 <span class="math inline">\(\Vert g\Vert_{G^\star}=\Vert
 x_0\Vert^2\)</span>, 依据定义可立马得到,</p>
 <p>根据 Corollary 1的结果, 存在 <span class="math inline">\(f0\in
 E^\star\)</span> 满足 <span class="math inline">\(\Vert
