@@ -2005,13 +2005,18 @@ x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
 g\Vert_{G^\star}\Vert x\Vert\)</span> , 应用 H-B 定理知有 <span
 class="math inline">\(f(x)\leq p(x)=\Vert g\Vert_{G^\star}\Vert x\Vert,\
 \forall x\in E\)</span>, 因此 <span class="math inline">\(\Vert
-f\Vert_{E^\star}\leq\Vert g\Vert_{G^\star}\)</span>. 综上所述, <span
-class="math inline">\(\Vert f\Vert_{E^\star}=\Vert
-g\Vert_{G^\star}\)</span>.</p>
-<p>Corollary 2 <span class="math inline">\(\forall x0\in E,\ \exists
-f_0\in E^\star\)</span> 使得 <span class="math inline">\(\Vert
-f_0\Vert_{E^\star}=\Vert x_0\Vert_E\)</span> 且 <span
-class="math inline">\(\langle f_0,x_0\rangle=\Vert
+f\Vert_{E^\star}\leq\Vert g\Vert_{G^\star}\)</span>. 同时有下式成立
+<span class="math display">\[
+\Vert f\Vert_{E^\star}=\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in
+E\end{aligned}}|f(x)|\geq\sup_{\scriptsize    \begin{aligned}&amp;\Vert
+x\Vert=1\\&amp;x\in G\end{aligned}}|g(x)|=\Vert g\Vert_{G^\star}
+\]</span> 综上所述, <span class="math inline">\(\Vert
+f\Vert_{E^\star}=\Vert g\Vert_{G^\star}\)</span>.</p>
+<p><strong>Corollary 2</strong> <span class="math inline">\(\forall
+x_0\in E,\ \exists f_0\in E^\star\)</span> 使得 <span
+class="math inline">\(\Vert f_0\Vert_{E^\star}=\Vert x_0\Vert_E\)</span>
+且 <span class="math inline">\(\langle f_0,x_0\rangle=\Vert
 x_0\Vert^2\)</span>.</p>
 <p>Proof. 考虑 <span class="math inline">\(G=\mathbb{R} x_0\)</span> 和
 <span class="math inline">\(g(tx_0)=t\Vert x_0\Vert^2\)</span>.
