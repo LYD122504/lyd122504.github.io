@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Thm(Wilf,1967) Let G be a graph. Then \(\chi(G)\leq\lambda_1(G)+1\), where \(\chi(G)\) is the chromatic number A proper vertex coloring is a map \(c:V(G)\to\mathbb{N}\) s.t. \(c(v_i)\not&#x3D;c(v_j)\) if">
+  <meta name="description" content="The SVD allows us to decompose data matrix \(X\) as the product of three matrices, \(U,\ V^T,\ \Sigma\), where essentially \(U\) contains information about the column space of \(X\), \(V\) contains i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lecture series on graph theory 7">
-<meta property="og:url" content="http://example.com/2022/05/26/Graph7/index.html">
+<meta property="og:title" content="SVD-Matrix Approximation">
+<meta property="og:url" content="http://example.com/2024/04/19/svd-2/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Thm(Wilf,1967) Let G be a graph. Then \(\chi(G)\leq\lambda_1(G)+1\), where \(\chi(G)\) is the chromatic number A proper vertex coloring is a map \(c:V(G)\to\mathbb{N}\) s.t. \(c(v_i)\not&#x3D;c(v_j)\) if">
+<meta property="og:description" content="The SVD allows us to decompose data matrix \(X\) as the product of three matrices, \(U,\ V^T,\ \Sigma\), where essentially \(U\) contains information about the column space of \(X\), \(V\) contains i">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-25T17:00:49.000Z">
-<meta property="article:modified_time" content="2022-08-18T03:31:29.043Z">
+<meta property="article:published_time" content="2024-04-19T14:56:25.000Z">
+<meta property="article:modified_time" content="2024-04-19T15:00:32.339Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
-<meta property="article:tag" content="Operation Research">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/05/26/Graph7/">
+<link rel="canonical" href="http://example.com/2024/04/19/svd-2/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Lecture series on graph theory 7 | 还施水阁</title>
+  <title>SVD-Matrix Approximation | 还施水阁</title>
   
 
 
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/26/Graph7/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/19/svd-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -215,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lecture series on graph theory 7
+          SVD-Matrix Approximation
         </h1>
 
         <div class="post-meta">
@@ -224,23 +224,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-05-26 01:00:49" itemprop="dateCreated datePublished" datetime="2022-05-26T01:00:49+08:00">2022-05-26</time>
+              <time title="创建时间：2024-04-19 22:56:25 / 修改时间：23:00:32" itemprop="dateCreated datePublished" datetime="2024-04-19T22:56:25+08:00">2024-04-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-18 11:31:29" itemprop="dateModified" datetime="2022-08-18T11:31:29+08:00">2022-08-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                  <a href="/categories/Reduced-Order-Model/" itemprop="url" rel="index"><span itemprop="name">Reduced Order Model</span></a>
                 </span>
             </span>
 
@@ -262,156 +256,136 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>Thm(Wilf,1967) Let G be a graph. Then <span
-class="math inline">\(\chi(G)\leq\lambda_1(G)+1\)</span>, where <span
-class="math inline">\(\chi(G)\)</span> is the chromatic
-number</strong></p>
-<p>A proper vertex coloring is a map <span
-class="math inline">\(c:V(G)\to\mathbb{N}\)</span> s.t. <span
-class="math inline">\(c(v_i)\not=c(v_j)\)</span> if <span
-class="math inline">\(v_iv_j\in E(G)\)</span>.</p>
-<p>A graph is a k-colorable if there exists a proper vertex coloring
-<span class="math display">\[
-c:V(G)\to\{1,2,\cdots,k\}=[k].
-\]</span> <span id="more"></span></p>
-<p>The chromatic number of a graph is the smallest integer k s.t. G is
-k-colorable, denoted by <span
-class="math inline">\(\chi(G)\)</span>.</p>
-<p><strong>(Four color Theorem) Every planar graph is
-4-colorable</strong></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_011010.4crr6n46e6o.jpg" /></p>
-<p><strong>Lemma Let G be a graph. Then</strong> <span
+        <p>The SVD allows us to decompose data matrix <span
+class="math inline">\(X\)</span> as the product of three matrices, <span
+class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
+class="math inline">\(U\)</span> contains information about the column
+space of <span class="math inline">\(X\)</span>, <span
+class="math inline">\(V\)</span> contains information about the row
+space of <span class="math inline">\(X\)</span> and <span
+class="math inline">\(\Sigma\)</span> is a hierarchically ordered
+diagonal matrix, which tells you how important the various columns of
+<span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are.</p>
+<span id="more"></span>
+<p>In fact, the data matrix <span class="math inline">\(X\)</span> has
+only <span class="math inline">\(m\)</span> columns, it means there are
+at most <span class="math inline">\(m\)</span> linearly independence
+columns in this <span class="math inline">\(n\)</span>-dimensional
+vector space.So the first <span class="math inline">\(m\)</span> columns
+of <span class="math inline">\(U\)</span> are important in representing
+this data matrix. To explain this fact more deeply, we try to represent
+expansion as a sum of rank-1 matrices.</p>
+<p>Based on the Singular Value Decomposition,we can get the following
+equation, <span class="math display">\[
+X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
+&amp;\ \\\ &amp;\ &amp;\ &amp;\
+\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\ \\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T
+\]</span> Since <span class="math inline">\(\Sigma\)</span> is a
+diagnoal matrix, we can expand the above equation as follow, <span
 class="math display">\[
-\chi(G)\leq1+p
-\]</span> <strong>where <span
-class="math inline">\(p=\max\{\delta(H)|\text{H is an induced subgraph
-of G}\}\)</span>, <font color='red'><span
-class="math inline">\(\delta(G)\)</span> is minimum degree of
-H.</font></strong></p>
-<hr />
-<p><strong>Proof of Lemma</strong></p>
-<p>Use greedy algorithm:</p>
-<p>Consider that <span
-class="math inline">\(c:V(G)\to\mathbb{N}\)</span> such that color the
-first vertex by the smallest value and color the k-th vertex by using
-the smallest value that has not been used to color any of the first k-1
-vertices that are adjacent to the k-th vertex. So it suffices to show
-that there is an ordering of the vertices of G for which the greedy
-algorithm gives an (1+p)-coloring of G.</p>
-<p>Let <span class="math inline">\(x_n\)</span> be a vertex of <span
-class="math inline">\(G=H_n\)</span> having degree at most
-p.<font color='red'>（<span class="math inline">\(x_n\)</span> could be
-the vertex of G with the degree <span
-class="math inline">\(\delta(G)\)</span></font></p>
-<p>By the definition of the value of p, the subgraph <span
-class="math inline">\(H_{n-1}=G-x_n\)</span> has a vertex <span
-class="math inline">\(x_{n-1}\)</span> of degree at most p. Continue
-this process, let <span
-class="math inline">\(H_{n-1}=G-\{x_n,x_{n-1},\cdots,x_{n-i+1}\}\)</span>
-which again has a vertex of degree at most p, denoted by <span
-class="math inline">\(x_{n-i}\)</span> for <span
-class="math inline">\(i\in[n]\)</span></p>
-<p>Then <span
-class="math inline">\(H_{1}=G-\{x_n,x_{n-1},\cdots,x_{2}\}\)</span> is
-an isolated vertex of degree 0.</p>
-<p>Then the ordering <span
-class="math inline">\(x_1,x_2,\cdots,x_n\)</span> is a desired one.</p>
-<hr />
-<p><strong>Proof of Wilf's Theorem</strong></p>
-<p>Let G be a graph. For any induced subgraph H of G, <span
-class="math inline">\(\delta(G)\leq
-d(G)\leq\lambda_1(H)\leq\lambda_1(G)\)</span></p>
-<p>Therefore, <span class="math inline">\(p=\max\{\delta(H)|\text{H is
-an induced subgraph of G}\}\leq\lambda_1(G)\)</span></p>
-<p>It follows from the above Lemma <span class="math display">\[
-\chi(G)\leq 1+p\leq1+\lambda_1(G)
-\]</span></p>
-<hr />
-<p>If G is k-colorable, let <span
-class="math inline">\(c:V(G)\to[k]\)</span> be a k-colorable. <span
-class="math inline">\(c^{-1}(i)\)</span>, the preimage of color i, is an
-independent set. Independent number of G: <span
-class="math inline">\(\alpha(G)\geq\max\left\{|c^{-1}(i)|\big|i\in[k]\right\}\geq
-n/k\)</span>.</p>
-<p>So <span class="math inline">\(\alpha(G)\geq n/\chi(G)\geq
-n/(1+\lambda_1(G))\)</span>.</p>
-<p><strong>Coloring, Integer flow</strong></p>
-<p>Let G be a graph. An integer flow of G is an ordered pair <span
-class="math inline">\((D,f)\)</span> where <span
-class="math inline">\(D\)</span> is an orientation of <span
-class="math inline">\(G\)</span> and <span
-class="math inline">\(f\)</span> is an integer function <span
-class="math inline">\(f:E(G)\to\mathbb{Z}\)</span> s.t. for every vertex
-v of G <span class="math inline">\(\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in
-E^{-}(v)}f(e)\)</span> where <span
-class="math inline">\(E^{+}(v)\)</span> is the set of all arcs with
-<span class="math inline">\(v\)</span> as tail and <span
-class="math inline">\(E^{-}(v)\)</span> is the set of all arcs with v as
-head.</p>
-<p><font color='red'>Recall: this incidence matrix of D is matrix is
-<span class="math inline">\(\vec{B}\)</span> and <span
-class="math inline">\(\vec{f}=&lt;f(e_1),\cdots,f(e_m)&gt;\in\mathbb{Z}^m\)</span> where
-<span class="math inline">\(m=|E(G)|\)</span> , then <span
-class="math inline">\(\vec{B}\cdot\vec{f}=0\)</span>. This vector <span
-class="math inline">\(\vec{f}\)</span> is called an integer flow of
-G.</font></p>
-<p>An integer flow <span class="math inline">\((D,f)\)</span> is
-nowhere-zero if <span class="math inline">\(f(e)\not=0\)</span> for all
-edges of <span class="math inline">\(G\)</span> <font color='red'>i.e.
-<span class="math inline">\(\vec{f}\)</span> has no zero
-component.</font></p>
-<p>An integer flow <span class="math inline">\((D,f)\)</span> is a
-k-flow if <span class="math inline">\(|f(e)|&lt;k\)</span>
-<font color='red'>i.e. every component of <span
-class="math inline">\(\vec{f}\)</span> has absolute value less than
-k.</font></p>
-<p>If G has a k-flow, the orientation in the k-flow does not matter.</p>
-<p><strong>Proposition Every Eulerian graph has nowhere 2-flow. A
-connected graph with a nowhere-zero 2-flow is Eulerian.</strong></p>
-<p><strong>Lemma Let <span class="math inline">\((D,f)\)</span> be a
-flow of G, then for each <span class="math inline">\(X\subset
-V(G)\)</span>, it holds that</strong><br />
-<span class="math display">\[
-\sum_{e\in E^{+}X}f(e)=\sum_{e\in E^{-}(X)}f(e)
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Since <span class="math inline">\((D,f)\)</span> is a flow, it
-follows that, for every vertex v, <span class="math display">\[
-\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)
-\]</span> So <span class="math inline">\(\sum_{e\in
-E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e)=0\)</span></p>
-<p>Note that <span class="math display">\[
-0=\sum_{v\in X}(\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in
-E^{-}(v)}f(e))=\sum_{e\in E^{+}(X)}f(e)-\sum_{e\in E^{-}(X)}f(e)
-\]</span></p>
-<hr />
-<p><strong>Corollary A graph has a nowhere-zero integer flow <span
-class="math inline">\(\Leftrightarrow\)</span> it has no
-cut-edge.</strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p><span class="math inline">\(\Rightarrow\)</span> It follows directly
-from the above lemma.</p>
-<p><span class="math inline">\(\Leftarrow\)</span> Assume that G has no
-cut-edge. Then every edge of G belongs to a cycle.</p>
-<p>Let <span class="math inline">\(C=\{C_1,C_2,\cdots,C_k\}\)</span> be
-a set of cycles covering all edges of G.</p>
-<p>Every <span class="math inline">\(C_1\)</span> has nowhere-zero
-2-flow <span class="math inline">\((D,f_1)\)</span> <span
-class="math display">\[
-f:E(G)\to\mathbb{N}\quad s.t.\ f(e)=\sum_{i=1}^k 2^if_i(e)
-\]</span> Then <span class="math inline">\((D,f)\)</span> is a
-nowhere-zero integer flow.</p>
-<hr />
-<p><strong>The Coloring-Flow Duality Theorem (Tutte)<br>Let G be a
-2-connected planar graph. Then G is proper face k-colorable if and only
-if G has a nowhere-zero k-flow. In other words, let <span
-class="math inline">\(G^{\star}\)</span> be its planar dual. Then <span
-class="math inline">\(G^{\star}\)</span> is proper k-colorable <span
-class="math inline">\(\Leftrightarrow\)</span> G has a nowhere-zero
-k-flow.</strong></p>
+X=U\Sigma
+V^T=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_mu_mv_m^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\
+&amp;\sigma_m\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\
+\\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T=\hat{U}\hat{\Sigma}V^T
+\]</span> Even though <span class="math inline">\(U\)</span> is a
+massive <span class="math inline">\(n\times n\)</span> matrix, there are
+only at most <span class="math inline">\(m\)</span> non-zeros singular
+values in <span class="math inline">\(\Sigma\)</span> that means the
+rank of data matrix <span class="math inline">\(X\)</span> satisfies
+<span class="math inline">\(rank(X)\leq m\)</span>. Actually,I can
+selcet the first <span class="math inline">\(m\)</span> columns of <span
+class="math inline">\(U\)</span>, the first <span
+class="math inline">\(m\times m\)</span> block of <span
+class="math inline">\(\Sigma\)</span> and the original <span
+class="math inline">\(V\)</span> to represent the data matrix <span
+class="math inline">\(X\)</span>. We always call <span
+class="math inline">\(X=\hat{U}\hat{\Sigma}V^T\)</span> as the economy
+SVD and <span class="math inline">\(X=U\Sigma V^T\)</span> as the full
+SVD. Since we consider the case of <span class="math inline">\(n\gg
+m\)</span>, <span class="math inline">\(\hat{U}\in \mathbb{R}^{n\times
+m}\)</span> and <span class="math inline">\(\hat{\Sigma}\in
+\mathbb{R}^{m\times m}\)</span> need lower storage.</p>
+<p>Therefore, we can give another explanation about SVD: we can
+decompose the data matrix X into the orthogonal basis <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>, where essentially you can rewrite this
+as a sum of rank-1 matrices, which increasingly improve the
+approximation of <span class="math inline">\(X\)</span>. According to
+this explanation, we can give out some interesting results like, the
+best rank-1 matrix that we can make to approximate <span
+class="math inline">\(X\)</span> is <span
+class="math inline">\(\sigma_1u_1v_1^T\)</span>; the best rank-2 matrix
+that we can make to approximate <span class="math inline">\(X\)</span>
+is <span
+class="math inline">\(\sigma_1u_1v_1^T+\sigma_2u_2v_2^T\)</span> and so
+on and so forth.</p>
+<p>Since we hope to use less data storage to approximate the real data
+as much as possible in practice, we often truncate at rank r. Oftentimes
+we have a lot of negligibly small singular values like <span
+class="math inline">\(\sigma_{r+1},\
+\sigma_{r+2},\cdots,\sigma_m\)</span>, it means that most of the
+information of <span class="math inline">\(X\)</span> is captured in the
+first <span class="math inline">\(r\)</span> singular values and the
+first <span class="math inline">\(r\)</span> singular vectors. So we can
+throw away all of low singular values and singular vectors and only keep
+the first <span class="math inline">\(r\)</span> columns of <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> and the first <span
+class="math inline">\(r\times r\)</span> submatrix in <span
+class="math inline">\(\Sigma\)</span>. Then we are going to define this
+truncated SVD as follows, <span class="math display">\[
+X\approx\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_r\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\
+&amp;\sigma_r\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\
+\\\cdots&amp;v_r^T&amp;\cdots\end{bmatrix}^T=\tilde{U}\tilde{\Sigma}\tilde{V}^T
+\]</span> Here we find that the truncated SVD <span
+class="math inline">\(\tilde{U}\tilde{\Sigma}\tilde{V}^T\)</span> is the
+best rank-<span class="math inline">\(r\)</span> matrix approximating
+the data matrix <span class="math inline">\(X\)</span>.Thus,
+high-dimensional data may be well described by a few dominant patterns
+given by the columns of <span class="math inline">\(\tilde{U}\)</span>
+and <span class="math inline">\(\tilde{V}\)</span>.Like the mentioned in
+the first section,we realize that the truncated singular vectors <span
+class="math inline">\(\tilde{U}\)</span> provides a coordinate
+transformation from the high-dimensional measurement space into a
+low-dimensional pattern space.</p>
+<p>The Eckart-Young theorem states that the absolute best approximation
+to the matrix <span class="math inline">\(X\)</span> of rank r,
+Theorem(Eckart-Young) The optimal rank-r approximation to <span
+class="math inline">\(X\)</span>, in a least-squares sense, is given by
+the rank-r SVD truncation <span
+class="math inline">\(\tilde{X}\)</span>, <span class="math display">\[
+argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert
+X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T
+\]</span> The Ecakrt-Young theorem guarantees that the best possible
+matrix approximation to <span class="math inline">\(X\)</span> of rank
+<span class="math inline">\(r\)</span> is given by the firsr <span
+class="math inline">\(r\)</span> truncated SVD.</p>
+<p>Finally,we should mention an important point. At beginning of
+discussing the SVD, we define the matrices <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are unitary. However,if we truncated at
+rank r,the truncated matrices <span
+class="math inline">\(\tilde{U}\)</span> and <span
+class="math inline">\(\tilde{V}\)</span> are no longer square matrices,
+so they are not unitary matrix again. They satisfy that <span
+class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
+\tilde{U}\tilde{U}^T\not=I\)</span></p>
 
     </div>
 
@@ -422,7 +396,7 @@ k-flow.</strong></p>
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Math/" rel="tag"># Math</a>
-              <a href="/tags/Operation-Research/" rel="tag"># Operation Research</a>
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           </div>
 
         
@@ -431,13 +405,10 @@ k-flow.</strong></p>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/24/Graph6/" rel="prev" title="Lecture series on graph theory 6">
-      <i class="fa fa-chevron-left"></i> Lecture series on graph theory 6
+    <a href="/2024/04/18/svd-1/" rel="prev" title="SVD-Mathematical Overview">
+      <i class="fa fa-chevron-left"></i> SVD-Mathematical Overview
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/27/Graph8/" rel="next" title="Lecture series on graph theory 8">
-      Lecture series on graph theory 8 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

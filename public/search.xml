@@ -3357,7 +3357,7 @@ complex-valued matrix as the product of three other matrices,</p>
 <span id="more"></span>
 <p><span class="math display">\[
 X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_n\\\vdots&amp;\vdots&amp;\
 &amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
 &amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
 \ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
@@ -3430,6 +3430,148 @@ class="math inline">\(V\)</span> is similar to <span
 class="math inline">\(U\)</span>. The diagonal elements of <span
 class="math inline">\(\Sigma\)</span> are called sigular values.The rank
 of X is equal to the number of non-zero sigular value.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Matrix Approximation</title>
+    <url>/2024/04/19/svd-2/</url>
+    <content><![CDATA[<p>The SVD allows us to decompose data matrix <span
+class="math inline">\(X\)</span> as the product of three matrices, <span
+class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
+class="math inline">\(U\)</span> contains information about the column
+space of <span class="math inline">\(X\)</span>, <span
+class="math inline">\(V\)</span> contains information about the row
+space of <span class="math inline">\(X\)</span> and <span
+class="math inline">\(\Sigma\)</span> is a hierarchically ordered
+diagonal matrix, which tells you how important the various columns of
+<span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are.</p>
+<span id="more"></span>
+<p>In fact, the data matrix <span class="math inline">\(X\)</span> has
+only <span class="math inline">\(m\)</span> columns, it means there are
+at most <span class="math inline">\(m\)</span> linearly independence
+columns in this <span class="math inline">\(n\)</span>-dimensional
+vector space.So the first <span class="math inline">\(m\)</span> columns
+of <span class="math inline">\(U\)</span> are important in representing
+this data matrix. To explain this fact more deeply, we try to represent
+expansion as a sum of rank-1 matrices.</p>
+<p>Based on the Singular Value Decomposition,we can get the following
+equation, <span class="math display">\[
+X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
+&amp;\ \\\ &amp;\ &amp;\ &amp;\
+\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\ \\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T
+\]</span> Since <span class="math inline">\(\Sigma\)</span> is a
+diagnoal matrix, we can expand the above equation as follow, <span
+class="math display">\[
+X=U\Sigma
+V^T=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_mu_mv_m^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\
+&amp;\sigma_m\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\
+\\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T=\hat{U}\hat{\Sigma}V^T
+\]</span> Even though <span class="math inline">\(U\)</span> is a
+massive <span class="math inline">\(n\times n\)</span> matrix, there are
+only at most <span class="math inline">\(m\)</span> non-zeros singular
+values in <span class="math inline">\(\Sigma\)</span> that means the
+rank of data matrix <span class="math inline">\(X\)</span> satisfies
+<span class="math inline">\(rank(X)\leq m\)</span>. Actually,I can
+selcet the first <span class="math inline">\(m\)</span> columns of <span
+class="math inline">\(U\)</span>, the first <span
+class="math inline">\(m\times m\)</span> block of <span
+class="math inline">\(\Sigma\)</span> and the original <span
+class="math inline">\(V\)</span> to represent the data matrix <span
+class="math inline">\(X\)</span>. We always call <span
+class="math inline">\(X=\hat{U}\hat{\Sigma}V^T\)</span> as the economy
+SVD and <span class="math inline">\(X=U\Sigma V^T\)</span> as the full
+SVD. Since we consider the case of <span class="math inline">\(n\gg
+m\)</span>, <span class="math inline">\(\hat{U}\in \mathbb{R}^{n\times
+m}\)</span> and <span class="math inline">\(\hat{\Sigma}\in
+\mathbb{R}^{m\times m}\)</span> need lower storage.</p>
+<p>Therefore, we can give another explanation about SVD: we can
+decompose the data matrix X into the orthogonal basis <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>, where essentially you can rewrite this
+as a sum of rank-1 matrices, which increasingly improve the
+approximation of <span class="math inline">\(X\)</span>. According to
+this explanation, we can give out some interesting results like, the
+best rank-1 matrix that we can make to approximate <span
+class="math inline">\(X\)</span> is <span
+class="math inline">\(\sigma_1u_1v_1^T\)</span>; the best rank-2 matrix
+that we can make to approximate <span class="math inline">\(X\)</span>
+is <span
+class="math inline">\(\sigma_1u_1v_1^T+\sigma_2u_2v_2^T\)</span> and so
+on and so forth.</p>
+<p>Since we hope to use less data storage to approximate the real data
+as much as possible in practice, we often truncate at rank r. Oftentimes
+we have a lot of negligibly small singular values like <span
+class="math inline">\(\sigma_{r+1},\
+\sigma_{r+2},\cdots,\sigma_m\)</span>, it means that most of the
+information of <span class="math inline">\(X\)</span> is captured in the
+first <span class="math inline">\(r\)</span> singular values and the
+first <span class="math inline">\(r\)</span> singular vectors. So we can
+throw away all of low singular values and singular vectors and only keep
+the first <span class="math inline">\(r\)</span> columns of <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> and the first <span
+class="math inline">\(r\times r\)</span> submatrix in <span
+class="math inline">\(\Sigma\)</span>. Then we are going to define this
+truncated SVD as follows, <span class="math display">\[
+X\approx\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_r\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\
+&amp;\sigma_r\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\
+\\\cdots&amp;v_r^T&amp;\cdots\end{bmatrix}^T=\tilde{U}\tilde{\Sigma}\tilde{V}^T
+\]</span> Here we find that the truncated SVD <span
+class="math inline">\(\tilde{U}\tilde{\Sigma}\tilde{V}^T\)</span> is the
+best rank-<span class="math inline">\(r\)</span> matrix approximating
+the data matrix <span class="math inline">\(X\)</span>.Thus,
+high-dimensional data may be well described by a few dominant patterns
+given by the columns of <span class="math inline">\(\tilde{U}\)</span>
+and <span class="math inline">\(\tilde{V}\)</span>.Like the mentioned in
+the first section,we realize that the truncated singular vectors <span
+class="math inline">\(\tilde{U}\)</span> provides a coordinate
+transformation from the high-dimensional measurement space into a
+low-dimensional pattern space.</p>
+<p>The Eckart-Young theorem states that the absolute best approximation
+to the matrix <span class="math inline">\(X\)</span> of rank r,
+Theorem(Eckart-Young) The optimal rank-r approximation to <span
+class="math inline">\(X\)</span>, in a least-squares sense, is given by
+the rank-r SVD truncation <span
+class="math inline">\(\tilde{X}\)</span>, <span class="math display">\[
+argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert
+X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T
+\]</span> The Ecakrt-Young theorem guarantees that the best possible
+matrix approximation to <span class="math inline">\(X\)</span> of rank
+<span class="math inline">\(r\)</span> is given by the firsr <span
+class="math inline">\(r\)</span> truncated SVD.</p>
+<p>Finally,we should mention an important point. At beginning of
+discussing the SVD, we define the matrices <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are unitary. However,if we truncated at
+rank r,the truncated matrices <span
+class="math inline">\(\tilde{U}\)</span> and <span
+class="math inline">\(\tilde{V}\)</span> are no longer square matrices,
+so they are not unitary matrix again. They satisfy that <span
+class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
+\tilde{U}\tilde{U}^T\not=I\)</span></p>
 ]]></content>
       <categories>
         <category>Reduced Order Model</category>
