@@ -195,6 +195,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/26/Graph7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/26/Graph7/" class="post-title-link" itemprop="url">Lecture series on graph theory 7</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-26 01:00:49" itemprop="dateCreated datePublished" datetime="2022-05-26T01:00:49+08:00">2022-05-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-18 11:31:29" itemprop="dateModified" datetime="2022-08-18T11:31:29+08:00">2022-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>Thm(Wilf,1967) Let G be a graph. Then $\chi(G)\leq\lambda_1(G)+1$, where $\chi(G)$ is the chromatic number</strong></p>
+<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not=c(v_j)$ if $v_iv_j\in E(G)$.</p>
+<p>A graph is a k-colorable if there exists a proper vertex coloring </p>
+<script type="math/tex; mode=display">
+c:V(G)\to\{1,2,\cdots,k\}=[k].</script>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/26/Graph7/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/24/Graph6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -250,17 +335,9 @@
 
       
           <p><strong>Interlacing Theorem</strong></p>
-<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric
-real <span class="math inline">\(n\times n\)</span> and let B be an m-th
-principal submatrix<font color='red'>(obtained by deleting both i-th row
-and i-th column for some n-m values of i)</font>. Suppose A has
-eigenvalues <span
-class="math inline">\(\lambda_1\geq\cdots\geq\lambda_n\)</span>, and B
-has eigenvalues <span
-class="math inline">\(\beta_1\geq\cdots\geq\beta_m\)</span>.Then</strong>
-<span class="math display">\[
-\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m
-\]</span>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m</script>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/24/Graph6/#more" rel="contents">
@@ -341,16 +418,8 @@ class="math inline">\(\beta_1\geq\cdots\geq\beta_m\)</span>.Then</strong>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Let G be a finite graph. We consider a random walk on the vertices of
-G of the following type. Start at a vertex <span
-class="math inline">\(v\)</span> .<font color='red'>(v could be chosen
-randomly according to some probably distribution or could be specified
-in advance).</font> Among all edges incident to v, choose one uniformly
-at random<font color='red'>( i.e. if <span
-class="math inline">\(d_G(v)=d\)</span>, each of these edges is chosen
-with probability 1/d)</font></p>
-<p><strong>Problem: determine the probability of being at a given vertex
-after a given number steps.</strong></p>
+          <p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)=d$, each of these edges is chosen with probability 1/d)</font> </p>
+<p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/22/Graph5/#more" rel="contents">
@@ -431,8 +500,7 @@ after a given number steps.</strong></p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>Proposition. The adjacency matrix of a graph is a real
-symmetric matrix.</strong></p>
+          <p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/22/Graph4/#more" rel="contents">
@@ -513,19 +581,14 @@ symmetric matrix.</strong></p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Given a graph G, <span class="math inline">\(T=\{v|d_G(v)\equiv1\
-mod\ 2\}\)</span>, a subgraph P is called a parity subgraph if <span
-class="math display">\[
+          <p>Given a graph G, $T={v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if </p>
+<script type="math/tex; mode=display">
 d_P(v)\equiv\left\{
 \begin{aligned}
-&amp;0\ mod\ 2,\ v\not\in T\\
-&amp;1\ mod\ 2,\ v\in T
+&0\ mod\ 2,\ v\not\in T\\
+&1\ mod\ 2,\ v\in T
 \end{aligned}
-\right.\qquad i.e.\ d_P(v)\equiv d_G(v)
-\]</span> <span class="math inline">\(G-E(P)\)</span> is an even
-subgraph <font color='red'>( i.e. every vertex of G-E(P) has even
-degree)<br>Problem: To find a parity subgraph with the minimum number of
-edges.</font></p>
+\right.\qquad i.e.\ d_P(v)\equiv d_G(v)</script><p>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/20/Graph3/#more" rel="contents">
@@ -606,13 +669,10 @@ edges.</font></p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>First, we try to prove the Mantel's Theorem, which was presented as a
-question in the last blog post.</p>
-<p><strong>Thm(Mantel's Theorem)<br>Let G be a graph with n vertices. If
-G does not contain a triangle, then</strong> <span
-class="math display">\[
-\lvert E(G)\rvert\leq\frac{n^2}{4}
-\]</span> Before the proof begin, we introduce what triangle means.</p>
+          <p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
+<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong></p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\frac{n^2}{4}</script><p>Before the proof begin, we introduce what triangle means.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/03/28/Graph2/#more" rel="contents">
@@ -693,11 +753,8 @@ class="math display">\[
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Def. A graph is a <font color=red>discrete structure/combinational
-structure</font> consisting of vertices and edges which connect to a
-pair of vertices.</p>
-<p>Usually, a vertex is represented by a dot and an edge is represented
-by a line (straight or curved) joining two vertices.</p>
+          <p>Def.  A graph is a <font color=red>discrete structure/combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
+<p>Usually, a vertex is represented by a dot and an edge is represented by a line (straight or curved)  joining two vertices.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/03/28/Graph1/#more" rel="contents">
@@ -791,7 +848,7 @@ by a line (straight or curved) joining two vertices.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

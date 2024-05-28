@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="1.4 共轭凸函数(1) 我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 \(E\) 上, 取值在 \((-\infty,+\infty]\) 的函数 \(\phi\), 我们给出一些记号如 \(\phi\) 的定义域为 \(D(\phi)&#x3D;\{x\in E|\phi(x)&lt;+\infty\}\), \(\phi\) 的上图像为 \(\text{epi}\ \phi&#x3D;\{[x,\">
+  <meta name="description" content="1.4 共轭凸函数(1)我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 $E$ 上, 取值在 $(-\infty,+\infty]$ 的函数 $\phi$, 我们给出一些记号如 $\phi$ 的定义域为 $D(\phi)&#x3D;{x\in E|\phi(x)&lt;+\infty}$, $\phi$ 的上图像为 $\text{epi}\ \phi&#x3D;{[x,\lambda]\in E\times\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Functional Analysis-A Quick Introduction to the Theory of Conjugate Convex Functions(1)">
 <meta property="og:url" content="http://example.com/2023/08/08/functional-4/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="1.4 共轭凸函数(1) 我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 \(E\) 上, 取值在 \((-\infty,+\infty]\) 的函数 \(\phi\), 我们给出一些记号如 \(\phi\) 的定义域为 \(D(\phi)&#x3D;\{x\in E|\phi(x)&lt;+\infty\}\), \(\phi\) 的上图像为 \(\text{epi}\ \phi&#x3D;\{[x,\">
+<meta property="og:description" content="1.4 共轭凸函数(1)我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 $E$ 上, 取值在 $(-\infty,+\infty]$ 的函数 $\phi$, 我们给出一些记号如 $\phi$ 的定义域为 $D(\phi)&#x3D;{x\in E|\phi(x)&lt;+\infty}$, $\phi$ 的上图像为 $\text{epi}\ \phi&#x3D;{[x,\lambda]\in E\times\">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-08T03:24:05.000Z">
 <meta property="article:modified_time" content="2024-03-30T12:27:19.324Z">
@@ -262,109 +262,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="共轭凸函数1">1.4 共轭凸函数(1)</h3>
-我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 <span
-class="math inline">\(E\)</span> 上, 取值在 <span
-class="math inline">\((-\infty,+\infty]\)</span> 的函数 <span
-class="math inline">\(\phi\)</span>, 我们给出一些记号如 <span
-class="math inline">\(\phi\)</span> 的定义域为 <span
-class="math inline">\(D(\phi)=\{x\in E|\phi(x)&lt;+\infty\}\)</span>,
-<span class="math inline">\(\phi\)</span> 的上图像为 <span
-class="math inline">\(\text{epi}\ \phi=\{[x,\lambda]\in
-E\times\mathbb{R}|\phi(x)\leq \lambda\}\)</span>, 其中 <span
-class="math inline">\(\mathbb{R}=(-\infty,+\infty)\)</span>. <span id="more"></span>
-假设 <span class="math inline">\(E\)</span> 是拓扑空间, 定义 <span
-class="math inline">\(\phi: E\to(-\infty,+\infty]\)</span>
-是下半连续函数, 若 <span class="math inline">\(\forall
-\lambda\in\mathbb{R}\)</span>, 集合 <span
-class="math inline">\([\phi\leq\lambda]=\{x\in
-E|\phi(x)\leq\lambda\}\)</span> 是闭集.
-下面列举一些下半连续函数的基本性质:
+        <h3 id="1-4-共轭凸函数-1"><a href="#1-4-共轭凸函数-1" class="headerlink" title="1.4 共轭凸函数(1)"></a>1.4 共轭凸函数(1)</h3><p>我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 $E$ 上, 取值在 $(-\infty,+\infty]$ 的函数 $\phi$, 我们给出一些记号如 $\phi$ 的定义域为 $D(\phi)={x\in E|\phi(x)&lt;+\infty}$, $\phi$ 的上图像为 $\text{epi}\ \phi={[x,\lambda]\in E\times\mathbb{R}|\phi(x)\leq \lambda}$, 其中 $\mathbb{R}=(-\infty,+\infty)$.<br><span id="more"></span><br>假设 $E$ 是拓扑空间, 定义 $\phi: E\to(-\infty,+\infty]$ 是下半连续函数, 若 $\forall \lambda\in\mathbb{R}$, 集合 $[\phi\leq\lambda]={x\in E|\phi(x)\leq\lambda}$ 是闭集. 下面列举一些下半连续函数的基本性质:</p>
 <ul>
-<li>
-<span class="math inline">\(\phi\)</span> 是下半连续函数,
-那么其对应的上图像 <span class="math inline">\(\text{epi}\ \phi\)</span>
-是 <span class="math inline">\(E\times\mathbb{R}\)</span> 上的闭集,
-反之亦然.
-</li>
-<li>
-<span class="math inline">\(\phi\)</span> 是下半连续函数, 则 <span
-class="math inline">\(\forall x,\ \forall\epsilon&gt;0\)</span>, 存在
-<span class="math inline">\(x\)</span> 的领域 <span
-class="math inline">\(V\)</span>, 使得 <span
-class="math inline">\(\phi(y)\geq\phi(x)-\epsilon,\ \forall y\in
-V\)</span>, 反之亦然.
-</li>
-<li>
-若 <span class="math inline">\(\phi_1,\ \phi_2\)</span> 是下半连续函数,
-那么 <span class="math inline">\(\phi_1+\phi_2\)</span>
-也是下半连续函数.
-</li>
-<li>
-<span class="math inline">\(\{\phi_i\}_{i\in I}\)</span>
-是一族下半连续函数, 那么 <span class="math inline">\(\phi=\sup_{i\in
-I}\phi_i(x)\)</span> 是下半连续函数
-</li>
-<li>
-若 <span class="math inline">\(E\)</span> 为紧空间, 而 <span
-class="math inline">\(\phi\)</span> 是下半连续的, 则 <span
-class="math inline">\(\phi\)</span> 在 <span
-class="math inline">\(E\)</span> 上可以达到下确界, 也就是 <span
-class="math inline">\(\exists x_0\in E\)</span>, 使得 <span
-class="math inline">\(\phi(x_0)=\inf_E\phi\)</span>
-</li>
+<li> $\phi$ 是下半连续函数, 那么其对应的上图像 $\text{epi}\ \phi$ 是 $E\times\mathbb{R}$ 上的闭集, 反之亦然.</li>
+<li> $\phi$ 是下半连续函数, 则 $\forall x,\ \forall\epsilon>0$, 存在 $x$ 的领域 $V$, 使得 $\phi(y)\geq\phi(x)-\epsilon,\ \forall y\in V$, 反之亦然.</li>
+<li>若 $\phi_1,\ \phi_2$ 是下半连续函数, 那么 $\phi_1+\phi_2$ 也是下半连续函数.</li>
+<li>$\{\phi_i\}_{i\in I}$ 是一族下半连续函数, 那么 $\phi=\sup_{i\in I}\phi_i(x)$ 是下半连续函数</li>
+<li>若 $E$ 为紧空间, 而 $\phi$ 是下半连续的, 则 $\phi$ 在 $E$ 上可以达到下确界, 也就是 $\exists x_0\in E$, 使得 $\phi(x_0)=\inf_E\phi$</li>
 </ul>
-假设 <span class="math inline">\(E\)</span> 是向量空间, 定义 <span
-class="math inline">\(\phi:E\to(-\infty,+\infty]\)</span> 是凸函数, 若
-<span class="math inline">\(\phi\)</span> 满足 <span
-class="math inline">\(\phi(tx+(1-t)y)\leq t\phi(x)+(1-t)\phi(y),\
-\forall x,y\in E,\ \forall t\in[0,1]\)</span>.
-同样我们在下面列举一些凸函数的基本性质.
+
+<p>假设 $E$ 是向量空间, 定义 $\phi:E\to(-\infty,+\infty]$ 是凸函数, 若 $\phi$ 满足 $\phi(tx+(1-t)y)\leq t\phi(x)+(1-t)\phi(y),\ \forall x,y\in E,\ \forall t\in[0,1]$. 同样我们在下面列举一些凸函数的基本性质.</p>
 <ul>
-<li>
-若 <span class="math inline">\(\phi\)</span> 是凸函数, 则其对应的上图像
-<span class="math inline">\(\text{epi}\ \phi\)</span> 是凸集. 反之亦然
-</li>
-<li>
-若 <span class="math inline">\(\phi\)</span> 是凸函数, 则 <span
-class="math inline">\(\forall \lambda\in\mathbb{R}\)</span>
-</li>
-<li>
-若 <span class="math inline">\(\phi_1,\ \phi_2\)</span> 是凸函数, 则
-<span class="math inline">\(\phi_1+\phi_2\)</span> 是凸函数
-</li>
-<li>
-若 <span class="math inline">\(\{\phi_i\}_{i\in I}\)</span>
-是一族凸函数, 则 <span class="math inline">\(\phi(x)=\sup_{i\in
-I}\phi_i\)</span> 是凸函数
-</li>
+<li>若 $\phi$ 是凸函数, 则其对应的上图像 $\text{epi}\ \phi$ 是凸集. 反之亦然</li>
+<li>若 $\phi$ 是凸函数, 则 $\forall \lambda\in\mathbb{R}$</li>
+<li>若 $\phi_1,\ \phi_2$ 是凸函数, 则 $\phi_1+\phi_2$ 是凸函数</li>
+<li>若 $\{\phi_i\}_{i\in I}$ 是一族凸函数, 则 $\phi(x)=\sup_{i\in I}\phi_i$ 是凸函数</li>
 </ul>
-<p>假设 <span class="math inline">\(E\)</span> 是赋范线性空间, 设给定
-<span class="math inline">\(\phi:E\to(-\infty,+\infty]\)</span> 满足
-<span class="math inline">\(\phi\not\equiv+\infty\)</span>, 即 <span
-class="math inline">\(D(\phi)\not=\empty\)</span>, 记 <span
-class="math inline">\(\phi\)</span>
-的共轭函数<font color='red'>(Conjugate function)</font> <span
-class="math inline">\(\phi^\star: E^\star\to(-\infty,+\infty]\)</span>,
-<span class="math display">\[
-\phi^\star(f)=\sup_{x\in E}\left\{\langle f,x\rangle-\phi(x)\right\},\
-(f\in E^\star)
-\]</span> <font color='red'><span
-class="math inline">\(\big(\)</span>从一维的角度来看, <span
-class="math inline">\(\phi^\star\)</span> 实际上指的是 <span
-class="math inline">\(\langle f,x\rangle\)</span> 和 <span
-class="math inline">\(\phi(x)\)</span> 两图像中最大的距离<span
-class="math inline">\(\big)\)</span></font></p>
-<p>上面定义的共轭函数 <span class="math inline">\(\phi^\star\)</span>
-是在 <span class="math inline">\(E^\star\)</span> 上的下半连续凸函数,
-下面我们给出相关证明, <strong>Proof</strong> 我们先考虑其凸性, 在 <span
-class="math inline">\(\forall f_1,\ f_2\in E^\star,\ t\in[0,1]\)</span>
-的情况下, <span class="math display">\[
+
+<p>假设 $E$ 是赋范线性空间, 设给定 $\phi:E\to(-\infty,+\infty]$ 满足 $\phi\not\equiv+\infty$, 即 $D(\phi)\not=\empty$, 记 $\phi$ 的共轭函数<font color='red'>(Conjugate function)</font> $\phi^\star: E^\star\to(-\infty,+\infty]$,</p>
+<script type="math/tex; mode=display">
+\phi^\star(f)=\sup_{x\in E}\left\{\langle f,x\rangle-\phi(x)\right\},\ (f\in E^\star)</script><font color='red'>$\big($从一维的角度来看, $\phi^\star$ 实际上指的是 $\langle f,x\rangle$ 和 $\phi(x)$ 两图像中最大的距离$\big)$</font>
+
+<p>上面定义的共轭函数 $\phi^\star$ 是在 $E^\star$ 上的下半连续凸函数, 下面我们给出相关证明,<br><strong>Proof</strong> 我们先考虑其凸性, 在 $\forall f_1,\ f_2\in E^\star,\ t\in[0,1]$ 的情况下,</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
 \phi^\star
-\end{aligned}
-\]</span></p>
-
+\end{aligned}</script>
     </div>
 
     
@@ -448,7 +371,7 @@ class="math inline">\(\forall f_1,\ f_2\in E^\star,\ t\in[0,1]\)</span>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%87%B8%E5%87%BD%E6%95%B01"><span class="nav-number">1.</span> <span class="nav-text">1.4 共轭凸函数(1)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E5%85%B1%E8%BD%AD%E5%87%B8%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.</span> <span class="nav-text">1.4 共轭凸函数(1)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -464,7 +387,7 @@ class="math inline">\(\forall f_1,\ f_2\in E^\star,\ t\in[0,1]\)</span>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

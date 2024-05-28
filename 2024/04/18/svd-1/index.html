@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="​ Firstly, we consider a large data matrix \(X\in \mathbb{C}^{n\times m}\): \[ X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\v">
+  <meta name="description" content="​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:  X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\vdots\end{bmatrix}The column $x_k\in \math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVD-Mathematical Overview">
 <meta property="og:url" content="http://example.com/2024/04/18/svd-1/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="​ Firstly, we consider a large data matrix \(X\in \mathbb{C}^{n\times m}\): \[ X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\v">
+<meta property="og:description" content="​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:  X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\vdots\end{bmatrix}The column $x_k\in \math">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-18T13:07:49.000Z">
 <meta property="article:modified_time" content="2024-04-19T15:00:03.714Z">
@@ -262,96 +262,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>​ Firstly, we consider a large data matrix <span
-class="math inline">\(X\in \mathbb{C}^{n\times m}\)</span>:</p>
-<p><span class="math display">\[
-X=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}
-\]</span> The column <span class="math inline">\(x_k\in
-\mathbb{C}^n\)</span> is obtained from simulations or experiments.
-Here,we always consider the column vectors may also represent the state
-of a physical system that is evolving in time.The column are often
-called snapshots and <span class="math inline">\(m\)</span> is the
-number of snapshots in <span class="math inline">\(X\)</span>.</p>
-<p>The Singular Value Decomposition allows us to decompose any
-complex-valued matrix as the product of three other matrices,</p>
+        <p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
+<script type="math/tex; mode=display">
+X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
+<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
 <span id="more"></span>
-<p><span class="math display">\[
-X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_n\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
-&amp;\ \\\ &amp;\ &amp;\ &amp;\
-\end{bmatrix}\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\v_1&amp;v_2&amp;\cdots&amp;v_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}^T
-\]</span> where <span class="math inline">\(U\in \mathbb{C}^{n\times
-n}\)</span> and <span class="math inline">\(V\in\mathbb{C}^{m\times
-m}\)</span> are unitary matrices. If a square matrix <span
-class="math inline">\(U\)</span> satisfies <span
-class="math inline">\(U^{\star}U=UU^{\star}=I\)</span>, we call it
-unitary matrix. Here * denotes the complex conjugate transpose. For
-real-valued matrices, it is the same as the regular transpose, <span
-class="math inline">\(X^{\star}=X^T\)</span>. So if <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are real-valued matrices, we call them
-orthogonal matrices. Since the conclusions of real-valued and
-complex-valued <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are parallel, we will only discuss the
-real-valued case in the following. <span class="math inline">\(\Sigma\in
-\mathbb{R}^{n\times m}\)</span> is a diagonal matrix, which means
-real,non-zero entries on thediagonal and zeros off the diagonal.</p>
-<p>​ These column of <span class="math inline">\(U\)</span> have the same
-shape as a column of <span class="math inline">\(X\)</span>. The columns
-of <span class="math inline">\(U\)</span> describe the eigen of the data
-in <span class="math inline">\(X\)</span>. So in the case of faces,
-these mean eigenfaces and in the case of flow fields, these mean
-eigenflow fields. Furthermore, the columns of <span
-class="math inline">\(U\)</span> are hierarchically arranged in terms of
-their ability to describe the variance in the column of <span
-class="math inline">\(X\)</span>. In other words, <span
-class="math inline">\(u_1\)</span> is somehow more important than <span
-class="math inline">\(u_2\)</span> and so on and so forth.</p>
-<p>​ <span class="math inline">\(U\)</span> gives me a basis, based on
-which we can represent each column of original data in <span
-class="math inline">\(X\)</span>.Actually, these basis have great
-properties. Since <span class="math inline">\(U\)</span> is an unitary
-matrix, it means the column of <span class="math inline">\(U\)</span>
-are orthonormal. So these column are all orthogonal , have unit length
-and provide a complete basis for n-dimensional subspace where the column
-of data matrix lives.</p>
-<p>​ <span class="math inline">\(\Sigma\)</span> is not only a diagnol
-matrix, but also non-negative and hierarchically ordered matrix. So we
-have <span
-class="math inline">\(\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0\)</span>.
-They are all non-negative, although some of them could be zero.
-According to the matrix multiplication, we can find that <span
-class="math inline">\(\sigma_1\)</span> correspond to the first columns
-of <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>.Since <span
-class="math inline">\(\sigma_1\geq\sigma_2\)</span>, it means that the
-first columns are somehow important than the second ones when we
-describe the information of <span class="math inline">\(X\)</span>. In
-other words, the sigular value provides the relative imporatance of
-these corresponding columns of <span class="math inline">\(U\)</span>
-and <span class="math inline">\(V\)</span>. Finally, we say that the
-sigular values are ordered by importance.</p>
-<p>​ Here we will start in the case of flow fields. The columns of <span
-class="math inline">\(U\)</span> will be eigen flows hierarchically
-organized. We call the first column of <span
-class="math inline">\(V\)</span> as <span
-class="math inline">\(v_1\)</span>. So <span
-class="math inline">\(v_1\)</span> would be the time series for how this
-first eigen mode <span class="math inline">\(u_1\)</span> evolves in
-this flow.</p>
-<p>The matrix <span class="math inline">\(U\)</span> is called left
-sigular column and the columns are called left singular vectors. <span
-class="math inline">\(V\)</span> is similar to <span
-class="math inline">\(U\)</span>. The diagonal elements of <span
-class="math inline">\(\Sigma\)</span> are called sigular values.The rank
-of X is equal to the number of non-zero sigular value.</p>
+<script type="math/tex; mode=display">
+X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
+<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
+<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
+<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
+<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
+<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
 
     </div>
 
@@ -451,7 +374,7 @@ of X is equal to the number of non-zero sigular value.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
