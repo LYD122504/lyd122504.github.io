@@ -1745,60 +1745,164 @@ X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots
       </tags>
   </entry>
   <entry>
-    <title>svd-3</title>
+    <title>SVD-Eckart-Young-Mirsky theorem</title>
     <url>/2024/05/28/svd-3/</url>
-    <content><![CDATA[<h2 id="Eckart-Young-Mirsky-theorem"><a href="#Eckart-Young-Mirsky-theorem" class="headerlink" title="Eckart-Young-Mirsky theorem"></a>Eckart-Young-Mirsky theorem</h2><p>Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.</p>
-<ol>
+    <content><![CDATA[<p>Firstly, we introduce three different kinds of matrix norms and based
+on singular value decomposition, verify that these norms are only
+related to singular values.</p>
+<ol type="1">
 <li>2-norm (Spectral norm)</li>
 </ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1</script><ol>
+<p><span class="math display">\[
+\left\Vert
+A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma
+V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1
+\]</span></p>
+<ol type="1">
 <li>Frobenius norm</li>
 </ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}</script><ol>
+<p><span class="math display">\[
+\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma
+U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}
+\]</span></p>
+<ol type="1">
 <li>Nuclear norm</li>
 </ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i</script><p>Based on the results of matrix norms, we realize that the above three matrix norms only depend on the singular values of the matrix $A$. Now we claim that the product with orthogonal matrices will not change the singular values of the original matrix. For simplicity, we call the left orthogonal matrix and right orthogonal matrix as $P$ and $Q$, respectively. Based on the singular value decomposition of $A$, we can derive the following results about the product of matrix $A$ and orthogonal matrices $P,\ Q$,</p>
-<script type="math/tex; mode=display">
-PAQ=PU\Sigma V^TQ=U_1\Sigma V_1^T,\ U_1=PU,\ V_1=Q^TV</script><p>where $U_1U_1^T=PUU^TP^T=I=U_1^TU_1$ means $U_1$ is an orthogonal matrix. The same is true for $V_1$. We claim that the singular values of $PAQ$ is the same as the singular values of $A$. So we realize that the product with orthogonal matrices does not affect matrix norm.</p>
-<p><strong>Thm(Eckart-Young-Mirsky Theorem)</strong> The optimal rank-r approximation to $A$, under the spectral norm and the Frobenius norm, respectively, is given by the rank-r SVD truncation $\tilde{A}$,</p>
-<script type="math/tex; mode=display">
-argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_F=\tilde{A}\quad argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_2=\tilde{A}</script><p>where $\tilde{A}=\tilde{U}\tilde{\Sigma}\tilde{V}^T$ is the rank-r SVD truncation of $A$. Again, $\tilde{U}$ and $\tilde{V}$ denote the first $r$ leading columns of $U$ and $V$, respectively, and $\tilde{\Sigma}$ is the $r\times r$ leading submatrix of $\Sigma$.</p>
-<p>Proof. </p>
-<ol>
-<li><p>One needs to show that if we have a matrix approximation $B$ whose rank is $r$ and size is $n\times m$, then $\left\Vert A-B\right\Vert_2\geq \left\Vert A-\tilde{A}\right\Vert_2$ holds. This can be done as follows.</p>
-<p>Here we introduce the concept of matrix kernel before the discussion. The kernel of matrix $A$ is defined as</p>
-<script type="math/tex; mode=display">
-   \mathcal{N}(A)=\{x\in \mathbb{R}^n:Ax=0\}</script><p>Therefore, we realize that the kernel of matrix $\mathcal{N}(A)$ actually means the solution space of the linear equation $Ax=0$. Based on the linear equation theory, we know that when the rank of matrix $B$ is $r$, the dimension of $\mathcal{N}(B)$ is $n-r$. Here we consider the linear space $V<em>{r+1}$ spanned by the first $r+1$ leading right singular vectors $v_1,\ v_2,\dots,v</em>{r+1}$, whose dimension is $r+1$. Based on the dimensional formula, we derive that</p>
-<script type="math/tex; mode=display">
-   dim(\mathcal{N}(B)\cap V_{r+1})=dim(\mathcal{N}(B))+dim(V_{r+1})-dim(\mathcal{N}(B)+V_{r+1})=n+1-dim(\mathcal{N}(B)+V_{r+1})\geq1</script><p>which means that $\mathcal{N}(B)\cap V<em>{r+1}\not=\empty$. Therefore, we have that there exists an vector $x=\gamma_1v_1+\cdots+\gamma</em>{r+1}v_{r+1}$ such that</p>
-<script type="math/tex; mode=display">
-   x\in \mathcal{N}(B)\cap V_{r+1},\ \left\Vert x\right\Vert_2=1</script><p>Based on the definition of 2-norm, we can derive that</p>
-<script type="math/tex; mode=display">
-   \left\Vert A-B\right\Vert_2\geq \left\Vert (A-B)x\right\Vert_2=\left\Vert Ax\right\Vert_2=\gamma_1^2\sigma_1^2+\cdots+\gamma_{r+1}^2\sigma_{r+1}^2\geq \sigma_{r+1}^2=\left\Vert A-\tilde{A}\right\Vert_2</script><p>which means that the optimal rank-r approximation to $A$ under the 2-norm is given by the rank-r SVD truncation $\tilde{A}$.</p>
-</li>
-<li><p>Now we claim that the best rank $r$ approximation to $A$ in the Frobenius norm, denoted by $\Vert\cdot\Vert_F$, is given by</p>
-<script type="math/tex; mode=display">
- A_r=U_r\Sigma_rV_r^T=\sum_{i=1}^r\sigma_iu_iv_i^T</script><p>First, note that we have</p>
-<script type="math/tex; mode=display">
- \left\Vert A-A_k\right\Vert_F^2=\left\Vert \sum_{i=r+1}^m\sigma_iu_iv_i^T\right\Vert_F^2=\sum_{i=r+1}^m\sigma_i^2</script><p>Hence, we need to show that if $B_r$ is any rank-$r$ matrix, then,</p>
-<script type="math/tex; mode=display">
- \left\Vert A-B_r\right\Vert_F^2\geq \sum_{i=r+1}^m\sigma_i^2</script><p>Based on the triangle inequality with the spectral norm, if $A=A’+A’’$, then $\sigma_1(A)\leq\sigma_1(A’)+\sigma_1(A’’)$. Suppose $A_r’$ and $A_r’’$ denote the rank $r$ approximation to $A’$ and $A’’$ by SVD method described above, respectively. Then, for any $i,j\geq1$</p>
-<script type="math/tex; mode=display">
-\sigma_i(A')+\sigma_j(A'')&=\sigma_1(A'-A_{i-1}')+\sigma_1(A''-A_{j-1}'')\\
-&\geq\sigma_1(A'-A_{i-1}'+A''-A_{j-1}'')\\
-&\geq\sigma_1(A-A_{i-1}'-A_{j-1}'')\\</script><p> Here we know that $rank(A<em>{i-1}’+A</em>{j-1}’’)\leq i+j-2$, we can derive that</p>
-</li>
+<p><span class="math display">\[
+\left\Vert
+A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
+\]</span></p>
+<span id="more"></span>
+<p>Based on the results of matrix norms, we realize that the above three
+matrix norms only depend on the singular values of the matrix <span
+class="math inline">\(A\)</span>. Now we claim that the product with
+orthogonal matrices will not change the singular values of the original
+matrix. For simplicity, we call the left orthogonal matrix and right
+orthogonal matrix as <span class="math inline">\(P\)</span> and <span
+class="math inline">\(Q\)</span>, respectively. Based on the singular
+value decomposition of <span class="math inline">\(A\)</span>, we can
+derive the following results about the product of matrix <span
+class="math inline">\(A\)</span> and orthogonal matrices <span
+class="math inline">\(P,\ Q\)</span>, <span class="math display">\[
+PAQ=PU\Sigma V^TQ=U_1\Sigma V_1^T,\ U_1=PU,\ V_1=Q^TV
+\]</span> where <span
+class="math inline">\(U_1U_1^T=PUU^TP^T=I=U_1^TU_1\)</span> means <span
+class="math inline">\(U_1\)</span> is an orthogonal matrix. The same is
+true for <span class="math inline">\(V_1\)</span>. We claim that the
+singular values of <span class="math inline">\(PAQ\)</span> is the same
+as the singular values of <span class="math inline">\(A\)</span>. So we
+realize that the product with orthogonal matrices does not affect matrix
+norm.</p>
+<p><strong>Thm(Eckart-Young-Mirsky Theorem)</strong> The optimal rank-r
+approximation to <span class="math inline">\(A\)</span>, under the
+spectral norm and the Frobenius norm, respectively, is given by the
+rank-r SVD truncation <span class="math inline">\(\tilde{A}\)</span>,
+<span class="math display">\[
+argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert
+A-\hat{A}\right\Vert_F=\tilde{A}\quad argmin_{\hat{A},\ s.t.\
+rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_2=\tilde{A}
+\]</span> where <span
+class="math inline">\(\tilde{A}=\tilde{U}\tilde{\Sigma}\tilde{V}^T\)</span>
+is the rank-r SVD truncation of <span class="math inline">\(A\)</span>.
+Again, <span class="math inline">\(\tilde{U}\)</span> and <span
+class="math inline">\(\tilde{V}\)</span> denote the first <span
+class="math inline">\(r\)</span> leading columns of <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>, respectively, and <span
+class="math inline">\(\tilde{\Sigma}\)</span> is the <span
+class="math inline">\(r\times r\)</span> leading submatrix of <span
+class="math inline">\(\Sigma\)</span>.</p>
+<p>Proof.</p>
+<ol type="1">
+<li><p>One needs to show that if we have a matrix approximation <span
+class="math inline">\(B\)</span> whose rank is <span
+class="math inline">\(r\)</span> and size is <span
+class="math inline">\(n\times m\)</span>, then <span
+class="math inline">\(\left\Vert A-B\right\Vert_2\geq \left\Vert
+A-\tilde{A}\right\Vert_2\)</span> holds. This can be done as
+follows.</p>
+<p>Here we introduce the concept of matrix kernel before the discussion.
+The kernel of matrix <span class="math inline">\(A\)</span> is defined
+as <span class="math display">\[
+   \mathcal{N}(A)=\{x\in \mathbb{R}^n:Ax=0\}
+\]</span> Therefore, we realize that the kernel of matrix <span
+class="math inline">\(\mathcal{N}(A)\)</span> actually means the
+solution space of the linear equation <span
+class="math inline">\(Ax=0\)</span>. Based on the linear equation
+theory, we know that when the rank of matrix <span
+class="math inline">\(B\)</span> is <span
+class="math inline">\(r\)</span>, the dimension of <span
+class="math inline">\(\mathcal{N}(B)\)</span> is <span
+class="math inline">\(n-r\)</span>. Here we consider the linear space
+<span class="math inline">\(V_{r+1}\)</span> spanned by the first <span
+class="math inline">\(r+1\)</span> leading right singular vectors <span
+class="math inline">\(v_1,\ v_2,\dots,v_{r+1}\)</span>, whose dimension
+is <span class="math inline">\(r+1\)</span>. Based on the dimensional
+formula, we derive that <span class="math display">\[
+   dim(\mathcal{N}(B)\cap
+V_{r+1})=dim(\mathcal{N}(B))+dim(V_{r+1})-dim(\mathcal{N}(B)+V_{r+1})=n+1-dim(\mathcal{N}(B)+V_{r+1})\geq1
+\]</span> which means that <span
+class="math inline">\(\mathcal{N}(B)\cap V_{r+1}\not=\empty\)</span>.
+Therefore, we have that there exists an vector <span
+class="math inline">\(x=\gamma_1v_1+\cdots+\gamma_{r+1}v_{r+1}\)</span>
+such that <span class="math display">\[
+   x\in \mathcal{N}(B)\cap V_{r+1},\ \left\Vert x\right\Vert_2=1
+\]</span> Based on the definition of 2-norm, we can derive that <span
+class="math display">\[
+   \left\Vert A-B\right\Vert_2\geq \left\Vert
+(A-B)x\right\Vert_2=\left\Vert
+Ax\right\Vert_2=\gamma_1^2\sigma_1^2+\cdots+\gamma_{r+1}^2\sigma_{r+1}^2\geq
+\sigma_{r+1}^2=\left\Vert A-\tilde{A}\right\Vert_2
+\]</span> which means that the optimal rank-r approximation to <span
+class="math inline">\(A\)</span> under the 2-norm is given by the rank-r
+SVD truncation <span class="math inline">\(\tilde{A}\)</span>.</p></li>
+<li><p>Now we claim that the best rank <span
+class="math inline">\(r\)</span> approximation to <span
+class="math inline">\(A\)</span> in the Frobenius norm, denoted by <span
+class="math inline">\(\Vert\cdot\Vert_F\)</span>, is given by <span
+class="math display">\[
+A_r=U_r\Sigma_rV_r^T=\sum_{i=1}^r\sigma_iu_iv_i^T
+\]</span> First, note that we have <span class="math display">\[
+\left\Vert A-A_k\right\Vert_F^2=\left\Vert
+\sum_{i=r+1}^m\sigma_iu_iv_i^T\right\Vert_F^2=\sum_{i=r+1}^m\sigma_i^2
+\]</span> Hence, we need to show that if <span
+class="math inline">\(B_r\)</span> is any rank-<span
+class="math inline">\(r\)</span> matrix, then, <span
+class="math display">\[
+\left\Vert A-B_r\right\Vert_F^2\geq \sum_{i=r+1}^m\sigma_i^2
+\]</span> Based on the triangle inequality with the spectral norm, if
+<span class="math inline">\(A=A&#39;+A&#39;&#39;\)</span>, then <span
+class="math inline">\(\sigma_1(A)\leq\sigma_1(A&#39;)+\sigma_1(A&#39;&#39;)\)</span>.
+Suppose <span class="math inline">\(A_r&#39;\)</span> and <span
+class="math inline">\(A_r&#39;&#39;\)</span> denote the rank <span
+class="math inline">\(r\)</span> approximation to <span
+class="math inline">\(A&#39;\)</span> and <span
+class="math inline">\(A&#39;&#39;\)</span> by SVD method described
+above, respectively. Then, for any <span
+class="math inline">\(i,j\geq1\)</span> <span class="math display">\[
+\sigma_i(A&#39;)+\sigma_j(A&#39;&#39;)&amp;=\sigma_1(A&#39;-A_{i-1}&#39;)+\sigma_1(A&#39;&#39;-A_{j-1}&#39;&#39;)\\
+&amp;\geq\sigma_1(A&#39;-A_{i-1}&#39;+A&#39;&#39;-A_{j-1}&#39;&#39;)\\
+&amp;\geq\sigma_1(A-A_{i-1}&#39;-A_{j-1}&#39;&#39;)\\
+\]</span> Here we know that <span
+class="math inline">\(rank(A_{i-1}&#39;+A_{j-1}&#39;&#39;)\leq
+i+j-2\)</span>, we can derive that</p></li>
 </ol>
-<script type="math/tex; mode=display">
-\sigma_i(A')+\sigma_j(A'')&\geq\sigma_1(A-A_{i+j-2})\\
-&=\sigma_{i+j-1}(A)</script><p>Since $\sigma_{r+1}(B_r)=0$, when $A’=A-B_r$ and $A’’=B_r$, we conclude that for $i\geq1,\ j=r+1$</p>
-<script type="math/tex; mode=display">
-\sigma_i(A-B_r)= \sigma_i(A-B_r)+\sigma_{r+1}(B_r)\geq\sigma_{i+r}(A)</script><p>Therefore, we have</p>
-<script type="math/tex; mode=display">
-\left\Vert A-B_r\right\Vert_F^2=\sum_{i=1}^m\sigma_i(A-B_r)^2\geq\sum_{i=r+1}^m\sigma_i(A)^2=\left\Vert A-A_r\right\Vert_F^2</script>]]></content>
+<p><span class="math display">\[
+\sigma_i(A&#39;)+\sigma_j(A&#39;&#39;)&amp;\geq\sigma_1(A-A_{i+j-2})\\
+&amp;=\sigma_{i+j-1}(A)
+\]</span> Since <span
+class="math inline">\(\sigma_{r+1}(B_r)=0\)</span>, when <span
+class="math inline">\(A&#39;=A-B_r\)</span> and <span
+class="math inline">\(A&#39;&#39;=B_r\)</span>, we conclude that for
+<span class="math inline">\(i\geq1,\ j=r+1\)</span> <span
+class="math display">\[
+\sigma_i(A-B_r)= \sigma_i(A-B_r)+\sigma_{r+1}(B_r)\geq\sigma_{i+r}(A)
+\]</span> Therefore, we have <span class="math display">\[
+\left\Vert
+A-B_r\right\Vert_F^2=\sum_{i=1}^m\sigma_i(A-B_r)^2\geq\sum_{i=r+1}^m\sigma_i(A)^2=\left\Vert
+A-A_r\right\Vert_F^2
+\]</span></p>
+]]></content>
       <categories>
         <category>Reduced Order Model</category>
       </categories>
