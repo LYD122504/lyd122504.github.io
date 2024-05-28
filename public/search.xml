@@ -1890,8 +1890,10 @@ class="math inline">\(rank(A_{i-1}&#39;+A_{j-1}&#39;&#39;)\leq
 i+j-2\)</span>, we can derive that</p></li>
 </ol>
 <p><span class="math display">\[
+\begin{aligned}
 \sigma_i(A&#39;)+\sigma_j(A&#39;&#39;)&amp;\geq\sigma_1(A-A_{i+j-2})\\
 &amp;=\sigma_{i+j-1}(A)
+\end{aligned}
 \]</span> Since <span
 class="math inline">\(\sigma_{r+1}(B_r)=0\)</span>, when <span
 class="math inline">\(A&#39;=A-B_r\)</span> and <span
