@@ -1880,9 +1880,11 @@ class="math inline">\(A&#39;\)</span> and <span
 class="math inline">\(A&#39;&#39;\)</span> by SVD method described
 above, respectively. Then, for any <span
 class="math inline">\(i,j\geq1\)</span> <span class="math display">\[
+\begin{aligned}
 \sigma_i(A&#39;)+\sigma_j(A&#39;&#39;)&amp;=\sigma_1(A&#39;-A_{i-1}&#39;)+\sigma_1(A&#39;&#39;-A_{j-1}&#39;&#39;)\\
 &amp;\geq\sigma_1(A&#39;-A_{i-1}&#39;+A&#39;&#39;-A_{j-1}&#39;&#39;)\\
 &amp;\geq\sigma_1(A-A_{i-1}&#39;-A_{j-1}&#39;&#39;)\\
+\end{aligned}
 \]</span> Here we know that <span
 class="math inline">\(rank(A_{i-1}&#39;+A_{j-1}&#39;&#39;)\leq
 i+j-2\)</span>, we can derive that</p></li>
