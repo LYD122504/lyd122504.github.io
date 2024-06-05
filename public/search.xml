@@ -2026,4 +2026,25 @@ A-A_r\right\Vert_F^2
         <tag>Machine Learning</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SVD-Dominnant Correlation</title>
+    <url>/2024/06/05/svd-4/</url>
+    <content><![CDATA[<p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
+<p>We consider the structure of the correlation matrix $X^TX$ firstly. Since the size of the data matrix $X$ is $n\times m$, the size of the correlation matrix $X^TX$ is $m\times m$.</p>
+<script type="math/tex; mode=display">
+X^TX=\begin{bmatrix}\cdots&x_1^T&\cdots\\\cdots&x_2^T&\cdots\\\ &\vdots&\ \\\cdots&x_m^T&\cdots\end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&x_1^Tx_2&\cdots&x_1^Tx_m\\x_2^Tx_1&x_2^Tx_2&\cdots&x_2^Tx_m\\\vdots&\vdots&\ &\vdots\\x_m^Tx_1&x_m^Tx_2&\cdots&x_m^Tx_m\end{bmatrix}</script><p>Based on the definition of $X^TX$, we realize that $X^TX$ is a correlation matrix among the columns of $X$. All entries of $X^TX$ are essentially an inner product between two columns of the data matrix $X$. Interestingly, if the entry $x_i^Tx_j$ is a large number, it means that the columns $x_i$ and $x_j$ are highly correlated. However, if this number is very small, it means that the columns $x_i$ and $x_j$ are nearly orthogonal, which means that the columns $x_i$ and $x_j$ are almost different. Therefore, the correlation matrix $X^TX$ can be seen as a matrix that measures the correlation among the columns of $X$.</p>
+<p>Based on the structure of the correlation matrix $X^TX$, $X^TX$ is a symmetric and positive semi-definite matrix. It guarantees that we have non negative real eigenvalues, which have a direct correspondence on the singular values of the data matrix $X$. Now we assume that the matrix $X$ have the singular value decomposition $X=U\Sigma V^T$. We can derive that</p>
+<script type="math/tex; mode=display">
+X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2</script><p>which means that the columns of $V$ are the eigenvectors of the correlation matrix $X^TX$. The eigenvalues of the correlation matrix $X^TX$ are the squares of the singular values of the data matrix $X$. The same is true for the correlation matrix $XX^T$. We can derive that</p>
+<script type="math/tex; mode=display">
+XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow X^TXU=U\Sigma^2</script><p>which means that the columns of $U$ are the eigenvectors of the correlation matrix $XX^T$. The eigenvalues of the correlation matrix $XX^T$ are the squares of the singular values of the data matrix $X$. Therefore, we can conclude that the singular matrix $U$ and $V$ given by the SVD of the data matrix $X$ can be seen as the eigenvectors of the correlation matrix $X^TX$ or $XX^T$. The importance of this columns of $U$ and $V$ is quantified by eigenvalues of $X^TX$ or $XX^T$, which are the squares of the singular values of the data matrix $X$.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
 </search>
