@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="The SVD allows us to decompose data matrix \(X\) as the product of three matrices, \(U,\ V^T,\ \Sigma\), where essentially \(U\) contains information about the column space of \(X\), \(V\) contains i">
+  <meta name="description" content="In the singular value decomposition of the data matrix \(X\), we have the two unitary matrices \(U\) and \(V\). We have introduced that the unitary matrices satisfy \(U^TU&#x3D;UU^T&#x3D;I\) and \(VV^T&#x3D;V^TV&#x3D;I">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVD-Matrix Approximation">
-<meta property="og:url" content="http://example.com/2024/04/19/svd-2/index.html">
+<meta property="og:title" content="SVD&#x3D;Unitary Transformation and Geometry">
+<meta property="og:url" content="http://example.com/2024/06/16/svd-5/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="The SVD allows us to decompose data matrix \(X\) as the product of three matrices, \(U,\ V^T,\ \Sigma\), where essentially \(U\) contains information about the column space of \(X\), \(V\) contains i">
+<meta property="og:description" content="In the singular value decomposition of the data matrix \(X\), we have the two unitary matrices \(U\) and \(V\). We have introduced that the unitary matrices satisfy \(U^TU&#x3D;UU^T&#x3D;I\) and \(VV^T&#x3D;V^TV&#x3D;I">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-19T14:56:25.000Z">
-<meta property="article:modified_time" content="2024-06-01T14:30:06.628Z">
+<meta property="article:published_time" content="2024-06-16T12:24:07.000Z">
+<meta property="article:modified_time" content="2024-06-16T12:25:46.390Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/04/19/svd-2/">
+<link rel="canonical" href="http://example.com/2024/06/16/svd-5/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>SVD-Matrix Approximation | 还施水阁</title>
+  <title>SVD=Unitary Transformation and Geometry | 还施水阁</title>
   
 
 
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/19/svd-2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/16/svd-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -215,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SVD-Matrix Approximation
+          SVD=Unitary Transformation and Geometry
         </h1>
 
         <div class="post-meta">
@@ -224,16 +224,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-04-19 22:56:25" itemprop="dateCreated datePublished" datetime="2024-04-19T22:56:25+08:00">2024-04-19</time>
+              <time title="创建时间：2024-06-16 20:24:07 / 修改时间：20:25:46" itemprop="dateCreated datePublished" datetime="2024-06-16T20:24:07+08:00">2024-06-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-01 22:30:06" itemprop="dateModified" datetime="2024-06-01T22:30:06+08:00">2024-06-01</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,136 +256,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>The SVD allows us to decompose data matrix <span
-class="math inline">\(X\)</span> as the product of three matrices, <span
-class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
-class="math inline">\(U\)</span> contains information about the column
-space of <span class="math inline">\(X\)</span>, <span
-class="math inline">\(V\)</span> contains information about the row
-space of <span class="math inline">\(X\)</span> and <span
-class="math inline">\(\Sigma\)</span> is a hierarchically ordered
-diagonal matrix, which tells you how important the various columns of
-<span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are.</p>
-<span id="more"></span>
-<p>In fact, the data matrix <span class="math inline">\(X\)</span> has
-only <span class="math inline">\(m\)</span> columns, it means there are
-at most <span class="math inline">\(m\)</span> linearly independence
-columns in this <span class="math inline">\(n\)</span>-dimensional
-vector space.So the first <span class="math inline">\(m\)</span> columns
-of <span class="math inline">\(U\)</span> are important in representing
-this data matrix. To explain this fact more deeply, we try to represent
-expansion as a sum of rank-1 matrices.</p>
-<p>Based on the Singular Value Decomposition,we can get the following
-equation, <span class="math display">\[
-X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
-&amp;\ \\\ &amp;\ &amp;\ &amp;\
-\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\ \\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T
-\]</span> Since <span class="math inline">\(\Sigma\)</span> is a
-diagnoal matrix, we can expand the above equation as follow, <span
-class="math display">\[
-X=U\Sigma
-V^T=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_mu_mv_m^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\
-&amp;\sigma_m\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\
-\\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T=\hat{U}\hat{\Sigma}V^T
-\]</span> Even though <span class="math inline">\(U\)</span> is a
-massive <span class="math inline">\(n\times n\)</span> matrix, there are
-only at most <span class="math inline">\(m\)</span> non-zeros singular
-values in <span class="math inline">\(\Sigma\)</span> that means the
-rank of data matrix <span class="math inline">\(X\)</span> satisfies
-<span class="math inline">\(rank(X)\leq m\)</span>. Actually,I can
-selcet the first <span class="math inline">\(m\)</span> columns of <span
-class="math inline">\(U\)</span>, the first <span
-class="math inline">\(m\times m\)</span> block of <span
-class="math inline">\(\Sigma\)</span> and the original <span
-class="math inline">\(V\)</span> to represent the data matrix <span
-class="math inline">\(X\)</span>. We always call <span
-class="math inline">\(X=\hat{U}\hat{\Sigma}V^T\)</span> as the economy
-SVD and <span class="math inline">\(X=U\Sigma V^T\)</span> as the full
-SVD. Since we consider the case of <span class="math inline">\(n\gg
-m\)</span>, <span class="math inline">\(\hat{U}\in \mathbb{R}^{n\times
-m}\)</span> and <span class="math inline">\(\hat{\Sigma}\in
-\mathbb{R}^{m\times m}\)</span> need lower storage.</p>
-<p>Therefore, we can give another explanation about SVD: we can
-decompose the data matrix X into the orthogonal basis <span
+        <p>In the singular value decomposition of the data matrix <span
+class="math inline">\(X\)</span>, we have the two unitary matrices <span
 class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>, where essentially you can rewrite this
-as a sum of rank-1 matrices, which increasingly improve the
-approximation of <span class="math inline">\(X\)</span>. According to
-this explanation, we can give out some interesting results like, the
-best rank-1 matrix that we can make to approximate <span
-class="math inline">\(X\)</span> is <span
-class="math inline">\(\sigma_1u_1v_1^T\)</span>; the best rank-2 matrix
-that we can make to approximate <span class="math inline">\(X\)</span>
-is <span
-class="math inline">\(\sigma_1u_1v_1^T+\sigma_2u_2v_2^T\)</span> and so
-on and so forth.</p>
-<p>Since we hope to use less data storage to approximate the real data
-as much as possible in practice, we often truncate at rank r. Oftentimes
-we have a lot of negligibly small singular values like <span
-class="math inline">\(\sigma_{r+1},\
-\sigma_{r+2},\cdots,\sigma_m\)</span> , it means that most of the
-information of <span class="math inline">\(X\)</span> is captured in the
-first <span class="math inline">\(r\)</span> singular values and the
-first <span class="math inline">\(r\)</span> singular vectors. So we can
-throw away all of low singular values and singular vectors and only keep
-the first <span class="math inline">\(r\)</span> columns of <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> and the first <span
-class="math inline">\(r\times r\)</span> submatrix in <span
-class="math inline">\(\Sigma\)</span>. Then we are going to define this
-truncated SVD as follows, <span class="math display">\[
-X\approx\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_r\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\
-&amp;\sigma_r\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\
-\\\cdots&amp;v_r^T&amp;\cdots\end{bmatrix}^T=\tilde{U}\tilde{\Sigma}\tilde{V}^T
-\]</span> Here we find that the truncated SVD <span
-class="math inline">\(\tilde{U}\tilde{\Sigma}\tilde{V}^T\)</span> is the
-best rank-<span class="math inline">\(r\)</span> matrix approximating
-the data matrix <span class="math inline">\(X\)</span>.Thus,
-high-dimensional data may be well described by a few dominant patterns
-given by the columns of <span class="math inline">\(\tilde{U}\)</span>
-and <span class="math inline">\(\tilde{V}\)</span>.Like the mentioned in
-the first section,we realize that the truncated singular vectors <span
-class="math inline">\(\tilde{U}\)</span> provides a coordinate
-transformation from the high-dimensional measurement space into a
-low-dimensional pattern space.</p>
-<p>The Eckart-Young theorem states that the absolute best approximation
-to the matrix <span class="math inline">\(X\)</span> of rank r,
-Theorem(Eckart-Young) The optimal rank-r approximation to <span
-class="math inline">\(X\)</span>, in a least-squares sense, is given by
-the rank-r SVD truncation <span
-class="math inline">\(\tilde{X}\)</span>, <span class="math display">\[
-argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert
-X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T
-\]</span> The Ecakrt-Young theorem guarantees that the best possible
-matrix approximation to <span class="math inline">\(X\)</span> of rank
-<span class="math inline">\(r\)</span> is given by the firsr <span
-class="math inline">\(r\)</span> truncated SVD.</p>
-<p>Finally,we should mention an important point. At beginning of
-discussing the SVD, we define the matrices <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are unitary. However,if we truncated at
-rank r,the truncated matrices <span
-class="math inline">\(\tilde{U}\)</span> and <span
-class="math inline">\(\tilde{V}\)</span> are no longer square matrices,
-so they are not unitary matrix again. They satisfy that <span
-class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
-\tilde{U}\tilde{U}^T\not=I\)</span></p>
+class="math inline">\(V\)</span>. We have introduced that the unitary
+matrices satisfy <span class="math inline">\(U^TU=UU^T=I\)</span> and
+<span class="math inline">\(VV^T=V^TV=I\)</span>. Here these identity
+matrices have different size.</p>
+<p>Actually, unitary matrices preserve the angle between any two vectors
+in the vector space. Since the inverse of the unitary matrix is its own
+transpose, it can not only preserve the angles between vectors, but also
+preserve the length of the vectors. Essentially, unitary transformation
+is a coordinate transformation into a new representation. It just takes
+all of those vectors and rotates them into a new representation. It will
+not change the length of any vector and angles between any two
+vectors.</p>
+<p>Here you will find that we just consider the real-valued case.
+However, when we consider the data matrix <span
+class="math inline">\(X\)</span> is a complex-valued matrix, the
+singular vectors <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are complex-valued matrices. Compared
+with the real-valued matrix, the most important difference is that the
+transpose of a complex-valued matrix is actually a conjugate
+transpose.</p>
+<p>To sum up, we give the mathematical form of unitary transformation
+here. For any two vectors <span class="math inline">\(x\)</span> and
+<span class="math inline">\(y\)</span> in vector space, then we have
+<span class="math display">\[
+(x,y)=(Ux,Uy)
+\]</span> where <span class="math inline">\((\cdot,\cdot)\)</span> is
+the inner product of two vectors and the operator <span
+class="math inline">\(U\)</span> means the unitary transformation, which
+in a unitary matrix in discrete case. Based on this mathematical form,
+we realize that the inner product of <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span> is unchanged when we transform <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span> by unitary transformation.</p>
+<p>Since we have introduced the unitary transform in the vector space,
+we interpret singular vector decomposition geometrically. Here we
+consider the size of data matrix is <span class="math inline">\(n\times
+m\)</span>. Now we consider any vector <span
+class="math inline">\(\vec{v}\)</span> in space <span
+class="math inline">\(\mathbb{R}^m\)</span> and vector <span
+class="math inline">\(\vec{v}\)</span> is palced on the unit sphere. As
+we all know, the matrix is a linear transformation about the vector.
+Therefore, we consider the transformed vector <span
+class="math inline">\(X\vec{v}\)</span>, which is placed on the
+ellipsoid in the vector space <span
+class="math inline">\(\mathbb{R}^n\)</span>. Here the gemoetric
+interpretation of the singular value decomposition can be given. The
+length of these principal axes are specially given by the singular
+values of the data matrix <span class="math inline">\(X\)</span>. The
+orientation of this ellipsoid is somehow given by these left singular
+vectors in <span class="math inline">\(U\)</span>. Like the
+interpretation of linear transformation, <span
+class="math inline">\(X\)</span> multiplies the vector on the left side
+or on the right side, which corresponds to a change to a rotation of
+space. Finally, <span class="math inline">\(X\)</span> is not a square
+matrix, so the rotation of the corresponding space is actually a change
+in dimensionality.</p>
 
     </div>
 
@@ -411,13 +335,10 @@ class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/18/svd-1/" rel="prev" title="SVD-Mathematical Overview">
-      <i class="fa fa-chevron-left"></i> SVD-Mathematical Overview
+    <a href="/2024/06/05/svd-4/" rel="prev" title="SVD-Dominnant Correlation">
+      <i class="fa fa-chevron-left"></i> SVD-Dominnant Correlation
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/05/28/svd-3/" rel="next" title="SVD-Eckart-Young-Mirsky theorem">
-      SVD-Eckart-Young-Mirsky theorem <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
