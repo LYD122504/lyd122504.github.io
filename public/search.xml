@@ -2121,4 +2121,157 @@ in dimensionality.</p>
         <tag>Machine Learning</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SVD-Linear System and Pseudo Inverse</title>
+    <url>/2024/06/18/svd-6/</url>
+    <content><![CDATA[<p>In many physics problem, we always encounter the solution of the
+linear equation <span class="math inline">\(Ax=b\)</span>. Classically,
+we solve this linear equation in the case that <span
+class="math inline">\(A\)</span> is a square and invertible matrix. In
+fact, this case is too special to better model the real world. Based on
+the singular value decomposition which we have introduced, we can
+generalize this linear equation to the case that <span
+class="math inline">\(A\)</span> is a non-square matrix. Actually, when
+we consider the data analysis and data modeling, the matrix <span
+class="math inline">\(A\)</span> is always a non-square matrix.</p>
+<span id="more"></span>
+<p>Here we introduce few different things happened due to the non-square
+matrix <span class="math inline">\(A\in\mathbb{R}^{n\times m}\)</span>.
+Since A is a non-square matrix, there are two canonical non-square
+matrix <span class="math inline">\(A\)</span>, corresponding to the two
+different canonical non-square linear equations.</p>
+<ol type="1">
+<li>Underdetermined System <span class="math inline">\((n&lt;m)\)</span>
+Since <span class="math inline">\(n&lt;m\)</span>, the shape of the
+matrix <span class="math inline">\(A\)</span> is short and fat. In this
+case, the number of equations is less than the number of unknowns. There
+is not enough measurements in vector <span
+class="math inline">\(b\)</span> to determine a single unique vector
+<span class="math inline">\(x\)</span>. In other words, there is more
+degrees of freedom in the unknown vector <span
+class="math inline">\(x\)</span> and there is not enough values in the
+vector <span class="math inline">\(b\)</span> to determine the unknown
+vector <span class="math inline">\(x\)</span>. In general, there are
+infinitely many solutions <span class="math inline">\(x\)</span> given
+by the underdetermined system. In fact, you can try to construct a very
+special underdetermined system such that there is only one solution. But
+it is too special that we can ignore it.</li>
+<li>Overdetermined System <span class="math inline">\((n&gt;m)\)</span>
+Since <span class="math inline">\(n&gt;m\)</span>, the shape of the
+matrix <span class="math inline">\(A\)</span> is tall and skinny. In
+this case, the number of equations is more than the number of unknowns.
+Unfortunately, since there is not enough degrees of freedom in unknown
+vector <span class="math inline">\(x\)</span> to fit these equation,
+there is no solution <span class="math inline">\(x\)</span> given by the
+overdetermined system generally. In fact, you can try to construct a
+very special underdetermined system such that there is only one
+solution. But it is too special that we can ignore it.</li>
+</ol>
+<p>The singular value decomposition allows us to approximately invert
+this matrix <span class="math inline">\(A\)</span> to compute what is
+known as the pseudo inverse and find a best fit solution <span
+class="math inline">\(x\)</span> that either comes as close to solving
+this equation as possible or solves this equation with the minimum <span
+class="math inline">\(L^2\)</span> norm of <span
+class="math inline">\(x\)</span>. Here we introduce the Moore-Penrose
+pseudo inverse of the matrix <span class="math inline">\(A\)</span>.
+Based on the economy singular value decomposition of the matrix <span
+class="math inline">\(A\)</span>, we can decompose the matrix <span
+class="math inline">\(A\)</span> as <span
+class="math inline">\(A=U\Sigma V^T\)</span>, where <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> satisfy <span
+class="math inline">\(U^TU=I\)</span> and <span
+class="math inline">\(V^TV=VV^T=I\)</span>. The Moore-Penrose pseudo
+inverse of the matrix <span class="math inline">\(A\)</span> is defined
+as <span class="math display">\[
+A^{\dagger}=V\Sigma^{-1}U^T
+\]</span> Based on the properties of <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>, we realize that the Moore-Penrose
+pseudo inverse is a left pseudo inverse of the matrix <span
+class="math inline">\(A\)</span>. Now we can give a approximate solution
+of the linear equation <span class="math inline">\(Ax=b\)</span> by
+using the Moore-Penrose pseudo inverse of the matrix <span
+class="math inline">\(A\)</span>. <span class="math display">\[
+Ax=b\Rightarrow U\Sigma V^Tx=b\Rightarrow
+\tilde{x}=V\Sigma^{-1}U^Tb=A^{\dagger}b
+\]</span> Here we have given a best fit solution <span
+class="math inline">\(x\)</span> which comes as close to solving this
+equation as possible. Now we will give out this solution which satisfies
+the optimization problems. Now we give the optimization problems that
+the best fit solution <span class="math inline">\(x\)</span> satisfies
+for underdetermined system and overdetermined system.</p>
+<ol type="1">
+<li><p>Underdetermined System <span
+class="math inline">\((n&lt;m)\)</span> In this case, the best fit
+solution <span class="math inline">\(x\)</span> satisfies the
+optimization problem <span class="math display">\[
+   \min_x\|x\|_2\quad\text{subject to}\quad Ax=b
+\]</span> The solution of this optimization problem is the solution of
+the linear equation <span class="math inline">\(Ax=b\)</span> with the
+minimum <span class="math inline">\(L^2\)</span> norm of <span
+class="math inline">\(x\)</span>.</p></li>
+<li><p>Overdetermined System In this case, the best fit solution <span
+class="math inline">\(x\)</span> satisfies the optimization problem
+<span class="math display">\[
+   \min_x\|Ax-b\|_2
+\]</span> The solution of this optimization problem is the solution of
+the linear equation <span class="math inline">\(Ax=b\)</span> that comes
+as close to solving this equation as possible.</p>
+<p>Finally, we will clarify something that is highly confusing: the
+method of obtaining the optimal approximation solution is same as the
+normal process,but it is just an approximate solution. Here we
+substitute the approximate solution <span
+class="math inline">\(\tilde{x}=A^{\dagger}b\)</span> into the linear
+equation <span class="math inline">\(Ax=b\)</span>. <span
+class="math display">\[
+   A\tilde{x}=AA^{\dagger}b=U\Sigma V^TV\Sigma^{-1}U^Tb=UU^Tb
+\]</span> where the matrix <span class="math inline">\(UU^T\)</span> is
+not a identity matrix and it might not even be close to the identity
+matrix. Before we explain the vector <span
+class="math inline">\(UU^Tb\)</span>, we should discuss the project
+operator. Here we assume that we have a vector <span
+class="math inline">\(v\)</span> and a matrix <span
+class="math inline">\(P\)</span>. Now we try to project the vector <span
+class="math inline">\(v\)</span> onto the column space of the matrix
+<span class="math inline">\(P\)</span>. We assume the projection of the
+vector <span class="math inline">\(v\)</span> onto the column space of
+the matrix <span class="math inline">\(P\)</span> is <span
+class="math inline">\(Px\)</span>, where <span
+class="math inline">\(x\)</span> is an unknown vector. Based on the
+definition of the projection, the vector <span
+class="math inline">\(e=v-Px\)</span> and all column vectors of <span
+class="math inline">\(P\)</span> are orthogonal. Therefore, we can
+derive the following linear equaiton, <span class="math display">\[
+   P^Te=P^T(v-Px)=P^Tv-P^TPx=0\Rightarrow x=(P^TP)^{-1}P^Tv
+\]</span> From the above result, we can derive the projection vector
+<span class="math inline">\(Px=P(P^TP)^{-1}P^Tv\)</span>. Here we call
+<span class="math inline">\(P(P^TP)^{-1}P^T\)</span> as the projection
+operator. Now we consider the matrix <span
+class="math inline">\(U\)</span> which satisfies <span
+class="math inline">\(U^TU=I\)</span>, so the projection operator <span
+class="math inline">\(U(U^TU)^{-1}U^T=UU^T\)</span>. Above all, the
+meaning of <span class="math inline">\(UU^Tb\)</span> is the projection
+of the vector <span class="math inline">\(b\)</span> onto the column
+space of the matrix <span class="math inline">\(U\)</span>. Furthermore,
+the column space of the matrix <span class="math inline">\(U\)</span> is
+equal to the column space of the matrix <span
+class="math inline">\(A\)</span>. Therefore, the vector <span
+class="math inline">\(UU^Tb\)</span> is the projection of the vector
+<span class="math inline">\(b\)</span> onto the column space of the
+matrix <span class="math inline">\(A\)</span>. The errors crops up since
+<span class="math inline">\(UU^Tb\)</span> is an orthogonal projection
+of <span class="math inline">\(B\)</span> onto the column space of <span
+class="math inline">\(A\)</span>.</p></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
 </search>
