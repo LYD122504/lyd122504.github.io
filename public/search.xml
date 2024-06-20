@@ -2274,4 +2274,112 @@ class="math inline">\(A\)</span>.</p></li>
         <tag>Machine Learning</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SVD-Linear Regression</title>
+    <url>/2024/06/21/svd-7/</url>
+    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from
+data. When we have gotten measurement data in experiments, it is
+important to construct a linear regression model as a predictive model.
+The basic structure of the linear regression is defined as follows,
+<span class="math display">\[
+Ax=b
+\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
+m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
+are given by the measurement. Therefore, building a linear regression is
+equal to solve the linear system <span
+class="math inline">\(Ax=b\)</span>. Here we just consider the over
+determined system <span class="math inline">\(n&gt;m\)</span> since it
+is often what we have in modern data. We will use the least square
+estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
+<span id="more"></span>
+<p>To explain this linear regression more clearly, let's say that every
+rows of equation is based on data from an individual medical history. So
+the equation <span
+class="math inline">\(a_{i1}x_1+\cdots+a_{im}x_{m}=b_{i}\)</span> means
+the medical case of the <span class="math inline">\(i-th\)</span>
+person. Every columns of matrix <span class="math inline">\(A\)</span>
+represent different kinds of risk factors and the vector <span
+class="math inline">\(b\)</span> means the risk of heart disease.
+Therefore, we can give a interpretation about linear regression. Linear
+regression is a best fit model <span class="math inline">\(x\)</span>
+for what combination of those factors describe best or predict best the
+future risk of heart disease. Actually it may be driven by the nonlinear
+system in real world, here we oversimplify this system by using linear
+regression to approximate it.</p>
+<p>Since we consider the overdetermined system, it is hard to find a
+vector <span class="math inline">\(x\)</span> that exactly solves this
+linear model. We want to find the best fit vector <span
+class="math inline">\(x\)</span> that minimizes the error norm between
+<span class="math inline">\(Ax\)</span> and <span
+class="math inline">\(b\)</span>. In other words, the best fit vector
+<span class="math inline">\(x\)</span> gives us the best prediction of
+<span class="math inline">\(b\)</span> given information in <span
+class="math inline">\(A\)</span>. Here we consider a one-dimensional
+linear regression model since it can be easily plotted in the following
+figure and gives a geometric interpretation of linear regression. Of
+course, the conclusion derived in this way is very simple and can be
+generalized to much higher-dimensional situations.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png"
+alt="2024-06-20_20-56-36_screenshot" />
+<figcaption
+aria-hidden="true">2024-06-20_20-56-36_screenshot</figcaption>
+</figure>
+<p>As seen in figure, we will solve the <span
+class="math inline">\(x\)</span> here that we want is the slope of this
+fit line. We generalize this interpretation to much higher dimensional
+case instead of having just one factor that I use to predict <span
+class="math inline">\(b\)</span>. In general, I will find a best fit
+plane instead of best fit line to approximate the high dimensional data.
+In one dimensional, <span class="math inline">\(A=\begin{bmatrix} a_1\
+a_2\ \cdots\ a_n\end{bmatrix}^{T}\)</span> and <span
+class="math inline">\(b=\begin{bmatrix}b_1\ b_2\ \cdots\
+b_n\end{bmatrix}^{T}\)</span> will be considered. Based on the SVD, we
+can give the decompostion matrices <span
+class="math inline">\(U=\frac{A}{\Vert A\Vert_2}\)</span>, <span
+class="math inline">\(\Sigma=\Vert A\Vert_2\)</span> and <span
+class="math inline">\(V^T=1\)</span> easily. Using Moore-Penrose pseudo
+inverse of <span class="math inline">\(A\)</span>, we can solve the best
+fit slope <span class="math inline">\(x\)</span> as follows, <span
+class="math display">\[
+x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b
+\]</span> Due to the value of the best fit slope, we find that the
+linear regression can be written as <span
+class="math inline">\(Ax=AA^{\dagger}b=\frac{AA^T}{\Vert
+A\Vert_2^2}b\)</span>. It means that we project <span
+class="math inline">\(b\)</span> into the direction of <span
+class="math inline">\(A\)</span>. When we think about the projection, we
+realize that the normalized matrix <span
+class="math inline">\(\tilde{A}=\frac{A}{\Vert A\Vert_2}\)</span>
+satisfies <span
+class="math inline">\(\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert
+A\Vert_2}=1\)</span>. From this, we can use this normalized matrix <span
+class="math inline">\(\tilde{A}\)</span> to derive the projection
+operator <span
+class="math inline">\(\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}==\frac{AA^T}{\Vert
+A\Vert_2^2}\)</span>. This formula can be generalized into higher
+dimensional case easily.</p>
+<p>At last, we consider a very common problem that our data has some
+outliers in data analysis. As seen in the above figure, these data do
+not fully mathch our best fitting model. Since the normal data can have
+some variablity, like Gaussian noisy, our linear regression just is a
+approximation model to real world. Here we assume that our data has a
+outlier which is completely different with others. It will bias my
+distrubution and effect the best fit slope, since the purpose of our
+derivation is minimizing the sum of the squares of the errors of all of
+those points to the line. Therefore, it is a big risk we have when we
+have outliers. Regularly square based on the SVD can handle white noise
+very well. However, the matrix <span class="math inline">\(A\)</span>
+will be sensitive to outliers, we will consider in robust
+statistics.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
 </search>

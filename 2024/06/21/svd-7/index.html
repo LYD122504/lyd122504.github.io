@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.  2-norm (Spectral norm)  \[ \">
+  <meta name="description" content="Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictiv">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVD-Eckart-Young-Mirsky theorem">
-<meta property="og:url" content="http://example.com/2024/05/28/svd-3/index.html">
+<meta property="og:title" content="SVD-Linear Regression">
+<meta property="og:url" content="http://example.com/2024/06/21/svd-7/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.  2-norm (Spectral norm)  \[ \">
+<meta property="og:description" content="Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictiv">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-28T13:01:09.000Z">
-<meta property="article:modified_time" content="2024-05-28T13:08:48.962Z">
+<meta property="article:published_time" content="2024-06-20T17:54:04.000Z">
+<meta property="article:modified_time" content="2024-06-20T18:07:06.243Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/05/28/svd-3/">
+<link rel="canonical" href="http://example.com/2024/06/21/svd-7/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>SVD-Eckart-Young-Mirsky theorem | 还施水阁</title>
+  <title>SVD-Linear Regression | 还施水阁</title>
   
 
 
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/svd-3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/svd-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -215,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SVD-Eckart-Young-Mirsky theorem
+          SVD-Linear Regression
         </h1>
 
         <div class="post-meta">
@@ -226,7 +226,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-05-28 21:01:09 / 修改时间：21:08:48" itemprop="dateCreated datePublished" datetime="2024-05-28T21:01:09+08:00">2024-05-28</time>
+              <time title="创建时间：2024-06-21 01:54:04 / 修改时间：02:07:06" itemprop="dateCreated datePublished" datetime="2024-06-21T01:54:04+08:00">2024-06-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,165 +256,102 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Firstly, we introduce three different kinds of matrix norms and based
-on singular value decomposition, verify that these norms are only
-related to singular values.</p>
-<ol type="1">
-<li>2-norm (Spectral norm)</li>
-</ol>
-<p><span class="math display">\[
-\left\Vert
-A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma
-V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1
-\]</span></p>
-<ol type="1">
-<li>Frobenius norm</li>
-</ol>
-<p><span class="math display">\[
-\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma
-U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}
-\]</span></p>
-<ol type="1">
-<li>Nuclear norm</li>
-</ol>
-<p><span class="math display">\[
-\left\Vert
-A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
-\]</span></p>
-<span id="more"></span>
-<p>Based on the results of matrix norms, we realize that the above three
-matrix norms only depend on the singular values of the matrix <span
-class="math inline">\(A\)</span>. Now we claim that the product with
-orthogonal matrices will not change the singular values of the original
-matrix. For simplicity, we call the left orthogonal matrix and right
-orthogonal matrix as <span class="math inline">\(P\)</span> and <span
-class="math inline">\(Q\)</span>, respectively. Based on the singular
-value decomposition of <span class="math inline">\(A\)</span>, we can
-derive the following results about the product of matrix <span
-class="math inline">\(A\)</span> and orthogonal matrices <span
-class="math inline">\(P,\ Q\)</span>, <span class="math display">\[
-PAQ=PU\Sigma V^TQ=U_1\Sigma V_1^T,\ U_1=PU,\ V_1=Q^TV
-\]</span> where <span
-class="math inline">\(U_1U_1^T=PUU^TP^T=I=U_1^TU_1\)</span> means <span
-class="math inline">\(U_1\)</span> is an orthogonal matrix. The same is
-true for <span class="math inline">\(V_1\)</span>. We claim that the
-singular values of <span class="math inline">\(PAQ\)</span> is the same
-as the singular values of <span class="math inline">\(A\)</span>. So we
-realize that the product with orthogonal matrices does not affect matrix
-norm.</p>
-<p><strong>Thm(Eckart-Young-Mirsky Theorem)</strong> The optimal rank-r
-approximation to <span class="math inline">\(A\)</span>, under the
-spectral norm and the Frobenius norm, respectively, is given by the
-rank-r SVD truncation <span class="math inline">\(\tilde{A}\)</span>,
+        <p>Now we are ready to talk about building linear regression models from
+data. When we have gotten measurement data in experiments, it is
+important to construct a linear regression model as a predictive model.
+The basic structure of the linear regression is defined as follows,
 <span class="math display">\[
-argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert
-A-\hat{A}\right\Vert_F=\tilde{A}\quad argmin_{\hat{A},\ s.t.\
-rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_2=\tilde{A}
-\]</span> where <span
-class="math inline">\(\tilde{A}=\tilde{U}\tilde{\Sigma}\tilde{V}^T\)</span>
-is the rank-r SVD truncation of <span class="math inline">\(A\)</span>.
-Again, <span class="math inline">\(\tilde{U}\)</span> and <span
-class="math inline">\(\tilde{V}\)</span> denote the first <span
-class="math inline">\(r\)</span> leading columns of <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>, respectively, and <span
-class="math inline">\(\tilde{\Sigma}\)</span> is the <span
-class="math inline">\(r\times r\)</span> leading submatrix of <span
-class="math inline">\(\Sigma\)</span>.</p>
-<p>Proof.</p>
-<ol type="1">
-<li><p>One needs to show that if we have a matrix approximation <span
-class="math inline">\(B\)</span> whose rank is <span
-class="math inline">\(r\)</span> and size is <span
-class="math inline">\(n\times m\)</span>, then <span
-class="math inline">\(\left\Vert A-B\right\Vert_2\geq \left\Vert
-A-\tilde{A}\right\Vert_2\)</span> holds. This can be done as
-follows.</p>
-<p>Here we introduce the concept of matrix kernel before the discussion.
-The kernel of matrix <span class="math inline">\(A\)</span> is defined
-as <span class="math display">\[
-   \mathcal{N}(A)=\{x\in \mathbb{R}^n:Ax=0\}
-\]</span> Therefore, we realize that the kernel of matrix <span
-class="math inline">\(\mathcal{N}(A)\)</span> actually means the
-solution space of the linear equation <span
-class="math inline">\(Ax=0\)</span>. Based on the linear equation
-theory, we know that when the rank of matrix <span
-class="math inline">\(B\)</span> is <span
-class="math inline">\(r\)</span>, the dimension of <span
-class="math inline">\(\mathcal{N}(B)\)</span> is <span
-class="math inline">\(n-r\)</span>. Here we consider the linear space
-<span class="math inline">\(V_{r+1}\)</span> spanned by the first <span
-class="math inline">\(r+1\)</span> leading right singular vectors <span
-class="math inline">\(v_1,\ v_2,\dots,v_{r+1}\)</span>, whose dimension
-is <span class="math inline">\(r+1\)</span>. Based on the dimensional
-formula, we derive that <span class="math display">\[
-   dim(\mathcal{N}(B)\cap
-V_{r+1})=dim(\mathcal{N}(B))+dim(V_{r+1})-dim(\mathcal{N}(B)+V_{r+1})=n+1-dim(\mathcal{N}(B)+V_{r+1})\geq1
-\]</span> which means that <span
-class="math inline">\(\mathcal{N}(B)\cap V_{r+1}\not=\empty\)</span>.
-Therefore, we have that there exists an vector <span
-class="math inline">\(x=\gamma_1v_1+\cdots+\gamma_{r+1}v_{r+1}\)</span>
-such that <span class="math display">\[
-   x\in \mathcal{N}(B)\cap V_{r+1},\ \left\Vert x\right\Vert_2=1
-\]</span> Based on the definition of 2-norm, we can derive that <span
+Ax=b
+\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
+m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
+are given by the measurement. Therefore, building a linear regression is
+equal to solve the linear system <span
+class="math inline">\(Ax=b\)</span>. Here we just consider the over
+determined system <span class="math inline">\(n&gt;m\)</span> since it
+is often what we have in modern data. We will use the least square
+estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
+<span id="more"></span>
+<p>To explain this linear regression more clearly, let's say that every
+rows of equation is based on data from an individual medical history. So
+the equation <span
+class="math inline">\(a_{i1}x_1+\cdots+a_{im}x_{m}=b_{i}\)</span> means
+the medical case of the <span class="math inline">\(i-th\)</span>
+person. Every columns of matrix <span class="math inline">\(A\)</span>
+represent different kinds of risk factors and the vector <span
+class="math inline">\(b\)</span> means the risk of heart disease.
+Therefore, we can give a interpretation about linear regression. Linear
+regression is a best fit model <span class="math inline">\(x\)</span>
+for what combination of those factors describe best or predict best the
+future risk of heart disease. Actually it may be driven by the nonlinear
+system in real world, here we oversimplify this system by using linear
+regression to approximate it.</p>
+<p>Since we consider the overdetermined system, it is hard to find a
+vector <span class="math inline">\(x\)</span> that exactly solves this
+linear model. We want to find the best fit vector <span
+class="math inline">\(x\)</span> that minimizes the error norm between
+<span class="math inline">\(Ax\)</span> and <span
+class="math inline">\(b\)</span>. In other words, the best fit vector
+<span class="math inline">\(x\)</span> gives us the best prediction of
+<span class="math inline">\(b\)</span> given information in <span
+class="math inline">\(A\)</span>. Here we consider a one-dimensional
+linear regression model since it can be easily plotted in the following
+figure and gives a geometric interpretation of linear regression. Of
+course, the conclusion derived in this way is very simple and can be
+generalized to much higher-dimensional situations.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png"
+alt="2024-06-20_20-56-36_screenshot" />
+<figcaption
+aria-hidden="true">2024-06-20_20-56-36_screenshot</figcaption>
+</figure>
+<p>As seen in figure, we will solve the <span
+class="math inline">\(x\)</span> here that we want is the slope of this
+fit line. We generalize this interpretation to much higher dimensional
+case instead of having just one factor that I use to predict <span
+class="math inline">\(b\)</span>. In general, I will find a best fit
+plane instead of best fit line to approximate the high dimensional data.
+In one dimensional, <span class="math inline">\(A=\begin{bmatrix} a_1\
+a_2\ \cdots\ a_n\end{bmatrix}^{T}\)</span> and <span
+class="math inline">\(b=\begin{bmatrix}b_1\ b_2\ \cdots\
+b_n\end{bmatrix}^{T}\)</span> will be considered. Based on the SVD, we
+can give the decompostion matrices <span
+class="math inline">\(U=\frac{A}{\Vert A\Vert_2}\)</span>, <span
+class="math inline">\(\Sigma=\Vert A\Vert_2\)</span> and <span
+class="math inline">\(V^T=1\)</span> easily. Using Moore-Penrose pseudo
+inverse of <span class="math inline">\(A\)</span>, we can solve the best
+fit slope <span class="math inline">\(x\)</span> as follows, <span
 class="math display">\[
-   \left\Vert A-B\right\Vert_2\geq \left\Vert
-(A-B)x\right\Vert_2=\left\Vert
-Ax\right\Vert_2=\gamma_1^2\sigma_1^2+\cdots+\gamma_{r+1}^2\sigma_{r+1}^2\geq
-\sigma_{r+1}^2=\left\Vert A-\tilde{A}\right\Vert_2
-\]</span> which means that the optimal rank-r approximation to <span
-class="math inline">\(A\)</span> under the 2-norm is given by the rank-r
-SVD truncation <span class="math inline">\(\tilde{A}\)</span>.</p></li>
-<li><p>Now we claim that the best rank <span
-class="math inline">\(r\)</span> approximation to <span
-class="math inline">\(A\)</span> in the Frobenius norm, denoted by <span
-class="math inline">\(\Vert\cdot\Vert_F\)</span>, is given by <span
-class="math display">\[
-A_r=U_r\Sigma_rV_r^T=\sum_{i=1}^r\sigma_iu_iv_i^T
-\]</span> First, note that we have <span class="math display">\[
-\left\Vert A-A_k\right\Vert_F^2=\left\Vert
-\sum_{i=r+1}^m\sigma_iu_iv_i^T\right\Vert_F^2=\sum_{i=r+1}^m\sigma_i^2
-\]</span> Hence, we need to show that if <span
-class="math inline">\(B_r\)</span> is any rank-<span
-class="math inline">\(r\)</span> matrix, then, <span
-class="math display">\[
-\left\Vert A-B_r\right\Vert_F^2\geq \sum_{i=r+1}^m\sigma_i^2
-\]</span> Based on the triangle inequality with the spectral norm, if
-<span class="math inline">\(A=A&#39;+A&#39;&#39;\)</span>, then <span
-class="math inline">\(\sigma_1(A)\leq\sigma_1(A&#39;)+\sigma_1(A&#39;&#39;)\)</span>.
-Suppose <span class="math inline">\(A_r&#39;\)</span> and <span
-class="math inline">\(A_r&#39;&#39;\)</span> denote the rank <span
-class="math inline">\(r\)</span> approximation to <span
-class="math inline">\(A&#39;\)</span> and <span
-class="math inline">\(A&#39;&#39;\)</span> by SVD method described
-above, respectively. Then, for any <span
-class="math inline">\(i,j\geq1\)</span> <span class="math display">\[
-\begin{aligned}
-\sigma_i(A&#39;)+\sigma_j(A&#39;&#39;)&amp;=\sigma_1(A&#39;-A_{i-1}&#39;)+\sigma_1(A&#39;&#39;-A_{j-1}&#39;&#39;)\\
-&amp;\geq\sigma_1(A&#39;-A_{i-1}&#39;+A&#39;&#39;-A_{j-1}&#39;&#39;)\\
-&amp;\geq\sigma_1(A-A_{i-1}&#39;-A_{j-1}&#39;&#39;)\\
-\end{aligned}
-\]</span> Here we know that <span
-class="math inline">\(rank(A_{i-1}&#39;+A_{j-1}&#39;&#39;)\leq
-i+j-2\)</span>, we can derive that</p></li>
-</ol>
-<p><span class="math display">\[
-\begin{aligned}
-\sigma_i(A&#39;)+\sigma_j(A&#39;&#39;)&amp;\geq\sigma_1(A-A_{i+j-2})\\
-&amp;=\sigma_{i+j-1}(A)
-\end{aligned}
-\]</span> Since <span
-class="math inline">\(\sigma_{r+1}(B_r)=0\)</span>, when <span
-class="math inline">\(A&#39;=A-B_r\)</span> and <span
-class="math inline">\(A&#39;&#39;=B_r\)</span>, we conclude that for
-<span class="math inline">\(i\geq1,\ j=r+1\)</span> <span
-class="math display">\[
-\sigma_i(A-B_r)= \sigma_i(A-B_r)+\sigma_{r+1}(B_r)\geq\sigma_{i+r}(A)
-\]</span> Therefore, we have <span class="math display">\[
-\left\Vert
-A-B_r\right\Vert_F^2=\sum_{i=1}^m\sigma_i(A-B_r)^2\geq\sum_{i=r+1}^m\sigma_i(A)^2=\left\Vert
-A-A_r\right\Vert_F^2
-\]</span></p>
+x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b
+\]</span> Due to the value of the best fit slope, we find that the
+linear regression can be written as <span
+class="math inline">\(Ax=AA^{\dagger}b=\frac{AA^T}{\Vert
+A\Vert_2^2}b\)</span>. It means that we project <span
+class="math inline">\(b\)</span> into the direction of <span
+class="math inline">\(A\)</span>. When we think about the projection, we
+realize that the normalized matrix <span
+class="math inline">\(\tilde{A}=\frac{A}{\Vert A\Vert_2}\)</span>
+satisfies <span
+class="math inline">\(\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert
+A\Vert_2}=1\)</span>. From this, we can use this normalized matrix <span
+class="math inline">\(\tilde{A}\)</span> to derive the projection
+operator <span
+class="math inline">\(\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}==\frac{AA^T}{\Vert
+A\Vert_2^2}\)</span>. This formula can be generalized into higher
+dimensional case easily.</p>
+<p>At last, we consider a very common problem that our data has some
+outliers in data analysis. As seen in the above figure, these data do
+not fully mathch our best fitting model. Since the normal data can have
+some variablity, like Gaussian noisy, our linear regression just is a
+approximation model to real world. Here we assume that our data has a
+outlier which is completely different with others. It will bias my
+distrubution and effect the best fit slope, since the purpose of our
+derivation is minimizing the sum of the squares of the errors of all of
+those points to the line. Therefore, it is a big risk we have when we
+have outliers. Regularly square based on the SVD can handle white noise
+very well. However, the matrix <span class="math inline">\(A\)</span>
+will be sensitive to outliers, we will consider in robust
+statistics.</p>
 
     </div>
 
@@ -434,13 +371,10 @@ A-A_r\right\Vert_F^2
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/19/svd-2/" rel="prev" title="SVD-Matrix Approximation">
-      <i class="fa fa-chevron-left"></i> SVD-Matrix Approximation
+    <a href="/2024/06/18/svd-6/" rel="prev" title="SVD-Linear System and Pseudo Inverse">
+      <i class="fa fa-chevron-left"></i> SVD-Linear System and Pseudo Inverse
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/06/05/svd-4/" rel="next" title="SVD-Dominnant Correlation">
-      SVD-Dominnant Correlation <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
