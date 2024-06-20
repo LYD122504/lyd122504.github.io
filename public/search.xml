@@ -2319,13 +2319,8 @@ linear regression model since it can be easily plotted in the following
 figure and gives a geometric interpretation of linear regression. Of
 course, the conclusion derived in this way is very simple and can be
 generalized to much higher-dimensional situations.</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png"
-alt="2024-06-20_20-56-36_screenshot" />
-<figcaption
-aria-hidden="true">2024-06-20_20-56-36_screenshot</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" /></p>
 <p>As seen in figure, we will solve the <span
 class="math inline">\(x\)</span> here that we want is the slope of this
 fit line. We generalize this interpretation to much higher dimensional
@@ -2357,7 +2352,7 @@ class="math inline">\(\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert
 A\Vert_2}=1\)</span>. From this, we can use this normalized matrix <span
 class="math inline">\(\tilde{A}\)</span> to derive the projection
 operator <span
-class="math inline">\(\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}==\frac{AA^T}{\Vert
+class="math inline">\(\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert
 A\Vert_2^2}\)</span>. This formula can be generalized into higher
 dimensional case easily.</p>
 <p>At last, we consider a very common problem that our data has some
