@@ -2172,19 +2172,20 @@ learning</h2>
 <p>在介绍监督学习(Supervised
 learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
 <ul>
-<li><span class="math inline">\(m\)</span>: 训练样本的数量</li>
-<li><span class="math inline">\(n\)</span>: 特征的数量</li>
-<li><span class="math inline">\(x\)</span>: 输入变量(input variable),
-或称为输入特征(input feature/attribute)</li>
-<li><span class="math inline">\(y\)</span>: 输出变量(output variable),
-或称为目标变量(target variable)</li>
-<li><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
+<li><p><span class="math inline">\(m\)</span>: 训练样本的数量</p></li>
+<li><p><span class="math inline">\(n\)</span>: 特征的数量</p></li>
+<li><p><span class="math inline">\(x\)</span>: 输入变量(input variable),
+或称为输入特征(input feature/attribute)</p></li>
+<li><p><span class="math inline">\(y\)</span>: 输出变量(output
+variable), 或称为目标变量(target variable)</p></li>
+<li><p><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
 class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
-class="math inline">\(i^{th}\)</span> training example)</li>
-<li><span class="math inline">\(\mathcal{X}\)</span>:
-输入变量的空间(input space)</li>
-<li><span class="math inline">\(\mathcal{Y}\)</span>:
-输出变量的空间(output space)</li>
+class="math inline">\(i^{th}\)</span> training example)</p></li>
+<li><p><span class="math inline">\(\mathcal{X}\)</span>:
+输入变量的空间(input space)</p></li>
+<li><p><span class="math inline">\(\mathcal{Y}\)</span>:
+输出变量的空间(output space)</p>
+<span id="more"></span></li>
 </ul>
 <p>监督学习的目标是基于已知的训练样本, 学习出一个假设(hypothesis) <span
 class="math inline">\(h: \mathcal{X} \rightarrow \mathcal{Y}\)</span>,
