@@ -195,6 +195,295 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/30/cs229-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/30/cs229-1/" class="post-title-link" itemprop="url">CS229 Notes for Lecture 2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-30 17:08:19" itemprop="dateCreated datePublished" datetime="2024-07-30T17:08:19+08:00">2024-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-31 00:55:08" itemprop="dateModified" datetime="2024-07-31T00:55:08+08:00">2024-07-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS229/" itemprop="url" rel="index"><span itemprop="name">CS229</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="lecture-1">Lecture 1</h1>
+<p><a id="org8b14315"></a></p>
+<h2 id="introduction-of-supervised-learning">Introduction of supervised
+learning</h2>
+<p>在介绍监督学习(Supervised
+learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
+<ul>
+<li><span class="math inline">\(m\)</span>: 训练样本的数量</li>
+<li><span class="math inline">\(n\)</span>: 特征的数量</li>
+<li><span class="math inline">\(x\)</span>: 输入变量(input variable),
+或称为输入特征(input feature/attribute)</li>
+<li><span class="math inline">\(y\)</span>: 输出变量(output variable),
+或称为目标变量(target variable)</li>
+<li><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
+class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
+class="math inline">\(i^{th}\)</span> training example)</li>
+<li><span class="math inline">\(\mathcal{X}\)</span>:
+输入变量的空间(input space)</li>
+<li><span class="math inline">\(\mathcal{Y}\)</span>:
+输出变量的空间(output space)</li>
+</ul>
+<p>监督学习的目标是基于已知的训练样本, 学习出一个假设(hypothesis) <span
+class="math inline">\(h: \mathcal{X} \rightarrow \mathcal{Y}\)</span>,
+使得 <span class="math inline">\(h(x)\)</span>
+能够尽可能地接近真实的输出 <span class="math inline">\(y\)</span>.
+根据输出变量的类型,我们可以将监督学习分成两类问题:</p>
+<ol type="1">
+<li>回归问题(Regression): 输出变量的取值是连续的</li>
+<li>分类问题(Classification): 输出变量的取值是离散的</li>
+</ol>
+<p>我们可以从下图来直观理解监督学习的过程:</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-07-30_16-29-16_screenshot.lz8nr081.png" />
+因此,监督学习的关键就是利用学习算法(learning algorithm)从训练集(training
+set)中学习出一个符合条件的假设 <span class="math inline">\(h\)</span>,
+进一步其实监督学习的关键就是去构造一个合适的学习算法.</p>
+<p>而在构造学习算法的过程中, 我们需要考虑以下几个问题:</p>
+<ol type="1">
+<li>训练集样本是什么样的?</li>
+<li>假设函数是什么样的?</li>
+<li>如何表示假设函数?</li>
+</ol>
+<p><a id="org172f874"></a></p>
+<h2 id="linear-regression">Linear regression</h2>
+<p>在本节中, 我们将假设函数 <span class="math inline">\(h\)</span>
+限制在线性函数形式下考虑回归问题, 这一问题也被称之为线性回归问题(Linear
+Regression). 在线性回归问题中, 我们试图去构造一个线性的假设函数,
+因此我们可以直接形式的写出假设函数的结构如下: <span
+class="math display">\[h(x)=\theta_0+\theta_1x_1+\cdots+\theta_nx_n\]</span>
+其中, <span class="math inline">\(\theta_i(i=0,\cdots,n)\)</span>
+是参量(parameter), 如果我们将其确定下来,
+那么我们就可以得到一个确定的假设函数 <span
+class="math inline">\(h\)</span>. 但为了形式上的简洁,
+我们引入一个虚特征(dummy feature) <span
+class="math inline">\(x_0=1\)</span>,
+这样我们就可以将上面的假设函数写成更为紧凑的形式: <span
+class="math display">\[h(x)=\sum_{i=0}^n\theta_ix_i=\theta^Tx\]</span>
+其中, <span
+class="math inline">\(\theta=(\theta_0,\cdots,\theta_n)^T\)</span>
+是学习算法的参数向量(parameter vector), <span
+class="math inline">\(x=(x_0,\cdots,x_n)^T\)</span>. 在此值得注意的是,
+虽然我们只考虑 <span class="math inline">\(n\)</span> 个输入特征,
+但由于我们为了方便引入了虚特征, 因此实际上我们考虑的 <span
+class="math inline">\(\theta\)</span> 和 <span
+class="math inline">\(x\)</span> 是一个 <span
+class="math inline">\(n+1\)</span> 维的向量. 其次,
+虽然我们在此给出的假设函数符号是 <span
+class="math inline">\(h(x)\)</span>, 但实际上更为明确的写法应该是 <span
+class="math inline">\(h_{\theta}(x)\)</span>, 这样可以表示假设函数 <span
+class="math inline">\(h\)</span> 不仅依赖于输入特征 <span
+class="math inline">\(x\)</span>, 还依赖于参数向量 <span
+class="math inline">\(\theta\)</span>; 只是在不引起混淆的情况下,
+我们可以省略 <span class="math inline">\(\theta\)</span> 的表示.</p>
+<p>根据上面的假设函数的结构,
+我们可以知道学习算法的工作是选择一个合适的参数向量,
+这样就可以导出一个假设, 因此如何选择合适的参数向量就是学习算法的关键.
+从直观上来说, 对于训练集样本, 我们希望选择出来的参数向量能够使得 <span
+class="math inline">\(h(x)\)</span> 尽可能地接近真实的输出 <span
+class="math inline">\(y\)</span>. 因此我们需要先定义一个函数用来度量
+<span class="math inline">\(h(x)\)</span> 和 <span
+class="math inline">\(y\)</span> 之间的差距, 我们称之为成本函数(cost
+function): <span
+class="math display">\[J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\]</span>
+此处的 <span class="math inline">\(\frac{1}{2}\)</span>
+是因为可以消去因求导得到的<span class="math inline">\(2\)</span>,
+并不影响最后结果. 根据我们前面介绍的选择参数向量 <span
+class="math inline">\(\theta\)</span> 的目标,
+我们将其转化为一个优化问题, 即找到一个 <span
+class="math inline">\(\theta\)</span> 使得 <span
+class="math inline">\(J(\theta)\)</span> 最小, 其数学形式如下: <span
+class="math display">\[\min_{\theta}J(\theta)=\min_{\theta}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\]</span></p>
+<p><a id="org5e1d335"></a></p>
+<h2 id="gradient-descentgd">Gradient Descent(GD)</h2>
+<p>此节中, 我们将用梯度下降算法(Gradient Descent)来求解上面的优化问题.
+值得注意的是, 梯度下降算法是一种迭代算法,
+其基本思想是通过不断更新迭代参数向量 <span
+class="math inline">\(\theta\)</span> 的值, 使得成本函数 <span
+class="math inline">\(J(\theta)\)</span> 不断减小, 直到收敛到最小值.</p>
+<p>我们可以给出梯度下降算法的框架如下:</p>
+<ol type="1">
+<li>Start with some <span class="math inline">\(\theta\)</span>. For
+example, <span class="math inline">\(\theta=0\)</span>.</li>
+<li>Keep changing <span class="math inline">\(\theta\)</span> to reduce
+<span class="math inline">\(J(\theta)\)</span>.</li>
+<li>Repeat 2. until convergence.</li>
+</ol>
+<p>从上面的框架中我们可以看出, 梯度下降算法的关键就是如何更新参数向量
+<span class="math inline">\(\theta\)</span> 的值, 其更新的规则如下:
+<span
+class="math display">\[\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\
+\text{for each value of }j\]</span> 这里的 <span
+class="math inline">\(\alpha\)</span> 是学习率(learning rate),
+用来控制参数向量 <span class="math inline">\(\theta\)</span> 的更新步长;
+但这个值的选取是一个极具经验性的问题,
+因为学习率太小则会导致收敛速度太慢, 而学习率太大则会导致算法无法收敛.
+因此实际中, 应该尝试多组学习率, 从而选择一个最为合适的学习率.</p>
+<p>由于我们已知成本函数 <span class="math inline">\(J(\theta)\)</span>
+的具体形式, 因此我们可以直接求出其关于参数向量 <span
+class="math inline">\(\theta\)</span> 的偏导数的具体形式为: <span
+class="math display">\[\begin{aligned}\frac{\partial}{\partial\theta_j}J(\theta)&amp;=\frac{\partial}{\partial\theta_j}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\\
+&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial
+\theta_j}(h(x^{(i)})-y^{(i)})\\
+&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial
+\theta_j}(\sum_{k=0}^n\theta_kx_k^{(i)}-y^{(i)})\\
+&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)}\end{aligned}\]</span>
+根据上面的偏导数的具体形式,
+我们可以将梯度下降算法的更新规则写成更为具体的形式: <span
+class="math display">\[\theta_j:=\theta_j-\alpha\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)},\
+j=0,1,\dots,n\]</span> 从这个更新规则中,
+我们可以发现每更新一次需要用全部训练样本的数据,
+因此我们将这种梯度下降算法称之为批量梯度下降算法(Batch Gradient
+Descent).其的主要优点就是计算稳定, 他一定可以朝着极小值的方向前进;
+但是缺点也很明显, 因为他每次更新参数都需要用到全部的训练样本,
+因此如果训练样本数据量很大的情况,
+那么他的计算量就会花费大量时间在调用全部训练样本上.</p>
+<p>因此, 为了避免每次更新参数都需要用到全部训练样本的数据,
+我们可以引入随机梯度下降算法(Stochastic Gradient Descent, SGD),
+其的更新规则如下: <span class="math display">\[
+\theta_j:=\theta_j-\alpha(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n\
+(\text{for }i=1\ \text{to }m)\]</span> 此时,
+每次更新我们都只用了一个训练样本的数据,
+因此这样会大幅度减少更新计算量;操作过程是在第一次更新中,
+我们选用第一个训练样本更新参数; 在第二次更新中,
+我们选用第二个训练样本更新参数, 以此类推. 但值得注意的一点是,
+随机梯度下降算法由于每次都是用一个训练样本的数据,
+因此他的更新方向是不稳定的, 因此他可能会在极小值附近不断震荡;
+但他优点就是每次迭代的计算量小, 尤其是在训练样本数据量很大的情况下,
+他的优势就会更加明显. 不仅如此, 如果我们考虑较为复杂的优化问题,
+随机梯度下降算法是有可能帮助我们跳出局部极小值,
+因此随机算法对于机器学习是很重要的优化算法.</p>
+<p>虽然SGD可能达不到最小值, 而是在最小值附近震荡,
+但我们可以在某个容忍精度下停止迭代,这样得到的参数也是一个比较好的参数.
+但实际上, 我们一般是在使用SGD的过程中, 随时间增长慢慢地减小学习率的值,
+这样即使参数会在最小值附近震荡, 但随着学习率 <span
+class="math inline">\(\alpha\)</span> 的减小, 参数的震荡范围越来越小,
+近似认为达到了最小值.</p>
+<p>最后, 我们给出另一个梯度下降算法的idea,
+他结合了批量梯度下降算法和随机梯度下降算法的优点,
+这就是小批量梯度下降算法(Mini-batch Gradient Descent).
+他并不是每次迭代都只用一个训练样本的数据(会使得下降方向不稳定),也不用全部训练样本的数据(会使得计算量过大),
+而是每次迭代用一小部分训练样本的数据, 他每次迭代都用 <span
+class="math inline">\(k\)</span> 个训练样本的数据, 其既降低了计算量,
+又保持了下降方向的稳定性. 至于 <span class="math inline">\(k\)</span>
+的选取, 其一般是在算法运行之前人为选取的.</p>
+<p>不过事实上, 如果成本函数 <span
+class="math inline">\(J(\theta)\)</span> 的结构并不是很好的情况下,
+那么会出现以下几种情况:</p>
+<ol type="1">
+<li>收敛到函数的局部最小值(local minimum), 而不是全局最小值(global
+minimum).</li>
+<li>收敛到函数的驻点(saddle point).</li>
+<li>微分值接近于 <span class="math inline">\(0\)</span>
+就停下来，但这里只是比较平缓，并不是极值点。</li>
+</ol>
+<p>但值得注意的是,我们在这里考虑线性回归问题,
+其成本函数其实是一个二次函数, 因此他是不存在局部最小值和驻点的,
+因此只要他能收敛, 那么就一定是收敛到全局最小值.</p>
+<p><a id="org0d1c713"></a></p>
+<h2 id="normal-equation">Normal Equation</h2>
+<p>上面我们介绍的GD是一种迭代算法, 但实际上对于线性回归问题,
+我们可以直接用代数的方法求解出最优参数向量 <span
+class="math inline">\(\theta\)</span>, 这种方法被称之为正规方程(Normal
+Equation). 但需要声明的是, 正规方程只适用于线性回归问题.
+在推导正规方程以前, 我们先引入矩阵导数的记号: <span
+class="math display">\[\begin{aligned}\nabla_{\theta}J(\theta)&amp;=\begin{pmatrix}\frac{\partial
+J}{\partial \theta_0}\cdots \frac{\partial J}{\partial
+\theta_n}\end{pmatrix}^T,\ \theta\in\mathbb{R}^{n+1}\\
+\nabla_Af(A)&amp;=\begin{pmatrix}\frac{\partial f}{\partial
+A_{11}}&amp;\cdots&amp;\frac{\partial f}{\partial A_{1q}}\\\vdots&amp;
+&amp;\vdots\\\frac{\partial f}{\partial
+A_{p1}}&amp;\cdots&amp;\frac{\partial f}{\partial A_{pq}}\end{pmatrix},\
+A\in\mathbb{R}^{p\times q}\end{aligned}\]</span>
+因此我们希望能够将成本函数 <span
+class="math inline">\(J(\theta)\)</span> 写成紧凑的矩阵向量形式,
+在此之前, 我们先引入一些矩阵符号来辅助推导成本函数的矩阵形式: <span
+class="math display">\[\begin{aligned}X&amp;=\begin{pmatrix}\cdots&amp;(x^{(1)})^T&amp;\cdots\\
+&amp;\vdots&amp; \\\cdots&amp;(x^{(m)})^T&amp;\cdots\end{pmatrix}
+\text{\ design\ matrix}\\
+\vec{y}&amp;=\begin{pmatrix}y^{(i)}&amp;\cdots&amp;y^{(m)}\end{pmatrix}^T
+\text{\ label\ vector}\end{aligned}\]</span> 这里值得注意的是,
+我们构造的这个 design matrix 的行向量在记号上是训练样本的转置,
+但是实际上, 我们考虑的是训练样本的特征再加上虚特征 <span
+class="math inline">\(x_0\)</span>, 所以这个 design matrix 的维度为
+<span class="math inline">\(m\times (n+1)\)</span>. 依据这些记号,
+我们给出成本函数的矩阵形式为: <span
+class="math display">\[J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2=\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})\]</span>
+由于我们知道线性回归问题的核心问题就是最小化成本函数,
+这个从导数的角度来看, 就是成本函数对参数向量的导数为0; 其数学形式如下:
+<span
+class="math display">\[\nabla_{\theta}J(\theta)=\nabla_{\theta}\frac{1}{2}(X\theta-\vec{y})^T(X\theta-y)=X^TX\theta-X^T\vec{y}=0\]</span>
+所以线性回归问题对应的正规问题为: <span
+class="math display">\[X^TX\theta=X^T\vec{y}\Rightarrow
+\theta=(X^TX)^{-1}X^T\vec{y}\]</span> 这里有一个问题就是如果 <span
+class="math inline">\(X^{T}X\)</span> 不可逆, 那么 <span
+class="math inline">\((X^TX)^{-1}\)</span> 并不存在, 那我们可以用 <span
+class="math inline">\((X^TX)^{-1}\)</span> 的伪逆来代替.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/svd-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1079,91 +1368,10 @@ X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/08/functional-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/08/functional-4/" class="post-title-link" itemprop="url">Functional Analysis-A Quick Introduction to the Theory of Conjugate Convex Functions(1)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-08 11:24:05" itemprop="dateCreated datePublished" datetime="2023-08-08T11:24:05+08:00">2023-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-30 20:27:19" itemprop="dateModified" datetime="2024-03-30T20:27:19+08:00">2024-03-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Functional-Analysis/" itemprop="url" rel="index"><span itemprop="name">Functional Analysis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-4-共轭凸函数-1"><a href="#1-4-共轭凸函数-1" class="headerlink" title="1.4 共轭凸函数(1)"></a>1.4 共轭凸函数(1)</h3><p>我们先从下半连续函数和凸函数开始讨论, 考虑定义在集合 $E$ 上, 取值在 $(-\infty,+\infty]$ 的函数 $\phi$, 我们给出一些记号如 $\phi$ 的定义域为 $D(\phi)={x\in E|\phi(x)&lt;+\infty}$, $\phi$ 的上图像为 $\text{epi}\ \phi={[x,\lambda]\in E\times\mathbb{R}|\phi(x)\leq \lambda}$, 其中 $\mathbb{R}=(-\infty,+\infty)$.<br>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/08/functional-4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1231,7 +1439,7 @@ X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1244,7 +1452,7 @@ X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
