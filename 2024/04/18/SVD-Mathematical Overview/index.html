@@ -22,15 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="还施水阁">
-<meta property="og:url" content="http://example.com/archives/2024/index.html">
+  <meta name="description" content="​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:  X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\vdots\end{bmatrix}The column $x_k\in \math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVD-Mathematical Overview">
+<meta property="og:url" content="http://example.com/2024/04/18/SVD-Mathematical%20Overview/index.html">
 <meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:  X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\vdots\end{bmatrix}The column $x_k\in \math">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-18T13:07:49.000Z">
+<meta property="article:modified_time" content="2024-04-19T15:00:03.714Z">
 <meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2024/">
+<link rel="canonical" href="http://example.com/2024/04/18/SVD-Mathematical%20Overview/">
 
 
 <script id="page-configurations">
@@ -38,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | 还施水阁</title>
+  <title>SVD-Mathematical Overview | 还施水阁</title>
   
 
 
@@ -189,230 +195,118 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 18 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/18/SVD-Mathematical%20Overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SVD-Mathematical Overview
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-18 21:07:49" itemprop="dateCreated datePublished" datetime="2024-04-18T21:07:49+08:00">2024-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-19 23:00:03" itemprop="dateModified" datetime="2024-04-19T23:00:03+08:00">2024-04-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reduced-Order-Model/" itemprop="url" rel="index"><span itemprop="name">Reduced Order Model</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-07-30T17:08:19+08:00"
-              content="2024-07-30">
-          07-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/" itemprop="url">
-            <span itemprop="name">CS229 Notes for Lecture 2</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-06-21T01:54:04+08:00"
-              content="2024-06-21">
-          06-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/06/21/SVD-Linear%20Regression/" itemprop="url">
-            <span itemprop="name">SVD-Linear Regression</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-06-18T14:00:14+08:00"
-              content="2024-06-18">
-          06-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/" itemprop="url">
-            <span itemprop="name">SVD-Linear System and Pseudo Inverse</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-06-16T20:24:07+08:00"
-              content="2024-06-16">
-          06-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/06/16/SVD-Unitary%20Transformation/" itemprop="url">
-            <span itemprop="name">SVD-Unitary Transformation and Geometry</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-06-05T22:19:05+08:00"
-              content="2024-06-05">
-          06-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/06/05/SVD-Dominnant%20Correlation/" itemprop="url">
-            <span itemprop="name">SVD-Dominnant Correlation</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-05-28T21:01:09+08:00"
-              content="2024-05-28">
-          05-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/05/28/SVD-Eckart-Young-Mirsky%20/" itemprop="url">
-            <span itemprop="name">SVD-Eckart-Young-Mirsky theorem</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-04-19T22:56:25+08:00"
-              content="2024-04-19">
-          04-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/19/SVD-Matrix%20Approximation/" itemprop="url">
-            <span itemprop="name">SVD-Matrix Approximation</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-04-18T21:07:49+08:00"
-              content="2024-04-18">
-          04-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/18/SVD-Mathematical%20Overview/" itemprop="url">
-            <span itemprop="name">SVD-Mathematical Overview</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-04-16T23:00:04+08:00"
-              content="2024-04-16">
-          04-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/16/linux-2/" itemprop="url">
-            <span itemprop="name">Linux-文件目录管理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-30T20:26:13+08:00"
-              content="2024-03-30">
-          03-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/30/linux-1/" itemprop="url">
-            <span itemprop="name">Linux-Shell常用指令</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
+<script type="math/tex; mode=display">
+X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
+<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
+<span id="more"></span>
+<script type="math/tex; mode=display">
+X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
+<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
+<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
+<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
+<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
+<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/16/linux-2/" rel="prev" title="Linux-文件目录管理">
+      <i class="fa fa-chevron-left"></i> Linux-文件目录管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/04/19/SVD-Matrix%20Approximation/" rel="next" title="SVD-Matrix Approximation">
+      SVD-Matrix Approximation <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -611,6 +505,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:  X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\vdots\end{bmatrix}The column $x_k\in \math">
+  <meta name="description" content="In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU&#x3D;UU^T&#x3D;I$ and $VV^T&#x3D;V^TV&#x3D;I$. Here the">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVD-Mathematical Overview">
-<meta property="og:url" content="http://example.com/2024/04/18/svd-1/index.html">
+<meta property="og:title" content="SVD-Unitary Transformation and Geometry">
+<meta property="og:url" content="http://example.com/2024/06/16/SVD-Unitary%20Transformation/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:  X&#x3D;\begin{bmatrix}\vdots&amp;\vdots&amp;\ &amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\ &amp;\vdots\end{bmatrix}The column $x_k\in \math">
+<meta property="og:description" content="In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU&#x3D;UU^T&#x3D;I$ and $VV^T&#x3D;V^TV&#x3D;I$. Here the">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-18T13:07:49.000Z">
-<meta property="article:modified_time" content="2024-04-19T15:00:03.714Z">
+<meta property="article:published_time" content="2024-06-16T12:24:07.000Z">
+<meta property="article:modified_time" content="2024-08-20T09:18:16.541Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/04/18/svd-1/">
+<link rel="canonical" href="http://example.com/2024/06/16/SVD-Unitary%20Transformation/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>SVD-Mathematical Overview | 还施水阁</title>
+  <title>SVD-Unitary Transformation and Geometry | 还施水阁</title>
   
 
 
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/18/svd-1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/16/SVD-Unitary%20Transformation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -215,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SVD-Mathematical Overview
+          SVD-Unitary Transformation and Geometry
         </h1>
 
         <div class="post-meta">
@@ -225,14 +225,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-04-18 21:07:49" itemprop="dateCreated datePublished" datetime="2024-04-18T21:07:49+08:00">2024-04-18</time>
+              <time title="创建时间：2024-06-16 20:24:07" itemprop="dateCreated datePublished" datetime="2024-06-16T20:24:07+08:00">2024-06-16</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-19 23:00:03" itemprop="dateModified" datetime="2024-04-19T23:00:03+08:00">2024-04-19</time>
+                <time title="修改时间：2024-08-20 17:18:16" itemprop="dateModified" datetime="2024-08-20T17:18:16+08:00">2024-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,19 +262,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
-<script type="math/tex; mode=display">
-X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
-<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
+        <p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
 <span id="more"></span>
+<p>Actually, unitary matrices preserve the angle between any two vectors in the vector space. Since the inverse of the unitary matrix is its own transpose, it can not only preserve the angles between vectors, but also preserve the length of the vectors. Essentially, unitary transformation is a coordinate transformation into a new representation. It just takes all of those vectors and rotates them into a new representation. It will not change the length of any vector and angles between any two vectors.</p>
+<p>Here you will find that we just consider the real-valued case. However, when we consider the data matrix $X$ is a complex-valued matrix, the singular vectors $U$ and $V$ are complex-valued matrices. Compared with the real-valued matrix, the most important difference is that the transpose of a complex-valued matrix is actually a conjugate transpose.</p>
+<p>To sum up, we give the mathematical form of unitary transformation here. For any two vectors $x$ and $y$ in vector space, then we have</p>
 <script type="math/tex; mode=display">
-X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
-\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
-<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
-<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
-<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
-<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
-<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
+(x,y)=(Ux,Uy)</script><p>where $(\cdot,\cdot)$ is the inner product of two vectors and the operator $U$ means the unitary transformation, which in a unitary matrix in discrete case. Based on this mathematical form, we realize that the inner product of $x$ and $y$ is unchanged when we transform $x$ and $y$ by unitary transformation.</p>
+<p>Since we have introduced the unitary transform in the vector space, we interpret singular vector decomposition geometrically. Here we consider the size of data matrix is $n\times m$. Now we consider any vector $\vec{v}$ in space $\mathbb{R}^m$ and vector $\vec{v}$ is palced on the unit sphere. As we all know, the matrix is a linear transformation about the vector. Therefore, we consider the transformed vector $X\vec{v}$, which is placed on the ellipsoid in the vector space $\mathbb{R}^n$. Here the gemoetric interpretation of the singular value decomposition can be given. The length of these principal axes are specially given by the singular values of the data matrix $X$. The orientation of this ellipsoid is somehow given by these left singular vectors in $U$. Like the interpretation of linear transformation, $X$ multiplies the vector on the left side or on the right side, which corresponds to a change to a rotation of space. Finally, $X$ is not a square matrix, so the rotation of the corresponding space is actually a change in dimensionality.</p>
 
     </div>
 
@@ -294,12 +289,12 @@ X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/16/linux-2/" rel="prev" title="Linux-文件目录管理">
-      <i class="fa fa-chevron-left"></i> Linux-文件目录管理
+    <a href="/2024/06/05/SVD-Dominnant%20Correlation/" rel="prev" title="SVD-Dominnant Correlation">
+      <i class="fa fa-chevron-left"></i> SVD-Dominnant Correlation
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/04/19/svd-2/" rel="next" title="SVD-Matrix Approximation">
-      SVD-Matrix Approximation <i class="fa fa-chevron-right"></i>
+    <a href="/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/" rel="next" title="SVD-Linear System and Pseudo Inverse">
+      SVD-Linear System and Pseudo Inverse <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

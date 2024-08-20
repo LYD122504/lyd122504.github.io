@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/30/cs229-1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/30/CS229%20Notes%20for%20Lecture%202/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -209,7 +209,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/07/30/cs229-1/" class="post-title-link" itemprop="url">CS229 Notes for Lecture 2</a>
+            <a href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/" class="post-title-link" itemprop="url">CS229 Notes for Lecture 2</a>
         </h2>
 
         <div class="post-meta">
@@ -249,29 +249,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="lecture-1">Lecture 1</h1>
-<p><a id="org8b14315"></a></p>
-<h2 id="introduction-of-supervised-learning">Introduction of supervised
-learning</h2>
-<p>在介绍监督学习(Supervised
-learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
+          <h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><p><a id="org8b14315"></a></p>
+<h2 id="Introduction-of-supervised-learning"><a href="#Introduction-of-supervised-learning" class="headerlink" title="Introduction of supervised learning"></a>Introduction of supervised learning</h2><p>在介绍监督学习(Supervised learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
 <ul>
-<li><p><span class="math inline">\(m\)</span>: 训练样本的数量</p></li>
-<li><p><span class="math inline">\(n\)</span>: 特征的数量</p></li>
-<li><p><span class="math inline">\(x\)</span>: 输入变量(input variable),
-或称为输入特征(input feature/attribute)</p></li>
-<li><p><span class="math inline">\(y\)</span>: 输出变量(output
-variable), 或称为目标变量(target variable)</p></li>
-<li><p><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
-class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
-class="math inline">\(i^{th}\)</span> training example)</p></li>
-<li><p><span class="math inline">\(\mathcal{X}\)</span>:
-输入变量的空间(input space)</p></li>
-<li><p><span class="math inline">\(\mathcal{Y}\)</span>:
-输出变量的空间(output space)</p>
+<li><p>$m$: 训练样本的数量</p>
+</li>
+<li><p>$n$: 特征的数量</p>
+</li>
+<li><p>$x$: 输入变量(input variable), 或称为输入特征(input feature/attribute)</p>
+</li>
+<li><p>$y$: 输出变量(output variable), 或称为目标变量(target variable)</p>
+</li>
+<li><p>$(x,y)$: 表示训练样本; $(x^{(i)}, y^{(i)})$: 第 i 个训练样本($i^{th}$ training example)</p>
+</li>
+<li><p>$\mathcal{X}$: 输入变量的空间(input space)</p>
+</li>
+<li><p>$\mathcal{Y}$: 输出变量的空间(output space)</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/07/30/cs229-1/#more" rel="contents">
+              <a class="btn" href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -295,7 +291,7 @@ class="math inline">\(i^{th}\)</span> training example)</p></li>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/svd-7/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/SVD-Linear%20Regression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -309,7 +305,7 @@ class="math inline">\(i^{th}\)</span> training example)</p></li>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/06/21/svd-7/" class="post-title-link" itemprop="url">SVD-Linear Regression</a>
+            <a href="/2024/06/21/SVD-Linear%20Regression/" class="post-title-link" itemprop="url">SVD-Linear Regression</a>
         </h2>
 
         <div class="post-meta">
@@ -343,23 +339,12 @@ class="math inline">\(i^{th}\)</span> training example)</p></li>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Now we are ready to talk about building linear regression models from
-data. When we have gotten measurement data in experiments, it is
-important to construct a linear regression model as a predictive model.
-The basic structure of the linear regression is defined as follows,
-<span class="math display">\[
-Ax=b
-\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
-m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
-are given by the measurement. Therefore, building a linear regression is
-equal to solve the linear system <span
-class="math inline">\(Ax=b\)</span>. Here we just consider the over
-determined system <span class="math inline">\(n&gt;m\)</span> since it
-is often what we have in modern data. We will use the least square
-estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
+          <p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
+<script type="math/tex; mode=display">
+Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/06/21/svd-7/#more" rel="contents">
+              <a class="btn" href="/2024/06/21/SVD-Linear%20Regression/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -383,7 +368,7 @@ estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/18/svd-6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -397,7 +382,7 @@ estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/06/18/svd-6/" class="post-title-link" itemprop="url">SVD-Linear System and Pseudo Inverse</a>
+            <a href="/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/" class="post-title-link" itemprop="url">SVD-Linear System and Pseudo Inverse</a>
         </h2>
 
         <div class="post-meta">
@@ -431,19 +416,10 @@ estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>In many physics problem, we always encounter the solution of the
-linear equation <span class="math inline">\(Ax=b\)</span>. Classically,
-we solve this linear equation in the case that <span
-class="math inline">\(A\)</span> is a square and invertible matrix. In
-fact, this case is too special to better model the real world. Based on
-the singular value decomposition which we have introduced, we can
-generalize this linear equation to the case that <span
-class="math inline">\(A\)</span> is a non-square matrix. Actually, when
-we consider the data analysis and data modeling, the matrix <span
-class="math inline">\(A\)</span> is always a non-square matrix.</p>
+          <p>In many physics problem, we always encounter the solution of the linear equation $Ax=b$. Classically, we solve this linear equation in the case that $A$ is a square and invertible matrix. In fact, this case is too special to better model the real world. Based on the singular value decomposition which we have introduced, we can generalize this linear equation to the case that $A$ is a non-square matrix. Actually, when we consider the data analysis and data modeling, the matrix $A$ is always a non-square matrix.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/06/18/svd-6/#more" rel="contents">
+              <a class="btn" href="/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -467,7 +443,7 @@ class="math inline">\(A\)</span> is always a non-square matrix.</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/16/svd-5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/16/SVD-Unitary%20Transformation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -481,7 +457,7 @@ class="math inline">\(A\)</span> is always a non-square matrix.</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/06/16/svd-5/" class="post-title-link" itemprop="url">SVD=Unitary Transformation and Geometry</a>
+            <a href="/2024/06/16/SVD-Unitary%20Transformation/" class="post-title-link" itemprop="url">SVD-Unitary Transformation and Geometry</a>
         </h2>
 
         <div class="post-meta">
@@ -490,10 +466,16 @@ class="math inline">\(A\)</span> is always a non-square matrix.</p>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-16 20:24:07 / 修改时间：20:26:44" itemprop="dateCreated datePublished" datetime="2024-06-16T20:24:07+08:00">2024-06-16</time>
+              <time title="创建时间：2024-06-16 20:24:07" itemprop="dateCreated datePublished" datetime="2024-06-16T20:24:07+08:00">2024-06-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-20 17:18:16" itemprop="dateModified" datetime="2024-08-20T17:18:16+08:00">2024-08-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -515,16 +497,10 @@ class="math inline">\(A\)</span> is always a non-square matrix.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>In the singular value decomposition of the data matrix <span
-class="math inline">\(X\)</span>, we have the two unitary matrices <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>. We have introduced that the unitary
-matrices satisfy <span class="math inline">\(U^TU=UU^T=I\)</span> and
-<span class="math inline">\(VV^T=V^TV=I\)</span>. Here these identity
-matrices have different size.</p>
+          <p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/06/16/svd-5/#more" rel="contents">
+              <a class="btn" href="/2024/06/16/SVD-Unitary%20Transformation/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -548,7 +524,7 @@ matrices have different size.</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/05/svd-4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/05/SVD-Dominnant%20Correlation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -562,7 +538,7 @@ matrices have different size.</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/06/05/svd-4/" class="post-title-link" itemprop="url">SVD-Dominnant Correlation</a>
+            <a href="/2024/06/05/SVD-Dominnant%20Correlation/" class="post-title-link" itemprop="url">SVD-Dominnant Correlation</a>
         </h2>
 
         <div class="post-meta">
@@ -571,10 +547,16 @@ matrices have different size.</p>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-05 22:19:05 / 修改时间：22:22:37" itemprop="dateCreated datePublished" datetime="2024-06-05T22:19:05+08:00">2024-06-05</time>
+              <time title="创建时间：2024-06-05 22:19:05" itemprop="dateCreated datePublished" datetime="2024-06-05T22:19:05+08:00">2024-06-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-20 17:02:39" itemprop="dateModified" datetime="2024-08-20T17:02:39+08:00">2024-08-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -596,10 +578,10 @@ matrices have different size.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
+          <h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/06/05/svd-4/#more" rel="contents">
+              <a class="btn" href="/2024/06/05/SVD-Dominnant%20Correlation/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -623,7 +605,7 @@ matrices have different size.</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/svd-3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/SVD-Eckart-Young-Mirsky%20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -637,7 +619,7 @@ matrices have different size.</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/05/28/svd-3/" class="post-title-link" itemprop="url">SVD-Eckart-Young-Mirsky theorem</a>
+            <a href="/2024/05/28/SVD-Eckart-Young-Mirsky%20/" class="post-title-link" itemprop="url">SVD-Eckart-Young-Mirsky theorem</a>
         </h2>
 
         <div class="post-meta">
@@ -646,10 +628,16 @@ matrices have different size.</p>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-05-28 21:01:09 / 修改时间：21:08:48" itemprop="dateCreated datePublished" datetime="2024-05-28T21:01:09+08:00">2024-05-28</time>
+              <time title="创建时间：2024-05-28 21:01:09" itemprop="dateCreated datePublished" datetime="2024-05-28T21:01:09+08:00">2024-05-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-20 17:17:30" itemprop="dateModified" datetime="2024-08-20T17:17:30+08:00">2024-08-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -671,34 +659,23 @@ matrices have different size.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Firstly, we introduce three different kinds of matrix norms and based
-on singular value decomposition, verify that these norms are only
-related to singular values.</p>
-<ol type="1">
+          <p>Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.</p>
+<ol>
 <li>2-norm (Spectral norm)</li>
 </ol>
-<p><span class="math display">\[
-\left\Vert
-A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma
-V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1
-\]</span></p>
-<ol type="1">
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1</script><ol>
 <li>Frobenius norm</li>
 </ol>
-<p><span class="math display">\[
-\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma
-U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}
-\]</span></p>
-<ol type="1">
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}</script><ol>
 <li>Nuclear norm</li>
 </ol>
-<p><span class="math display">\[
-\left\Vert
-A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
-\]</span></p>
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i</script>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/05/28/svd-3/#more" rel="contents">
+              <a class="btn" href="/2024/05/28/SVD-Eckart-Young-Mirsky%20/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -722,7 +699,7 @@ A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/19/svd-2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/19/SVD-Matrix%20Approximation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -736,7 +713,7 @@ A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/04/19/svd-2/" class="post-title-link" itemprop="url">SVD-Matrix Approximation</a>
+            <a href="/2024/04/19/SVD-Matrix%20Approximation/" class="post-title-link" itemprop="url">SVD-Matrix Approximation</a>
         </h2>
 
         <div class="post-meta">
@@ -753,7 +730,7 @@ A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-01 22:30:06" itemprop="dateModified" datetime="2024-06-01T22:30:06+08:00">2024-06-01</time>
+                <time title="修改时间：2024-06-01 22:31:05" itemprop="dateModified" datetime="2024-06-01T22:31:05+08:00">2024-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -776,20 +753,10 @@ A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>The SVD allows us to decompose data matrix <span
-class="math inline">\(X\)</span> as the product of three matrices, <span
-class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
-class="math inline">\(U\)</span> contains information about the column
-space of <span class="math inline">\(X\)</span>, <span
-class="math inline">\(V\)</span> contains information about the row
-space of <span class="math inline">\(X\)</span> and <span
-class="math inline">\(\Sigma\)</span> is a hierarchically ordered
-diagonal matrix, which tells you how important the various columns of
-<span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are.</p>
+          <p>The SVD allows us to decompose data matrix $X$ as the product of three matrices, $U,\ V^T,\ \Sigma$, where essentially $U$ contains information about the column space of $X$, $V$ contains information about the row space of $X$ and $\Sigma$ is a hierarchically ordered diagonal matrix, which tells you how important the various columns of $U$ and $V$ are.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/04/19/svd-2/#more" rel="contents">
+              <a class="btn" href="/2024/04/19/SVD-Matrix%20Approximation/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -813,7 +780,7 @@ class="math inline">\(V\)</span> are.</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/18/svd-1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/18/SVD-Mathematical%20Overview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -827,7 +794,7 @@ class="math inline">\(V\)</span> are.</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/04/18/svd-1/" class="post-title-link" itemprop="url">SVD-Mathematical Overview</a>
+            <a href="/2024/04/18/SVD-Mathematical%20Overview/" class="post-title-link" itemprop="url">SVD-Mathematical Overview</a>
         </h2>
 
         <div class="post-meta">
@@ -873,7 +840,7 @@ X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\
 <p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/04/18/svd-1/#more" rel="contents">
+              <a class="btn" href="/2024/04/18/SVD-Mathematical%20Overview/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
