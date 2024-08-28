@@ -1789,4 +1789,114 @@ argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert X-\tilde{X}\right\Vert_F=
         <tag>Linux</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ANSI-KMP算法</title>
+    <url>/2024/08/28/ANSI-KMP/</url>
+    <content><![CDATA[<p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写;
+其针对的问题是如何在主串(文本串)中找到某种类型的子串,
+也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的,
+在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和
+KMP 算法的两种不同的实现思路.</p>
+<span id="more"></span>
+<h2 id="暴力搜索法-brute-force">暴力搜索法 (Brute Force)</h2>
+<h3 id="算法思想">算法思想</h3>
+<p>对于文本串 T 和模式串 P,
+从文本串的第一个字符与模式串的第一个字符开始匹配; 如果相等,
+那么比较位置同时后移, 比较第二个字符是否匹配, 以此类推;
+直到出现模式串结束, 那么输出文本串的位置; 或者出现有一个不匹配的字符,
+那么将文本串回退到最早比较的下一个字符, 模式串回退到开始, 重新循环.</p>
+<h3 id="算法实现">算法实现</h3>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">strindex</span><span class="params">(<span class="type">char</span>* text,<span class="type">char</span>* pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> i,j,k;</span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;i++)<span class="comment">//文本串的循环</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">for</span>(k=i,j=<span class="number">0</span>;pattern[j]!=<span class="string">&#x27;\0&#x27;</span>&amp;&amp;pattern[j]==text[k];j++,k++)</span><br><span class="line">          <span class="comment">//模式串的循环</span></span><br><span class="line">	;</span><br><span class="line">    <span class="keyword">if</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[j]==<span class="string">&#x27;\0&#x27;</span>)<span class="comment">//判断是否为真正匹配结束</span></span><br><span class="line">      <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法分析">算法分析</h3>
+<p>我们假设文本串的长度为 <span class="math inline">\(n\)</span>,
+模式串的长度为 <span class="math inline">\(m\)</span>.</p>
+<p>最坏的情况是类似于文本串为AAAAAAAB, 模式串为AAAB,这样的话,
+需要匹配<span class="math inline">\((n-m+1)m\)</span> 次, 时间复杂度为
+<span class="math inline">\(O(nm)\)</span>.</p>
+<p>最好的情况则是第一次匹配就成功, 那么时间复杂度就是 <span
+class="math inline">\(O(m)\)</span>.</p>
+<p>如果我们考虑每种情况以等概率的情况出现, 我们可知 BF
+算法的平均时间复杂度为 <span class="math inline">\(O(nm)\)</span>.</p>
+<h2 id="kmp-算法">KMP 算法</h2>
+<p>我们在上面发现对于文本串为AAAAAAAB, 模式串为AAAB的匹配,
+每次都是在最后一个字母匹配出错, 然后就要将模式串和文本串同时回退,
+重新比较; 这一步会消耗大量的时间, 并且完全没有利用到前面匹配的结果;
+因此KMP算法的提出就是为了解决上面提到的问题:
+其利用了匹配失败以前的匹配成功的结果, 从而将时间复杂度降到了 <span
+class="math inline">\(O(n+m)\)</span>.</p>
+<h3 id="kmp-算法的基本思想">KMP 算法的基本思想</h3>
+<p>其核心思想就是当出现不匹配的情况,
+利用已知匹配的结果避免回退文本串的指针并且尽可能少的回退模式串的指针.</p>
+<p>例如, 如果我们匹配到第 j 个字符串出现了字符不匹配现象,
+那么我们已知的是 P[0:j-1]=T[i:i+j-1], BF
+算法对这个的处理是直接回退文本指针和模式指针, 并不利用这一良好性质. 而
+KMP 算法则是需要寻找 P[0:j-1] 的最长相等前后缀,因为已知
+P[0:j-1]=T[i:i+j-1]; 假设 P[0:j-1] 的最长相等前后缀长度为
+k,那么你就可以通过一个连等式快速得到需要回退的位置, 即
+P[0:k-1]=P[j-k:j-1]=T[j-k:j-1]; 如此可知实际上,
+即使我们用暴力搜索重新去计算, 只不过是不断地失败,
+直到达到上面所说的情况而已.</p>
+<h3 id="基于-pmt-的-kmp-算法">基于 PMT 的 KMP 算法</h3>
+<p>上面介绍了 KMP 算法的基本思想, 接下来我们就用不同的实现思路去实现 KMP
+算法的思想. 首先我们引入 PMT (Partial Match Table, 部分匹配表) 的概念,
+其实这个表就是将要介绍的前缀表.</p>
+<h4 id="前缀表的定义">前缀表的定义</h4>
+<p>前缀表在 KMP 算法中的作用是用来控制模式指针的回退,
+其记录的是字符串的最长相等前后缀的长度,
+其用于寻找当出现模式串与文本串不匹配的时候,
+模式串应该从哪里开始重新匹配.</p>
+<p>例如对于文本串 T=aabaacaabaaf, 模式串为 P=aabaaf;
+在第一次字符串匹配时, P[5]和T[5]不匹配了, 如果用 BF 算法,
+那么我们下一次匹配就是 P[0] 和 T[1] 的比较; 但显然我们通过朴素的思考,
+因为 P[0:4]=aabaa 的最长相同前后缀为 aa, 所以利用 KMP
+算法的下一次匹配实际上是考虑 P[2] 和 T[5] 的匹配, 显然如此,
+匹配速度有很大的提升.</p>
+<p>前缀表是记录下标 i 之前 (包括 i)
+的字符串中的最长相同前后缀的长度.</p>
+<p>对于一个字符串的前缀指的是包含首字符, 但不包含尾字符的字符串; 例如
+aabaaf 的前缀集合为 {a,aa,aab,aaba,aabaa}</p>
+<p>对于一个字符串的后缀指的是包含尾字符, 但不包含首字符的字符串; 例如
+aabaaf的后缀集合为 {f,af,aaf,baaf,abaaf}</p>
+<h4 id="前缀表的计算思路及代码实现">前缀表的计算思路及代码实现</h4>
+<ol type="1">
+<li>引入两个指针 i 和 j; j 用来指示前缀的末尾, i 用来指示后缀的末尾;
+换言之, i 会从 0 开始遍历模式串的每一个下标, j 则是用于记录 P[0:i-1]
+的最长相等前后缀的长度.</li>
+<li>如果模式串的第 i 位和模式串的第 j 位相等, 那么 j++, i++即可</li>
+<li>如果模式串的第 i 位和模式串的第 j 位不相等, 那么就要做一个持续回退;
+因为已知 P[j]!=P[i], 但是 P[0:j-1]=P[i-j:i-1]; 那么我们可以用 j=pmt[j-1]
+来回退到 P[0:j-1] 的最长相等前后缀的后一位; 这一步的依据是首先
+P[0:j-1]=P[i-j:i-1], 并且我们假设 k 为 P[0:j-1] 的最长相等前后缀长度,
+那么 P[0:k-1]=P[j-k:j-1]=P[i-k:i-1], 如此就可以去比较 P[k] 和 P[i].</li>
+<li>更新 pmt 数组</li>
+</ol>
+<p>代码实现如下:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">generate_PMT</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;pattern,<span class="type">int</span>* pmt)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    pmt[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;pattern.size();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (pattern[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        pmt[i]=j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用前缀表进行 KMP 算法匹配思路</p>
+<ol type="1">
+<li>设置两个指针 i 和 j; i 用来控制在文本串的移动; j
+用来控制在模式串的移动</li>
+<li>如果匹配没出错, 那么返回匹配的起点即可</li>
+<li>如果匹配出错了, 那么分情况讨论,如果 j=0,
+即模式串的第一个字符就与其不匹配, 那么就需要将文本串向后移动一位; 如果 j
+不为0, 那么就用 j=pmt[j-1] 去更新匹配成功部分的最长相等前后缀.</li>
+<li>输出结果</li>
+</ol>
+<h4 id="利用前缀表进行-kmp-算法代码实现">利用前缀表进行 KMP
+算法代码实现</h4>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_PMT</span><span class="params">(<span class="type">const</span> string &amp;pattern,<span class="type">int</span>* pmt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    pmt[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;pattern.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (pattern[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        pmt[i]=j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text,string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">  	<span class="keyword">if</span> (text.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pmt</span><span class="params">(pattern.size())</span></span>;</span><br><span class="line">    <span class="built_in">generate_PMT</span>(pattern,&amp;pmt[<span class="number">0</span>]);<span class="comment">//&amp;取地址</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;text.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;text[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span>(text[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        <span class="keyword">if</span>(j==pattern.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> (i-pattern.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="用-next-数组实现-kmp-算法">用 next 数组实现 KMP 算法</h4>
+<p>我们在此额外介绍前缀表的另一种表示形式, 也就是 next 数组,
+在市面上很多算法书更多采用这种. 我们只介绍其中一种 next 数组生成方法,
+也就是将前缀表整体右移以后, 在第一个位置补上 -1. 我们给出代码实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_NEXT</span><span class="params">(<span class="type">const</span> string&amp; pattern, <span class="type">int</span>* next)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; pattern.<span class="built_in">size</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;=<span class="number">0</span>&amp;&amp;pattern[i<span class="number">-1</span>]!=pattern[j])</span><br><span class="line">			j=next[j];</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span> || pattern[i<span class="number">-1</span>] == pattern[j])</span><br><span class="line">            next[i] = ++j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text,string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (text.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(pattern.size())</span></span>;</span><br><span class="line">    <span class="built_in">generate_NEXT</span>(pattern,&amp;next[<span class="number">0</span>]);<span class="comment">//&amp;取地址</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;text.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;text[i]!=pattern[j])</span><br><span class="line">            j=next[j];</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">-1</span>||text[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        <span class="keyword">if</span>(j==pattern.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> (i-pattern.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="基于-dfa-的-kmp-算法">基于 DFA 的 KMP 算法</h3>
+]]></content>
+      <categories>
+        <category>C Language</category>
+      </categories>
+      <tags>
+        <tag>-Computer Science -C Language</tag>
+      </tags>
+  </entry>
 </search>
