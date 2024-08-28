@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CS229 Notes for Lecture 2</title>
+    <url>/2024/07/30/CS229%20Notes%20for%20Lecture%202/</url>
+    <content><![CDATA[<h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><p><a id="org8b14315"></a></p>
+<h2 id="Introduction-of-supervised-learning"><a href="#Introduction-of-supervised-learning" class="headerlink" title="Introduction of supervised learning"></a>Introduction of supervised learning</h2><p>在介绍监督学习(Supervised learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
+<ul>
+<li><p>$m$: 训练样本的数量</p>
+</li>
+<li><p>$n$: 特征的数量</p>
+</li>
+<li><p>$x$: 输入变量(input variable), 或称为输入特征(input feature/attribute)</p>
+</li>
+<li><p>$y$: 输出变量(output variable), 或称为目标变量(target variable)</p>
+</li>
+<li><p>$(x,y)$: 表示训练样本; $(x^{(i)}, y^{(i)})$: 第 i 个训练样本($i^{th}$ training example)</p>
+</li>
+<li><p>$\mathcal{X}$: 输入变量的空间(input space)</p>
+</li>
+<li><p>$\mathcal{Y}$: 输出变量的空间(output space)</p>
+<span id="more"></span>
+</li>
+</ul>
+<p>监督学习的目标是基于已知的训练样本, 学习出一个假设(hypothesis) $h: \mathcal{X} \rightarrow \mathcal{Y}$, 使得 $h(x)$ 能够尽可能地接近真实的输出 $y$. 根据输出变量的类型,我们可以将监督学习分成两类问题:</p>
+<ol>
+<li>回归问题(Regression): 输出变量的取值是连续的</li>
+<li>分类问题(Classification): 输出变量的取值是离散的</li>
+</ol>
+<p>我们可以从下图来直观理解监督学习的过程:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-07-30_16-29-16_screenshot.lz8nr081.png" alt=""><br>因此,监督学习的关键就是利用学习算法(learning algorithm)从训练集(training set)中学习出一个符合条件的假设 $h$, 进一步其实监督学习的关键就是去构造一个合适的学习算法.</p>
+<p>而在构造学习算法的过程中, 我们需要考虑以下几个问题:</p>
+<ol>
+<li>训练集样本是什么样的?</li>
+<li>假设函数是什么样的?</li>
+<li>如何表示假设函数?</li>
+</ol>
+<p><a id="org172f874"></a></p>
+<h2 id="Linear-regression"><a href="#Linear-regression" class="headerlink" title="Linear regression"></a>Linear regression</h2><p>在本节中, 我们将假设函数 $h$ 限制在线性函数形式下考虑回归问题, 这一问题也被称之为线性回归问题(Linear Regression). 在线性回归问题中, 我们试图去构造一个线性的假设函数, 因此我们可以直接形式的写出假设函数的结构如下:</p>
+<script type="math/tex; mode=display">h(x)=\theta_0+\theta_1x_1+\cdots+\theta_nx_n</script><p>其中, $\theta_i(i=0,\cdots,n)$ 是参量(parameter), 如果我们将其确定下来, 那么我们就可以得到一个确定的假设函数 $h$. 但为了形式上的简洁, 我们引入一个虚特征(dummy feature) $x_0=1$, 这样我们就可以将上面的假设函数写成更为紧凑的形式:</p>
+<script type="math/tex; mode=display">h(x)=\sum_{i=0}^n\theta_ix_i=\theta^Tx</script><p>其中, $\theta=(\theta<em>0,\cdots,\theta_n)^T$ 是学习算法的参数向量(parameter vector), $x=(x_0,\cdots,x_n)^T$. 在此值得注意的是, 虽然我们只考虑 $n$ 个输入特征, 但由于我们为了方便引入了虚特征, 因此实际上我们考虑的 $\theta$ 和 $x$ 是一个 $n+1$ 维的向量. 其次, 虽然我们在此给出的假设函数符号是 $h(x)$, 但实际上更为明确的写法应该是 $h</em>{\theta}(x)$, 这样可以表示假设函数 $h$ 不仅依赖于输入特征 $x$, 还依赖于参数向量 $\theta$; 只是在不引起混淆的情况下, 我们可以省略 $\theta$ 的表示.</p>
+<p>根据上面的假设函数的结构, 我们可以知道学习算法的工作是选择一个合适的参数向量, 这样就可以导出一个假设, 因此如何选择合适的参数向量就是学习算法的关键. 从直观上来说, 对于训练集样本, 我们希望选择出来的参数向量能够使得 $h(x)$ 尽可能地接近真实的输出 $y$. 因此我们需要先定义一个函数用来度量 $h(x)$ 和 $y$ 之间的差距, 我们称之为成本函数(cost function):</p>
+<script type="math/tex; mode=display">J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2</script><p>此处的 $\frac{1}{2}$ 是因为可以消去因求导得到的$2$, 并不影响最后结果.<br>根据我们前面介绍的选择参数向量 $\theta$ 的目标, 我们将其转化为一个优化问题, 即找到一个 $\theta$ 使得 $J(\theta)$ 最小, 其数学形式如下:</p>
+<script type="math/tex; mode=display">\min_{\theta}J(\theta)=\min_{\theta}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2</script><p><a id="org5e1d335"></a></p>
+<h2 id="Gradient-Descent-GD"><a href="#Gradient-Descent-GD" class="headerlink" title="Gradient Descent(GD)"></a>Gradient Descent(GD)</h2><p>此节中, 我们将用梯度下降算法(Gradient Descent)来求解上面的优化问题. 值得注意的是, 梯度下降算法是一种迭代算法, 其基本思想是通过不断更新迭代参数向量 $\theta$ 的值, 使得成本函数 $J(\theta)$ 不断减小, 直到收敛到最小值.</p>
+<p>我们可以给出梯度下降算法的框架如下:</p>
+<ol>
+<li>Start with some $\theta$. For example, $\theta=0$.</li>
+<li>Keep changing $\theta$ to reduce $J(\theta)$.</li>
+<li>Repeat 2. until convergence.</li>
+</ol>
+<p>从上面的框架中我们可以看出, 梯度下降算法的关键就是如何更新参数向量 $\theta$ 的值, 其更新的规则如下:</p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\ \text{for each value of }j</script><p>这里的 $\alpha$ 是学习率(learning rate), 用来控制参数向量 $\theta$ 的更新步长; 但这个值的选取是一个极具经验性的问题, 因为学习率太小则会导致收敛速度太慢, 而学习率太大则会导致算法无法收敛. 因此实际中, 应该尝试多组学习率, 从而选择一个最为合适的学习率.</p>
+<p>由于我们已知成本函数 $J(\theta)$ 的具体形式, 因此我们可以直接求出其关于参数向量 $\theta$ 的偏导数的具体形式为:</p>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial}{\partial\theta_j}J(\theta)&=\frac{\partial}{\partial\theta_j}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\\
+&=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial \theta_j}(h(x^{(i)})-y^{(i)})\\
+&=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial \theta_j}(\sum_{k=0}^n\theta_kx_k^{(i)}-y^{(i)})\\
+&=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)}\end{aligned}</script><p>根据上面的偏导数的具体形式, 我们可以将梯度下降算法的更新规则写成更为具体的形式:</p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n</script><p>从这个更新规则中, 我们可以发现每更新一次需要用全部训练样本的数据, 因此我们将这种梯度下降算法称之为批量梯度下降算法(Batch Gradient Descent).其的主要优点就是计算稳定, 他一定可以朝着极小值的方向前进; 但是缺点也很明显, 因为他每次更新参数都需要用到全部的训练样本, 因此如果训练样本数据量很大的情况, 那么他的计算量就会花费大量时间在调用全部训练样本上.</p>
+<p>因此, 为了避免每次更新参数都需要用到全部训练样本的数据, 我们可以引入随机梯度下降算法(Stochastic Gradient Descent, SGD), 其的更新规则如下:</p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n\ (\text{for }i=1\ \text{to }m)</script><p>此时, 每次更新我们都只用了一个训练样本的数据, 因此这样会大幅度减少更新计算量;操作过程是在第一次更新中, 我们选用第一个训练样本更新参数; 在第二次更新中, 我们选用第二个训练样本更新参数, 以此类推. 但值得注意的一点是, 随机梯度下降算法由于每次都是用一个训练样本的数据, 因此他的更新方向是不稳定的, 因此他可能会在极小值附近不断震荡; 但他优点就是每次迭代的计算量小, 尤其是在训练样本数据量很大的情况下, 他的优势就会更加明显. 不仅如此, 如果我们考虑较为复杂的优化问题, 随机梯度下降算法是有可能帮助我们跳出局部极小值, 因此随机算法对于机器学习是很重要的优化算法.</p>
+<p>虽然SGD可能达不到最小值, 而是在最小值附近震荡, 但我们可以在某个容忍精度下停止迭代,这样得到的参数也是一个比较好的参数. 但实际上, 我们一般是在使用SGD的过程中, 随时间增长慢慢地减小学习率的值, 这样即使参数会在最小值附近震荡, 但随着学习率 $\alpha$ 的减小, 参数的震荡范围越来越小, 近似认为达到了最小值.</p>
+<p>最后, 我们给出另一个梯度下降算法的idea, 他结合了批量梯度下降算法和随机梯度下降算法的优点, 这就是小批量梯度下降算法(Mini-batch Gradient Descent). 他并不是每次迭代都只用一个训练样本的数据(会使得下降方向不稳定),也不用全部训练样本的数据(会使得计算量过大), 而是每次迭代用一小部分训练样本的数据, 他每次迭代都用 $k$ 个训练样本的数据, 其既降低了计算量, 又保持了下降方向的稳定性. 至于 $k$ 的选取, 其一般是在算法运行之前人为选取的.</p>
+<p>不过事实上, 如果成本函数 $J(\theta)$ 的结构并不是很好的情况下, 那么会出现以下几种情况:</p>
+<ol>
+<li>收敛到函数的局部最小值(local minimum), 而不是全局最小值(global minimum).</li>
+<li>收敛到函数的驻点(saddle point).</li>
+<li>微分值接近于 $0$ 就停下来，但这里只是比较平缓，并不是极值点。</li>
+</ol>
+<p>但值得注意的是,我们在这里考虑线性回归问题, 其成本函数其实是一个二次函数, 因此他是不存在局部最小值和驻点的, 因此只要他能收敛, 那么就一定是收敛到全局最小值.</p>
+<p><a id="org0d1c713"></a></p>
+<h2 id="Normal-Equation"><a href="#Normal-Equation" class="headerlink" title="Normal Equation"></a>Normal Equation</h2><p>上面我们介绍的GD是一种迭代算法, 但实际上对于线性回归问题, 我们可以直接用代数的方法求解出最优参数向量 $\theta$, 这种方法被称之为正规方程(Normal Equation). 但需要声明的是, 正规方程只适用于线性回归问题. 在推导正规方程以前, 我们先引入矩阵导数的记号:</p>
+<script type="math/tex; mode=display">\begin{aligned}\nabla_{\theta}J(\theta)&=\begin{pmatrix}\frac{\partial J}{\partial \theta_0}\cdots \frac{\partial J}{\partial \theta_n}\end{pmatrix}^T,\ \theta\in\mathbb{R}^{n+1}\\
+\nabla_Af(A)&=\begin{pmatrix}\frac{\partial f}{\partial A_{11}}&\cdots&\frac{\partial f}{\partial A_{1q}}\\\vdots& &\vdots\\\frac{\partial f}{\partial A_{p1}}&\cdots&\frac{\partial f}{\partial A_{pq}}\end{pmatrix},\ A\in\mathbb{R}^{p\times q}\end{aligned}</script><p>因此我们希望能够将成本函数 $J(\theta)$ 写成紧凑的矩阵向量形式, 在此之前, 我们先引入一些矩阵符号来辅助推导成本函数的矩阵形式:</p>
+<script type="math/tex; mode=display">\begin{aligned}X&=\begin{pmatrix}\cdots&(x^{(1)})^T&\cdots\\ &\vdots& \\\cdots&(x^{(m)})^T&\cdots\end{pmatrix} \text{\ design\ matrix}\\
+\vec{y}&=\begin{pmatrix}y^{(i)}&\cdots&y^{(m)}\end{pmatrix}^T \text{\ label\ vector}\end{aligned}</script><p>这里值得注意的是, 我们构造的这个 design matrix 的行向量在记号上是训练样本的转置, 但是实际上, 我们考虑的是训练样本的特征再加上虚特征 $x_0$, 所以这个 design matrix 的维度为 $m\times (n+1)$. 依据这些记号, 我们给出成本函数的矩阵形式为:</p>
+<script type="math/tex; mode=display">J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2=\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})</script><p>由于我们知道线性回归问题的核心问题就是最小化成本函数, 这个从导数的角度来看, 就是成本函数对参数向量的导数为0; 其数学形式如下:</p>
+<script type="math/tex; mode=display">\nabla_{\theta}J(\theta)=\nabla_{\theta}\frac{1}{2}(X\theta-\vec{y})^T(X\theta-y)=X^TX\theta-X^T\vec{y}=0</script><p>所以线性回归问题对应的正规问题为:</p>
+<script type="math/tex; mode=display">X^TX\theta=X^T\vec{y}\Rightarrow \theta=(X^TX)^{-1}X^T\vec{y}</script><p>这里有一个问题就是如果 $X^{T}X$ 不可逆, 那么 $(X^TX)^{-1}$ 并不存在, 那我们可以用 $(X^TX)^{-1}$ 的伪逆来代替.</p>
+]]></content>
+      <categories>
+        <category>CS229</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lecture series on graph theory 1</title>
     <url>/2022/03/28/Graph1/</url>
     <content><![CDATA[<p>Def.  A graph is a <font color=red>discrete structure/combinational structure</font> consisting of vertices and edges which connect to a pair of vertices.</p>
@@ -80,115 +166,108 @@ dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y\}</sc
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 4</title>
-    <url>/2022/05/22/Graph4/</url>
-    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
+    <title>Lecture series on graph theory 2</title>
+    <url>/2022/03/28/Graph2/</url>
+    <content><![CDATA[<p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
+<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong></p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\frac{n^2}{4}</script><p>Before the proof begin, we introduce what triangle means.</p>
 <span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" alt=""></p>
-<font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)=\frac{1}{2}$, $\ P(R_j\not\sim C_j)=\frac{1}{2}$</font>
-$$
-P(A(G)\ is \ invertible)=P(M\ is\ invertible)
-$$
-**Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$**
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" alt=""></p>
+<font color=red>$C=v_1v_2v_3v_4v_5v_1$ is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font>
 
----
+<p>Now, let’s take a few examples to find potential patterns which may help to prove this theorem.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" alt=""></p>
+<font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=$\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}$, if n is odd, #edges=$\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}$</font>
 
-**Proof**
+<hr>
+<p><strong>Proof of the Mantel’s Theorem</strong></p>
+<p>Let G be an n-vertex graph without a triangle.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" alt=""></p>
+<p>$\forall x,y\in V(G)$, if $xy\in E(G)$, $N_G(x)\cap N_G(y)=\emptyset$ because G has no triangle.</p>
+<p>Because $N_G(x)\cup N_G(y)\subset V(G)$, $d_G(x)+d_G(y)\leq n$</p>
+<p>From the above formula, we have </p>
+<script type="math/tex; mode=display">
+\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" alt=""></p>
+<p>We find that $d<em>G(x)$ appears in $d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y</em>{d_G(x)})$</p>
+<script type="math/tex; mode=display">
+So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}</script><p>From (1) &amp; (2), we have </p>
+<script type="math/tex; mode=display">
+\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}</script><p>According to the relationship between degree and edge: $\sum<em>{x\in V(G)}d_G(x)=2\lvert E(G)\rvert$ and  the Cauchy-Schwarz inequality:$(\sum</em>{k=1}^n a<em>k^2)(\sum</em>{k=1}^n b<em>k^2)\geq(\sum</em>{k=1}^na_kb_k)^2$, we have</p>
+<script type="math/tex; mode=display">
+\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}</script><p>From (3) &amp; (4), $\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert$ which implies $\lvert E(G)\rvert \leq\frac{n^2}{4}$</p>
+<hr>
+<p>If a graph G has more than $\frac{n^2}{4}$ edges, then G has a triangle.</p>
+<font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font>
 
-Let $A(G)=(a_{ij})_{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by 
-$$
-[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
-$$
-where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]=\{1,2,\dots,n\}$
-$$
+<p>Tree: A tree is a connected graph without cycles.</p>
+<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that $u,v\in V(P),\ uv\in E(P)$ and u is the end vertex of P, but $d_G(u)&gt;1$.</p>
+<p>Case 1:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" alt=""></p>
+<p>$w\not\in V(P)$ and $wu\in E(G)$,then $\tilde{P}=P+wu$ is longer than P. This contradicts the fact that P is the longest path.</p>
+<p>Case 2:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" alt=""></p>
+<p>$w\in V(P),w\not=v$ and $wu\in E(G)$, then we can find that there is a cycle. This  contradicts the fact that G is a tree.</p>
+<hr>
+<p>A vertex of a tree is a leaf if it has degree one.</p>
+<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>$\Rightarrow$ n=1, G has no edges.</p>
+<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
+<p>Since $n\ge2$, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,$\lvert E(G-v)\rvert=(n-1)-1$.</p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1</script><p>$\Leftarrow$ Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
+<p>We prove this claim first.If not, $\forall x\in V(G)$, assume $d_G(x)\ge2$</p>
+<p>Then we have $\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1$ which contradicts that $\lvert E(G)\rvert=n-1$. The contradiction implies the claim holds.</p>
+<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and $(n-1)-1$ edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
+<hr>
+<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
+<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
+<font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font>
+
+<p>Now we introduce two classic search algorithms in graph theory.</p>
+<p>A breadth-first-search tree of a graph (BFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
+<p>(i) Start at $x=x_0$ and join x to all neighbors of x, Let $N_1=N_G(x)$</p>
+<p>(ii) For each $y\in N<em>i$, join y to all neighbors of y without creating cycles and let $N</em>{i+1}=\cup_{y\in N_i}N_G(y)$</p>
+<p>The algorithm will take $O (\lvert V\rvert+\lvert E\rvert)$ steps to find a BFS-tree rooted at $x_0$.</p>
+<p>A deepth-first-search tree of a graph (DFS-tree)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
+<p>(i) Start at $x=x_0$ and $T_0={x_0}$ </p>
+<p>(ii) Join x to one of its neighbor $x_1\in N_G(x_0)$ and$T_1={x_0,x_1}$</p>
+<p>(iii) If $N<em>i=N_G(x_i)\backslash T_i\not=\emptyset$, then join $x_i$ to a vertex $x</em>{i+1}\in N<em>i$ and let $T</em>{i+1}=T<em>i\cup{x</em>{i+1}}$ and $x_{i+1}\to x_i$</p>
+<p>If $N<em>i=N_G(x_i)\backslash T_i=\emptyset$, then set $x</em>{i-1}\to x<em>{i}$ and $N</em>{i-1}=N<em>G(x</em>{i-1})\backslash T_i\to N_i$ and continue.</p>
+<p>Eulerian graph: </p>
+<font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font>
+
+<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
+<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
+<hr>
+<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by $T=v_1e_1v_2e_2\cdots v_me_mv_1$. So G is connected.</p>
+<p>Now, orient the edges of G along the trail T such that, for an edge $e<em>i$ in T, orient $e_i$ from $v_i$ to $v</em>{i+1}$. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex $v_i$, T visits $v_i$ and then leaves $v_i$, which implies</p>
+<script type="math/tex; mode=display">
+\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i</script><p>But the degree of $v_i$ satisfies</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-(A(G))^2_{ij}&=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
-(A(G))^3_{ij}&=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
-\end{aligned}
-$$
-By the definition of adjacency matrix, $a_j=1\Leftrightarrow v_iv_j\in E(G)$
-
-It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$
-
----
-
-A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy 
-$$
-\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
-$$
-<font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n=0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font>
-
-<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong></p>
-<script type="math/tex; mode=display">
-w_G(k)=\lambda_1^k+\cdots+\lambda_n^k</script><hr>
-<p><strong>Proof</strong></p>
-<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that</p>
-<script type="math/tex; mode=display">
-w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)</script><p>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
-<font color='red'>$A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}$</font>
-
-<p>Then, $tr(A(G)^k)=\sum<em>{i=1}^n\lambda_i^k$, so $w_G(k)=tr(A(G)^k)=\sum</em>{i=1}^n\lambda_i^k$</p>
+d_G(v_i)&=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
+&\equiv0(mod\ 2)
+\end{aligned}</script><p>So every vertex of G has an even degree.</p>
 <hr>
-<p><strong>Incidence matrix and Laplacian matrix</strong></p>
-<p>Let G be a graph s.t. $V(G)={v_1,v_2,\cdots,v_n}$ and $E(G)={e_1,e_2,\cdots,e_m}$</p>
+<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles $D={C_1,C_2,\dots,C_k}$ such that  </p>
 <script type="math/tex; mode=display">
-B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&1\quad v_i\ is\ incident\ with\ e_j\\
-&0\quad v_i\ isn't\ incident\ with\ e_j\end{aligned}\right.</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" alt=""></p>
-<font color='red'>We can find that evey column has two non-zero entries.</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" alt=""></p>
-<font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" alt=""></p>
-<p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
-<p>Laplacian matrix of G: $L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T$</p>
-<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong></p>
-<script type="math/tex; mode=display">
-\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0</script><p>$\tau(G)$= the total number of spanning trees in G.</p>
-<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)=det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]={1,2,\dots,n}$</strong></p>
+\cup_{C_i\in D}E(C_i)=E(G)</script><p><strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
 <hr>
-<p><strong>Proof.</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" alt=""></p>
-<p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
-<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" alt=""></p>
-<p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
-<p>Therefore, $\tau(G)=\tau(G-e)+\tau(G\cdot e)$</p>
-<p>Use induction on the number of edges of G.</p>
-<p>If G has no edges and n=1, so $\tau(G)=1=det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
-<p>If $n&gt;1$, then $\tau(G)=0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)=det(L_0(G))$ .</p>
-<p>Therefore, the statement holds for $|E(G)|=0$.</p>
-<p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
-<p>By recordering the vertices of G, we may assume that $i=1$ and $v_1v_2\in E(G)$, Let $e=v_1v_2$. Then  $\tau(G)=\tau(G-e)+\tau(G\cdot e)$.</p>
-<p>By inductive hypothesis, $\tau(G-e)=det(L_0(G-e))$ and $\tau(G\cdot e)=det(L_0(G\cdot e))$.</p>
-<p>Assume $L_0(G)=\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
-<p>Then $L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)=R$</p>
-<p>Note that $L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
-<p>Using the Laplace expansion along the first row,</p>
-<script type="math/tex; mode=display">
-det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)</script><hr>
-<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu<em>1\geq\mu_2\geq\cdots\geq\mu</em>{n-1}\geq\mu_n=0$. Then</strong></p>
-<script type="math/tex; mode=display">
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
-<p><strong>Proof</strong></p>
-<p>Let $L(G)$ be the  Laplacian matrix and let </p>
-<script type="math/tex; mode=display">
-det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)</script><p>So the cofficient of $\lambda$ term is $-\mu<em>1\mu_2\cdots\mu</em>{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
-<p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
-<p>Then $det(M(\lambda))=det(L(G)-\lambda I)$ and the first row of $M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
-<p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
-<p>Then $M(\lambda)=-\lambda N(\lambda)$ and $det(M(\lambda))=-\lambda det(N(\lambda))$, So </p>
-<script type="math/tex; mode=display">
-det(L(G)-\lambda I)=-\lambda det(N(\lambda))</script><p>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
-<p>Add all columns of $N(0)$ except the first column to the first column.</p>
-<font color='red'>(Note that $i^{th}$-row $(i>1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i>1)$ of $L(G)$</font>
+<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
+<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a   subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
+<p>So assume that$\delta(G)\ge2$. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, $D\cup{C}$ is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
+<hr>
+<font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font>
 
-<p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
-<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))=n\cdot det(L_0(G))$</p>
-<script type="math/tex; mode=display">
-n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><p>By previous theorem,</p>
-<script type="math/tex; mode=display">
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
+<font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?$\lvert D\rvert\le\frac{n-1}{2}$?</font>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -422,177 +501,115 @@ S_n^2=\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]\left[\begin{m
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 2</title>
-    <url>/2022/03/28/Graph2/</url>
-    <content><![CDATA[<p>First, we try to prove the Mantel’s Theorem, which was presented as a question in the last blog post.</p>
-<p><strong>Thm(Mantel’s Theorem)<br>Let G be a graph with n vertices. If G does not contain a triangle, then</strong></p>
-<script type="math/tex; mode=display">
-\lvert E(G)\rvert\leq\frac{n^2}{4}</script><p>Before the proof begin, we introduce what triangle means.</p>
+    <title>Lecture series on graph theory 4</title>
+    <url>/2022/05/22/Graph4/</url>
+    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
 <span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_220946.jpg" alt=""></p>
-<font color=red>$C=v_1v_2v_3v_4v_5v_1$ is a 5-cycle.Generally, k-cylce has k vertices.Specially, we call a 3-cycle as a triangle</font>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" alt=""></p>
+<font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)=\frac{1}{2}$, $\ P(R_j\not\sim C_j)=\frac{1}{2}$</font>
+$$
+P(A(G)\ is \ invertible)=P(M\ is\ invertible)
+$$
+**Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$**
 
-<p>Now, let’s take a few examples to find potential patterns which may help to prove this theorem.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/63DEEBC1B5B34ABA2048219295C11EF6.jpg" alt=""></p>
-<font color=red>In general, we can divide n vertices into two groups, then we add all edges between two groups.Because there is no edge joining the vertices from the same side, if there is a cycle in graph, it must be an even cycle, such as alternating left-hand and right-hand sides.<br>If n is even, #edges=$\frac{n}{2}\cdot\frac{n}{2}=\frac{n^2}{4}$, if n is odd, #edges=$\frac{n+1}{2}\cdot\frac{n-1}{2}=\frac{n^2-1}{4}\leq\frac{n^2}{4}$</font>
+---
 
-<hr>
-<p><strong>Proof of the Mantel’s Theorem</strong></p>
-<p>Let G be an n-vertex graph without a triangle.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225536.jpg" alt=""></p>
-<p>$\forall x,y\in V(G)$, if $xy\in E(G)$, $N_G(x)\cap N_G(y)=\emptyset$ because G has no triangle.</p>
-<p>Because $N_G(x)\cup N_G(y)\subset V(G)$, $d_G(x)+d_G(y)\leq n$</p>
-<p>From the above formula, we have </p>
-<script type="math/tex; mode=display">
-\sum_{xy\in E(G)}(d_G(x)+d_G(y))\leq\sum_{xy\in E(G)}n=n\cdot\lvert E(G)\rvert \tag{1}</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-03-29_225550.4v4nzok1fwc0.jpg" alt=""></p>
-<p>We find that $d<em>G(x)$ appears in $d_G(x)+d_G(y_1),d_G(x)+d_G(y_2),\dots,d_G(x)+d_G(y</em>{d_G(x)})$</p>
-<script type="math/tex; mode=display">
-So\ \sum_{xy\in E(G)}(d_G(x)+d_G(y))=\sum_{x\in V(G)}d_G(x)\cdot d_G(x)=\sum_{x\in V(G)}d_G(x)^2\tag{2}</script><p>From (1) &amp; (2), we have </p>
-<script type="math/tex; mode=display">
-\sum_{x\in V(G)}d_G(x)^2\leq n\cdot\lvert E(G)\rvert\tag{3}</script><p>According to the relationship between degree and edge: $\sum<em>{x\in V(G)}d_G(x)=2\lvert E(G)\rvert$ and  the Cauchy-Schwarz inequality:$(\sum</em>{k=1}^n a<em>k^2)(\sum</em>{k=1}^n b<em>k^2)\geq(\sum</em>{k=1}^na_kb_k)^2$, we have</p>
-<script type="math/tex; mode=display">
-\sum_{x\in V(G)}d_G(x)^2\geq \frac{(\sum_{x\in V(G)}d_G(x))^2}{n}=\frac{4\lvert E(G)\rvert^2}{n}\tag{4}</script><p>From (3) &amp; (4), $\frac{4\lvert E(G)\rvert^2}{n}\leq \sum_{x\in V(G)}d_G(x)^2\leq n\cdot \lvert E(G)\rvert$ which implies $\lvert E(G)\rvert \leq\frac{n^2}{4}$</p>
-<hr>
-<p>If a graph G has more than $\frac{n^2}{4}$ edges, then G has a triangle.</p>
-<font color=red>Furthermore, we can extend the triangle to k-cycle and obtain the Erdős-Gallai's Theorem <br>We can also extend the triangle to a complete graph with k vetices, which are called k-clique and obtain the Turán's Theorem</font>
+**Proof**
 
-<p>Tree: A tree is a connected graph without cycles.</p>
-<p><strong>Proposition: Every tree with at least two vetices has at least two vertices of degree one</strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>Let P be the longest path of G. Then both end vertices of P have degree one in G.If not, we suppose that $u,v\in V(P),\ uv\in E(P)$ and u is the end vertex of P, but $d_G(u)&gt;1$.</p>
-<p>Case 1:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204919.4qpcnrekreg0.jpg" alt=""></p>
-<p>$w\not\in V(P)$ and $wu\in E(G)$,then $\tilde{P}=P+wu$ is longer than P. This contradicts the fact that P is the longest path.</p>
-<p>Case 2:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-04_204927.tn63688yr68.jpg" alt=""></p>
-<p>$w\in V(P),w\not=v$ and $wu\in E(G)$, then we can find that there is a cycle. This  contradicts the fact that G is a tree.</p>
-<hr>
-<p>A vertex of a tree is a leaf if it has degree one.</p>
-<p><strong>Proposition: A connected graph with n vertices is a tree if and only if it has n-1 edges. </strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>$\Rightarrow$ n=1, G has no edges.</p>
-<p>Now, we assume that it is correct for a tree with n-1 vertices to have n-2 edges.From this assumption, we want to deduce that a tree with n vertices has n-1 edges.</p>
-<p>Since $n\ge2$, G has a vertex v of degree one. Let u be the only neighbor of v in G. Because G is a tree with n vertices, G-v is a tree with n-1 vertices. According to the asssumption,$\lvert E(G-v)\rvert=(n-1)-1$.</p>
-<script type="math/tex; mode=display">
-\lvert E(G)\rvert=\lvert E(G-v)\rvert+1=(n-1)-1+1=n-1</script><p>$\Leftarrow$ Let G be a connected graph with n vertices and n-1 edges. We claim that G has a vertex of degree one.</p>
-<p>We prove this claim first.If not, $\forall x\in V(G)$, assume $d_G(x)\ge2$</p>
-<p>Then we have $\lvert E(G)\rvert=\frac{1}{2}\sum_{x\in V(G)}d_G(x)\ge\frac{1}{2}\cdot2\lvert V(G)\rvert=n&gt;n-1$ which contradicts that $\lvert E(G)\rvert=n-1$. The contradiction implies the claim holds.</p>
-<p>From this claim, G has a vertex of degree one. Use the induction on G-v. Since G-v has n-1 vertices and $(n-1)-1$ edges. By inductive hypothsis, G-v is a tree and has no cycles.Since v is a degree one vertex, G has no cycles. Therefore, G is a tree.</p>
-<hr>
-<p><strong>Corollary: Every graph with minimum degree at least two contains a cycle.</strong></p>
-<p>A spanning tree of G is a connected spanning subgraph of G without cycles.</p>
-<font color=red>Problem: counting the number of edge-disjoint spanning trees in a graph.<br>If the number of edge-disjoint spanning trees is large, the graph is well-connected. (Related to edge-connectivity of the graph)</font>
-
-<p>Now we introduce two classic search algorithms in graph theory.</p>
-<p>A breadth-first-search tree of a graph (BFS-tree)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-04-05_111757.6pnsx44gbus0.jpg" style="zoom: 50%;" /></p>
-<p>(i) Start at $x=x_0$ and join x to all neighbors of x, Let $N_1=N_G(x)$</p>
-<p>(ii) For each $y\in N<em>i$, join y to all neighbors of y without creating cycles and let $N</em>{i+1}=\cup_{y\in N_i}N_G(y)$</p>
-<p>The algorithm will take $O (\lvert V\rvert+\lvert E\rvert)$ steps to find a BFS-tree rooted at $x_0$.</p>
-<p>A deepth-first-search tree of a graph (DFS-tree)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/微信图片_20220405111924.6g6tlxqwfto0.jpg" style="zoom:15%;" /></p>
-<p>(i) Start at $x=x_0$ and $T_0={x_0}$ </p>
-<p>(ii) Join x to one of its neighbor $x_1\in N_G(x_0)$ and$T_1={x_0,x_1}$</p>
-<p>(iii) If $N<em>i=N_G(x_i)\backslash T_i\not=\emptyset$, then join $x_i$ to a vertex $x</em>{i+1}\in N<em>i$ and let $T</em>{i+1}=T<em>i\cup{x</em>{i+1}}$ and $x_{i+1}\to x_i$</p>
-<p>If $N<em>i=N_G(x_i)\backslash T_i=\emptyset$, then set $x</em>{i-1}\to x<em>{i}$ and $N</em>{i-1}=N<em>G(x</em>{i-1})\backslash T_i\to N_i$ and continue.</p>
-<p>Eulerian graph: </p>
-<font color=red>Problem: Let G be a graph.When does G have a closed trail which contains all edges of G?</font>
-
-<p>A closed trail is Eulerian if the trail go through all edges of G. A graph is called Eulerian if it has an Eulerian trail.</p>
-<p><strong>Proposition: Every Eulerian graph is a connected graph which has only even-degree vertices</strong></p>
-<hr>
-<p><strong>Proof</strong> Let G be an Eulerian graph. Then G has an Eulerian trail, denoted by $T=v_1e_1v_2e_2\cdots v_me_mv_1$. So G is connected.</p>
-<p>Now, orient the edges of G along the trail T such that, for an edge $e<em>i$ in T, orient $e_i$ from $v_i$ to $v</em>{i+1}$. Since T has no repeated edges, every edge receives exactly one orientation. For each vertex $v_i$, T visits $v_i$ and then leaves $v_i$, which implies</p>
-<script type="math/tex; mode=display">
-\# edges\ oriented\ towards\ v_i=\#edges\ oriented\ away\ from\ v_i</script><p>But the degree of $v_i$ satisfies</p>
-<script type="math/tex; mode=display">
+Let $A(G)=(a_{ij})_{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by 
+$$
+[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
+$$
+where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]=\{1,2,\dots,n\}$
+$$
 \begin{aligned}
-d_G(v_i)&=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
-&\equiv0(mod\ 2)
-\end{aligned}</script><p>So every vertex of G has an even degree.</p>
-<hr>
-<p>A cycle decomposition D of a graph G is a set of egde-disjoint cycles $D={C_1,C_2,\dots,C_k}$ such that  </p>
-<script type="math/tex; mode=display">
-\cup_{C_i\in D}E(C_i)=E(G)</script><p><strong>Proposition: Every even graph has a cycle decomposition.</strong></p>
-<hr>
-<p><strong>Proof</strong> Let G be an even graph. Suppose to the contrary that G does not have a cycle decomposition.</p>
-<p>Assume G is a minimal counterexample.If G has a vertex v of degress zero, the G-v is a   subgraph of G and hence is not a counterexample. So G-v has a cycle decomposition. So does G, a contradiction to that G is a counterexample.</p>
-<p>So assume that$\delta(G)\ge2$. Then by corollary, G has a cycle C. Then, G-E(C) is an even subgraph of G. So G-E(C) has a cycle decomposition D. Then, $D\cup{C}$ is a cycle-decomposition of G, which contradicts that G is a counterexample. So prop. holds.</p>
-<hr>
-<font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font>
+(A(G))^2_{ij}&=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
+(A(G))^3_{ij}&=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
+\end{aligned}
+$$
+By the definition of adjacency matrix, $a_j=1\Leftrightarrow v_iv_j\in E(G)$
 
-<font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?$\lvert D\rvert\le\frac{n-1}{2}$?</font>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 7</title>
-    <url>/2022/05/26/Graph7/</url>
-    <content><![CDATA[<p><strong>Thm(Wilf,1967) Let G be a graph. Then $\chi(G)\leq\lambda_1(G)+1$, where $\chi(G)$ is the chromatic number</strong></p>
-<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not=c(v_j)$ if $v_iv_j\in E(G)$.</p>
-<p>A graph is a k-colorable if there exists a proper vertex coloring </p>
-<script type="math/tex; mode=display">
-c:V(G)\to\{1,2,\cdots,k\}=[k].</script><span id="more"></span>
-<p>The chromatic number of a graph is the smallest integer k s.t. G is k-colorable, denoted by $\chi(G)$.</p>
-<p><strong>(Four color Theorem) Every planar graph is 4-colorable</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_011010.4crr6n46e6o.jpg" alt=""></p>
-<p><strong>Lemma Let G be a graph. Then</strong></p>
-<script type="math/tex; mode=display">
-\chi(G)\leq1+p</script><p><strong>where $p=\max{\delta(H)|\text{H is an induced subgraph of G}}$, <font color='red'>$\delta(G)$ is minimum degree of H.</font></strong></p>
-<hr>
-<p><strong>Proof of Lemma</strong></p>
-<p>Use greedy algorithm:</p>
-<p>Consider that $c:V(G)\to\mathbb{N}$ such that color the first vertex by the smallest value and color the k-th vertex by using the smallest value that has not been used to color any of the first k-1 vertices that are adjacent to the k-th vertex. So it suffices to show that there is an ordering of the vertices of G for which the greedy algorithm gives an (1+p)-coloring of G.</p>
-<p>Let $x_n$ be a vertex of $G=H_n$ having degree at most p.<font color='red'>（$x_n$ could be the vertex of G with the degree $\delta(G)$</font></p>
-<p>By the definition of the value of p, the subgraph $H<em>{n-1}=G-x_n$ has a vertex $x</em>{n-1}$ of degree at most p. Continue this process, let $H<em>{n-1}=G-{x_n,x</em>{n-1},\cdots,x<em>{n-i+1}}$ which again has a vertex of degree at most p, denoted by $x</em>{n-i}$ for $i\in[n]$</p>
-<p>Then $H<em>{1}=G-{x_n,x</em>{n-1},\cdots,x_{2}}$ is an isolated vertex of degree 0.</p>
-<p> Then the ordering $x_1,x_2,\cdots,x_n$ is a desired one.</p>
-<hr>
-<p><strong>Proof of Wilf’s Theorem</strong></p>
-<p>Let G be a graph. For any induced subgraph H of G, $\delta(G)\leq d(G)\leq\lambda_1(H)\leq\lambda_1(G)$</p>
-<p>Therefore, $p=\max{\delta(H)|\text{H is an induced subgraph of G}}\leq\lambda_1(G)$</p>
-<p>It follows from the above Lemma</p>
-<script type="math/tex; mode=display">
-\chi(G)\leq 1+p\leq1+\lambda_1(G)</script><hr>
-<p>If G is k-colorable, let $c:V(G)\to[k]$ be a k-colorable. $c^{-1}(i)$, the preimage of color i, is an independent set. Independent number of G: $\alpha(G)\geq\max\left{|c^{-1}(i)|\big|i\in[k]\right}\geq n/k$.</p>
-<p>So $\alpha(G)\geq n/\chi(G)\geq n/(1+\lambda_1(G))$.</p>
-<p><strong>Coloring, Integer flow</strong></p>
-<p>Let G be a graph. An integer flow of G is an ordered pair $(D,f)$ where $D$ is an orientation of $G$ and $f$ is an integer function $f:E(G)\to\mathbb{Z}$ s.t. for every vertex v of G $\sum<em>{e\in E^{+}(v)}f(e)=\sum</em>{e\in E^{-}(v)}f(e)$ where $E^{+}(v)$ is the set of all arcs with $v$ as tail and $E^{-}(v)$ is the set of all arcs with v as head.</p>
-<font color='red'>Recall: this incidence matrix of D is matrix is $\vec{B}$ and $\vec{f}=<f(e_1),\cdots,f(e_m)>\in\mathbb{Z}^m$ where $m=|E(G)|$ , then $\vec{B}\cdot\vec{f}=0$. This vector $\vec{f}$ is called an integer flow of G.</font>
+It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$
 
-<p>An integer flow $(D,f)$ is nowhere-zero if $f(e)\not=0$ for all edges of $G$ <font color='red'>i.e. $\vec{f}$ has no zero component.</font></p>
-<p>An integer flow $(D,f)$ is a k-flow if $|f(e)|<k$ <font color='red'>i.e. every component of $\vec{f}$ has absolute value less than k.&lt;/font&gt;</p>
-<p>If G has a k-flow, the orientation in the k-flow does not matter.</p>
-<p><strong>Proposition Every Eulerian graph has nowhere 2-flow. A connected graph with a nowhere-zero 2-flow is Eulerian.</strong></p>
-<p><strong>Lemma Let $(D,f)$ be a flow of G, then for each $X\subset V(G)$, it holds that</strong>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </p>
+---
+
+A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy 
+$$
+\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
+$$
+<font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n=0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font>
+
+<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong></p>
 <script type="math/tex; mode=display">
-\sum_{e\in E^{+}X}f(e)=\sum_{e\in E^{-}(X)}f(e)</script><hr>
+w_G(k)=\lambda_1^k+\cdots+\lambda_n^k</script><hr>
 <p><strong>Proof</strong></p>
-<p>Since $(D,f)$ is a flow, it follows that, for every vertex v,</p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that</p>
 <script type="math/tex; mode=display">
-\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)</script><p>So $\sum<em>{e\in E^{+}(v)}f(e)-\sum</em>{e\in E^{-}(v)}f(e)=0$</p>
-<p>Note that</p>
-<script type="math/tex; mode=display">
-0=\sum_{v\in X}(\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e))=\sum_{e\in E^{+}(X)}f(e)-\sum_{e\in E^{-}(X)}f(e)</script><hr>
-<p><strong>Corollary A graph has a nowhere-zero integer flow $\Leftrightarrow$ it has no cut-edge.</strong></p>
+w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)</script><p>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
+<font color='red'>$A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}$</font>
+
+<p>Then, $tr(A(G)^k)=\sum<em>{i=1}^n\lambda_i^k$, so $w_G(k)=tr(A(G)^k)=\sum</em>{i=1}^n\lambda_i^k$</p>
 <hr>
+<p><strong>Incidence matrix and Laplacian matrix</strong></p>
+<p>Let G be a graph s.t. $V(G)={v_1,v_2,\cdots,v_n}$ and $E(G)={e_1,e_2,\cdots,e_m}$</p>
+<script type="math/tex; mode=display">
+B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&1\quad v_i\ is\ incident\ with\ e_j\\
+&0\quad v_i\ isn't\ incident\ with\ e_j\end{aligned}\right.</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" alt=""></p>
+<font color='red'>We can find that evey column has two non-zero entries.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" alt=""></p>
+<font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" alt=""></p>
+<p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
+<p>Laplacian matrix of G: $L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T$</p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong></p>
+<script type="math/tex; mode=display">
+\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0</script><p>$\tau(G)$= the total number of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)=det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]={1,2,\dots,n}$</strong></p>
+<hr>
+<p><strong>Proof.</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" alt=""></p>
+<p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
+<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" alt=""></p>
+<p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
+<p>Therefore, $\tau(G)=\tau(G-e)+\tau(G\cdot e)$</p>
+<p>Use induction on the number of edges of G.</p>
+<p>If G has no edges and n=1, so $\tau(G)=1=det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
+<p>If $n&gt;1$, then $\tau(G)=0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)=det(L_0(G))$ .</p>
+<p>Therefore, the statement holds for $|E(G)|=0$.</p>
+<p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
+<p>By recordering the vertices of G, we may assume that $i=1$ and $v_1v_2\in E(G)$, Let $e=v_1v_2$. Then  $\tau(G)=\tau(G-e)+\tau(G\cdot e)$.</p>
+<p>By inductive hypothesis, $\tau(G-e)=det(L_0(G-e))$ and $\tau(G\cdot e)=det(L_0(G\cdot e))$.</p>
+<p>Assume $L_0(G)=\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
+<p>Then $L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)=R$</p>
+<p>Note that $L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
+<p>Using the Laplace expansion along the first row,</p>
+<script type="math/tex; mode=display">
+det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)</script><hr>
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu<em>1\geq\mu_2\geq\cdots\geq\mu</em>{n-1}\geq\mu_n=0$. Then</strong></p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 <p><strong>Proof</strong></p>
-<p>$\Rightarrow$ It follows directly from the above lemma.</p>
-<p>$\Leftarrow$ Assume that G has no cut-edge. Then every edge of G belongs to a cycle. </p>
-<p>Let $C={C_1,C_2,\cdots,C_k}$ be a set of cycles covering all edges of G.</p>
-<p>Every $C_1$ has nowhere-zero 2-flow $(D,f_1)$</p>
+<p>Let $L(G)$ be the  Laplacian matrix and let </p>
 <script type="math/tex; mode=display">
-f:E(G)\to\mathbb{N}\quad s.t.\ f(e)=\sum_{i=1}^k 2^if_i(e)</script><p>Then $(D,f)$ is a nowhere-zero integer flow.</p>
-<hr>
-<p><strong>The Coloring-Flow Duality Theorem (Tutte)<br>Let G be a 2-connected planar graph. Then G is proper face k-colorable if and only if G has a nowhere-zero k-flow. In other words, let $G^{\star}$ be its planar dual. Then $G^{\star}$ is proper k-colorable $\Leftrightarrow$ G has a nowhere-zero k-flow.</strong></p>
+det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)</script><p>So the cofficient of $\lambda$ term is $-\mu<em>1\mu_2\cdots\mu</em>{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
+<p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
+<p>Then $det(M(\lambda))=det(L(G)-\lambda I)$ and the first row of $M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
+<p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
+<p>Then $M(\lambda)=-\lambda N(\lambda)$ and $det(M(\lambda))=-\lambda det(N(\lambda))$, So </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=-\lambda det(N(\lambda))</script><p>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
+<p>Add all columns of $N(0)$ except the first column to the first column.</p>
+<font color='red'>(Note that $i^{th}$-row $(i>1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i>1)$ of $L(G)$</font>
+
+<p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
+<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))=n\cdot det(L_0(G))$</p>
+<script type="math/tex; mode=display">
+n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><p>By previous theorem,</p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -844,6 +861,305 @@ l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2
       <tags>
         <tag>Math</tag>
         <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lecture series on graph theory 7</title>
+    <url>/2022/05/26/Graph7/</url>
+    <content><![CDATA[<p><strong>Thm(Wilf,1967) Let G be a graph. Then $\chi(G)\leq\lambda_1(G)+1$, where $\chi(G)$ is the chromatic number</strong></p>
+<p>A proper vertex coloring is a map $c:V(G)\to\mathbb{N}$ s.t. $c(v_i)\not=c(v_j)$ if $v_iv_j\in E(G)$.</p>
+<p>A graph is a k-colorable if there exists a proper vertex coloring </p>
+<script type="math/tex; mode=display">
+c:V(G)\to\{1,2,\cdots,k\}=[k].</script><span id="more"></span>
+<p>The chromatic number of a graph is the smallest integer k s.t. G is k-colorable, denoted by $\chi(G)$.</p>
+<p><strong>(Four color Theorem) Every planar graph is 4-colorable</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_011010.4crr6n46e6o.jpg" alt=""></p>
+<p><strong>Lemma Let G be a graph. Then</strong></p>
+<script type="math/tex; mode=display">
+\chi(G)\leq1+p</script><p><strong>where $p=\max{\delta(H)|\text{H is an induced subgraph of G}}$, <font color='red'>$\delta(G)$ is minimum degree of H.</font></strong></p>
+<hr>
+<p><strong>Proof of Lemma</strong></p>
+<p>Use greedy algorithm:</p>
+<p>Consider that $c:V(G)\to\mathbb{N}$ such that color the first vertex by the smallest value and color the k-th vertex by using the smallest value that has not been used to color any of the first k-1 vertices that are adjacent to the k-th vertex. So it suffices to show that there is an ordering of the vertices of G for which the greedy algorithm gives an (1+p)-coloring of G.</p>
+<p>Let $x_n$ be a vertex of $G=H_n$ having degree at most p.<font color='red'>（$x_n$ could be the vertex of G with the degree $\delta(G)$</font></p>
+<p>By the definition of the value of p, the subgraph $H<em>{n-1}=G-x_n$ has a vertex $x</em>{n-1}$ of degree at most p. Continue this process, let $H<em>{n-1}=G-{x_n,x</em>{n-1},\cdots,x<em>{n-i+1}}$ which again has a vertex of degree at most p, denoted by $x</em>{n-i}$ for $i\in[n]$</p>
+<p>Then $H<em>{1}=G-{x_n,x</em>{n-1},\cdots,x_{2}}$ is an isolated vertex of degree 0.</p>
+<p> Then the ordering $x_1,x_2,\cdots,x_n$ is a desired one.</p>
+<hr>
+<p><strong>Proof of Wilf’s Theorem</strong></p>
+<p>Let G be a graph. For any induced subgraph H of G, $\delta(G)\leq d(G)\leq\lambda_1(H)\leq\lambda_1(G)$</p>
+<p>Therefore, $p=\max{\delta(H)|\text{H is an induced subgraph of G}}\leq\lambda_1(G)$</p>
+<p>It follows from the above Lemma</p>
+<script type="math/tex; mode=display">
+\chi(G)\leq 1+p\leq1+\lambda_1(G)</script><hr>
+<p>If G is k-colorable, let $c:V(G)\to[k]$ be a k-colorable. $c^{-1}(i)$, the preimage of color i, is an independent set. Independent number of G: $\alpha(G)\geq\max\left{|c^{-1}(i)|\big|i\in[k]\right}\geq n/k$.</p>
+<p>So $\alpha(G)\geq n/\chi(G)\geq n/(1+\lambda_1(G))$.</p>
+<p><strong>Coloring, Integer flow</strong></p>
+<p>Let G be a graph. An integer flow of G is an ordered pair $(D,f)$ where $D$ is an orientation of $G$ and $f$ is an integer function $f:E(G)\to\mathbb{Z}$ s.t. for every vertex v of G $\sum<em>{e\in E^{+}(v)}f(e)=\sum</em>{e\in E^{-}(v)}f(e)$ where $E^{+}(v)$ is the set of all arcs with $v$ as tail and $E^{-}(v)$ is the set of all arcs with v as head.</p>
+<font color='red'>Recall: this incidence matrix of D is matrix is $\vec{B}$ and $\vec{f}=<f(e_1),\cdots,f(e_m)>\in\mathbb{Z}^m$ where $m=|E(G)|$ , then $\vec{B}\cdot\vec{f}=0$. This vector $\vec{f}$ is called an integer flow of G.</font>
+
+<p>An integer flow $(D,f)$ is nowhere-zero if $f(e)\not=0$ for all edges of $G$ <font color='red'>i.e. $\vec{f}$ has no zero component.</font></p>
+<p>An integer flow $(D,f)$ is a k-flow if $|f(e)|<k$ <font color='red'>i.e. every component of $\vec{f}$ has absolute value less than k.&lt;/font&gt;</p>
+<p>If G has a k-flow, the orientation in the k-flow does not matter.</p>
+<p><strong>Proposition Every Eulerian graph has nowhere 2-flow. A connected graph with a nowhere-zero 2-flow is Eulerian.</strong></p>
+<p><strong>Lemma Let $(D,f)$ be a flow of G, then for each $X\subset V(G)$, it holds that</strong>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </p>
+<script type="math/tex; mode=display">
+\sum_{e\in E^{+}X}f(e)=\sum_{e\in E^{-}(X)}f(e)</script><hr>
+<p><strong>Proof</strong></p>
+<p>Since $(D,f)$ is a flow, it follows that, for every vertex v,</p>
+<script type="math/tex; mode=display">
+\sum_{e\in E^{+}(v)}f(e)=\sum_{e\in E^{-}(v)}f(e)</script><p>So $\sum<em>{e\in E^{+}(v)}f(e)-\sum</em>{e\in E^{-}(v)}f(e)=0$</p>
+<p>Note that</p>
+<script type="math/tex; mode=display">
+0=\sum_{v\in X}(\sum_{e\in E^{+}(v)}f(e)-\sum_{e\in E^{-}(v)}f(e))=\sum_{e\in E^{+}(X)}f(e)-\sum_{e\in E^{-}(X)}f(e)</script><hr>
+<p><strong>Corollary A graph has a nowhere-zero integer flow $\Leftrightarrow$ it has no cut-edge.</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>$\Rightarrow$ It follows directly from the above lemma.</p>
+<p>$\Leftarrow$ Assume that G has no cut-edge. Then every edge of G belongs to a cycle. </p>
+<p>Let $C={C_1,C_2,\cdots,C_k}$ be a set of cycles covering all edges of G.</p>
+<p>Every $C_1$ has nowhere-zero 2-flow $(D,f_1)$</p>
+<script type="math/tex; mode=display">
+f:E(G)\to\mathbb{N}\quad s.t.\ f(e)=\sum_{i=1}^k 2^if_i(e)</script><p>Then $(D,f)$ is a nowhere-zero integer flow.</p>
+<hr>
+<p><strong>The Coloring-Flow Duality Theorem (Tutte)<br>Let G be a 2-connected planar graph. Then G is proper face k-colorable if and only if G has a nowhere-zero k-flow. In other words, let $G^{\star}$ be its planar dual. Then $G^{\star}$ is proper k-colorable $\Leftrightarrow$ G has a nowhere-zero k-flow.</strong></p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Dominnant Correlation</title>
+    <url>/2024/06/05/SVD-Dominnant%20Correlation/</url>
+    <content><![CDATA[<h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
+<span id="more"></span>
+<p>We consider the structure of the correlation matrix $X^TX$ firstly. Since the size of the data matrix $X$ is $n\times m$, the size of the correlation matrix $X^TX$ is $m\times m$.</p>
+<script type="math/tex; mode=display">
+X^TX=\begin{bmatrix}\cdots&x_1^T&\cdots\\\cdots&x_2^T&\cdots\\\ &\vdots&\ \\\cdots&x_m^T&\cdots\end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&x_1^Tx_2&\cdots&x_1^Tx_m\\x_2^Tx_1&x_2^Tx_2&\cdots&x_2^Tx_m\\\vdots&\vdots&\ &\vdots\\x_m^Tx_1&x_m^Tx_2&\cdots&x_m^Tx_m\end{bmatrix}</script><p>Based on the definition of $X^TX$, we realize that $X^TX$ is a correlation matrix among the columns of $X$. All entries of $X^TX$ are essentially an inner product between two columns of the data matrix $X$. Interestingly, if the entry $x_i^Tx_j$ is a large number, it means that the columns $x_i$ and $x_j$ are highly correlated. However, if this number is very small, it means that the columns $x_i$ and $x_j$ are nearly orthogonal, which means that the columns $x_i$ and $x_j$ are almost different. Therefore, the correlation matrix $X^TX$ can be seen as a matrix that measures the correlation among the columns of $X$.</p>
+<p>Based on the structure of the correlation matrix $X^TX$, $X^TX$ is a symmetric and positive semi-definite matrix. It guarantees that we have non negative real eigenvalues, which have a direct correspondence on the singular values of the data matrix $X$. Now we assume that the matrix $X$ have the singular value decomposition $X=U\Sigma V^T$. We can derive that</p>
+<script type="math/tex; mode=display">
+X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2</script><p>which means that the columns of $V$ are the eigenvectors of the correlation matrix $X^TX$. The eigenvalues of the correlation matrix $X^TX$ are the squares of the singular values of the data matrix $X$. The same is true for the correlation matrix $XX^T$. We can derive that</p>
+<script type="math/tex; mode=display">
+XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><p>which means that the columns of $U$ are the eigenvectors of the correlation matrix $XX^T$. The eigenvalues of the correlation matrix $XX^T$ are the squares of the singular values of the data matrix $X$. Therefore, we can conclude that the singular matrix $U$ and $V$ given by the SVD of the data matrix $X$ can be seen as the eigenvectors of the correlation matrix $X^TX$ or $XX^T$. The importance of this columns of $U$ and $V$ is quantified by eigenvalues of $X^TX$ or $XX^T$, which are the squares of the singular values of the data matrix $X$.</p>
+<p>Here we introduce the method of snapshots to compute the singular value decomposition of the data matrix. If the data matrix $X$ is so large that you cannot actually compute it or store it all in memory, you can use the method of snapshots. However, in the vast majority of cases, we don’t recommend that you compute the SVD using correlation matrices.</p>
+<p>Although you cannot load all columns of $X$ into memory, what you can do is calling two columns at a time. For example, you can call the first column $x_1$ and itself, then you will get the inner product $x_1^Tx_1$. After, you can call the first column $x_1$ and the second column $x_2$, then you will get the inner product $x_1^Tx_2$ and so on. You can compute the inner product by calling two columns of data matrix each time to get the correlation matrix $X^TX$. Here the resulting matrix is a $m\times m$ matrix. It is small enough that you can put it into memory and compute its eigendecomposition. Based the above discussion, we know that the righ singular vector $V$ and the singular value $\Sigma$ can be goten by this eigendecomposition. Then you can use this matrix to solve the left singular vector $U$.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Eckart-Young-Mirsky theorem</title>
+    <url>/2024/05/28/SVD-Eckart-Young-Mirsky%20/</url>
+    <content><![CDATA[<p>Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.</p>
+<ol>
+<li>2-norm (Spectral norm)</li>
+</ol>
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1</script><ol>
+<li>Frobenius norm</li>
+</ol>
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}</script><ol>
+<li>Nuclear norm</li>
+</ol>
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i</script><span id="more"></span>
+<p>Based on the results of matrix norms, we realize that the above three matrix norms only depend on the singular values of the matrix $A$. Now we claim that the product with orthogonal matrices will not change the singular values of the original matrix. For simplicity, we call the left orthogonal matrix and right orthogonal matrix as $P$ and $Q$, respectively. Based on the singular value decomposition of $A$, we can derive the following results about the product of matrix $A$ and orthogonal matrices $P,\ Q$,</p>
+<script type="math/tex; mode=display">
+PAQ=PU\Sigma V^TQ=U_1\Sigma V_1^T,\ U_1=PU,\ V_1=Q^TV</script><p>where $U_1U_1^T=PUU^TP^T=I=U_1^TU_1$ means $U_1$ is an orthogonal matrix. The same is true for $V_1$. We claim that the singular values of $PAQ$ is the same as the singular values of $A$. So we realize that the product with orthogonal matrices does not affect matrix norm.</p>
+<p><strong>Thm(Eckart-Young-Mirsky Theorem)</strong> The optimal rank-r approximation to $A$, under the spectral norm and the Frobenius norm, respectively, is given by the rank-r SVD truncation $\tilde{A}$,</p>
+<script type="math/tex; mode=display">
+argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_F=\tilde{A}\quad argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_2=\tilde{A}</script><p>where $\tilde{A}=\tilde{U}\tilde{\Sigma}\tilde{V}^T$ is the rank-r SVD truncation of $A$. Again, $\tilde{U}$ and $\tilde{V}$ denote the first $r$ leading columns of $U$ and $V$, respectively, and $\tilde{\Sigma}$ is the $r\times r$ leading submatrix of $\Sigma$.</p>
+<p>Proof. </p>
+<ol>
+<li><p>One needs to show that if we have a matrix approximation $B$ whose rank is $r$ and size is $n\times m$, then $\left\Vert A-B\right\Vert_2\geq \left\Vert A-\tilde{A}\right\Vert_2$ holds. This can be done as follows.</p>
+<p>Here we introduce the concept of matrix kernel before the discussion. The kernel of matrix $A$ is defined as</p>
+<script type="math/tex; mode=display">
+   \mathcal{N}(A)=\{x\in \mathbb{R}^n:Ax=0\}</script><p>Therefore, we realize that the kernel of matrix $\mathcal{N}(A)$ actually means the solution space of the linear equation $Ax=0$. Based on the linear equation theory, we know that when the rank of matrix $B$ is $r$, the dimension of $\mathcal{N}(B)$ is $n-r$. Here we consider the linear space $V<em>{r+1}$ spanned by the first $r+1$ leading right singular vectors $v_1,\ v_2,\dots,v</em>{r+1}$, whose dimension is $r+1$. Based on the dimensional formula, we derive that</p>
+<script type="math/tex; mode=display">
+   dim(\mathcal{N}(B)\cap V_{r+1})=dim(\mathcal{N}(B))+dim(V_{r+1})-dim(\mathcal{N}(B)+V_{r+1})=n+1-dim(\mathcal{N}(B)+V_{r+1})\geq1</script><p>which means that $\mathcal{N}(B)\cap V<em>{r+1}\not=\empty$. Therefore, we have that there exists an vector $x=\gamma_1v_1+\cdots+\gamma</em>{r+1}v_{r+1}$ such that</p>
+<script type="math/tex; mode=display">
+   x\in \mathcal{N}(B)\cap V_{r+1},\ \left\Vert x\right\Vert_2=1</script><p>Based on the definition of 2-norm, we can derive that</p>
+<script type="math/tex; mode=display">
+   \left\Vert A-B\right\Vert_2\geq \left\Vert (A-B)x\right\Vert_2=\left\Vert Ax\right\Vert_2=\gamma_1^2\sigma_1^2+\cdots+\gamma_{r+1}^2\sigma_{r+1}^2\geq \sigma_{r+1}^2=\left\Vert A-\tilde{A}\right\Vert_2</script><p>which means that the optimal rank-r approximation to $A$ under the 2-norm is given by the rank-r SVD truncation $\tilde{A}$.</p>
+</li>
+<li><p>Now we claim that the best rank $r$ approximation to $A$ in the Frobenius norm, denoted by $\Vert\cdot\Vert_F$, is given by</p>
+<script type="math/tex; mode=display">
+ A_r=U_r\Sigma_rV_r^T=\sum_{i=1}^r\sigma_iu_iv_i^T</script><p>First, note that we have</p>
+<script type="math/tex; mode=display">
+ \left\Vert A-A_k\right\Vert_F^2=\left\Vert \sum_{i=r+1}^m\sigma_iu_iv_i^T\right\Vert_F^2=\sum_{i=r+1}^m\sigma_i^2</script><p>Hence, we need to show that if $B_r$ is any rank-$r$ matrix, then,</p>
+<script type="math/tex; mode=display">
+ \left\Vert A-B_r\right\Vert_F^2\geq \sum_{i=r+1}^m\sigma_i^2</script><p>Based on the triangle inequality with the spectral norm, if $A=A’+A’’$, then $\sigma_1(A)\leq\sigma_1(A’)+\sigma_1(A’’)$. Suppose $A_r’$ and $A_r’’$ denote the rank $r$ approximation to $A’$ and $A’’$ by SVD method described above, respectively. Then, for any $i,j\geq1$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sigma_i(A')+\sigma_j(A'')&=\sigma_1(A'-A_{i-1}')+\sigma_1(A''-A_{j-1}'')\\
+&\geq\sigma_1(A'-A_{i-1}'+A''-A_{j-1}'')\\
+&\geq\sigma_1(A-A_{i-1}'-A_{j-1}'')\\
+\end{aligned}</script><p> Here we know that $rank(A<em>{i-1}’+A</em>{j-1}’’)\leq i+j-2$, we can derive that</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sigma_i(A')+\sigma_j(A'')&\geq\sigma_1(A-A_{i+j-2})\\
+&=\sigma_{i+j-1}(A)
+\end{aligned}</script><p>Since $\sigma_{r+1}(B_r)=0$, when $A’=A-B_r$ and $A’’=B_r$, we conclude that for $i\geq1,\ j=r+1$</p>
+<script type="math/tex; mode=display">
+\sigma_i(A-B_r)= \sigma_i(A-B_r)+\sigma_{r+1}(B_r)\geq\sigma_{i+r}(A)</script><p>Therefore, we have</p>
+<script type="math/tex; mode=display">
+\left\Vert A-B_r\right\Vert_F^2=\sum_{i=1}^m\sigma_i(A-B_r)^2\geq\sum_{i=r+1}^m\sigma_i(A)^2=\left\Vert A-A_r\right\Vert_F^2</script>]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Linear Regression</title>
+    <url>/2024/06/21/SVD-Linear%20Regression/</url>
+    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
+<script type="math/tex; mode=display">
+Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
+<span id="more"></span>
+<p>To explain this linear regression more clearly, let’s say that every rows of equation is based on data from an individual medical history. So the equation $a<em>{i1}x_1+\cdots+a</em>{im}x<em>{m}=b</em>{i}$ means the medical case of the $i-th$ person. Every columns of matrix $A$ represent different kinds of risk factors and the vector $b$ means the risk of heart disease. Therefore, we can give a interpretation about linear regression. Linear regression is a best fit model $x$ for what combination of those factors describe best or predict best the future risk of heart disease. Actually it may be driven by the nonlinear system in real world, here we oversimplify this system by using linear regression to approximate it.</p>
+<p>Since we consider the overdetermined system, it is hard to find a vector $x$ that exactly solves this linear model. We want to find the best fit vector $x$ that minimizes the error norm between $Ax$ and $b$. In other words, the best fit vector $x$ gives us the best prediction of $b$ given information in $A$. Here we consider a one-dimensional linear regression model since it can be easily plotted in the following figure and gives a geometric interpretation of linear regression. Of course, the conclusion derived in this way is very simple and can be generalized to much higher-dimensional situations.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" alt=""></p>
+<p>As seen in figure, we will solve the $x$ here that we want is the slope of this fit line. We generalize this interpretation to much higher dimensional case instead of having just one factor that I use to predict $b$. In general, I will find a best fit plane instead of best fit line to approximate the high dimensional data. In one dimensional, $A=\begin{bmatrix} a_1\ a_2\ \cdots\ a_n\end{bmatrix}^{T}$ and $b=\begin{bmatrix}b_1\ b_2\ \cdots\ b_n\end{bmatrix}^{T}$ will be considered. Based on the SVD, we can give the decompostion matrices $U=\frac{A}{\Vert A\Vert_2}$, $\Sigma=\Vert A\Vert_2$ and $V^T=1$ easily. Using Moore-Penrose pseudo inverse of $A$, we can solve the best fit slope $x$ as follows,</p>
+<script type="math/tex; mode=display">
+x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b</script><p>Due to the value of the best fit slope, we find that the linear regression can be written as $Ax=AA^{\dagger}b=\frac{AA^T}{\Vert A\Vert_2^2}b$. It means that we project $b$ into the direction of $A$. When we think about the projection, we realize that the normalized matrix $\tilde{A}=\frac{A}{\Vert A\Vert_2}$ satisfies $\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert A\Vert_2}=1$. From this, we can use this normalized matrix $\tilde{A}$ to derive the projection operator $\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert A\Vert_2^2}$. This formula can be generalized into higher dimensional case easily.</p>
+<p>At last, we consider a very common problem that our data has some outliers in data analysis. As seen in the above figure, these data do not fully mathch our best fitting model. Since the normal data can have some variablity, like Gaussian noisy, our linear regression just is a approximation model to real world. Here we assume that our data has a outlier which is completely different with others. It will bias my distrubution and effect the best fit slope, since the purpose of our derivation is minimizing the sum of the squares of the errors of all of those points to the line. Therefore, it is a big risk we have when we have outliers. Regularly square based on the SVD can handle white noise very well. However, the matrix $A$ will be sensitive to outliers, we will consider in robust statistics.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Linear System and Pseudo Inverse</title>
+    <url>/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/</url>
+    <content><![CDATA[<p>In many physics problem, we always encounter the solution of the linear equation $Ax=b$. Classically, we solve this linear equation in the case that $A$ is a square and invertible matrix. In fact, this case is too special to better model the real world. Based on the singular value decomposition which we have introduced, we can generalize this linear equation to the case that $A$ is a non-square matrix. Actually, when we consider the data analysis and data modeling, the matrix $A$ is always a non-square matrix.</p>
+<span id="more"></span>
+<p>Here we introduce few different things happened due to the non-square matrix $A\in\mathbb{R}^{n\times m}$. Since A is a non-square matrix, there are two canonical non-square matrix $A$, corresponding to the two different canonical non-square linear equations.</p>
+<ol>
+<li>Underdetermined System $(n&lt;m)$<br>Since $n&lt;m$, the shape of the matrix $A$ is short and fat. In this case, the number of equations is less than the number of unknowns. There is not enough measurements in vector $b$ to determine a single unique vector $x$. In other words, there is more degrees of freedom in the unknown vector $x$ and there is not enough values in the vector $b$ to determine the unknown vector $x$. In general, there are infinitely many solutions $x$ given by the underdetermined system. In fact, you can try to construct a very special underdetermined system such that there is only one solution. But it is too special that we can ignore it.</li>
+<li>Overdetermined System $(n&gt;m)$<br>Since $n&gt;m$, the shape of the matrix $A$ is tall and skinny. In this case, the number of equations is more than the number of unknowns. Unfortunately, since there is not enough degrees of freedom in unknown vector $x$ to fit these equation, there is no solution $x$ given by the overdetermined system generally. In fact, you can try to construct a very special underdetermined system such that there is only one solution. But it is too special that we can ignore it.</li>
+</ol>
+<p>The singular value decomposition allows us to approximately invert this matrix $A$ to compute what is known as the pseudo inverse and find a best fit solution $x$ that either comes as close to solving this equation as possible or solves this equation with the minimum $L^2$ norm of $x$. Here we introduce the Moore-Penrose pseudo inverse of the matrix $A$. Based on the economy singular value decomposition of the matrix $A$, we can decompose the matrix $A$ as $A=U\Sigma V^T$, where $U$ and $V$ satisfy $U^TU=I$ and $V^TV=VV^T=I$. The Moore-Penrose pseudo inverse of the matrix $A$ is defined as</p>
+<script type="math/tex; mode=display">
+A^{\dagger}=V\Sigma^{-1}U^T</script><p>Based on the properties of $U$ and $V$, we realize that the Moore-Penrose pseudo inverse is a left pseudo inverse of the matrix $A$. Now we can give a approximate solution of the linear equation $Ax=b$ by using the Moore-Penrose pseudo inverse of the matrix $A$.</p>
+<script type="math/tex; mode=display">
+Ax=b\Rightarrow U\Sigma V^Tx=b\Rightarrow \tilde{x}=V\Sigma^{-1}U^Tb=A^{\dagger}b</script><p>Here we have given a best fit solution $x$ which comes as close to solving this equation as possible. Now we will give out this solution which satisfies the optimization problems. Now we give the optimization problems that the best fit solution $x$ satisfies for underdetermined system and overdetermined system.</p>
+<ol>
+<li><p>Underdetermined System $(n&lt;m)$<br>In this case, the best fit solution $x$ satisfies the optimization problem</p>
+<script type="math/tex; mode=display">
+   \min_x\|x\|_2\quad\text{subject to}\quad Ax=b</script><p>The solution of this optimization problem is the solution of the linear equation $Ax=b$ with the minimum $L^2$ norm of $x$.</p>
+</li>
+<li><p>Overdetermined System<br>In this case, the best fit solution $x$ satisfies the optimization problem</p>
+<script type="math/tex; mode=display">
+   \min_x\|Ax-b\|_2</script><p>The solution of this optimization problem is the solution of the linear equation $Ax=b$ that comes as close to solving this equation as possible.</p>
+<p>  Finally, we will clarify something that is highly confusing: the method of obtaining the optimal approximation solution is same as the normal process,but it is just an approximate solution. Here we substitute the approximate solution $\tilde{x}=A^{\dagger}b$ into the linear equation $Ax=b$.</p>
+<script type="math/tex; mode=display">
+   A\tilde{x}=AA^{\dagger}b=U\Sigma V^TV\Sigma^{-1}U^Tb=UU^Tb</script><p>  where the matrix $UU^T$ is not a identity matrix and it might not even be close to the identity matrix. Before we explain the vector $UU^Tb$, we should discuss the project operator. Here we assume that we have a vector $v$ and a matrix $P$. Now we try to project the vector $v$ onto the column space of the matrix $P$. We assume the projection of the vector $v$ onto the column space of the matrix $P$ is $Px$, where $x$ is an unknown vector. Based on the definition of the projection, the vector $e=v-Px$ and all column vectors of $P$ are orthogonal. Therefore, we can derive the following linear equaiton,</p>
+<script type="math/tex; mode=display">
+   P^Te=P^T(v-Px)=P^Tv-P^TPx=0\Rightarrow x=(P^TP)^{-1}P^Tv</script><p>From the above result, we can derive the projection vector $Px=P(P^TP)^{-1}P^Tv$. Here we call $P(P^TP)^{-1}P^T$ as the projection operator. Now we consider the matrix $U$ which satisfies $U^TU=I$, so the projection operator $U(U^TU)^{-1}U^T=UU^T$. Above all, the meaning of $UU^Tb$ is the projection of the vector $b$ onto the column space of the matrix $U$. Furthermore, the column space of the matrix $U$ is equal to the column space of the matrix $A$. Therefore, the vector $UU^Tb$ is the projection of the vector $b$ onto the column space of the matrix $A$. The errors crops up since $UU^Tb$ is an orthogonal projection of $B$ onto the column space of $A$.</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Mathematical Overview</title>
+    <url>/2024/04/18/SVD-Mathematical%20Overview/</url>
+    <content><![CDATA[<p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
+<script type="math/tex; mode=display">
+X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
+<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
+<span id="more"></span>
+<script type="math/tex; mode=display">
+X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
+<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
+<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
+<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
+<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
+<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Matrix Approximation</title>
+    <url>/2024/04/19/SVD-Matrix%20Approximation/</url>
+    <content><![CDATA[<p>The SVD allows us to decompose data matrix $X$ as the product of three matrices, $U,\ V^T,\ \Sigma$, where essentially $U$ contains information about the column space of $X$, $V$ contains information about the row space of $X$ and $\Sigma$ is a hierarchically ordered diagonal matrix, which tells you how important the various columns of $U$ and $V$ are.</p>
+<span id="more"></span>
+<p>In fact, the data matrix $X$ has only $m$ columns, it means there are at most $m$ linearly independence columns in this $n$-dimensional vector space.So the first $m$ columns of $U$ are important in representing this data matrix. To explain this fact more deeply, we try to represent expansion as a sum of rank-1 matrices.</p>
+<p>Based on the Singular Value Decomposition,we can get the following equation,</p>
+<script type="math/tex; mode=display">
+X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\cdots&v_1^{T}&\cdots\\\cdots&v_2^T&\cdots\\\ &\vdots&\ \\\cdots&v_m^T&\cdots\end{bmatrix}^T</script><p>Since $\Sigma$ is a diagnoal matrix, we can expand the above equation as follow,</p>
+<script type="math/tex; mode=display">
+X=U\Sigma V^T=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_mu_mv_m^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_m\end{bmatrix}\begin{bmatrix}\cdots&v_1^{T}&\cdots\\\cdots&v_2^T&\cdots\\\ &\vdots&\ \\\cdots&v_m^T&\cdots\end{bmatrix}^T=\hat{U}\hat{\Sigma}V^T</script><p>Even though $U$ is a massive $n\times n$ matrix, there are only at most $m$ non-zeros singular values in $\Sigma$ that means the rank of data matrix $X$ satisfies $rank(X)\leq m$. Actually,I can selcet the first $m$ columns of $U$, the first $m\times m$ block of $\Sigma$ and the original $V$ to represent the data matrix $X$. We always call $X=\hat{U}\hat{\Sigma}V^T$ as the economy SVD and $X=U\Sigma V^T$ as the full SVD. Since we consider the case of $n\gg m$, $\hat{U}\in \mathbb{R}^{n\times m}$ and $\hat{\Sigma}\in \mathbb{R}^{m\times m}$ need lower storage.</p>
+<p>Therefore, we can give another explanation about SVD: we can decompose the data matrix X into the orthogonal basis $U$ and $V$, where essentially you can rewrite this as a sum of rank-1 matrices, which increasingly improve the approximation of $X$. According to this explanation, we can give out some interesting results like, the best rank-1 matrix that we can make to approximate $X$ is $\sigma_1u_1v_1^T$; the best rank-2 matrix that we can make to approximate $X$ is $\sigma_1u_1v_1^T+\sigma_2u_2v_2^T$ and so on and so forth.</p>
+<p>Since we hope to use less data storage to approximate the real data as much as possible in practice, we often truncate at rank r. Oftentimes we have a lot of negligibly small singular values like $\sigma<em>{r+1},\ \sigma</em>{r+2},\cdots,\sigma_m$ , it means that most of the information of $X$ is captured in the first $r$ singular values and the first $r$ singular vectors. So we can throw away all of low singular values and singular vectors and only keep the first $r$ columns of $U$ and $V$ and the first $r\times r$ submatrix in $\Sigma$. Then we are going to define this truncated SVD as follows,</p>
+<script type="math/tex; mode=display">
+X\approx\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_r\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_r\end{bmatrix}\begin{bmatrix}\cdots&v_1^{T}&\cdots\\\cdots&v_2^T&\cdots\\\ &\vdots&\ \\\cdots&v_r^T&\cdots\end{bmatrix}^T=\tilde{U}\tilde{\Sigma}\tilde{V}^T</script><p>Here we find that the truncated SVD $\tilde{U}\tilde{\Sigma}\tilde{V}^T$ is the best rank-$r$ matrix approximating the data matrix $X$.Thus, high-dimensional data may be well described by a few dominant patterns given by the columns of $\tilde{U}$ and $\tilde{V}$.Like the mentioned in the first section,we realize that the truncated singular vectors $\tilde{U}$ provides a coordinate transformation from the high-dimensional measurement space into a low-dimensional pattern space.</p>
+<p>The Eckart-Young theorem states that the absolute best approximation to the matrix $X$ of rank r,<br>Theorem(Eckart-Young) The optimal rank-r approximation to $X$, in a least-squares sense, is given by the rank-r SVD truncation $\tilde{X}$,</p>
+<script type="math/tex; mode=display">
+argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T</script><p>The Ecakrt-Young theorem guarantees that the best possible matrix approximation to $X$ of rank $r$ is given by the firsr $r$ truncated SVD.</p>
+<p>Finally,we should mention an important point. At beginning of discussing the SVD, we define the matrices $U$ and $V$ are unitary. However,if we truncated at rank r,the truncated matrices $\tilde{U}$ and $\tilde{V}$ are no longer square matrices, so they are not unitary matrix again. They satisfy that $\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\ \tilde{U}\tilde{U}^T\not=I$</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Unitary Transformation and Geometry</title>
+    <url>/2024/06/16/SVD-Unitary%20Transformation/</url>
+    <content><![CDATA[<p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
+<span id="more"></span>
+<p>Actually, unitary matrices preserve the angle between any two vectors in the vector space. Since the inverse of the unitary matrix is its own transpose, it can not only preserve the angles between vectors, but also preserve the length of the vectors. Essentially, unitary transformation is a coordinate transformation into a new representation. It just takes all of those vectors and rotates them into a new representation. It will not change the length of any vector and angles between any two vectors.</p>
+<p>Here you will find that we just consider the real-valued case. However, when we consider the data matrix $X$ is a complex-valued matrix, the singular vectors $U$ and $V$ are complex-valued matrices. Compared with the real-valued matrix, the most important difference is that the transpose of a complex-valued matrix is actually a conjugate transpose.</p>
+<p>To sum up, we give the mathematical form of unitary transformation here. For any two vectors $x$ and $y$ in vector space, then we have</p>
+<script type="math/tex; mode=display">
+(x,y)=(Ux,Uy)</script><p>where $(\cdot,\cdot)$ is the inner product of two vectors and the operator $U$ means the unitary transformation, which in a unitary matrix in discrete case. Based on this mathematical form, we realize that the inner product of $x$ and $y$ is unchanged when we transform $x$ and $y$ by unitary transformation.</p>
+<p>Since we have introduced the unitary transform in the vector space, we interpret singular vector decomposition geometrically. Here we consider the size of data matrix is $n\times m$. Now we consider any vector $\vec{v}$ in space $\mathbb{R}^m$ and vector $\vec{v}$ is palced on the unit sphere. As we all know, the matrix is a linear transformation about the vector. Therefore, we consider the transformed vector $X\vec{v}$, which is placed on the ellipsoid in the vector space $\mathbb{R}^n$. Here the gemoetric interpretation of the singular value decomposition can be given. The length of these principal axes are specially given by the singular values of the data matrix $X$. The orientation of this ellipsoid is somehow given by these left singular vectors in $U$. Like the interpretation of linear transformation, $X$ multiplies the vector on the left side or on the right side, which corresponds to a change to a rotation of space. Finally, $X$ is not a square matrix, so the rotation of the corresponding space is actually a change in dimensionality.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -1471,322 +1787,6 @@ l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2
       <tags>
         <tag>Computer Science</tag>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Eckart-Young-Mirsky theorem</title>
-    <url>/2024/05/28/SVD-Eckart-Young-Mirsky%20/</url>
-    <content><![CDATA[<p>Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.</p>
-<ol>
-<li>2-norm (Spectral norm)</li>
-</ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1</script><ol>
-<li>Frobenius norm</li>
-</ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}</script><ol>
-<li>Nuclear norm</li>
-</ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i</script><span id="more"></span>
-<p>Based on the results of matrix norms, we realize that the above three matrix norms only depend on the singular values of the matrix $A$. Now we claim that the product with orthogonal matrices will not change the singular values of the original matrix. For simplicity, we call the left orthogonal matrix and right orthogonal matrix as $P$ and $Q$, respectively. Based on the singular value decomposition of $A$, we can derive the following results about the product of matrix $A$ and orthogonal matrices $P,\ Q$,</p>
-<script type="math/tex; mode=display">
-PAQ=PU\Sigma V^TQ=U_1\Sigma V_1^T,\ U_1=PU,\ V_1=Q^TV</script><p>where $U_1U_1^T=PUU^TP^T=I=U_1^TU_1$ means $U_1$ is an orthogonal matrix. The same is true for $V_1$. We claim that the singular values of $PAQ$ is the same as the singular values of $A$. So we realize that the product with orthogonal matrices does not affect matrix norm.</p>
-<p><strong>Thm(Eckart-Young-Mirsky Theorem)</strong> The optimal rank-r approximation to $A$, under the spectral norm and the Frobenius norm, respectively, is given by the rank-r SVD truncation $\tilde{A}$,</p>
-<script type="math/tex; mode=display">
-argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_F=\tilde{A}\quad argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_2=\tilde{A}</script><p>where $\tilde{A}=\tilde{U}\tilde{\Sigma}\tilde{V}^T$ is the rank-r SVD truncation of $A$. Again, $\tilde{U}$ and $\tilde{V}$ denote the first $r$ leading columns of $U$ and $V$, respectively, and $\tilde{\Sigma}$ is the $r\times r$ leading submatrix of $\Sigma$.</p>
-<p>Proof. </p>
-<ol>
-<li><p>One needs to show that if we have a matrix approximation $B$ whose rank is $r$ and size is $n\times m$, then $\left\Vert A-B\right\Vert_2\geq \left\Vert A-\tilde{A}\right\Vert_2$ holds. This can be done as follows.</p>
-<p>Here we introduce the concept of matrix kernel before the discussion. The kernel of matrix $A$ is defined as</p>
-<script type="math/tex; mode=display">
-   \mathcal{N}(A)=\{x\in \mathbb{R}^n:Ax=0\}</script><p>Therefore, we realize that the kernel of matrix $\mathcal{N}(A)$ actually means the solution space of the linear equation $Ax=0$. Based on the linear equation theory, we know that when the rank of matrix $B$ is $r$, the dimension of $\mathcal{N}(B)$ is $n-r$. Here we consider the linear space $V<em>{r+1}$ spanned by the first $r+1$ leading right singular vectors $v_1,\ v_2,\dots,v</em>{r+1}$, whose dimension is $r+1$. Based on the dimensional formula, we derive that</p>
-<script type="math/tex; mode=display">
-   dim(\mathcal{N}(B)\cap V_{r+1})=dim(\mathcal{N}(B))+dim(V_{r+1})-dim(\mathcal{N}(B)+V_{r+1})=n+1-dim(\mathcal{N}(B)+V_{r+1})\geq1</script><p>which means that $\mathcal{N}(B)\cap V<em>{r+1}\not=\empty$. Therefore, we have that there exists an vector $x=\gamma_1v_1+\cdots+\gamma</em>{r+1}v_{r+1}$ such that</p>
-<script type="math/tex; mode=display">
-   x\in \mathcal{N}(B)\cap V_{r+1},\ \left\Vert x\right\Vert_2=1</script><p>Based on the definition of 2-norm, we can derive that</p>
-<script type="math/tex; mode=display">
-   \left\Vert A-B\right\Vert_2\geq \left\Vert (A-B)x\right\Vert_2=\left\Vert Ax\right\Vert_2=\gamma_1^2\sigma_1^2+\cdots+\gamma_{r+1}^2\sigma_{r+1}^2\geq \sigma_{r+1}^2=\left\Vert A-\tilde{A}\right\Vert_2</script><p>which means that the optimal rank-r approximation to $A$ under the 2-norm is given by the rank-r SVD truncation $\tilde{A}$.</p>
-</li>
-<li><p>Now we claim that the best rank $r$ approximation to $A$ in the Frobenius norm, denoted by $\Vert\cdot\Vert_F$, is given by</p>
-<script type="math/tex; mode=display">
- A_r=U_r\Sigma_rV_r^T=\sum_{i=1}^r\sigma_iu_iv_i^T</script><p>First, note that we have</p>
-<script type="math/tex; mode=display">
- \left\Vert A-A_k\right\Vert_F^2=\left\Vert \sum_{i=r+1}^m\sigma_iu_iv_i^T\right\Vert_F^2=\sum_{i=r+1}^m\sigma_i^2</script><p>Hence, we need to show that if $B_r$ is any rank-$r$ matrix, then,</p>
-<script type="math/tex; mode=display">
- \left\Vert A-B_r\right\Vert_F^2\geq \sum_{i=r+1}^m\sigma_i^2</script><p>Based on the triangle inequality with the spectral norm, if $A=A’+A’’$, then $\sigma_1(A)\leq\sigma_1(A’)+\sigma_1(A’’)$. Suppose $A_r’$ and $A_r’’$ denote the rank $r$ approximation to $A’$ and $A’’$ by SVD method described above, respectively. Then, for any $i,j\geq1$</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\sigma_i(A')+\sigma_j(A'')&=\sigma_1(A'-A_{i-1}')+\sigma_1(A''-A_{j-1}'')\\
-&\geq\sigma_1(A'-A_{i-1}'+A''-A_{j-1}'')\\
-&\geq\sigma_1(A-A_{i-1}'-A_{j-1}'')\\
-\end{aligned}</script><p> Here we know that $rank(A<em>{i-1}’+A</em>{j-1}’’)\leq i+j-2$, we can derive that</p>
-</li>
-</ol>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\sigma_i(A')+\sigma_j(A'')&\geq\sigma_1(A-A_{i+j-2})\\
-&=\sigma_{i+j-1}(A)
-\end{aligned}</script><p>Since $\sigma_{r+1}(B_r)=0$, when $A’=A-B_r$ and $A’’=B_r$, we conclude that for $i\geq1,\ j=r+1$</p>
-<script type="math/tex; mode=display">
-\sigma_i(A-B_r)= \sigma_i(A-B_r)+\sigma_{r+1}(B_r)\geq\sigma_{i+r}(A)</script><p>Therefore, we have</p>
-<script type="math/tex; mode=display">
-\left\Vert A-B_r\right\Vert_F^2=\sum_{i=1}^m\sigma_i(A-B_r)^2\geq\sum_{i=r+1}^m\sigma_i(A)^2=\left\Vert A-A_r\right\Vert_F^2</script>]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CS229 Notes for Lecture 2</title>
-    <url>/2024/07/30/CS229%20Notes%20for%20Lecture%202/</url>
-    <content><![CDATA[<h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><p><a id="org8b14315"></a></p>
-<h2 id="Introduction-of-supervised-learning"><a href="#Introduction-of-supervised-learning" class="headerlink" title="Introduction of supervised learning"></a>Introduction of supervised learning</h2><p>在介绍监督学习(Supervised learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
-<ul>
-<li><p>$m$: 训练样本的数量</p>
-</li>
-<li><p>$n$: 特征的数量</p>
-</li>
-<li><p>$x$: 输入变量(input variable), 或称为输入特征(input feature/attribute)</p>
-</li>
-<li><p>$y$: 输出变量(output variable), 或称为目标变量(target variable)</p>
-</li>
-<li><p>$(x,y)$: 表示训练样本; $(x^{(i)}, y^{(i)})$: 第 i 个训练样本($i^{th}$ training example)</p>
-</li>
-<li><p>$\mathcal{X}$: 输入变量的空间(input space)</p>
-</li>
-<li><p>$\mathcal{Y}$: 输出变量的空间(output space)</p>
-<span id="more"></span>
-</li>
-</ul>
-<p>监督学习的目标是基于已知的训练样本, 学习出一个假设(hypothesis) $h: \mathcal{X} \rightarrow \mathcal{Y}$, 使得 $h(x)$ 能够尽可能地接近真实的输出 $y$. 根据输出变量的类型,我们可以将监督学习分成两类问题:</p>
-<ol>
-<li>回归问题(Regression): 输出变量的取值是连续的</li>
-<li>分类问题(Classification): 输出变量的取值是离散的</li>
-</ol>
-<p>我们可以从下图来直观理解监督学习的过程:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-07-30_16-29-16_screenshot.lz8nr081.png" alt=""><br>因此,监督学习的关键就是利用学习算法(learning algorithm)从训练集(training set)中学习出一个符合条件的假设 $h$, 进一步其实监督学习的关键就是去构造一个合适的学习算法.</p>
-<p>而在构造学习算法的过程中, 我们需要考虑以下几个问题:</p>
-<ol>
-<li>训练集样本是什么样的?</li>
-<li>假设函数是什么样的?</li>
-<li>如何表示假设函数?</li>
-</ol>
-<p><a id="org172f874"></a></p>
-<h2 id="Linear-regression"><a href="#Linear-regression" class="headerlink" title="Linear regression"></a>Linear regression</h2><p>在本节中, 我们将假设函数 $h$ 限制在线性函数形式下考虑回归问题, 这一问题也被称之为线性回归问题(Linear Regression). 在线性回归问题中, 我们试图去构造一个线性的假设函数, 因此我们可以直接形式的写出假设函数的结构如下:</p>
-<script type="math/tex; mode=display">h(x)=\theta_0+\theta_1x_1+\cdots+\theta_nx_n</script><p>其中, $\theta_i(i=0,\cdots,n)$ 是参量(parameter), 如果我们将其确定下来, 那么我们就可以得到一个确定的假设函数 $h$. 但为了形式上的简洁, 我们引入一个虚特征(dummy feature) $x_0=1$, 这样我们就可以将上面的假设函数写成更为紧凑的形式:</p>
-<script type="math/tex; mode=display">h(x)=\sum_{i=0}^n\theta_ix_i=\theta^Tx</script><p>其中, $\theta=(\theta<em>0,\cdots,\theta_n)^T$ 是学习算法的参数向量(parameter vector), $x=(x_0,\cdots,x_n)^T$. 在此值得注意的是, 虽然我们只考虑 $n$ 个输入特征, 但由于我们为了方便引入了虚特征, 因此实际上我们考虑的 $\theta$ 和 $x$ 是一个 $n+1$ 维的向量. 其次, 虽然我们在此给出的假设函数符号是 $h(x)$, 但实际上更为明确的写法应该是 $h</em>{\theta}(x)$, 这样可以表示假设函数 $h$ 不仅依赖于输入特征 $x$, 还依赖于参数向量 $\theta$; 只是在不引起混淆的情况下, 我们可以省略 $\theta$ 的表示.</p>
-<p>根据上面的假设函数的结构, 我们可以知道学习算法的工作是选择一个合适的参数向量, 这样就可以导出一个假设, 因此如何选择合适的参数向量就是学习算法的关键. 从直观上来说, 对于训练集样本, 我们希望选择出来的参数向量能够使得 $h(x)$ 尽可能地接近真实的输出 $y$. 因此我们需要先定义一个函数用来度量 $h(x)$ 和 $y$ 之间的差距, 我们称之为成本函数(cost function):</p>
-<script type="math/tex; mode=display">J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2</script><p>此处的 $\frac{1}{2}$ 是因为可以消去因求导得到的$2$, 并不影响最后结果.<br>根据我们前面介绍的选择参数向量 $\theta$ 的目标, 我们将其转化为一个优化问题, 即找到一个 $\theta$ 使得 $J(\theta)$ 最小, 其数学形式如下:</p>
-<script type="math/tex; mode=display">\min_{\theta}J(\theta)=\min_{\theta}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2</script><p><a id="org5e1d335"></a></p>
-<h2 id="Gradient-Descent-GD"><a href="#Gradient-Descent-GD" class="headerlink" title="Gradient Descent(GD)"></a>Gradient Descent(GD)</h2><p>此节中, 我们将用梯度下降算法(Gradient Descent)来求解上面的优化问题. 值得注意的是, 梯度下降算法是一种迭代算法, 其基本思想是通过不断更新迭代参数向量 $\theta$ 的值, 使得成本函数 $J(\theta)$ 不断减小, 直到收敛到最小值.</p>
-<p>我们可以给出梯度下降算法的框架如下:</p>
-<ol>
-<li>Start with some $\theta$. For example, $\theta=0$.</li>
-<li>Keep changing $\theta$ to reduce $J(\theta)$.</li>
-<li>Repeat 2. until convergence.</li>
-</ol>
-<p>从上面的框架中我们可以看出, 梯度下降算法的关键就是如何更新参数向量 $\theta$ 的值, 其更新的规则如下:</p>
-<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\ \text{for each value of }j</script><p>这里的 $\alpha$ 是学习率(learning rate), 用来控制参数向量 $\theta$ 的更新步长; 但这个值的选取是一个极具经验性的问题, 因为学习率太小则会导致收敛速度太慢, 而学习率太大则会导致算法无法收敛. 因此实际中, 应该尝试多组学习率, 从而选择一个最为合适的学习率.</p>
-<p>由于我们已知成本函数 $J(\theta)$ 的具体形式, 因此我们可以直接求出其关于参数向量 $\theta$ 的偏导数的具体形式为:</p>
-<script type="math/tex; mode=display">\begin{aligned}\frac{\partial}{\partial\theta_j}J(\theta)&=\frac{\partial}{\partial\theta_j}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\\
-&=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial \theta_j}(h(x^{(i)})-y^{(i)})\\
-&=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial \theta_j}(\sum_{k=0}^n\theta_kx_k^{(i)}-y^{(i)})\\
-&=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)}\end{aligned}</script><p>根据上面的偏导数的具体形式, 我们可以将梯度下降算法的更新规则写成更为具体的形式:</p>
-<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n</script><p>从这个更新规则中, 我们可以发现每更新一次需要用全部训练样本的数据, 因此我们将这种梯度下降算法称之为批量梯度下降算法(Batch Gradient Descent).其的主要优点就是计算稳定, 他一定可以朝着极小值的方向前进; 但是缺点也很明显, 因为他每次更新参数都需要用到全部的训练样本, 因此如果训练样本数据量很大的情况, 那么他的计算量就会花费大量时间在调用全部训练样本上.</p>
-<p>因此, 为了避免每次更新参数都需要用到全部训练样本的数据, 我们可以引入随机梯度下降算法(Stochastic Gradient Descent, SGD), 其的更新规则如下:</p>
-<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n\ (\text{for }i=1\ \text{to }m)</script><p>此时, 每次更新我们都只用了一个训练样本的数据, 因此这样会大幅度减少更新计算量;操作过程是在第一次更新中, 我们选用第一个训练样本更新参数; 在第二次更新中, 我们选用第二个训练样本更新参数, 以此类推. 但值得注意的一点是, 随机梯度下降算法由于每次都是用一个训练样本的数据, 因此他的更新方向是不稳定的, 因此他可能会在极小值附近不断震荡; 但他优点就是每次迭代的计算量小, 尤其是在训练样本数据量很大的情况下, 他的优势就会更加明显. 不仅如此, 如果我们考虑较为复杂的优化问题, 随机梯度下降算法是有可能帮助我们跳出局部极小值, 因此随机算法对于机器学习是很重要的优化算法.</p>
-<p>虽然SGD可能达不到最小值, 而是在最小值附近震荡, 但我们可以在某个容忍精度下停止迭代,这样得到的参数也是一个比较好的参数. 但实际上, 我们一般是在使用SGD的过程中, 随时间增长慢慢地减小学习率的值, 这样即使参数会在最小值附近震荡, 但随着学习率 $\alpha$ 的减小, 参数的震荡范围越来越小, 近似认为达到了最小值.</p>
-<p>最后, 我们给出另一个梯度下降算法的idea, 他结合了批量梯度下降算法和随机梯度下降算法的优点, 这就是小批量梯度下降算法(Mini-batch Gradient Descent). 他并不是每次迭代都只用一个训练样本的数据(会使得下降方向不稳定),也不用全部训练样本的数据(会使得计算量过大), 而是每次迭代用一小部分训练样本的数据, 他每次迭代都用 $k$ 个训练样本的数据, 其既降低了计算量, 又保持了下降方向的稳定性. 至于 $k$ 的选取, 其一般是在算法运行之前人为选取的.</p>
-<p>不过事实上, 如果成本函数 $J(\theta)$ 的结构并不是很好的情况下, 那么会出现以下几种情况:</p>
-<ol>
-<li>收敛到函数的局部最小值(local minimum), 而不是全局最小值(global minimum).</li>
-<li>收敛到函数的驻点(saddle point).</li>
-<li>微分值接近于 $0$ 就停下来，但这里只是比较平缓，并不是极值点。</li>
-</ol>
-<p>但值得注意的是,我们在这里考虑线性回归问题, 其成本函数其实是一个二次函数, 因此他是不存在局部最小值和驻点的, 因此只要他能收敛, 那么就一定是收敛到全局最小值.</p>
-<p><a id="org0d1c713"></a></p>
-<h2 id="Normal-Equation"><a href="#Normal-Equation" class="headerlink" title="Normal Equation"></a>Normal Equation</h2><p>上面我们介绍的GD是一种迭代算法, 但实际上对于线性回归问题, 我们可以直接用代数的方法求解出最优参数向量 $\theta$, 这种方法被称之为正规方程(Normal Equation). 但需要声明的是, 正规方程只适用于线性回归问题. 在推导正规方程以前, 我们先引入矩阵导数的记号:</p>
-<script type="math/tex; mode=display">\begin{aligned}\nabla_{\theta}J(\theta)&=\begin{pmatrix}\frac{\partial J}{\partial \theta_0}\cdots \frac{\partial J}{\partial \theta_n}\end{pmatrix}^T,\ \theta\in\mathbb{R}^{n+1}\\
-\nabla_Af(A)&=\begin{pmatrix}\frac{\partial f}{\partial A_{11}}&\cdots&\frac{\partial f}{\partial A_{1q}}\\\vdots& &\vdots\\\frac{\partial f}{\partial A_{p1}}&\cdots&\frac{\partial f}{\partial A_{pq}}\end{pmatrix},\ A\in\mathbb{R}^{p\times q}\end{aligned}</script><p>因此我们希望能够将成本函数 $J(\theta)$ 写成紧凑的矩阵向量形式, 在此之前, 我们先引入一些矩阵符号来辅助推导成本函数的矩阵形式:</p>
-<script type="math/tex; mode=display">\begin{aligned}X&=\begin{pmatrix}\cdots&(x^{(1)})^T&\cdots\\ &\vdots& \\\cdots&(x^{(m)})^T&\cdots\end{pmatrix} \text{\ design\ matrix}\\
-\vec{y}&=\begin{pmatrix}y^{(i)}&\cdots&y^{(m)}\end{pmatrix}^T \text{\ label\ vector}\end{aligned}</script><p>这里值得注意的是, 我们构造的这个 design matrix 的行向量在记号上是训练样本的转置, 但是实际上, 我们考虑的是训练样本的特征再加上虚特征 $x_0$, 所以这个 design matrix 的维度为 $m\times (n+1)$. 依据这些记号, 我们给出成本函数的矩阵形式为:</p>
-<script type="math/tex; mode=display">J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2=\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})</script><p>由于我们知道线性回归问题的核心问题就是最小化成本函数, 这个从导数的角度来看, 就是成本函数对参数向量的导数为0; 其数学形式如下:</p>
-<script type="math/tex; mode=display">\nabla_{\theta}J(\theta)=\nabla_{\theta}\frac{1}{2}(X\theta-\vec{y})^T(X\theta-y)=X^TX\theta-X^T\vec{y}=0</script><p>所以线性回归问题对应的正规问题为:</p>
-<script type="math/tex; mode=display">X^TX\theta=X^T\vec{y}\Rightarrow \theta=(X^TX)^{-1}X^T\vec{y}</script><p>这里有一个问题就是如果 $X^{T}X$ 不可逆, 那么 $(X^TX)^{-1}$ 并不存在, 那我们可以用 $(X^TX)^{-1}$ 的伪逆来代替.</p>
-]]></content>
-      <categories>
-        <category>CS229</category>
-      </categories>
-      <tags>
-        <tag>Computer Science</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Dominnant Correlation</title>
-    <url>/2024/06/05/SVD-Dominnant%20Correlation/</url>
-    <content><![CDATA[<h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
-<span id="more"></span>
-<p>We consider the structure of the correlation matrix $X^TX$ firstly. Since the size of the data matrix $X$ is $n\times m$, the size of the correlation matrix $X^TX$ is $m\times m$.</p>
-<script type="math/tex; mode=display">
-X^TX=\begin{bmatrix}\cdots&x_1^T&\cdots\\\cdots&x_2^T&\cdots\\\ &\vdots&\ \\\cdots&x_m^T&\cdots\end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&x_1^Tx_2&\cdots&x_1^Tx_m\\x_2^Tx_1&x_2^Tx_2&\cdots&x_2^Tx_m\\\vdots&\vdots&\ &\vdots\\x_m^Tx_1&x_m^Tx_2&\cdots&x_m^Tx_m\end{bmatrix}</script><p>Based on the definition of $X^TX$, we realize that $X^TX$ is a correlation matrix among the columns of $X$. All entries of $X^TX$ are essentially an inner product between two columns of the data matrix $X$. Interestingly, if the entry $x_i^Tx_j$ is a large number, it means that the columns $x_i$ and $x_j$ are highly correlated. However, if this number is very small, it means that the columns $x_i$ and $x_j$ are nearly orthogonal, which means that the columns $x_i$ and $x_j$ are almost different. Therefore, the correlation matrix $X^TX$ can be seen as a matrix that measures the correlation among the columns of $X$.</p>
-<p>Based on the structure of the correlation matrix $X^TX$, $X^TX$ is a symmetric and positive semi-definite matrix. It guarantees that we have non negative real eigenvalues, which have a direct correspondence on the singular values of the data matrix $X$. Now we assume that the matrix $X$ have the singular value decomposition $X=U\Sigma V^T$. We can derive that</p>
-<script type="math/tex; mode=display">
-X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2</script><p>which means that the columns of $V$ are the eigenvectors of the correlation matrix $X^TX$. The eigenvalues of the correlation matrix $X^TX$ are the squares of the singular values of the data matrix $X$. The same is true for the correlation matrix $XX^T$. We can derive that</p>
-<script type="math/tex; mode=display">
-XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><p>which means that the columns of $U$ are the eigenvectors of the correlation matrix $XX^T$. The eigenvalues of the correlation matrix $XX^T$ are the squares of the singular values of the data matrix $X$. Therefore, we can conclude that the singular matrix $U$ and $V$ given by the SVD of the data matrix $X$ can be seen as the eigenvectors of the correlation matrix $X^TX$ or $XX^T$. The importance of this columns of $U$ and $V$ is quantified by eigenvalues of $X^TX$ or $XX^T$, which are the squares of the singular values of the data matrix $X$.</p>
-<p>Here we introduce the method of snapshots to compute the singular value decomposition of the data matrix. If the data matrix $X$ is so large that you cannot actually compute it or store it all in memory, you can use the method of snapshots. However, in the vast majority of cases, we don’t recommend that you compute the SVD using correlation matrices.</p>
-<p>Although you cannot load all columns of $X$ into memory, what you can do is calling two columns at a time. For example, you can call the first column $x_1$ and itself, then you will get the inner product $x_1^Tx_1$. After, you can call the first column $x_1$ and the second column $x_2$, then you will get the inner product $x_1^Tx_2$ and so on. You can compute the inner product by calling two columns of data matrix each time to get the correlation matrix $X^TX$. Here the resulting matrix is a $m\times m$ matrix. It is small enough that you can put it into memory and compute its eigendecomposition. Based the above discussion, we know that the righ singular vector $V$ and the singular value $\Sigma$ can be goten by this eigendecomposition. Then you can use this matrix to solve the left singular vector $U$.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Mathematical Overview</title>
-    <url>/2024/04/18/SVD-Mathematical%20Overview/</url>
-    <content><![CDATA[<p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
-<script type="math/tex; mode=display">
-X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
-<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
-<span id="more"></span>
-<script type="math/tex; mode=display">
-X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
-\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
-<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
-<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
-<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
-<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
-<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Linear Regression</title>
-    <url>/2024/06/21/SVD-Linear%20Regression/</url>
-    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
-<script type="math/tex; mode=display">
-Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
-<span id="more"></span>
-<p>To explain this linear regression more clearly, let’s say that every rows of equation is based on data from an individual medical history. So the equation $a<em>{i1}x_1+\cdots+a</em>{im}x<em>{m}=b</em>{i}$ means the medical case of the $i-th$ person. Every columns of matrix $A$ represent different kinds of risk factors and the vector $b$ means the risk of heart disease. Therefore, we can give a interpretation about linear regression. Linear regression is a best fit model $x$ for what combination of those factors describe best or predict best the future risk of heart disease. Actually it may be driven by the nonlinear system in real world, here we oversimplify this system by using linear regression to approximate it.</p>
-<p>Since we consider the overdetermined system, it is hard to find a vector $x$ that exactly solves this linear model. We want to find the best fit vector $x$ that minimizes the error norm between $Ax$ and $b$. In other words, the best fit vector $x$ gives us the best prediction of $b$ given information in $A$. Here we consider a one-dimensional linear regression model since it can be easily plotted in the following figure and gives a geometric interpretation of linear regression. Of course, the conclusion derived in this way is very simple and can be generalized to much higher-dimensional situations.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" alt=""></p>
-<p>As seen in figure, we will solve the $x$ here that we want is the slope of this fit line. We generalize this interpretation to much higher dimensional case instead of having just one factor that I use to predict $b$. In general, I will find a best fit plane instead of best fit line to approximate the high dimensional data. In one dimensional, $A=\begin{bmatrix} a_1\ a_2\ \cdots\ a_n\end{bmatrix}^{T}$ and $b=\begin{bmatrix}b_1\ b_2\ \cdots\ b_n\end{bmatrix}^{T}$ will be considered. Based on the SVD, we can give the decompostion matrices $U=\frac{A}{\Vert A\Vert_2}$, $\Sigma=\Vert A\Vert_2$ and $V^T=1$ easily. Using Moore-Penrose pseudo inverse of $A$, we can solve the best fit slope $x$ as follows,</p>
-<script type="math/tex; mode=display">
-x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b</script><p>Due to the value of the best fit slope, we find that the linear regression can be written as $Ax=AA^{\dagger}b=\frac{AA^T}{\Vert A\Vert_2^2}b$. It means that we project $b$ into the direction of $A$. When we think about the projection, we realize that the normalized matrix $\tilde{A}=\frac{A}{\Vert A\Vert_2}$ satisfies $\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert A\Vert_2}=1$. From this, we can use this normalized matrix $\tilde{A}$ to derive the projection operator $\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert A\Vert_2^2}$. This formula can be generalized into higher dimensional case easily.</p>
-<p>At last, we consider a very common problem that our data has some outliers in data analysis. As seen in the above figure, these data do not fully mathch our best fitting model. Since the normal data can have some variablity, like Gaussian noisy, our linear regression just is a approximation model to real world. Here we assume that our data has a outlier which is completely different with others. It will bias my distrubution and effect the best fit slope, since the purpose of our derivation is minimizing the sum of the squares of the errors of all of those points to the line. Therefore, it is a big risk we have when we have outliers. Regularly square based on the SVD can handle white noise very well. However, the matrix $A$ will be sensitive to outliers, we will consider in robust statistics.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Matrix Approximation</title>
-    <url>/2024/04/19/SVD-Matrix%20Approximation/</url>
-    <content><![CDATA[<p>The SVD allows us to decompose data matrix $X$ as the product of three matrices, $U,\ V^T,\ \Sigma$, where essentially $U$ contains information about the column space of $X$, $V$ contains information about the row space of $X$ and $\Sigma$ is a hierarchically ordered diagonal matrix, which tells you how important the various columns of $U$ and $V$ are.</p>
-<span id="more"></span>
-<p>In fact, the data matrix $X$ has only $m$ columns, it means there are at most $m$ linearly independence columns in this $n$-dimensional vector space.So the first $m$ columns of $U$ are important in representing this data matrix. To explain this fact more deeply, we try to represent expansion as a sum of rank-1 matrices.</p>
-<p>Based on the Singular Value Decomposition,we can get the following equation,</p>
-<script type="math/tex; mode=display">
-X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
-\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\cdots&v_1^{T}&\cdots\\\cdots&v_2^T&\cdots\\\ &\vdots&\ \\\cdots&v_m^T&\cdots\end{bmatrix}^T</script><p>Since $\Sigma$ is a diagnoal matrix, we can expand the above equation as follow,</p>
-<script type="math/tex; mode=display">
-X=U\Sigma V^T=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_mu_mv_m^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
-\ &\ &\ &\sigma_m\end{bmatrix}\begin{bmatrix}\cdots&v_1^{T}&\cdots\\\cdots&v_2^T&\cdots\\\ &\vdots&\ \\\cdots&v_m^T&\cdots\end{bmatrix}^T=\hat{U}\hat{\Sigma}V^T</script><p>Even though $U$ is a massive $n\times n$ matrix, there are only at most $m$ non-zeros singular values in $\Sigma$ that means the rank of data matrix $X$ satisfies $rank(X)\leq m$. Actually,I can selcet the first $m$ columns of $U$, the first $m\times m$ block of $\Sigma$ and the original $V$ to represent the data matrix $X$. We always call $X=\hat{U}\hat{\Sigma}V^T$ as the economy SVD and $X=U\Sigma V^T$ as the full SVD. Since we consider the case of $n\gg m$, $\hat{U}\in \mathbb{R}^{n\times m}$ and $\hat{\Sigma}\in \mathbb{R}^{m\times m}$ need lower storage.</p>
-<p>Therefore, we can give another explanation about SVD: we can decompose the data matrix X into the orthogonal basis $U$ and $V$, where essentially you can rewrite this as a sum of rank-1 matrices, which increasingly improve the approximation of $X$. According to this explanation, we can give out some interesting results like, the best rank-1 matrix that we can make to approximate $X$ is $\sigma_1u_1v_1^T$; the best rank-2 matrix that we can make to approximate $X$ is $\sigma_1u_1v_1^T+\sigma_2u_2v_2^T$ and so on and so forth.</p>
-<p>Since we hope to use less data storage to approximate the real data as much as possible in practice, we often truncate at rank r. Oftentimes we have a lot of negligibly small singular values like $\sigma<em>{r+1},\ \sigma</em>{r+2},\cdots,\sigma_m$ , it means that most of the information of $X$ is captured in the first $r$ singular values and the first $r$ singular vectors. So we can throw away all of low singular values and singular vectors and only keep the first $r$ columns of $U$ and $V$ and the first $r\times r$ submatrix in $\Sigma$. Then we are going to define this truncated SVD as follows,</p>
-<script type="math/tex; mode=display">
-X\approx\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_r\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
-\ &\ &\ &\sigma_r\end{bmatrix}\begin{bmatrix}\cdots&v_1^{T}&\cdots\\\cdots&v_2^T&\cdots\\\ &\vdots&\ \\\cdots&v_r^T&\cdots\end{bmatrix}^T=\tilde{U}\tilde{\Sigma}\tilde{V}^T</script><p>Here we find that the truncated SVD $\tilde{U}\tilde{\Sigma}\tilde{V}^T$ is the best rank-$r$ matrix approximating the data matrix $X$.Thus, high-dimensional data may be well described by a few dominant patterns given by the columns of $\tilde{U}$ and $\tilde{V}$.Like the mentioned in the first section,we realize that the truncated singular vectors $\tilde{U}$ provides a coordinate transformation from the high-dimensional measurement space into a low-dimensional pattern space.</p>
-<p>The Eckart-Young theorem states that the absolute best approximation to the matrix $X$ of rank r,<br>Theorem(Eckart-Young) The optimal rank-r approximation to $X$, in a least-squares sense, is given by the rank-r SVD truncation $\tilde{X}$,</p>
-<script type="math/tex; mode=display">
-argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T</script><p>The Ecakrt-Young theorem guarantees that the best possible matrix approximation to $X$ of rank $r$ is given by the firsr $r$ truncated SVD.</p>
-<p>Finally,we should mention an important point. At beginning of discussing the SVD, we define the matrices $U$ and $V$ are unitary. However,if we truncated at rank r,the truncated matrices $\tilde{U}$ and $\tilde{V}$ are no longer square matrices, so they are not unitary matrix again. They satisfy that $\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\ \tilde{U}\tilde{U}^T\not=I$</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Unitary Transformation and Geometry</title>
-    <url>/2024/06/16/SVD-Unitary%20Transformation/</url>
-    <content><![CDATA[<p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
-<span id="more"></span>
-<p>Actually, unitary matrices preserve the angle between any two vectors in the vector space. Since the inverse of the unitary matrix is its own transpose, it can not only preserve the angles between vectors, but also preserve the length of the vectors. Essentially, unitary transformation is a coordinate transformation into a new representation. It just takes all of those vectors and rotates them into a new representation. It will not change the length of any vector and angles between any two vectors.</p>
-<p>Here you will find that we just consider the real-valued case. However, when we consider the data matrix $X$ is a complex-valued matrix, the singular vectors $U$ and $V$ are complex-valued matrices. Compared with the real-valued matrix, the most important difference is that the transpose of a complex-valued matrix is actually a conjugate transpose.</p>
-<p>To sum up, we give the mathematical form of unitary transformation here. For any two vectors $x$ and $y$ in vector space, then we have</p>
-<script type="math/tex; mode=display">
-(x,y)=(Ux,Uy)</script><p>where $(\cdot,\cdot)$ is the inner product of two vectors and the operator $U$ means the unitary transformation, which in a unitary matrix in discrete case. Based on this mathematical form, we realize that the inner product of $x$ and $y$ is unchanged when we transform $x$ and $y$ by unitary transformation.</p>
-<p>Since we have introduced the unitary transform in the vector space, we interpret singular vector decomposition geometrically. Here we consider the size of data matrix is $n\times m$. Now we consider any vector $\vec{v}$ in space $\mathbb{R}^m$ and vector $\vec{v}$ is palced on the unit sphere. As we all know, the matrix is a linear transformation about the vector. Therefore, we consider the transformed vector $X\vec{v}$, which is placed on the ellipsoid in the vector space $\mathbb{R}^n$. Here the gemoetric interpretation of the singular value decomposition can be given. The length of these principal axes are specially given by the singular values of the data matrix $X$. The orientation of this ellipsoid is somehow given by these left singular vectors in $U$. Like the interpretation of linear transformation, $X$ multiplies the vector on the left side or on the right side, which corresponds to a change to a rotation of space. Finally, $X$ is not a square matrix, so the rotation of the corresponding space is actually a change in dimensionality.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Linear System and Pseudo Inverse</title>
-    <url>/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/</url>
-    <content><![CDATA[<p>In many physics problem, we always encounter the solution of the linear equation $Ax=b$. Classically, we solve this linear equation in the case that $A$ is a square and invertible matrix. In fact, this case is too special to better model the real world. Based on the singular value decomposition which we have introduced, we can generalize this linear equation to the case that $A$ is a non-square matrix. Actually, when we consider the data analysis and data modeling, the matrix $A$ is always a non-square matrix.</p>
-<span id="more"></span>
-<p>Here we introduce few different things happened due to the non-square matrix $A\in\mathbb{R}^{n\times m}$. Since A is a non-square matrix, there are two canonical non-square matrix $A$, corresponding to the two different canonical non-square linear equations.</p>
-<ol>
-<li>Underdetermined System $(n&lt;m)$<br>Since $n&lt;m$, the shape of the matrix $A$ is short and fat. In this case, the number of equations is less than the number of unknowns. There is not enough measurements in vector $b$ to determine a single unique vector $x$. In other words, there is more degrees of freedom in the unknown vector $x$ and there is not enough values in the vector $b$ to determine the unknown vector $x$. In general, there are infinitely many solutions $x$ given by the underdetermined system. In fact, you can try to construct a very special underdetermined system such that there is only one solution. But it is too special that we can ignore it.</li>
-<li>Overdetermined System $(n&gt;m)$<br>Since $n&gt;m$, the shape of the matrix $A$ is tall and skinny. In this case, the number of equations is more than the number of unknowns. Unfortunately, since there is not enough degrees of freedom in unknown vector $x$ to fit these equation, there is no solution $x$ given by the overdetermined system generally. In fact, you can try to construct a very special underdetermined system such that there is only one solution. But it is too special that we can ignore it.</li>
-</ol>
-<p>The singular value decomposition allows us to approximately invert this matrix $A$ to compute what is known as the pseudo inverse and find a best fit solution $x$ that either comes as close to solving this equation as possible or solves this equation with the minimum $L^2$ norm of $x$. Here we introduce the Moore-Penrose pseudo inverse of the matrix $A$. Based on the economy singular value decomposition of the matrix $A$, we can decompose the matrix $A$ as $A=U\Sigma V^T$, where $U$ and $V$ satisfy $U^TU=I$ and $V^TV=VV^T=I$. The Moore-Penrose pseudo inverse of the matrix $A$ is defined as</p>
-<script type="math/tex; mode=display">
-A^{\dagger}=V\Sigma^{-1}U^T</script><p>Based on the properties of $U$ and $V$, we realize that the Moore-Penrose pseudo inverse is a left pseudo inverse of the matrix $A$. Now we can give a approximate solution of the linear equation $Ax=b$ by using the Moore-Penrose pseudo inverse of the matrix $A$.</p>
-<script type="math/tex; mode=display">
-Ax=b\Rightarrow U\Sigma V^Tx=b\Rightarrow \tilde{x}=V\Sigma^{-1}U^Tb=A^{\dagger}b</script><p>Here we have given a best fit solution $x$ which comes as close to solving this equation as possible. Now we will give out this solution which satisfies the optimization problems. Now we give the optimization problems that the best fit solution $x$ satisfies for underdetermined system and overdetermined system.</p>
-<ol>
-<li><p>Underdetermined System $(n&lt;m)$<br>In this case, the best fit solution $x$ satisfies the optimization problem</p>
-<script type="math/tex; mode=display">
-   \min_x\|x\|_2\quad\text{subject to}\quad Ax=b</script><p>The solution of this optimization problem is the solution of the linear equation $Ax=b$ with the minimum $L^2$ norm of $x$.</p>
-</li>
-<li><p>Overdetermined System<br>In this case, the best fit solution $x$ satisfies the optimization problem</p>
-<script type="math/tex; mode=display">
-   \min_x\|Ax-b\|_2</script><p>The solution of this optimization problem is the solution of the linear equation $Ax=b$ that comes as close to solving this equation as possible.</p>
-<p>  Finally, we will clarify something that is highly confusing: the method of obtaining the optimal approximation solution is same as the normal process,but it is just an approximate solution. Here we substitute the approximate solution $\tilde{x}=A^{\dagger}b$ into the linear equation $Ax=b$.</p>
-<script type="math/tex; mode=display">
-   A\tilde{x}=AA^{\dagger}b=U\Sigma V^TV\Sigma^{-1}U^Tb=UU^Tb</script><p>  where the matrix $UU^T$ is not a identity matrix and it might not even be close to the identity matrix. Before we explain the vector $UU^Tb$, we should discuss the project operator. Here we assume that we have a vector $v$ and a matrix $P$. Now we try to project the vector $v$ onto the column space of the matrix $P$. We assume the projection of the vector $v$ onto the column space of the matrix $P$ is $Px$, where $x$ is an unknown vector. Based on the definition of the projection, the vector $e=v-Px$ and all column vectors of $P$ are orthogonal. Therefore, we can derive the following linear equaiton,</p>
-<script type="math/tex; mode=display">
-   P^Te=P^T(v-Px)=P^Tv-P^TPx=0\Rightarrow x=(P^TP)^{-1}P^Tv</script><p>From the above result, we can derive the projection vector $Px=P(P^TP)^{-1}P^Tv$. Here we call $P(P^TP)^{-1}P^T$ as the projection operator. Now we consider the matrix $U$ which satisfies $U^TU=I$, so the projection operator $U(U^TU)^{-1}U^T=UU^T$. Above all, the meaning of $UU^Tb$ is the projection of the vector $b$ onto the column space of the matrix $U$. Furthermore, the column space of the matrix $U$ is equal to the column space of the matrix $A$. Therefore, the vector $UU^Tb$ is the projection of the vector $b$ onto the column space of the matrix $A$. The errors crops up since $UU^Tb$ is an orthogonal projection of $B$ onto the column space of $A$.</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
       </tags>
   </entry>
 </search>
