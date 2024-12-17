@@ -570,235 +570,6 @@ BSS段和代码段是程序编译完成就已经分配完成了, 无需等代码
       </tags>
   </entry>
   <entry>
-    <title>CS229 Notes for Lecture 2</title>
-    <url>/2024/07/30/CS229%20Notes%20for%20Lecture%202/</url>
-    <content><![CDATA[<h1 id="lecture-1">Lecture 1</h1>
-<p><a id="org8b14315"></a></p>
-<h2 id="introduction-of-supervised-learning">Introduction of supervised
-learning</h2>
-<p>在介绍监督学习(Supervised
-learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
-<ul>
-<li><p><span class="math inline">\(m\)</span>: 训练样本的数量</p></li>
-<li><p><span class="math inline">\(n\)</span>: 特征的数量</p></li>
-<li><p><span class="math inline">\(x\)</span>: 输入变量(input variable),
-或称为输入特征(input feature/attribute)</p></li>
-<li><p><span class="math inline">\(y\)</span>: 输出变量(output
-variable), 或称为目标变量(target variable)</p></li>
-<li><p><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
-class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
-class="math inline">\(i^{th}\)</span> training example)</p></li>
-<li><p><span class="math inline">\(\mathcal{X}\)</span>:
-输入变量的空间(input space)</p></li>
-<li><p><span class="math inline">\(\mathcal{Y}\)</span>:
-输出变量的空间(output space)</p>
-<span id="more"></span></li>
-</ul>
-<p>监督学习的目标是基于已知的训练样本, 学习出一个假设(hypothesis) <span
-class="math inline">\(h: \mathcal{X} \rightarrow \mathcal{Y}\)</span>,
-使得 <span class="math inline">\(h(x)\)</span>
-能够尽可能地接近真实的输出 <span class="math inline">\(y\)</span>.
-根据输出变量的类型,我们可以将监督学习分成两类问题:</p>
-<ol type="1">
-<li>回归问题(Regression): 输出变量的取值是连续的</li>
-<li>分类问题(Classification): 输出变量的取值是离散的</li>
-</ol>
-<p>我们可以从下图来直观理解监督学习的过程:</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-07-30_16-29-16_screenshot.lz8nr081.png" />
-因此,监督学习的关键就是利用学习算法(learning algorithm)从训练集(training
-set)中学习出一个符合条件的假设 <span class="math inline">\(h\)</span>,
-进一步其实监督学习的关键就是去构造一个合适的学习算法.</p>
-<p>而在构造学习算法的过程中, 我们需要考虑以下几个问题:</p>
-<ol type="1">
-<li>训练集样本是什么样的?</li>
-<li>假设函数是什么样的?</li>
-<li>如何表示假设函数?</li>
-</ol>
-<p><a id="org172f874"></a></p>
-<h2 id="linear-regression">Linear regression</h2>
-<p>在本节中, 我们将假设函数 <span class="math inline">\(h\)</span>
-限制在线性函数形式下考虑回归问题, 这一问题也被称之为线性回归问题(Linear
-Regression). 在线性回归问题中, 我们试图去构造一个线性的假设函数,
-因此我们可以直接形式的写出假设函数的结构如下: <span
-class="math display">\[h(x)=\theta_0+\theta_1x_1+\cdots+\theta_nx_n\]</span>
-其中, <span class="math inline">\(\theta_i(i=0,\cdots,n)\)</span>
-是参量(parameter), 如果我们将其确定下来,
-那么我们就可以得到一个确定的假设函数 <span
-class="math inline">\(h\)</span>. 但为了形式上的简洁,
-我们引入一个虚特征(dummy feature) <span
-class="math inline">\(x_0=1\)</span>,
-这样我们就可以将上面的假设函数写成更为紧凑的形式: <span
-class="math display">\[h(x)=\sum_{i=0}^n\theta_ix_i=\theta^Tx\]</span>
-其中, <span
-class="math inline">\(\theta=(\theta_0,\cdots,\theta_n)^T\)</span>
-是学习算法的参数向量(parameter vector), <span
-class="math inline">\(x=(x_0,\cdots,x_n)^T\)</span>. 在此值得注意的是,
-虽然我们只考虑 <span class="math inline">\(n\)</span> 个输入特征,
-但由于我们为了方便引入了虚特征, 因此实际上我们考虑的 <span
-class="math inline">\(\theta\)</span> 和 <span
-class="math inline">\(x\)</span> 是一个 <span
-class="math inline">\(n+1\)</span> 维的向量. 其次,
-虽然我们在此给出的假设函数符号是 <span
-class="math inline">\(h(x)\)</span>, 但实际上更为明确的写法应该是 <span
-class="math inline">\(h_{\theta}(x)\)</span>, 这样可以表示假设函数 <span
-class="math inline">\(h\)</span> 不仅依赖于输入特征 <span
-class="math inline">\(x\)</span>, 还依赖于参数向量 <span
-class="math inline">\(\theta\)</span>; 只是在不引起混淆的情况下,
-我们可以省略 <span class="math inline">\(\theta\)</span> 的表示.</p>
-<p>根据上面的假设函数的结构,
-我们可以知道学习算法的工作是选择一个合适的参数向量,
-这样就可以导出一个假设, 因此如何选择合适的参数向量就是学习算法的关键.
-从直观上来说, 对于训练集样本, 我们希望选择出来的参数向量能够使得 <span
-class="math inline">\(h(x)\)</span> 尽可能地接近真实的输出 <span
-class="math inline">\(y\)</span>. 因此我们需要先定义一个函数用来度量
-<span class="math inline">\(h(x)\)</span> 和 <span
-class="math inline">\(y\)</span> 之间的差距, 我们称之为成本函数(cost
-function): <span
-class="math display">\[J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\]</span>
-此处的 <span class="math inline">\(\frac{1}{2}\)</span>
-是因为可以消去因求导得到的<span class="math inline">\(2\)</span>,
-并不影响最后结果. 根据我们前面介绍的选择参数向量 <span
-class="math inline">\(\theta\)</span> 的目标,
-我们将其转化为一个优化问题, 即找到一个 <span
-class="math inline">\(\theta\)</span> 使得 <span
-class="math inline">\(J(\theta)\)</span> 最小, 其数学形式如下: <span
-class="math display">\[\min_{\theta}J(\theta)=\min_{\theta}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\]</span></p>
-<p><a id="org5e1d335"></a></p>
-<h2 id="gradient-descentgd">Gradient Descent(GD)</h2>
-<p>此节中, 我们将用梯度下降算法(Gradient Descent)来求解上面的优化问题.
-值得注意的是, 梯度下降算法是一种迭代算法,
-其基本思想是通过不断更新迭代参数向量 <span
-class="math inline">\(\theta\)</span> 的值, 使得成本函数 <span
-class="math inline">\(J(\theta)\)</span> 不断减小, 直到收敛到最小值.</p>
-<p>我们可以给出梯度下降算法的框架如下:</p>
-<ol type="1">
-<li>Start with some <span class="math inline">\(\theta\)</span>. For
-example, <span class="math inline">\(\theta=0\)</span>.</li>
-<li>Keep changing <span class="math inline">\(\theta\)</span> to reduce
-<span class="math inline">\(J(\theta)\)</span>.</li>
-<li>Repeat 2. until convergence.</li>
-</ol>
-<p>从上面的框架中我们可以看出, 梯度下降算法的关键就是如何更新参数向量
-<span class="math inline">\(\theta\)</span> 的值, 其更新的规则如下:
-<span
-class="math display">\[\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\
-\text{for each value of }j\]</span> 这里的 <span
-class="math inline">\(\alpha\)</span> 是学习率(learning rate),
-用来控制参数向量 <span class="math inline">\(\theta\)</span> 的更新步长;
-但这个值的选取是一个极具经验性的问题,
-因为学习率太小则会导致收敛速度太慢, 而学习率太大则会导致算法无法收敛.
-因此实际中, 应该尝试多组学习率, 从而选择一个最为合适的学习率.</p>
-<p>由于我们已知成本函数 <span class="math inline">\(J(\theta)\)</span>
-的具体形式, 因此我们可以直接求出其关于参数向量 <span
-class="math inline">\(\theta\)</span> 的偏导数的具体形式为: <span
-class="math display">\[\begin{aligned}\frac{\partial}{\partial\theta_j}J(\theta)&amp;=\frac{\partial}{\partial\theta_j}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\\
-&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial
-\theta_j}(h(x^{(i)})-y^{(i)})\\
-&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial
-\theta_j}(\sum_{k=0}^n\theta_kx_k^{(i)}-y^{(i)})\\
-&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)}\end{aligned}\]</span>
-根据上面的偏导数的具体形式,
-我们可以将梯度下降算法的更新规则写成更为具体的形式: <span
-class="math display">\[\theta_j:=\theta_j-\alpha\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)},\
-j=0,1,\dots,n\]</span> 从这个更新规则中,
-我们可以发现每更新一次需要用全部训练样本的数据,
-因此我们将这种梯度下降算法称之为批量梯度下降算法(Batch Gradient
-Descent).其的主要优点就是计算稳定, 他一定可以朝着极小值的方向前进;
-但是缺点也很明显, 因为他每次更新参数都需要用到全部的训练样本,
-因此如果训练样本数据量很大的情况,
-那么他的计算量就会花费大量时间在调用全部训练样本上.</p>
-<p>因此, 为了避免每次更新参数都需要用到全部训练样本的数据,
-我们可以引入随机梯度下降算法(Stochastic Gradient Descent, SGD),
-其的更新规则如下: <span class="math display">\[
-\theta_j:=\theta_j-\alpha(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n\
-(\text{for }i=1\ \text{to }m)\]</span> 此时,
-每次更新我们都只用了一个训练样本的数据,
-因此这样会大幅度减少更新计算量;操作过程是在第一次更新中,
-我们选用第一个训练样本更新参数; 在第二次更新中,
-我们选用第二个训练样本更新参数, 以此类推. 但值得注意的一点是,
-随机梯度下降算法由于每次都是用一个训练样本的数据,
-因此他的更新方向是不稳定的, 因此他可能会在极小值附近不断震荡;
-但他优点就是每次迭代的计算量小, 尤其是在训练样本数据量很大的情况下,
-他的优势就会更加明显. 不仅如此, 如果我们考虑较为复杂的优化问题,
-随机梯度下降算法是有可能帮助我们跳出局部极小值,
-因此随机算法对于机器学习是很重要的优化算法.</p>
-<p>虽然SGD可能达不到最小值, 而是在最小值附近震荡,
-但我们可以在某个容忍精度下停止迭代,这样得到的参数也是一个比较好的参数.
-但实际上, 我们一般是在使用SGD的过程中, 随时间增长慢慢地减小学习率的值,
-这样即使参数会在最小值附近震荡, 但随着学习率 <span
-class="math inline">\(\alpha\)</span> 的减小, 参数的震荡范围越来越小,
-近似认为达到了最小值.</p>
-<p>最后, 我们给出另一个梯度下降算法的idea,
-他结合了批量梯度下降算法和随机梯度下降算法的优点,
-这就是小批量梯度下降算法(Mini-batch Gradient Descent).
-他并不是每次迭代都只用一个训练样本的数据(会使得下降方向不稳定),也不用全部训练样本的数据(会使得计算量过大),
-而是每次迭代用一小部分训练样本的数据, 他每次迭代都用 <span
-class="math inline">\(k\)</span> 个训练样本的数据, 其既降低了计算量,
-又保持了下降方向的稳定性. 至于 <span class="math inline">\(k\)</span>
-的选取, 其一般是在算法运行之前人为选取的.</p>
-<p>不过事实上, 如果成本函数 <span
-class="math inline">\(J(\theta)\)</span> 的结构并不是很好的情况下,
-那么会出现以下几种情况:</p>
-<ol type="1">
-<li>收敛到函数的局部最小值(local minimum), 而不是全局最小值(global
-minimum).</li>
-<li>收敛到函数的驻点(saddle point).</li>
-<li>微分值接近于 <span class="math inline">\(0\)</span>
-就停下来，但这里只是比较平缓，并不是极值点。</li>
-</ol>
-<p>但值得注意的是,我们在这里考虑线性回归问题,
-其成本函数其实是一个二次函数, 因此他是不存在局部最小值和驻点的,
-因此只要他能收敛, 那么就一定是收敛到全局最小值.</p>
-<p><a id="org0d1c713"></a></p>
-<h2 id="normal-equation">Normal Equation</h2>
-<p>上面我们介绍的GD是一种迭代算法, 但实际上对于线性回归问题,
-我们可以直接用代数的方法求解出最优参数向量 <span
-class="math inline">\(\theta\)</span>, 这种方法被称之为正规方程(Normal
-Equation). 但需要声明的是, 正规方程只适用于线性回归问题.
-在推导正规方程以前, 我们先引入矩阵导数的记号: <span
-class="math display">\[\begin{aligned}\nabla_{\theta}J(\theta)&amp;=\begin{pmatrix}\frac{\partial
-J}{\partial \theta_0}\cdots \frac{\partial J}{\partial
-\theta_n}\end{pmatrix}^T,\ \theta\in\mathbb{R}^{n+1}\\
-\nabla_Af(A)&amp;=\begin{pmatrix}\frac{\partial f}{\partial
-A_{11}}&amp;\cdots&amp;\frac{\partial f}{\partial A_{1q}}\\\vdots&amp;
-&amp;\vdots\\\frac{\partial f}{\partial
-A_{p1}}&amp;\cdots&amp;\frac{\partial f}{\partial A_{pq}}\end{pmatrix},\
-A\in\mathbb{R}^{p\times q}\end{aligned}\]</span>
-因此我们希望能够将成本函数 <span
-class="math inline">\(J(\theta)\)</span> 写成紧凑的矩阵向量形式,
-在此之前, 我们先引入一些矩阵符号来辅助推导成本函数的矩阵形式: <span
-class="math display">\[\begin{aligned}X&amp;=\begin{pmatrix}\cdots&amp;(x^{(1)})^T&amp;\cdots\\
-&amp;\vdots&amp; \\\cdots&amp;(x^{(m)})^T&amp;\cdots\end{pmatrix}
-\text{design matrix}\\
-\vec{y}&amp;=\begin{pmatrix}y^{(i)}&amp;\cdots&amp;y^{(m)}\end{pmatrix}^T
-\text{label vector}\end{aligned}\]</span> 这里值得注意的是,
-我们构造的这个 design matrix 的行向量在记号上是训练样本的转置,
-但是实际上, 我们考虑的是训练样本的特征再加上虚特征 <span
-class="math inline">\(x_0\)</span>, 所以这个 design matrix 的维度为
-<span class="math inline">\(m\times (n+1)\)</span>. 依据这些记号,
-我们给出成本函数的矩阵形式为: <span
-class="math display">\[J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2=\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})\]</span>
-由于我们知道线性回归问题的核心问题就是最小化成本函数,
-这个从导数的角度来看, 就是成本函数对参数向量的导数为0; 其数学形式如下:
-<span
-class="math display">\[\nabla_{\theta}J(\theta)=\nabla_{\theta}\frac{1}{2}(X\theta-\vec{y})^T(X\theta-y)=X^TX\theta-X^T\vec{y}=0\]</span>
-所以线性回归问题对应的正规问题为: <span
-class="math display">\[X^TX\theta=X^T\vec{y}\Rightarrow
-\theta=(X^TX)^{-1}X^T\vec{y}\]</span> 这里有一个问题就是如果 <span
-class="math inline">\(X^{T}X\)</span> 不可逆, 那么 <span
-class="math inline">\((X^TX)^{-1}\)</span> 并不存在, 那我们可以用 <span
-class="math inline">\((X^TX)^{-1}\)</span> 的伪逆来代替.</p>
-]]></content>
-      <categories>
-        <category>CS229</category>
-      </categories>
-      <tags>
-        <tag>Computer Science</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Lecture series on graph theory 2</title>
     <url>/2022/03/28/Graph2/</url>
     <content><![CDATA[<p>First, we try to prove the Mantel's Theorem, which was presented as a
@@ -1028,254 +799,6 @@ decomposition.</font></p>
 vertex. How many cycles in a cycle decomposition D?<span
 class="math inline">\(\lvert
 D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 6</title>
-    <url>/2022/05/24/Graph6/</url>
-    <content><![CDATA[<p><strong>Interlacing Theorem</strong></p>
-<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric
-real <span class="math inline">\(n\times n\)</span> and let B be an m-th
-principal submatrix<font color='red'>(obtained by deleting both i-th row
-and i-th column for some n-m values of i)</font>. Suppose A has
-eigenvalues <span
-class="math inline">\(\lambda_1\geq\cdots\geq\lambda_n\)</span>, and B
-has eigenvalues <span
-class="math inline">\(\beta_1\geq\cdots\geq\beta_m\)</span>.Then</strong>
-<span class="math display">\[
-\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m
-\]</span> <span id="more"></span></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" /></p>
-<p>Further,if <span class="math inline">\(m=n-1\)</span>, then <span
-class="math display">\[
-\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Without loss of generality, assume that <span
-class="math inline">\(A=\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\)</span>
-and <span class="math inline">\(\lambda_i\vec{x}_i=A\vec{x}_i\)</span>
-for <span class="math inline">\(i\in[n]\)</span> such that all <span
-class="math inline">\(\vec{x}_i\)</span> are linearly independent and
-normalized, and <span
-class="math inline">\(\beta_j\vec{y}_j=B\vec{y}_j\)</span> for <span
-class="math inline">\(j\in[m]\)</span> s.t. all <span
-class="math inline">\(\vec{y}_j\)</span> are linearly independent and
-normalized.</p>
-<p>Let <span
-class="math inline">\(V=span\{\vec{x}_k,\cdots,\vec{x}_n\}\)</span> and
-<span
-class="math inline">\(W=span\{\vec{y}_1,\cdots,\vec{y}_k\}\)</span>.
-Extend <span class="math inline">\(W\)</span> to a subspace of <span
-class="math inline">\(\mathbb{R}^n\)</span> s.t. <span
-class="math display">\[
-\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in
-W\right\}\subset\mathbb{R}^n
-\]</span> Then <span class="math inline">\(\dim(V)=n-k+1\)</span> and
-<span class="math inline">\(\dim(\widetilde{W})=\dim(W)=k\)</span></p>
-<p>Note that both <span class="math inline">\(V\subset
-\mathbb{R}^n\)</span> and <span
-class="math inline">\(\widetilde{W}\subset \mathbb{R}^n\)</span>, and
-<span class="math display">\[
-\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)
-\]</span> It follows that there exists a vector <span
-class="math inline">\(\tilde{w}\)</span> which satisfies <span
-class="math inline">\(\tilde{w}\in V\cap\widetilde{W}\)</span>.</p>
-<p><font color='red'><span class="math inline">\(\lambda_k\)</span> is
-the largest eigenvalue with an eigenvector in V; <span
-class="math inline">\(\beta_k\)</span> is the smallest eigenvalue with
-an eigenvector in W.</font></p>
-<p>Therefore, <span class="math display">\[
-\begin{aligned}
-\lambda_k&amp;=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
-&amp;\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
-&amp;=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in
-W,||\vec{y}||=1\}=\beta_k
-\end{aligned}
-\]</span> So we have <span
-class="math inline">\(\lambda_k\geq\beta_k\)</span>.</p>
-<p>On the other hand, let <span
-class="math inline">\(V=span\{\vec{x}_1,\cdots,\vec{x}_{k+n-m}\}\)</span>
-<font color='red'>(i.e. <span
-class="math inline">\(\lambda_{k+n-m}\)</span> is the smallest
-eigenvalue with an eigenvector in V)</font> and <span
-class="math inline">\(W=span\{\vec{y}_1,\cdots,\vec{y}_{k+n-m}\}\)</span>
-<font color='red'>(i.e. <span class="math inline">\(\beta_k\)</span> is
-the largest eigenvalue with an eigenvector in W)</font>.</p>
-<p>Let <span
-class="math inline">\(\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in
-W\right\}\subset\mathbb{R}^n\)</span>. Then <span
-class="math inline">\(\dim(V)=k+n-m\)</span> and <span
-class="math inline">\(\dim(\widetilde{W})=m-k+1\)</span>.</p>
-<p>Therefore, <span
-class="math inline">\(\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)\)</span></p>
-<p>It follows that there exists a vector <span
-class="math inline">\(\tilde{w}\)</span> which satisfies <span
-class="math inline">\(\tilde{w}\in V\cap\widetilde{W}\)</span>. <span
-class="math display">\[
-\begin{aligned}
-\lambda_{k+n-m}&amp;=\min\{\vec{x}^TA\vec{x}|\vec{x}\in
-V,||\vec{x}||=1\}\\
-&amp;\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
-&amp;=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in
-W,||\vec{y}||=1\}=\beta_k
-\end{aligned}
-\]</span> So <span
-class="math inline">\(\lambda_{k+n-m}\leq\beta_k\)</span>.</p>
-<p><strong>Bounding degree of induced subgraph</strong></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" /></p>
-<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the
-n-dimensional hypercube <span class="math inline">\(Q_n\)</span>. If
-<span
-class="math inline">\(|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}\)</span>,then
-<span class="math inline">\(\Delta (H)\geq\sqrt{n}\)</span></strong></p>
-<p><font color='red'><strong>n-dimensional hypercube <span
-class="math inline">\(Q_n\)</span></strong></font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" /></p>
-<p><font color='red'>An n-dimensional hypercube <span
-class="math inline">\(Q_n\)</span> is a graph with vertex set consisting
-of all <span class="math inline">\(\{0,1\}\)</span>-sequences of length
-n and two vertices are adjacent to each other if and only if the
-two <span class="math inline">\(\{0,1\}\)</span>-sequences has exactly
-one position different</font></p>
-<p>The adjacency matrix of n-dimensional hypercube <span
-class="math inline">\(Q_n\)</span> satisfies the following</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" /></p>
-<p>If we give every edge in n-dimensional hypercube <span
-class="math inline">\(Q_n\)</span> a sign, we can get a signed adjacency
-matrix.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" /></p>
-<p><strong>Lemma The signed n-dimensional hypercube with adjacency
-matrix <span class="math inline">\(S_n\)</span> has an eigenvalue <span
-class="math inline">\(\sqrt{n}\)</span> of multiplicity <span
-class="math inline">\(2^{n-1}\)</span> and eigenvalue <span
-class="math inline">\(-\sqrt{n}\)</span> with multiplicity <span
-class="math inline">\(2^{n-1}\)</span></strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p><strong>claim: <span
-class="math inline">\(S_n^2=nI\)</span></strong></p>
-<p>If <span class="math inline">\(n=1\)</span>, <span
-class="math inline">\(S_1=\left[\begin{matrix}0&amp;1\\1&amp;0\end{matrix}\right],S_1^2=I\)</span>.
-Assume that <span class="math inline">\(S_{n-1}^2=(n-1)I\)</span></p>
-<p>Then <span class="math display">\[
-S_n^2=\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&amp;O\\O&amp;S_{n-1}^2+I\end{matrix}\right]=nI
-\]</span> So claim holds.</p>
-<p>Note that <span class="math inline">\(nI\)</span> has eigenvalues n.
-Therefore, <span class="math inline">\(S_n\)</span> has eigenvalues
-either <span class="math inline">\(\sqrt{n}\)</span> or <span
-class="math inline">\(-\sqrt{n}\)</span>.</p>
-<p>Since the trace of <span class="math inline">\(S_n\)</span> is 0,
-<span class="math inline">\(S_n\)</span> has eigenvalues <span
-class="math inline">\(\sqrt{n}\)</span> of multiplicity <span
-class="math inline">\(2^{n-1}\)</span> and <span
-class="math inline">\(-\sqrt{n}\)</span> with multiplicity <span
-class="math inline">\(2^{n-1}\)</span>.</p>
-<hr />
-<p><strong>Proof of Huang's Theorem</strong></p>
-<p>Let H be a induced subgraph of <span
-class="math inline">\(Q_n\)</span> with more than <span
-class="math inline">\(2^{n-1}\)</span> vertices. It suffices to show
-that every subgraph H with exactly <span
-class="math inline">\(2^{n-1}+1\)</span> vertices has maximum degree at
-least <span class="math inline">\(\sqrt{n}\)</span>.</p>
-<p>Let <span class="math inline">\((Q_n,\sigma)\)</span> be the signed
-graph with adjacency matrix <span class="math inline">\(S_n\)</span> as
-defined above. Then <span class="math inline">\((H,\sigma)\)</span> is a
-signed induced subgraph of <span
-class="math inline">\((Q_n,\sigma)\)</span>, whose adjacency matrix
-<span class="math inline">\(A\)</span> is a <span
-class="math inline">\((2^{n-1}+1)\)</span>-principle submatrix of <span
-class="math inline">\(S_n\)</span>.</p>
-<p>By the proposition <font color='red'>(i.e. <span
-class="math inline">\(|\lambda(H,\sigma)|\leq\Delta (H)\)</span></font>
-and the interlacing theorem <span class="math display">\[
-\Delta
-(H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}
-\]</span> <span class="math inline">\(\lambda_1(A)\)</span> means the
-largest eigenvalue of A.</p>
-<hr />
-<p><strong>Unfriendly partitions of subcubic graphs</strong></p>
-<p>A graph G is subcubic if the maximum degree of G is at most 3.
-<font color='red'>(<span
-class="math inline">\(\Delta(G)\leq3\)</span>)</font></p>
-<p><font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All
-subcubic graphs except finitely many have median eigenvalues in the
-interval<span class="math inline">\([-1,1]\)</span>. There exists a
-constant c such that if <span
-class="math inline">\(|V(G)|\geq|c|\)</span>, then <span
-class="math inline">\(\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]\)</span></font></p>
-<p>Let G be a graph. A partition <span
-class="math inline">\((X,Y)\)</span> of <span
-class="math inline">\(V(G)\)</span> is unfriendly if every vertex has at
-least the same number of neighbors in the other subset as in it
-owns.</p>
-<p><font color='red'>In other words, for every vertex v of G, <span
-class="math inline">\(d_{G[x]}(v)\leq\frac{1}{2}d_G(v)\)</span>
-and <span
-class="math inline">\(d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)\)</span></font></p>
-<p>If <span class="math inline">\((X,Y)\)</span> is an unfriendly
-partition of a subcubic graph <span class="math inline">\(G\)</span>,
-then the maximum degree of the induced subgraph <span
-class="math inline">\(G[X]\)</span> and <span
-class="math inline">\(G[Y]\)</span> is at most 1.</p>
-<p>An unfriendly partition <span class="math inline">\((X,Y)\)</span> is
-unbalanced if <span class="math inline">\(|X|\not=|Y|\)</span></p>
-<p>A partition is a bisection if <span
-class="math inline">\(\Big||X|-|Y|\Big|\leq1\)</span></p>
-<p><strong>Proposition Let G be a subcubic graph with n vertices. If G
-has an unbalanced unfriendly partition, then</strong> <span
-class="math display">\[
-\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let G be a subcubic graph with n vertices and <span
-class="math inline">\((X,Y)\)</span> be an unbalanced unfriendly
-partition.</p>
-<p>Without loss of generality, assume that <span
-class="math inline">\(|X|&gt;|Y|\)</span></p>
-<p>Then <span
-class="math inline">\(\lambda_1(X)\leq\Delta(X)\leq1\)</span> and <span
-class="math inline">\(\lambda_1(Y)\leq\Delta(Y)\leq1\)</span>. So both X
-and Y are bipartite.</p>
-<p>All eigenvalues of <span class="math inline">\(X\)</span> and <span
-class="math inline">\(Y\)</span> belong to <span
-class="math inline">\([-1,1]\)</span>. Since <span
-class="math inline">\(|X|&gt;|Y|\)</span>, it holds that <span
-class="math display">\[
-|X|\geq\left\lceil
-\frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil
-\frac{n}{2}\right\rceil-1\geq|Y|
-\]</span> It follows that the interlacing theorem that <span
-class="math display">\[
-1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor
-\frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil
-\frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil
-\frac{n+1}{2}\right\rceil}(X)\geq-1
-\]</span> The completes the proof.</p>
-<hr />
-<p><font color='red'>Q: Does every subcubic graph have an unbalanced
-unfriendly partition?</font></p>
-<p><font color='red'>A: No</font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" /></p>
-<p><font color='red'>Conjecture(Ban&amp;Linal,2016) Every cubic graph
-has an unfriendly almost balanced partition <span
-class="math inline">\((X,Y)\)</span> s.t. <span
-class="math inline">\(\Big||X|-|Y|\Big|\leq2\)</span></font></p>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -1535,242 +1058,232 @@ class="math inline">\(\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X
       </tags>
   </entry>
   <entry>
-    <title>Lecture series on graph theory 4</title>
-    <url>/2022/05/22/Graph4/</url>
-    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real
-symmetric matrix.</strong></p>
-<span id="more"></span>
+    <title>CS229 Notes for Lecture 2</title>
+    <url>/2024/07/30/CS229%20Notes%20for%20Lecture%202/</url>
+    <content><![CDATA[<h1 id="lecture-1">Lecture 1</h1>
+<p><a id="org8b14315"></a></p>
+<h2 id="introduction-of-supervised-learning">Introduction of supervised
+learning</h2>
+<p>在介绍监督学习(Supervised
+learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
+<ul>
+<li><p><span class="math inline">\(m\)</span>: 训练样本的数量</p></li>
+<li><p><span class="math inline">\(n\)</span>: 特征的数量</p></li>
+<li><p><span class="math inline">\(x\)</span>: 输入变量(input variable),
+或称为输入特征(input feature/attribute)</p></li>
+<li><p><span class="math inline">\(y\)</span>: 输出变量(output
+variable), 或称为目标变量(target variable)</p></li>
+<li><p><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
+class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
+class="math inline">\(i^{th}\)</span> training example)</p></li>
+<li><p><span class="math inline">\(\mathcal{X}\)</span>:
+输入变量的空间(input space)</p></li>
+<li><p><span class="math inline">\(\mathcal{Y}\)</span>:
+输出变量的空间(output space)</p>
+<span id="more"></span></li>
+</ul>
+<p>监督学习的目标是基于已知的训练样本, 学习出一个假设(hypothesis) <span
+class="math inline">\(h: \mathcal{X} \rightarrow \mathcal{Y}\)</span>,
+使得 <span class="math inline">\(h(x)\)</span>
+能够尽可能地接近真实的输出 <span class="math inline">\(y\)</span>.
+根据输出变量的类型,我们可以将监督学习分成两类问题:</p>
+<ol type="1">
+<li>回归问题(Regression): 输出变量的取值是连续的</li>
+<li>分类问题(Classification): 输出变量的取值是离散的</li>
+</ol>
+<p>我们可以从下图来直观理解监督学习的过程:</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" /></p>
-<p><font color='red'>Here we broefly discuss the topic of random
-matrices.<br>Probability of adjacent connection between <span
-class="math inline">\(R_j\)</span> and <span
-class="math inline">\(C_j\)</span>, <span
-class="math inline">\(P(R_j\sim C_j)=\frac{1}{2}\)</span>, <span
-class="math inline">\(\ P(R_j\not\sim C_j)=\frac{1}{2}\)</span></font>
-<span class="math display">\[
-P(A(G)\ is \ invertible)=P(M\ is\ invertible)
-\]</span> <strong>Thm Let G be a graph. The number of walks from <span
-class="math inline">\(v_i\)</span> to <span
-class="math inline">\(v_j\)</span> of length k is equal to the <span
-class="math inline">\((i,j)\)</span>-entry of <span
-class="math inline">\((A(G))^k\)</span></strong></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let <span class="math inline">\(A(G)=(a_{ij})_{n\times n}\)</span>.
-Then <span class="math inline">\((i,j)\)</span>-entry of <span
-class="math inline">\((A(G))^k\)</span> is given by <span
-class="math display">\[
-[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
-\]</span> where the sum ranges over all sequences <span
-class="math inline">\((i_1,i_2,\dots,i_{k-1})\)</span> with <span
-class="math inline">\(i_t\in[n]=\{1,2,\dots,n\}\)</span> <span
-class="math display">\[
-\begin{aligned}
-(A(G))^2_{ij}&amp;=(A(G)\cdot
-A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
-(A(G))^3_{ij}&amp;=((A(G))^2\cdot
-A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
-\end{aligned}
-\]</span> By the definition of adjacency matrix, <span
-class="math inline">\(a_j=1\Leftrightarrow v_iv_j\in E(G)\)</span></p>
-<p>It follows that the summand <span
-class="math inline">\(a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}\)</span> is
-1 <span class="math inline">\(\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots
-v_{i_{k-1}}v_j\)</span> is a walk of length k. Hence the summing over
-all <span class="math inline">\((i_1,\cdots,i_{k-1})\)</span> just gives
-the total number of walks of length k from <span
-class="math inline">\(v_i\)</span> to <span
-class="math inline">\(v_j\)</span></p>
-<hr />
-<p>A(G) is <span class="math inline">\(n\times n\)</span> symmetric
-matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues
-satisfy <span class="math display">\[
-\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
-\]</span> <font color='red'>Note that <span
-class="math inline">\(\lambda_1+\lambda_2+\cdots+\lambda_n=0\)</span>,some
-eigenvalues could be negative.<br>If G is a bipartite graph, the
-eigenvalues are symmetric about origin.</font></p>
-<p><strong>Thm Let G be a graph with eigenvalues <span
-class="math inline">\(\lambda_1,\cdots,\lambda_n\)</span>. Then the
-number of closed walks in G of length k is given by</strong> <span
-class="math display">\[
-w_G(k)=\lambda_1^k+\cdots+\lambda_n^k
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let G be a graph with adjacency matrix A(G). Then it follows from the
-above theorem that <span class="math display">\[
-w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)
-\]</span> Since A(G) has <span class="math inline">\(\lambda_i\)</span>
-as an eigenvalue with <span
-class="math inline">\(i\in\{1,2,\cdots,n\}\)</span>, the matrix <span
-class="math inline">\(A(G)^k\)</span> has eigenvalue <span
-class="math inline">\(\lambda_i^k\)</span>for <span
-class="math inline">\(i\in\{1,2,\cdots,n\}\)</span></p>
-<p><font color='red'><span
-class="math inline">\(A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad
-A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}\)</span></font></p>
-<p>Then, <span
-class="math inline">\(tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span>, so
+src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-07-30_16-29-16_screenshot.lz8nr081.png" />
+因此,监督学习的关键就是利用学习算法(learning algorithm)从训练集(training
+set)中学习出一个符合条件的假设 <span class="math inline">\(h\)</span>,
+进一步其实监督学习的关键就是去构造一个合适的学习算法.</p>
+<p>而在构造学习算法的过程中, 我们需要考虑以下几个问题:</p>
+<ol type="1">
+<li>训练集样本是什么样的?</li>
+<li>假设函数是什么样的?</li>
+<li>如何表示假设函数?</li>
+</ol>
+<p><a id="org172f874"></a></p>
+<h2 id="linear-regression">Linear regression</h2>
+<p>在本节中, 我们将假设函数 <span class="math inline">\(h\)</span>
+限制在线性函数形式下考虑回归问题, 这一问题也被称之为线性回归问题(Linear
+Regression). 在线性回归问题中, 我们试图去构造一个线性的假设函数,
+因此我们可以直接形式的写出假设函数的结构如下: <span
+class="math display">\[h(x)=\theta_0+\theta_1x_1+\cdots+\theta_nx_n\]</span>
+其中, <span class="math inline">\(\theta_i(i=0,\cdots,n)\)</span>
+是参量(parameter), 如果我们将其确定下来,
+那么我们就可以得到一个确定的假设函数 <span
+class="math inline">\(h\)</span>. 但为了形式上的简洁,
+我们引入一个虚特征(dummy feature) <span
+class="math inline">\(x_0=1\)</span>,
+这样我们就可以将上面的假设函数写成更为紧凑的形式: <span
+class="math display">\[h(x)=\sum_{i=0}^n\theta_ix_i=\theta^Tx\]</span>
+其中, <span
+class="math inline">\(\theta=(\theta_0,\cdots,\theta_n)^T\)</span>
+是学习算法的参数向量(parameter vector), <span
+class="math inline">\(x=(x_0,\cdots,x_n)^T\)</span>. 在此值得注意的是,
+虽然我们只考虑 <span class="math inline">\(n\)</span> 个输入特征,
+但由于我们为了方便引入了虚特征, 因此实际上我们考虑的 <span
+class="math inline">\(\theta\)</span> 和 <span
+class="math inline">\(x\)</span> 是一个 <span
+class="math inline">\(n+1\)</span> 维的向量. 其次,
+虽然我们在此给出的假设函数符号是 <span
+class="math inline">\(h(x)\)</span>, 但实际上更为明确的写法应该是 <span
+class="math inline">\(h_{\theta}(x)\)</span>, 这样可以表示假设函数 <span
+class="math inline">\(h\)</span> 不仅依赖于输入特征 <span
+class="math inline">\(x\)</span>, 还依赖于参数向量 <span
+class="math inline">\(\theta\)</span>; 只是在不引起混淆的情况下,
+我们可以省略 <span class="math inline">\(\theta\)</span> 的表示.</p>
+<p>根据上面的假设函数的结构,
+我们可以知道学习算法的工作是选择一个合适的参数向量,
+这样就可以导出一个假设, 因此如何选择合适的参数向量就是学习算法的关键.
+从直观上来说, 对于训练集样本, 我们希望选择出来的参数向量能够使得 <span
+class="math inline">\(h(x)\)</span> 尽可能地接近真实的输出 <span
+class="math inline">\(y\)</span>. 因此我们需要先定义一个函数用来度量
+<span class="math inline">\(h(x)\)</span> 和 <span
+class="math inline">\(y\)</span> 之间的差距, 我们称之为成本函数(cost
+function): <span
+class="math display">\[J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\]</span>
+此处的 <span class="math inline">\(\frac{1}{2}\)</span>
+是因为可以消去因求导得到的<span class="math inline">\(2\)</span>,
+并不影响最后结果. 根据我们前面介绍的选择参数向量 <span
+class="math inline">\(\theta\)</span> 的目标,
+我们将其转化为一个优化问题, 即找到一个 <span
+class="math inline">\(\theta\)</span> 使得 <span
+class="math inline">\(J(\theta)\)</span> 最小, 其数学形式如下: <span
+class="math display">\[\min_{\theta}J(\theta)=\min_{\theta}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\]</span></p>
+<p><a id="org5e1d335"></a></p>
+<h2 id="gradient-descentgd">Gradient Descent(GD)</h2>
+<p>此节中, 我们将用梯度下降算法(Gradient Descent)来求解上面的优化问题.
+值得注意的是, 梯度下降算法是一种迭代算法,
+其基本思想是通过不断更新迭代参数向量 <span
+class="math inline">\(\theta\)</span> 的值, 使得成本函数 <span
+class="math inline">\(J(\theta)\)</span> 不断减小, 直到收敛到最小值.</p>
+<p>我们可以给出梯度下降算法的框架如下:</p>
+<ol type="1">
+<li>Start with some <span class="math inline">\(\theta\)</span>. For
+example, <span class="math inline">\(\theta=0\)</span>.</li>
+<li>Keep changing <span class="math inline">\(\theta\)</span> to reduce
+<span class="math inline">\(J(\theta)\)</span>.</li>
+<li>Repeat 2. until convergence.</li>
+</ol>
+<p>从上面的框架中我们可以看出, 梯度下降算法的关键就是如何更新参数向量
+<span class="math inline">\(\theta\)</span> 的值, 其更新的规则如下:
 <span
-class="math inline">\(w_G(k)=tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span></p>
-<hr />
-<p><strong>Incidence matrix and Laplacian matrix</strong></p>
-<p>Let G be a graph s.t. <span
-class="math inline">\(V(G)=\{v_1,v_2,\cdots,v_n\}\)</span> and <span
-class="math inline">\(E(G)=\{e_1,e_2,\cdots,e_m\}\)</span> <span
-class="math display">\[
-B(G)=(b_{ij})_{n\times m}\ where\
-b_{ij}=\left\{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\\
-&amp;0\quad v_i\ isn&#39;t\ incident\ with\ e_j\end{aligned}\right.
-\]</span> <img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" /></p>
-<p><font color='red'>We can find that evey column has two non-zero
-entries.</font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" /></p>
-<p><font color='red'>We can find that each column of <span
-class="math inline">\(\vec{B}\)</span> has one entry of 1, one entry of
--1 and other entry of 0.Therefore, add all entries in column and get
-0</font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" /></p>
-<p><span class="math inline">\(D(G)\)</span> is a diagonal matrix whose
-diagonal entries are the degrees of vertices.</p>
-<p>Laplacian matrix of G: <span class="math inline">\(L(G)=
-D(G)-A(G)=\vec{B}\cdot\vec{B}^T\)</span></p>
-<p><strong>Proposition. Let G be a graph. Then L(G) is positive
-semi-definite and consequently, all eigenvalues of L(G) are real and
-non-negative.</strong> <span class="math display">\[
-\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0
-\]</span> <span class="math inline">\(\tau(G)\)</span>= the total number
-of spanning trees in G.</p>
-<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices <span
-class="math inline">\(v_1,\dots,v_n\)</span>. Then <span
-class="math inline">\(\tau(G)=det(L_0(G))\)</span> where <span
-class="math inline">\(L_0(G)\)</span> is obtained from <span
-class="math inline">\(L(G)\)</span> by deleting the i-th row and i-th
-column for any <span
-class="math inline">\(i\in[n]=\{1,2,\dots,n\}\)</span></strong></p>
-<hr />
-<p><strong>Proof.</strong></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" /></p>
-<p>If T is a spanning tree, either <span class="math inline">\(e\in
-T\)</span> or <span class="math inline">\(e\not\in T\)</span>.</p>
-<p>An edge e of G is said to be contracted if it is deleted and its ends
-are identified, the resulting graph is denoted by <span
-class="math inline">\(G\cdot e\)</span>.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" /></p>
-<p>If <span class="math inline">\(e\not\in T\)</span>, T is a spanning
-tree of G-e; if <span class="math inline">\(e\in T\)</span>, <span
-class="math inline">\(T\cdot e\)</span> is a spanning tree of <span
-class="math inline">\(G\cdot e\)</span>.</p>
-<p>Therefore, <span class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot
-e)\)</span></p>
-<p>Use induction on the number of edges of G.</p>
-<p>If G has no edges and n=1, so <span
-class="math inline">\(\tau(G)=1=det(L_0(G))\)</span> where <span
-class="math inline">\(L_0(G)\)</span> is a <span
-class="math inline">\(0\times 0\)</span> matrix with determinant 1 by
-convenience.</p>
-<p>If <span class="math inline">\(n&gt;1\)</span>, then <span
-class="math inline">\(\tau(G)=0\)</span>, and <span
-class="math inline">\(L_0(G)\)</span> is a 0-matrix in which every entry
-is 0. So <span class="math inline">\(\tau(G)=det(L_0(G))\)</span> .</p>
-<p>Therefore, the statement holds for <span
-class="math inline">\(|E(G)|=0\)</span>.</p>
-<p>Assume the statement holds all graph with number of edges less than
-<span class="math inline">\(|E(G)|\)</span>.</p>
-<p>By recordering the vertices of G, we may assume that <span
-class="math inline">\(i=1\)</span> and <span
-class="math inline">\(v_1v_2\in E(G)\)</span>, Let <span
-class="math inline">\(e=v_1v_2\)</span>. Then <span
-class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot e)\)</span>.</p>
-<p>By inductive hypothesis, <span
-class="math inline">\(\tau(G-e)=det(L_0(G-e))\)</span> and <span
-class="math inline">\(\tau(G\cdot e)=det(L_0(G\cdot e))\)</span>.</p>
-<p>Assume <span
-class="math inline">\(L_0(G)=\begin{pmatrix}d_2&amp;P\\P^T&amp;R\end{pmatrix}\)</span>
-obtained from <span
-class="math inline">\(L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\\hdashline1&amp;d_2&amp;P\\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)\)</span>
-by deleting the first row and the first column.</p>
-<p>Then <span
-class="math inline">\(L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\\P^T&amp;R\end{pmatrix}\)</span>
-and <span class="math inline">\(L_0(G\cdot e)=R\)</span></p>
-<p>Note that <span
-class="math inline">\(L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\\vec{0}^T&amp;R\end{pmatrix}\)</span></p>
-<p>Using the Laplace expansion along the first row, <span
-class="math display">\[
-det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot
-e)=\tau(G)
-\]</span></p>
-<hr />
-<p><strong>Thm Let G be a connected graph with n vertices. Suppose that
-the eigenvalues of L(G) are <span
-class="math inline">\(\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n=0\)</span>.
-Then</strong> <span class="math display">\[
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
-\]</span></p>
-<hr />
-<p><strong>Proof</strong></p>
-<p>Let <span class="math inline">\(L(G)\)</span> be the Laplacian matrix
-and let <span class="math display">\[
-det(L(G)-\lambda
-I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)
-\]</span> So the cofficient of <span
-class="math inline">\(\lambda\)</span> term is <span
-class="math inline">\(-\mu_1\mu_2\cdots\mu_{n-1}\)</span>. Note that,
-consider <span class="math inline">\(L(G)-\lambda I\)</span>.</p>
-<p>Add all rows of <span class="math inline">\(L(G)-\lambda I\)</span>
-except the first row to the first row, and let <span
-class="math inline">\(M(\lambda)\)</span> be the new resulting
-matrix.</p>
-<p>Then <span class="math inline">\(det(M(\lambda))=det(L(G)-\lambda
-I)\)</span> and the first row of <span
-class="math inline">\(M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]\)</span>.</p>
-<p>Let <span class="math inline">\(N(\lambda)\)</span> be the resulting
-matrix obtained from <span class="math inline">\(M(\lambda)\)</span> by
-factoring out <span class="math inline">\(-\lambda\)</span>.</p>
-<p>Then <span class="math inline">\(M(\lambda)=-\lambda
-N(\lambda)\)</span> and <span
-class="math inline">\(det(M(\lambda))=-\lambda det(N(\lambda))\)</span>,
-So <span class="math display">\[
-det(L(G)-\lambda I)=-\lambda det(N(\lambda))
-\]</span> Therefore, the cofficient of <span
-class="math inline">\(\lambda\)</span> term in <span
-class="math inline">\(det(L(G)-\lambda I)\)</span>is equal to <span
-class="math inline">\(-det(N(0))\)</span>.</p>
-<p>Add all columns of <span class="math inline">\(N(0)\)</span> except
-the first column to the first column.</p>
-<p><font color='red'>(Note that <span
-class="math inline">\(i^{th}\)</span>-row <span
-class="math inline">\((i&gt;1)\)</span> of <span
-class="math inline">\(N(0)\)</span> is the same as the  <span
-class="math inline">\(i^{th}\)</span>-row <span
-class="math inline">\((i&gt;1)\)</span> of <span
-class="math inline">\(L(G)\)</span></font></p>
-<p>Then the first column of the new matrix is <span
-class="math inline">\(\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T\)</span>.</p>
-<p>Use Laplace expansion along the <span
-class="math inline">\(1^{st}\)</span> column, <span
-class="math inline">\(det(N(0))=n\cdot det(L_0(G))\)</span> <span
-class="math display">\[
-n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow
-det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
-\]</span> By previous theorem, <span class="math display">\[
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
-\]</span></p>
-<hr />
+class="math display">\[\theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta)\
+\text{for each value of }j\]</span> 这里的 <span
+class="math inline">\(\alpha\)</span> 是学习率(learning rate),
+用来控制参数向量 <span class="math inline">\(\theta\)</span> 的更新步长;
+但这个值的选取是一个极具经验性的问题,
+因为学习率太小则会导致收敛速度太慢, 而学习率太大则会导致算法无法收敛.
+因此实际中, 应该尝试多组学习率, 从而选择一个最为合适的学习率.</p>
+<p>由于我们已知成本函数 <span class="math inline">\(J(\theta)\)</span>
+的具体形式, 因此我们可以直接求出其关于参数向量 <span
+class="math inline">\(\theta\)</span> 的偏导数的具体形式为: <span
+class="math display">\[\begin{aligned}\frac{\partial}{\partial\theta_j}J(\theta)&amp;=\frac{\partial}{\partial\theta_j}\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2\\
+&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial
+\theta_j}(h(x^{(i)})-y^{(i)})\\
+&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})\frac{\partial}{\partial
+\theta_j}(\sum_{k=0}^n\theta_kx_k^{(i)}-y^{(i)})\\
+&amp;=\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)}\end{aligned}\]</span>
+根据上面的偏导数的具体形式,
+我们可以将梯度下降算法的更新规则写成更为具体的形式: <span
+class="math display">\[\theta_j:=\theta_j-\alpha\sum_{i=0}^m(h(x^{(i)})-y^{(i)})x_j^{(i)},\
+j=0,1,\dots,n\]</span> 从这个更新规则中,
+我们可以发现每更新一次需要用全部训练样本的数据,
+因此我们将这种梯度下降算法称之为批量梯度下降算法(Batch Gradient
+Descent).其的主要优点就是计算稳定, 他一定可以朝着极小值的方向前进;
+但是缺点也很明显, 因为他每次更新参数都需要用到全部的训练样本,
+因此如果训练样本数据量很大的情况,
+那么他的计算量就会花费大量时间在调用全部训练样本上.</p>
+<p>因此, 为了避免每次更新参数都需要用到全部训练样本的数据,
+我们可以引入随机梯度下降算法(Stochastic Gradient Descent, SGD),
+其的更新规则如下: <span class="math display">\[
+\theta_j:=\theta_j-\alpha(h(x^{(i)})-y^{(i)})x_j^{(i)},\ j=0,1,\dots,n\
+(\text{for }i=1\ \text{to }m)\]</span> 此时,
+每次更新我们都只用了一个训练样本的数据,
+因此这样会大幅度减少更新计算量;操作过程是在第一次更新中,
+我们选用第一个训练样本更新参数; 在第二次更新中,
+我们选用第二个训练样本更新参数, 以此类推. 但值得注意的一点是,
+随机梯度下降算法由于每次都是用一个训练样本的数据,
+因此他的更新方向是不稳定的, 因此他可能会在极小值附近不断震荡;
+但他优点就是每次迭代的计算量小, 尤其是在训练样本数据量很大的情况下,
+他的优势就会更加明显. 不仅如此, 如果我们考虑较为复杂的优化问题,
+随机梯度下降算法是有可能帮助我们跳出局部极小值,
+因此随机算法对于机器学习是很重要的优化算法.</p>
+<p>虽然SGD可能达不到最小值, 而是在最小值附近震荡,
+但我们可以在某个容忍精度下停止迭代,这样得到的参数也是一个比较好的参数.
+但实际上, 我们一般是在使用SGD的过程中, 随时间增长慢慢地减小学习率的值,
+这样即使参数会在最小值附近震荡, 但随着学习率 <span
+class="math inline">\(\alpha\)</span> 的减小, 参数的震荡范围越来越小,
+近似认为达到了最小值.</p>
+<p>最后, 我们给出另一个梯度下降算法的idea,
+他结合了批量梯度下降算法和随机梯度下降算法的优点,
+这就是小批量梯度下降算法(Mini-batch Gradient Descent).
+他并不是每次迭代都只用一个训练样本的数据(会使得下降方向不稳定),也不用全部训练样本的数据(会使得计算量过大),
+而是每次迭代用一小部分训练样本的数据, 他每次迭代都用 <span
+class="math inline">\(k\)</span> 个训练样本的数据, 其既降低了计算量,
+又保持了下降方向的稳定性. 至于 <span class="math inline">\(k\)</span>
+的选取, 其一般是在算法运行之前人为选取的.</p>
+<p>不过事实上, 如果成本函数 <span
+class="math inline">\(J(\theta)\)</span> 的结构并不是很好的情况下,
+那么会出现以下几种情况:</p>
+<ol type="1">
+<li>收敛到函数的局部最小值(local minimum), 而不是全局最小值(global
+minimum).</li>
+<li>收敛到函数的驻点(saddle point).</li>
+<li>微分值接近于 <span class="math inline">\(0\)</span>
+就停下来，但这里只是比较平缓，并不是极值点。</li>
+</ol>
+<p>但值得注意的是,我们在这里考虑线性回归问题,
+其成本函数其实是一个二次函数, 因此他是不存在局部最小值和驻点的,
+因此只要他能收敛, 那么就一定是收敛到全局最小值.</p>
+<p><a id="org0d1c713"></a></p>
+<h2 id="normal-equation">Normal Equation</h2>
+<p>上面我们介绍的GD是一种迭代算法, 但实际上对于线性回归问题,
+我们可以直接用代数的方法求解出最优参数向量 <span
+class="math inline">\(\theta\)</span>, 这种方法被称之为正规方程(Normal
+Equation). 但需要声明的是, 正规方程只适用于线性回归问题.
+在推导正规方程以前, 我们先引入矩阵导数的记号: <span
+class="math display">\[\begin{aligned}\nabla_{\theta}J(\theta)&amp;=\begin{pmatrix}\frac{\partial
+J}{\partial \theta_0}\cdots \frac{\partial J}{\partial
+\theta_n}\end{pmatrix}^T,\ \theta\in\mathbb{R}^{n+1}\\
+\nabla_Af(A)&amp;=\begin{pmatrix}\frac{\partial f}{\partial
+A_{11}}&amp;\cdots&amp;\frac{\partial f}{\partial A_{1q}}\\\vdots&amp;
+&amp;\vdots\\\frac{\partial f}{\partial
+A_{p1}}&amp;\cdots&amp;\frac{\partial f}{\partial A_{pq}}\end{pmatrix},\
+A\in\mathbb{R}^{p\times q}\end{aligned}\]</span>
+因此我们希望能够将成本函数 <span
+class="math inline">\(J(\theta)\)</span> 写成紧凑的矩阵向量形式,
+在此之前, 我们先引入一些矩阵符号来辅助推导成本函数的矩阵形式: <span
+class="math display">\[\begin{aligned}X&amp;=\begin{pmatrix}\cdots&amp;(x^{(1)})^T&amp;\cdots\\
+&amp;\vdots&amp; \\\cdots&amp;(x^{(m)})^T&amp;\cdots\end{pmatrix}
+\text{design matrix}\\
+\vec{y}&amp;=\begin{pmatrix}y^{(i)}&amp;\cdots&amp;y^{(m)}\end{pmatrix}^T
+\text{label vector}\end{aligned}\]</span> 这里值得注意的是,
+我们构造的这个 design matrix 的行向量在记号上是训练样本的转置,
+但是实际上, 我们考虑的是训练样本的特征再加上虚特征 <span
+class="math inline">\(x_0\)</span>, 所以这个 design matrix 的维度为
+<span class="math inline">\(m\times (n+1)\)</span>. 依据这些记号,
+我们给出成本函数的矩阵形式为: <span
+class="math display">\[J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2=\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})\]</span>
+由于我们知道线性回归问题的核心问题就是最小化成本函数,
+这个从导数的角度来看, 就是成本函数对参数向量的导数为0; 其数学形式如下:
+<span
+class="math display">\[\nabla_{\theta}J(\theta)=\nabla_{\theta}\frac{1}{2}(X\theta-\vec{y})^T(X\theta-y)=X^TX\theta-X^T\vec{y}=0\]</span>
+所以线性回归问题对应的正规问题为: <span
+class="math display">\[X^TX\theta=X^T\vec{y}\Rightarrow
+\theta=(X^TX)^{-1}X^T\vec{y}\]</span> 这里有一个问题就是如果 <span
+class="math inline">\(X^{T}X\)</span> 不可逆, 那么 <span
+class="math inline">\((X^TX)^{-1}\)</span> 并不存在, 那我们可以用 <span
+class="math inline">\((X^TX)^{-1}\)</span> 的伪逆来代替.</p>
 ]]></content>
       <categories>
-        <category>Graph Theory</category>
+        <category>CS229</category>
       </categories>
       <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
+        <tag>Computer Science</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -2232,6 +1745,607 @@ k-flow.</strong></p>
       </tags>
   </entry>
   <entry>
+    <title>Lecture series on graph theory 6</title>
+    <url>/2022/05/24/Graph6/</url>
+    <content><![CDATA[<p><strong>Interlacing Theorem</strong></p>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric
+real <span class="math inline">\(n\times n\)</span> and let B be an m-th
+principal submatrix<font color='red'>(obtained by deleting both i-th row
+and i-th column for some n-m values of i)</font>. Suppose A has
+eigenvalues <span
+class="math inline">\(\lambda_1\geq\cdots\geq\lambda_n\)</span>, and B
+has eigenvalues <span
+class="math inline">\(\beta_1\geq\cdots\geq\beta_m\)</span>.Then</strong>
+<span class="math display">\[
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m
+\]</span> <span id="more"></span></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" /></p>
+<p>Further,if <span class="math inline">\(m=n-1\)</span>, then <span
+class="math display">\[
+\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Without loss of generality, assume that <span
+class="math inline">\(A=\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\)</span>
+and <span class="math inline">\(\lambda_i\vec{x}_i=A\vec{x}_i\)</span>
+for <span class="math inline">\(i\in[n]\)</span> such that all <span
+class="math inline">\(\vec{x}_i\)</span> are linearly independent and
+normalized, and <span
+class="math inline">\(\beta_j\vec{y}_j=B\vec{y}_j\)</span> for <span
+class="math inline">\(j\in[m]\)</span> s.t. all <span
+class="math inline">\(\vec{y}_j\)</span> are linearly independent and
+normalized.</p>
+<p>Let <span
+class="math inline">\(V=span\{\vec{x}_k,\cdots,\vec{x}_n\}\)</span> and
+<span
+class="math inline">\(W=span\{\vec{y}_1,\cdots,\vec{y}_k\}\)</span>.
+Extend <span class="math inline">\(W\)</span> to a subspace of <span
+class="math inline">\(\mathbb{R}^n\)</span> s.t. <span
+class="math display">\[
+\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in
+W\right\}\subset\mathbb{R}^n
+\]</span> Then <span class="math inline">\(\dim(V)=n-k+1\)</span> and
+<span class="math inline">\(\dim(\widetilde{W})=\dim(W)=k\)</span></p>
+<p>Note that both <span class="math inline">\(V\subset
+\mathbb{R}^n\)</span> and <span
+class="math inline">\(\widetilde{W}\subset \mathbb{R}^n\)</span>, and
+<span class="math display">\[
+\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)
+\]</span> It follows that there exists a vector <span
+class="math inline">\(\tilde{w}\)</span> which satisfies <span
+class="math inline">\(\tilde{w}\in V\cap\widetilde{W}\)</span>.</p>
+<p><font color='red'><span class="math inline">\(\lambda_k\)</span> is
+the largest eigenvalue with an eigenvector in V; <span
+class="math inline">\(\beta_k\)</span> is the smallest eigenvalue with
+an eigenvector in W.</font></p>
+<p>Therefore, <span class="math display">\[
+\begin{aligned}
+\lambda_k&amp;=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&amp;\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&amp;=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in
+W,||\vec{y}||=1\}=\beta_k
+\end{aligned}
+\]</span> So we have <span
+class="math inline">\(\lambda_k\geq\beta_k\)</span>.</p>
+<p>On the other hand, let <span
+class="math inline">\(V=span\{\vec{x}_1,\cdots,\vec{x}_{k+n-m}\}\)</span>
+<font color='red'>(i.e. <span
+class="math inline">\(\lambda_{k+n-m}\)</span> is the smallest
+eigenvalue with an eigenvector in V)</font> and <span
+class="math inline">\(W=span\{\vec{y}_1,\cdots,\vec{y}_{k+n-m}\}\)</span>
+<font color='red'>(i.e. <span class="math inline">\(\beta_k\)</span> is
+the largest eigenvalue with an eigenvector in W)</font>.</p>
+<p>Let <span
+class="math inline">\(\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in
+W\right\}\subset\mathbb{R}^n\)</span>. Then <span
+class="math inline">\(\dim(V)=k+n-m\)</span> and <span
+class="math inline">\(\dim(\widetilde{W})=m-k+1\)</span>.</p>
+<p>Therefore, <span
+class="math inline">\(\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)\)</span></p>
+<p>It follows that there exists a vector <span
+class="math inline">\(\tilde{w}\)</span> which satisfies <span
+class="math inline">\(\tilde{w}\in V\cap\widetilde{W}\)</span>. <span
+class="math display">\[
+\begin{aligned}
+\lambda_{k+n-m}&amp;=\min\{\vec{x}^TA\vec{x}|\vec{x}\in
+V,||\vec{x}||=1\}\\
+&amp;\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}B&amp;X\\X^T&amp;C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&amp;0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&amp;=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in
+W,||\vec{y}||=1\}=\beta_k
+\end{aligned}
+\]</span> So <span
+class="math inline">\(\lambda_{k+n-m}\leq\beta_k\)</span>.</p>
+<p><strong>Bounding degree of induced subgraph</strong></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" /></p>
+<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the
+n-dimensional hypercube <span class="math inline">\(Q_n\)</span>. If
+<span
+class="math inline">\(|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}\)</span>,then
+<span class="math inline">\(\Delta (H)\geq\sqrt{n}\)</span></strong></p>
+<p><font color='red'><strong>n-dimensional hypercube <span
+class="math inline">\(Q_n\)</span></strong></font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" /></p>
+<p><font color='red'>An n-dimensional hypercube <span
+class="math inline">\(Q_n\)</span> is a graph with vertex set consisting
+of all <span class="math inline">\(\{0,1\}\)</span>-sequences of length
+n and two vertices are adjacent to each other if and only if the
+two <span class="math inline">\(\{0,1\}\)</span>-sequences has exactly
+one position different</font></p>
+<p>The adjacency matrix of n-dimensional hypercube <span
+class="math inline">\(Q_n\)</span> satisfies the following</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" /></p>
+<p>If we give every edge in n-dimensional hypercube <span
+class="math inline">\(Q_n\)</span> a sign, we can get a signed adjacency
+matrix.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" /></p>
+<p><strong>Lemma The signed n-dimensional hypercube with adjacency
+matrix <span class="math inline">\(S_n\)</span> has an eigenvalue <span
+class="math inline">\(\sqrt{n}\)</span> of multiplicity <span
+class="math inline">\(2^{n-1}\)</span> and eigenvalue <span
+class="math inline">\(-\sqrt{n}\)</span> with multiplicity <span
+class="math inline">\(2^{n-1}\)</span></strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p><strong>claim: <span
+class="math inline">\(S_n^2=nI\)</span></strong></p>
+<p>If <span class="math inline">\(n=1\)</span>, <span
+class="math inline">\(S_1=\left[\begin{matrix}0&amp;1\\1&amp;0\end{matrix}\right],S_1^2=I\)</span>.
+Assume that <span class="math inline">\(S_{n-1}^2=(n-1)I\)</span></p>
+<p>Then <span class="math display">\[
+S_n^2=\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&amp;I\\I&amp;-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&amp;O\\O&amp;S_{n-1}^2+I\end{matrix}\right]=nI
+\]</span> So claim holds.</p>
+<p>Note that <span class="math inline">\(nI\)</span> has eigenvalues n.
+Therefore, <span class="math inline">\(S_n\)</span> has eigenvalues
+either <span class="math inline">\(\sqrt{n}\)</span> or <span
+class="math inline">\(-\sqrt{n}\)</span>.</p>
+<p>Since the trace of <span class="math inline">\(S_n\)</span> is 0,
+<span class="math inline">\(S_n\)</span> has eigenvalues <span
+class="math inline">\(\sqrt{n}\)</span> of multiplicity <span
+class="math inline">\(2^{n-1}\)</span> and <span
+class="math inline">\(-\sqrt{n}\)</span> with multiplicity <span
+class="math inline">\(2^{n-1}\)</span>.</p>
+<hr />
+<p><strong>Proof of Huang's Theorem</strong></p>
+<p>Let H be a induced subgraph of <span
+class="math inline">\(Q_n\)</span> with more than <span
+class="math inline">\(2^{n-1}\)</span> vertices. It suffices to show
+that every subgraph H with exactly <span
+class="math inline">\(2^{n-1}+1\)</span> vertices has maximum degree at
+least <span class="math inline">\(\sqrt{n}\)</span>.</p>
+<p>Let <span class="math inline">\((Q_n,\sigma)\)</span> be the signed
+graph with adjacency matrix <span class="math inline">\(S_n\)</span> as
+defined above. Then <span class="math inline">\((H,\sigma)\)</span> is a
+signed induced subgraph of <span
+class="math inline">\((Q_n,\sigma)\)</span>, whose adjacency matrix
+<span class="math inline">\(A\)</span> is a <span
+class="math inline">\((2^{n-1}+1)\)</span>-principle submatrix of <span
+class="math inline">\(S_n\)</span>.</p>
+<p>By the proposition <font color='red'>(i.e. <span
+class="math inline">\(|\lambda(H,\sigma)|\leq\Delta (H)\)</span></font>
+and the interlacing theorem <span class="math display">\[
+\Delta
+(H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}
+\]</span> <span class="math inline">\(\lambda_1(A)\)</span> means the
+largest eigenvalue of A.</p>
+<hr />
+<p><strong>Unfriendly partitions of subcubic graphs</strong></p>
+<p>A graph G is subcubic if the maximum degree of G is at most 3.
+<font color='red'>(<span
+class="math inline">\(\Delta(G)\leq3\)</span>)</font></p>
+<p><font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All
+subcubic graphs except finitely many have median eigenvalues in the
+interval<span class="math inline">\([-1,1]\)</span>. There exists a
+constant c such that if <span
+class="math inline">\(|V(G)|\geq|c|\)</span>, then <span
+class="math inline">\(\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]\)</span></font></p>
+<p>Let G be a graph. A partition <span
+class="math inline">\((X,Y)\)</span> of <span
+class="math inline">\(V(G)\)</span> is unfriendly if every vertex has at
+least the same number of neighbors in the other subset as in it
+owns.</p>
+<p><font color='red'>In other words, for every vertex v of G, <span
+class="math inline">\(d_{G[x]}(v)\leq\frac{1}{2}d_G(v)\)</span>
+and <span
+class="math inline">\(d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)\)</span></font></p>
+<p>If <span class="math inline">\((X,Y)\)</span> is an unfriendly
+partition of a subcubic graph <span class="math inline">\(G\)</span>,
+then the maximum degree of the induced subgraph <span
+class="math inline">\(G[X]\)</span> and <span
+class="math inline">\(G[Y]\)</span> is at most 1.</p>
+<p>An unfriendly partition <span class="math inline">\((X,Y)\)</span> is
+unbalanced if <span class="math inline">\(|X|\not=|Y|\)</span></p>
+<p>A partition is a bisection if <span
+class="math inline">\(\Big||X|-|Y|\Big|\leq1\)</span></p>
+<p><strong>Proposition Let G be a subcubic graph with n vertices. If G
+has an unbalanced unfriendly partition, then</strong> <span
+class="math display">\[
+\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let G be a subcubic graph with n vertices and <span
+class="math inline">\((X,Y)\)</span> be an unbalanced unfriendly
+partition.</p>
+<p>Without loss of generality, assume that <span
+class="math inline">\(|X|&gt;|Y|\)</span></p>
+<p>Then <span
+class="math inline">\(\lambda_1(X)\leq\Delta(X)\leq1\)</span> and <span
+class="math inline">\(\lambda_1(Y)\leq\Delta(Y)\leq1\)</span>. So both X
+and Y are bipartite.</p>
+<p>All eigenvalues of <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> belong to <span
+class="math inline">\([-1,1]\)</span>. Since <span
+class="math inline">\(|X|&gt;|Y|\)</span>, it holds that <span
+class="math display">\[
+|X|\geq\left\lceil
+\frac{n}{2}\right\rceil+1&gt;\frac{n}{2}&gt;\left\lceil
+\frac{n}{2}\right\rceil-1\geq|Y|
+\]</span> It follows that the interlacing theorem that <span
+class="math display">\[
+1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor
+\frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil
+\frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil
+\frac{n+1}{2}\right\rceil}(X)\geq-1
+\]</span> The completes the proof.</p>
+<hr />
+<p><font color='red'>Q: Does every subcubic graph have an unbalanced
+unfriendly partition?</font></p>
+<p><font color='red'>A: No</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" /></p>
+<p><font color='red'>Conjecture(Ban&amp;Linal,2016) Every cubic graph
+has an unfriendly almost balanced partition <span
+class="math inline">\((X,Y)\)</span> s.t. <span
+class="math inline">\(\Big||X|-|Y|\Big|\leq2\)</span></font></p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Dominnant Correlation</title>
+    <url>/2024/06/05/SVD-Dominnant%20Correlation/</url>
+    <content><![CDATA[<h2 id="dominant-correlation">Dominant Correlation</h2>
+<p>Here we introduce one of the most useful interpretation of the SVD.
+It is in terms of correlations among the columns of <span
+class="math inline">\(X\)</span> and correlations among the rows of
+<span class="math inline">\(X\)</span>. We claim that the matrix <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> given by the SVD can be seen as the
+eigenvectors of a correlation matrix given by <span
+class="math inline">\(XX^T\)</span> or <span
+class="math inline">\(X^TX\)</span>. Now we try to explain this
+claim.</p>
+<span id="more"></span>
+<p>We consider the structure of the correlation matrix <span
+class="math inline">\(X^TX\)</span> firstly. Since the size of the data
+matrix <span class="math inline">\(X\)</span> is <span
+class="math inline">\(n\times m\)</span>, the size of the correlation
+matrix <span class="math inline">\(X^TX\)</span> is <span
+class="math inline">\(m\times m\)</span>. <span class="math display">\[
+X^TX=\begin{bmatrix}\cdots&amp;x_1^T&amp;\cdots\\\cdots&amp;x_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\
+\\\cdots&amp;x_m^T&amp;\cdots\end{bmatrix}\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&amp;x_1^Tx_2&amp;\cdots&amp;x_1^Tx_m\\x_2^Tx_1&amp;x_2^Tx_2&amp;\cdots&amp;x_2^Tx_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\\x_m^Tx_1&amp;x_m^Tx_2&amp;\cdots&amp;x_m^Tx_m\end{bmatrix}
+\]</span> Based on the definition of <span
+class="math inline">\(X^TX\)</span>, we realize that <span
+class="math inline">\(X^TX\)</span> is a correlation matrix among the
+columns of <span class="math inline">\(X\)</span>. All entries of <span
+class="math inline">\(X^TX\)</span> are essentially an inner product
+between two columns of the data matrix <span
+class="math inline">\(X\)</span>. Interestingly, if the entry <span
+class="math inline">\(x_i^Tx_j\)</span> is a large number, it means that
+the columns <span class="math inline">\(x_i\)</span> and <span
+class="math inline">\(x_j\)</span> are highly correlated. However, if
+this number is very small, it means that the columns <span
+class="math inline">\(x_i\)</span> and <span
+class="math inline">\(x_j\)</span> are nearly orthogonal, which means
+that the columns <span class="math inline">\(x_i\)</span> and <span
+class="math inline">\(x_j\)</span> are almost different. Therefore, the
+correlation matrix <span class="math inline">\(X^TX\)</span> can be seen
+as a matrix that measures the correlation among the columns of <span
+class="math inline">\(X\)</span>.</p>
+<p>Based on the structure of the correlation matrix <span
+class="math inline">\(X^TX\)</span>, <span
+class="math inline">\(X^TX\)</span> is a symmetric and positive
+semi-definite matrix. It guarantees that we have non negative real
+eigenvalues, which have a direct correspondence on the singular values
+of the data matrix <span class="math inline">\(X\)</span>. Now we assume
+that the matrix <span class="math inline">\(X\)</span> have the singular
+value decomposition <span class="math inline">\(X=U\Sigma V^T\)</span>.
+We can derive that <span class="math display">\[
+X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2
+\]</span> which means that the columns of <span
+class="math inline">\(V\)</span> are the eigenvectors of the correlation
+matrix <span class="math inline">\(X^TX\)</span>. The eigenvalues of the
+correlation matrix <span class="math inline">\(X^TX\)</span> are the
+squares of the singular values of the data matrix <span
+class="math inline">\(X\)</span>. The same is true for the correlation
+matrix <span class="math inline">\(XX^T\)</span>. We can derive that
+<span class="math display">\[
+XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2
+\]</span> which means that the columns of <span
+class="math inline">\(U\)</span> are the eigenvectors of the correlation
+matrix <span class="math inline">\(XX^T\)</span>. The eigenvalues of the
+correlation matrix <span class="math inline">\(XX^T\)</span> are the
+squares of the singular values of the data matrix <span
+class="math inline">\(X\)</span>. Therefore, we can conclude that the
+singular matrix <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> given by the SVD of the data matrix
+<span class="math inline">\(X\)</span> can be seen as the eigenvectors
+of the correlation matrix <span class="math inline">\(X^TX\)</span> or
+<span class="math inline">\(XX^T\)</span>. The importance of this
+columns of <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> is quantified by eigenvalues of <span
+class="math inline">\(X^TX\)</span> or <span
+class="math inline">\(XX^T\)</span>, which are the squares of the
+singular values of the data matrix <span
+class="math inline">\(X\)</span>.</p>
+<p>Here we introduce the method of snapshots to compute the singular
+value decomposition of the data matrix. If the data matrix <span
+class="math inline">\(X\)</span> is so large that you cannot actually
+compute it or store it all in memory, you can use the method of
+snapshots. However, in the vast majority of cases, we don't recommend
+that you compute the SVD using correlation matrices.</p>
+<p>Although you cannot load all columns of <span
+class="math inline">\(X\)</span> into memory, what you can do is calling
+two columns at a time. For example, you can call the first column <span
+class="math inline">\(x_1\)</span> and itself, then you will get the
+inner product <span class="math inline">\(x_1^Tx_1\)</span>. After, you
+can call the first column <span class="math inline">\(x_1\)</span> and
+the second column <span class="math inline">\(x_2\)</span>, then you
+will get the inner product <span class="math inline">\(x_1^Tx_2\)</span>
+and so on. You can compute the inner product by calling two columns of
+data matrix each time to get the correlation matrix <span
+class="math inline">\(X^TX\)</span>. Here the resulting matrix is a
+<span class="math inline">\(m\times m\)</span> matrix. It is small
+enough that you can put it into memory and compute its
+eigendecomposition. Based the above discussion, we know that the righ
+singular vector <span class="math inline">\(V\)</span> and the singular
+value <span class="math inline">\(\Sigma\)</span> can be goten by this
+eigendecomposition. Then you can use this matrix to solve the left
+singular vector <span class="math inline">\(U\)</span>.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lecture series on graph theory 4</title>
+    <url>/2022/05/22/Graph4/</url>
+    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real
+symmetric matrix.</strong></p>
+<span id="more"></span>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" /></p>
+<p><font color='red'>Here we broefly discuss the topic of random
+matrices.<br>Probability of adjacent connection between <span
+class="math inline">\(R_j\)</span> and <span
+class="math inline">\(C_j\)</span>, <span
+class="math inline">\(P(R_j\sim C_j)=\frac{1}{2}\)</span>, <span
+class="math inline">\(\ P(R_j\not\sim C_j)=\frac{1}{2}\)</span></font>
+<span class="math display">\[
+P(A(G)\ is \ invertible)=P(M\ is\ invertible)
+\]</span> <strong>Thm Let G be a graph. The number of walks from <span
+class="math inline">\(v_i\)</span> to <span
+class="math inline">\(v_j\)</span> of length k is equal to the <span
+class="math inline">\((i,j)\)</span>-entry of <span
+class="math inline">\((A(G))^k\)</span></strong></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let <span class="math inline">\(A(G)=(a_{ij})_{n\times n}\)</span>.
+Then <span class="math inline">\((i,j)\)</span>-entry of <span
+class="math inline">\((A(G))^k\)</span> is given by <span
+class="math display">\[
+[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
+\]</span> where the sum ranges over all sequences <span
+class="math inline">\((i_1,i_2,\dots,i_{k-1})\)</span> with <span
+class="math inline">\(i_t\in[n]=\{1,2,\dots,n\}\)</span> <span
+class="math display">\[
+\begin{aligned}
+(A(G))^2_{ij}&amp;=(A(G)\cdot
+A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
+(A(G))^3_{ij}&amp;=((A(G))^2\cdot
+A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
+\end{aligned}
+\]</span> By the definition of adjacency matrix, <span
+class="math inline">\(a_j=1\Leftrightarrow v_iv_j\in E(G)\)</span></p>
+<p>It follows that the summand <span
+class="math inline">\(a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}\)</span> is
+1 <span class="math inline">\(\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots
+v_{i_{k-1}}v_j\)</span> is a walk of length k. Hence the summing over
+all <span class="math inline">\((i_1,\cdots,i_{k-1})\)</span> just gives
+the total number of walks of length k from <span
+class="math inline">\(v_i\)</span> to <span
+class="math inline">\(v_j\)</span></p>
+<hr />
+<p>A(G) is <span class="math inline">\(n\times n\)</span> symmetric
+matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues
+satisfy <span class="math display">\[
+\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
+\]</span> <font color='red'>Note that <span
+class="math inline">\(\lambda_1+\lambda_2+\cdots+\lambda_n=0\)</span>,some
+eigenvalues could be negative.<br>If G is a bipartite graph, the
+eigenvalues are symmetric about origin.</font></p>
+<p><strong>Thm Let G be a graph with eigenvalues <span
+class="math inline">\(\lambda_1,\cdots,\lambda_n\)</span>. Then the
+number of closed walks in G of length k is given by</strong> <span
+class="math display">\[
+w_G(k)=\lambda_1^k+\cdots+\lambda_n^k
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the
+above theorem that <span class="math display">\[
+w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)
+\]</span> Since A(G) has <span class="math inline">\(\lambda_i\)</span>
+as an eigenvalue with <span
+class="math inline">\(i\in\{1,2,\cdots,n\}\)</span>, the matrix <span
+class="math inline">\(A(G)^k\)</span> has eigenvalue <span
+class="math inline">\(\lambda_i^k\)</span>for <span
+class="math inline">\(i\in\{1,2,\cdots,n\}\)</span></p>
+<p><font color='red'><span
+class="math inline">\(A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad
+A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}\)</span></font></p>
+<p>Then, <span
+class="math inline">\(tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span>, so
+<span
+class="math inline">\(w_G(k)=tr(A(G)^k)=\sum_{i=1}^n\lambda_i^k\)</span></p>
+<hr />
+<p><strong>Incidence matrix and Laplacian matrix</strong></p>
+<p>Let G be a graph s.t. <span
+class="math inline">\(V(G)=\{v_1,v_2,\cdots,v_n\}\)</span> and <span
+class="math inline">\(E(G)=\{e_1,e_2,\cdots,e_m\}\)</span> <span
+class="math display">\[
+B(G)=(b_{ij})_{n\times m}\ where\
+b_{ij}=\left\{\begin{aligned}&amp;1\quad v_i\ is\ incident\ with\ e_j\\
+&amp;0\quad v_i\ isn&#39;t\ incident\ with\ e_j\end{aligned}\right.
+\]</span> <img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" /></p>
+<p><font color='red'>We can find that evey column has two non-zero
+entries.</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" /></p>
+<p><font color='red'>We can find that each column of <span
+class="math inline">\(\vec{B}\)</span> has one entry of 1, one entry of
+-1 and other entry of 0.Therefore, add all entries in column and get
+0</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" /></p>
+<p><span class="math inline">\(D(G)\)</span> is a diagonal matrix whose
+diagonal entries are the degrees of vertices.</p>
+<p>Laplacian matrix of G: <span class="math inline">\(L(G)=
+D(G)-A(G)=\vec{B}\cdot\vec{B}^T\)</span></p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive
+semi-definite and consequently, all eigenvalues of L(G) are real and
+non-negative.</strong> <span class="math display">\[
+\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0
+\]</span> <span class="math inline">\(\tau(G)\)</span>= the total number
+of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices <span
+class="math inline">\(v_1,\dots,v_n\)</span>. Then <span
+class="math inline">\(\tau(G)=det(L_0(G))\)</span> where <span
+class="math inline">\(L_0(G)\)</span> is obtained from <span
+class="math inline">\(L(G)\)</span> by deleting the i-th row and i-th
+column for any <span
+class="math inline">\(i\in[n]=\{1,2,\dots,n\}\)</span></strong></p>
+<hr />
+<p><strong>Proof.</strong></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" /></p>
+<p>If T is a spanning tree, either <span class="math inline">\(e\in
+T\)</span> or <span class="math inline">\(e\not\in T\)</span>.</p>
+<p>An edge e of G is said to be contracted if it is deleted and its ends
+are identified, the resulting graph is denoted by <span
+class="math inline">\(G\cdot e\)</span>.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" /></p>
+<p>If <span class="math inline">\(e\not\in T\)</span>, T is a spanning
+tree of G-e; if <span class="math inline">\(e\in T\)</span>, <span
+class="math inline">\(T\cdot e\)</span> is a spanning tree of <span
+class="math inline">\(G\cdot e\)</span>.</p>
+<p>Therefore, <span class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot
+e)\)</span></p>
+<p>Use induction on the number of edges of G.</p>
+<p>If G has no edges and n=1, so <span
+class="math inline">\(\tau(G)=1=det(L_0(G))\)</span> where <span
+class="math inline">\(L_0(G)\)</span> is a <span
+class="math inline">\(0\times 0\)</span> matrix with determinant 1 by
+convenience.</p>
+<p>If <span class="math inline">\(n&gt;1\)</span>, then <span
+class="math inline">\(\tau(G)=0\)</span>, and <span
+class="math inline">\(L_0(G)\)</span> is a 0-matrix in which every entry
+is 0. So <span class="math inline">\(\tau(G)=det(L_0(G))\)</span> .</p>
+<p>Therefore, the statement holds for <span
+class="math inline">\(|E(G)|=0\)</span>.</p>
+<p>Assume the statement holds all graph with number of edges less than
+<span class="math inline">\(|E(G)|\)</span>.</p>
+<p>By recordering the vertices of G, we may assume that <span
+class="math inline">\(i=1\)</span> and <span
+class="math inline">\(v_1v_2\in E(G)\)</span>, Let <span
+class="math inline">\(e=v_1v_2\)</span>. Then <span
+class="math inline">\(\tau(G)=\tau(G-e)+\tau(G\cdot e)\)</span>.</p>
+<p>By inductive hypothesis, <span
+class="math inline">\(\tau(G-e)=det(L_0(G-e))\)</span> and <span
+class="math inline">\(\tau(G\cdot e)=det(L_0(G\cdot e))\)</span>.</p>
+<p>Assume <span
+class="math inline">\(L_0(G)=\begin{pmatrix}d_2&amp;P\\P^T&amp;R\end{pmatrix}\)</span>
+obtained from <span
+class="math inline">\(L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\\hdashline1&amp;d_2&amp;P\\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)\)</span>
+by deleting the first row and the first column.</p>
+<p>Then <span
+class="math inline">\(L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\\P^T&amp;R\end{pmatrix}\)</span>
+and <span class="math inline">\(L_0(G\cdot e)=R\)</span></p>
+<p>Note that <span
+class="math inline">\(L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\\vec{0}^T&amp;R\end{pmatrix}\)</span></p>
+<p>Using the Laplace expansion along the first row, <span
+class="math display">\[
+det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot
+e)=\tau(G)
+\]</span></p>
+<hr />
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that
+the eigenvalues of L(G) are <span
+class="math inline">\(\mu_1\geq\mu_2\geq\cdots\geq\mu_{n-1}\geq\mu_n=0\)</span>.
+Then</strong> <span class="math display">\[
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
+\]</span></p>
+<hr />
+<p><strong>Proof</strong></p>
+<p>Let <span class="math inline">\(L(G)\)</span> be the Laplacian matrix
+and let <span class="math display">\[
+det(L(G)-\lambda
+I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)
+\]</span> So the cofficient of <span
+class="math inline">\(\lambda\)</span> term is <span
+class="math inline">\(-\mu_1\mu_2\cdots\mu_{n-1}\)</span>. Note that,
+consider <span class="math inline">\(L(G)-\lambda I\)</span>.</p>
+<p>Add all rows of <span class="math inline">\(L(G)-\lambda I\)</span>
+except the first row to the first row, and let <span
+class="math inline">\(M(\lambda)\)</span> be the new resulting
+matrix.</p>
+<p>Then <span class="math inline">\(det(M(\lambda))=det(L(G)-\lambda
+I)\)</span> and the first row of <span
+class="math inline">\(M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]\)</span>.</p>
+<p>Let <span class="math inline">\(N(\lambda)\)</span> be the resulting
+matrix obtained from <span class="math inline">\(M(\lambda)\)</span> by
+factoring out <span class="math inline">\(-\lambda\)</span>.</p>
+<p>Then <span class="math inline">\(M(\lambda)=-\lambda
+N(\lambda)\)</span> and <span
+class="math inline">\(det(M(\lambda))=-\lambda det(N(\lambda))\)</span>,
+So <span class="math display">\[
+det(L(G)-\lambda I)=-\lambda det(N(\lambda))
+\]</span> Therefore, the cofficient of <span
+class="math inline">\(\lambda\)</span> term in <span
+class="math inline">\(det(L(G)-\lambda I)\)</span>is equal to <span
+class="math inline">\(-det(N(0))\)</span>.</p>
+<p>Add all columns of <span class="math inline">\(N(0)\)</span> except
+the first column to the first column.</p>
+<p><font color='red'>(Note that <span
+class="math inline">\(i^{th}\)</span>-row <span
+class="math inline">\((i&gt;1)\)</span> of <span
+class="math inline">\(N(0)\)</span> is the same as the  <span
+class="math inline">\(i^{th}\)</span>-row <span
+class="math inline">\((i&gt;1)\)</span> of <span
+class="math inline">\(L(G)\)</span></font></p>
+<p>Then the first column of the new matrix is <span
+class="math inline">\(\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T\)</span>.</p>
+<p>Use Laplace expansion along the <span
+class="math inline">\(1^{st}\)</span> column, <span
+class="math inline">\(det(N(0))=n\cdot det(L_0(G))\)</span> <span
+class="math display">\[
+n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow
+det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
+\]</span> By previous theorem, <span class="math display">\[
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
+\]</span></p>
+<hr />
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lecture series on graph theory 8</title>
     <url>/2022/05/27/Graph8/</url>
     <content><![CDATA[<p><strong>Proof of the coloring-flow duality theorem</strong></p>
@@ -2431,327 +2545,8 @@ face is bounded by a cycle.</font></p>
       </tags>
   </entry>
   <entry>
-    <title>SVD-Dominnant Correlation</title>
-    <url>/2024/06/05/SVD-Dominnant%20Correlation/</url>
-    <content><![CDATA[<h2 id="dominant-correlation">Dominant Correlation</h2>
-<p>Here we introduce one of the most useful interpretation of the SVD.
-It is in terms of correlations among the columns of <span
-class="math inline">\(X\)</span> and correlations among the rows of
-<span class="math inline">\(X\)</span>. We claim that the matrix <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> given by the SVD can be seen as the
-eigenvectors of a correlation matrix given by <span
-class="math inline">\(XX^T\)</span> or <span
-class="math inline">\(X^TX\)</span>. Now we try to explain this
-claim.</p>
-<span id="more"></span>
-<p>We consider the structure of the correlation matrix <span
-class="math inline">\(X^TX\)</span> firstly. Since the size of the data
-matrix <span class="math inline">\(X\)</span> is <span
-class="math inline">\(n\times m\)</span>, the size of the correlation
-matrix <span class="math inline">\(X^TX\)</span> is <span
-class="math inline">\(m\times m\)</span>. <span class="math display">\[
-X^TX=\begin{bmatrix}\cdots&amp;x_1^T&amp;\cdots\\\cdots&amp;x_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\
-\\\cdots&amp;x_m^T&amp;\cdots\end{bmatrix}\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&amp;x_1^Tx_2&amp;\cdots&amp;x_1^Tx_m\\x_2^Tx_1&amp;x_2^Tx_2&amp;\cdots&amp;x_2^Tx_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\\x_m^Tx_1&amp;x_m^Tx_2&amp;\cdots&amp;x_m^Tx_m\end{bmatrix}
-\]</span> Based on the definition of <span
-class="math inline">\(X^TX\)</span>, we realize that <span
-class="math inline">\(X^TX\)</span> is a correlation matrix among the
-columns of <span class="math inline">\(X\)</span>. All entries of <span
-class="math inline">\(X^TX\)</span> are essentially an inner product
-between two columns of the data matrix <span
-class="math inline">\(X\)</span>. Interestingly, if the entry <span
-class="math inline">\(x_i^Tx_j\)</span> is a large number, it means that
-the columns <span class="math inline">\(x_i\)</span> and <span
-class="math inline">\(x_j\)</span> are highly correlated. However, if
-this number is very small, it means that the columns <span
-class="math inline">\(x_i\)</span> and <span
-class="math inline">\(x_j\)</span> are nearly orthogonal, which means
-that the columns <span class="math inline">\(x_i\)</span> and <span
-class="math inline">\(x_j\)</span> are almost different. Therefore, the
-correlation matrix <span class="math inline">\(X^TX\)</span> can be seen
-as a matrix that measures the correlation among the columns of <span
-class="math inline">\(X\)</span>.</p>
-<p>Based on the structure of the correlation matrix <span
-class="math inline">\(X^TX\)</span>, <span
-class="math inline">\(X^TX\)</span> is a symmetric and positive
-semi-definite matrix. It guarantees that we have non negative real
-eigenvalues, which have a direct correspondence on the singular values
-of the data matrix <span class="math inline">\(X\)</span>. Now we assume
-that the matrix <span class="math inline">\(X\)</span> have the singular
-value decomposition <span class="math inline">\(X=U\Sigma V^T\)</span>.
-We can derive that <span class="math display">\[
-X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2
-\]</span> which means that the columns of <span
-class="math inline">\(V\)</span> are the eigenvectors of the correlation
-matrix <span class="math inline">\(X^TX\)</span>. The eigenvalues of the
-correlation matrix <span class="math inline">\(X^TX\)</span> are the
-squares of the singular values of the data matrix <span
-class="math inline">\(X\)</span>. The same is true for the correlation
-matrix <span class="math inline">\(XX^T\)</span>. We can derive that
-<span class="math display">\[
-XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2
-\]</span> which means that the columns of <span
-class="math inline">\(U\)</span> are the eigenvectors of the correlation
-matrix <span class="math inline">\(XX^T\)</span>. The eigenvalues of the
-correlation matrix <span class="math inline">\(XX^T\)</span> are the
-squares of the singular values of the data matrix <span
-class="math inline">\(X\)</span>. Therefore, we can conclude that the
-singular matrix <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> given by the SVD of the data matrix
-<span class="math inline">\(X\)</span> can be seen as the eigenvectors
-of the correlation matrix <span class="math inline">\(X^TX\)</span> or
-<span class="math inline">\(XX^T\)</span>. The importance of this
-columns of <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> is quantified by eigenvalues of <span
-class="math inline">\(X^TX\)</span> or <span
-class="math inline">\(XX^T\)</span>, which are the squares of the
-singular values of the data matrix <span
-class="math inline">\(X\)</span>.</p>
-<p>Here we introduce the method of snapshots to compute the singular
-value decomposition of the data matrix. If the data matrix <span
-class="math inline">\(X\)</span> is so large that you cannot actually
-compute it or store it all in memory, you can use the method of
-snapshots. However, in the vast majority of cases, we don't recommend
-that you compute the SVD using correlation matrices.</p>
-<p>Although you cannot load all columns of <span
-class="math inline">\(X\)</span> into memory, what you can do is calling
-two columns at a time. For example, you can call the first column <span
-class="math inline">\(x_1\)</span> and itself, then you will get the
-inner product <span class="math inline">\(x_1^Tx_1\)</span>. After, you
-can call the first column <span class="math inline">\(x_1\)</span> and
-the second column <span class="math inline">\(x_2\)</span>, then you
-will get the inner product <span class="math inline">\(x_1^Tx_2\)</span>
-and so on. You can compute the inner product by calling two columns of
-data matrix each time to get the correlation matrix <span
-class="math inline">\(X^TX\)</span>. Here the resulting matrix is a
-<span class="math inline">\(m\times m\)</span> matrix. It is small
-enough that you can put it into memory and compute its
-eigendecomposition. Based the above discussion, we know that the righ
-singular vector <span class="math inline">\(V\)</span> and the singular
-value <span class="math inline">\(\Sigma\)</span> can be goten by this
-eigendecomposition. Then you can use this matrix to solve the left
-singular vector <span class="math inline">\(U\)</span>.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Linear Regression</title>
-    <url>/2024/06/21/SVD-Linear%20Regression/</url>
-    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from
-data. When we have gotten measurement data in experiments, it is
-important to construct a linear regression model as a predictive model.
-The basic structure of the linear regression is defined as follows,
-<span class="math display">\[
-Ax=b
-\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
-m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
-are given by the measurement. Therefore, building a linear regression is
-equal to solve the linear system <span
-class="math inline">\(Ax=b\)</span>. Here we just consider the over
-determined system <span class="math inline">\(n&gt;m\)</span> since it
-is often what we have in modern data. We will use the least square
-estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
-<span id="more"></span>
-<p>To explain this linear regression more clearly, let's say that every
-rows of equation is based on data from an individual medical history. So
-the equation <span
-class="math inline">\(a_{i1}x_1+\cdots+a_{im}x_{m}=b_{i}\)</span> means
-the medical case of the <span class="math inline">\(i-th\)</span>
-person. Every columns of matrix <span class="math inline">\(A\)</span>
-represent different kinds of risk factors and the vector <span
-class="math inline">\(b\)</span> means the risk of heart disease.
-Therefore, we can give a interpretation about linear regression. Linear
-regression is a best fit model <span class="math inline">\(x\)</span>
-for what combination of those factors describe best or predict best the
-future risk of heart disease. Actually it may be driven by the nonlinear
-system in real world, here we oversimplify this system by using linear
-regression to approximate it.</p>
-<p>Since we consider the overdetermined system, it is hard to find a
-vector <span class="math inline">\(x\)</span> that exactly solves this
-linear model. We want to find the best fit vector <span
-class="math inline">\(x\)</span> that minimizes the error norm between
-<span class="math inline">\(Ax\)</span> and <span
-class="math inline">\(b\)</span>. In other words, the best fit vector
-<span class="math inline">\(x\)</span> gives us the best prediction of
-<span class="math inline">\(b\)</span> given information in <span
-class="math inline">\(A\)</span>. Here we consider a one-dimensional
-linear regression model since it can be easily plotted in the following
-figure and gives a geometric interpretation of linear regression. Of
-course, the conclusion derived in this way is very simple and can be
-generalized to much higher-dimensional situations.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" /></p>
-<p>As seen in figure, we will solve the <span
-class="math inline">\(x\)</span> here that we want is the slope of this
-fit line. We generalize this interpretation to much higher dimensional
-case instead of having just one factor that I use to predict <span
-class="math inline">\(b\)</span>. In general, I will find a best fit
-plane instead of best fit line to approximate the high dimensional data.
-In one dimensional, <span class="math inline">\(A=\begin{bmatrix} a_1\
-a_2\ \cdots\ a_n\end{bmatrix}^{T}\)</span> and <span
-class="math inline">\(b=\begin{bmatrix}b_1\ b_2\ \cdots\
-b_n\end{bmatrix}^{T}\)</span> will be considered. Based on the SVD, we
-can give the decompostion matrices <span
-class="math inline">\(U=\frac{A}{\Vert A\Vert_2}\)</span>, <span
-class="math inline">\(\Sigma=\Vert A\Vert_2\)</span> and <span
-class="math inline">\(V^T=1\)</span> easily. Using Moore-Penrose pseudo
-inverse of <span class="math inline">\(A\)</span>, we can solve the best
-fit slope <span class="math inline">\(x\)</span> as follows, <span
-class="math display">\[
-x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b
-\]</span> Due to the value of the best fit slope, we find that the
-linear regression can be written as <span
-class="math inline">\(Ax=AA^{\dagger}b=\frac{AA^T}{\Vert
-A\Vert_2^2}b\)</span>. It means that we project <span
-class="math inline">\(b\)</span> into the direction of <span
-class="math inline">\(A\)</span>. When we think about the projection, we
-realize that the normalized matrix <span
-class="math inline">\(\tilde{A}=\frac{A}{\Vert A\Vert_2}\)</span>
-satisfies <span
-class="math inline">\(\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert
-A\Vert_2}=1\)</span>. From this, we can use this normalized matrix <span
-class="math inline">\(\tilde{A}\)</span> to derive the projection
-operator <span
-class="math inline">\(\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert
-A\Vert_2^2}\)</span>. This formula can be generalized into higher
-dimensional case easily.</p>
-<p>At last, we consider a very common problem that our data has some
-outliers in data analysis. As seen in the above figure, these data do
-not fully mathch our best fitting model. Since the normal data can have
-some variablity, like Gaussian noisy, our linear regression just is a
-approximation model to real world. Here we assume that our data has a
-outlier which is completely different with others. It will bias my
-distrubution and effect the best fit slope, since the purpose of our
-derivation is minimizing the sum of the squares of the errors of all of
-those points to the line. Therefore, it is a big risk we have when we
-have outliers. Regularly square based on the SVD can handle white noise
-very well. However, the matrix <span class="math inline">\(A\)</span>
-will be sensitive to outliers, we will consider in robust
-statistics.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Mathematical Overview</title>
-    <url>/2024/04/18/SVD-Mathematical%20Overview/</url>
-    <content><![CDATA[<p>​ Firstly, we consider a large data matrix <span
-class="math inline">\(X\in \mathbb{C}^{n\times m}\)</span>:</p>
-<p><span class="math display">\[
-X=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}
-\]</span> The column <span class="math inline">\(x_k\in
-\mathbb{C}^n\)</span> is obtained from simulations or experiments.
-Here,we always consider the column vectors may also represent the state
-of a physical system that is evolving in time.The column are often
-called snapshots and <span class="math inline">\(m\)</span> is the
-number of snapshots in <span class="math inline">\(X\)</span>.</p>
-<p>The Singular Value Decomposition allows us to decompose any
-complex-valued matrix as the product of three other matrices,</p>
-<span id="more"></span>
-<p><span class="math display">\[
-X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_n\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
-&amp;\ \\\ &amp;\ &amp;\ &amp;\
-\end{bmatrix}\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\v_1&amp;v_2&amp;\cdots&amp;v_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}^T
-\]</span> where <span class="math inline">\(U\in \mathbb{C}^{n\times
-n}\)</span> and <span class="math inline">\(V\in\mathbb{C}^{m\times
-m}\)</span> are unitary matrices. If a square matrix <span
-class="math inline">\(U\)</span> satisfies <span
-class="math inline">\(U^{\star}U=UU^{\star}=I\)</span>, we call it
-unitary matrix. Here * denotes the complex conjugate transpose. For
-real-valued matrices, it is the same as the regular transpose, <span
-class="math inline">\(X^{\star}=X^T\)</span>. So if <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are real-valued matrices, we call them
-orthogonal matrices. Since the conclusions of real-valued and
-complex-valued <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are parallel, we will only discuss the
-real-valued case in the following. <span class="math inline">\(\Sigma\in
-\mathbb{R}^{n\times m}\)</span> is a diagonal matrix, which means
-real,non-zero entries on thediagonal and zeros off the diagonal.</p>
-<p>​ These column of <span class="math inline">\(U\)</span> have the same
-shape as a column of <span class="math inline">\(X\)</span>. The columns
-of <span class="math inline">\(U\)</span> describe the eigen of the data
-in <span class="math inline">\(X\)</span>. So in the case of faces,
-these mean eigenfaces and in the case of flow fields, these mean
-eigenflow fields. Furthermore, the columns of <span
-class="math inline">\(U\)</span> are hierarchically arranged in terms of
-their ability to describe the variance in the column of <span
-class="math inline">\(X\)</span>. In other words, <span
-class="math inline">\(u_1\)</span> is somehow more important than <span
-class="math inline">\(u_2\)</span> and so on and so forth.</p>
-<p>​ <span class="math inline">\(U\)</span> gives me a basis, based on
-which we can represent each column of original data in <span
-class="math inline">\(X\)</span>.Actually, these basis have great
-properties. Since <span class="math inline">\(U\)</span> is an unitary
-matrix, it means the column of <span class="math inline">\(U\)</span>
-are orthonormal. So these column are all orthogonal , have unit length
-and provide a complete basis for n-dimensional subspace where the column
-of data matrix lives.</p>
-<p>​ <span class="math inline">\(\Sigma\)</span> is not only a diagnol
-matrix, but also non-negative and hierarchically ordered matrix. So we
-have <span
-class="math inline">\(\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0\)</span>.
-They are all non-negative, although some of them could be zero.
-According to the matrix multiplication, we can find that <span
-class="math inline">\(\sigma_1\)</span> correspond to the first columns
-of <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>.Since <span
-class="math inline">\(\sigma_1\geq\sigma_2\)</span>, it means that the
-first columns are somehow important than the second ones when we
-describe the information of <span class="math inline">\(X\)</span>. In
-other words, the sigular value provides the relative imporatance of
-these corresponding columns of <span class="math inline">\(U\)</span>
-and <span class="math inline">\(V\)</span>. Finally, we say that the
-sigular values are ordered by importance.</p>
-<p>​ Here we will start in the case of flow fields. The columns of <span
-class="math inline">\(U\)</span> will be eigen flows hierarchically
-organized. We call the first column of <span
-class="math inline">\(V\)</span> as <span
-class="math inline">\(v_1\)</span>. So <span
-class="math inline">\(v_1\)</span> would be the time series for how this
-first eigen mode <span class="math inline">\(u_1\)</span> evolves in
-this flow.</p>
-<p>The matrix <span class="math inline">\(U\)</span> is called left
-sigular column and the columns are called left singular vectors. <span
-class="math inline">\(V\)</span> is similar to <span
-class="math inline">\(U\)</span>. The diagonal elements of <span
-class="math inline">\(\Sigma\)</span> are called sigular values.The rank
-of X is equal to the number of non-zero sigular value.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SVD-Eckart-Young-Mirsky theorem</title>
-    <url>/2024/05/28/SVD-Eckart_Young_Mirsky%20/</url>
+    <url>/2024/05/28/SVD-Eckart_Young_Mirsky/</url>
     <content><![CDATA[<p>Firstly, we introduce three different kinds of matrix norms and based
 on singular value decomposition, verify that these norms are only
 related to singular values.</p>
@@ -2911,6 +2706,211 @@ class="math display">\[
 A-B_r\right\Vert_F^2=\sum_{i=1}^m\sigma_i(A-B_r)^2\geq\sum_{i=r+1}^m\sigma_i(A)^2=\left\Vert
 A-A_r\right\Vert_F^2
 \]</span></p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Mathematical Overview</title>
+    <url>/2024/04/18/SVD-Mathematical%20Overview/</url>
+    <content><![CDATA[<p>​ Firstly, we consider a large data matrix <span
+class="math inline">\(X\in \mathbb{C}^{n\times m}\)</span>:</p>
+<p><span class="math display">\[
+X=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}
+\]</span> The column <span class="math inline">\(x_k\in
+\mathbb{C}^n\)</span> is obtained from simulations or experiments.
+Here,we always consider the column vectors may also represent the state
+of a physical system that is evolving in time.The column are often
+called snapshots and <span class="math inline">\(m\)</span> is the
+number of snapshots in <span class="math inline">\(X\)</span>.</p>
+<p>The Singular Value Decomposition allows us to decompose any
+complex-valued matrix as the product of three other matrices,</p>
+<span id="more"></span>
+<p><span class="math display">\[
+X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_n\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
+&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
+\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
+&amp;\ \\\ &amp;\ &amp;\ &amp;\
+\end{bmatrix}\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\v_1&amp;v_2&amp;\cdots&amp;v_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}^T
+\]</span> where <span class="math inline">\(U\in \mathbb{C}^{n\times
+n}\)</span> and <span class="math inline">\(V\in\mathbb{C}^{m\times
+m}\)</span> are unitary matrices. If a square matrix <span
+class="math inline">\(U\)</span> satisfies <span
+class="math inline">\(U^{\star}U=UU^{\star}=I\)</span>, we call it
+unitary matrix. Here * denotes the complex conjugate transpose. For
+real-valued matrices, it is the same as the regular transpose, <span
+class="math inline">\(X^{\star}=X^T\)</span>. So if <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are real-valued matrices, we call them
+orthogonal matrices. Since the conclusions of real-valued and
+complex-valued <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are parallel, we will only discuss the
+real-valued case in the following. <span class="math inline">\(\Sigma\in
+\mathbb{R}^{n\times m}\)</span> is a diagonal matrix, which means
+real,non-zero entries on thediagonal and zeros off the diagonal.</p>
+<p>​ These column of <span class="math inline">\(U\)</span> have the same
+shape as a column of <span class="math inline">\(X\)</span>. The columns
+of <span class="math inline">\(U\)</span> describe the eigen of the data
+in <span class="math inline">\(X\)</span>. So in the case of faces,
+these mean eigenfaces and in the case of flow fields, these mean
+eigenflow fields. Furthermore, the columns of <span
+class="math inline">\(U\)</span> are hierarchically arranged in terms of
+their ability to describe the variance in the column of <span
+class="math inline">\(X\)</span>. In other words, <span
+class="math inline">\(u_1\)</span> is somehow more important than <span
+class="math inline">\(u_2\)</span> and so on and so forth.</p>
+<p>​ <span class="math inline">\(U\)</span> gives me a basis, based on
+which we can represent each column of original data in <span
+class="math inline">\(X\)</span>.Actually, these basis have great
+properties. Since <span class="math inline">\(U\)</span> is an unitary
+matrix, it means the column of <span class="math inline">\(U\)</span>
+are orthonormal. So these column are all orthogonal , have unit length
+and provide a complete basis for n-dimensional subspace where the column
+of data matrix lives.</p>
+<p>​ <span class="math inline">\(\Sigma\)</span> is not only a diagnol
+matrix, but also non-negative and hierarchically ordered matrix. So we
+have <span
+class="math inline">\(\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0\)</span>.
+They are all non-negative, although some of them could be zero.
+According to the matrix multiplication, we can find that <span
+class="math inline">\(\sigma_1\)</span> correspond to the first columns
+of <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>.Since <span
+class="math inline">\(\sigma_1\geq\sigma_2\)</span>, it means that the
+first columns are somehow important than the second ones when we
+describe the information of <span class="math inline">\(X\)</span>. In
+other words, the sigular value provides the relative imporatance of
+these corresponding columns of <span class="math inline">\(U\)</span>
+and <span class="math inline">\(V\)</span>. Finally, we say that the
+sigular values are ordered by importance.</p>
+<p>​ Here we will start in the case of flow fields. The columns of <span
+class="math inline">\(U\)</span> will be eigen flows hierarchically
+organized. We call the first column of <span
+class="math inline">\(V\)</span> as <span
+class="math inline">\(v_1\)</span>. So <span
+class="math inline">\(v_1\)</span> would be the time series for how this
+first eigen mode <span class="math inline">\(u_1\)</span> evolves in
+this flow.</p>
+<p>The matrix <span class="math inline">\(U\)</span> is called left
+sigular column and the columns are called left singular vectors. <span
+class="math inline">\(V\)</span> is similar to <span
+class="math inline">\(U\)</span>. The diagonal elements of <span
+class="math inline">\(\Sigma\)</span> are called sigular values.The rank
+of X is equal to the number of non-zero sigular value.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Linear Regression</title>
+    <url>/2024/06/21/SVD-Linear%20Regression/</url>
+    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from
+data. When we have gotten measurement data in experiments, it is
+important to construct a linear regression model as a predictive model.
+The basic structure of the linear regression is defined as follows,
+<span class="math display">\[
+Ax=b
+\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
+m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
+are given by the measurement. Therefore, building a linear regression is
+equal to solve the linear system <span
+class="math inline">\(Ax=b\)</span>. Here we just consider the over
+determined system <span class="math inline">\(n&gt;m\)</span> since it
+is often what we have in modern data. We will use the least square
+estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
+<span id="more"></span>
+<p>To explain this linear regression more clearly, let's say that every
+rows of equation is based on data from an individual medical history. So
+the equation <span
+class="math inline">\(a_{i1}x_1+\cdots+a_{im}x_{m}=b_{i}\)</span> means
+the medical case of the <span class="math inline">\(i-th\)</span>
+person. Every columns of matrix <span class="math inline">\(A\)</span>
+represent different kinds of risk factors and the vector <span
+class="math inline">\(b\)</span> means the risk of heart disease.
+Therefore, we can give a interpretation about linear regression. Linear
+regression is a best fit model <span class="math inline">\(x\)</span>
+for what combination of those factors describe best or predict best the
+future risk of heart disease. Actually it may be driven by the nonlinear
+system in real world, here we oversimplify this system by using linear
+regression to approximate it.</p>
+<p>Since we consider the overdetermined system, it is hard to find a
+vector <span class="math inline">\(x\)</span> that exactly solves this
+linear model. We want to find the best fit vector <span
+class="math inline">\(x\)</span> that minimizes the error norm between
+<span class="math inline">\(Ax\)</span> and <span
+class="math inline">\(b\)</span>. In other words, the best fit vector
+<span class="math inline">\(x\)</span> gives us the best prediction of
+<span class="math inline">\(b\)</span> given information in <span
+class="math inline">\(A\)</span>. Here we consider a one-dimensional
+linear regression model since it can be easily plotted in the following
+figure and gives a geometric interpretation of linear regression. Of
+course, the conclusion derived in this way is very simple and can be
+generalized to much higher-dimensional situations.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" /></p>
+<p>As seen in figure, we will solve the <span
+class="math inline">\(x\)</span> here that we want is the slope of this
+fit line. We generalize this interpretation to much higher dimensional
+case instead of having just one factor that I use to predict <span
+class="math inline">\(b\)</span>. In general, I will find a best fit
+plane instead of best fit line to approximate the high dimensional data.
+In one dimensional, <span class="math inline">\(A=\begin{bmatrix} a_1\
+a_2\ \cdots\ a_n\end{bmatrix}^{T}\)</span> and <span
+class="math inline">\(b=\begin{bmatrix}b_1\ b_2\ \cdots\
+b_n\end{bmatrix}^{T}\)</span> will be considered. Based on the SVD, we
+can give the decompostion matrices <span
+class="math inline">\(U=\frac{A}{\Vert A\Vert_2}\)</span>, <span
+class="math inline">\(\Sigma=\Vert A\Vert_2\)</span> and <span
+class="math inline">\(V^T=1\)</span> easily. Using Moore-Penrose pseudo
+inverse of <span class="math inline">\(A\)</span>, we can solve the best
+fit slope <span class="math inline">\(x\)</span> as follows, <span
+class="math display">\[
+x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b
+\]</span> Due to the value of the best fit slope, we find that the
+linear regression can be written as <span
+class="math inline">\(Ax=AA^{\dagger}b=\frac{AA^T}{\Vert
+A\Vert_2^2}b\)</span>. It means that we project <span
+class="math inline">\(b\)</span> into the direction of <span
+class="math inline">\(A\)</span>. When we think about the projection, we
+realize that the normalized matrix <span
+class="math inline">\(\tilde{A}=\frac{A}{\Vert A\Vert_2}\)</span>
+satisfies <span
+class="math inline">\(\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert
+A\Vert_2}=1\)</span>. From this, we can use this normalized matrix <span
+class="math inline">\(\tilde{A}\)</span> to derive the projection
+operator <span
+class="math inline">\(\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert
+A\Vert_2^2}\)</span>. This formula can be generalized into higher
+dimensional case easily.</p>
+<p>At last, we consider a very common problem that our data has some
+outliers in data analysis. As seen in the above figure, these data do
+not fully mathch our best fitting model. Since the normal data can have
+some variablity, like Gaussian noisy, our linear regression just is a
+approximation model to real world. Here we assume that our data has a
+outlier which is completely different with others. It will bias my
+distrubution and effect the best fit slope, since the purpose of our
+derivation is minimizing the sum of the squares of the errors of all of
+those points to the line. Therefore, it is a big risk we have when we
+have outliers. Regularly square based on the SVD can handle white noise
+very well. However, the matrix <span class="math inline">\(A\)</span>
+will be sensitive to outliers, we will consider in robust
+statistics.</p>
 ]]></content>
       <categories>
         <category>Reduced Order Model</category>
@@ -3216,79 +3216,6 @@ class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
       </tags>
   </entry>
   <entry>
-    <title>SVD-Unitary Transformation and Geometry</title>
-    <url>/2024/06/16/SVD-Unitary%20Transformation/</url>
-    <content><![CDATA[<p>In the singular value decomposition of the data matrix <span
-class="math inline">\(X\)</span>, we have the two unitary matrices <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>. We have introduced that the unitary
-matrices satisfy <span class="math inline">\(U^TU=UU^T=I\)</span> and
-<span class="math inline">\(VV^T=V^TV=I\)</span>. Here these identity
-matrices have different size.</p>
-<span id="more"></span>
-<p>Actually, unitary matrices preserve the angle between any two vectors
-in the vector space. Since the inverse of the unitary matrix is its own
-transpose, it can not only preserve the angles between vectors, but also
-preserve the length of the vectors. Essentially, unitary transformation
-is a coordinate transformation into a new representation. It just takes
-all of those vectors and rotates them into a new representation. It will
-not change the length of any vector and angles between any two
-vectors.</p>
-<p>Here you will find that we just consider the real-valued case.
-However, when we consider the data matrix <span
-class="math inline">\(X\)</span> is a complex-valued matrix, the
-singular vectors <span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are complex-valued matrices. Compared
-with the real-valued matrix, the most important difference is that the
-transpose of a complex-valued matrix is actually a conjugate
-transpose.</p>
-<p>To sum up, we give the mathematical form of unitary transformation
-here. For any two vectors <span class="math inline">\(x\)</span> and
-<span class="math inline">\(y\)</span> in vector space, then we have
-<span class="math display">\[
-(x,y)=(Ux,Uy)
-\]</span> where <span class="math inline">\((\cdot,\cdot)\)</span> is
-the inner product of two vectors and the operator <span
-class="math inline">\(U\)</span> means the unitary transformation, which
-in a unitary matrix in discrete case. Based on this mathematical form,
-we realize that the inner product of <span
-class="math inline">\(x\)</span> and <span
-class="math inline">\(y\)</span> is unchanged when we transform <span
-class="math inline">\(x\)</span> and <span
-class="math inline">\(y\)</span> by unitary transformation.</p>
-<p>Since we have introduced the unitary transform in the vector space,
-we interpret singular vector decomposition geometrically. Here we
-consider the size of data matrix is <span class="math inline">\(n\times
-m\)</span>. Now we consider any vector <span
-class="math inline">\(\vec{v}\)</span> in space <span
-class="math inline">\(\mathbb{R}^m\)</span> and vector <span
-class="math inline">\(\vec{v}\)</span> is palced on the unit sphere. As
-we all know, the matrix is a linear transformation about the vector.
-Therefore, we consider the transformed vector <span
-class="math inline">\(X\vec{v}\)</span>, which is placed on the
-ellipsoid in the vector space <span
-class="math inline">\(\mathbb{R}^n\)</span>. Here the gemoetric
-interpretation of the singular value decomposition can be given. The
-length of these principal axes are specially given by the singular
-values of the data matrix <span class="math inline">\(X\)</span>. The
-orientation of this ellipsoid is somehow given by these left singular
-vectors in <span class="math inline">\(U\)</span>. Like the
-interpretation of linear transformation, <span
-class="math inline">\(X\)</span> multiplies the vector on the left side
-or on the right side, which corresponds to a change to a rotation of
-space. Finally, <span class="math inline">\(X\)</span> is not a square
-matrix, so the rotation of the corresponding space is actually a change
-in dimensionality.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux-Shell常用指令</title>
     <url>/2024/03/30/linux-1/</url>
     <content><![CDATA[<h1 id="shell-基本命令">Shell 基本命令</h1>
@@ -3566,6 +3493,79 @@ l
       <tags>
         <tag>Computer Science</tag>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Unitary Transformation and Geometry</title>
+    <url>/2024/06/16/SVD-Unitary%20Transformation/</url>
+    <content><![CDATA[<p>In the singular value decomposition of the data matrix <span
+class="math inline">\(X\)</span>, we have the two unitary matrices <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>. We have introduced that the unitary
+matrices satisfy <span class="math inline">\(U^TU=UU^T=I\)</span> and
+<span class="math inline">\(VV^T=V^TV=I\)</span>. Here these identity
+matrices have different size.</p>
+<span id="more"></span>
+<p>Actually, unitary matrices preserve the angle between any two vectors
+in the vector space. Since the inverse of the unitary matrix is its own
+transpose, it can not only preserve the angles between vectors, but also
+preserve the length of the vectors. Essentially, unitary transformation
+is a coordinate transformation into a new representation. It just takes
+all of those vectors and rotates them into a new representation. It will
+not change the length of any vector and angles between any two
+vectors.</p>
+<p>Here you will find that we just consider the real-valued case.
+However, when we consider the data matrix <span
+class="math inline">\(X\)</span> is a complex-valued matrix, the
+singular vectors <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are complex-valued matrices. Compared
+with the real-valued matrix, the most important difference is that the
+transpose of a complex-valued matrix is actually a conjugate
+transpose.</p>
+<p>To sum up, we give the mathematical form of unitary transformation
+here. For any two vectors <span class="math inline">\(x\)</span> and
+<span class="math inline">\(y\)</span> in vector space, then we have
+<span class="math display">\[
+(x,y)=(Ux,Uy)
+\]</span> where <span class="math inline">\((\cdot,\cdot)\)</span> is
+the inner product of two vectors and the operator <span
+class="math inline">\(U\)</span> means the unitary transformation, which
+in a unitary matrix in discrete case. Based on this mathematical form,
+we realize that the inner product of <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span> is unchanged when we transform <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span> by unitary transformation.</p>
+<p>Since we have introduced the unitary transform in the vector space,
+we interpret singular vector decomposition geometrically. Here we
+consider the size of data matrix is <span class="math inline">\(n\times
+m\)</span>. Now we consider any vector <span
+class="math inline">\(\vec{v}\)</span> in space <span
+class="math inline">\(\mathbb{R}^m\)</span> and vector <span
+class="math inline">\(\vec{v}\)</span> is palced on the unit sphere. As
+we all know, the matrix is a linear transformation about the vector.
+Therefore, we consider the transformed vector <span
+class="math inline">\(X\vec{v}\)</span>, which is placed on the
+ellipsoid in the vector space <span
+class="math inline">\(\mathbb{R}^n\)</span>. Here the gemoetric
+interpretation of the singular value decomposition can be given. The
+length of these principal axes are specially given by the singular
+values of the data matrix <span class="math inline">\(X\)</span>. The
+orientation of this ellipsoid is somehow given by these left singular
+vectors in <span class="math inline">\(U\)</span>. Like the
+interpretation of linear transformation, <span
+class="math inline">\(X\)</span> multiplies the vector on the left side
+or on the right side, which corresponds to a change to a rotation of
+space. Finally, <span class="math inline">\(X\)</span> is not a square
+matrix, so the rotation of the corresponding space is actually a change
+in dimensionality.</p>
+]]></content>
+      <categories>
+        <category>Reduced Order Model</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
