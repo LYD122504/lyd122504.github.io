@@ -22,18 +22,18 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Dominant CorrelationHere we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that th">
+  <meta name="description" content="Dominant Correlation Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of \(X\) and correlations among the rows of \(X\). We claim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVD-Dominnant Correlation">
 <meta property="og:url" content="http://example.com/2024/06/05/SVD-Dominnant%20Correlation/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Dominant CorrelationHere we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that th">
+<meta property="og:description" content="Dominant Correlation Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of \(X\) and correlations among the rows of \(X\). We claim">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-05T14:19:05.000Z">
 <meta property="article:modified_time" content="2024-08-20T09:02:39.743Z">
 <meta property="article:author" content="Li Yaoda">
-<meta property="article:tag" content="Machine Learning">
 <meta property="article:tag" content="Math">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2024/06/05/SVD-Dominnant%20Correlation/">
@@ -262,18 +262,108 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
+        <h2 id="dominant-correlation">Dominant Correlation</h2>
+<p>Here we introduce one of the most useful interpretation of the SVD.
+It is in terms of correlations among the columns of <span
+class="math inline">\(X\)</span> and correlations among the rows of
+<span class="math inline">\(X\)</span>. We claim that the matrix <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> given by the SVD can be seen as the
+eigenvectors of a correlation matrix given by <span
+class="math inline">\(XX^T\)</span> or <span
+class="math inline">\(X^TX\)</span>. Now we try to explain this
+claim.</p>
 <span id="more"></span>
-<p>We consider the structure of the correlation matrix $X^TX$ firstly. Since the size of the data matrix $X$ is $n\times m$, the size of the correlation matrix $X^TX$ is $m\times m$.</p>
-<script type="math/tex; mode=display">
-X^TX=\begin{bmatrix}\cdots&x_1^T&\cdots\\\cdots&x_2^T&\cdots\\\ &\vdots&\ \\\cdots&x_m^T&\cdots\end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&x_1^Tx_2&\cdots&x_1^Tx_m\\x_2^Tx_1&x_2^Tx_2&\cdots&x_2^Tx_m\\\vdots&\vdots&\ &\vdots\\x_m^Tx_1&x_m^Tx_2&\cdots&x_m^Tx_m\end{bmatrix}</script><p>Based on the definition of $X^TX$, we realize that $X^TX$ is a correlation matrix among the columns of $X$. All entries of $X^TX$ are essentially an inner product between two columns of the data matrix $X$. Interestingly, if the entry $x_i^Tx_j$ is a large number, it means that the columns $x_i$ and $x_j$ are highly correlated. However, if this number is very small, it means that the columns $x_i$ and $x_j$ are nearly orthogonal, which means that the columns $x_i$ and $x_j$ are almost different. Therefore, the correlation matrix $X^TX$ can be seen as a matrix that measures the correlation among the columns of $X$.</p>
-<p>Based on the structure of the correlation matrix $X^TX$, $X^TX$ is a symmetric and positive semi-definite matrix. It guarantees that we have non negative real eigenvalues, which have a direct correspondence on the singular values of the data matrix $X$. Now we assume that the matrix $X$ have the singular value decomposition $X=U\Sigma V^T$. We can derive that</p>
-<script type="math/tex; mode=display">
-X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2</script><p>which means that the columns of $V$ are the eigenvectors of the correlation matrix $X^TX$. The eigenvalues of the correlation matrix $X^TX$ are the squares of the singular values of the data matrix $X$. The same is true for the correlation matrix $XX^T$. We can derive that</p>
-<script type="math/tex; mode=display">
-XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><p>which means that the columns of $U$ are the eigenvectors of the correlation matrix $XX^T$. The eigenvalues of the correlation matrix $XX^T$ are the squares of the singular values of the data matrix $X$. Therefore, we can conclude that the singular matrix $U$ and $V$ given by the SVD of the data matrix $X$ can be seen as the eigenvectors of the correlation matrix $X^TX$ or $XX^T$. The importance of this columns of $U$ and $V$ is quantified by eigenvalues of $X^TX$ or $XX^T$, which are the squares of the singular values of the data matrix $X$.</p>
-<p>Here we introduce the method of snapshots to compute the singular value decomposition of the data matrix. If the data matrix $X$ is so large that you cannot actually compute it or store it all in memory, you can use the method of snapshots. However, in the vast majority of cases, we don’t recommend that you compute the SVD using correlation matrices.</p>
-<p>Although you cannot load all columns of $X$ into memory, what you can do is calling two columns at a time. For example, you can call the first column $x_1$ and itself, then you will get the inner product $x_1^Tx_1$. After, you can call the first column $x_1$ and the second column $x_2$, then you will get the inner product $x_1^Tx_2$ and so on. You can compute the inner product by calling two columns of data matrix each time to get the correlation matrix $X^TX$. Here the resulting matrix is a $m\times m$ matrix. It is small enough that you can put it into memory and compute its eigendecomposition. Based the above discussion, we know that the righ singular vector $V$ and the singular value $\Sigma$ can be goten by this eigendecomposition. Then you can use this matrix to solve the left singular vector $U$.</p>
+<p>We consider the structure of the correlation matrix <span
+class="math inline">\(X^TX\)</span> firstly. Since the size of the data
+matrix <span class="math inline">\(X\)</span> is <span
+class="math inline">\(n\times m\)</span>, the size of the correlation
+matrix <span class="math inline">\(X^TX\)</span> is <span
+class="math inline">\(m\times m\)</span>. <span class="math display">\[
+X^TX=\begin{bmatrix}\cdots&amp;x_1^T&amp;\cdots\\\cdots&amp;x_2^T&amp;\cdots\\\
+&amp;\vdots&amp;\
+\\\cdots&amp;x_m^T&amp;\cdots\end{bmatrix}\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&amp;x_1^Tx_2&amp;\cdots&amp;x_1^Tx_m\\x_2^Tx_1&amp;x_2^Tx_2&amp;\cdots&amp;x_2^Tx_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\\x_m^Tx_1&amp;x_m^Tx_2&amp;\cdots&amp;x_m^Tx_m\end{bmatrix}
+\]</span> Based on the definition of <span
+class="math inline">\(X^TX\)</span>, we realize that <span
+class="math inline">\(X^TX\)</span> is a correlation matrix among the
+columns of <span class="math inline">\(X\)</span>. All entries of <span
+class="math inline">\(X^TX\)</span> are essentially an inner product
+between two columns of the data matrix <span
+class="math inline">\(X\)</span>. Interestingly, if the entry <span
+class="math inline">\(x_i^Tx_j\)</span> is a large number, it means that
+the columns <span class="math inline">\(x_i\)</span> and <span
+class="math inline">\(x_j\)</span> are highly correlated. However, if
+this number is very small, it means that the columns <span
+class="math inline">\(x_i\)</span> and <span
+class="math inline">\(x_j\)</span> are nearly orthogonal, which means
+that the columns <span class="math inline">\(x_i\)</span> and <span
+class="math inline">\(x_j\)</span> are almost different. Therefore, the
+correlation matrix <span class="math inline">\(X^TX\)</span> can be seen
+as a matrix that measures the correlation among the columns of <span
+class="math inline">\(X\)</span>.</p>
+<p>Based on the structure of the correlation matrix <span
+class="math inline">\(X^TX\)</span>, <span
+class="math inline">\(X^TX\)</span> is a symmetric and positive
+semi-definite matrix. It guarantees that we have non negative real
+eigenvalues, which have a direct correspondence on the singular values
+of the data matrix <span class="math inline">\(X\)</span>. Now we assume
+that the matrix <span class="math inline">\(X\)</span> have the singular
+value decomposition <span class="math inline">\(X=U\Sigma V^T\)</span>.
+We can derive that <span class="math display">\[
+X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2
+\]</span> which means that the columns of <span
+class="math inline">\(V\)</span> are the eigenvectors of the correlation
+matrix <span class="math inline">\(X^TX\)</span>. The eigenvalues of the
+correlation matrix <span class="math inline">\(X^TX\)</span> are the
+squares of the singular values of the data matrix <span
+class="math inline">\(X\)</span>. The same is true for the correlation
+matrix <span class="math inline">\(XX^T\)</span>. We can derive that
+<span class="math display">\[
+XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2
+\]</span> which means that the columns of <span
+class="math inline">\(U\)</span> are the eigenvectors of the correlation
+matrix <span class="math inline">\(XX^T\)</span>. The eigenvalues of the
+correlation matrix <span class="math inline">\(XX^T\)</span> are the
+squares of the singular values of the data matrix <span
+class="math inline">\(X\)</span>. Therefore, we can conclude that the
+singular matrix <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> given by the SVD of the data matrix
+<span class="math inline">\(X\)</span> can be seen as the eigenvectors
+of the correlation matrix <span class="math inline">\(X^TX\)</span> or
+<span class="math inline">\(XX^T\)</span>. The importance of this
+columns of <span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> is quantified by eigenvalues of <span
+class="math inline">\(X^TX\)</span> or <span
+class="math inline">\(XX^T\)</span>, which are the squares of the
+singular values of the data matrix <span
+class="math inline">\(X\)</span>.</p>
+<p>Here we introduce the method of snapshots to compute the singular
+value decomposition of the data matrix. If the data matrix <span
+class="math inline">\(X\)</span> is so large that you cannot actually
+compute it or store it all in memory, you can use the method of
+snapshots. However, in the vast majority of cases, we don't recommend
+that you compute the SVD using correlation matrices.</p>
+<p>Although you cannot load all columns of <span
+class="math inline">\(X\)</span> into memory, what you can do is calling
+two columns at a time. For example, you can call the first column <span
+class="math inline">\(x_1\)</span> and itself, then you will get the
+inner product <span class="math inline">\(x_1^Tx_1\)</span>. After, you
+can call the first column <span class="math inline">\(x_1\)</span> and
+the second column <span class="math inline">\(x_2\)</span>, then you
+will get the inner product <span class="math inline">\(x_1^Tx_2\)</span>
+and so on. You can compute the inner product by calling two columns of
+data matrix each time to get the correlation matrix <span
+class="math inline">\(X^TX\)</span>. Here the resulting matrix is a
+<span class="math inline">\(m\times m\)</span> matrix. It is small
+enough that you can put it into memory and compute its
+eigendecomposition. Based the above discussion, we know that the righ
+singular vector <span class="math inline">\(V\)</span> and the singular
+value <span class="math inline">\(\Sigma\)</span> can be goten by this
+eigendecomposition. Then you can use this matrix to solve the left
+singular vector <span class="math inline">\(U\)</span>.</p>
 
     </div>
 
@@ -283,8 +373,8 @@ XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
               <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           </div>
 
         
@@ -293,7 +383,7 @@ XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/05/28/SVD-Eckart-Young-Mirsky%20/" rel="prev" title="SVD-Eckart-Young-Mirsky theorem">
+    <a href="/2024/05/28/SVD-Eckart_Young_Mirsky%20/" rel="prev" title="SVD-Eckart-Young-Mirsky theorem">
       <i class="fa fa-chevron-left"></i> SVD-Eckart-Young-Mirsky theorem
     </a></div>
       <div class="post-nav-item">
@@ -358,7 +448,7 @@ XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dominant-Correlation"><span class="nav-number">1.</span> <span class="nav-text">Dominant Correlation</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dominant-correlation"><span class="nav-number">1.</span> <span class="nav-text">Dominant Correlation</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

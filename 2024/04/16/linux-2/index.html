@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="文件目录管理下表罗列了Linux文件系统中主要目录的内容                目  录 内  容      &#x2F;bin 构建最小系统所需要的命令(最常用的命令)      &#x2F;boot 内核和启动文件      &#x2F;dev 各种设备文件      &#x2F;etc 系统软件的启动和配置文件      &#x2F;home 用户的主目录(用户所有数据,极其重要)      &#x2F;lib C编译器的库      &#x2F;me">
+  <meta name="description" content="文件目录管理 下表罗列了Linux文件系统中主要目录的内容            目 录   内 容       &#x2F;bin   构建最小系统所需要的命令(最常用的命令)       &#x2F;boot   内核和启动文件       &#x2F;dev   各种设备文件       &#x2F;etc  系统软件的启">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux-文件目录管理">
 <meta property="og:url" content="http://example.com/2024/04/16/linux-2/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="文件目录管理下表罗列了Linux文件系统中主要目录的内容                目  录 内  容      &#x2F;bin 构建最小系统所需要的命令(最常用的命令)      &#x2F;boot 内核和启动文件      &#x2F;dev 各种设备文件      &#x2F;etc 系统软件的启动和配置文件      &#x2F;home 用户的主目录(用户所有数据,极其重要)      &#x2F;lib C编译器的库      &#x2F;me">
+<meta property="og:description" content="文件目录管理 下表罗列了Linux文件系统中主要目录的内容            目 录   内 容       &#x2F;bin   构建最小系统所需要的命令(最常用的命令)       &#x2F;boot   内核和启动文件       &#x2F;dev   各种设备文件       &#x2F;etc  系统软件的启">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-16T15:00:04.000Z">
 <meta property="article:modified_time" content="2024-04-23T07:32:16.661Z">
@@ -262,152 +262,195 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="文件目录管理"><a href="#文件目录管理" class="headerlink" title="文件目录管理"></a>文件目录管理</h1><p>下表罗列了Linux文件系统中主要目录的内容</p>
-<div align="center">
-
-
+        <h1 id="文件目录管理">文件目录管理</h1>
+<p>下表罗列了Linux文件系统中主要目录的内容</p>
+<div data-align="center">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
 <colgroup>
 <col  class="org-center" />
 </colgroup>
-
 <colgroup>
 <col  class="org-center" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-center">目  录</th>
-<th scope="col" class="org-center">内  容</th>
+<th scope="col" class="org-center">
+目 录
+</th>
+<th scope="col" class="org-center">
+内 容
+</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td class="org-center">/bin</td>
-<td class="org-center">构建最小系统所需要的命令(最常用的命令)</td>
+<td class="org-center">
+/bin
+</td>
+<td class="org-center">
+构建最小系统所需要的命令(最常用的命令)
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/boot</td>
-<td class="org-center">内核和启动文件</td>
+<td class="org-center">
+/boot
+</td>
+<td class="org-center">
+内核和启动文件
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/dev</td>
-<td class="org-center">各种设备文件</td>
+<td class="org-center">
+/dev
+</td>
+<td class="org-center">
+各种设备文件
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/etc</td>
+<td class="org-center">
+/etc
+</td>
 <td ·class="org-center">系统软件的启动和配置文件</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/home</td>
-<td class="org-center">用户的主目录(用户所有数据,极其重要)</td>
+<td class="org-center">
+/home
+</td>
+<td class="org-center">
+用户的主目录(用户所有数据,极其重要)
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/lib</td>
-<td class="org-center">C编译器的库</td>
+<td class="org-center">
+/lib
+</td>
+<td class="org-center">
+C编译器的库
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/media</td>
-<td class="org-center">可移动介质的安装点</td>
+<td class="org-center">
+/media
+</td>
+<td class="org-center">
+可移动介质的安装点
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/opt</td>
-<td class="org-center">可选的应用软件包(用deb包安装的部分软件在这)</td>
+<td class="org-center">
+/opt
+</td>
+<td class="org-center">
+可选的应用软件包(用deb包安装的部分软件在这)
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/proc</td>
-<td class="org-center">进程的映像</td>
+<td class="org-center">
+/proc
+</td>
+<td class="org-center">
+进程的映像
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/root</td>
-<td class="org-center">根用户root的主目录</td>
+<td class="org-center">
+/root
+</td>
+<td class="org-center">
+根用户root的主目录
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/sbin</td>
-<td class="org-center">和系统操作有关的命令</td>
+<td class="org-center">
+/sbin
+</td>
+<td class="org-center">
+和系统操作有关的命令
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/tmp</td>
-<td class="org-center">临时文件存放点</td>
+<td class="org-center">
+/tmp
+</td>
+<td class="org-center">
+临时文件存放点
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/usr</td>
-<td class="org-center">非系统的程序和命令(apt安装的位置)</td>
+<td class="org-center">
+/usr
+</td>
+<td class="org-center">
+非系统的程序和命令(apt安装的位置)
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-center">/var</td>
-<td class="org-center">系统专用的数据和配置文件</td>
+<td class="org-center">
+/var
+</td>
+<td class="org-center">
+系统专用的数据和配置文件
+</td>
 </tr>
 </tbody>
 </table>
-
 </div>
-
 <p><a id="org8d61c7d"></a></p>
 <span id="more"></span>
-<h2 id="mkdir-建立目录"><a href="#mkdir-建立目录" class="headerlink" title="mkdir: 建立目录"></a>mkdir: 建立目录</h2><p>mkdir命令可以一次建立一个或几个目录.</p>
+<h2 id="mkdir-建立目录">mkdir: 建立目录</h2>
+<p>mkdir命令可以一次建立一个或几个目录.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> document picture <span class="comment">## 新建两个目录</span></span></span><br></pre></td></tr></table></figure>
 <p>这样的创建是先利用cd到你想创建的位置,再创建目录.用户也可以用绝对路径来新建目录,这样的话不需要用cd来跳转到创建的位置,在任意位置用mkdir加绝对路径即可创建目录,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> ~/picture/temp <span class="comment">## 在主目录的picture目录下创建temp子目录</span></span></span><br></pre></td></tr></table></figure>
 <p>这个命令合法是因为picture目录存在主目录下,如果用户试图在一个不存在的目录下创建新子目录,那命令会报错.为了避免这个报错,我们可以用-p选项来创建目录.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /home/username <span class="comment">## 在home目录下创建username目录,如果他存在那就不去创建</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p ~/test1/test2 <span class="comment">## 如果主目录下没有test1,那么不会报错,而是先创建test1再在其中创建test2</span></span></span><br></pre></td></tr></table></figure>
 <p><a id="orgfef9599"></a></p>
-<h2 id="touch-建立一个空文件"><a href="#touch-建立一个空文件" class="headerlink" title="touch: 建立一个空文件"></a>touch: 建立一个空文件</h2><p>touch后面接文件名作为参数,可以在当前目录创建一个或多个新文件,</p>
+<h2 id="touch-建立一个空文件">touch: 建立一个空文件</h2>
+<p>touch后面接文件名作为参数,可以在当前目录创建一个或多个新文件,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> hello <span class="comment">## 在当前目录创建文件名为hello的文件</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> <span class="string">&#x27;hello world&#x27;</span> <span class="comment">## 在当前目录创建文件名为 &#x27;hello world&#x27; 的文件</span></span></span><br></pre></td></tr></table></figure>
-<p>如果我们在上面的’hello world’中不加引号,那touch会认为创建hello和world两个文件.用touch命令创建的文件是空文件,其内不包含任何内容.</p>
+<p>如果我们在上面的'hello
+world'中不加引号,那touch会认为创建hello和world两个文件.用touch命令创建的文件是空文件,其内不包含任何内容.</p>
 <p>touch除了创建空文件的作用,其更重要的用途是更新一个文件的建立日期和时间.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -l init.el~ <span class="comment">## 查看文件的时间属性</span></span></span><br><span class="line">-rw-r--r-- 1 lyd lyd 997  2月  5 21:54 init.el~ ## 原来文件时间属性是2024/2/5-21:54</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> init.el~ <span class="comment">## 修改文件的时间属性</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -l init.el~ <span class="comment">## 查看改过的文件时间属性</span></span></span><br><span class="line">-rw-r--r-- 1 lyd lyd 997  3月 20 20:52 init.el~ ## 改过以后文件时间变成了2024/3/20-20:52</span><br></pre></td></tr></table></figure>
 <p>touch命令在自动备份和整理文件文件时非常有用.</p>
 <p><a id="org0ba94bd"></a></p>
-<h2 id="mv-移动和重命名"><a href="#mv-移动和重命名" class="headerlink" title="mv: 移动和重命名"></a>mv: 移动和重命名</h2><p>mv其实是move的缩写形式.这个命令可以用来移动文件或目录到另一个路径.这里移动到的文件</p>
+<h2 id="mv-移动和重命名">mv: 移动和重命名</h2>
+<p>mv其实是move的缩写形式.这个命令可以用来移动文件或目录到另一个路径.这里移动到的文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> hello bin/ <span class="comment">## 把hello文件移动到bin目录下</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> Photos/ 桌面/ <span class="comment">## 把Photos目录移动到桌面目录下</span></span></span><br></pre></td></tr></table></figure>
 <p>由于执行mv命令的时候并不会有任何信息显示,那么如果目标目录中有一个同名文件,不加任何选项的mv命令会强制替换文件.这一行为极其危险,容易强制替换掉一些关键文件.为了避免这种情况出现,我们可以用-i选项来控制覆盖文件与否,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> -i hello <span class="built_in">test</span>/ <span class="comment">## 出现同名文件询问是否覆盖</span></span></span><br></pre></td></tr></table></figure>
 <p>其会先询问用户是否覆盖旧文件,输入y表示直接覆盖,输入n表示取消移动操作.</p>
 <p>另外一个避免强制覆盖的选项是-b,其与-i的询问不同,如果出现同名文件,那么他会在转移之前将目标目录中的同名文件的文件名后面加一个~,形成一个备份,从而避免文件覆盖情况的发生.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> -b hello <span class="built_in">test</span>/ <span class="comment">## 出现同名文件则对其备份</span></span></span><br></pre></td></tr></table></figure>
-<p>Linux中不存在重命名的操作,我们可以认为重命名只不过是在同一级目录下的移动而已.因此我们可以用mv命令来实现对文件或目录的重命名.<br>如</p>
+<p>Linux中不存在重命名的操作,我们可以认为重命名只不过是在同一级目录下的移动而已.因此我们可以用mv命令来实现对文件或目录的重命名.
+如</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> hello world <span class="comment">## 在同级目录下进行重命名</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> /home/lyd/hello /home/lyd/learning/world <span class="comment">## 移动到其他目录并且重命名</span></span></span><br></pre></td></tr></table></figure>
 <p>使用mv命令可能出现的一些简单情况,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> file1 file2 <span class="comment">## 移动file1到file2</span></span></span><br></pre></td></tr></table></figure>
@@ -417,7 +460,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> dir1/ dir2/ <span class="comment">## 移动目录dir1到目录dir2</span></span></span><br></pre></td></tr></table></figure>
 <p>如果目录dir2不存在,创建目录dir2,并且移动目录dir1的内容到目录dir2中,同时删除目录dir1.如果dir2存在,移动目录dir1及他的内容到目录dir2.</p>
 <p><a id="org8b9b032"></a></p>
-<h2 id="cp-复制文件和目录"><a href="#cp-复制文件和目录" class="headerlink" title="cp: 复制文件和目录"></a>cp: 复制文件和目录</h2><p>cp命令用来复制文件和目录.下面的指令用来将test.php复制到test目录下</p>
+<h2 id="cp-复制文件和目录">cp: 复制文件和目录</h2>
+<p>cp命令用来复制文件和目录.下面的指令用来将test.php复制到test目录下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cp</span> test.php <span class="built_in">test</span>/ <span class="comment">## 复制文件到指定路径</span></span></span><br></pre></td></tr></table></figure>
 <p>和mv命令一样,cp在默认情况下也会强制覆盖目标目录中的同名文件.同样我们可以用-i选项来对这种覆盖文件的情况进行提示,我们也可以用-b选项来避免询问,通过对同名文件进行一个修改命名再进行复制.这两个选项的使用和mv命令的一样,因此不再赘述.</p>
 <p>如果我们希望复制一个目录到另一个目录下,而直接用cp命令进行复制,则会有如下结果</p>
@@ -432,7 +476,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cp</span> dir1/* dir2/ <span class="comment">## 用通配符移动文件</span></span></span><br></pre></td></tr></table></figure>
 <p>与-r选项不同,用通配符来批量移动dir1中的文件,要求dir2存在并且移动只会复制dir1中的文件和子目录,不会在dir2中复制dir1这个目录.</p>
 <p><a id="org9b7d339"></a></p>
-<h2 id="rmdir-和-rm-删除目录和文件"><a href="#rmdir-和-rm-删除目录和文件" class="headerlink" title="rmdir 和 rm: 删除目录和文件"></a>rmdir 和 rm: 删除目录和文件</h2><p>rmdir命令可以用来删除目录.其只需要在rmdir命令后面接要删除的文件名即可.</p>
+<h2 id="rmdir-和-rm-删除目录和文件">rmdir 和 rm: 删除目录和文件</h2>
+<p>rmdir命令可以用来删除目录.其只需要在rmdir命令后面接要删除的文件名即可.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> remove <span class="comment">##创建一个空目录</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rmdir</span> remove <span class="comment">##删除指定的空目录</span></span></span><br></pre></td></tr></table></figure>
 <p>但rmdir只能用于删除空目录,一旦试图用其删除非空目录,那么会有如下报错</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rmdir</span> learning</span></span><br><span class="line">rmdir: 删除 &#x27;learning&#x27; 失败: 目录非空</span><br></pre></td></tr></table></figure>
@@ -445,89 +490,122 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rm</span> -f <span class="built_in">test</span> <span class="comment">## -f选项跳过交互操作</span></span> </span><br></pre></td></tr></table></figure>
 <p>我们可以用带-r选项的rm命令会递归的删除指定目录下所有文件和子目录.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rm</span> -r Photos/ <span class="comment">## 递归删除Photos目录</span></span></span><br></pre></td></tr></table></figure>
-<p>关键在于使用rm -rf命令一定要注意评估删除的后果,不然可能会破坏系统的稳定性,故慎用rm -r命令.</p>
+<p>关键在于使用rm
+-rf命令一定要注意评估删除的后果,不然可能会破坏系统的稳定性,故慎用rm
+-r命令.</p>
 <p><a id="org1f6941e"></a></p>
-<h2 id="Linux文件目录权限"><a href="#Linux文件目录权限" class="headerlink" title="Linux文件目录权限"></a>Linux文件目录权限</h2><p>Linux的文件目录权限针对三类人群:文件所有者(属主),文件属组用户,其他人.关键在于其他人的多样性,可能会对文件目录内容进行修改,从而有机会造成不可预料的信息损坏.root用户虽然应该归属于上面的其他人,但root用户显然具有对系统任意文件的查看,修改,执行权利,因为root用户拥有控制一台计算机的所有权限.</p>
+<h2 id="linux文件目录权限">Linux文件目录权限</h2>
+<p>Linux的文件目录权限针对三类人群:文件所有者(属主),文件属组用户,其他人.关键在于其他人的多样性,可能会对文件目录内容进行修改,从而有机会造成不可预料的信息损坏.root用户虽然应该归属于上面的其他人,但root用户显然具有对系统任意文件的查看,修改,执行权利,因为root用户拥有控制一台计算机的所有权限.</p>
 <p>文件所有者一般是文件的创建者.但这并不是绝对的,root用户可以修改一个文件的属主用户.换言之,在某个用户在linux系统创建了某个文件,此时文件所有者(属主)自动是文件创建者,但后续过程中root用户可以将文件所有者进行转让,这个转让过程也仅能用root用户进行.</p>
 <p>当然文件的权限也会被给予一个用户组,我们称这个用户组为文件的属组.组是一群用户组成的一个集合.文件属组中的用户按照设置对文件享有特定的权限.通常而言,当一个用户创建了一个文件,那么该文件的属主就是这个用户,而文件的属组则是有且仅有该用户的用户组.当然我们也可以设置这个文件属组是一个不包括文件属主的用户组.如果文件属主执行文件操作的时候,系统只会关注于文件属主的权限,而文件属组的权限并不会对文件属主的权限造成影响.</p>
 <p>其他人则是不包括文件所有者,文件属组用户和root用户以外的其他用户.通常其他人的权限十分低,甚至于无法对文件有任何权限.</p>
 <p>可以用来赋予用户的文件和目录的权限为读取(r),写入(w)和执行(x).对于文件而言,读取权限意味着可以打开并查看文件的内容,写入权限控制着对文件的修改权限,至于是否能呢更狗删除和重命名一个文件则是由其父目录的权限设置所控制.要让一个文件可执行,必须设置其执行权限.可执行文件有两类,一类是可以直接由CPU执行的二进制代码,另一类则是Shell脚本程序.</p>
 <p>对目录而言,目录的执行权限其实是控制用户是否能够进入该目录,因此目录的执行权限其实上是目录的最基本的权限.而读取权限负责确定能否列出该目录的内容,写入权限则控制在目录中创建,删除和重命名文件.</p>
 <p><a id="org3d640d7"></a></p>
-<h2 id="ls-l-查看文件类型"><a href="#ls-l-查看文件类型" class="headerlink" title="ls -l: 查看文件类型"></a>ls -l: 查看文件类型</h2><p>前面介绍ls命令时,提到了ls -l来查看文件的属性,此处进一步解释展示的文件属性的参数</p>
+<h2 id="ls--l-查看文件类型">ls -l: 查看文件类型</h2>
+<p>前面介绍ls命令时,提到了ls
+-l来查看文件的属性,此处进一步解释展示的文件属性的参数</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -l  <span class="comment">## 列出所有文件和目录以及其对应的属性</span></span></span><br><span class="line">  总计 152</span><br><span class="line">  drwxr-xr-x  2 lyd  lyd   4096  2月  5 09:49  公共</span><br></pre></td></tr></table></figure>
 <ul>
 <li>第一个字段中的第一个字符表示文件类型,这个例子是d,其表示这是一个目录,具体的字符和文件类型的对应下表所示,</li>
 </ul>
-<div align="center">
-
-
+<div data-align="center">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-
 <colgroup>
 <col  class="org-left" />
 </colgroup>
-
 <colgroup>
 <col  class="org-left" />
 </colgroup>
-
 <colgroup>
 <col  class="org-left" />
 </colgroup>
-
 <colgroup>
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">文件类型</th>
-<th scope="col" class="org-left">符号</th>
-<th scope="col" class="org-left">文件类型</th>
-<th scope="col" class="org-left">符号</th>
+<th scope="col" class="org-left">
+文件类型
+</th>
+<th scope="col" class="org-left">
+符号
+</th>
+<th scope="col" class="org-left">
+文件类型
+</th>
+<th scope="col" class="org-left">
+符号
+</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td class="org-left">普通文件</td>
-<td class="org-left">-</td>
-<td class="org-left">本地域套接口</td>
-<td class="org-left">s</td>
+<td class="org-left">
+普通文件
+</td>
+<td class="org-left">
+-
+</td>
+<td class="org-left">
+本地域套接口
+</td>
+<td class="org-left">
+s
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-left">目录</td>
-<td class="org-left">d</td>
-<td class="org-left">有名管道</td>
-<td class="org-left">p</td>
+<td class="org-left">
+目录
+</td>
+<td class="org-left">
+d
+</td>
+<td class="org-left">
+有名管道
+</td>
+<td class="org-left">
+p
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-left">字符设备文件</td>
-<td class="org-left">c</td>
-<td class="org-left">符号链接</td>
-<td class="org-left">l</td>
+<td class="org-left">
+字符设备文件
+</td>
+<td class="org-left">
+c
+</td>
+<td class="org-left">
+符号链接
+</td>
+<td class="org-left">
+l
+</td>
 </tr>
 </tbody>
-
 <tbody>
 <tr>
-<td class="org-left">块设备文件</td>
-<td class="org-left">b</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">
+块设备文件
+</td>
+<td class="org-left">
+b
+</td>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+ 
+</td>
 </tr>
 </tbody>
 </table>
-
-<p>&lt;/div&gt;<br>其中具体的含义大概解释如下,Linux一般用设备文件来表示一个特定的硬件设备.Linux中有两类设备文件:字符设备文件和块设备文件.其中字符设备指的是能从他那读取成字符序列的设备,如磁带和串行设备;块设备则是指用来存储数据并对其各部分内容提供同等访问权的设备,如磁盘.一般我们可以称字符设备为顺序访问设备,块设备则为随机访问设备.这是因为块设备可以从硬盘的任何随机位置获取数据,而字符设备则必须按照数据发送的顺序从串行线路上获得.但是系统中存在设备文件,并不代表着他一定链接着相应的硬件设备,而是表示其具有处理对应硬件设备的能力.</p>
+</div>
+<p>其中具体的含义大概解释如下,Linux一般用设备文件来表示一个特定的硬件设备.Linux中有两类设备文件:字符设备文件和块设备文件.其中字符设备指的是能从他那读取成字符序列的设备,如磁带和串行设备;块设备则是指用来存储数据并对其各部分内容提供同等访问权的设备,如磁盘.一般我们可以称字符设备为顺序访问设备,块设备则为随机访问设备.这是因为块设备可以从硬盘的任何随机位置获取数据,而字符设备则必须按照数据发送的顺序从串行线路上获得.但是系统中存在设备文件,并不代表着他一定链接着相应的硬件设备,而是表示其具有处理对应硬件设备的能力.</p>
 <p>关于本地域套接口和有名管道这两个文件涉及到了进程间通信,日常使用并不常见.</p>
 <p>符号链接会在后续的ln里介绍,类似于windows系统的快捷方式.</p>
 <ul>
@@ -535,11 +613,16 @@
 <li>紧跟着三组权限位的数字表示文件的链接树木.此处是2.表示该目录存在两个链接,关于链接后续会给出介绍.</li>
 <li>后面第三个字段和第四个字段表示文件的属主和属组.</li>
 </ul>
-<p>ls -l可以用来查看某个特定文件的属性,但是如果我们需要查看目录的属性则需要用ls -ld命令来查看.</p>
+<p>ls
+-l可以用来查看某个特定文件的属性,但是如果我们需要查看目录的属性则需要用ls
+-ld命令来查看.</p>
 <p><a id="orgaef0396"></a></p>
-<h2 id="chown-和-chgrp-改变文件所有权"><a href="#chown-和-chgrp-改变文件所有权" class="headerlink" title="chown 和 chgrp: 改变文件所有权"></a>chown 和 chgrp: 改变文件所有权</h2><p>chown命令用于改变文件的所有权.chown命令的基本语法为:</p>
+<h2 id="chown-和-chgrp-改变文件所有权">chown 和 chgrp:
+改变文件所有权</h2>
+<p>chown命令用于改变文件的所有权.chown命令的基本语法为:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [OPTION] ... [OWNER][:[GROUP]] FILE... ## chown语法基本结构</span><br></pre></td></tr></table></figure>
-<p>这条命令可以将文件FILE的属主更改为OWNER,属组更改为GROUP. 下面命令给出了一个示例,其将文件的属主更改为LYD,同时将文件属组更改为root组,</p>
+<p>这条命令可以将文件FILE的属主更改为OWNER,属组更改为GROUP.
+下面命令给出了一个示例,其将文件的属主更改为LYD,同时将文件属组更改为root组,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">chown</span> LYD:root file <span class="comment">## 修改文件file的属主为LYD,同时修改属组为root组</span></span></span><br></pre></td></tr></table></figure>
 <p>如果我们只需要修改文件的属主,那么我们只需要输入OWNER,不需要输入:GROUP.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">chown</span> LYD file <span class="comment">## 修改文件file的属主为LYD,但不对属组进行修改</span></span></span><br></pre></td></tr></table></figure>
@@ -551,7 +634,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chgrp</span> nogroup days <span class="comment">## 更改文件属组</span></span></span><br></pre></td></tr></table></figure>
 <p>同样和chown一样,我们也可以用-R选项来递归的更改目录及其下所有文件和子目录的属组.但是这里chgrp和chown有一个关键区别在于,chown修改文件属组需要用root用户权限,然而对于chgrp,其只需要修改的用户在文件的属组就可以修改文件的属组.</p>
 <p><a id="orgad5e953"></a></p>
-<h2 id="chmod-改变文件权限"><a href="#chmod-改变文件权限" class="headerlink" title="chmod: 改变文件权限"></a>chmod: 改变文件权限</h2><p>chmod用来改变一个文件的权限.其修改删除权限的模式是用户组+/-权限的表达式.具体而言,用户组分为文件属主(u),文件属组(g),其他人(o),以及所有人(a).权限则表示读取(r),写入(w)和执行(x).</p>
+<h2 id="chmod-改变文件权限">chmod: 改变文件权限</h2>
+<p>chmod用来改变一个文件的权限.其修改删除权限的模式是用户组+/-权限的表达式.具体而言,用户组分为文件属主(u),文件属组(g),其他人(o),以及所有人(a).权限则表示读取(r),写入(w)和执行(x).</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> u+x days <span class="comment">## 为days文件属主提供文件执行权限</span></span></span><br></pre></td></tr></table></figure>
 <p>chmod可以用a来同时指定包括文件属主,文件属组和其他人的三类人,我们可以利用以此同时给全部人员增加或删除权限.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> a+w days <span class="comment">## 为days文件的所有人同时提供文件的写入权限</span></span></span><br></pre></td></tr></table></figure>
@@ -561,7 +645,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> u+r,go-w file <span class="comment">## 为文件file的属主添加读取权限,属组和其他人则删除写入权限</span></span></span><br></pre></td></tr></table></figure>
 <p>在这里,我们用了一个go来同时对属组和其他人进行修改权限操作,因此实际上我们可以看出来前面用的所有人标识符a和ugo等价.上面我们用逗号分隔符来分隔对不同用户的修改权限操作,实际上我们也可以用逗号分隔符来分隔对同一用户做的不同修改操作.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> u+r,u-w file <span class="comment">## 为文件file的属主添加读取权限的同时,删除文件属主的写入权限</span></span></span><br></pre></td></tr></table></figure>
-<p>如果用上面的添加或删除操作修改用户的权限来达到预期会极其复杂,中间也可能需要多次用ls -l查看文件属性.因此chmod还存在一个规则:用户组=权限来直接设置文件权限.</p>
+<p>如果用上面的添加或删除操作修改用户的权限来达到预期会极其复杂,中间也可能需要多次用ls
+-l查看文件属性.因此chmod还存在一个规则:用户组=权限来直接设置文件权限.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> ug=rw,o=r file <span class="comment">## 文件的属主和属组权限更改为读取权限和写入权限,而其他人的权限更改为读取权限</span></span></span><br></pre></td></tr></table></figure>
 <p>如果文件本身就有一个默认设定的权限,=这种规则会先重置需要修改的用户组的默认规则,然后按照=设定的权限重新赋予.虽然我们举了对所有用户用=修改权限的例子,但实际上,=规则是可以只对其中部分进行修改的.</p>
 <p>最后最为常用的是用户组1=用户组2,其的作用在于将用户组1的权限和用户组2的权限设置成一样.明确来说,他的作用是将用户组2的权限覆盖用户组1的权限.</p>
@@ -569,21 +654,19 @@
 <p>最为关键的一点是只有文件的属主和root用户才可以修改文件的权限.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> u+r file1 file2 <span class="comment">## 为文件file1和file2的属主增加读取权限</span></span></span><br></pre></td></tr></table></figure>
 <p>但这里要注意这样的修改要么在root用户下进行,要么两个文件的属主是同一个用户</p>
-<p>虽然我们前面已经将权限用三个字母来表示,但这对批量修改文件的权限十分麻烦,因此我们可以用八进制来代表设置权限.由于对于任意的权限而言,其只存在两种状态:设置(1)和不设置(0).所以我们可以得到任意一组权限设置的八进制表示,如’rwx’的二进制为111,八进制为7;’r-x’的二进制为101,八进制为5.这样我们就可以将完整的9位权限位用3个八进制数来表示,例如’rwxr-x-w-‘分别对应的三个三位二进制为111/101/010,其对应的三个八进制数752.</p>
+<p>虽然我们前面已经将权限用三个字母来表示,但这对批量修改文件的权限十分麻烦,因此我们可以用八进制来代表设置权限.由于对于任意的权限而言,其只存在两种状态:设置(1)和不设置(0).所以我们可以得到任意一组权限设置的八进制表示,如'rwx'的二进制为111,八进制为7;'r-x'的二进制为101,八进制为5.这样我们就可以将完整的9位权限位用3个八进制数来表示,例如'rwxr-x-w-'分别对应的三个三位二进制为111/101/010,其对应的三个八进制数752.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">chmod</span> 752 file <span class="comment">## 将文件权限设置为 rwx/ r-x/ -w-</span></span> </span><br></pre></td></tr></table></figure>
 <p><a id="orgece5a30"></a></p>
-<h2 id="ln-建立链接"><a href="#ln-建立链接" class="headerlink" title="ln: 建立链接"></a>ln: 建立链接</h2><p>ln命令是用来为某个文件在另一个位置创建一个同步的链接.链接主要分为符号链接(软链接)和硬链接两大类.无论硬链接还是软链接,他们都不会重新复制原来的文件,他们只会占用非常少量的磁盘空间.</p>
-<p>符号链接,也被称为软链接,其用ln -s命令来创建生成.软链接具有如下的特点,</p>
-<ol>
-<li><p>软链接以路径的形式存在,类似于windows系统的快捷方式</p>
-</li>
-<li><p>软链接可以跨越不同的文件系统</p>
-</li>
-<li><p>软链接可以对一个不存在的文件名进行链接</p>
-</li>
+<h2 id="ln-建立链接">ln: 建立链接</h2>
+<p>ln命令是用来为某个文件在另一个位置创建一个同步的链接.链接主要分为符号链接(软链接)和硬链接两大类.无论硬链接还是软链接,他们都不会重新复制原来的文件,他们只会占用非常少量的磁盘空间.</p>
+<p>符号链接,也被称为软链接,其用ln
+-s命令来创建生成.软链接具有如下的特点,</p>
+<ol type="1">
+<li><p>软链接以路径的形式存在,类似于windows系统的快捷方式</p></li>
+<li><p>软链接可以跨越不同的文件系统</p></li>
+<li><p>软链接可以对一个不存在的文件名进行链接</p></li>
 <li><p>软链接还可以对目录文件进行链接7</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ln</span> -s TARGET LINKNAME <span class="comment">## 为文件TARGET创建了一个别名LINKNAME</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -l LINKNAME <span class="comment">## 查看LINK_NAME的属性</span></span></span><br><span class="line">lrwxrwxrwx 1 lyd lyd 6  4月 15 11:31 LINK_NAME -&gt; TARGET</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ln</span> -s TARGET LINKNAME <span class="comment">## 为文件TARGET创建了一个别名LINKNAME</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -l LINKNAME <span class="comment">## 查看LINK_NAME的属性</span></span></span><br><span class="line">lrwxrwxrwx 1 lyd lyd 6  4月 15 11:31 LINK_NAME -&gt; TARGET</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>从这里我们可以看出这个文件被指向TARGET文件,因此访问LINK_NAME就相当于访问TARGET.需要注意的是,这里的LINKNAME只是提供了访问TARGET的一个路径,因此我们删除LINKNAME并不会影响TARGET的正常运行,反之我们删除TARGET,虽然不会同时删除LINKNAME,但是其存在已经没有任何意义了.</p>
 <p>同样符号链接还可用于目录,</p>
@@ -595,7 +678,7 @@
 <p>这里的修改操作,不止允许同一类型之间文件的链接相互更改,还可以把普通文件的链接文件链接到目录文件,亦或反之.</p>
 <p>Linux中的另一种链接称为硬链接.其将两个独立的文件联系在一起,因此硬链接和软链接的本质区别是,硬链接是直接引用,而软链接是通过名称进行引用.</p>
 <p>硬链接具有的特性如下,</p>
-<ol>
+<ol type="1">
 <li>以文件副本的形式存在,但不占用实际空间</li>
 <li>不允许给目录创建硬链接</li>
 <li>硬链接不能跨越文件系统创建,只能在同一个文件系统里创建</li>
@@ -605,15 +688,18 @@
 <p>根据上述查看的文件属性,我们得知这两个文件是独立的,但是会被联系在一起而已.</p>
 <p>无论软链接还是硬链接,只是对目标文件的一个访问渠道而已,因此我们在任何一类链接文件上修改都会导致目标文件的变化.</p>
 <p><a id="org898ec68"></a></p>
-<h2 id="输入输出重定向和管道"><a href="#输入输出重定向和管道" class="headerlink" title="输入输出重定向和管道"></a>输入输出重定向和管道</h2><p>重定向和管道操作是Linux的Shell命令里的一种高级特性,其允许用户修改程序获取输入或者生成输出的位置.</p>
+<h2 id="输入输出重定向和管道">输入输出重定向和管道</h2>
+<p>重定向和管道操作是Linux的Shell命令里的一种高级特性,其允许用户修改程序获取输入或者生成输出的位置.</p>
 <p>在默认情况下程序输出结果的位置称之为标准输出.通常来说,标准输出位都是显示器.输出重定向的作用是将程序的输出转移到另一个地方去,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> &gt; ~/ls_out <span class="comment">## 将输出结果定向到ls_out文件</span></span></span><br></pre></td></tr></table></figure>
 <p>如果指定文件不存在,那么这个命令会创建这个文件,反之如果这个文件是存在的,那么他会直接覆盖文件原有的内容.如果我们希望能够保留原来文件中的内容,那么我们可以用输出重定向符号&gt;&gt;,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">date</span> &gt; date_out <span class="comment">## 将date命令的输出重定向到date_out文件</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> date_out <span class="comment">## 查看date_out文件</span></span></span><br><span class="line">2024年 04月 16日 星期二 21:15:39 CST</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">uname</span> -r &gt;&gt; date_out <span class="comment">## 将输出结果重定向至date_out文件,并且仅在末尾输出,不覆盖原文件</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> date_out <span class="comment">## 再次查看date_out文件</span></span></span><br><span class="line">2024年 04月 16日 星期二 21:15:39 CST</span><br><span class="line">6.5.0-26-generic</span><br></pre></td></tr></table></figure>
-<p>类似于标准输出的定义,程序默认情况下接受输入的地方称之为标准输入.通常来说,标准输入指向键盘.如果使用不带任何参数的cat命令,cat不会执行而是等待从标准输入来获取数据,用户可以输入一行会直接输出在屏幕上,直到Ctrl+D用来给cat命令输入一个文件结束符.<br>在此,我们罗列一下基于shell的常用快捷键及其含义</p>
-<ol>
+<p>类似于标准输出的定义,程序默认情况下接受输入的地方称之为标准输入.通常来说,标准输入指向键盘.如果使用不带任何参数的cat命令,cat不会执行而是等待从标准输入来获取数据,用户可以输入一行会直接输出在屏幕上,直到Ctrl+D用来给cat命令输入一个文件结束符.
+在此,我们罗列一下基于shell的常用快捷键及其含义</p>
+<ol type="1">
 <li>Ctrl+c 终止当前正在执行的程序</li>
-<li>Ctrl+z 中断当前进程,但不是终止进程,只是将进程挂起,我们可以用fg命令来重新调用进程(后续介绍)</li>
+<li>Ctrl+z
+中断当前进程,但不是终止进程,只是将进程挂起,我们可以用fg命令来重新调用进程(后续介绍)</li>
 <li>Ctrl+l 清空屏幕</li>
 <li>Ctrl+d 输入特殊的二进制值,表示EOF,作为文件的结束</li>
 </ol>
@@ -711,7 +797,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">文件目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mkdir-%E5%BB%BA%E7%AB%8B%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">mkdir: 建立目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#touch-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E7%A9%BA%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">touch: 建立一个空文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mv-%E7%A7%BB%E5%8A%A8%E5%92%8C%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">1.3.</span> <span class="nav-text">mv: 移动和重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cp-%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="nav-number">1.4.</span> <span class="nav-text">cp: 复制文件和目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmdir-%E5%92%8C-rm-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">rmdir 和 rm: 删除目录和文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="nav-number">1.6.</span> <span class="nav-text">Linux文件目录权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls-l-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.</span> <span class="nav-text">ls -l: 查看文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chown-%E5%92%8C-chgrp-%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E6%9C%89%E6%9D%83"><span class="nav-number">1.8.</span> <span class="nav-text">chown 和 chgrp: 改变文件所有权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chmod-%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">1.9.</span> <span class="nav-text">chmod: 改变文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ln-%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5"><span class="nav-number">1.10.</span> <span class="nav-text">ln: 建立链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E7%AE%A1%E9%81%93"><span class="nav-number">1.11.</span> <span class="nav-text">输入输出重定向和管道</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">文件目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mkdir-%E5%BB%BA%E7%AB%8B%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">mkdir: 建立目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#touch-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E7%A9%BA%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">touch: 建立一个空文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mv-%E7%A7%BB%E5%8A%A8%E5%92%8C%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-number">1.3.</span> <span class="nav-text">mv: 移动和重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cp-%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="nav-number">1.4.</span> <span class="nav-text">cp: 复制文件和目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmdir-%E5%92%8C-rm-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">rmdir 和 rm: 删除目录和文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="nav-number">1.6.</span> <span class="nav-text">Linux文件目录权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls--l-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.</span> <span class="nav-text">ls -l: 查看文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chown-%E5%92%8C-chgrp-%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E6%9C%89%E6%9D%83"><span class="nav-number">1.8.</span> <span class="nav-text">chown 和 chgrp:
+改变文件所有权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chmod-%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">1.9.</span> <span class="nav-text">chmod: 改变文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ln-%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5"><span class="nav-number">1.10.</span> <span class="nav-text">ln: 建立链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E7%AE%A1%E9%81%93"><span class="nav-number">1.11.</span> <span class="nav-text">输入输出重定向和管道</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -22,21 +22,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .(v could be chosen randomly according to some probably distribution or could be sp">
+  <meta name="description" content="Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex \(v\) .(v could be chosen randomly according to some probably distribution or could b">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lecture series on graph theory 5">
 <meta property="og:url" content="http://example.com/2022/05/22/Graph5/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .(v could be chosen randomly according to some probably distribution or could be sp">
+<meta property="og:description" content="Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex \(v\) .(v could be chosen randomly according to some probably distribution or could b">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg">
 <meta property="article:published_time" content="2022-05-22T13:44:57.000Z">
 <meta property="article:modified_time" content="2022-08-18T03:31:13.280Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Operation Research">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg">
 
 <link rel="canonical" href="http://example.com/2022/05/22/Graph5/">
 
@@ -264,121 +262,290 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Let G be a finite graph. We consider a random walk on the vertices of G of the following type. Start at a vertex $v$ .<font color='red'>(v could be chosen randomly according to some probably distribution or could be specified in advance).</font> Among all edges incident to v, choose one uniformly at random<font color='red'>( i.e. if $d_G(v)=d$, each of these edges is chosen with probability 1/d)</font> </p>
-<p><strong>Problem: determine the probability of being at a given vertex after a given number steps.</strong></p>
+        <p>Let G be a finite graph. We consider a random walk on the vertices of
+G of the following type. Start at a vertex <span
+class="math inline">\(v\)</span> .<font color='red'>(v could be chosen
+randomly according to some probably distribution or could be specified
+in advance).</font> Among all edges incident to v, choose one uniformly
+at random<font color='red'>( i.e. if <span
+class="math inline">\(d_G(v)=d\)</span>, each of these edges is chosen
+with probability 1/d)</font></p>
+<p><strong>Problem: determine the probability of being at a given vertex
+after a given number steps.</strong></p>
 <span id="more"></span>
-<p>Let M(G) be the matrix whose rows and columns are indexed by vertices $v<em>1,\dots,v_n$, we assume that $m</em>{ij}$ is the $(i,j)$-entry of M(G), which satisfies the following formula</p>
-<script type="math/tex; mode=display">
-m_{ij}=\frac{a_{ij}}{d_i}</script><p>where $a<em>{ij}$ is the number of edges between $v_i$ and $v_j$. The $m</em>{ij}$ is probability that if one starts at $v_i$ and then the next step will be at $v_j$.</p>
-<font color='red'>Recall: the number of k-walks from $v_i$ to $v_j$= the $(i,j)$-entry of $A(G)^k$</font>
-
-<p>$\exists v<em>ie_1v</em>{i<em>1}e_2v</em>{i<em>2}\cdots e_kv_j,\ P(v_ie_1v</em>{i<em>1}e_2v</em>{i<em>2}\cdots e_kv_j)=\frac{a</em>{ii<em>1}}{d_i}\frac{a</em>{i<em>1i_2}}{d</em>{i<em>1}}\cdots\frac{a</em>{i<em>{k-1}i_j}}{d</em>{i<em>{k-1}}}=m</em>{ii<em>1}m</em>{i<em>1i_2}\cdots m</em>{i_{k-1}j}$</p>
-<script type="math/tex; mode=display">
+<p>Let M(G) be the matrix whose rows and columns are indexed by vertices
+<span class="math inline">\(v_1,\dots,v_n\)</span>, we assume that <span
+class="math inline">\(m_{ij}\)</span> is the <span
+class="math inline">\((i,j)\)</span>-entry of M(G), which satisfies the
+following formula <span class="math display">\[
+m_{ij}=\frac{a_{ij}}{d_i}
+\]</span> where <span class="math inline">\(a_{ij}\)</span> is the
+number of edges between <span class="math inline">\(v_i\)</span> and
+<span class="math inline">\(v_j\)</span>. The <span
+class="math inline">\(m_{ij}\)</span> is probability that if one starts
+at <span class="math inline">\(v_i\)</span> and then the next step will
+be at <span class="math inline">\(v_j\)</span>.</p>
+<p><font color='red'>Recall: the number of k-walks from <span
+class="math inline">\(v_i\)</span> to <span
+class="math inline">\(v_j\)</span>= the <span
+class="math inline">\((i,j)\)</span>-entry of <span
+class="math inline">\(A(G)^k\)</span></font></p>
+<p><span class="math inline">\(\exists v_ie_1v_{i_1}e_2v_{i_2}\cdots
+e_kv_j,\ P(v_ie_1v_{i_1}e_2v_{i_2}\cdots
+e_kv_j)=\frac{a_{ii_1}}{d_i}\frac{a_{i_1i_2}}{d_{i_1}}\cdots\frac{a_{i_{k-1}i_j}}{d_{i_{k-1}}}=m_{ii_1}m_{i_1i_2}\cdots
+m_{i_{k-1}j}\)</span> <span class="math display">\[
 \begin{aligned}
-P(v_i\to v_j\ in\ k\ steps)&=\sum_{k-walk\ from\ v_i\to v_j} P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)\\
-&=\sum m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}=(i,j)-entry\ of\ M(G)^k
-\end{aligned}</script><p>Assume the probability to pick $v<em>i$ is $p(v_i)$ for $i\in{1,\dots,n}$ s.t. $\sum</em>{i=1}^n p(v_i)=1$</p>
-<p>Let $P=[\begin{matrix}p(v_1)&amp;p(v_2)&amp;\cdots&amp;p(v_n)\end{matrix}]$. Then the probability of a walk ending up at $v_i$ in k steps is </p>
-<script type="math/tex; mode=display">
-P(there\ is\ a\ walk\ ending\ up\ at\ v_i\ in\ k\ steps)=[PM(G)^k]_i</script><p>If G is k regular <font color='red'>( every vertex has degree k)</font> then $M(G)=\frac{1}{d}A(G)$</p>
-<p>Then the eigenvalue $\beta_i$ of $M(G)$ satisfies $\beta_1=\frac{1}{d}\lambda_i$ where $\lambda_i$ is an eigenvalue of G.</p>
-<script type="math/tex; mode=display">
-P(\exists\ a\ closed\ k-walk\ starting\ v)=\beta_1^k+\cdots+\beta_n^k=\frac{1}{d^k}(\lambda_1^k+\cdots+\lambda_n^k)</script><p><strong>Weighted graphs and digraphs</strong></p>
-<p>Let G be a graph. A weighted graph is a graph G associated with a weight function: $w:E(G)\to\mathbb{F}$ where $\mathbb{F}$ is a field, denote by $(G,w)$. Most of the time, we consider the case that $\mathbb{F}=\mathbb{R}$.</p>
-<p>The adjacency matrix of a weighted graph is a real symmetric matrix $A(G,w)=(a<em>{ij})</em>{n\times n}$ with $a_{ij}=w(v_iv_j)$, the weight of the edge of $v_iv_j$.</p>
-<p>Let H be a subgraph of $(G,w)$. The weight of H is defined as $w(H)=\sum_{e\in E(H)}w(e)$</p>
-<p>For example, how to find a minimum weight path between two given vertices? How to find a minimum spanning tree or how to find a cycle or walk with large weight<font color='red'>( so-called heavy cycles or walks)</font></p>
-<p>A digraph is a graph with an orientation which assigns an orientation to each edge.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg" alt=""></p>
-<font color='red'>An orientation edge (or arc) from $v_i$ to $v_j$ is an ordered pair of vertices , denoted by $(v_i,v_j)$ where $v_i$ is called the tail and $v_j$ is called the head of arc.</font>
-$$
-A(D,w)=[a_{ij}]_{n\times n}\  where\ a_{ij}=\left\{\begin{aligned}& w(v_iv_j),\quad v_i\to v_j\\
-&-w(v_iv_j),\quad v_j\to v_i\\
-&0,\quad otherwise\end{aligned}\right. 
-$$
-Then $A(D,w)$ is no longer symmetric <font color='red'>but skew-symmetric:$A+A^T=O$</font>
-
-<p>For a given graph G, let D be an orientation of G, $\vec{B}$ is an oriented incidence matrix</p>
-<script type="math/tex; mode=display">
-\vec{B}\cdot \vec{f}=\vec{b}\ where\ \vec{b}\in\mathbb{R}^{|V(G)|},\ \vec{f}\in\mathbb{R}^{|E(G)|}</script><p>A solution to $\vec{B}\cdot \vec{f}=\vec{b}$ is called a network flow. $\vec{b}$ is called a boundary condition.</p>
-<p>If $\vec{b}=\vec{0},\ \vec{B}\cdot \vec{f}=\vec{0}.\qquad(*)$  </p>
-<p>A vector $\vec{f}$ satisfies $(*)$ is called a circulation or real flow if $\vec{f}\in\mathbb{R}^{|E(G)|}$.</p>
-<p>If a solution to $(*)$ satisfies $\vec{f}\in\mathbb{Z}^{|E(G)|}$, then $\vec{f}$ is called an integer flow.</p>
-<font color='red'>Tutte's five-flow conjecture: For a graph without bridge, it has a nowhere zero 5-flow i.e. $\exists \vec{f}\in\mathbb{Z}^{|E(G)|}$ and every component of f is not zero and absolute value of every component is at most 4. $\vec{f}=[f_1, f_2,\cdots,f_m]$ where $m=|E(G)|,\ f_i\in\{-4,-3,-2,-1,0,1,2,3,4\}$</font>
-
+P(v_i\to v_j\ in\ k\ steps)&amp;=\sum_{k-walk\ from\ v_i\to v_j}
+P(v_ie_1v_{i_1}e_2v_{i_2}\cdots e_kv_j)\\
+&amp;=\sum m_{ii_1}m_{i_1i_2}\cdots m_{i_{k-1}j}=(i,j)-entry\ of\ M(G)^k
+\end{aligned}
+\]</span> Assume the probability to pick <span
+class="math inline">\(v_i\)</span> is <span
+class="math inline">\(p(v_i)\)</span> for <span
+class="math inline">\(i\in\{1,\dots,n\}\)</span> s.t. <span
+class="math inline">\(\sum_{i=1}^n p(v_i)=1\)</span></p>
+<p>Let <span
+class="math inline">\(P=[\begin{matrix}p(v_1)&amp;p(v_2)&amp;\cdots&amp;p(v_n)\end{matrix}]\)</span>.
+Then the probability of a walk ending up at <span
+class="math inline">\(v_i\)</span> in k steps is <span
+class="math display">\[
+P(there\ is\ a\ walk\ ending\ up\ at\ v_i\ in\ k\ steps)=[PM(G)^k]_i
+\]</span> If G is k regular <font color='red'>( every vertex has degree
+k)</font> then <span
+class="math inline">\(M(G)=\frac{1}{d}A(G)\)</span></p>
+<p>Then the eigenvalue <span class="math inline">\(\beta_i\)</span> of
+<span class="math inline">\(M(G)\)</span> satisfies <span
+class="math inline">\(\beta_1=\frac{1}{d}\lambda_i\)</span> where <span
+class="math inline">\(\lambda_i\)</span> is an eigenvalue of G. <span
+class="math display">\[
+P(\exists\ a\ closed\ k-walk\ starting\
+v)=\beta_1^k+\cdots+\beta_n^k=\frac{1}{d^k}(\lambda_1^k+\cdots+\lambda_n^k)
+\]</span> <strong>Weighted graphs and digraphs</strong></p>
+<p>Let G be a graph. A weighted graph is a graph G associated with a
+weight function: <span
+class="math inline">\(w:E(G)\to\mathbb{F}\)</span> where <span
+class="math inline">\(\mathbb{F}\)</span> is a field, denote by <span
+class="math inline">\((G,w)\)</span>. Most of the time, we consider the
+case that <span
+class="math inline">\(\mathbb{F}=\mathbb{R}\)</span>.</p>
+<p>The adjacency matrix of a weighted graph is a real symmetric matrix
+<span class="math inline">\(A(G,w)=(a_{ij})_{n\times n}\)</span> with
+<span class="math inline">\(a_{ij}=w(v_iv_j)\)</span>, the weight of the
+edge of <span class="math inline">\(v_iv_j\)</span>.</p>
+<p>Let H be a subgraph of <span class="math inline">\((G,w)\)</span>.
+The weight of H is defined as <span
+class="math inline">\(w(H)=\sum_{e\in E(H)}w(e)\)</span></p>
+<p>For example, how to find a minimum weight path between two given
+vertices? How to find a minimum spanning tree or how to find a cycle or
+walk with large weight<font color='red'>( so-called heavy cycles or
+walks)</font></p>
+<p>A digraph is a graph with an orientation which assigns an orientation
+to each edge.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-23_002508.6gvjbxprb7g0.jpg" /></p>
+<p><font color='red'>An orientation edge (or arc) from <span
+class="math inline">\(v_i\)</span> to <span
+class="math inline">\(v_j\)</span> is an ordered pair of vertices ,
+denoted by <span class="math inline">\((v_i,v_j)\)</span> where <span
+class="math inline">\(v_i\)</span> is called the tail and <span
+class="math inline">\(v_j\)</span> is called the head of arc.</font>
+<span class="math display">\[
+A(D,w)=[a_{ij}]_{n\times n}\  where\ a_{ij}=\left\{\begin{aligned}&amp;
+w(v_iv_j),\quad v_i\to v_j\\
+&amp;-w(v_iv_j),\quad v_j\to v_i\\
+&amp;0,\quad otherwise\end{aligned}\right.
+\]</span> Then <span class="math inline">\(A(D,w)\)</span> is no longer
+symmetric <font color='red'>but skew-symmetric:<span
+class="math inline">\(A+A^T=O\)</span></font></p>
+<p>For a given graph G, let D be an orientation of G, <span
+class="math inline">\(\vec{B}\)</span> is an oriented incidence matrix
+<span class="math display">\[
+\vec{B}\cdot \vec{f}=\vec{b}\ where\ \vec{b}\in\mathbb{R}^{|V(G)|},\
+\vec{f}\in\mathbb{R}^{|E(G)|}
+\]</span> A solution to <span class="math inline">\(\vec{B}\cdot
+\vec{f}=\vec{b}\)</span> is called a network flow. <span
+class="math inline">\(\vec{b}\)</span> is called a boundary
+condition.</p>
+<p>If <span class="math inline">\(\vec{b}=\vec{0},\ \vec{B}\cdot
+\vec{f}=\vec{0}.\qquad(*)\)</span></p>
+<p>A vector <span class="math inline">\(\vec{f}\)</span> satisfies <span
+class="math inline">\((*)\)</span> is called a circulation or real flow
+if <span
+class="math inline">\(\vec{f}\in\mathbb{R}^{|E(G)|}\)</span>.</p>
+<p>If a solution to <span class="math inline">\((*)\)</span> satisfies
+<span class="math inline">\(\vec{f}\in\mathbb{Z}^{|E(G)|}\)</span>, then
+<span class="math inline">\(\vec{f}\)</span> is called an integer
+flow.</p>
+<p><font color='red'>Tutte's five-flow conjecture: For a graph without
+bridge, it has a nowhere zero 5-flow i.e. <span
+class="math inline">\(\exists \vec{f}\in\mathbb{Z}^{|E(G)|}\)</span> and
+every component of f is not zero and absolute value of every component
+is at most 4. <span class="math inline">\(\vec{f}=[f_1,
+f_2,\cdots,f_m]\)</span> where <span class="math inline">\(m=|E(G)|,\
+f_i\in\{-4,-3,-2,-1,0,1,2,3,4\}\)</span></font></p>
 <p><strong>Eigenvalues and subgraphs </strong></p>
-<p>Let G be a graph with n vertices, $A(G)$ be the adjacency matrix.</p>
-<p>All n eigenvalues of $A(G)$ are real because $A(G)$ is real and symmertic</p>
-<script type="math/tex; mode=display">
-\lambda_1(G)\geq\lambda_2(G)\geq\cdots\geq\lambda_{\lceil \frac{n+1}{2}\rceil}\geq\lambda_{\lfloor \frac{n+1}{2}\rfloor}\geq\lambda_n(G)</script><p>where $\lambda<em>{\lceil \frac{n+1}{2}\rceil},\lambda</em>{\lfloor \frac{n+1}{2}\rfloor}$ are median eigenvalues.</p>
-<p>The largest eigenvalues $\lambda_1(G)$ is usually called the spectral radius of G.</p>
-<p><strong>Proposition. Let G be an n-vertex graph and A be its adjacency matrix.Let $\lambda<em>1\geq\cdots\geq\lambda_n$ be the eigenvalues of A<br>Then 1. $\lambda_1 =\max</em>{\vec{x}\not=\vec{0}}\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}$,   2. $\lambda_1\geq|\lambda_n|$</strong></p>
-<hr>
+<p>Let G be a graph with n vertices, <span
+class="math inline">\(A(G)\)</span> be the adjacency matrix.</p>
+<p>All n eigenvalues of <span class="math inline">\(A(G)\)</span> are
+real because <span class="math inline">\(A(G)\)</span> is real and
+symmertic <span class="math display">\[
+\lambda_1(G)\geq\lambda_2(G)\geq\cdots\geq\lambda_{\lceil
+\frac{n+1}{2}\rceil}\geq\lambda_{\lfloor
+\frac{n+1}{2}\rfloor}\geq\lambda_n(G)
+\]</span> where <span class="math inline">\(\lambda_{\lceil
+\frac{n+1}{2}\rceil},\lambda_{\lfloor \frac{n+1}{2}\rfloor}\)</span> are
+median eigenvalues.</p>
+<p>The largest eigenvalues <span
+class="math inline">\(\lambda_1(G)\)</span> is usually called the
+spectral radius of G.</p>
+<p><strong>Proposition. Let G be an n-vertex graph and A be its
+adjacency matrix.Let <span
+class="math inline">\(\lambda_1\geq\cdots\geq\lambda_n\)</span> be the
+eigenvalues of A<br>Then 1. <span class="math inline">\(\lambda_1
+=\max_{\vec{x}\not=\vec{0}}\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}\)</span>,
+2. <span
+class="math inline">\(\lambda_1\geq|\lambda_n|\)</span></strong></p>
+<hr />
 <p><strong>Proof</strong></p>
-<p>1.The eigenvalues of A (say $\vec{u}_1,\vec{u}_2,\dots,\vec{u}_n$) can be chosen as a standard orthogonal basis of $\mathbb{R}^n$. </p>
-<p>Assume that array ($x_1,x_2,\dots,x_n$) is the coordinate of $\vec{x}$ under this basis</p>
-<script type="math/tex; mode=display">
-\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}=\frac{\lambda_1x_1^2+\cdots+\lambda_nx_n^2}{x_1^2+\cdots+x_n^2}\leq\lambda_1</script><p>with equality holds if and only if $x_1\not= 0$ and $x_i=0$ for $i={2,\cdots,n}$, i.e. $\vec{x}$ is exactly an eigenvector of $\lambda_1$.</p>
-<ol>
-<li><p>Let $\vec{v}$ be get from $\vec{u}_n$ by convert each component into its absolute value (i.e. $\vec{v}=(|\vec{u}_n(1)|,|\vec{u}_n(2)|,\cdots,|\vec{u}_n(n)|)$)</p>
-<p>From proof of 1. we can write $\lambda_n$ as</p>
-<script type="math/tex; mode=display">
-|\lambda_n|=|\frac{\vec{u}^T_nA\vec{u}_n}{\vec{u}_n^T\vec{u}_n}|=|\vec{u}^T_nA\vec{u}_n|\leq\sum_{i,j\in[n]}A(i,j)|\vec{u}_n(i)\vec{u}_n(j)|=|\frac{\vec{v}^TA\vec{v}}{\vec{v}^T\vec{v}}|\leq\lambda_1</script><p>We have used triangle inequality at the first inequality and the result of 1. at the second inequality.</p>
-</li>
+<p>1.The eigenvalues of A (say <span
+class="math inline">\(\vec{u}_1,\vec{u}_2,\dots,\vec{u}_n\)</span>) can
+be chosen as a standard orthogonal basis of <span
+class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>Assume that array (<span
+class="math inline">\(x_1,x_2,\dots,x_n\)</span>) is the coordinate of
+<span class="math inline">\(\vec{x}\)</span> under this basis <span
+class="math display">\[
+\frac{\vec{x}^TA\vec{x}}{\vec{x}^T\vec{x}}=\frac{\lambda_1x_1^2+\cdots+\lambda_nx_n^2}{x_1^2+\cdots+x_n^2}\leq\lambda_1
+\]</span> with equality holds if and only if <span
+class="math inline">\(x_1\not= 0\)</span> and <span
+class="math inline">\(x_i=0\)</span> for <span
+class="math inline">\(i=\{2,\cdots,n\}\)</span>, i.e. <span
+class="math inline">\(\vec{x}\)</span> is exactly an eigenvector of
+<span class="math inline">\(\lambda_1\)</span>.</p>
+<ol start="2" type="1">
+<li><p>Let <span class="math inline">\(\vec{v}\)</span> be get from
+<span class="math inline">\(\vec{u}_n\)</span> by convert each component
+into its absolute value (i.e. <span
+class="math inline">\(\vec{v}=(|\vec{u}_n(1)|,|\vec{u}_n(2)|,\cdots,|\vec{u}_n(n)|)\)</span>)</p>
+<p>From proof of 1. we can write <span
+class="math inline">\(\lambda_n\)</span> as <span
+class="math display">\[
+|\lambda_n|=|\frac{\vec{u}^T_nA\vec{u}_n}{\vec{u}_n^T\vec{u}_n}|=|\vec{u}^T_nA\vec{u}_n|\leq\sum_{i,j\in[n]}A(i,j)|\vec{u}_n(i)\vec{u}_n(j)|=|\frac{\vec{v}^TA\vec{v}}{\vec{v}^T\vec{v}}|\leq\lambda_1
+\]</span> We have used triangle inequality at the first inequality and
+the result of 1. at the second inequality.</p></li>
 </ol>
-<hr>
-<p><strong>Propsition. Let G be a graph, and $\Delta (G)$ be the maximum degree and $d(G)$ be the average degree. Then we have </strong></p>
-<script type="math/tex; mode=display">
-d(G)\leq\lambda_1\leq\Delta (G)</script><hr>
+<hr />
+<p><strong>Propsition. Let G be a graph, and <span
+class="math inline">\(\Delta (G)\)</span> be the maximum degree and
+<span class="math inline">\(d(G)\)</span> be the average degree. Then we
+have </strong> <span class="math display">\[
+d(G)\leq\lambda_1\leq\Delta (G)
+\]</span></p>
+<hr />
 <p><strong>Proof</strong></p>
-<p>Note that, there exist $\vec{x}\not=\vec{0}$, s.t. $A\vec{x}=\lambda\vec{x}$ where A is the adjacency matrix.</p>
-<script type="math/tex; mode=display">
-\lambda_1=\sup\{\vec{x}^TA\vec{x}\Big|||\vec{x}||=1\ and\ \vec{x}\in\mathbb{R}^n\}</script><p>Let $\vec{x}_1=\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T$, then</p>
-<script type="math/tex; mode=display">
-\begin{aligned}\lambda_1&\geq \vec{x}_1^TA\vec{x}_1=\frac{1}{\sqrt{n}}[\begin{matrix}1&1&\dots&1\end{matrix}]A\frac{1}{\sqrt{n}}[\begin{matrix}1&1&\dots&1\end{matrix}]^T\\
-&=\frac{1}{n}[\begin{matrix}1&1&\dots&1\end{matrix}][\begin{matrix}d(v_1)&d(v_2)&\cdots&d(v_n)\end{matrix}]^T\\
-&=\frac{1}{n}\sum_{i=1}^nd(v_i)=d(G)\end{aligned}</script><p>For the upper bound, let $\vec{x}$ s.t. $A\vec{x}=\lambda_1\vec{x}$ where $\vec{x}=[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$</p>
-<p>Let $x_i$ be the largest value among all components of $\vec{x}$. Then, </p>
-<script type="math/tex; mode=display">
-\lambda_1 x_i=\sum_{v_iv_j\in E(G)}x_j\leq\Delta(G)x_j</script><p>So $\lambda_1\leq\Delta (G)$ follows.</p>
-<hr>
-<p><strong>Corollary Let G be a k-regular graph. Then $\lambda_1(G)=k$</strong></p>
-<p>A signed graph $(G,\sigma)$ is a weighted graph s.t. $\sigma:\ E(G)\to{-1,1}$</p>
-<script type="math/tex; mode=display">
-A(G,\sigma)=[a_{ij}]_{n\times n}\ where\ a_{ij}=\left\{\begin{aligned}&\sigma(v_iv_j),\quad v_iv_j\in E(G)\\&0,\quad otherwise\end{aligned}\right.</script><p>So $A(G,\sigma)$ is a symmetric real matrix.</p>
-<p>We can assume that $\lambda_1(G,\sigma)\geq\lambda_2(G,\sigma)\geq\cdots\geq\lambda_n(G,\sigma)$, <font color='red'>but $\lambda_1(G,\sigma)\geq|\lambda_n(G,\sigma)|$ may not hold.</font></p>
-<p><strong>Prop. Let $(G,\sigma)$ be a signed graph with maximum degree $\Delta (G)$. Then</strong></p>
-<script type="math/tex; mode=display">
-|\lambda(G,\sigma)|\leq\Delta(G)\ where\ \lambda(G,\sigma)\ is\ an\ eigenvalue\ of\ G</script><hr>
+<p>Note that, there exist <span
+class="math inline">\(\vec{x}\not=\vec{0}\)</span>, s.t. <span
+class="math inline">\(A\vec{x}=\lambda\vec{x}\)</span> where A is the
+adjacency matrix. <span class="math display">\[
+\lambda_1=\sup\{\vec{x}^TA\vec{x}\Big|||\vec{x}||=1\ and\
+\vec{x}\in\mathbb{R}^n\}
+\]</span> Let <span
+class="math inline">\(\vec{x}_1=\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T\)</span>,
+then <span class="math display">\[
+\begin{aligned}\lambda_1&amp;\geq
+\vec{x}_1^TA\vec{x}_1=\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]A\frac{1}{\sqrt{n}}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}]^T\\
+&amp;=\frac{1}{n}[\begin{matrix}1&amp;1&amp;\dots&amp;1\end{matrix}][\begin{matrix}d(v_1)&amp;d(v_2)&amp;\cdots&amp;d(v_n)\end{matrix}]^T\\
+&amp;=\frac{1}{n}\sum_{i=1}^nd(v_i)=d(G)\end{aligned}
+\]</span> For the upper bound, let <span
+class="math inline">\(\vec{x}\)</span> s.t. <span
+class="math inline">\(A\vec{x}=\lambda_1\vec{x}\)</span> where <span
+class="math inline">\(\vec{x}=[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T\)</span></p>
+<p>Let <span class="math inline">\(x_i\)</span> be the largest value
+among all components of <span class="math inline">\(\vec{x}\)</span>.
+Then, <span class="math display">\[
+\lambda_1 x_i=\sum_{v_iv_j\in E(G)}x_j\leq\Delta(G)x_j
+\]</span> So <span class="math inline">\(\lambda_1\leq\Delta
+(G)\)</span> follows.</p>
+<hr />
+<p><strong>Corollary Let G be a k-regular graph. Then <span
+class="math inline">\(\lambda_1(G)=k\)</span></strong></p>
+<p>A signed graph <span class="math inline">\((G,\sigma)\)</span> is a
+weighted graph s.t. <span class="math inline">\(\sigma:\
+E(G)\to\{-1,1\}\)</span> <span class="math display">\[
+A(G,\sigma)=[a_{ij}]_{n\times n}\ where\
+a_{ij}=\left\{\begin{aligned}&amp;\sigma(v_iv_j),\quad v_iv_j\in
+E(G)\\&amp;0,\quad otherwise\end{aligned}\right.
+\]</span> So <span class="math inline">\(A(G,\sigma)\)</span> is a
+symmetric real matrix.</p>
+<p>We can assume that <span
+class="math inline">\(\lambda_1(G,\sigma)\geq\lambda_2(G,\sigma)\geq\cdots\geq\lambda_n(G,\sigma)\)</span>,
+<font color='red'>but <span
+class="math inline">\(\lambda_1(G,\sigma)\geq|\lambda_n(G,\sigma)|\)</span> may
+not hold.</font></p>
+<p><strong>Prop. Let <span class="math inline">\((G,\sigma)\)</span> be
+a signed graph with maximum degree <span class="math inline">\(\Delta
+(G)\)</span>. Then</strong> <span class="math display">\[
+|\lambda(G,\sigma)|\leq\Delta(G)\ where\ \lambda(G,\sigma)\ is\ an\
+eigenvalue\ of\ G
+\]</span></p>
+<hr />
 <p><strong>Proof</strong></p>
-<p>Let $\vec{x}$ be an eigenvector of $\lambda$ s.t. $\lambda\vec{x}=A\vec{x}$.</p>
-<p>Let $\vec{x}=[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T$ and $x_i$ has the largest absolute value among all $x_j$’s.</p>
-<p>Then </p>
-<script type="math/tex; mode=display">
-|\lambda x_i|=|(A\vec{x})_i|=|\sum_{v_iv_j\in E(G)}\sigma(v_iv_j)x_j|\leq\sum_{v_iv_j\in E(G)}|x_j|\leq\Delta(G)|x_i|</script><p>So $|\lambda|\leq\Delta(G)$</p>
-<hr>
-<p><strong>Thm A graph G is bipartite $\Leftrightarrow$ its spectrum is symmetric about the origin.</strong></p>
-<font color='red'>(i.e. $\lambda_i$ is an eigenvalue of G $\Leftrightarrow$ $-\lambda_i$ is an eigenvalue of G)</font>
-
-<hr>
+<p>Let <span class="math inline">\(\vec{x}\)</span> be an eigenvector of
+<span class="math inline">\(\lambda\)</span> s.t. <span
+class="math inline">\(\lambda\vec{x}=A\vec{x}\)</span>.</p>
+<p>Let <span
+class="math inline">\(\vec{x}=[\begin{matrix}x_1&amp;x_2&amp;\cdots&amp;x_n\end{matrix}]^T\)</span>
+and <span class="math inline">\(x_i\)</span> has the largest absolute
+value among all <span class="math inline">\(x_j\)</span>'s.</p>
+<p>Then <span class="math display">\[
+|\lambda x_i|=|(A\vec{x})_i|=|\sum_{v_iv_j\in
+E(G)}\sigma(v_iv_j)x_j|\leq\sum_{v_iv_j\in E(G)}|x_j|\leq\Delta(G)|x_i|
+\]</span> So <span
+class="math inline">\(|\lambda|\leq\Delta(G)\)</span></p>
+<hr />
+<p><strong>Thm A graph G is bipartite <span
+class="math inline">\(\Leftrightarrow\)</span> its spectrum is symmetric
+about the origin.</strong></p>
+<p><font color='red'>(i.e. <span
+class="math inline">\(\lambda_i\)</span> is an eigenvalue of G <span
+class="math inline">\(\Leftrightarrow\)</span> <span
+class="math inline">\(-\lambda_i\)</span> is an eigenvalue of
+G)</font></p>
+<hr />
 <p><strong>Proof</strong></p>
-<p>$\Rightarrow$ Assume that G is bipartite.Let A be The adjacency matrix of G.</p>
-<script type="math/tex; mode=display">
-A=\left[\begin{matrix}O&B\\B^T&O\end{matrix}\right]\ where\ B\ is\ the\ bipartite\ adjacency\ matrix.</script><p>Let $\lambda$ be an eigenvalue of G with $\vec{x}=(\begin{matrix}\vec{x}_1^T&amp;\vec{x}_2^T\end{matrix})^T$</p>
-<p>Then</p>
-<script type="math/tex; mode=display">
-A\vec{x}=\left(\begin{matrix}O&B\\B^T&O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}B\vec{x}_2\\B^T\vec{x}_1\end{matrix}\right)=\lambda\left(\begin{matrix}\vec{x}_1\\\vec{x}_2\end{matrix}\right)</script><p>Then</p>
-<script type="math/tex; mode=display">
-A\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}O&B\\B^T&O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}-B\vec{x}_2\\B^T\vec{x}_1\end{matrix}\right)=-\lambda\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)</script><p>So $-\lambda$ is also an eigenvalue of A.</p>
-<p>$\Leftarrow$ Let $\lambda<em>1\geq\cdots\geq\lambda_n$ be all eigenvalues of G.<font color='red'>(i.e. $\lambda_i=-\lambda</em>{n-i+1}$)&lt;/font&gt;</p>
-<p>For any positive integer k, the matrix $A^k$ has eigenvalues $\lambda_1^k,\lambda_2^k,\cdots,\lambda_n^k$</p>
-<p>Because G has symmetric specturm, it follows that $\lambda_1^k+\cdots+\lambda_n^k=0$ if k is an odd integer.</p>
-<script type="math/tex; mode=display">
-0=\lambda_1^k+\cdots+\lambda_n^k=w_k(G)</script><font color='red'>$w_k(G)$ is the total number of close k-walks.</font>
-
-<p>So every closed walk have an even length. Therefore G is bipartite.</p>
-<hr>
-<font color='red'>Problem: characterize graphs which satisfy # positive eigenvalues=# negative eigenvalues</font>
+<p><span class="math inline">\(\Rightarrow\)</span> Assume that G is
+bipartite.Let A be The adjacency matrix of G. <span
+class="math display">\[
+A=\left[\begin{matrix}O&amp;B\\B^T&amp;O\end{matrix}\right]\ where\ B\
+is\ the\ bipartite\ adjacency\ matrix.
+\]</span> Let <span class="math inline">\(\lambda\)</span> be an
+eigenvalue of G with <span
+class="math inline">\(\vec{x}=(\begin{matrix}\vec{x}_1^T&amp;\vec{x}_2^T\end{matrix})^T\)</span></p>
+<p>Then <span class="math display">\[
+A\vec{x}=\left(\begin{matrix}O&amp;B\\B^T&amp;O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}B\vec{x}_2\\B^T\vec{x}_1\end{matrix}\right)=\lambda\left(\begin{matrix}\vec{x}_1\\\vec{x}_2\end{matrix}\right)
+\]</span> Then <span class="math display">\[
+A\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}O&amp;B\\B^T&amp;O\end{matrix}\right)\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)=\left(\begin{matrix}-B\vec{x}_2\\B^T\vec{x}_1\end{matrix}\right)=-\lambda\left(\begin{matrix}\vec{x}_1\\-\vec{x}_2\end{matrix}\right)
+\]</span> So <span class="math inline">\(-\lambda\)</span> is also an
+eigenvalue of A.</p>
+<p><span class="math inline">\(\Leftarrow\)</span> Let <span
+class="math inline">\(\lambda_1\geq\cdots\geq\lambda_n\)</span> be all
+eigenvalues of G.<font color='red'>(i.e. <span
+class="math inline">\(\lambda_i=-\lambda_{n-i+1}\)</span>)</font></p>
+<p>For any positive integer k, the matrix <span
+class="math inline">\(A^k\)</span> has eigenvalues <span
+class="math inline">\(\lambda_1^k,\lambda_2^k,\cdots,\lambda_n^k\)</span></p>
+<p>Because G has symmetric specturm, it follows that <span
+class="math inline">\(\lambda_1^k+\cdots+\lambda_n^k=0\)</span> if k is
+an odd integer. <span class="math display">\[
+0=\lambda_1^k+\cdots+\lambda_n^k=w_k(G)
+\]</span> <font color='red'><span
+class="math inline">\(w_k(G)\)</span> is the total number of close
+k-walks.</font></p>
+<p>So every closed walk have an even length. Therefore G is
+bipartite.</p>
+<hr />
+<p><font color='red'>Problem: characterize graphs which satisfy #
+positive eigenvalues=# negative eigenvalues</font></p>
 
     </div>
 

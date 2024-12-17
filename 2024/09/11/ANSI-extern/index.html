@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Extern 的用法在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:">
+  <meta name="description" content="Extern 的用法 在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ANSI-Extern, Const和Static 的用法">
 <meta property="og:url" content="http://example.com/2024/09/11/ANSI-extern/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Extern 的用法在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:">
+<meta property="og:description" content="Extern 的用法 在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-11T12:30:13.000Z">
 <meta property="article:modified_time" content="2024-12-15T12:04:18.896Z">
@@ -261,92 +261,188 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Extern-的用法"><a href="#Extern-的用法" class="headerlink" title="Extern 的用法"></a>Extern 的用法</h3><p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:</p>
+        <h3 id="extern-的用法">Extern 的用法</h3>
+<p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前,
+用来标识变量或者函数的定义在别的文件中已经给出,
+告知编译器运行到此变量或函数时, 在其他位置寻找其定义.
+其常见的用法如下:</p>
 <span id="more"></span>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> a;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> b;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> l &gt; r ? l : r;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">max</span>(a, b) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
-<p>此处如果不在开头加上 extern int a,那么main函数是无法访问变量 a,b 的, 即使变量 a,b 是一个外部变量, 但其作用域是定义以后至程序结束, 而修饰符 extern 引导的变量声明延拓了该外部变量的存在域. 实际上, extern 修饰符主要还是在多源文件的情况下使用.</p>
-<h4 id="Extern-修饰变量的声明"><a href="#Extern-修饰变量的声明" class="headerlink" title="Extern 修饰变量的声明"></a>Extern 修饰变量的声明</h4><p>　extern关键字可以用来修饰变量，表示该变量在别的文件中已有声明。例如：我们在文件file1.c中声明了变量int var，然后我们又需要再file2.c中使用该变量，则可在文件file2.c中声明extern int var，就可在文件file2.c中使用该变量了。</p>
-<p>值得强调的是 extern 修饰的是变量的声明, 变量的声明仅仅向编译器传递了变量的信息, 但并不会分配内存; 分配内存是通过变量定义来实现的. 因此我们如果使用 extern 修饰变量声明, 是不可以同时在其后初始化, 因为声明并不会对变量, 对内存操作的. 其次, 使用 extern 修饰声明的变量一定要是全局变量, 这是因为如果声明的是局部变量, 那么他的存活域只在某个函数体内部, 在其他文件中引用这个变量也是没有意义的.</p>
-<p>进一步, 我们可以讨论由 extern 修饰的变量声明对应的存活域. 首先, 由前面的介绍知道, extern 声明的变量只能是全局变量, 但是如果 extern 修饰的变量声明位于某个函数体内, 那么其存活域也只在这个函数内部, 与在函数内部设置的局部变量一致.</p>
-<h4 id="Extern-修饰函数声明"><a href="#Extern-修饰函数声明" class="headerlink" title="Extern 修饰函数声明"></a>Extern 修饰函数声明</h4><p>从本质来看, extern 修饰函数声明与修饰变量声明是等价的. 但我们更为常用的引用其他文件的函数是通过头文件的方式来引用的. 在程序实现层面, 这两种方式是有所不同的, 引用头文件的编译处理是一种预处理方式, 而extern 修饰的声明则是代码链接层面的实现. 因此一般而言, 如果需要大批量引用函数声明, 那么就用头文件更为便利, 而如果只是引用少数函数, 那么用 extern 修饰声明即可.</p>
-<h4 id="Extern-用来实现链接指定"><a href="#Extern-用来实现链接指定" class="headerlink" title="Extern 用来实现链接指定"></a>Extern 用来实现链接指定</h4><p>extern用来进行链接指定一般来说是用来实现混合编程. 例如我们如果要在C++程序中调用C代码, 那么我们就需要用extern “C”来声明.</p>
-<p>extern “C” 可用于单一语句</p>
+<p>此处如果不在开头加上 extern int a,那么main函数是无法访问变量 a,b 的,
+即使变量 a,b 是一个外部变量, 但其作用域是定义以后至程序结束, 而修饰符
+extern 引导的变量声明延拓了该外部变量的存在域. 实际上, extern
+修饰符主要还是在多源文件的情况下使用.</p>
+<h4 id="extern-修饰变量的声明">Extern 修饰变量的声明</h4>
+<p>　extern关键字可以用来修饰变量，表示该变量在别的文件中已有声明。例如：我们在文件file1.c中声明了变量int
+var，然后我们又需要再file2.c中使用该变量，则可在文件file2.c中声明extern
+int var，就可在文件file2.c中使用该变量了。</p>
+<p>值得强调的是 extern 修饰的是变量的声明,
+变量的声明仅仅向编译器传递了变量的信息, 但并不会分配内存;
+分配内存是通过变量定义来实现的. 因此我们如果使用 extern 修饰变量声明,
+是不可以同时在其后初始化, 因为声明并不会对变量, 对内存操作的. 其次, 使用
+extern 修饰声明的变量一定要是全局变量, 这是因为如果声明的是局部变量,
+那么他的存活域只在某个函数体内部,
+在其他文件中引用这个变量也是没有意义的.</p>
+<p>进一步, 我们可以讨论由 extern 修饰的变量声明对应的存活域. 首先,
+由前面的介绍知道, extern 声明的变量只能是全局变量, 但是如果 extern
+修饰的变量声明位于某个函数体内, 那么其存活域也只在这个函数内部,
+与在函数内部设置的局部变量一致.</p>
+<h4 id="extern-修饰函数声明">Extern 修饰函数声明</h4>
+<p>从本质来看, extern 修饰函数声明与修饰变量声明是等价的.
+但我们更为常用的引用其他文件的函数是通过头文件的方式来引用的.
+在程序实现层面, 这两种方式是有所不同的,
+引用头文件的编译处理是一种预处理方式, 而extern
+修饰的声明则是代码链接层面的实现. 因此一般而言,
+如果需要大批量引用函数声明, 那么就用头文件更为便利,
+而如果只是引用少数函数, 那么用 extern 修饰声明即可.</p>
+<h4 id="extern-用来实现链接指定">Extern 用来实现链接指定</h4>
+<p>extern用来进行链接指定一般来说是用来实现混合编程.
+例如我们如果要在C++程序中调用C代码, 那么我们就需要用extern
+"C"来声明.</p>
+<p>extern "C" 可用于单一语句</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C” <span class="function"><span class="type">double</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>也可以是复合语句, 相当于复合语句中的声明都加了 extern “C”</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C”</span><br><span class="line">&#123;</span><br><span class="line">      <span class="function"><span class="type">double</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;</span><br><span class="line">      <span class="function"><span class="type">int</span> <span class="title">min</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样可以包含头文件，相当于头文件中的声明都加了extern “C” (不建议这样写，会有嵌套可能)</p>
+<p>同样可以包含头文件，相当于头文件中的声明都加了extern “C”
+(不建议这样写，会有嵌套可能)</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C”</span><br><span class="line">&#123;</span><br><span class="line">      ＃include &lt;cmath&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>值得注意的是, extern “C” 是不可以用在函数内部的, 且如果函数有多个声明, 可以全都加上 extern “C”, 也可以只加一个, 后续声明会遵循第一个链接指示符的规则.</p>
-<h3 id="Static-的用法"><a href="#Static-的用法" class="headerlink" title="Static 的用法"></a>Static 的用法</h3><p>static 的用法其实只有三个: 隐藏, 保持变量持久, 默认初始化为0</p>
-<h4 id="Static-的主要功能-隐藏"><a href="#Static-的主要功能-隐藏" class="headerlink" title="Static 的主要功能:隐藏"></a>Static 的主要功能:隐藏</h4><p>当我们同时编译多个源文件时, 普通的全局变量和函数 (即未加 static 的) 都是全局可访问的.</p>
+<p>值得注意的是, extern "C" 是不可以用在函数内部的,
+且如果函数有多个声明, 可以全都加上 extern "C", 也可以只加一个,
+后续声明会遵循第一个链接指示符的规则.</p>
+<h3 id="static-的用法">Static 的用法</h3>
+<p>static 的用法其实只有三个: 隐藏, 保持变量持久, 默认初始化为0</p>
+<h4 id="static-的主要功能隐藏">Static 的主要功能:隐藏</h4>
+<p>当我们同时编译多个源文件时, 普通的全局变量和函数 (即未加 static 的)
+都是全局可访问的.</p>
 <p>例如, 对于多源文件main.cpp和test.cpp如下所示</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main source</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">char</span> a;    <span class="comment">// extern variable must be declared before use</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c &quot;</span>, a);</span><br><span class="line">    <span class="function"><span class="keyword">extern</span> <span class="type">void</span> <span class="title">msg</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="built_in">msg</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>test.cpp结构如下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> a = <span class="string">&#x27;A&#x27;</span>; <span class="comment">// global variable</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">msg</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述可以运行是因为在test.cpp文件中的全局变量并没有加static,因此其余文件可以随意的利用修饰符extern来调用全局变量和函数. 如果加上static, 那么他就会对其余的源文件隐藏, 只能在本文件中使用. 因此利用这一特性我们可以在不同的源文件定义同名变量与同名函数, 不会出现命名冲突, 也不会出现数据混用的情况. static 可用于修饰函数也可以用来修饰变量; 如果针对函数, 那么 static 的作用仅限于隐藏; 而对于变量, 那么 static 就有接下来的两个作用.</p>
-<h4 id="保持变量内容的持久"><a href="#保持变量内容的持久" class="headerlink" title="保持变量内容的持久"></a>保持变量内容的持久</h4><p>与自动变量存储在栈区不同, static变量会存储在静态存储区. 虽然全局变量也会存储在静态存储区, 但是与全局变量相比, static变量主要的特性是对变量的隐藏. </p>
-<p>如果static用于声明内部变量, 那么static类型的内部变量和函数内部的自动变量一样,只能在函数内部使用, 但不同的一点是, 函数内部的自动变量会在函数运行结束自动释放内存, 下一次运行需要重新声明, 重新分配内存; 而static类型变量则不会, 她只在第一次声明时分配内存且完成初始化, 不会随着函数的返回而释放空间, 一直等到重新调用函数时,其值为上次结束时的值.</p>
+<p>上述可以运行是因为在test.cpp文件中的全局变量并没有加static,因此其余文件可以随意的利用修饰符extern来调用全局变量和函数.
+如果加上static, 那么他就会对其余的源文件隐藏, 只能在本文件中使用.
+因此利用这一特性我们可以在不同的源文件定义同名变量与同名函数,
+不会出现命名冲突, 也不会出现数据混用的情况. static
+可用于修饰函数也可以用来修饰变量; 如果针对函数, 那么 static
+的作用仅限于隐藏; 而对于变量, 那么 static 就有接下来的两个作用.</p>
+<h4 id="保持变量内容的持久">保持变量内容的持久</h4>
+<p>与自动变量存储在栈区不同, static变量会存储在静态存储区.
+虽然全局变量也会存储在静态存储区, 但是与全局变量相比,
+static变量主要的特性是对变量的隐藏.</p>
+<p>如果static用于声明内部变量,
+那么static类型的内部变量和函数内部的自动变量一样,只能在函数内部使用,
+但不同的一点是, 函数内部的自动变量会在函数运行结束自动释放内存,
+下一次运行需要重新声明, 重新分配内存; 而static类型变量则不会,
+她只在第一次声明时分配内存且完成初始化, 不会随着函数的返回而释放空间,
+一直等到重新调用函数时,其值为上次结束时的值.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun</span><span class="params">(<span class="type">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> count = <span class="number">10</span>;    <span class="comment">// 首次运行时,会将静态变量完成初始化,而后不会再运行,下一次的值是由上次存储的数据来保证.</span></span><br><span class="line">    <span class="keyword">return</span> count--;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;global\t\tlocal static\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(; count &lt;= <span class="number">10</span>; ++count)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\t\t%d\n&quot;</span>, count, <span class="built_in">fun</span>());    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="默认初始化为-0"><a href="#默认初始化为-0" class="headerlink" title="默认初始化为 0"></a>默认初始化为 0</h4><p>实际上, 全局变量也有这个特性, 这是因为全局变量和静态变量都存储在静态存储区, 静态存储区的字节默认为 0x00. 善用这个特性, 可以极大简便程序的编写复杂度, 如果我们考虑一个稀疏矩阵, 如果我们设置局部变量, 那么我们需要先将变量全部置为0, 而后一个个添加非零元素; 实际上我们可以直接用静态变量, 这样的话, 我们只需要添加非零元素即可. 这同样对字符串有相同的操作.</p>
-<h3 id="Const-的用法"><a href="#Const-的用法" class="headerlink" title="Const 的用法"></a>Const 的用法</h3><p>const 用来修饰一个变量, 那么他的值从某种角度来说就是不能被改变的. 这其实很类似与C语言中的#define的宏命令, 这两个之间还是有较大的差异:</p>
-<ol>
-<li><h1 id="define-是预处理指令-其在预处理阶段就会完成文本替换-而const则是对变量的修饰-因此他需要在后续的语法编译的时期-程序还要检查其类型是否正确-对比更加安全"><a href="#define-是预处理指令-其在预处理阶段就会完成文本替换-而const则是对变量的修饰-因此他需要在后续的语法编译的时期-程序还要检查其类型是否正确-对比更加安全" class="headerlink" title="define 是预处理指令, 其在预处理阶段就会完成文本替换. 而const则是对变量的修饰,因此他需要在后续的语法编译的时期, 程序还要检查其类型是否正确, 对比更加安全."></a>define 是预处理指令, 其在预处理阶段就会完成文本替换. 而const则是对变量的修饰,因此他需要在后续的语法编译的时期, 程序还要检查其类型是否正确, 对比更加安全.</h1></li>
-<li>const 可以保护被修饰的内容, 防止意外修改, 从而来增强程序的鲁棒性.</li>
-<li>const 常量是不通过编译器分配内存空间的, 而是将其纳入符号表; 这样使得他在运行过程中不需要存储和读取内存的时间, 提高了运行效率.</li>
+<h4 id="默认初始化为-0">默认初始化为 0</h4>
+<p>实际上, 全局变量也有这个特性,
+这是因为全局变量和静态变量都存储在静态存储区, 静态存储区的字节默认为
+0x00. 善用这个特性, 可以极大简便程序的编写复杂度,
+如果我们考虑一个稀疏矩阵, 如果我们设置局部变量,
+那么我们需要先将变量全部置为0, 而后一个个添加非零元素;
+实际上我们可以直接用静态变量, 这样的话, 我们只需要添加非零元素即可.
+这同样对字符串有相同的操作.</p>
+<h3 id="const-的用法">Const 的用法</h3>
+<p>const 用来修饰一个变量, 那么他的值从某种角度来说就是不能被改变的.
+这其实很类似与C语言中的#define的宏命令, 这两个之间还是有较大的差异:</p>
+<ol type="1">
+<li>#define 是预处理指令, 其在预处理阶段就会完成文本替换.
+而const则是对变量的修饰,因此他需要在后续的语法编译的时期,
+程序还要检查其类型是否正确, 对比更加安全.</li>
+<li>const 可以保护被修饰的内容, 防止意外修改,
+从而来增强程序的鲁棒性.</li>
+<li>const 常量是不通过编译器分配内存空间的, 而是将其纳入符号表;
+这样使得他在运行过程中不需要存储和读取内存的时间, 提高了运行效率.</li>
 </ol>
-<h4 id="修饰局部变量"><a href="#修饰局部变量" class="headerlink" title="修饰局部变量"></a>修饰局部变量</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>这两个语句表示的是同一条命令, 即定义整型const常量a并初始化为1. 由于const常量后续将不再允许被修改, 因此我们在定义const常量的同时一定要对其进行初始化. 其实对于这种基本类型的const修饰十分简单, 我们考虑const字符串,可以知道他的一些优势.</p>
+<h4 id="修饰局部变量">修饰局部变量</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>这两个语句表示的是同一条命令, 即定义整型const常量a并初始化为1.
+由于const常量后续将不再允许被修改,
+因此我们在定义const常量的同时一定要对其进行初始化.
+其实对于这种基本类型的const修饰十分简单,
+我们考虑const字符串,可以知道他的一些优势.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* ptr=<span class="string">&quot;Hello world!&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>如果这里我们不加上const限定符, 那在程序中可能出现 ptr[3]=’L’ 的命令, 他会因为对只读区域的写入而报错, 也就是在程序运行时报错; 而如果我们用 const 限制符, 那么在程序编译期间, 就会因为试图修改const常量而报错.</p>
-<h4 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h4><p>值得注意的是 const 的使用在此处将会十分灵活, 因为他涉及到指针的内容, 因此比较复杂.</p>
+<p>如果这里我们不加上const限定符, 那在程序中可能出现 ptr[3]='L' 的命令,
+他会因为对只读区域的写入而报错, 也就是在程序运行时报错; 而如果我们用
+const 限制符, 那么在程序编译期间, 就会因为试图修改const常量而报错.</p>
+<h4 id="常量指针和指针常量">常量指针和指针常量</h4>
+<p>值得注意的是 const 的使用在此处将会十分灵活, 因为他涉及到指针的内容,
+因此比较复杂.</p>
 <p>首先, 我们先考虑常量指针, 其声明方式如下所示,</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* ptr;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> * ptr;</span><br></pre></td></tr></table></figure>
-<p>常量指针的含义为指针指向的内容是常量. 不可以通过常量指针来修改对应的值. 需要注意的是,</p>
-<ol>
-<li><p>这里的常量指针不能修改对应的值,只是不能通过常量指针修改; 但允许通过其他的引用来修改, 例如</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;a;</span><br><span class="line">*pn=<span class="number">10</span>; <span class="comment">//报错,因为pn是常量指针</span></span><br><span class="line">a=<span class="number">10</span>; <span class="comment">//允许运行, 因为这是其他的引用并没有常量的限制</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>常量指针指向的值不能修改, 但是可以修改常量指针指向的对象, 也就是可以将常量指针指向不同的位置.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x=<span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> y=<span class="number">6</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;x;</span><br><span class="line">pn=&amp;y;</span><br></pre></td></tr></table></figure>
-</li>
+<p>常量指针的含义为指针指向的内容是常量.
+不可以通过常量指针来修改对应的值. 需要注意的是,</p>
+<ol type="1">
+<li><p>这里的常量指针不能修改对应的值,只是不能通过常量指针修改;
+但允许通过其他的引用来修改, 例如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;a;</span><br><span class="line">*pn=<span class="number">10</span>; <span class="comment">//报错,因为pn是常量指针</span></span><br><span class="line">a=<span class="number">10</span>; <span class="comment">//允许运行, 因为这是其他的引用并没有常量的限制</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常量指针指向的值不能修改, 但是可以修改常量指针指向的对象,
+也就是可以将常量指针指向不同的位置.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x=<span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> y=<span class="number">6</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;x;</span><br><span class="line">pn=&amp;y;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>其次, 我们讨论指针常量, 其定义声明如下所示</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* <span class="type">const</span> pn;</span><br></pre></td></tr></table></figure>
-<p>指针常量指的是这个指针本身就是一个常量, 我们在运行过程中不可以重新给该指针常量重新赋值, 但是我们可以用这个指针修改他指向的内容. 例如</p>
+<p>指针常量指的是这个指针本身就是一个常量,
+我们在运行过程中不可以重新给该指针常量重新赋值,
+但是我们可以用这个指针修改他指向的内容. 例如</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> n = &amp;a;</span><br><span class="line">*n = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-<p>这两种const常量的定义的区别仅在于 const 限定符与 <em> 的位置关系, 如果const在</em> 左边, 那么定义的就是常量指针; 如果const在* 右边, 那么定义的就是指针常量. 特殊的实际上, 我们可以将上面的两种定义合并, 得到指向常量的常指针的定义</p>
+<p>这两种const常量的定义的区别仅在于 const 限定符与 * 的位置关系,
+如果const在* 左边, 那么定义的就是常量指针; 如果const在* 右边,
+那么定义的就是指针常量. 特殊的实际上, 我们可以将上面的两种定义合并,
+得到指向常量的常指针的定义</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* <span class="type">const</span> a=<span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-<p>指针指向的位置不能改变并且也不能通过这个指针改变变量的值，但是依然可以通过其他的普通指针改变变量的值. </p>
-<h4 id="修饰函数的参数"><a href="#修饰函数的参数" class="headerlink" title="修饰函数的参数"></a>修饰函数的参数</h4><p>根据前面讨论的常量指针和指针常量, const修饰函数的参数也为两种</p>
-<ol>
+<p>指针指向的位置不能改变并且也不能通过这个指针改变变量的值，但是依然可以通过其他的普通指针改变变量的值.</p>
+<h4 id="修饰函数的参数">修饰函数的参数</h4>
+<p>根据前面讨论的常量指针和指针常量, const修饰函数的参数也为两种</p>
+<ol type="1">
 <li><p>防止修改指针指向的内容</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">StringCopy</span><span class="params">(<span class="type">char</span> *strDestination, <span class="type">const</span> <span class="type">char</span> *strSource)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>其中函数内部是不能随意修改strSource指向的内容, 在编译期间就会报错.</p>
-</li>
+<p>其中函数内部是不能随意修改strSource指向的内容,
+在编译期间就会报错.</p></li>
 <li><p>防止修改指针的地址</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>* <span class="type">const</span> p1, <span class="type">int</span>* <span class="type">const</span> p2)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>不能随意修改p1和p2的地址.</p>
-</li>
+<p>不能随意修改p1和p2的地址.</p></li>
 </ol>
-<h4 id="修饰函数的返回值"><a href="#修饰函数的返回值" class="headerlink" title="修饰函数的返回值"></a>修饰函数的返回值</h4><p>如果给以“指针传递”方式的函数返回值加 const 修饰，那么函数返回值（即指针）的内容不能被修改，该返回值只能被赋给加const 修饰的同类型指针.</p>
+<h4 id="修饰函数的返回值">修饰函数的返回值</h4>
+<p>如果给以“指针传递”方式的函数返回值加 const
+修饰，那么函数返回值（即指针）的内容不能被修改，该返回值只能被赋给加const
+修饰的同类型指针.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">Getstring</span><span class="params">()</span></span>;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* str=<span class="built_in">Getstring</span>();</span><br></pre></td></tr></table></figure>
-<h4 id="修饰全局变量"><a href="#修饰全局变量" class="headerlink" title="修饰全局变量"></a>修饰全局变量</h4><p>全局变量的作用域是整个文件，我们应该尽量避免使用全局变量，因为一旦有一个函数改变了全局变量的值，它也会影响到其他引用这个变量的函数，导致除了bug后很难发现，如果一定要用全局变量，我们应该尽量的使用const修饰符进行修饰，这样防止不必要的人为修改，使用的方法与局部变量是相同的。</p>
-<h3 id="代码运行的内存分配"><a href="#代码运行的内存分配" class="headerlink" title="代码运行的内存分配"></a>代码运行的内存分配</h3><p>C/C++程序经过编译器完成编译链接等等处理工作以后得到的二进制文件, 其包含栈(stack), 堆(heap), 数据段, BSS段, 代码段. 其中数据段, BSS段和代码段是程序编译完成就已经分配完成了, 无需等代码运行; 而堆区和栈区需要程序被加载到内存开始运行时才会分配.</p>
-<ol>
-<li><p>栈区(stack): 由编译器自动分配和释放内存. 该区一般用于存储函数参数, 局部变量等值. 其操作方式类似于数据结构中提到的栈.</p>
-</li>
-<li><p>堆区(heap): 程序员通过 new 命令和 malloc 命令, 可以动态申请某个大小的内存. 注意的是, 此区的内存和栈区的不同, 并不能由编译器自动释放, 而是由程序员通过 delete 命令和 free 命令来手动释放内存, 如果不释放, 长期使用下, 申请内存超过了堆区大小, 那么就会发生内存泄漏现象. </p>
-</li>
-<li><p>数据段: 数据段属于静态内存分配,所有有初值的全局变量和用static修饰的静态变量，常量数据都在数据段中。实际上可以认为其分为两块数据段:1.只读数据段 2. 读写数据段.</p>
-<p>在只读数据段中, 一般用来存储程序使用时不会发生变化的数据.一般是用const修饰的变量或者程序中使用的文字常量存储在此处. 特殊的还有常量存储区（特殊的常量存储区，属于静态存储区）</p>
-<p>  　　1) 常量占用内存,只读状态,决不可修改</p>
-<pre><code>　　2) 常量字符串就是放在这里的，程序结束后由系统释放
-</code></pre><p>读写数据段:用来存储那些已经完成初始化的全局变量或者初始化的静态变量. 已初始化数据是在程序中声明，并且具有初值的变量，这些变量需要占用存储器的空间，在程序执行时它们需要位于可读写的内存区域内，并且有初值，以供程序运行时读写</p>
-</li>
-<li><p>BSS段: 存储未初始化的全局变量或者静态（全局）变量. 其是可读写的, 编译器给处理成0. 未初始化数据是在程序中声明, 但是没有初始化的变量, 这些变量在程序运行之前不需要占用存储器的空间. 与读写数据段类似, 它也属于静态数据区. 但是该段中数据没有经过初始化. 未初始化数据段只有在运行的初始化阶段才会产生, 因此它的大小不会影响目标文件的大小.</p>
-</li>
-<li><p>代码段: 存放函数体的二进制代码,所有语句经过编译后产生的CPU指令都会存放在此处.</p>
-</li>
+<h4 id="修饰全局变量">修饰全局变量</h4>
+<p>全局变量的作用域是整个文件，我们应该尽量避免使用全局变量，因为一旦有一个函数改变了全局变量的值，它也会影响到其他引用这个变量的函数，导致除了bug后很难发现，如果一定要用全局变量，我们应该尽量的使用const修饰符进行修饰，这样防止不必要的人为修改，使用的方法与局部变量是相同的。</p>
+<h3 id="代码运行的内存分配">代码运行的内存分配</h3>
+<p>C/C++程序经过编译器完成编译链接等等处理工作以后得到的二进制文件,
+其包含栈(stack), 堆(heap), 数据段, BSS段, 代码段. 其中数据段,
+BSS段和代码段是程序编译完成就已经分配完成了, 无需等代码运行;
+而堆区和栈区需要程序被加载到内存开始运行时才会分配.</p>
+<ol type="1">
+<li><p>栈区(stack): 由编译器自动分配和释放内存.
+该区一般用于存储函数参数, 局部变量等值.
+其操作方式类似于数据结构中提到的栈.</p></li>
+<li><p>堆区(heap): 程序员通过 new 命令和 malloc 命令,
+可以动态申请某个大小的内存. 注意的是, 此区的内存和栈区的不同,
+并不能由编译器自动释放, 而是由程序员通过 delete 命令和 free
+命令来手动释放内存, 如果不释放, 长期使用下, 申请内存超过了堆区大小,
+那么就会发生内存泄漏现象.</p></li>
+<li><p>数据段:
+数据段属于静态内存分配,所有有初值的全局变量和用static修饰的静态变量，常量数据都在数据段中。实际上可以认为其分为两块数据段:1.只读数据段
+2. 读写数据段.</p>
+<p>在只读数据段中,
+一般用来存储程序使用时不会发生变化的数据.一般是用const修饰的变量或者程序中使用的文字常量存储在此处.
+特殊的还有常量存储区（特殊的常量存储区，属于静态存储区）</p>
+<p>　　1) 常量占用内存,只读状态,决不可修改 　　2)
+常量字符串就是放在这里的，程序结束后由系统释放</p>
+<p>读写数据段:用来存储那些已经完成初始化的全局变量或者初始化的静态变量.
+已初始化数据是在程序中声明，并且具有初值的变量，这些变量需要占用存储器的空间，在程序执行时它们需要位于可读写的内存区域内，并且有初值，以供程序运行时读写</p></li>
+<li><p>BSS段: 存储未初始化的全局变量或者静态（全局）变量. 其是可读写的,
+编译器给处理成0. 未初始化数据是在程序中声明, 但是没有初始化的变量,
+这些变量在程序运行之前不需要占用存储器的空间. 与读写数据段类似,
+它也属于静态数据区. 但是该段中数据没有经过初始化.
+未初始化数据段只有在运行的初始化阶段才会产生,
+因此它的大小不会影响目标文件的大小.</p></li>
+<li><p>代码段:
+存放函数体的二进制代码,所有语句经过编译后产生的CPU指令都会存放在此处.</p></li>
 </ol>
 
     </div>
@@ -428,7 +524,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Extern-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">Extern 的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Extern-%E4%BF%AE%E9%A5%B0%E5%8F%98%E9%87%8F%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">Extern 修饰变量的声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Extern-%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E"><span class="nav-number">1.2.</span> <span class="nav-text">Extern 修饰函数声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Extern-%E7%94%A8%E6%9D%A5%E5%AE%9E%E7%8E%B0%E9%93%BE%E6%8E%A5%E6%8C%87%E5%AE%9A"><span class="nav-number">1.3.</span> <span class="nav-text">Extern 用来实现链接指定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Static 的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Static-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-%E9%9A%90%E8%97%8F"><span class="nav-number">2.1.</span> <span class="nav-text">Static 的主要功能:隐藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8C%81%E5%8F%98%E9%87%8F%E5%86%85%E5%AE%B9%E7%9A%84%E6%8C%81%E4%B9%85"><span class="nav-number">2.2.</span> <span class="nav-text">保持变量内容的持久</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA-0"><span class="nav-number">2.3.</span> <span class="nav-text">默认初始化为 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Const-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">Const 的用法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#define-%E6%98%AF%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4-%E5%85%B6%E5%9C%A8%E9%A2%84%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5%E5%B0%B1%E4%BC%9A%E5%AE%8C%E6%88%90%E6%96%87%E6%9C%AC%E6%9B%BF%E6%8D%A2-%E8%80%8Cconst%E5%88%99%E6%98%AF%E5%AF%B9%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%AE%E9%A5%B0-%E5%9B%A0%E6%AD%A4%E4%BB%96%E9%9C%80%E8%A6%81%E5%9C%A8%E5%90%8E%E7%BB%AD%E7%9A%84%E8%AF%AD%E6%B3%95%E7%BC%96%E8%AF%91%E7%9A%84%E6%97%B6%E6%9C%9F-%E7%A8%8B%E5%BA%8F%E8%BF%98%E8%A6%81%E6%A3%80%E6%9F%A5%E5%85%B6%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE-%E5%AF%B9%E6%AF%94%E6%9B%B4%E5%8A%A0%E5%AE%89%E5%85%A8"><span class="nav-number"></span> <span class="nav-text">define 是预处理指令, 其在预处理阶段就会完成文本替换. 而const则是对变量的修饰,因此他需要在后续的语法编译的时期, 程序还要检查其类型是否正确, 对比更加安全.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">0.1.</span> <span class="nav-text">修饰局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F"><span class="nav-number">0.2.</span> <span class="nav-text">常量指针和指针常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">0.3.</span> <span class="nav-text">修饰函数的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">0.4.</span> <span class="nav-text">修饰函数的返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">0.5.</span> <span class="nav-text">修饰全局变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.</span> <span class="nav-text">代码运行的内存分配</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#extern-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">Extern 的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#extern-%E4%BF%AE%E9%A5%B0%E5%8F%98%E9%87%8F%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">Extern 修饰变量的声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extern-%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E"><span class="nav-number">1.2.</span> <span class="nav-text">Extern 修饰函数声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extern-%E7%94%A8%E6%9D%A5%E5%AE%9E%E7%8E%B0%E9%93%BE%E6%8E%A5%E6%8C%87%E5%AE%9A"><span class="nav-number">1.3.</span> <span class="nav-text">Extern 用来实现链接指定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Static 的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E9%9A%90%E8%97%8F"><span class="nav-number">2.1.</span> <span class="nav-text">Static 的主要功能:隐藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8C%81%E5%8F%98%E9%87%8F%E5%86%85%E5%AE%B9%E7%9A%84%E6%8C%81%E4%B9%85"><span class="nav-number">2.2.</span> <span class="nav-text">保持变量内容的持久</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA-0"><span class="nav-number">2.3.</span> <span class="nav-text">默认初始化为 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">Const 的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">修饰局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F"><span class="nav-number">3.2.</span> <span class="nav-text">常量指针和指针常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">修饰函数的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.4.</span> <span class="nav-text">修饰函数的返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">3.5.</span> <span class="nav-text">修饰全局变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">4.</span> <span class="nav-text">代码运行的内存分配</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

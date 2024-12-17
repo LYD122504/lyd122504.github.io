@@ -249,7 +249,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Extern-的用法"><a href="#Extern-的用法" class="headerlink" title="Extern 的用法"></a>Extern 的用法</h3><p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:</p>
+          <h3 id="extern-的用法">Extern 的用法</h3>
+<p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前,
+用来标识变量或者函数的定义在别的文件中已经给出,
+告知编译器运行到此变量或函数时, 在其他位置寻找其定义.
+其常见的用法如下:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/09/11/ANSI-extern/#more" rel="contents">
@@ -330,7 +334,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写; 其针对的问题是如何在主串(文本串)中找到某种类型的子串, 也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的, 在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和 KMP 算法的两种不同的实现思路.</p>
+          <p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写;
+其针对的问题是如何在主串(文本串)中找到某种类型的子串,
+也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的,
+在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和
+KMP 算法的两种不同的实现思路.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/28/ANSI-KMP/#more" rel="contents">
@@ -411,22 +419,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><p><a id="org8b14315"></a></p>
-<h2 id="Introduction-of-supervised-learning"><a href="#Introduction-of-supervised-learning" class="headerlink" title="Introduction of supervised learning"></a>Introduction of supervised learning</h2><p>在介绍监督学习(Supervised learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
+          <h1 id="lecture-1">Lecture 1</h1>
+<p><a id="org8b14315"></a></p>
+<h2 id="introduction-of-supervised-learning">Introduction of supervised
+learning</h2>
+<p>在介绍监督学习(Supervised
+learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
 <ul>
-<li><p>$m$: 训练样本的数量</p>
-</li>
-<li><p>$n$: 特征的数量</p>
-</li>
-<li><p>$x$: 输入变量(input variable), 或称为输入特征(input feature/attribute)</p>
-</li>
-<li><p>$y$: 输出变量(output variable), 或称为目标变量(target variable)</p>
-</li>
-<li><p>$(x,y)$: 表示训练样本; $(x^{(i)}, y^{(i)})$: 第 i 个训练样本($i^{th}$ training example)</p>
-</li>
-<li><p>$\mathcal{X}$: 输入变量的空间(input space)</p>
-</li>
-<li><p>$\mathcal{Y}$: 输出变量的空间(output space)</p>
+<li><p><span class="math inline">\(m\)</span>: 训练样本的数量</p></li>
+<li><p><span class="math inline">\(n\)</span>: 特征的数量</p></li>
+<li><p><span class="math inline">\(x\)</span>: 输入变量(input variable),
+或称为输入特征(input feature/attribute)</p></li>
+<li><p><span class="math inline">\(y\)</span>: 输出变量(output
+variable), 或称为目标变量(target variable)</p></li>
+<li><p><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
+class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
+class="math inline">\(i^{th}\)</span> training example)</p></li>
+<li><p><span class="math inline">\(\mathcal{X}\)</span>:
+输入变量的空间(input space)</p></li>
+<li><p><span class="math inline">\(\mathcal{Y}\)</span>:
+输出变量的空间(output space)</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/#more" rel="contents">
@@ -501,9 +513,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
-<script type="math/tex; mode=display">
-Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
+          <p>Now we are ready to talk about building linear regression models from
+data. When we have gotten measurement data in experiments, it is
+important to construct a linear regression model as a predictive model.
+The basic structure of the linear regression is defined as follows,
+<span class="math display">\[
+Ax=b
+\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
+m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
+are given by the measurement. Therefore, building a linear regression is
+equal to solve the linear system <span
+class="math inline">\(Ax=b\)</span>. Here we just consider the over
+determined system <span class="math inline">\(n&gt;m\)</span> since it
+is often what we have in modern data. We will use the least square
+estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/21/SVD-Linear%20Regression/#more" rel="contents">
@@ -578,7 +601,16 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>In many physics problem, we always encounter the solution of the linear equation $Ax=b$. Classically, we solve this linear equation in the case that $A$ is a square and invertible matrix. In fact, this case is too special to better model the real world. Based on the singular value decomposition which we have introduced, we can generalize this linear equation to the case that $A$ is a non-square matrix. Actually, when we consider the data analysis and data modeling, the matrix $A$ is always a non-square matrix.</p>
+          <p>In many physics problem, we always encounter the solution of the
+linear equation <span class="math inline">\(Ax=b\)</span>. Classically,
+we solve this linear equation in the case that <span
+class="math inline">\(A\)</span> is a square and invertible matrix. In
+fact, this case is too special to better model the real world. Based on
+the singular value decomposition which we have introduced, we can
+generalize this linear equation to the case that <span
+class="math inline">\(A\)</span> is a non-square matrix. Actually, when
+we consider the data analysis and data modeling, the matrix <span
+class="math inline">\(A\)</span> is always a non-square matrix.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/#more" rel="contents">
@@ -659,7 +691,13 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
+          <p>In the singular value decomposition of the data matrix <span
+class="math inline">\(X\)</span>, we have the two unitary matrices <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span>. We have introduced that the unitary
+matrices satisfy <span class="math inline">\(U^TU=UU^T=I\)</span> and
+<span class="math inline">\(VV^T=V^TV=I\)</span>. Here these identity
+matrices have different size.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/16/SVD-Unitary%20Transformation/#more" rel="contents">
@@ -740,7 +778,17 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
+          <h2 id="dominant-correlation">Dominant Correlation</h2>
+<p>Here we introduce one of the most useful interpretation of the SVD.
+It is in terms of correlations among the columns of <span
+class="math inline">\(X\)</span> and correlations among the rows of
+<span class="math inline">\(X\)</span>. We claim that the matrix <span
+class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> given by the SVD can be seen as the
+eigenvectors of a correlation matrix given by <span
+class="math inline">\(XX^T\)</span> or <span
+class="math inline">\(X^TX\)</span>. Now we try to explain this
+claim.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/05/SVD-Dominnant%20Correlation/#more" rel="contents">
@@ -767,7 +815,7 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/SVD-Eckart-Young-Mirsky%20/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/SVD-Eckart_Young_Mirsky%20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -781,7 +829,7 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/05/28/SVD-Eckart-Young-Mirsky%20/" class="post-title-link" itemprop="url">SVD-Eckart-Young-Mirsky theorem</a>
+            <a href="/2024/05/28/SVD-Eckart_Young_Mirsky%20/" class="post-title-link" itemprop="url">SVD-Eckart-Young-Mirsky theorem</a>
         </h2>
 
         <div class="post-meta">
@@ -821,23 +869,34 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.</p>
-<ol>
+          <p>Firstly, we introduce three different kinds of matrix norms and based
+on singular value decomposition, verify that these norms are only
+related to singular values.</p>
+<ol type="1">
 <li>2-norm (Spectral norm)</li>
 </ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1</script><ol>
+<p><span class="math display">\[
+\left\Vert
+A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma
+V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1
+\]</span></p>
+<ol type="1">
 <li>Frobenius norm</li>
 </ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}</script><ol>
+<p><span class="math display">\[
+\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma
+U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}
+\]</span></p>
+<ol type="1">
 <li>Nuclear norm</li>
 </ol>
-<script type="math/tex; mode=display">
-\left\Vert A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i</script>
+<p><span class="math display">\[
+\left\Vert
+A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
+\]</span></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/05/28/SVD-Eckart-Young-Mirsky%20/#more" rel="contents">
+              <a class="btn" href="/2024/05/28/SVD-Eckart_Young_Mirsky%20/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -915,7 +974,17 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>The SVD allows us to decompose data matrix $X$ as the product of three matrices, $U,\ V^T,\ \Sigma$, where essentially $U$ contains information about the column space of $X$, $V$ contains information about the row space of $X$ and $\Sigma$ is a hierarchically ordered diagonal matrix, which tells you how important the various columns of $U$ and $V$ are.</p>
+          <p>The SVD allows us to decompose data matrix <span
+class="math inline">\(X\)</span> as the product of three matrices, <span
+class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
+class="math inline">\(U\)</span> contains information about the column
+space of <span class="math inline">\(X\)</span>, <span
+class="math inline">\(V\)</span> contains information about the row
+space of <span class="math inline">\(X\)</span> and <span
+class="math inline">\(\Sigma\)</span> is a hierarchically ordered
+diagonal matrix, which tells you how important the various columns of
+<span class="math inline">\(U\)</span> and <span
+class="math inline">\(V\)</span> are.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/04/19/SVD-Matrix%20Approximation/#more" rel="contents">
@@ -996,10 +1065,20 @@ Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are 
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
-<script type="math/tex; mode=display">
-X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
-<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
+          <p>​ Firstly, we consider a large data matrix <span
+class="math inline">\(X\in \mathbb{C}^{n\times m}\)</span>:</p>
+<p><span class="math display">\[
+X=\begin{bmatrix}\vdots&amp;\vdots&amp;\
+&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
+&amp;\vdots\end{bmatrix}
+\]</span> The column <span class="math inline">\(x_k\in
+\mathbb{C}^n\)</span> is obtained from simulations or experiments.
+Here,we always consider the column vectors may also represent the state
+of a physical system that is evolving in time.The column are often
+called snapshots and <span class="math inline">\(m\)</span> is the
+number of snapshots in <span class="math inline">\(X\)</span>.</p>
+<p>The Singular Value Decomposition allows us to decompose any
+complex-valued matrix as the product of three other matrices,</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/04/18/SVD-Mathematical%20Overview/#more" rel="contents">
