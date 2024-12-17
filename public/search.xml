@@ -3154,7 +3154,7 @@ on and so forth.</p>
 as much as possible in practice, we often truncate at rank r. Oftentimes
 we have a lot of negligibly small singular values like <span
 class="math inline">\(\sigma_{r+1},\
-\sigma_{r+2},\cdots,\sigma_m\)</span> , it means that most of the
+\sigma_{r+2},\cdots,\sigma_m\)</span>, it means that most of the
 information of <span class="math inline">\(X\)</span> is captured in the
 first <span class="math inline">\(r\)</span> singular values and the
 first <span class="math inline">\(r\)</span> singular vectors. So we can
