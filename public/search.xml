@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ANSI-Extern, Const和Static 的用法</title>
+    <url>/2024/09/11/ANSI-extern/</url>
+    <content><![CDATA[<h3 id="Extern-的用法"><a href="#Extern-的用法" class="headerlink" title="Extern 的用法"></a>Extern 的用法</h3><p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:</p>
+<span id="more"></span>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> a;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> b;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> l &gt; r ? l : r;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">max</span>(a, b) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+<p>此处如果不在开头加上 extern int a,那么main函数是无法访问变量 a,b 的, 即使变量 a,b 是一个外部变量, 但其作用域是定义以后至程序结束, 而修饰符 extern 引导的变量声明延拓了该外部变量的存在域. 实际上, extern 修饰符主要还是在多源文件的情况下使用.</p>
+<h4 id="Extern-修饰变量的声明"><a href="#Extern-修饰变量的声明" class="headerlink" title="Extern 修饰变量的声明"></a>Extern 修饰变量的声明</h4><p>　extern关键字可以用来修饰变量，表示该变量在别的文件中已有声明。例如：我们在文件file1.c中声明了变量int var，然后我们又需要再file2.c中使用该变量，则可在文件file2.c中声明extern int var，就可在文件file2.c中使用该变量了。</p>
+<p>值得强调的是 extern 修饰的是变量的声明, 变量的声明仅仅向编译器传递了变量的信息, 但并不会分配内存; 分配内存是通过变量定义来实现的. 因此我们如果使用 extern 修饰变量声明, 是不可以同时在其后初始化, 因为声明并不会对变量, 对内存操作的. 其次, 使用 extern 修饰声明的变量一定要是全局变量, 这是因为如果声明的是局部变量, 那么他的存活域只在某个函数体内部, 在其他文件中引用这个变量也是没有意义的.</p>
+<p>进一步, 我们可以讨论由 extern 修饰的变量声明对应的存活域. 首先, 由前面的介绍知道, extern 声明的变量只能是全局变量, 但是如果 extern 修饰的变量声明位于某个函数体内, 那么其存活域也只在这个函数内部, 与在函数内部设置的局部变量一致.</p>
+<h4 id="Extern-修饰函数声明"><a href="#Extern-修饰函数声明" class="headerlink" title="Extern 修饰函数声明"></a>Extern 修饰函数声明</h4><p>从本质来看, extern 修饰函数声明与修饰变量声明是等价的. 但我们更为常用的引用其他文件的函数是通过头文件的方式来引用的. 在程序实现层面, 这两种方式是有所不同的, 引用头文件的编译处理是一种预处理方式, 而extern 修饰的声明则是代码链接层面的实现. 因此一般而言, 如果需要大批量引用函数声明, 那么就用头文件更为便利, 而如果只是引用少数函数, 那么用 extern 修饰声明即可.</p>
+<h4 id="Extern-用来实现链接指定"><a href="#Extern-用来实现链接指定" class="headerlink" title="Extern 用来实现链接指定"></a>Extern 用来实现链接指定</h4><p>extern用来进行链接指定一般来说是用来实现混合编程. 例如我们如果要在C++程序中调用C代码, 那么我们就需要用extern “C”来声明.</p>
+<p>extern “C” 可用于单一语句</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C” <span class="function"><span class="type">double</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>也可以是复合语句, 相当于复合语句中的声明都加了 extern “C”</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C”</span><br><span class="line">&#123;</span><br><span class="line">      <span class="function"><span class="type">double</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;</span><br><span class="line">      <span class="function"><span class="type">int</span> <span class="title">min</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样可以包含头文件，相当于头文件中的声明都加了extern “C” (不建议这样写，会有嵌套可能)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C”</span><br><span class="line">&#123;</span><br><span class="line">      ＃include &lt;cmath&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>值得注意的是, extern “C” 是不可以用在函数内部的, 且如果函数有多个声明, 可以全都加上 extern “C”, 也可以只加一个, 后续声明会遵循第一个链接指示符的规则.</p>
+<h3 id="Static-的用法"><a href="#Static-的用法" class="headerlink" title="Static 的用法"></a>Static 的用法</h3><p>static 的用法其实只有三个: 隐藏, 保持变量持久, 默认初始化为0</p>
+<h4 id="Static-的主要功能-隐藏"><a href="#Static-的主要功能-隐藏" class="headerlink" title="Static 的主要功能:隐藏"></a>Static 的主要功能:隐藏</h4><p>当我们同时编译多个源文件时, 普通的全局变量和函数 (即未加 static 的) 都是全局可访问的.</p>
+<p>例如, 对于多源文件main.cpp和test.cpp如下所示</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main source</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">char</span> a;    <span class="comment">// extern variable must be declared before use</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c &quot;</span>, a);</span><br><span class="line">    <span class="function"><span class="keyword">extern</span> <span class="type">void</span> <span class="title">msg</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="built_in">msg</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>test.cpp结构如下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> a = <span class="string">&#x27;A&#x27;</span>; <span class="comment">// global variable</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">msg</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述可以运行是因为在test.cpp文件中的全局变量并没有加static,因此其余文件可以随意的利用修饰符extern来调用全局变量和函数. 如果加上static, 那么他就会对其余的源文件隐藏, 只能在本文件中使用. 因此利用这一特性我们可以在不同的源文件定义同名变量与同名函数, 不会出现命名冲突, 也不会出现数据混用的情况. static 可用于修饰函数也可以用来修饰变量; 如果针对函数, 那么 static 的作用仅限于隐藏; 而对于变量, 那么 static 就有接下来的两个作用.</p>
+<h4 id="保持变量内容的持久"><a href="#保持变量内容的持久" class="headerlink" title="保持变量内容的持久"></a>保持变量内容的持久</h4><p>与自动变量存储在栈区不同, static变量会存储在静态存储区. 虽然全局变量也会存储在静态存储区, 但是与全局变量相比, static变量主要的特性是对变量的隐藏. </p>
+<p>如果static用于声明内部变量, 那么static类型的内部变量和函数内部的自动变量一样,只能在函数内部使用, 但不同的一点是, 函数内部的自动变量会在函数运行结束自动释放内存, 下一次运行需要重新声明, 重新分配内存; 而static类型变量则不会, 她只在第一次声明时分配内存且完成初始化, 不会随着函数的返回而释放空间, 一直等到重新调用函数时,其值为上次结束时的值.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun</span><span class="params">(<span class="type">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> count = <span class="number">10</span>;    <span class="comment">// 首次运行时,会将静态变量完成初始化,而后不会再运行,下一次的值是由上次存储的数据来保证.</span></span><br><span class="line">    <span class="keyword">return</span> count--;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;global\t\tlocal static\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(; count &lt;= <span class="number">10</span>; ++count)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\t\t%d\n&quot;</span>, count, <span class="built_in">fun</span>());    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="默认初始化为-0"><a href="#默认初始化为-0" class="headerlink" title="默认初始化为 0"></a>默认初始化为 0</h4><p>实际上, 全局变量也有这个特性, 这是因为全局变量和静态变量都存储在静态存储区, 静态存储区的字节默认为 0x00. 善用这个特性, 可以极大简便程序的编写复杂度, 如果我们考虑一个稀疏矩阵, 如果我们设置局部变量, 那么我们需要先将变量全部置为0, 而后一个个添加非零元素; 实际上我们可以直接用静态变量, 这样的话, 我们只需要添加非零元素即可. 这同样对字符串有相同的操作.</p>
+<h3 id="Const-的用法"><a href="#Const-的用法" class="headerlink" title="Const 的用法"></a>Const 的用法</h3><p>const 用来修饰一个变量, 那么他的值从某种角度来说就是不能被改变的. 这其实很类似与C语言中的#define的宏命令, 这两个之间还是有较大的差异:</p>
+<ol>
+<li><h1 id="define-是预处理指令-其在预处理阶段就会完成文本替换-而const则是对变量的修饰-因此他需要在后续的语法编译的时期-程序还要检查其类型是否正确-对比更加安全"><a href="#define-是预处理指令-其在预处理阶段就会完成文本替换-而const则是对变量的修饰-因此他需要在后续的语法编译的时期-程序还要检查其类型是否正确-对比更加安全" class="headerlink" title="define 是预处理指令, 其在预处理阶段就会完成文本替换. 而const则是对变量的修饰,因此他需要在后续的语法编译的时期, 程序还要检查其类型是否正确, 对比更加安全."></a>define 是预处理指令, 其在预处理阶段就会完成文本替换. 而const则是对变量的修饰,因此他需要在后续的语法编译的时期, 程序还要检查其类型是否正确, 对比更加安全.</h1></li>
+<li>const 可以保护被修饰的内容, 防止意外修改, 从而来增强程序的鲁棒性.</li>
+<li>const 常量是不通过编译器分配内存空间的, 而是将其纳入符号表; 这样使得他在运行过程中不需要存储和读取内存的时间, 提高了运行效率.</li>
+</ol>
+<h4 id="修饰局部变量"><a href="#修饰局部变量" class="headerlink" title="修饰局部变量"></a>修饰局部变量</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>这两个语句表示的是同一条命令, 即定义整型const常量a并初始化为1. 由于const常量后续将不再允许被修改, 因此我们在定义const常量的同时一定要对其进行初始化. 其实对于这种基本类型的const修饰十分简单, 我们考虑const字符串,可以知道他的一些优势.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* ptr=<span class="string">&quot;Hello world!&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>如果这里我们不加上const限定符, 那在程序中可能出现 ptr[3]=’L’ 的命令, 他会因为对只读区域的写入而报错, 也就是在程序运行时报错; 而如果我们用 const 限制符, 那么在程序编译期间, 就会因为试图修改const常量而报错.</p>
+<h4 id="常量指针和指针常量"><a href="#常量指针和指针常量" class="headerlink" title="常量指针和指针常量"></a>常量指针和指针常量</h4><p>值得注意的是 const 的使用在此处将会十分灵活, 因为他涉及到指针的内容, 因此比较复杂.</p>
+<p>首先, 我们先考虑常量指针, 其声明方式如下所示,</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* ptr;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> * ptr;</span><br></pre></td></tr></table></figure>
+<p>常量指针的含义为指针指向的内容是常量. 不可以通过常量指针来修改对应的值. 需要注意的是,</p>
+<ol>
+<li><p>这里的常量指针不能修改对应的值,只是不能通过常量指针修改; 但允许通过其他的引用来修改, 例如</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;a;</span><br><span class="line">*pn=<span class="number">10</span>; <span class="comment">//报错,因为pn是常量指针</span></span><br><span class="line">a=<span class="number">10</span>; <span class="comment">//允许运行, 因为这是其他的引用并没有常量的限制</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常量指针指向的值不能修改, 但是可以修改常量指针指向的对象, 也就是可以将常量指针指向不同的位置.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> x=<span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> y=<span class="number">6</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;x;</span><br><span class="line">pn=&amp;y;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其次, 我们讨论指针常量, 其定义声明如下所示</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* <span class="type">const</span> pn;</span><br></pre></td></tr></table></figure>
+<p>指针常量指的是这个指针本身就是一个常量, 我们在运行过程中不可以重新给该指针常量重新赋值, 但是我们可以用这个指针修改他指向的内容. 例如</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> n = &amp;a;</span><br><span class="line">*n = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>这两种const常量的定义的区别仅在于 const 限定符与 <em> 的位置关系, 如果const在</em> 左边, 那么定义的就是常量指针; 如果const在* 右边, 那么定义的就是指针常量. 特殊的实际上, 我们可以将上面的两种定义合并, 得到指向常量的常指针的定义</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* <span class="type">const</span> a=<span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>指针指向的位置不能改变并且也不能通过这个指针改变变量的值，但是依然可以通过其他的普通指针改变变量的值. </p>
+<h4 id="修饰函数的参数"><a href="#修饰函数的参数" class="headerlink" title="修饰函数的参数"></a>修饰函数的参数</h4><p>根据前面讨论的常量指针和指针常量, const修饰函数的参数也为两种</p>
+<ol>
+<li><p>防止修改指针指向的内容</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">StringCopy</span><span class="params">(<span class="type">char</span> *strDestination, <span class="type">const</span> <span class="type">char</span> *strSource)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>其中函数内部是不能随意修改strSource指向的内容, 在编译期间就会报错.</p>
+</li>
+<li><p>防止修改指针的地址</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>* <span class="type">const</span> p1, <span class="type">int</span>* <span class="type">const</span> p2)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>不能随意修改p1和p2的地址.</p>
+</li>
+</ol>
+<h4 id="修饰函数的返回值"><a href="#修饰函数的返回值" class="headerlink" title="修饰函数的返回值"></a>修饰函数的返回值</h4><p>如果给以“指针传递”方式的函数返回值加 const 修饰，那么函数返回值（即指针）的内容不能被修改，该返回值只能被赋给加const 修饰的同类型指针.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">Getstring</span><span class="params">()</span></span>;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* str=<span class="built_in">Getstring</span>();</span><br></pre></td></tr></table></figure>
+<h4 id="修饰全局变量"><a href="#修饰全局变量" class="headerlink" title="修饰全局变量"></a>修饰全局变量</h4><p>全局变量的作用域是整个文件，我们应该尽量避免使用全局变量，因为一旦有一个函数改变了全局变量的值，它也会影响到其他引用这个变量的函数，导致除了bug后很难发现，如果一定要用全局变量，我们应该尽量的使用const修饰符进行修饰，这样防止不必要的人为修改，使用的方法与局部变量是相同的。</p>
+<h3 id="代码运行的内存分配"><a href="#代码运行的内存分配" class="headerlink" title="代码运行的内存分配"></a>代码运行的内存分配</h3><p>C/C++程序经过编译器完成编译链接等等处理工作以后得到的二进制文件, 其包含栈(stack), 堆(heap), 数据段, BSS段, 代码段. 其中数据段, BSS段和代码段是程序编译完成就已经分配完成了, 无需等代码运行; 而堆区和栈区需要程序被加载到内存开始运行时才会分配.</p>
+<ol>
+<li><p>栈区(stack): 由编译器自动分配和释放内存. 该区一般用于存储函数参数, 局部变量等值. 其操作方式类似于数据结构中提到的栈.</p>
+</li>
+<li><p>堆区(heap): 程序员通过 new 命令和 malloc 命令, 可以动态申请某个大小的内存. 注意的是, 此区的内存和栈区的不同, 并不能由编译器自动释放, 而是由程序员通过 delete 命令和 free 命令来手动释放内存, 如果不释放, 长期使用下, 申请内存超过了堆区大小, 那么就会发生内存泄漏现象. </p>
+</li>
+<li><p>数据段: 数据段属于静态内存分配,所有有初值的全局变量和用static修饰的静态变量，常量数据都在数据段中。实际上可以认为其分为两块数据段:1.只读数据段 2. 读写数据段.</p>
+<p>在只读数据段中, 一般用来存储程序使用时不会发生变化的数据.一般是用const修饰的变量或者程序中使用的文字常量存储在此处. 特殊的还有常量存储区（特殊的常量存储区，属于静态存储区）</p>
+<p>  　　1) 常量占用内存,只读状态,决不可修改</p>
+<pre><code>　　2) 常量字符串就是放在这里的，程序结束后由系统释放
+</code></pre><p>读写数据段:用来存储那些已经完成初始化的全局变量或者初始化的静态变量. 已初始化数据是在程序中声明，并且具有初值的变量，这些变量需要占用存储器的空间，在程序执行时它们需要位于可读写的内存区域内，并且有初值，以供程序运行时读写</p>
+</li>
+<li><p>BSS段: 存储未初始化的全局变量或者静态（全局）变量. 其是可读写的, 编译器给处理成0. 未初始化数据是在程序中声明, 但是没有初始化的变量, 这些变量在程序运行之前不需要占用存储器的空间. 与读写数据段类似, 它也属于静态数据区. 但是该段中数据没有经过初始化. 未初始化数据段只有在运行的初始化阶段才会产生, 因此它的大小不会影响目标文件的大小.</p>
+</li>
+<li><p>代码段: 存放函数体的二进制代码,所有语句经过编译后产生的CPU指令都会存放在此处.</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C Language</category>
+      </categories>
+      <tags>
+        <tag>-Computer Science -C Language</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CS229 Notes for Lecture 2</title>
     <url>/2024/07/30/CS229%20Notes%20for%20Lecture%202/</url>
     <content><![CDATA[<h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><p><a id="org8b14315"></a></p>
@@ -72,8 +170,8 @@
 <h2 id="Normal-Equation"><a href="#Normal-Equation" class="headerlink" title="Normal Equation"></a>Normal Equation</h2><p>上面我们介绍的GD是一种迭代算法, 但实际上对于线性回归问题, 我们可以直接用代数的方法求解出最优参数向量 $\theta$, 这种方法被称之为正规方程(Normal Equation). 但需要声明的是, 正规方程只适用于线性回归问题. 在推导正规方程以前, 我们先引入矩阵导数的记号:</p>
 <script type="math/tex; mode=display">\begin{aligned}\nabla_{\theta}J(\theta)&=\begin{pmatrix}\frac{\partial J}{\partial \theta_0}\cdots \frac{\partial J}{\partial \theta_n}\end{pmatrix}^T,\ \theta\in\mathbb{R}^{n+1}\\
 \nabla_Af(A)&=\begin{pmatrix}\frac{\partial f}{\partial A_{11}}&\cdots&\frac{\partial f}{\partial A_{1q}}\\\vdots& &\vdots\\\frac{\partial f}{\partial A_{p1}}&\cdots&\frac{\partial f}{\partial A_{pq}}\end{pmatrix},\ A\in\mathbb{R}^{p\times q}\end{aligned}</script><p>因此我们希望能够将成本函数 $J(\theta)$ 写成紧凑的矩阵向量形式, 在此之前, 我们先引入一些矩阵符号来辅助推导成本函数的矩阵形式:</p>
-<script type="math/tex; mode=display">\begin{aligned}X&=\begin{pmatrix}\cdots&(x^{(1)})^T&\cdots\\ &\vdots& \\\cdots&(x^{(m)})^T&\cdots\end{pmatrix} \text{\ design\ matrix}\\
-\vec{y}&=\begin{pmatrix}y^{(i)}&\cdots&y^{(m)}\end{pmatrix}^T \text{\ label\ vector}\end{aligned}</script><p>这里值得注意的是, 我们构造的这个 design matrix 的行向量在记号上是训练样本的转置, 但是实际上, 我们考虑的是训练样本的特征再加上虚特征 $x_0$, 所以这个 design matrix 的维度为 $m\times (n+1)$. 依据这些记号, 我们给出成本函数的矩阵形式为:</p>
+<script type="math/tex; mode=display">\begin{aligned}X&=\begin{pmatrix}\cdots&(x^{(1)})^T&\cdots\\ &\vdots& \\\cdots&(x^{(m)})^T&\cdots\end{pmatrix} \text{design matrix}\\
+\vec{y}&=\begin{pmatrix}y^{(i)}&\cdots&y^{(m)}\end{pmatrix}^T \text{label vector}\end{aligned}</script><p>这里值得注意的是, 我们构造的这个 design matrix 的行向量在记号上是训练样本的转置, 但是实际上, 我们考虑的是训练样本的特征再加上虚特征 $x_0$, 所以这个 design matrix 的维度为 $m\times (n+1)$. 依据这些记号, 我们给出成本函数的矩阵形式为:</p>
 <script type="math/tex; mode=display">J(\theta)=\frac{1}{2}\sum_{i=1}^m(h(x^{(i)})-y^{(i)})^2=\frac{1}{2}(X\theta-\vec{y})^T(X\theta-\vec{y})</script><p>由于我们知道线性回归问题的核心问题就是最小化成本函数, 这个从导数的角度来看, 就是成本函数对参数向量的导数为0; 其数学形式如下:</p>
 <script type="math/tex; mode=display">\nabla_{\theta}J(\theta)=\nabla_{\theta}\frac{1}{2}(X\theta-\vec{y})^T(X\theta-y)=X^TX\theta-X^T\vec{y}=0</script><p>所以线性回归问题对应的正规问题为:</p>
 <script type="math/tex; mode=display">X^TX\theta=X^T\vec{y}\Rightarrow \theta=(X^TX)^{-1}X^T\vec{y}</script><p>这里有一个问题就是如果 $X^{T}X$ 不可逆, 那么 $(X^TX)^{-1}$ 并不存在, 那我们可以用 $(X^TX)^{-1}$ 的伪逆来代替.</p>
@@ -163,6 +261,79 @@ dist_G(x,y)=\min\{\lvert E(P)\rvert\big|P\ is\ a\ path\ joining\ x\ and\ y\}</sc
       <tags>
         <tag>Math</tag>
         <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ANSI-KMP算法</title>
+    <url>/2024/08/28/ANSI-KMP/</url>
+    <content><![CDATA[<p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写; 其针对的问题是如何在主串(文本串)中找到某种类型的子串, 也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的, 在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和 KMP 算法的两种不同的实现思路.</p>
+<span id="more"></span>
+<h2 id="暴力搜索法-Brute-Force"><a href="#暴力搜索法-Brute-Force" class="headerlink" title="暴力搜索法 (Brute Force)"></a>暴力搜索法 (Brute Force)</h2><h3 id="算法思-想"><a href="#算法思-想" class="headerlink" title="算法思    想"></a>算法思    想</h3><p>对于文本串 T 和模式串 P, 从文本串的第一个字符与模式串的第一个字符开始匹配; 如果相等, 那么比较位置同时后移, 比较第二个字符是否匹配, 以此类推; 直到出现模式串结束, 那么输出文本串的位置; 或者出现有一个不匹配的字符, 那么将文本串回退到最早比较的下一个字符, 模式串回退到开始, 重新循环.</p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">strindex</span><span class="params">(<span class="type">char</span>* text,<span class="type">char</span>* pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> i,j,k;</span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;i++)<span class="comment">//文本串的循环</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">for</span>(k=i,j=<span class="number">0</span>;pattern[j]!=<span class="string">&#x27;\0&#x27;</span>&amp;&amp;pattern[j]==text[k];j++,k++)</span><br><span class="line">          <span class="comment">//模式串的循环</span></span><br><span class="line">	;</span><br><span class="line">    <span class="keyword">if</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[j]==<span class="string">&#x27;\0&#x27;</span>)<span class="comment">//判断是否为真正匹配结束</span></span><br><span class="line">      <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>我们假设文本串的长度为 $n$, 模式串的长度为 $m$. </p>
+<p>最坏的情况是类似于文本串为AAAAAAAB, 模式串为AAAB,这样的话, 需要匹配$(n-m+1)m$ 次, 时间复杂度为 $O(nm)$.</p>
+<p>最好的情况则是第一次匹配就成功, 那么时间复杂度就是 $O(m)$.</p>
+<p>如果我们考虑每种情况以等概率的情况出现, 我们可知 BF 算法的平均时间复杂度为 $O(nm)$.</p>
+<h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2><p>我们在上面发现对于文本串为AAAAAAAB, 模式串为AAAB的匹配, 每次都是在最后一个字母匹配出错, 然后就要将模式串和文本串同时回退, 重新比较; 这一步会消耗大量的时间, 并且完全没有利用到前面匹配的结果; 因此KMP算法的提出就是为了解决上面提到的问题: 其利用了匹配失败以前的匹配成功的结果, 从而将时间复杂度降到了 $O(n+m)$.</p>
+<h3 id="KMP-算法的基本思想"><a href="#KMP-算法的基本思想" class="headerlink" title="KMP 算法的基本思想"></a>KMP 算法的基本思想</h3><p>其核心思想就是当出现不匹配的情况, 利用已知匹配的结果避免回退文本串的指针并且尽可能少的回退模式串的指针.</p>
+<p>例如, 如果我们匹配到第 j 个字符串出现了字符不匹配现象, 那么我们已知的是 P[0:j-1]=T[i:i+j-1], BF 算法对这个的处理是直接回退文本指针和模式指针, 并不利用这一良好性质. 而 KMP 算法则是需要寻找 P[0:j-1] 的最长相等前后缀,因为已知 P[0:j-1]=T[i:i+j-1]; 假设 P[0:j-1] 的最长相等前后缀长度为 k,那么你就可以通过一个连等式快速得到需要回退的位置, 即 P[0:k-1]=P[j-k:j-1]=T[j-k:j-1]; 如此可知实际上, 即使我们用暴力搜索重新去计算, 只不过是不断地失败, 直到达到上面所说的情况而已.</p>
+<h3 id="基于-PMT-的-KMP-算法"><a href="#基于-PMT-的-KMP-算法" class="headerlink" title="基于 PMT 的 KMP 算法"></a>基于 PMT 的 KMP 算法</h3><p>上面介绍了 KMP 算法的基本思想, 接下来我们就用不同的实现思路去实现 KMP 算法的思想. 首先我们引入 PMT (Partial Match Table, 部分匹配表) 的概念, 其实这个表就是将要介绍的前缀表.</p>
+<h4 id="前缀表的定义"><a href="#前缀表的定义" class="headerlink" title="前缀表的定义"></a>前缀表的定义</h4><p>前缀表在 KMP 算法中的作用是用来控制模式指针的回退, 其记录的是字符串的最长相等前后缀的长度, 其用于寻找当出现模式串与文本串不匹配的时候, 模式串应该从哪里开始重新匹配.</p>
+<p>例如对于文本串 T=aabaacaabaaf, 模式串为 P=aabaaf; 在第一次字符串匹配时, P[5]和T[5]不匹配了, 如果用 BF 算法, 那么我们下一次匹配就是 P[0] 和 T[1] 的比较; 但显然我们通过朴素的思考, 因为 P[0:4]=aabaa 的最长相同前后缀为 aa, 所以利用 KMP 算法的下一次匹配实际上是考虑 P[2] 和 T[5] 的匹配, 显然如此, 匹配速度有很大的提升.</p>
+<p>前缀表是记录下标 i 之前 (包括 i) 的字符串中的最长相同前后缀的长度.</p>
+<p>对于一个字符串的前缀指的是包含首字符, 但不包含尾字符的字符串; 例如 aabaaf 的前缀集合为 {a,aa,aab,aaba,aabaa}</p>
+<p>对于一个字符串的后缀指的是包含尾字符, 但不包含首字符的字符串; 例如 aabaaf的后缀集合为 {f,af,aaf,baaf,abaaf}</p>
+<h4 id="前缀表的计算思路及代码实现"><a href="#前缀表的计算思路及代码实现" class="headerlink" title="前缀表的计算思路及代码实现"></a>前缀表的计算思路及代码实现</h4><ol>
+<li>引入两个指针 i 和 j; j 用来指示前缀的末尾, i 用来指示后缀的末尾; 换言之, i 会从 0 开始遍历模式串的每一个下标, j 则是用于记录 P[0:i-1] 的最长相等前后缀的长度.</li>
+<li>如果模式串的第 i 位和模式串的第 j 位相等, 那么 j++, i++即可</li>
+<li>如果模式串的第 i 位和模式串的第 j 位不相等, 那么就要做一个持续回退; 因为已知 P[j]!=P[i], 但是 P[0:j-1]=P[i-j:i-1]; 那么我们可以用 j=pmt[j-1] 来回退到 P[0:j-1] 的最长相等前后缀的后一位; 这一步的依据是首先 P[0:j-1]=P[i-j:i-1], 并且我们假设 k 为 P[0:j-1] 的最长相等前后缀长度, 那么 P[0:k-1]=P[j-k:j-1]=P[i-k:i-1], 如此就可以去比较 P[k] 和 P[i].</li>
+<li>更新 pmt 数组</li>
+</ol>
+<p>代码实现如下:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">generate_PMT</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;pattern,<span class="type">int</span>* pmt)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    pmt[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;pattern.size();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (pattern[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        pmt[i]=j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用前缀表进行 KMP 算法匹配思路</p>
+<ol>
+<li>设置两个指针 i 和 j; i 用来控制在文本串的移动; j 用来控制在模式串的移动</li>
+<li>如果匹配没出错, 那么返回匹配的起点即可</li>
+<li>如果匹配出错了, 那么分情况讨论,如果 j=0, 即模式串的第一个字符就与其不匹配, 那么就需要将文本串向后移动一位; 如果 j 不为0, 那么就用 j=pmt[j-1] 去更新匹配成功部分的最长相等前后缀.</li>
+<li>输出结果</li>
+</ol>
+<h4 id="利用前缀表进行-KMP-算法代码实现"><a href="#利用前缀表进行-KMP-算法代码实现" class="headerlink" title="利用前缀表进行 KMP 算法代码实现"></a>利用前缀表进行 KMP 算法代码实现</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_PMT</span><span class="params">(<span class="type">const</span> string &amp;pattern,<span class="type">int</span>* pmt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    pmt[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;pattern.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (pattern[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        pmt[i]=j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text,string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">  	<span class="keyword">if</span> (text.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pmt</span><span class="params">(pattern.size())</span></span>;</span><br><span class="line">    <span class="built_in">generate_PMT</span>(pattern,&amp;pmt[<span class="number">0</span>]);<span class="comment">//&amp;取地址</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;text.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;text[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span>(text[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        <span class="keyword">if</span>(j==pattern.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> (i-pattern.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="用-next-数组实现-KMP-算法"><a href="#用-next-数组实现-KMP-算法" class="headerlink" title="用 next 数组实现 KMP 算法"></a>用 next 数组实现 KMP 算法</h4><p>我们在此额外介绍前缀表的另一种表示形式, 也就是 next 数组, 在市面上很多算法书更多采用这种. 我们只介绍其中一种 next 数组生成方法, 也就是将前缀表整体右移以后, 在第一个位置补上 -1. 我们给出代码实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_NEXT</span><span class="params">(<span class="type">const</span> string&amp; pattern, <span class="type">int</span>* next)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; pattern.<span class="built_in">size</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;=<span class="number">0</span>&amp;&amp;pattern[i<span class="number">-1</span>]!=pattern[j])</span><br><span class="line">			j=next[j];</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span> || pattern[i<span class="number">-1</span>] == pattern[j])</span><br><span class="line">            next[i] = ++j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text,string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (text.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(pattern.size())</span></span>;</span><br><span class="line">    <span class="built_in">generate_NEXT</span>(pattern,&amp;next[<span class="number">0</span>]);<span class="comment">//&amp;取地址</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;text.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;text[i]!=pattern[j])</span><br><span class="line">            j=next[j];</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">-1</span>||text[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        <span class="keyword">if</span>(j==pattern.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> (i-pattern.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="基于-DFA-的-KMP-算法"><a href="#基于-DFA-的-KMP-算法" class="headerlink" title="基于 DFA 的 KMP 算法"></a>基于 DFA 的 KMP 算法</h3><h4 id="DFA-的定义"><a href="#DFA-的定义" class="headerlink" title="DFA 的定义"></a>DFA 的定义</h4><p>自动机分为两类: DFA (确定性有限状态自动机) 和 NFA (非确定性有限状态自动机), 二者均可用于字符串匹配问题, 我们在此仅使用 DFA 来完成 KMP 算法. 而 NFA 主要用于正则表达式的匹配问题.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/微信图片_20240829160304.6png3qwz50.png" alt="微信图片_20240829160304"></p>
+<p>由上图知, DFA 由状态 (带数字的圆圈) 和转换 (带模式串字母的箭头) 组成. 从上图知, 由于模式串为 ABABAC 六个字符, 因此 DFA 一共由七个状态, 其中状态 0 表示起始状态, 也就是未开始匹配的状态, 模式 6 为匹配成功的状态. 值得注意的是, 构建的 DFA 是基于模式串进行的, 文本串是一系列输入该 DFA 的参数; 从某种角度来说, 这与我们前面提到的 next 数组类似, 实际上这两个只是不同维度的同一内容而已.</p>
+<p>进一步, 我们给出图中涉及的一些专业术语, 在字符串匹配问题上, 每个状态都表示模式串中各个字符串的索引值, 该图中给出了在每个状态下输入不同字符的状态的转换操作, 但实际上这些转换中只有 0-1-2-3-4-5-6 这一条是匹配转换(其实就是从第 i 个状态转换到第 i+1 个状态), 其余的转换操作都需要回退指针, 称之为非匹配转换.</p>
+<h4 id="构建-DFA-的思路与算法实现"><a href="#构建-DFA-的思路与算法实现" class="headerlink" title="构建 DFA 的思路与算法实现"></a>构建 DFA 的思路与算法实现</h4><p>在计算机内部, 我们用二维数组 DFA[char][state] 来表示上面介绍的 DFA, 其中 DFA[i][j] 具体含义是在状态 j 的情况下输入字符 i 之后, 状态转换的结果.</p>
+<p>从构建DFA的流程中, 我们知道 DFA 的状态转换只有两种类型: 匹配转换或者非匹配转换.对此分类讨论即可得到构建 DFA 的算法</p>
+<p>如果状态转换是匹配转换, 也就是在第 j 个状态下输入的字符是 pattern[j], 那么匹配成功, 我们可以转换到第 j+1 个状态, DFA[pattern[j]][j]=j+1;</p>
+<p>假如状态转换是非匹配转换, 也就是在第 j 个状态下输入的字符并不是 pattern[j]. 为了后续讨论简便, 我们用 i 来表示输入的文本串字符位置, 但是 text[i] 不等于 pattern[j]. 此时, 因为出现了匹配失败的情况, 我们需要回退状态, 但是我们尽量要避免和暴力算法一样直接回退到开始, 而是尽可能少的回退, 并且不排除任何可能情况, 这就是 KMP 算法本身的思想. 虽然我们在第 j 个状态下匹配失败, 但是我们已知 Pattern[0~j-1] 和 text[i-j~i-1] 已经完成了匹配. 所以无论如何从 text[i-j] 开始去寻找模式串已经是不可能成立的了, 所以此时我们就可以从 text[i-j+1]开始分析, 如果我们输入的新字符串是 text[i-j+1~i-1], 那么会出现在什么状态? 由于这个新字符串依赖的不仅仅是文本串的内容, 实际上由于 Pattern[0~j-1]=text[i-j~i-1], 我们可以认为输入的新字符串实际上是 Pattern[1~j-1]. 所以我们就得到了一系列等价表达, 即如果在第 j 个状态下输入的 text[i] 出现了非匹配转换, 其最终状态等价于输入text[i-j+1~i-1]以后再输入 text[i] 的状态,等价于输入 Pattern[1~j-1] 以后再输入 text[i] 的状态. </p>
+<p>此时会发现如果我们要知道第 j 个状态下的非匹配转换结果, 其实我们只需要知道 输入 Pattern[1~j-1] 之后的状态; 由于我们的 DFA 构造是递推的, 所以这个状态的转换结果是已经构造了的, 我们可以直接得到这个结果, 换言之其实是一个 DP 过程. 为了讲解方便, 我们引入一个重启状态的概念, 重启状态就是如果我们在第 j 个状态下出现了非匹配转换, 那么由我们前面的讨论得知, 输入 Pattern[1~j-1] 得到的状态就是第 j 个状态的重启状态, 第 j 个状态的非匹配转换和重启状态的对应字符转换状态一致. </p>
+<p>我们给出如下的例子来解释重启状态, 在上面的 DFA 的图中, 如果我们用 ABABAA 来输入这个 DFA 中, 在状态 5 中, 最后输入的字符是 A, 与 C 不匹配, 那么我们就需要去找这个状态的重启装态, 我们已知 Pattern[0~4]=ABABA, 寻找重启状态的话, 我们就需要输入 Pattern[1~4]=BABA, 通过查图, 我们可以发现状态 5 的非匹配转换和状态 3 的一致. </p>
+<p>为了解释方便, 我们用重启状态数组来加以解释, 虽然我们在代码中是以数的形式存在, 但这并不影响. X[j+1] 表示输入 Pattern[1~j] 之后再输入 Pattern[j+1] 得到的结果, 但是我们知道输入 Pattern[1~j] 得到的状态其实是 X[j], 所以我们要求的 X[j+1] 实际上是在状态 X[j] 的基础上输入 Pattern[j+1] 的状态, 也就是 X[j+1]=DFA[Pattern[j]][X[j]]. 我们初始化 X[0]=0.</p>
+<p>下面给出构建 DFA 的代码,</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_DFA</span><span class="params">(<span class="type">const</span> string&amp; pattern, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;DFA)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DFA[pattern[<span class="number">0</span>]][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> X;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>, X = <span class="number">0</span>; j &lt; pattern.<span class="built_in">size</span>(); j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)<span class="comment">// 256是asc码的长度,需要将字符串内出现的所有可能字符都列入</span></span><br><span class="line">            DFA[i][j] = DFA[i][X];</span><br><span class="line">        DFA[pattern[j]][j] = j + <span class="number">1</span>;</span><br><span class="line">        X = DFA[pattern[j]][X];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实, 在 DFA 中寻找重启状态, 我们用的是 Pattern[1~j-1] 重新输入, 这个其实就是我们在 PMT 中寻找最长相等前后缀的过程, 只是 DFA 将其可视化了而已, 或者说, 我们在前面构造的重启状态数组实际上就是 PMT. 因此这两个办法理论上没有任何区别, 不过 DFA 在空间存储方面消耗更大, 他是一个二维数组.</p>
+<h4 id="用-DFA-实现-KMP-的算法实现"><a href="#用-DFA-实现-KMP-的算法实现" class="headerlink" title="用 DFA 实现 KMP 的算法实现"></a>用 DFA 实现 KMP 的算法实现</h4><p>如果我们已经构造了 DFA 数组, 我们只需要存储对应状态和依次输入文本串到 DFA 即可. 值得注意的是, 循环结束的原因是</p>
+<ol>
+<li>达到匹配成功状态, 返回文本串匹配成功起点</li>
+<li>文本串达到末尾, 也就是匹配失败, 返回 -1</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_DFA</span><span class="params">(<span class="type">const</span> string&amp; pattern, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;DFA)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DFA[pattern[<span class="number">0</span>]][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> X;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>, X = <span class="number">0</span>; j &lt; pattern.<span class="built_in">size</span>(); j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)</span><br><span class="line">            DFA[i][j] = DFA[i][X];</span><br><span class="line">        DFA[pattern[j]][j] = j + <span class="number">1</span>;</span><br><span class="line">        X = DFA[pattern[j]][X];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text, string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> R = <span class="number">256</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">DFA</span>(R, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(pattern.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    <span class="built_in">generate_DFA</span>(pattern, DFA);</span><br><span class="line">    <span class="type">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; text.<span class="built_in">size</span>() &amp;&amp; j &lt; pattern.<span class="built_in">size</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = DFA[text[i]][j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (j == pattern.<span class="built_in">size</span>())</span><br><span class="line">        <span class="keyword">return</span> i - pattern.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="KMP-算法分析"><a href="#KMP-算法分析" class="headerlink" title="KMP 算法分析"></a>KMP 算法分析</h3><p>如果模式串长度为 $m$, 文本串长度为 $n$.</p>
+<p>空间复杂度显然是 $O(m)$</p>
+<p>对于时间复杂度分析, 我们只考虑 PMT 的情况, DFA 完全类似. 由于 PMT 需要求解 PMT 数组/Next 数组和 KMP 搜索两部分代码, 所以我们逐步分析.</p>
+<ol>
+<li>求解 PMT 数组/ Next 数组; 外层的 for 循环需要迭代 $m-1$ 次, 但是里面嵌套了一个 while 循环, 如果我们试图直接寻找 while 的循环次数, 虽然可以得到结果, 但是显然不太现实. 我们利用 j 的值的变化来近似分析时间复杂度. j 的变化只有两种情况, 要么加一, 要么 j=pmt[j-1] 减少. 但是减少的程度其实依赖于 j++ 的程度, 而 j++ 和 i++ 都是同时发生的, 所以最多发生 $m-1$ 次, 因此这一步的时间复杂度是 $O(m)$</li>
+<li>搜索: for 循环走的次数是 $n-1$, while 的回退其实总体来说最多只可能走 $n-m$ 因此一共复杂度 $O(n+m)$</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C Language</category>
+      </categories>
+      <tags>
+        <tag>-Computer Science -C Language</tag>
       </tags>
   </entry>
   <entry>
@@ -268,348 +439,6 @@ d_G(v_i)&=\# edges\ oriented\ towards\ v_i+\#edges\ oriented\ away\ from\ v_i\\
 <font color='red'>Corollary: Every Eulerian graph has a cycle decomposition.</font>
 
 <font color='red'>（conjecture,Hajos,1968）All Eulerian graph with n vertex. How many cycles in a cycle decomposition D?$\lvert D\rvert\le\frac{n-1}{2}$?</font>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 3</title>
-    <url>/2022/05/20/Graph3/</url>
-    <content><![CDATA[<p>Given a graph G, $T={v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if </p>
-<script type="math/tex; mode=display">
-d_P(v)\equiv\left\{
-\begin{aligned}
-&0\ mod\ 2,\ v\not\in T\\
-&1\ mod\ 2,\ v\in T
-\end{aligned}
-\right.\qquad i.e.\ d_P(v)\equiv d_G(v)</script><p>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
-<span id="more"></span>
-<p>More general, let $T\subset V(G)$, a set of edges $J$ is called a $T$-join if all the edges of $J$ induce a subgraph, s.t. $d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in T$, <font color='red'>A parity subgraph of G is a $T$-join of G where $T={v|d_G(v)\equiv1\ mod\ 2}$<br>Problem: To find a $T$-join with the minimum number of edges.</font></p>
-<p><strong>Bipartite Graph</strong></p>
-<p>A graph is bipartite if its vertex set can be partitioned into two sets X and Y such that every edge of G joins a vertex of X and a vertex of Y.</p>
-<font color='red'>For example.</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg" alt="2022-05-21_121856"></p>
-<p><strong>Proposition. A graph is bipartite $\Leftrightarrow$ it has no odd cycles</strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p>$\Rightarrow$ Let $G$ be a bipartite graph and let $(X,Y)$ be a bipartition of $G$. Color vertices in X by            red and vertices in Y by blue. Let $C$ be a cycle. Then the red vertices and blue vertices appear alternatively on $C$. So $C$ has an even number of vertices. Therefore, $G$ has no odd cycles.</p>
-<p>$\Leftarrow$ Let v be a vertex of $G$. Let $X={x|d_G(x,v)\equiv0(mod\ 2)}$ and $Y={y|d_G(y,v)\equiv 1(mod\ 2)}$</p>
-<p>Since $G$ has no odd cycle, there is no edges joining two vertices from the same part. So G is bipartite. </p>
-<hr>
-<font color='red'>Every part in the bipartition induce the graph without edges.</font>
-
-<p>A vertex subset $I$ of $V(G)$ is independent  if $G$ has no edges joining any two vertices of $I$.</p>
-<p>The maximum cardinality of independent sets is called the independent number of $G$.</p>
-<font color='red'>Problem: Determine the independent number of a given graph $G$ (NPC)</font>
-
-<p>If G is bipartite, the its independent number $\alpha(G)\geq\frac{n}{2}$.</p>
-<font color='red'>**(The Four color problem) Every graph drawn on the plane without crossing edges has a vertex partition into four independent sets.<br>According to the above, if G is a plane graph, $\alpha(G)\geq\frac{\lvert V(G)\rvert}{4}$**</font>
-
-<hr>
-<p><strong>Second Proof of the Mantel’s Theorem</strong></p>
-<font color='red'>Recall: Let G be an n-vertex graph without triangle, then $\lvert E(G)\rvert\leq\frac{n^2}{4}$</font>
-
-<p>Let x be a vertex of G such that $d_G(x)=\Delta(G)$. So $N_G(x)$ is an independent set of G.</p>
-<script type="math/tex; mode=display">
-\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta (G)=(n-d_G(x))d_G(x)\leq\frac{n^2}{4}</script><p> and equality holds $\Leftrightarrow n-d_G(x)=d_G(x),\ i.e.\ d_G(x)=\frac{n}{2}$</p>
-<hr>
-<p><strong>Degenerated Graph</strong></p>
-<p>A graph G is k-degenerate if every subgraph of G has a vertex of degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
-<p>A graph G is k-colorable if the vertex of G can be colored by k different colors such that any vertex subset with same color is an independent set. i.e. the vertex set of G can be partitioned into k independent subsets.</p>
-<p><strong>Proposition: A k-degenerated graph is (k+1)-colorable</strong></p>
-<hr>
-<p><strong>Proof.</strong> Let G be k-degenerate graph. Then G has a vertex v of degree at most k. </p>
-<p>Use induction on the number of vertex.</p>
-<p> The inductive hypothesis implies that $G-v$ is (k+1)-colorable. All vertices in $N_G(x)$ have been colored by at most k different colors in any (k+1)-coloring of G-v. Then color v by the (k+1)th color. So G is (k+1)-colorable.</p>
-<hr>
-<font color='red'>1-factor is a spanning subgraph in which every vertex has degree one.</font>
-
-<font color='red'>1-degenerate graph is a tree(or a forest)</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg" alt="2022-05-21_190614"></p>
-<p><strong>Corollary. Every graph G is $(\Delta(G)+1)$-degenerate</strong></p>
-<p><strong>Def. A Planar graph is a graph with a drawing on the plane $\mathbb{R}^2$</strong> . A connected region of $\mathbb{R}^2-G$ is a face of G.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg" alt="2022-05-21_191223"></p>
-<p><strong>Thm(Euler Formula) Let G be a planar graph, and let n,m and f be the numbers of vertex,edges and faces of G, Then </strong></p>
-<script type="math/tex; mode=display">
-n-m+f=2</script><p><strong>Proposition. Every planar graph is 5-degenerate</strong></p>
-<hr>
-<p><strong>Proof.</strong> Let G be a planar graph. It suffices to show that G has a vertex of degree at most five. Without loss of generality, assume that G is a maximal planar graph (<font color='red'>i.e. every face is bounded by a triangle</font>). Otherwise, we can add edges to G to keep it to be a planar graph.</p>
-<p>Since every edge appears on the boundaries of two faces and every face contains exactly three edges, it follows that </p>
-<script type="math/tex; mode=display">
-3f=2m\Rightarrow f=\frac{2}{3}m</script><p>Let $\delta=\delta(G)$, the minimum degree of G, then </p>
-<script type="math/tex; mode=display">
-\delta n\leq\sum_{x\in V(G)}d_G(x)=2m\Rightarrow n\leq\frac{2}{\delta}m</script><p>By Euler’s Formula: $n-m+f=2$</p>
-<script type="math/tex; mode=display">
-2=n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m</script><p>Therefore, $\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow \delta&lt;6\Leftrightarrow \delta\leq5$</p>
-<p>Every planar graph has a vertex of degree at most 5, which implies a planar graph is 5-degenerate.</p>
-<hr>
-<p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
-<font color='red'>Actually we can use Kempe chain to prove the proposition that every planar graph is 5-colorable.<br>Problem:What kind of Eulerian graphs having an even-cycle decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n vertices has an induced 2-degenerate graph with at least n/2 vertices.<br>Conjecture(Albertson&Berman,1970s) Every planar graph with n vertices has an induced 1-degenerate graph with at least n/2 vertices.</font>
-
-<p><strong>Matrices and Graphs</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg" alt=""></p>
-<font color='red'>A is a symmetric matrix and because we only consider simple graphs, its diagonal elements are all zero.</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg" alt=""></p>
-<p>A square matrix A is symmetric if $A^T=A$</p>
-<p>A scalar $\lambda$ is eigenvalue of A if there exists a non-zero vector $\vec{X}$, s.t. $A\vec{X}=\lambda\vec{X}$ and $\vec{X}$ is called an eigenvector of A with respect to $\lambda$.</p>
-<p>A basis $B$ of a vector space is orthonormal if $||\vec{X}||=1$ for any $\vec{X}\in B$, and $&lt;\vec{X_1},\vec{X_2}&gt;=0$ for any $\vec{X_1},\vec{X_2}\in B$</p>
-<p><strong>Thm. Let A be a real symmetric $(n\times n)$-matrix. Then A is a diagonizable and $\mathbb{R}^n$ has orthonormal basis of eigenvectos of A</strong></p>
-<script type="math/tex; mode=display">
-A\sim\left(\begin{matrix}
-   \lambda_1 & \dots &0\\
-   \vdots & \ddots &\vdots\\
-   0 & \dots &\lambda_n\\
-  \end{matrix}\right)</script><p><strong>Proposition. All eigenvalues of a real symmetric $(n\times n)$-matrix is real</strong></p>
-<hr>
-<p><strong>Proof</strong> We assume that A is a $n\times n$ matrix, $\lambda$ is an eignevalue of A.</p>
-<p>Assume that $\vec{X}$ is an eigenvector of $\lambda$, Then</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\lambda||\vec{X}||&=<\lambda\vec{X},\vec{X}>=<A\vec{X},\vec{X}>=\vec{X^T}A\vec{X}\\&=\vec{X^T}A^T\vec{X}=(A\vec{X})^T\vec{X}=<\vec{X},A\vec{X}>=\bar{\lambda}||\vec{X}||
-\end{aligned}</script><p>So $\lambda=\bar{\lambda}\Rightarrow\lambda$ is real.</p>
-<hr>
-<p>A real symmetric matrix A is positive semi-definite if ,for all $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}\geq0$ and A is positive definite if $\vec{X}^TA\vec{X}&gt;0$</p>
-<p><strong>Proposition. All eigenvalues of a positive semi-definite $\Leftrightarrow\ \exists$ a matrix B, s.t. $A=B^TB$</strong></p>
-<hr>
-<p><strong>Proof.</strong>$\Rightarrow$ We assume that A is a positive semi-definite matrix.</p>
-<p>Then A is diagonaizable and assume that $A=Q^TDQ$ where D is a diagonable matrix with eigenalues on its diagonal. Note that all egienvalues of A are non-negative.</p>
-<script type="math/tex; mode=display">
-A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad where\ B=\sqrt{D}Q</script><p>$\Leftarrow$ Let $A=B^TB$.</p>
-<p> Then for any $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0$</p>
-<p>So A is positive semi-definite.</p>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 6</title>
-    <url>/2022/05/24/Graph6/</url>
-    <content><![CDATA[<p><strong>Interlacing Theorem</strong></p>
-<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong></p>
-<script type="math/tex; mode=display">
-\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m</script><span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" alt=""></p>
-<p>Further,if $m=n-1$, then </p>
-<script type="math/tex; mode=display">
-\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}</script><hr>
-<p><strong>Proof</strong></p>
-<p>Without loss of generality, assume that $A=\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i=A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j=B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
-<p>Let $V=span{\vec{x}_k,\cdots,\vec{x}_n}$ and $W=span{\vec{y}_1,\cdots,\vec{y}_k}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.</p>
-<script type="math/tex; mode=display">
-\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n</script><p>Then $\dim(V)=n-k+1$ and $\dim(\widetilde{W})=\dim(W)=k$</p>
-<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and </p>
-<script type="math/tex; mode=display">
-\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1>\dim(\mathbb{R}^n)</script><p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
-<font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font>
-
-<p>Therefore,</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\lambda_k&=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
-&\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
-&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
-\end{aligned}</script><p>So we have $\lambda_k\geq\beta_k$.</p>
-<p>On the other hand, let $V=span{\vec{x}<em>1,\cdots,\vec{x}</em>{k+n-m}}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W=span{\vec{y}<em>1,\cdots,\vec{y}</em>{k+n-m}}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
-<p>Let $\widetilde{W}=\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n$. Then $\dim(V)=k+n-m$ and $\dim(\widetilde{W})=m-k+1$.</p>
-<p>Therefore, $\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)$</p>
-<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\lambda_{k+n-m}&=\min\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
-&\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
-&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
-\end{aligned}</script><p>So $\lambda_{k+n-m}\leq\beta_k$.</p>
-<p><strong>Bounding degree of induced subgraph</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" alt=""></p>
-<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
-<font color='red'>**n-dimensional hypercube $Q_n$**</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" alt=""></p>
-<font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all $\{0,1\}$-sequences of length n and two vertices are adjacent to each other if and only if the two $\{0,1\}$-sequences has exactly one position different</font>
-
-<p>The adjacency matrix of n-dimensional hypercube $Q_n$ satisfies the following</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" alt=""></p>
-<p>If we give every edge in n-dimensional hypercube $Q_n$ a sign, we can get a signed adjacency matrix.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" alt=""></p>
-<p><strong>Lemma The signed n-dimensional hypercube with adjacency matrix $S_n$ has an eigenvalue $\sqrt{n}$ of multiplicity $2^{n-1}$ and eigenvalue $-\sqrt{n}$ with multiplicity $2^{n-1}$</strong></p>
-<hr>
-<p><strong>Proof</strong></p>
-<p><strong>claim: $S_n^2=nI$</strong></p>
-<p>If $n=1$, $S<em>1=\left[\begin{matrix}0&amp;1\1&amp;0\end{matrix}\right],S_1^2=I$. Assume that $S</em>{n-1}^2=(n-1)I$</p>
-<p>Then </p>
-<script type="math/tex; mode=display">
-S_n^2=\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&O\\O&S_{n-1}^2+I\end{matrix}\right]=nI</script><p>So claim holds.</p>
-<p>Note that $nI$ has eigenvalues n. Therefore, $S_n$ has eigenvalues either $\sqrt{n}$ or $-\sqrt{n}$.</p>
-<p>Since the trace of $S_n$ is 0, $S_n$ has eigenvalues $\sqrt{n}$ of multiplicity $2^{n-1}$ and $-\sqrt{n}$ with multiplicity $2^{n-1}$.</p>
-<hr>
-<p><strong>Proof of Huang’s Theorem</strong></p>
-<p>Let H be a induced subgraph of $Q_n$ with more than $2^{n-1}$ vertices. It suffices to show that every subgraph H with exactly $2^{n-1}+1$ vertices has maximum degree at least $\sqrt{n}$.</p>
-<p>Let $(Q_n,\sigma)$ be  the signed graph with adjacency matrix $S_n$ as defined above. Then $(H,\sigma)$ is a signed induced subgraph of $(Q_n,\sigma)$, whose adjacency matrix $A$ is a $(2^{n-1}+1)$-principle submatrix of $S_n$.</p>
-<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem</p>
-<script type="math/tex; mode=display">
-\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}</script><p>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
-<hr>
-<p><strong>Unfriendly partitions of subcubic graphs</strong></p>
-<p>A graph G is subcubic if the maximum degree of G is at most 3. <font color='red'>($\Delta(G)\leq3$)</font></p>
-<font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font>
-
-<p>Let G be a graph. A partition $(X,Y)$ of $V(G)$ is unfriendly if every vertex has at least the same number of neighbors in the other subset as in it owns.</p>
-<font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font>
-
-<p>If $(X,Y)$ is an unfriendly partition of a subcubic graph $G$, then the maximum degree of the induced subgraph $G[X]$ and $G[Y]$ is at most 1.</p>
-<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not=|Y|$</p>
-<p>A partition is a bisection if $\Big||X|-|Y|\Big|\leq1$</p>
-<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong></p>
-<script type="math/tex; mode=display">
-\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]</script><hr>
-<p><strong>Proof</strong></p>
-<p>Let G be a subcubic graph with n vertices and $(X,Y)$ be an unbalanced unfriendly partition.</p>
-<p>Without loss of generality, assume that $|X|&gt;|Y|$</p>
-<p>Then $\lambda_1(X)\leq\Delta(X)\leq1$ and $\lambda_1(Y)\leq\Delta(Y)\leq1$. So both X and Y are bipartite.</p>
-<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that </p>
-<script type="math/tex; mode=display">
-|X|\geq\left\lceil \frac{n}{2}\right\rceil+1>\frac{n}{2}>\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|</script><p>It follows that the interlacing theorem that </p>
-<script type="math/tex; mode=display">
-1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1</script><p>The completes the proof.</p>
-<hr>
-<font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font>
-
-<font color='red'>A: No</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" alt=""></p>
-<font color='red'>Conjecture(Ban&Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font>
-]]></content>
-      <categories>
-        <category>Graph Theory</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lecture series on graph theory 4</title>
-    <url>/2022/05/22/Graph4/</url>
-    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
-<span id="more"></span>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" alt=""></p>
-<font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)=\frac{1}{2}$, $\ P(R_j\not\sim C_j)=\frac{1}{2}$</font>
-$$
-P(A(G)\ is \ invertible)=P(M\ is\ invertible)
-$$
-**Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$**
-
----
-
-**Proof**
-
-Let $A(G)=(a_{ij})_{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by 
-$$
-[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
-$$
-where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]=\{1,2,\dots,n\}$
-$$
-\begin{aligned}
-(A(G))^2_{ij}&=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
-(A(G))^3_{ij}&=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
-\end{aligned}
-$$
-By the definition of adjacency matrix, $a_j=1\Leftrightarrow v_iv_j\in E(G)$
-
-It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$
-
----
-
-A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy 
-$$
-\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
-$$
-<font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n=0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font>
-
-<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong></p>
-<script type="math/tex; mode=display">
-w_G(k)=\lambda_1^k+\cdots+\lambda_n^k</script><hr>
-<p><strong>Proof</strong></p>
-<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that</p>
-<script type="math/tex; mode=display">
-w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)</script><p>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
-<font color='red'>$A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}$</font>
-
-<p>Then, $tr(A(G)^k)=\sum<em>{i=1}^n\lambda_i^k$, so $w_G(k)=tr(A(G)^k)=\sum</em>{i=1}^n\lambda_i^k$</p>
-<hr>
-<p><strong>Incidence matrix and Laplacian matrix</strong></p>
-<p>Let G be a graph s.t. $V(G)={v_1,v_2,\cdots,v_n}$ and $E(G)={e_1,e_2,\cdots,e_m}$</p>
-<script type="math/tex; mode=display">
-B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&1\quad v_i\ is\ incident\ with\ e_j\\
-&0\quad v_i\ isn't\ incident\ with\ e_j\end{aligned}\right.</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" alt=""></p>
-<font color='red'>We can find that evey column has two non-zero entries.</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" alt=""></p>
-<font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font>
-
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" alt=""></p>
-<p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
-<p>Laplacian matrix of G: $L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T$</p>
-<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong></p>
-<script type="math/tex; mode=display">
-\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0</script><p>$\tau(G)$= the total number of spanning trees in G.</p>
-<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)=det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]={1,2,\dots,n}$</strong></p>
-<hr>
-<p><strong>Proof.</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" alt=""></p>
-<p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
-<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" alt=""></p>
-<p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
-<p>Therefore, $\tau(G)=\tau(G-e)+\tau(G\cdot e)$</p>
-<p>Use induction on the number of edges of G.</p>
-<p>If G has no edges and n=1, so $\tau(G)=1=det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
-<p>If $n&gt;1$, then $\tau(G)=0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)=det(L_0(G))$ .</p>
-<p>Therefore, the statement holds for $|E(G)|=0$.</p>
-<p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
-<p>By recordering the vertices of G, we may assume that $i=1$ and $v_1v_2\in E(G)$, Let $e=v_1v_2$. Then  $\tau(G)=\tau(G-e)+\tau(G\cdot e)$.</p>
-<p>By inductive hypothesis, $\tau(G-e)=det(L_0(G-e))$ and $\tau(G\cdot e)=det(L_0(G\cdot e))$.</p>
-<p>Assume $L_0(G)=\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
-<p>Then $L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)=R$</p>
-<p>Note that $L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
-<p>Using the Laplace expansion along the first row,</p>
-<script type="math/tex; mode=display">
-det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)</script><hr>
-<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu<em>1\geq\mu_2\geq\cdots\geq\mu</em>{n-1}\geq\mu_n=0$. Then</strong></p>
-<script type="math/tex; mode=display">
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
-<p><strong>Proof</strong></p>
-<p>Let $L(G)$ be the  Laplacian matrix and let </p>
-<script type="math/tex; mode=display">
-det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)</script><p>So the cofficient of $\lambda$ term is $-\mu<em>1\mu_2\cdots\mu</em>{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
-<p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
-<p>Then $det(M(\lambda))=det(L(G)-\lambda I)$ and the first row of $M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
-<p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
-<p>Then $M(\lambda)=-\lambda N(\lambda)$ and $det(M(\lambda))=-\lambda det(N(\lambda))$, So </p>
-<script type="math/tex; mode=display">
-det(L(G)-\lambda I)=-\lambda det(N(\lambda))</script><p>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
-<p>Add all columns of $N(0)$ except the first column to the first column.</p>
-<font color='red'>(Note that $i^{th}$-row $(i>1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i>1)$ of $L(G)$</font>
-
-<p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
-<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))=n\cdot det(L_0(G))$</p>
-<script type="math/tex; mode=display">
-n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><p>By previous theorem,</p>
-<script type="math/tex; mode=display">
-\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
 ]]></content>
       <categories>
         <category>Graph Theory</category>
@@ -864,6 +693,112 @@ l_{e_1}=c^{-1}(1)\cup c^{-1}(2),l_{e_2}=c^{-1}(1)\cup c^{-1}(3),l_{e_3}=c^{-1}(2
       </tags>
   </entry>
   <entry>
+    <title>Lecture series on graph theory 6</title>
+    <url>/2022/05/24/Graph6/</url>
+    <content><![CDATA[<p><strong>Interlacing Theorem</strong></p>
+<p><strong>Thm(Eigenvalue Interlacing Theorem)<br>Let A be a symmetric real $n\times n$ and let B be  an m-th principal submatrix<font color='red'>(obtained by deleting both i-th row and i-th column for some n-m values of i)</font>. Suppose A has eigenvalues $\lambda_1\geq\cdots\geq\lambda_n$, and B has eigenvalues $\beta_1\geq\cdots\geq\beta_m$.Then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_k\geq\beta_k\geq\lambda_{k+(n-m)},\qquad k=1,2,\dots,m</script><span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_122238.626hmwj3vik0.jpg" alt=""></p>
+<p>Further,if $m=n-1$, then </p>
+<script type="math/tex; mode=display">
+\lambda_1\geq\beta_1\geq\lambda_2\geq\beta_2\geq\cdots\geq\lambda_i\geq\beta_i\geq\lambda_{i+1}\geq\cdots\geq\beta_{n-1}\geq\lambda_{n}</script><hr>
+<p><strong>Proof</strong></p>
+<p>Without loss of generality, assume that $A=\left[\begin{matrix}B&amp;X\X^T&amp;C\end{matrix}\right]$ and $\lambda_i\vec{x}_i=A\vec{x}_i$ for $i\in[n]$ such that all $\vec{x}_i$ are linearly independent and normalized, and $\beta_j\vec{y}_j=B\vec{y}_j$ for $j\in[m]$ s.t. all $\vec{y}_j$ are linearly independent and normalized.</p>
+<p>Let $V=span{\vec{x}_k,\cdots,\vec{x}_n}$ and $W=span{\vec{y}_1,\cdots,\vec{y}_k}$. Extend $W$ to a subspace of $\mathbb{R}^n$ s.t.</p>
+<script type="math/tex; mode=display">
+\widetilde{W}=\left\{\left.\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right|\vec{w}\in W\right\}\subset\mathbb{R}^n</script><p>Then $\dim(V)=n-k+1$ and $\dim(\widetilde{W})=\dim(W)=k$</p>
+<p>Note that both $V\subset \mathbb{R}^n$ and $\widetilde{W}\subset \mathbb{R}^n$, and </p>
+<script type="math/tex; mode=display">
+\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1>\dim(\mathbb{R}^n)</script><p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<font color='red'>$\lambda_k$ is the largest eigenvalue with an eigenvector in V; $\beta_k$ is the smallest eigenvalue with an eigenvector in W.</font>
+
+<p>Therefore,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda_k&=\max\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&\geq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\geq\min\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}</script><p>So we have $\lambda_k\geq\beta_k$.</p>
+<p>On the other hand, let $V=span{\vec{x}<em>1,\cdots,\vec{x}</em>{k+n-m}}$ <font color='red'>(i.e. $\lambda_{k+n-m}$ is the smallest eigenvalue with an eigenvector in V)</font> and $W=span{\vec{y}<em>1,\cdots,\vec{y}</em>{k+n-m}}$ <font color='red'>(i.e. $\beta_k$ is the largest eigenvalue with an eigenvector in W)</font>.</p>
+<p>Let $\widetilde{W}=\left{\left.\left[\begin{matrix}\vec{w}\0\end{matrix}\right]\right|\vec{w}\in W\right}\subset\mathbb{R}^n$. Then $\dim(V)=k+n-m$ and $\dim(\widetilde{W})=m-k+1$.</p>
+<p>Therefore, $\dim(V)+\dim(\widetilde{W})=n-k+1+k=n+1&gt;\dim(\mathbb{R}^n)$</p>
+<p>It follows that there exists a vector $\tilde{w}$ which satisfies $\tilde{w}\in V\cap\widetilde{W}$.</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda_{k+n-m}&=\min\{\vec{x}^TA\vec{x}|\vec{x}\in V,||\vec{x}||=1\}\\
+&\leq\frac{\tilde{w}^TA\tilde{w}}{\tilde{w}^T\tilde{w}}=\left.\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}B&X\\X^T&C\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\right/\left[\begin{matrix}\vec{w}^T&0\end{matrix}\right]\left[\begin{matrix}\vec{w}\\0\end{matrix}\right]\\
+&=\frac{\tilde{w}^TB\tilde{w}}{\tilde{w}^T\tilde{w}}\leq\max\{\vec{y}^TA\vec{y}|\vec{y}\in W,||\vec{y}||=1\}=\beta_k
+\end{aligned}</script><p>So $\lambda_{k+n-m}\leq\beta_k$.</p>
+<p><strong>Bounding degree of induced subgraph</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_162631.52l2utvvt9c0.jpg" alt=""></p>
+<p><strong>Thm(Huang,2019) Let H be an induced subgraph of the n-dimensional hypercube $Q_n$. If $|V(H)|&gt;2^{n-1}=\frac{|V(Q)|}{2}$,then $\Delta (H)\geq\sqrt{n}$</strong></p>
+<font color='red'>**n-dimensional hypercube $Q_n$**</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163151.69hvpww08lw0.jpg" alt=""></p>
+<font color='red'>An n-dimensional hypercube $Q_n$ is a graph with vertex set consisting of all $\{0,1\}$-sequences of length n and two vertices are adjacent to each other if and only if the two $\{0,1\}$-sequences has exactly one position different</font>
+
+<p>The adjacency matrix of n-dimensional hypercube $Q_n$ satisfies the following</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163613.2kylzo171uo0.jpg" alt=""></p>
+<p>If we give every edge in n-dimensional hypercube $Q_n$ a sign, we can get a signed adjacency matrix.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-24_163633.44mufz49sju0.jpg" alt=""></p>
+<p><strong>Lemma The signed n-dimensional hypercube with adjacency matrix $S_n$ has an eigenvalue $\sqrt{n}$ of multiplicity $2^{n-1}$ and eigenvalue $-\sqrt{n}$ with multiplicity $2^{n-1}$</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p><strong>claim: $S_n^2=nI$</strong></p>
+<p>If $n=1$, $S<em>1=\left[\begin{matrix}0&amp;1\1&amp;0\end{matrix}\right],S_1^2=I$. Assume that $S</em>{n-1}^2=(n-1)I$</p>
+<p>Then </p>
+<script type="math/tex; mode=display">
+S_n^2=\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]\left[\begin{matrix}S_{n-1}&I\\I&-S_{n-1}\end{matrix}\right]=\left[\begin{matrix}S_{n-1}^2+I&O\\O&S_{n-1}^2+I\end{matrix}\right]=nI</script><p>So claim holds.</p>
+<p>Note that $nI$ has eigenvalues n. Therefore, $S_n$ has eigenvalues either $\sqrt{n}$ or $-\sqrt{n}$.</p>
+<p>Since the trace of $S_n$ is 0, $S_n$ has eigenvalues $\sqrt{n}$ of multiplicity $2^{n-1}$ and $-\sqrt{n}$ with multiplicity $2^{n-1}$.</p>
+<hr>
+<p><strong>Proof of Huang’s Theorem</strong></p>
+<p>Let H be a induced subgraph of $Q_n$ with more than $2^{n-1}$ vertices. It suffices to show that every subgraph H with exactly $2^{n-1}+1$ vertices has maximum degree at least $\sqrt{n}$.</p>
+<p>Let $(Q_n,\sigma)$ be  the signed graph with adjacency matrix $S_n$ as defined above. Then $(H,\sigma)$ is a signed induced subgraph of $(Q_n,\sigma)$, whose adjacency matrix $A$ is a $(2^{n-1}+1)$-principle submatrix of $S_n$.</p>
+<p>By the proposition <font color='red'>(i.e. $|\lambda(H,\sigma)|\leq\Delta (H)$</font> and the interlacing theorem</p>
+<script type="math/tex; mode=display">
+\Delta (H)\geq\lambda_1(A)\geq\lambda_{1+2^n-(2^{n-1}+1)}(S_n)=\lambda_{2^{n-1}}(S_n)=\sqrt{n}</script><p>$\lambda_1(A)$ means the largest eigenvalue of A.</p>
+<hr>
+<p><strong>Unfriendly partitions of subcubic graphs</strong></p>
+<p>A graph G is subcubic if the maximum degree of G is at most 3. <font color='red'>($\Delta(G)\leq3$)</font></p>
+<font color='red'>Conjecture (Pisanski and Fowler,2012)  <br>All subcubic graphs except finitely many have median eigenvalues in the interval$[-1,1]$. There exists a constant c such that if $|V(G)|\geq|c|$, then $\lambda_{\lfloor\frac{\lambda+1}{2}\rfloor},\lambda_{\lceil\frac{\lambda+1}{2}\rceil}\in[-1,1]$</font>
+
+<p>Let G be a graph. A partition $(X,Y)$ of $V(G)$ is unfriendly if every vertex has at least the same number of neighbors in the other subset as in it owns.</p>
+<font color='red'>In other words, for every vertex v of G, $d_{G[x]}(v)\leq\frac{1}{2}d_G(v)$ and $d_{G[Y]}(v)\leq\frac{1}{2}d_G(v)$</font>
+
+<p>If $(X,Y)$ is an unfriendly partition of a subcubic graph $G$, then the maximum degree of the induced subgraph $G[X]$ and $G[Y]$ is at most 1.</p>
+<p>An unfriendly partition $(X,Y)$ is unbalanced if $|X|\not=|Y|$</p>
+<p>A partition is a bisection if $\Big||X|-|Y|\Big|\leq1$</p>
+<p><strong>Proposition Let G be a subcubic graph with n vertices. If G has an unbalanced unfriendly partition, then</strong></p>
+<script type="math/tex; mode=display">
+\lambda_{\lfloor\frac{n+1}{2}\rfloor}\in[-1,1]\qquad\lambda_{\lceil\frac{n+1}{2}\rceil}\in[-1,1]</script><hr>
+<p><strong>Proof</strong></p>
+<p>Let G be a subcubic graph with n vertices and $(X,Y)$ be an unbalanced unfriendly partition.</p>
+<p>Without loss of generality, assume that $|X|&gt;|Y|$</p>
+<p>Then $\lambda_1(X)\leq\Delta(X)\leq1$ and $\lambda_1(Y)\leq\Delta(Y)\leq1$. So both X and Y are bipartite.</p>
+<p>All eigenvalues of $X$ and $Y$ belong to $[-1,1]$. Since $|X|&gt;|Y|$, it holds that </p>
+<script type="math/tex; mode=display">
+|X|\geq\left\lceil \frac{n}{2}\right\rceil+1>\frac{n}{2}>\left\lceil \frac{n}{2}\right\rceil-1\geq|Y|</script><p>It follows that the interlacing theorem that </p>
+<script type="math/tex; mode=display">
+1\geq\lambda_1(X)\geq\lambda_{1+n-|X|}(G)\geq\lambda_{1+n-(\lceil\frac{n}{2}\rceil+1)}(G)\geq\lambda_{\left\lfloor \frac{n+1}{2}\right\rfloor}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(G)\geq\lambda_{\left\lceil \frac{n+1}{2}\right\rceil}(X)\geq-1</script><p>The completes the proof.</p>
+<hr>
+<font color='red'>Q: Does every subcubic graph have an unbalanced unfriendly partition?</font>
+
+<font color='red'>A: No</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-26_005635.7fv36qke8og0.jpg" alt=""></p>
+<font color='red'>Conjecture(Ban&Linal,2016) Every cubic graph has an unfriendly almost balanced partition $(X,Y)$ s.t. $\Big||X|-|Y|\Big|\leq2$</font>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lecture series on graph theory 7</title>
     <url>/2022/05/26/Graph7/</url>
     <content><![CDATA[<p><strong>Thm(Wilf,1967) Let G be a graph. Then $\chi(G)\leq\lambda_1(G)+1$, where $\chi(G)$ is the chromatic number</strong></p>
@@ -933,20 +868,255 @@ f:E(G)\to\mathbb{N}\quad s.t.\ f(e)=\sum_{i=1}^k 2^if_i(e)</script><p>Then $(D,f
       </tags>
   </entry>
   <entry>
-    <title>SVD-Dominnant Correlation</title>
-    <url>/2024/06/05/SVD-Dominnant%20Correlation/</url>
-    <content><![CDATA[<h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
+    <title>Lecture series on graph theory 4</title>
+    <url>/2022/05/22/Graph4/</url>
+    <content><![CDATA[<p><strong>Proposition. The adjacency matrix of a graph is a real symmetric matrix.</strong></p>
 <span id="more"></span>
-<p>We consider the structure of the correlation matrix $X^TX$ firstly. Since the size of the data matrix $X$ is $n\times m$, the size of the correlation matrix $X^TX$ is $m\times m$.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_131847.16yosr9l8xs0.jpg" alt=""></p>
+<font color='red'>Here we broefly discuss the topic of random matrices.<br>Probability of adjacent connection between $R_j$ and $C_j$, $P(R_j\sim C_j)=\frac{1}{2}$, $\ P(R_j\not\sim C_j)=\frac{1}{2}$</font>
+$$
+P(A(G)\ is \ invertible)=P(M\ is\ invertible)
+$$
+**Thm Let G be a graph. The number of walks from $v_i$ to $v_j$ of length k is equal to the $(i,j)$-entry of $(A(G))^k$**
+
+---
+
+**Proof**
+
+Let $A(G)=(a_{ij})_{n\times n}$. Then $(i,j)$-entry of $(A(G))^k$ is given by 
+$$
+[(A(G))^k]_{ij}=\sum a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}
+$$
+where the sum ranges over all sequences $(i_1,i_2,\dots,i_{k-1})$ with $i_t\in[n]=\{1,2,\dots,n\}$
+$$
+\begin{aligned}
+(A(G))^2_{ij}&=(A(G)\cdot A(G))_{ij}=\sum_{i_1=1}^na_{ii_1}a_{i_1j}\\
+(A(G))^3_{ij}&=((A(G))^2\cdot A(G))_{ij}=\sum_{i_2=1}^n(\sum_{i_1=1}^na_{ii_1}a_{i_1i_2})a_{i_2j}=\sum_{i_1,i_2=1}^{n}a_{ii_1}a_{i_1i_2}a_{i_2j}\\
+\end{aligned}
+$$
+By the definition of adjacency matrix, $a_j=1\Leftrightarrow v_iv_j\in E(G)$
+
+It follows that the summand $a_{ii_1}a_{i_1i_2}\cdots a_{i_{k-1}j}$ is 1 $\Leftrightarrow\ v_iv_{i_1}v_{i_2}\cdots v_{i_{k-1}}v_j$ is a walk of length k. Hence the summing over all $(i_1,\cdots,i_{k-1})$ just gives the total number of walks of length k from $v_i$ to $v_j$
+
+---
+
+A(G) is $n\times n$ symmetric matrix. All n eigenvalues of A(G) are real. Assume the n eigenvalues satisfy 
+$$
+\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n
+$$
+<font color='red'>Note that $\lambda_1+\lambda_2+\cdots+\lambda_n=0$,some eigenvalues could be negative.<br>If G is a bipartite graph, the eigenvalues are symmetric about origin.</font>
+
+<p><strong>Thm Let G be a graph with eigenvalues $\lambda_1,\cdots,\lambda_n$. Then the number of closed walks in G of length k is given by</strong></p>
 <script type="math/tex; mode=display">
-X^TX=\begin{bmatrix}\cdots&x_1^T&\cdots\\\cdots&x_2^T&\cdots\\\ &\vdots&\ \\\cdots&x_m^T&\cdots\end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&x_1^Tx_2&\cdots&x_1^Tx_m\\x_2^Tx_1&x_2^Tx_2&\cdots&x_2^Tx_m\\\vdots&\vdots&\ &\vdots\\x_m^Tx_1&x_m^Tx_2&\cdots&x_m^Tx_m\end{bmatrix}</script><p>Based on the definition of $X^TX$, we realize that $X^TX$ is a correlation matrix among the columns of $X$. All entries of $X^TX$ are essentially an inner product between two columns of the data matrix $X$. Interestingly, if the entry $x_i^Tx_j$ is a large number, it means that the columns $x_i$ and $x_j$ are highly correlated. However, if this number is very small, it means that the columns $x_i$ and $x_j$ are nearly orthogonal, which means that the columns $x_i$ and $x_j$ are almost different. Therefore, the correlation matrix $X^TX$ can be seen as a matrix that measures the correlation among the columns of $X$.</p>
-<p>Based on the structure of the correlation matrix $X^TX$, $X^TX$ is a symmetric and positive semi-definite matrix. It guarantees that we have non negative real eigenvalues, which have a direct correspondence on the singular values of the data matrix $X$. Now we assume that the matrix $X$ have the singular value decomposition $X=U\Sigma V^T$. We can derive that</p>
+w_G(k)=\lambda_1^k+\cdots+\lambda_n^k</script><hr>
+<p><strong>Proof</strong></p>
+<p>Let G be a graph with adjacency matrix A(G). Then it follows from the above theorem that</p>
 <script type="math/tex; mode=display">
-X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2</script><p>which means that the columns of $V$ are the eigenvectors of the correlation matrix $X^TX$. The eigenvalues of the correlation matrix $X^TX$ are the squares of the singular values of the data matrix $X$. The same is true for the correlation matrix $XX^T$. We can derive that</p>
+w_G(k)=\sum_{i=1}^n[(A(G))^k]_{ii}=tr(A(G)^k)</script><p>Since A(G) has $\lambda_i$ as an eigenvalue with $i\in{1,2,\cdots,n}$, the matrix $A(G)^k$ has eigenvalue $\lambda_i^k$for $i\in{1,2,\cdots,n}$</p>
+<font color='red'>$A(G)\vec{v_i}=\lambda_i\vec{v_i},\quad A(G)^k\vec{v_i}=A(G)^{k-1}A(G)\vec{v_i}=A(G)^{k-1}\lambda\vec{v_i}=\lambda_i^k\vec{v_i}$</font>
+
+<p>Then, $tr(A(G)^k)=\sum<em>{i=1}^n\lambda_i^k$, so $w_G(k)=tr(A(G)^k)=\sum</em>{i=1}^n\lambda_i^k$</p>
+<hr>
+<p><strong>Incidence matrix and Laplacian matrix</strong></p>
+<p>Let G be a graph s.t. $V(G)={v_1,v_2,\cdots,v_n}$ and $E(G)={e_1,e_2,\cdots,e_m}$</p>
 <script type="math/tex; mode=display">
-XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><p>which means that the columns of $U$ are the eigenvectors of the correlation matrix $XX^T$. The eigenvalues of the correlation matrix $XX^T$ are the squares of the singular values of the data matrix $X$. Therefore, we can conclude that the singular matrix $U$ and $V$ given by the SVD of the data matrix $X$ can be seen as the eigenvectors of the correlation matrix $X^TX$ or $XX^T$. The importance of this columns of $U$ and $V$ is quantified by eigenvalues of $X^TX$ or $XX^T$, which are the squares of the singular values of the data matrix $X$.</p>
-<p>Here we introduce the method of snapshots to compute the singular value decomposition of the data matrix. If the data matrix $X$ is so large that you cannot actually compute it or store it all in memory, you can use the method of snapshots. However, in the vast majority of cases, we don’t recommend that you compute the SVD using correlation matrices.</p>
-<p>Although you cannot load all columns of $X$ into memory, what you can do is calling two columns at a time. For example, you can call the first column $x_1$ and itself, then you will get the inner product $x_1^Tx_1$. After, you can call the first column $x_1$ and the second column $x_2$, then you will get the inner product $x_1^Tx_2$ and so on. You can compute the inner product by calling two columns of data matrix each time to get the correlation matrix $X^TX$. Here the resulting matrix is a $m\times m$ matrix. It is small enough that you can put it into memory and compute its eigendecomposition. Based the above discussion, we know that the righ singular vector $V$ and the singular value $\Sigma$ can be goten by this eigendecomposition. Then you can use this matrix to solve the left singular vector $U$.</p>
+B(G)=(b_{ij})_{n\times m}\ where\ b_{ij}=\left\{\begin{aligned}&1\quad v_i\ is\ incident\ with\ e_j\\
+&0\quad v_i\ isn't\ incident\ with\ e_j\end{aligned}\right.</script><p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162156.x0o95v76evk.jpg" alt=""></p>
+<font color='red'>We can find that evey column has two non-zero entries.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_162610.6c5zcmwtfbc0.jpg" alt=""></p>
+<font color='red'>We can find that each column of $\vec{B}$ has one entry of 1, one entry of -1 and other entry of 0.Therefore, add all entries in column and get 0</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_163017.jpg" alt=""></p>
+<p>$D(G)$ is a diagonal matrix whose diagonal entries are the degrees of vertices.</p>
+<p>Laplacian matrix of G: $L(G)= D(G)-A(G)=\vec{B}\cdot\vec{B}^T$</p>
+<p><strong>Proposition. Let G be a graph. Then L(G) is positive semi-definite and consequently, all eigenvalues of L(G) are real and non-negative.</strong></p>
+<script type="math/tex; mode=display">
+\beta_1\geq\beta_2\geq\cdots\geq\beta_n\geq0</script><p>$\tau(G)$= the total number of spanning trees in G.</p>
+<p><strong>Thm(Matrix Tree Theorem) Let G be a graph with vertices $v_1,\dots,v_n$. Then $\tau(G)=det(L_0(G))$ where $L_0(G)$ is obtained from $L(G)$ by deleting the i-th row and i-th column for any $i\in[n]={1,2,\dots,n}$</strong></p>
+<hr>
+<p><strong>Proof.</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174049.4vsowf7szwq0.jpg" alt=""></p>
+<p>If T is a spanning tree, either $e\in T$ or $e\not\in T$.</p>
+<p>An edge e of G is said to be contracted if it is deleted and its ends are identified, the resulting graph is denoted by $G\cdot e$.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_174508.6er13gzch2o0.jpg" alt=""></p>
+<p>If $e\not\in T$, T is a spanning tree of G-e; if $e\in T$, $T\cdot e$ is a spanning tree of $G\cdot e$.</p>
+<p>Therefore, $\tau(G)=\tau(G-e)+\tau(G\cdot e)$</p>
+<p>Use induction on the number of edges of G.</p>
+<p>If G has no edges and n=1, so $\tau(G)=1=det(L_0(G))$ where $L_0(G)$ is a $0\times 0$ matrix with determinant 1 by convenience.</p>
+<p>If $n&gt;1$, then $\tau(G)=0$, and $L_0(G)$ is a 0-matrix in which every entry is 0. So $\tau(G)=det(L_0(G))$ .</p>
+<p>Therefore, the statement holds for $|E(G)|=0$.</p>
+<p>Assume the statement holds all graph with number of edges less than $|E(G)|$.</p>
+<p>By recordering the vertices of G, we may assume that $i=1$ and $v_1v_2\in E(G)$, Let $e=v_1v_2$. Then  $\tau(G)=\tau(G-e)+\tau(G\cdot e)$.</p>
+<p>By inductive hypothesis, $\tau(G-e)=det(L_0(G-e))$ and $\tau(G\cdot e)=det(L_0(G\cdot e))$.</p>
+<p>Assume $L_0(G)=\begin{pmatrix}d_2&amp;P\P^T&amp;R\end{pmatrix}$ obtained from $L(G)=\left(\begin{array}{c:c:c}d_1&amp;1&amp;\cdots\\hdashline1&amp;d_2&amp;P\\hdashline\vdots&amp;P^T&amp;R\end{array}\right)$ by deleting the first row and the first column.</p>
+<p>Then $L_0(G-e)=\begin{pmatrix}d_2-1&amp;P\P^T&amp;R\end{pmatrix}$ and $L_0(G\cdot e)=R$</p>
+<p>Note that $L_0(G)=L_0(G-e)+\begin{pmatrix}1&amp;\vec{0}\\vec{0}^T&amp;R\end{pmatrix}$</p>
+<p>Using the Laplace expansion along the first row,</p>
+<script type="math/tex; mode=display">
+det(L_0(G))=det(L_0(G-e))+det(L_0(G\cdot e))=\tau(G-e)+\tau(G\cdot e)=\tau(G)</script><hr>
+<p><strong>Thm Let G be a connected graph with n vertices. Suppose that the eigenvalues of L(G) are $\mu<em>1\geq\mu_2\geq\cdots\geq\mu</em>{n-1}\geq\mu_n=0$. Then</strong></p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
+<p><strong>Proof</strong></p>
+<p>Let $L(G)$ be the  Laplacian matrix and let </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_n-\lambda)=-\lambda(\mu_1-\lambda)(\mu_2-\lambda)\cdots(\mu_{n-1}-\lambda)</script><p>So the cofficient of $\lambda$ term is $-\mu<em>1\mu_2\cdots\mu</em>{n-1}$. Note that, consider $L(G)-\lambda I$.</p>
+<p>Add all rows of $L(G)-\lambda I$ except the first row to the first row, and let $M(\lambda)$ be the new resulting matrix.</p>
+<p>Then $det(M(\lambda))=det(L(G)-\lambda I)$ and the first row of $M(\lambda)=[-\lambda,-\lambda,\cdots,-\lambda]$.</p>
+<p>Let $N(\lambda)$ be the resulting matrix obtained from $M(\lambda)$ by factoring out $-\lambda$.</p>
+<p>Then $M(\lambda)=-\lambda N(\lambda)$ and $det(M(\lambda))=-\lambda det(N(\lambda))$, So </p>
+<script type="math/tex; mode=display">
+det(L(G)-\lambda I)=-\lambda det(N(\lambda))</script><p>Therefore, the cofficient of $\lambda$ term in $det(L(G)-\lambda I)$is equal to $-det(N(0))$.</p>
+<p>Add all columns of $N(0)$ except the first column to the first column.</p>
+<font color='red'>(Note that $i^{th}$-row $(i>1)$ of $N(0)$ is the same as the  $i^{th}$-row $(i>1)$ of $L(G)$</font>
+
+<p>Then the first column of the new matrix is $\left[\begin{matrix}n&amp;0&amp;0&amp;\cdots&amp;0\end{matrix}\right]^T$.</p>
+<p>Use Laplace expansion along the $1^{st}$ column, $det(N(0))=n\cdot det(L_0(G))$</p>
+<script type="math/tex; mode=display">
+n\cdot det(L_0(G))=(-1)\cdot(-\mu_1\mu_2\cdots\mu_{n-1})\Rightarrow det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><p>By previous theorem,</p>
+<script type="math/tex; mode=display">
+\tau(G)=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}</script><hr>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lecture series on graph theory 3</title>
+    <url>/2022/05/20/Graph3/</url>
+    <content><![CDATA[<p>Given a graph G, $T={v|d_G(v)\equiv1\ mod\ 2}$, a subgraph P is called a parity subgraph if </p>
+<script type="math/tex; mode=display">
+d_P(v)\equiv\left\{
+\begin{aligned}
+&0\ mod\ 2,\ v\not\in T\\
+&1\ mod\ 2,\ v\in T
+\end{aligned}
+\right.\qquad i.e.\ d_P(v)\equiv d_G(v)</script><p>$G-E(P)$ is an even subgraph <font color='red'>( i.e. every vertex of G-E(P) has even degree)<br>Problem: To find a parity subgraph with the minimum number of edges.</font></p>
+<span id="more"></span>
+<p>More general, let $T\subset V(G)$, a set of edges $J$ is called a $T$-join if all the edges of $J$ induce a subgraph, s.t. $d_J(v)\equiv1\ mod\ 2\Leftrightarrow v\in T$, <font color='red'>A parity subgraph of G is a $T$-join of G where $T={v|d_G(v)\equiv1\ mod\ 2}$<br>Problem: To find a $T$-join with the minimum number of edges.</font></p>
+<p><strong>Bipartite Graph</strong></p>
+<p>A graph is bipartite if its vertex set can be partitioned into two sets X and Y such that every edge of G joins a vertex of X and a vertex of Y.</p>
+<font color='red'>For example.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-22_185717.5b3liqdtj4g0.jpg" alt="2022-05-21_121856"></p>
+<p><strong>Proposition. A graph is bipartite $\Leftrightarrow$ it has no odd cycles</strong></p>
+<hr>
+<p><strong>Proof</strong></p>
+<p>$\Rightarrow$ Let $G$ be a bipartite graph and let $(X,Y)$ be a bipartition of $G$. Color vertices in X by            red and vertices in Y by blue. Let $C$ be a cycle. Then the red vertices and blue vertices appear alternatively on $C$. So $C$ has an even number of vertices. Therefore, $G$ has no odd cycles.</p>
+<p>$\Leftarrow$ Let v be a vertex of $G$. Let $X={x|d_G(x,v)\equiv0(mod\ 2)}$ and $Y={y|d_G(y,v)\equiv 1(mod\ 2)}$</p>
+<p>Since $G$ has no odd cycle, there is no edges joining two vertices from the same part. So G is bipartite. </p>
+<hr>
+<font color='red'>Every part in the bipartition induce the graph without edges.</font>
+
+<p>A vertex subset $I$ of $V(G)$ is independent  if $G$ has no edges joining any two vertices of $I$.</p>
+<p>The maximum cardinality of independent sets is called the independent number of $G$.</p>
+<font color='red'>Problem: Determine the independent number of a given graph $G$ (NPC)</font>
+
+<p>If G is bipartite, the its independent number $\alpha(G)\geq\frac{n}{2}$.</p>
+<font color='red'>**(The Four color problem) Every graph drawn on the plane without crossing edges has a vertex partition into four independent sets.<br>According to the above, if G is a plane graph, $\alpha(G)\geq\frac{\lvert V(G)\rvert}{4}$**</font>
+
+<hr>
+<p><strong>Second Proof of the Mantel’s Theorem</strong></p>
+<font color='red'>Recall: Let G be an n-vertex graph without triangle, then $\lvert E(G)\rvert\leq\frac{n^2}{4}$</font>
+
+<p>Let x be a vertex of G such that $d_G(x)=\Delta(G)$. So $N_G(x)$ is an independent set of G.</p>
+<script type="math/tex; mode=display">
+\lvert E(G)\rvert\leq\sum_{y\not\in N_G(x)}d_G(y)\leq(n-d_G(x))\Delta (G)=(n-d_G(x))d_G(x)\leq\frac{n^2}{4}</script><p> and equality holds $\Leftrightarrow n-d_G(x)=d_G(x),\ i.e.\ d_G(x)=\frac{n}{2}$</p>
+<hr>
+<p><strong>Degenerated Graph</strong></p>
+<p>A graph G is k-degenerate if every subgraph of G has a vertex of degree at most k. <font color='red'>A tree is 1-degenerate</font></p>
+<p>A graph G is k-colorable if the vertex of G can be colored by k different colors such that any vertex subset with same color is an independent set. i.e. the vertex set of G can be partitioned into k independent subsets.</p>
+<p><strong>Proposition: A k-degenerated graph is (k+1)-colorable</strong></p>
+<hr>
+<p><strong>Proof.</strong> Let G be k-degenerate graph. Then G has a vertex v of degree at most k. </p>
+<p>Use induction on the number of vertex.</p>
+<p> The inductive hypothesis implies that $G-v$ is (k+1)-colorable. All vertices in $N_G(x)$ have been colored by at most k different colors in any (k+1)-coloring of G-v. Then color v by the (k+1)th color. So G is (k+1)-colorable.</p>
+<hr>
+<font color='red'>1-factor is a spanning subgraph in which every vertex has degree one.</font>
+
+<font color='red'>1-degenerate graph is a tree(or a forest)</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_190614.g013sfif35c.jpg" alt="2022-05-21_190614"></p>
+<p><strong>Corollary. Every graph G is $(\Delta(G)+1)$-degenerate</strong></p>
+<p><strong>Def. A Planar graph is a graph with a drawing on the plane $\mathbb{R}^2$</strong> . A connected region of $\mathbb{R}^2-G$ is a face of G.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_191223.3jzn0lp4vyg0.jpg" alt="2022-05-21_191223"></p>
+<p><strong>Thm(Euler Formula) Let G be a planar graph, and let n,m and f be the numbers of vertex,edges and faces of G, Then </strong></p>
+<script type="math/tex; mode=display">
+n-m+f=2</script><p><strong>Proposition. Every planar graph is 5-degenerate</strong></p>
+<hr>
+<p><strong>Proof.</strong> Let G be a planar graph. It suffices to show that G has a vertex of degree at most five. Without loss of generality, assume that G is a maximal planar graph (<font color='red'>i.e. every face is bounded by a triangle</font>). Otherwise, we can add edges to G to keep it to be a planar graph.</p>
+<p>Since every edge appears on the boundaries of two faces and every face contains exactly three edges, it follows that </p>
+<script type="math/tex; mode=display">
+3f=2m\Rightarrow f=\frac{2}{3}m</script><p>Let $\delta=\delta(G)$, the minimum degree of G, then </p>
+<script type="math/tex; mode=display">
+\delta n\leq\sum_{x\in V(G)}d_G(x)=2m\Rightarrow n\leq\frac{2}{\delta}m</script><p>By Euler’s Formula: $n-m+f=2$</p>
+<script type="math/tex; mode=display">
+2=n-m+\frac{2}{3}m\leq(\frac{2}{\delta}-\frac{1}{3})m</script><p>Therefore, $\frac{2}{\delta}-\frac{1}{3}&gt;0\Rightarrow \delta&lt;6\Leftrightarrow \delta\leq5$</p>
+<p>Every planar graph has a vertex of degree at most 5, which implies a planar graph is 5-degenerate.</p>
+<hr>
+<p><strong>Corollary. Every planar graph is 6-colorable.</strong></p>
+<font color='red'>Actually we can use Kempe chain to prove the proposition that every planar graph is 5-colorable.<br>Problem:What kind of Eulerian graphs having an even-cycle decomposition?<br>Conjecture(Akiyama,1980s) Every planar graph with n vertices has an induced 2-degenerate graph with at least n/2 vertices.<br>Conjecture(Albertson&Berman,1970s) Every planar graph with n vertices has an induced 1-degenerate graph with at least n/2 vertices.</font>
+
+<p><strong>Matrices and Graphs</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235307.fn17ct60tvc.jpg" alt=""></p>
+<font color='red'>A is a symmetric matrix and because we only consider simple graphs, its diagonal elements are all zero.</font>
+
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220226/2022-05-21_235516.2htdkwuxlpy0.jpg" alt=""></p>
+<p>A square matrix A is symmetric if $A^T=A$</p>
+<p>A scalar $\lambda$ is eigenvalue of A if there exists a non-zero vector $\vec{X}$, s.t. $A\vec{X}=\lambda\vec{X}$ and $\vec{X}$ is called an eigenvector of A with respect to $\lambda$.</p>
+<p>A basis $B$ of a vector space is orthonormal if $||\vec{X}||=1$ for any $\vec{X}\in B$, and $&lt;\vec{X_1},\vec{X_2}&gt;=0$ for any $\vec{X_1},\vec{X_2}\in B$</p>
+<p><strong>Thm. Let A be a real symmetric $(n\times n)$-matrix. Then A is a diagonizable and $\mathbb{R}^n$ has orthonormal basis of eigenvectos of A</strong></p>
+<script type="math/tex; mode=display">
+A\sim\left(\begin{matrix}
+   \lambda_1 & \dots &0\\
+   \vdots & \ddots &\vdots\\
+   0 & \dots &\lambda_n\\
+  \end{matrix}\right)</script><p><strong>Proposition. All eigenvalues of a real symmetric $(n\times n)$-matrix is real</strong></p>
+<hr>
+<p><strong>Proof</strong> We assume that A is a $n\times n$ matrix, $\lambda$ is an eignevalue of A.</p>
+<p>Assume that $\vec{X}$ is an eigenvector of $\lambda$, Then</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lambda||\vec{X}||&=<\lambda\vec{X},\vec{X}>=<A\vec{X},\vec{X}>=\vec{X^T}A\vec{X}\\&=\vec{X^T}A^T\vec{X}=(A\vec{X})^T\vec{X}=<\vec{X},A\vec{X}>=\bar{\lambda}||\vec{X}||
+\end{aligned}</script><p>So $\lambda=\bar{\lambda}\Rightarrow\lambda$ is real.</p>
+<hr>
+<p>A real symmetric matrix A is positive semi-definite if ,for all $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}\geq0$ and A is positive definite if $\vec{X}^TA\vec{X}&gt;0$</p>
+<p><strong>Proposition. All eigenvalues of a positive semi-definite $\Leftrightarrow\ \exists$ a matrix B, s.t. $A=B^TB$</strong></p>
+<hr>
+<p><strong>Proof.</strong>$\Rightarrow$ We assume that A is a positive semi-definite matrix.</p>
+<p>Then A is diagonaizable and assume that $A=Q^TDQ$ where D is a diagonable matrix with eigenalues on its diagonal. Note that all egienvalues of A are non-negative.</p>
+<script type="math/tex; mode=display">
+A=Q^TDQ=Q^TD^{\frac{1}{2}}D^\frac{1}{2}Q=(\sqrt{D}Q)^T(\sqrt{D}Q)=B^TB,\quad where\ B=\sqrt{D}Q</script><p>$\Leftarrow$ Let $A=B^TB$.</p>
+<p> Then for any $\vec{X}\in\mathbb{R}^n$, $\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X}=||B\vec{X}||\geq0$</p>
+<p>So A is positive semi-definite.</p>
+]]></content>
+      <categories>
+        <category>Graph Theory</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Operation Research</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVD-Linear Regression</title>
+    <url>/2024/06/21/SVD-Linear%20Regression/</url>
+    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
+<script type="math/tex; mode=display">
+Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
+<span id="more"></span>
+<p>To explain this linear regression more clearly, let’s say that every rows of equation is based on data from an individual medical history. So the equation $a<em>{i1}x_1+\cdots+a</em>{im}x<em>{m}=b</em>{i}$ means the medical case of the $i-th$ person. Every columns of matrix $A$ represent different kinds of risk factors and the vector $b$ means the risk of heart disease. Therefore, we can give a interpretation about linear regression. Linear regression is a best fit model $x$ for what combination of those factors describe best or predict best the future risk of heart disease. Actually it may be driven by the nonlinear system in real world, here we oversimplify this system by using linear regression to approximate it.</p>
+<p>Since we consider the overdetermined system, it is hard to find a vector $x$ that exactly solves this linear model. We want to find the best fit vector $x$ that minimizes the error norm between $Ax$ and $b$. In other words, the best fit vector $x$ gives us the best prediction of $b$ given information in $A$. Here we consider a one-dimensional linear regression model since it can be easily plotted in the following figure and gives a geometric interpretation of linear regression. Of course, the conclusion derived in this way is very simple and can be generalized to much higher-dimensional situations.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" alt=""></p>
+<p>As seen in figure, we will solve the $x$ here that we want is the slope of this fit line. We generalize this interpretation to much higher dimensional case instead of having just one factor that I use to predict $b$. In general, I will find a best fit plane instead of best fit line to approximate the high dimensional data. In one dimensional, $A=\begin{bmatrix} a_1\ a_2\ \cdots\ a_n\end{bmatrix}^{T}$ and $b=\begin{bmatrix}b_1\ b_2\ \cdots\ b_n\end{bmatrix}^{T}$ will be considered. Based on the SVD, we can give the decompostion matrices $U=\frac{A}{\Vert A\Vert_2}$, $\Sigma=\Vert A\Vert_2$ and $V^T=1$ easily. Using Moore-Penrose pseudo inverse of $A$, we can solve the best fit slope $x$ as follows,</p>
+<script type="math/tex; mode=display">
+x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b</script><p>Due to the value of the best fit slope, we find that the linear regression can be written as $Ax=AA^{\dagger}b=\frac{AA^T}{\Vert A\Vert_2^2}b$. It means that we project $b$ into the direction of $A$. When we think about the projection, we realize that the normalized matrix $\tilde{A}=\frac{A}{\Vert A\Vert_2}$ satisfies $\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert A\Vert_2}=1$. From this, we can use this normalized matrix $\tilde{A}$ to derive the projection operator $\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert A\Vert_2^2}$. This formula can be generalized into higher dimensional case easily.</p>
+<p>At last, we consider a very common problem that our data has some outliers in data analysis. As seen in the above figure, these data do not fully mathch our best fitting model. Since the normal data can have some variablity, like Gaussian noisy, our linear regression just is a approximation model to real world. Here we assume that our data has a outlier which is completely different with others. It will bias my distrubution and effect the best fit slope, since the purpose of our derivation is minimizing the sum of the squares of the errors of all of those points to the line. Therefore, it is a big risk we have when we have outliers. Regularly square based on the SVD can handle white noise very well. However, the matrix $A$ will be sensitive to outliers, we will consider in robust statistics.</p>
 ]]></content>
       <categories>
         <category>Reduced Order Model</category>
@@ -1025,19 +1195,20 @@ argmin_{\hat{A},\ s.t.\ rank(\hat{A})=r}\left\Vert A-\hat{A}\right\Vert_F=\tilde
       </tags>
   </entry>
   <entry>
-    <title>SVD-Linear Regression</title>
-    <url>/2024/06/21/SVD-Linear%20Regression/</url>
-    <content><![CDATA[<p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
-<script type="math/tex; mode=display">
-Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
+    <title>SVD-Dominnant Correlation</title>
+    <url>/2024/06/05/SVD-Dominnant%20Correlation/</url>
+    <content><![CDATA[<h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
 <span id="more"></span>
-<p>To explain this linear regression more clearly, let’s say that every rows of equation is based on data from an individual medical history. So the equation $a<em>{i1}x_1+\cdots+a</em>{im}x<em>{m}=b</em>{i}$ means the medical case of the $i-th$ person. Every columns of matrix $A$ represent different kinds of risk factors and the vector $b$ means the risk of heart disease. Therefore, we can give a interpretation about linear regression. Linear regression is a best fit model $x$ for what combination of those factors describe best or predict best the future risk of heart disease. Actually it may be driven by the nonlinear system in real world, here we oversimplify this system by using linear regression to approximate it.</p>
-<p>Since we consider the overdetermined system, it is hard to find a vector $x$ that exactly solves this linear model. We want to find the best fit vector $x$ that minimizes the error norm between $Ax$ and $b$. In other words, the best fit vector $x$ gives us the best prediction of $b$ given information in $A$. Here we consider a one-dimensional linear regression model since it can be easily plotted in the following figure and gives a geometric interpretation of linear regression. Of course, the conclusion derived in this way is very simple and can be generalized to much higher-dimensional situations.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/2024-06-20_20-56-36_screenshot.7i08u20nua.png" alt=""></p>
-<p>As seen in figure, we will solve the $x$ here that we want is the slope of this fit line. We generalize this interpretation to much higher dimensional case instead of having just one factor that I use to predict $b$. In general, I will find a best fit plane instead of best fit line to approximate the high dimensional data. In one dimensional, $A=\begin{bmatrix} a_1\ a_2\ \cdots\ a_n\end{bmatrix}^{T}$ and $b=\begin{bmatrix}b_1\ b_2\ \cdots\ b_n\end{bmatrix}^{T}$ will be considered. Based on the SVD, we can give the decompostion matrices $U=\frac{A}{\Vert A\Vert_2}$, $\Sigma=\Vert A\Vert_2$ and $V^T=1$ easily. Using Moore-Penrose pseudo inverse of $A$, we can solve the best fit slope $x$ as follows,</p>
+<p>We consider the structure of the correlation matrix $X^TX$ firstly. Since the size of the data matrix $X$ is $n\times m$, the size of the correlation matrix $X^TX$ is $m\times m$.</p>
 <script type="math/tex; mode=display">
-x=A^{\dagger}b=\frac{A^T}{\Vert A\Vert_2^2}b</script><p>Due to the value of the best fit slope, we find that the linear regression can be written as $Ax=AA^{\dagger}b=\frac{AA^T}{\Vert A\Vert_2^2}b$. It means that we project $b$ into the direction of $A$. When we think about the projection, we realize that the normalized matrix $\tilde{A}=\frac{A}{\Vert A\Vert_2}$ satisfies $\tilde{A}^T\tilde{A}=\frac{A^TA}{\Vert A\Vert_2}=1$. From this, we can use this normalized matrix $\tilde{A}$ to derive the projection operator $\tilde{A}(\tilde{A}^T\tilde{A})\tilde{A}^T=\tilde{A}\tilde{A}^{T}=\frac{AA^T}{\Vert A\Vert_2^2}$. This formula can be generalized into higher dimensional case easily.</p>
-<p>At last, we consider a very common problem that our data has some outliers in data analysis. As seen in the above figure, these data do not fully mathch our best fitting model. Since the normal data can have some variablity, like Gaussian noisy, our linear regression just is a approximation model to real world. Here we assume that our data has a outlier which is completely different with others. It will bias my distrubution and effect the best fit slope, since the purpose of our derivation is minimizing the sum of the squares of the errors of all of those points to the line. Therefore, it is a big risk we have when we have outliers. Regularly square based on the SVD can handle white noise very well. However, the matrix $A$ will be sensitive to outliers, we will consider in robust statistics.</p>
+X^TX=\begin{bmatrix}\cdots&x_1^T&\cdots\\\cdots&x_2^T&\cdots\\\ &\vdots&\ \\\cdots&x_m^T&\cdots\end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}=\begin{bmatrix}x_1^Tx_1&x_1^Tx_2&\cdots&x_1^Tx_m\\x_2^Tx_1&x_2^Tx_2&\cdots&x_2^Tx_m\\\vdots&\vdots&\ &\vdots\\x_m^Tx_1&x_m^Tx_2&\cdots&x_m^Tx_m\end{bmatrix}</script><p>Based on the definition of $X^TX$, we realize that $X^TX$ is a correlation matrix among the columns of $X$. All entries of $X^TX$ are essentially an inner product between two columns of the data matrix $X$. Interestingly, if the entry $x_i^Tx_j$ is a large number, it means that the columns $x_i$ and $x_j$ are highly correlated. However, if this number is very small, it means that the columns $x_i$ and $x_j$ are nearly orthogonal, which means that the columns $x_i$ and $x_j$ are almost different. Therefore, the correlation matrix $X^TX$ can be seen as a matrix that measures the correlation among the columns of $X$.</p>
+<p>Based on the structure of the correlation matrix $X^TX$, $X^TX$ is a symmetric and positive semi-definite matrix. It guarantees that we have non negative real eigenvalues, which have a direct correspondence on the singular values of the data matrix $X$. Now we assume that the matrix $X$ have the singular value decomposition $X=U\Sigma V^T$. We can derive that</p>
+<script type="math/tex; mode=display">
+X^TX=V\Sigma^TU^TU\Sigma V^T=V\Sigma^2 V^T\Rightarrow X^TXV=V\Sigma^2</script><p>which means that the columns of $V$ are the eigenvectors of the correlation matrix $X^TX$. The eigenvalues of the correlation matrix $X^TX$ are the squares of the singular values of the data matrix $X$. The same is true for the correlation matrix $XX^T$. We can derive that</p>
+<script type="math/tex; mode=display">
+XX^T=U\Sigma V^TV\Sigma U^{T}=U\Sigma^2 U^T\Rightarrow XX^TU=U\Sigma^2</script><p>which means that the columns of $U$ are the eigenvectors of the correlation matrix $XX^T$. The eigenvalues of the correlation matrix $XX^T$ are the squares of the singular values of the data matrix $X$. Therefore, we can conclude that the singular matrix $U$ and $V$ given by the SVD of the data matrix $X$ can be seen as the eigenvectors of the correlation matrix $X^TX$ or $XX^T$. The importance of this columns of $U$ and $V$ is quantified by eigenvalues of $X^TX$ or $XX^T$, which are the squares of the singular values of the data matrix $X$.</p>
+<p>Here we introduce the method of snapshots to compute the singular value decomposition of the data matrix. If the data matrix $X$ is so large that you cannot actually compute it or store it all in memory, you can use the method of snapshots. However, in the vast majority of cases, we don’t recommend that you compute the SVD using correlation matrices.</p>
+<p>Although you cannot load all columns of $X$ into memory, what you can do is calling two columns at a time. For example, you can call the first column $x_1$ and itself, then you will get the inner product $x_1^Tx_1$. After, you can call the first column $x_1$ and the second column $x_2$, then you will get the inner product $x_1^Tx_2$ and so on. You can compute the inner product by calling two columns of data matrix each time to get the correlation matrix $X^TX$. Here the resulting matrix is a $m\times m$ matrix. It is small enough that you can put it into memory and compute its eigendecomposition. Based the above discussion, we know that the righ singular vector $V$ and the singular value $\Sigma$ can be goten by this eigendecomposition. Then you can use this matrix to solve the left singular vector $U$.</p>
 ]]></content>
       <categories>
         <category>Reduced Order Model</category>
@@ -1087,31 +1258,6 @@ Ax=b\Rightarrow U\Sigma V^Tx=b\Rightarrow \tilde{x}=V\Sigma^{-1}U^Tb=A^{\dagger}
       </tags>
   </entry>
   <entry>
-    <title>SVD-Mathematical Overview</title>
-    <url>/2024/04/18/SVD-Mathematical%20Overview/</url>
-    <content><![CDATA[<p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
-<script type="math/tex; mode=display">
-X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
-<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
-<span id="more"></span>
-<script type="math/tex; mode=display">
-X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
-\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
-<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
-<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
-<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
-<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
-<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SVD-Matrix Approximation</title>
     <url>/2024/04/19/SVD-Matrix%20Approximation/</url>
     <content><![CDATA[<p>The SVD allows us to decompose data matrix $X$ as the product of three matrices, $U,\ V^T,\ \Sigma$, where essentially $U$ contains information about the column space of $X$, $V$ contains information about the row space of $X$ and $\Sigma$ is a hierarchically ordered diagonal matrix, which tells you how important the various columns of $U$ and $V$ are.</p>
@@ -1133,26 +1279,6 @@ X\approx\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_r\\\vdots&\vdot
 <script type="math/tex; mode=display">
 argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T</script><p>The Ecakrt-Young theorem guarantees that the best possible matrix approximation to $X$ of rank $r$ is given by the firsr $r$ truncated SVD.</p>
 <p>Finally,we should mention an important point. At beginning of discussing the SVD, we define the matrices $U$ and $V$ are unitary. However,if we truncated at rank r,the truncated matrices $\tilde{U}$ and $\tilde{V}$ are no longer square matrices, so they are not unitary matrix again. They satisfy that $\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\ \tilde{U}\tilde{U}^T\not=I$</p>
-]]></content>
-      <categories>
-        <category>Reduced Order Model</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVD-Unitary Transformation and Geometry</title>
-    <url>/2024/06/16/SVD-Unitary%20Transformation/</url>
-    <content><![CDATA[<p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
-<span id="more"></span>
-<p>Actually, unitary matrices preserve the angle between any two vectors in the vector space. Since the inverse of the unitary matrix is its own transpose, it can not only preserve the angles between vectors, but also preserve the length of the vectors. Essentially, unitary transformation is a coordinate transformation into a new representation. It just takes all of those vectors and rotates them into a new representation. It will not change the length of any vector and angles between any two vectors.</p>
-<p>Here you will find that we just consider the real-valued case. However, when we consider the data matrix $X$ is a complex-valued matrix, the singular vectors $U$ and $V$ are complex-valued matrices. Compared with the real-valued matrix, the most important difference is that the transpose of a complex-valued matrix is actually a conjugate transpose.</p>
-<p>To sum up, we give the mathematical form of unitary transformation here. For any two vectors $x$ and $y$ in vector space, then we have</p>
-<script type="math/tex; mode=display">
-(x,y)=(Ux,Uy)</script><p>where $(\cdot,\cdot)$ is the inner product of two vectors and the operator $U$ means the unitary transformation, which in a unitary matrix in discrete case. Based on this mathematical form, we realize that the inner product of $x$ and $y$ is unchanged when we transform $x$ and $y$ by unitary transformation.</p>
-<p>Since we have introduced the unitary transform in the vector space, we interpret singular vector decomposition geometrically. Here we consider the size of data matrix is $n\times m$. Now we consider any vector $\vec{v}$ in space $\mathbb{R}^m$ and vector $\vec{v}$ is palced on the unit sphere. As we all know, the matrix is a linear transformation about the vector. Therefore, we consider the transformed vector $X\vec{v}$, which is placed on the ellipsoid in the vector space $\mathbb{R}^n$. Here the gemoetric interpretation of the singular value decomposition can be given. The length of these principal axes are specially given by the singular values of the data matrix $X$. The orientation of this ellipsoid is somehow given by these left singular vectors in $U$. Like the interpretation of linear transformation, $X$ multiplies the vector on the left side or on the right side, which corresponds to a change to a rotation of space. Finally, $X$ is not a square matrix, so the rotation of the corresponding space is actually a change in dimensionality.</p>
 ]]></content>
       <categories>
         <category>Reduced Order Model</category>
@@ -1790,270 +1916,48 @@ argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert X-\tilde{X}\right\Vert_F=
       </tags>
   </entry>
   <entry>
-    <title>ANSI-KMP算法</title>
-    <url>/2024/08/28/ANSI-KMP/</url>
-    <content><![CDATA[<p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写; 其针对的问题是如何在主串(文本串)中找到某种类型的子串, 也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的, 在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和 KMP 算法的两种不同的实现思路.</p>
+    <title>SVD-Mathematical Overview</title>
+    <url>/2024/04/18/SVD-Mathematical%20Overview/</url>
+    <content><![CDATA[<p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
+<script type="math/tex; mode=display">
+X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
+<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
 <span id="more"></span>
-<h2 id="暴力搜索法-Brute-Force"><a href="#暴力搜索法-Brute-Force" class="headerlink" title="暴力搜索法 (Brute Force)"></a>暴力搜索法 (Brute Force)</h2><h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>对于文本串 T 和模式串 P, 从文本串的第一个字符与模式串的第一个字符开始匹配; 如果相等, 那么比较位置同时后移, 比较第二个字符是否匹配, 以此类推; 直到出现模式串结束, 那么输出文本串的位置; 或者出现有一个不匹配的字符, 那么将文本串回退到最早比较的下一个字符, 模式串回退到开始, 重新循环.</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">strindex</span><span class="params">(<span class="type">char</span>* text,<span class="type">char</span>* pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> i,j,k;</span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;i++)<span class="comment">//文本串的循环</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">for</span>(k=i,j=<span class="number">0</span>;pattern[j]!=<span class="string">&#x27;\0&#x27;</span>&amp;&amp;pattern[j]==text[k];j++,k++)</span><br><span class="line">          <span class="comment">//模式串的循环</span></span><br><span class="line">	;</span><br><span class="line">    <span class="keyword">if</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[j]==<span class="string">&#x27;\0&#x27;</span>)<span class="comment">//判断是否为真正匹配结束</span></span><br><span class="line">      <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>我们假设文本串的长度为 $n$, 模式串的长度为 $m$. </p>
-<p>最坏的情况是类似于文本串为AAAAAAAB, 模式串为AAAB,这样的话, 需要匹配$(n-m+1)m$ 次, 时间复杂度为 $O(nm)$.</p>
-<p>最好的情况则是第一次匹配就成功, 那么时间复杂度就是 $O(m)$.</p>
-<p>如果我们考虑每种情况以等概率的情况出现, 我们可知 BF 算法的平均时间复杂度为 $O(nm)$.</p>
-<h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2><p>我们在上面发现对于文本串为AAAAAAAB, 模式串为AAAB的匹配, 每次都是在最后一个字母匹配出错, 然后就要将模式串和文本串同时回退, 重新比较; 这一步会消耗大量的时间, 并且完全没有利用到前面匹配的结果; 因此KMP算法的提出就是为了解决上面提到的问题: 其利用了匹配失败以前的匹配成功的结果, 从而将时间复杂度降到了 $O(n+m)$.</p>
-<h3 id="KMP-算法的基本思想"><a href="#KMP-算法的基本思想" class="headerlink" title="KMP 算法的基本思想"></a>KMP 算法的基本思想</h3><p>其核心思想就是当出现不匹配的情况, 利用已知匹配的结果避免回退文本串的指针并且尽可能少的回退模式串的指针.</p>
-<p>例如, 如果我们匹配到第 j 个字符串出现了字符不匹配现象, 那么我们已知的是 P[0:j-1]=T[i:i+j-1], BF 算法对这个的处理是直接回退文本指针和模式指针, 并不利用这一良好性质. 而 KMP 算法则是需要寻找 P[0:j-1] 的最长相等前后缀,因为已知 P[0:j-1]=T[i:i+j-1]; 假设 P[0:j-1] 的最长相等前后缀长度为 k,那么你就可以通过一个连等式快速得到需要回退的位置, 即 P[0:k-1]=P[j-k:j-1]=T[j-k:j-1]; 如此可知实际上, 即使我们用暴力搜索重新去计算, 只不过是不断地失败, 直到达到上面所说的情况而已.</p>
-<h3 id="基于-PMT-的-KMP-算法"><a href="#基于-PMT-的-KMP-算法" class="headerlink" title="基于 PMT 的 KMP 算法"></a>基于 PMT 的 KMP 算法</h3><p>上面介绍了 KMP 算法的基本思想, 接下来我们就用不同的实现思路去实现 KMP 算法的思想. 首先我们引入 PMT (Partial Match Table, 部分匹配表) 的概念, 其实这个表就是将要介绍的前缀表.</p>
-<h4 id="前缀表的定义"><a href="#前缀表的定义" class="headerlink" title="前缀表的定义"></a>前缀表的定义</h4><p>前缀表在 KMP 算法中的作用是用来控制模式指针的回退, 其记录的是字符串的最长相等前后缀的长度, 其用于寻找当出现模式串与文本串不匹配的时候, 模式串应该从哪里开始重新匹配.</p>
-<p>例如对于文本串 T=aabaacaabaaf, 模式串为 P=aabaaf; 在第一次字符串匹配时, P[5]和T[5]不匹配了, 如果用 BF 算法, 那么我们下一次匹配就是 P[0] 和 T[1] 的比较; 但显然我们通过朴素的思考, 因为 P[0:4]=aabaa 的最长相同前后缀为 aa, 所以利用 KMP 算法的下一次匹配实际上是考虑 P[2] 和 T[5] 的匹配, 显然如此, 匹配速度有很大的提升.</p>
-<p>前缀表是记录下标 i 之前 (包括 i) 的字符串中的最长相同前后缀的长度.</p>
-<p>对于一个字符串的前缀指的是包含首字符, 但不包含尾字符的字符串; 例如 aabaaf 的前缀集合为 {a,aa,aab,aaba,aabaa}</p>
-<p>对于一个字符串的后缀指的是包含尾字符, 但不包含首字符的字符串; 例如 aabaaf的后缀集合为 {f,af,aaf,baaf,abaaf}</p>
-<h4 id="前缀表的计算思路及代码实现"><a href="#前缀表的计算思路及代码实现" class="headerlink" title="前缀表的计算思路及代码实现"></a>前缀表的计算思路及代码实现</h4><ol>
-<li>引入两个指针 i 和 j; j 用来指示前缀的末尾, i 用来指示后缀的末尾; 换言之, i 会从 0 开始遍历模式串的每一个下标, j 则是用于记录 P[0:i-1] 的最长相等前后缀的长度.</li>
-<li>如果模式串的第 i 位和模式串的第 j 位相等, 那么 j++, i++即可</li>
-<li>如果模式串的第 i 位和模式串的第 j 位不相等, 那么就要做一个持续回退; 因为已知 P[j]!=P[i], 但是 P[0:j-1]=P[i-j:i-1]; 那么我们可以用 j=pmt[j-1] 来回退到 P[0:j-1] 的最长相等前后缀的后一位; 这一步的依据是首先 P[0:j-1]=P[i-j:i-1], 并且我们假设 k 为 P[0:j-1] 的最长相等前后缀长度, 那么 P[0:k-1]=P[j-k:j-1]=P[i-k:i-1], 如此就可以去比较 P[k] 和 P[i].</li>
-<li>更新 pmt 数组</li>
-</ol>
-<p>代码实现如下:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">generate_PMT</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;pattern,<span class="type">int</span>* pmt)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    pmt[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;pattern.size();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (pattern[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        pmt[i]=j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>利用前缀表进行 KMP 算法匹配思路</p>
-<ol>
-<li>设置两个指针 i 和 j; i 用来控制在文本串的移动; j 用来控制在模式串的移动</li>
-<li>如果匹配没出错, 那么返回匹配的起点即可</li>
-<li>如果匹配出错了, 那么分情况讨论,如果 j=0, 即模式串的第一个字符就与其不匹配, 那么就需要将文本串向后移动一位; 如果 j 不为0, 那么就用 j=pmt[j-1] 去更新匹配成功部分的最长相等前后缀.</li>
-<li>输出结果</li>
-</ol>
-<h4 id="利用前缀表进行-KMP-算法代码实现"><a href="#利用前缀表进行-KMP-算法代码实现" class="headerlink" title="利用前缀表进行 KMP 算法代码实现"></a>利用前缀表进行 KMP 算法代码实现</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_PMT</span><span class="params">(<span class="type">const</span> string &amp;pattern,<span class="type">int</span>* pmt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    pmt[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;pattern.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;pattern[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (pattern[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        pmt[i]=j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text,string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">  	<span class="keyword">if</span> (text.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pmt</span><span class="params">(pattern.size())</span></span>;</span><br><span class="line">    <span class="built_in">generate_PMT</span>(pattern,&amp;pmt[<span class="number">0</span>]);<span class="comment">//&amp;取地址</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;text.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;text[i]!=pattern[j])</span><br><span class="line">            j=pmt[j<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span>(text[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        <span class="keyword">if</span>(j==pattern.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> (i-pattern.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="用-next-数组实现-KMP-算法"><a href="#用-next-数组实现-KMP-算法" class="headerlink" title="用 next 数组实现 KMP 算法"></a>用 next 数组实现 KMP 算法</h4><p>我们在此额外介绍前缀表的另一种表示形式, 也就是 next 数组, 在市面上很多算法书更多采用这种. 我们只介绍其中一种 next 数组生成方法, 也就是将前缀表整体右移以后, 在第一个位置补上 -1. 我们给出代码实现</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_NEXT</span><span class="params">(<span class="type">const</span> string&amp; pattern, <span class="type">int</span>* next)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">-1</span>;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; pattern.<span class="built_in">size</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;=<span class="number">0</span>&amp;&amp;pattern[i<span class="number">-1</span>]!=pattern[j])</span><br><span class="line">			j=next[j];</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span> || pattern[i<span class="number">-1</span>] == pattern[j])</span><br><span class="line">            next[i] = ++j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text,string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (text.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.<span class="built_in">size</span>()==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(pattern.size())</span></span>;</span><br><span class="line">    <span class="built_in">generate_NEXT</span>(pattern,&amp;next[<span class="number">0</span>]);<span class="comment">//&amp;取地址</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;text.<span class="built_in">size</span>();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;<span class="number">0</span>&amp;&amp;text[i]!=pattern[j])</span><br><span class="line">            j=next[j];</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">-1</span>||text[i]==pattern[j])</span><br><span class="line">            j++;</span><br><span class="line">        <span class="keyword">if</span>(j==pattern.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> (i-pattern.<span class="built_in">size</span>()+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="基于-DFA-的-KMP-算法"><a href="#基于-DFA-的-KMP-算法" class="headerlink" title="基于 DFA 的 KMP 算法"></a>基于 DFA 的 KMP 算法</h3><h4 id="DFA-的定义"><a href="#DFA-的定义" class="headerlink" title="DFA 的定义"></a>DFA 的定义</h4><p>自动机分为两类: DFA (确定性有限状态自动机) 和 NFA (非确定性有限状态自动机), 二者均可用于字符串匹配问题, 我们在此仅使用 DFA 来完成 KMP 算法. 而 NFA 主要用于正则表达式的匹配问题.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/LYD122504/picx-images-hosting@master/微信图片_20240829160304.6png3qwz50.png" alt="微信图片_20240829160304"></p>
-<p>由上图知, DFA 由状态 (带数字的圆圈) 和转换 (带模式串字母的箭头) 组成. 从上图知, 由于模式串为 ABABAC 六个字符, 因此 DFA 一共由七个状态, 其中状态 0 表示起始状态, 也就是未开始匹配的状态, 模式 6 为匹配成功的状态. 值得注意的是, 构建的 DFA 是基于模式串进行的, 文本串是一系列输入该 DFA 的参数; 从某种角度来说, 这与我们前面提到的 next 数组类似, 实际上这两个只是不同维度的同一内容而已.</p>
-<p>进一步, 我们给出图中涉及的一些专业术语, 在字符串匹配问题上, 每个状态都表示模式串中各个字符串的索引值, 该图中给出了在每个状态下输入不同字符的状态的转换操作, 但实际上这些转换中只有 0-1-2-3-4-5-6 这一条是匹配转换(其实就是从第 i 个状态转换到第 i+1 个状态), 其余的转换操作都需要回退指针, 称之为非匹配转换.</p>
-<h4 id="构建-DFA-的思路与算法实现"><a href="#构建-DFA-的思路与算法实现" class="headerlink" title="构建 DFA 的思路与算法实现"></a>构建 DFA 的思路与算法实现</h4><p>在计算机内部, 我们用二维数组 DFA[char][state] 来表示上面介绍的 DFA, 其中 DFA[i][j] 具体含义是在状态 j 的情况下输入字符 i 之后, 状态转换的结果.</p>
-<p>从构建DFA的流程中, 我们知道 DFA 的状态转换只有两种类型: 匹配转换或者非匹配转换.对此分类讨论即可得到构建 DFA 的算法</p>
-<p>如果状态转换是匹配转换, 也就是在第 j 个状态下输入的字符是 pattern[j], 那么匹配成功, 我们可以转换到第 j+1 个状态, DFA[pattern[j]][j]=j+1;</p>
-<p>假如状态转换是非匹配转换, 也就是在第 j 个状态下输入的字符并不是 pattern[j]. 为了后续讨论简便, 我们用 i 来表示输入的文本串字符位置, 但是 text[i] 不等于 pattern[j]. 此时, 因为出现了匹配失败的情况, 我们需要回退状态, 但是我们尽量要避免和暴力算法一样直接回退到开始, 而是尽可能少的回退, 并且不排除任何可能情况, 这就是 KMP 算法本身的思想. 虽然我们在第 j 个状态下匹配失败, 但是我们已知 Pattern[0~j-1] 和 text[i-j~i-1] 已经完成了匹配. 所以无论如何从 text[i-j] 开始去寻找模式串已经是不可能成立的了, 所以此时我们就可以从 text[i-j+1]开始分析, 如果我们输入的新字符串是 text[i-j+1~i-1], 那么会出现在什么状态? 由于这个新字符串依赖的不仅仅是文本串的内容, 实际上由于 Pattern[0~j-1]=text[i-j~i-1], 我们可以认为输入的新字符串实际上是 Pattern[1~j-1]. 所以我们就得到了一系列等价表达, 即如果在第 j 个状态下输入的 text[i] 出现了非匹配转换, 其最终状态等价于输入text[i-j+1~i-1]以后再输入 text[i] 的状态,等价于输入 Pattern[1~j-1] 以后再输入 text[i] 的状态. </p>
-<p>此时会发现如果我们要知道第 j 个状态下的非匹配转换结果, 其实我们只需要知道 输入 Pattern[1~j-1] 之后的状态; 由于我们的 DFA 构造是递推的, 所以这个状态的转换结果是已经构造了的, 我们可以直接得到这个结果, 换言之其实是一个 DP 过程. 为了讲解方便, 我们引入一个重启状态的概念, 重启状态就是如果我们在第 j 个状态下出现了非匹配转换, 那么由我们前面的讨论得知, 输入 Pattern[1~j-1] 得到的状态就是第 j 个状态的重启状态, 第 j 个状态的非匹配转换和重启状态的对应字符转换状态一致. </p>
-<p>我们给出如下的例子来解释重启状态, 在上面的 DFA 的图中, 如果我们用 ABABAA 来输入这个 DFA 中, 在状态 5 中, 最后输入的字符是 A, 与 C 不匹配, 那么我们就需要去找这个状态的重启装态, 我们已知 Pattern[0~4]=ABABA, 寻找重启状态的话, 我们就需要输入 Pattern[1~4]=BABA, 通过查图, 我们可以发现状态 5 的非匹配转换和状态 3 的一致. </p>
-<p>为了解释方便, 我们用重启状态数组来加以解释, 虽然我们在代码中是以数的形式存在, 但这并不影响. X[j+1] 表示输入 Pattern[1~j] 之后再输入 Pattern[j+1] 得到的结果, 但是我们知道输入 Pattern[1~j] 得到的状态其实是 X[j], 所以我们要求的 X[j+1] 实际上是在状态 X[j] 的基础上输入 Pattern[j+1] 的状态, 也就是 X[j+1]=DFA[Pattern[j]][X[j]]. 我们初始化 X[0]=0.</p>
-<p>下面给出构建 DFA 的代码,</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_DFA</span><span class="params">(<span class="type">const</span> string&amp; pattern, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;DFA)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DFA[pattern[<span class="number">0</span>]][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> X;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>, X = <span class="number">0</span>; j &lt; pattern.<span class="built_in">size</span>(); j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)<span class="comment">// 256是asc码的长度,需要将字符串内出现的所有可能字符都列入</span></span><br><span class="line">            DFA[i][j] = DFA[i][X];</span><br><span class="line">        DFA[pattern[j]][j] = j + <span class="number">1</span>;</span><br><span class="line">        X = DFA[pattern[j]][X];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实, 在 DFA 中寻找重启状态, 我们用的是 Pattern[1~j-1] 重新输入, 这个其实就是我们在 PMT 中寻找最长相等前后缀的过程, 只是 DFA 将其可视化了而已, 或者说, 我们在前面构造的重启状态数组实际上就是 PMT. 因此这两个办法理论上没有任何区别, 不过 DFA 在空间存储方面消耗更大, 他是一个二维数组.</p>
-<h4 id="用-DFA-实现-KMP-的算法实现"><a href="#用-DFA-实现-KMP-的算法实现" class="headerlink" title="用 DFA 实现 KMP 的算法实现"></a>用 DFA 实现 KMP 的算法实现</h4><p>如果我们已经构造了 DFA 数组, 我们只需要存储对应状态和依次输入文本串到 DFA 即可. 值得注意的是, 循环结束的原因是</p>
-<ol>
-<li>达到匹配成功状态, 返回文本串匹配成功起点</li>
-<li>文本串达到末尾, 也就是匹配失败, 返回 -1</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_DFA</span><span class="params">(<span class="type">const</span> string&amp; pattern, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;DFA)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DFA[pattern[<span class="number">0</span>]][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> X;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>, X = <span class="number">0</span>; j &lt; pattern.<span class="built_in">size</span>(); j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)</span><br><span class="line">            DFA[i][j] = DFA[i][X];</span><br><span class="line">        DFA[pattern[j]][j] = j + <span class="number">1</span>;</span><br><span class="line">        X = DFA[pattern[j]][X];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strindex</span><span class="params">(string text, string pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> R = <span class="number">256</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">DFA</span>(R, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(pattern.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    <span class="built_in">generate_DFA</span>(pattern, DFA);</span><br><span class="line">    <span class="type">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; text.<span class="built_in">size</span>() &amp;&amp; j &lt; pattern.<span class="built_in">size</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = DFA[text[i]][j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (j == pattern.<span class="built_in">size</span>())</span><br><span class="line">        <span class="keyword">return</span> i - pattern.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="KMP-算法分析"><a href="#KMP-算法分析" class="headerlink" title="KMP 算法分析"></a>KMP 算法分析</h3><p>如果模式串长度为 $m$, 文本串长度为 $n$.</p>
-<p>空间复杂度显然是 $O(m)$</p>
-<p>对于时间复杂度分析, 我们只考虑 PMT 的情况, DFA 完全类似. 由于 PMT 需要求解 PMT 数组/Next 数组和 KMP 搜索两部分代码, 所以我们逐步分析.</p>
-<ol>
-<li>求解 PMT 数组/ Next 数组; 外层的 for 循环需要迭代 $m-1$ 次, 但是里面嵌套了一个 while 循环, 如果我们试图直接寻找 while 的循环次数, 虽然可以得到结果, 但是显然不太现实. 我们利用 j 的值的变化来近似分析时间复杂度. j 的变化只有两种情况, 要么加一, 要么 j=pmt[j-1] 减少. 但是减少的程度其实依赖于 j++ 的程度, 而 j++ 和 i++ 都是同时发生的, 所以最多发生 $m-1$ 次, 因此这一步的时间复杂度是 $O(m)$</li>
-<li>搜索: for 循环走的次数是 $n-1$, while 的回退其实总体来说最多只可能走 $n-m$ 因此一共复杂度 $O(n+m)$</li>
-</ol>
+<script type="math/tex; mode=display">
+X=U\Sigma V^T=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\u_1&u_2&\cdots&u_n\\\vdots&\vdots&\ &\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&\ &\ &\ \\\ &\sigma_2&\ &\ \\\ &\ &\ddots&\ \\
+\ &\ &\ &\sigma_m\\\ &\ &\ &\ \\\ &\ &\ &\ \\\ &\ &\ &\ \end{bmatrix}\begin{bmatrix}\vdots&\vdots&\ &\vdots\\v_1&v_2&\cdots&v_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}^T</script><p>where $U\in \mathbb{C}^{n\times n}$ and $V\in\mathbb{C}^{m\times m}$ are unitary matrices. If a square matrix $U$ satisfies $U^{\star}U=UU^{\star}=I$, we call it unitary matrix. Here * denotes the complex conjugate transpose. For real-valued matrices, it is the same as the regular transpose, $X^{\star}=X^T$. So if $U$ and $V$ are real-valued matrices, we call them orthogonal matrices. Since the conclusions of real-valued and complex-valued $U$ and $V$ are parallel, we will only discuss the real-valued case in the following.  $\Sigma\in \mathbb{R}^{n\times m}$ is a diagonal matrix, which means real,non-zero entries on thediagonal and zeros off the diagonal.</p>
+<p>​    These column of $U$ have the same shape as a column of $X$. The columns of $U$ describe the eigen of the data in $X$. So in the case of faces, these mean eigenfaces and in the case of flow fields, these mean eigenflow fields. Furthermore, the columns of $U$ are hierarchically arranged in terms of their ability to describe the variance in the column of $X$. In other words, $u_1$ is somehow more important than $u_2$ and so on and so forth.</p>
+<p>​    $U$ gives me a basis, based on which we can represent each column of original data in $X$.Actually, these basis have great properties. Since $U$ is an unitary matrix, it means the column of $U$ are orthonormal. So these column are all orthogonal , have unit length and provide a complete basis for n-dimensional subspace where the column of data matrix lives.</p>
+<p>​    $\Sigma$ is not only a diagnol matrix, but also non-negative and hierarchically ordered matrix. So we have $\sigma_1\geq\sigma_2\geq\sigma_3\geq\cdots\geq\sigma_m\geq0$. They are all non-negative, although some of them could be zero. According to the matrix multiplication, we can find that $\sigma_1$ correspond to the first columns of $U$ and $V$.Since $\sigma_1\geq\sigma_2$, it means that the first columns are somehow important than the second ones when we describe the information of $X$. In other words, the sigular value provides the relative imporatance of these corresponding columns of $U$ and $V$. Finally, we say that the sigular values are ordered by importance.</p>
+<p>​    Here we will start in the case of flow fields. The columns of $U$ will be eigen flows hierarchically organized. We call the first column of $V$ as $v_1$. So $v_1$ would be the time series for how this first eigen mode $u_1$ evolves in this flow.</p>
+<p>The matrix $U$ is called left sigular column and the columns are called left singular vectors. $V$ is similar to $U$. The diagonal elements of $\Sigma$ are called sigular values.The rank of X is equal to the number of non-zero sigular value.</p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>Reduced Order Model</category>
       </categories>
       <tags>
-        <tag>-Computer Science -C Language</tag>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
-    <title>ANSI-Extern, Const和Static 的用法</title>
-    <url>/2024/09/11/ANSI-extern/</url>
-    <content><![CDATA[<h3 id="extern-的用法">Extern 的用法</h3>
-<p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前,
-用来标识变量或者函数的定义在别的文件中已经给出,
-告知编译器运行到此变量或函数时, 在其他位置寻找其定义.
-其常见的用法如下:</p>
+    <title>SVD-Unitary Transformation and Geometry</title>
+    <url>/2024/06/16/SVD-Unitary%20Transformation/</url>
+    <content><![CDATA[<p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
 <span id="more"></span>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> a;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> b;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> l &gt; r ? l : r;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">max</span>(a, b) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
-<p>此处如果不在开头加上 extern int a,那么main函数是无法访问变量 a,b 的,
-即使变量 a,b 是一个外部变量, 但其作用域是定义以后至程序结束, 而修饰符
-extern 引导的变量声明延拓了该外部变量的存在域. 实际上, extern
-修饰符主要还是在多源文件的情况下使用.</p>
-<h4 id="extern-修饰变量的声明">Extern 修饰变量的声明</h4>
-<p>　extern关键字可以用来修饰变量，表示该变量在别的文件中已有声明。例如：我们在文件file1.c中声明了变量int
-var，然后我们又需要再file2.c中使用该变量，则可在文件file2.c中声明extern
-int var，就可在文件file2.c中使用该变量了。</p>
-<p>值得强调的是 extern 修饰的是变量的声明,
-变量的声明仅仅向编译器传递了变量的信息, 但并不会分配内存;
-分配内存是通过变量定义来实现的. 因此我们如果使用 extern 修饰变量声明,
-是不可以同时在其后初始化, 因为声明并不会对变量, 对内存操作的. 其次, 使用
-extern 修饰声明的变量一定要是全局变量, 这是因为如果声明的是局部变量,
-那么他的存活域只在某个函数体内部,
-在其他文件中引用这个变量也是没有意义的.</p>
-<p>进一步, 我们可以讨论由 extern 修饰的变量声明对应的存活域. 首先,
-由前面的介绍知道, extern 声明的变量只能是全局变量, 但是如果 extern
-修饰的变量声明位于某个函数体内, 那么其存活域也只在这个函数内部,
-与在函数内部设置的局部变量一致.</p>
-<h4 id="extern-修饰函数声明">Extern 修饰函数声明</h4>
-<p>从本质来看, extern 修饰函数声明与修饰变量声明是等价的.
-但我们更为常用的引用其他文件的函数是通过头文件的方式来引用的.
-在程序实现层面, 这两种方式是有所不同的,
-引用头文件的编译处理是一种预处理方式, 而extern
-修饰的声明则是代码链接层面的实现. 因此一般而言,
-如果需要大批量引用函数声明, 那么就用头文件更为便利,
-而如果只是引用少数函数, 那么用 extern 修饰声明即可.</p>
-<h4 id="extern-用来实现链接指定">Extern 用来实现链接指定</h4>
-<p>extern用来进行链接指定一般来说是用来实现混合编程.
-例如我们如果要在C++程序中调用C代码, 那么我们就需要用extern
-"C"来声明.</p>
-<p>extern "C" 可用于单一语句</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C” <span class="function"><span class="type">double</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>也可以是复合语句, 相当于复合语句中的声明都加了 extern “C”</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C”</span><br><span class="line">&#123;</span><br><span class="line">      <span class="function"><span class="type">double</span> <span class="title">sqrt</span><span class="params">(<span class="type">double</span>)</span></span>;</span><br><span class="line">      <span class="function"><span class="type">int</span> <span class="title">min</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样可以包含头文件，相当于头文件中的声明都加了extern “C”
-(不建议这样写，会有嵌套可能)</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> “C”</span><br><span class="line">&#123;</span><br><span class="line">      ＃include &lt;cmath&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>值得注意的是, extern "C" 是不可以用在函数内部的,
-且如果函数有多个声明, 可以全都加上 extern "C", 也可以只加一个,
-后续声明会遵循第一个链接指示符的规则.</p>
-<h3 id="static-的用法">Static 的用法</h3>
-<p>static 的用法其实只有三个: 隐藏, 保持变量持久, 默认初始化为0</p>
-<h4 id="static-的主要功能隐藏">Static 的主要功能:隐藏</h4>
-<p>当我们同时编译多个源文件时, 普通的全局变量和函数 (即未加 static 的)
-都是全局可访问的.</p>
-<p>例如, 对于多源文件main.cpp和test.cpp如下所示</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main source</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">char</span> a;    <span class="comment">// extern variable must be declared before use</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c &quot;</span>, a);</span><br><span class="line">    <span class="function"><span class="keyword">extern</span> <span class="type">void</span> <span class="title">msg</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="built_in">msg</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>test.cpp结构如下</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> a = <span class="string">&#x27;A&#x27;</span>; <span class="comment">// global variable</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">msg</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述可以运行是因为在test.cpp文件中的全局变量并没有加static,因此其余文件可以随意的利用修饰符extern来调用全局变量和函数.
-如果加上static, 那么他就会对其余的源文件隐藏, 只能在本文件中使用.
-因此利用这一特性我们可以在不同的源文件定义同名变量与同名函数,
-不会出现命名冲突, 也不会出现数据混用的情况. static
-可用于修饰函数也可以用来修饰变量; 如果针对函数, 那么 static
-的作用仅限于隐藏; 而对于变量, 那么 static 就有接下来的两个作用.</p>
-<h4 id="保持变量内容的持久">保持变量内容的持久</h4>
-<p>与自动变量存储在栈区不同, static变量会存储在静态存储区.
-虽然全局变量也会存储在静态存储区, 但是与全局变量相比,
-static变量主要的特性是对变量的隐藏.</p>
-<p>如果static用于声明内部变量,
-那么static类型的内部变量和函数内部的自动变量一样,只能在函数内部使用,
-但不同的一点是, 函数内部的自动变量会在函数运行结束自动释放内存,
-下一次运行需要重新声明, 重新分配内存; 而static类型变量则不会,
-她只在第一次声明时分配内存且完成初始化, 不会随着函数的返回而释放空间,
-一直等到重新调用函数时,其值为上次结束时的值.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun</span><span class="params">(<span class="type">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> count = <span class="number">10</span>;    <span class="comment">// 首次运行时,会将静态变量完成初始化,而后不会再运行,下一次的值是由上次存储的数据来保证.</span></span><br><span class="line">    <span class="keyword">return</span> count--;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;global\t\tlocal static\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(; count &lt;= <span class="number">10</span>; ++count)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\t\t%d\n&quot;</span>, count, <span class="built_in">fun</span>());    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="默认初始化为-0">默认初始化为 0</h4>
-<p>实际上, 全局变量也有这个特性,
-这是因为全局变量和静态变量都存储在静态存储区, 静态存储区的字节默认为
-0x00. 善用这个特性, 可以极大简便程序的编写复杂度,
-如果我们考虑一个稀疏矩阵, 如果我们设置局部变量,
-那么我们需要先将变量全部置为0, 而后一个个添加非零元素;
-实际上我们可以直接用静态变量, 这样的话, 我们只需要添加非零元素即可.
-这同样对字符串有相同的操作.</p>
-<h3 id="const-的用法">Const 的用法</h3>
-<p>const 用来修饰一个变量, 那么他的值从某种角度来说就是不能被改变的.
-这其实很类似与C语言中的#define的宏命令, 这两个之间还是有较大的差异:</p>
-<ol type="1">
-<li>#define 是预处理指令, 其在预处理阶段就会完成文本替换.
-而const则是对变量的修饰,因此他需要在后续的语法编译的时期,
-程序还要检查其类型是否正确, 对比更加安全.</li>
-<li>const 可以保护被修饰的内容, 防止意外修改,
-从而来增强程序的鲁棒性.</li>
-<li>const 常量是不通过编译器分配内存空间的, 而是将其纳入符号表;
-这样使得他在运行过程中不需要存储和读取内存的时间, 提高了运行效率.</li>
-</ol>
-<h4 id="修饰局部变量">修饰局部变量</h4>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>这两个语句表示的是同一条命令, 即定义整型const常量a并初始化为1.
-由于const常量后续将不再允许被修改,
-因此我们在定义const常量的同时一定要对其进行初始化.
-其实对于这种基本类型的const修饰十分简单,
-我们考虑const字符串,可以知道他的一些优势.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* ptr=<span class="string">&quot;Hello world!&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>如果这里我们不加上const限定符, 那在程序中可能出现 ptr[3]='L' 的命令,
-他会因为对只读区域的写入而报错, 也就是在程序运行时报错; 而如果我们用
-const 限制符, 那么在程序编译期间, 就会因为试图修改const常量而报错.</p>
-<h4 id="常量指针和指针常量">常量指针和指针常量</h4>
-<p>值得注意的是 const 的使用在此处将会十分灵活, 因为他涉及到指针的内容,
-因此比较复杂.</p>
-<p>首先, 我们先考虑常量指针, 其声明方式如下所示,</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* ptr;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> * ptr;</span><br></pre></td></tr></table></figure>
-<p>常量指针的含义为指针指向的内容是常量.
-不可以通过常量指针来修改对应的值. 需要注意的是,</p>
-<ol type="1">
-<li><p>这里的常量指针不能修改对应的值,只是不能通过常量指针修改;
-但允许通过其他的引用来修改, 例如</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;a;</span><br><span class="line">*pn=<span class="number">10</span>; <span class="comment">//报错,因为pn是常量指针</span></span><br><span class="line">a=<span class="number">10</span>; <span class="comment">//允许运行, 因为这是其他的引用并没有常量的限制</span></span><br></pre></td></tr></table></figure></li>
-<li><p>常量指针指向的值不能修改, 但是可以修改常量指针指向的对象,
-也就是可以将常量指针指向不同的位置.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> x=<span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> y=<span class="number">6</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pn=&amp;x;</span><br><span class="line">pn=&amp;y;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>其次, 我们讨论指针常量, 其定义声明如下所示</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* <span class="type">const</span> pn;</span><br></pre></td></tr></table></figure>
-<p>指针常量指的是这个指针本身就是一个常量,
-我们在运行过程中不可以重新给该指针常量重新赋值,
-但是我们可以用这个指针修改他指向的内容. 例如</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> n = &amp;a;</span><br><span class="line">*n = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-<p>这两种const常量的定义的区别仅在于 const 限定符与 * 的位置关系,
-如果const在* 左边, 那么定义的就是常量指针; 如果const在* 右边,
-那么定义的就是指针常量. 特殊的实际上, 我们可以将上面的两种定义合并,
-得到指向常量的常指针的定义</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>* <span class="type">const</span> a=<span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-<p>指针指向的位置不能改变并且也不能通过这个指针改变变量的值，但是依然可以通过其他的普通指针改变变量的值.</p>
-<h4 id="修饰函数的参数">修饰函数的参数</h4>
-<p>根据前面讨论的常量指针和指针常量, const修饰函数的参数也为三种</p>
-<ol type="1">
-<li><p>防止修改指针指向的内容</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">StringCopy</span><span class="params">(<span class="type">char</span> *strDestination, <span class="type">const</span> <span class="type">char</span> *strSource)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>其中函数内部是不能随意修改strSource指向的内容,
-在编译期间就会报错.</p></li>
-<li><p>防止修改指针的地址</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>* <span class="type">const</span> p1, <span class="type">int</span>* <span class="type">const</span> p2)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>不能随意修改p1和p2的地址.</p></li>
-</ol>
-<h4 id="修饰函数的返回值">修饰函数的返回值</h4>
-<p>如果给以“指针传递”方式的函数返回值加 const
-修饰，那么函数返回值（即指针）的内容不能被修改，该返回值只能被赋给加const
-修饰的同类型指针.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">Getstring</span><span class="params">()</span></span>;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* str=<span class="built_in">Getstring</span>();</span><br></pre></td></tr></table></figure>
-<h4 id="修饰全局变量">修饰全局变量</h4>
-<p>全局变量的作用域是整个文件，我们应该尽量避免使用全局变量，因为一旦有一个函数改变了全局变量的值，它也会影响到其他引用这个变量的函数，导致除了bug后很难发现，如果一定要用全局变量，我们应该尽量的使用const修饰符进行修饰，这样防止不必要的人为修改，使用的方法与局部变量是相同的。</p>
-<h3 id="代码运行的内存分配">代码运行的内存分配</h3>
-<p>C/C++程序经过编译器完成编译链接等等处理工作以后得到的二进制文件,
-其包含栈(stack), 堆(heap), 数据段, BSS段, 代码段. 其中数据段,
-BSS段和代码段是程序编译完成就已经分配完成了, 无需等代码运行;
-而堆区和栈区需要程序被加载到内存开始运行时才会分配.</p>
-<ol type="1">
-<li><p>栈区(stack): 由编译器自动分配和释放内存.
-该区一般用于存储函数参数, 局部变量等值.
-其操作方式类似于数据结构中提到的栈.</p></li>
-<li><p>堆区(heap): 程序员通过 new 命令和 malloc 命令,
-可以动态申请某个大小的内存. 注意的是, 此区的内存和栈区的不同,
-并不能由编译器自动释放, 而是由程序员通过 delete 命令和 free
-命令来手动释放内存, 如果不释放, 长期使用下, 申请内存超过了堆区大小,
-那么就会发生内存泄漏现象.</p></li>
-<li><p>数据段:
-数据段属于静态内存分配,所有有初值的全局变量和用static修饰的静态变量，常量数据都在数据段中。实际上可以认为其分为两块数据段:1.只读数据段
-2. 读写数据段.</p>
-<p>在只读数据段中,
-一般用来存储程序使用时不会发生变化的数据.一般是用const修饰的变量或者程序中使用的文字常量存储在此处.
-特殊的还有常量存储区（特殊的常量存储区，属于静态存储区）</p>
-<p>　　1) 常量占用内存,只读状态,决不可修改 　　2)
-常量字符串就是放在这里的，程序结束后由系统释放</p>
-<p>读写数据段:用来存储那些已经完成初始化的全局变量或者初始化的静态变量.
-已初始化数据是在程序中声明，并且具有初值的变量，这些变量需要占用存储器的空间，在程序执行时它们需要位于可读写的内存区域内，并且有初值，以供程序运行时读写</p></li>
-<li><p>BSS段: 存储未初始化的全局变量或者静态（全局）变量. 其是可读写的,
-编译器给处理成0. 未初始化数据是在程序中声明, 但是没有初始化的变量,
-这些变量在程序运行之前不需要占用存储器的空间. 与读写数据段类似,
-它也属于静态数据区. 但是该段中数据没有经过初始化.
-未初始化数据段只有在运行的初始化阶段才会产生,
-因此它的大小不会影响目标文件的大小.</p></li>
-<li><p>代码段:
-存放函数体的二进制代码,所有语句经过编译后产生的CPU指令都会存放在此处.</p></li>
-</ol>
+<p>Actually, unitary matrices preserve the angle between any two vectors in the vector space. Since the inverse of the unitary matrix is its own transpose, it can not only preserve the angles between vectors, but also preserve the length of the vectors. Essentially, unitary transformation is a coordinate transformation into a new representation. It just takes all of those vectors and rotates them into a new representation. It will not change the length of any vector and angles between any two vectors.</p>
+<p>Here you will find that we just consider the real-valued case. However, when we consider the data matrix $X$ is a complex-valued matrix, the singular vectors $U$ and $V$ are complex-valued matrices. Compared with the real-valued matrix, the most important difference is that the transpose of a complex-valued matrix is actually a conjugate transpose.</p>
+<p>To sum up, we give the mathematical form of unitary transformation here. For any two vectors $x$ and $y$ in vector space, then we have</p>
+<script type="math/tex; mode=display">
+(x,y)=(Ux,Uy)</script><p>where $(\cdot,\cdot)$ is the inner product of two vectors and the operator $U$ means the unitary transformation, which in a unitary matrix in discrete case. Based on this mathematical form, we realize that the inner product of $x$ and $y$ is unchanged when we transform $x$ and $y$ by unitary transformation.</p>
+<p>Since we have introduced the unitary transform in the vector space, we interpret singular vector decomposition geometrically. Here we consider the size of data matrix is $n\times m$. Now we consider any vector $\vec{v}$ in space $\mathbb{R}^m$ and vector $\vec{v}$ is palced on the unit sphere. As we all know, the matrix is a linear transformation about the vector. Therefore, we consider the transformed vector $X\vec{v}$, which is placed on the ellipsoid in the vector space $\mathbb{R}^n$. Here the gemoetric interpretation of the singular value decomposition can be given. The length of these principal axes are specially given by the singular values of the data matrix $X$. The orientation of this ellipsoid is somehow given by these left singular vectors in $U$. Like the interpretation of linear transformation, $X$ multiplies the vector on the left side or on the right side, which corresponds to a change to a rotation of space. Finally, $X$ is not a square matrix, so the rotation of the corresponding space is actually a change in dimensionality.</p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>Reduced Order Model</category>
       </categories>
       <tags>
-        <tag>-Computer Science -C Language</tag>
+        <tag>Machine Learning</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
 </search>
