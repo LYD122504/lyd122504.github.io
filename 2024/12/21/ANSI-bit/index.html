@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="位运算操作符(2.9 Bitwise Operators)在C语言中提供了六种位运算操作符, 分别为: 按位取与(&amp;), 按位取或(|), 按位取异或(^), 按位左移()和按位取反(~). 值得注意的是这些操作符只能用于操作整数的数据类型,不论其是有符号整数还是无符号整数. 进一步, 整数类型的数据类型为 char, short, int 和 long (根据在计算机内占据的字节多少排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ANSI-bit operation">
+<meta property="og:url" content="http://example.com/2024/12/21/ANSI-bit/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="位运算操作符(2.9 Bitwise Operators)在C语言中提供了六种位运算操作符, 分别为: 按位取与(&amp;), 按位取或(|), 按位取异或(^), 按位左移()和按位取反(~). 值得注意的是这些操作符只能用于操作整数的数据类型,不论其是有符号整数还是无符号整数. 进一步, 整数类型的数据类型为 char, short, int 和 long (根据在计算机内占据的字节多少排序">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-21T12:23:18.000Z">
+<meta property="article:modified_time" content="2024-12-21T12:29:42.650Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="-Computer Science -C Language">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/12/21/ANSI-bit/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ANSI-bit operation | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/21/ANSI-bit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ANSI-bit operation
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-21 20:23:18 / 修改时间：20:29:42" itemprop="dateCreated datePublished" datetime="2024-12-21T20:23:18+08:00">2024-12-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-Language/" itemprop="url" rel="index"><span itemprop="name">C Language</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="位运算操作符-2-9-Bitwise-Operators"><a href="#位运算操作符-2-9-Bitwise-Operators" class="headerlink" title="位运算操作符(2.9 Bitwise Operators)"></a>位运算操作符(2.9 Bitwise Operators)</h2><p>在C语言中提供了六种位运算操作符, 分别为: 按位取与(&amp;), 按位取或(|), 按位取异或(^), 按位左移(<a id="orgc4f59dc"></a>)和按位取反(~). 值得注意的是这些操作符只能用于操作整数的数据类型,不论其是有符号整数还是无符号整数. 进一步, 整数类型的数据类型为 char, short, int 和 long (根据在计算机内占据的字节多少排序). 至于浮点数, 由于位运算会直接操作二进制位, 因此可能会对浮点数的值造成难以预知的结果, 因此从语法层面直接禁止了对浮点数的位运算操作.</p>
+<span id="more"></span>
+<p><a id="org3679096"></a></p>
+<h3 id="位运算操作符的含义"><a href="#位运算操作符的含义" class="headerlink" title="位运算操作符的含义"></a>位运算操作符的含义</h3><p><a id="org3717b6c"></a></p>
+<h4 id="按位取与-amp"><a href="#按位取与-amp" class="headerlink" title="按位取与(&amp;)"></a>按位取与(&amp;)</h4><p>按位取与是将两个操作数的每位二进制互相进行取与操作, 如果两个操作数的对应位都为1, 那么结果的对应位为1, 否则为0. 例如: 1010 &amp; 1100 = 1000. 值得注意的是, 按位取与大部分的用处实际上将某些位取0. 例如, 如果我们希望将某个数n的后7项保持不变, 其他位取0, 那么我们可以用按位取与完成这个操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将n的后7位保持不变, 其他位取0</span></span><br><span class="line">  n&amp;<span class="number">0177</span></span><br></pre></td></tr></table></figure>
+<p>这里面我们用到了八进制的表示方法, 即以0开头的数字表示八进制数. 所以0177实际上在二进制上就是0000000001111111, 也就是后7位为1, 其他位为0. 因为任意数与0取与都是0,所以我们可以用这个把想要的位置置0.</p>
+<p>小结一下, 按位取与的用途主要是将某些位取0, 保留某些位.</p>
+<p><a id="orgb8e3afa"></a></p>
+<h4 id="按位取或"><a href="#按位取或" class="headerlink" title="按位取或(|)"></a>按位取或(|)</h4><p>按位取或是将两个操作数的每位二进制互相进行取或操作, 如果两个操作数的对应位有一个为1, 那么结果的对应位为1, 否则为0. 例如: 1010 | 1100 = 1110. 因此, 按位取或的主要用途是将某些指定位置置1, 并保留其他位置的值不变. 例如, 如果我们希望将某个数的从右数第七位置为1, 其他位保持不变, 那么我们可以用按位取或完成这个操作.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将n的第7位置1, 其他位保持不变</span></span><br><span class="line">  n|<span class="number">0100</span></span><br></pre></td></tr></table></figure>
+<p><a id="orga13e48f"></a></p>
+<h4 id="按位取异或"><a href="#按位取异或" class="headerlink" title="按位取异或(^)"></a>按位取异或(^)</h4><p>按位取异或是如果两个操作数的对应位取值不同, 那么结果对应位就为1, 反之则为0. 例如, 1010<sup>1100</sup>=0110.</p>
+<p><a id="org79b106e"></a></p>
+<h4 id="按位左移-lt-lt-和按位右移-gt-gt"><a href="#按位左移-lt-lt-和按位右移-gt-gt" class="headerlink" title="按位左移(&lt;&lt;)和按位右移(&gt;&gt;)"></a>按位左移(&lt;&lt;)和按位右移(&gt;&gt;)</h4><p>按位左移和右移操作是将左操作数的二进制位向左或向右移动右操作数指定的位数. 因此, 右操作数必须是一个非负整数. 例如, x&lt;&lt;2将x的二进制位整体向左移动两位, 并且在右边补0,这一操作的结果实际上是等价于对x乘4.但是右移操作并不能这么简单的总结, 因为右移操作会导致二进制高位的空缺, 因此如果我们考虑无符号整数的右移操作, 我们将二进制高位补0; 而如果我们考虑的是有符号整数的右移操作, 那就要与具体的底层代码实现有关:有的编译器会以符号位填补高位(算术移位), 有的编译器则会用0填补高位(逻辑移位).</p>
+<p><a id="org38c3456"></a></p>
+<h4 id="按位取反"><a href="#按位取反" class="headerlink" title="按位取反(~)"></a>按位取反(~)</h4><p>与前面的几个操作符不同的是, 按位取反是一元操作符. 按位取反是将操作数的每一位取反, 即0变为1, 1变为0. 例如, ~1010=0101. 我们在按位取与中提到了将n的后几位保持不变, 其余位取0, 在此我们将用按位取与和按位取反来实现, 将n的后七位取0, 其余位保持不变:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将n的后7位取0, 其余位保持不变</span></span><br><span class="line">  n&amp;~<span class="number">0177</span></span><br></pre></td></tr></table></figure>
+<p>值得注意的是, 我们当然可以用 x&amp;0177700 来实现这个操作, 但这其实相当于我们假定了x的位数就是16位, 显然这不适合代码的可移植性.</p>
+<p><a id="orgca07038"></a></p>
+<h3 id="getbits-函数的设计思路与代码"><a href="#getbits-函数的设计思路与代码" class="headerlink" title="getbits 函数的设计思路与代码"></a>getbits 函数的设计思路与代码</h3><p><a id="orgabbca12"></a></p>
+<h4 id="getbits-函数功能"><a href="#getbits-函数功能" class="headerlink" title="getbits 函数功能"></a>getbits 函数功能</h4><p>getbits 函数的形式为</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">int</span> <span class="title">getbits</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> x,<span class="type">int</span> p,<span class="type">int</span> n)</span></span></span><br></pre></td></tr></table></figure>
+<p>返回无条件整数x二进制形式从右边数第p位开始向右数n位的字段对应的unsigned int形式. 这里我们假设右边的第一位是第0位,n和p是合理的正值,输入错误处理暂时不考虑.</p>
+<p><a id="org2be836b"></a></p>
+<h4 id="getbits-函数设计思路"><a href="#getbits-函数设计思路" class="headerlink" title="getbits 函数设计思路"></a>getbits 函数设计思路</h4><p>因为我们需要从右边数第p位开始向右数n位的字段,所以这个字段最右边其实是第p+1-n位,因此我们需要将这个字段移动到最右边,我们可以用按位右移的方式将其移动到最右端,</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x&gt;&gt;=(p+<span class="number">1</span>-n);</span><br></pre></td></tr></table></figure>
+<p>接下来,我们需要导出最右边的n个字段,也就是相当于保持最右边n位不变,其余位置0即可.从前面的操作符,我们知道, 我们只需要让前面得到的结果和后n位为1, 其余位为0的数按位取与即可. 因此我们关注点就在于如何生成这个后n位为1, 其余位为0; 如果我们考虑将这个数取反, 那么我们只需要去构造后n位为0, 高位为1; 显然这个结果我们可以通过按位左移全1的数得到,所以我们将这个过程转换成代码得到</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> y=~<span class="number">0</span>;</span><br><span class="line">y&lt;&lt;=n;</span><br><span class="line">y=~y;</span><br></pre></td></tr></table></figure>
+<p><a id="org6b00caf"></a></p>
+<h4 id="getbits-函数代码"><a href="#getbits-函数代码" class="headerlink" title="getbits 函数代码"></a>getbits 函数代码</h4><p>Version 1</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">int</span> <span class="title">getbits</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> x,<span class="type">int</span> p,<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  x&gt;&gt;=(p+<span class="number">1</span>-n);</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> y=~<span class="number">0</span>;</span><br><span class="line">  y&lt;&lt;=n;</span><br><span class="line">  y=~y;</span><br><span class="line">  <span class="keyword">return</span> x&amp;y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们用操作符的优先级将上面的代码写的更加简洁得到Version2</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">int</span> <span class="title">getbits</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> x,<span class="type">int</span> p,<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (x&gt;&gt;(p+<span class="number">1</span>-n))&amp;(~(~<span class="number">0</span>&lt;&lt;n));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="orgc9f19c8"></a></p>
+<h3 id="Exercise-2-6"><a href="#Exercise-2-6" class="headerlink" title="Exercise 2-6"></a>Exercise 2-6</h3><p>Exercise 2-6. Write a function setbits(x,p,n,y) that returns x with the n bits that begin at position p set to the rightmost n bits of y, leaving the other bits unchanged</p>
+<p><a id="org44dc5bc"></a></p>
+<h4 id="函数设计思路"><a href="#函数设计思路" class="headerlink" title="函数设计思路"></a>函数设计思路</h4><p>这个函数是要将x的中间一部分字段替换成y最右边的部分字段, 因此我们需要将y最右边的部分字段提取出来,然后向左移动到对应的位置,</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> y1=y&amp;(~(~<span class="number">0</span>&lt;&lt;n));</span><br><span class="line">y1&lt;&lt;=(p+<span class="number">1</span>-n);</span><br></pre></td></tr></table></figure>
+<p>值得注意的是, 这里的y1只有中间一段是y最右边的部分字段, 其余为全是0, 然而我们需要用这个来覆盖掉x对应位置的字段, 保持其余位不变. 因此我们可以用按位取或来完成这个操作, 但值得注意的是这里我们是需要将x相应位置的字段置0. 这样我们就可以将x的相应位置的字段被y1覆盖,其余位不变.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这一步是为了生成长为n的全1的字段数,其余数为0</span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> x1=((<span class="type">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,n) - <span class="number">1</span>);</span><br><span class="line"><span class="comment">//左移p+1-n位,将其移动到对应的位置</span></span><br><span class="line">x1&lt;&lt;=(p+<span class="number">1</span>-n);</span><br><span class="line"><span class="comment">//x1此时是对应位置全1,其余位置为0,我们将其取反,得到对应位置全0,其余位置全1</span></span><br><span class="line">x1=~x1;</span><br><span class="line"><span class="comment">//最后我们将x相应的字段置0,其余位置保持不变</span></span><br><span class="line">x&amp;=x1;</span><br></pre></td></tr></table></figure>
+<p><a id="orgf37ae72"></a></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="title">setbits</span><span class="params">(<span class="type">unsigned</span> x, <span class="type">int</span> p, <span class="type">int</span> n, <span class="type">unsigned</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((y &amp; ~(~<span class="number">0</span> &lt;&lt; n)) &lt;&lt; (p + <span class="number">1</span> - n)) | (x &amp; ~(((<span class="type">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,n) - <span class="number">1</span>) &lt;&lt; (p + <span class="number">1</span> - n)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="orgf03d9a9"></a></p>
+<h3 id="Exercise-2-7"><a href="#Exercise-2-7" class="headerlink" title="Exercise 2-7"></a>Exercise 2-7</h3><p>Write a function invert(x,p,n) that returns x with the n bits that begin at position p inverted (i.e., 1 changed into 0 and vice versa), leaving the others unchanged</p>
+<p><a id="org8c4a098"></a></p>
+<h4 id="函数设计思路-1"><a href="#函数设计思路-1" class="headerlink" title="函数设计思路"></a>函数设计思路</h4><p>我们的思路其实就是先将x的指定字段提取出来, 然后只对这一部分取反,再重新取代x相应位置的字段即可. 第一步, 提取x的指定字段, 我们已在getbits函数给出了; 接下来, 我们假设取出来的字段为y, 接下来我们需要对y的字段取反, 但是值得注意的是我们不能将y的高位取反, 换言之, 我们只改变y的右边n位二进制的值, 我们用按位取异或的方式来处理.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y=y^((<span class="type">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,n)<span class="number">-1</span>);</span><br></pre></td></tr></table></figure>
+<p>最后我们就回归了2-6的问题.</p>
+<p><a id="orgcf6e4ac"></a></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">int</span> <span class="title">invert</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> x, <span class="type">int</span> p, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">//将x的指定字段提取出来</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> temp=(x&gt;&gt;(p+<span class="number">1</span>-n))&amp;~(~<span class="number">0</span>&lt;&lt;n);</span><br><span class="line">  <span class="comment">//将temp最右边n位数取反</span></span><br><span class="line">  temp^=((<span class="type">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,n)<span class="number">-1</span>);</span><br><span class="line">  <span class="comment">//将temp重新取代x相应位置的字段</span></span><br><span class="line">  <span class="keyword">return</span> (temp&lt;&lt;(p+<span class="number">1</span>-n))|(x&amp;~(((<span class="type">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,n)<span class="number">-1</span>)&lt;&lt;(p+<span class="number">1</span>-n)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="org14e5e12"></a></p>
+<h3 id="Exercise-2-8"><a href="#Exercise-2-8" class="headerlink" title="Exercise 2-8"></a>Exercise 2-8</h3><p>Write a function rightrot(x,n) that returns the value of the integer x rotated to the right by n positions.</p>
+<p><a id="org59a3af6"></a></p>
+<h4 id="函数设计思路-2"><a href="#函数设计思路-2" class="headerlink" title="函数设计思路"></a>函数设计思路</h4><p>两个思路：</p>
+<ol>
+<li>用循环的方式, 每次我们都将x的最右边的一位取出来，然后将x右移一位, 将取出来的位放到最左边, 重复n次即可. 因为这些技术细节其实都在前面解释过了, 这里我们就不去解释了.</li>
+<li>这一种则是,我直接一次性将x的最右边n位取出来, 然后将x右移n位, 将取出来的n位放到最左边即可.</li>
+</ol>
+<p>但是这两个方法有一个问题,就是我们必须知道x本身在计算机占用的位数, 不然的话, 我们没法移动到合适的位置. 但我们可以通过按位右移的方式来解决这个问题, 假设x占用了4个二进制位, 我们将其按位右移四次, 那么x就变成了0, 因此我们就得到了x的位数</p>
+<p><a id="org4b1e24e"></a></p>
+<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><p>思路一</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="title">rightrot</span><span class="params">(<span class="type">unsigned</span> x, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="type">int</span> length = <span class="built_in">len</span>(x);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="type">unsigned</span> temp = (x &amp; <span class="number">1</span>) &lt;&lt; (length - <span class="number">1</span>);</span><br><span class="line">                x = (x&gt;&gt;<span class="number">1</span>) | temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>思路二</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="title">rightrot</span><span class="params">(<span class="type">unsigned</span> x, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="type">int</span> length = <span class="built_in">len</span>(x);</span><br><span class="line">        <span class="type">unsigned</span> <span class="type">int</span> temp=x&amp;~(~<span class="number">0</span>&lt;&lt;n);</span><br><span class="line">        x=x&gt;&gt;n;</span><br><span class="line">        temp=temp&lt;&lt;(length-n);</span><br><span class="line">        x=x|temp;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获得x的位数的函数程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">len</span><span class="params">(<span class="type">unsigned</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (; x != <span class="number">0</span>; x &gt;&gt;=<span class="number">1</span>)i++;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="org86951dd"></a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computer-Science-C-Language/" rel="tag"># -Computer Science -C Language</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/09/11/ANSI-extern/" rel="prev" title="ANSI-Extern, Const和Static 的用法">
+      <i class="fa fa-chevron-left"></i> ANSI-Extern, Const和Static 的用法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E6%93%8D%E4%BD%9C%E7%AC%A6-2-9-Bitwise-Operators"><span class="nav-number">1.</span> <span class="nav-text">位运算操作符(2.9 Bitwise Operators)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">位运算操作符的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E4%BD%8D%E5%8F%96%E4%B8%8E-amp"><span class="nav-number">1.1.1.</span> <span class="nav-text">按位取与(&amp;)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E4%BD%8D%E5%8F%96%E6%88%96"><span class="nav-number">1.1.2.</span> <span class="nav-text">按位取或(|)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E4%BD%8D%E5%8F%96%E5%BC%82%E6%88%96"><span class="nav-number">1.1.3.</span> <span class="nav-text">按位取异或(^)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E4%BD%8D%E5%B7%A6%E7%A7%BB-lt-lt-%E5%92%8C%E6%8C%89%E4%BD%8D%E5%8F%B3%E7%A7%BB-gt-gt"><span class="nav-number">1.1.4.</span> <span class="nav-text">按位左移(&lt;&lt;)和按位右移(&gt;&gt;)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E4%BD%8D%E5%8F%96%E5%8F%8D"><span class="nav-number">1.1.5.</span> <span class="nav-text">按位取反(~)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getbits-%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">getbits 函数的设计思路与代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getbits-%E5%87%BD%E6%95%B0%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.1.</span> <span class="nav-text">getbits 函数功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getbits-%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.2.</span> <span class="nav-text">getbits 函数设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getbits-%E5%87%BD%E6%95%B0%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.3.</span> <span class="nav-text">getbits 函数代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exercise-2-6"><span class="nav-number">1.3.</span> <span class="nav-text">Exercise 2-6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.1.</span> <span class="nav-text">函数设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exercise-2-7"><span class="nav-number">1.4.</span> <span class="nav-text">Exercise 2-7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">函数设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exercise-2-8"><span class="nav-number">1.5.</span> <span class="nav-text">Exercise 2-8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF-2"><span class="nav-number">1.5.1.</span> <span class="nav-text">函数设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="nav-number">1.5.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
