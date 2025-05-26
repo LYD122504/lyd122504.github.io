@@ -161,9 +161,7 @@ A的时候,只需要按照除了内部struct以外的成员变量来分析即可
   <entry>
     <title>输入和输出(Chapter7)</title>
     <url>/2025/05/26/ANSI-Chapter7/</url>
-    <content><![CDATA[<h2 id="section"></h2>
-<p>[toc]</p>
-<p><a id="orga2619a4"></a></p>
+    <content><![CDATA[<p><a id="orga2619a4"></a></p>
 <h2 id="标准输入输出">标准输入输出</h2>
 <p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
 <span id="more"></span>

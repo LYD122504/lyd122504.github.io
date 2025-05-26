@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="[toc]  标准输入输出 标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS">
+  <meta name="description" content="标准输入输出 标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三">
 <meta property="og:type" content="article">
 <meta property="og:title" content="输入和输出(Chapter7)">
 <meta property="og:url" content="http://example.com/2025/05/26/ANSI-Chapter7/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="[toc]  标准输入输出 标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS">
+<meta property="og:description" content="标准输入输出 标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-26T13:40:03.000Z">
-<meta property="article:modified_time" content="2025-05-26T14:11:20.718Z">
+<meta property="article:modified_time" content="2025-05-26T14:13:05.708Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Computer Science">
 <meta property="article:tag" content="C Language">
@@ -226,7 +226,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2025-05-26 21:40:03 / 修改时间：22:11:20" itemprop="dateCreated datePublished" datetime="2025-05-26T21:40:03+08:00">2025-05-26</time>
+              <time title="创建时间：2025-05-26 21:40:03 / 修改时间：22:13:05" itemprop="dateCreated datePublished" datetime="2025-05-26T21:40:03+08:00">2025-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,9 +256,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="section"></h2>
-<p>[toc]</p>
-<p><a id="orga2619a4"></a></p>
+        <p><a id="orga2619a4"></a></p>
 <h2 id="标准输入输出">标准输入输出</h2>
 <p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
 <span id="more"></span>
@@ -462,8 +460,8 @@ Linux中给出了一个专属变量?来保存上一个执行命令的退出状�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">标准输入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#printf%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">Printf函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable-length-argument-lists"><span class="nav-number">4.</span> <span class="nav-text">Variable-length argument
-lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scanf-%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">Scanf 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-access"><span class="nav-number">6.</span> <span class="nav-text">File Access</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#error-handing"><span class="nav-number">7.</span> <span class="nav-text">Error Handing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#line-input-and-output"><span class="nav-number">8.</span> <span class="nav-text">Line Input and Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#miscellaneous-functions"><span class="nav-number">9.</span> <span class="nav-text">Miscellaneous Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#command-execution"><span class="nav-number">9.1.</span> <span class="nav-text">Command Execution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">9.2.</span> <span class="nav-text">存储管理函数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">标准输入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#printf%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">Printf函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable-length-argument-lists"><span class="nav-number">3.</span> <span class="nav-text">Variable-length argument
+lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scanf-%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">Scanf 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-access"><span class="nav-number">5.</span> <span class="nav-text">File Access</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#error-handing"><span class="nav-number">6.</span> <span class="nav-text">Error Handing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#line-input-and-output"><span class="nav-number">7.</span> <span class="nav-text">Line Input and Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#miscellaneous-functions"><span class="nav-number">8.</span> <span class="nav-text">Miscellaneous Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#command-execution"><span class="nav-number">8.1.</span> <span class="nav-text">Command Execution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">8.2.</span> <span class="nav-text">存储管理函数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
