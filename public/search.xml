@@ -4635,4 +4635,65 @@ singular vector <span class="math inline">\(U\)</span>.</p>
         <tag>Math</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ANSI-gcc.md</title>
+    <url>/2025/06/07/ANSI-gcc/</url>
+    <content><![CDATA[<h2 id="gccg-compiler-options">Gcc/G++ compiler options</h2>
+<p>在上一部分中提到的所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc prog.c -o exec</span><br></pre></td></tr></table></figure>
+<p>这里的prog.c表示C语言的源码文件,而-o
+exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.</p>
+<span id="more"></span>
+<p>虽然我们只用了一条命令就完成了程序的编译,但实际上编译过程其实是分为四个阶段进行的,即预处理(Preprocessing),编译(Compilation),汇编(Assembly)和链接(Linking).</p>
+<p><a id="orgf0611d8"></a></p>
+<h3 id="预处理preprocessing">预处理(Preprocessing)</h3>
+<p>预处理阶段的主要任务如下:</p>
+<ol type="1">
+<li>头文件展开:
+处理#include指令,把所需要的头文件内容插入到当前位置.</li>
+<li>宏定义替换: 替换所有宏定义(#define)为其定义的内容.</li>
+<li>处理条件编译:
+根据#if,#ifdef,#ifndef,#else,#elif和#endif指令,来决定程序中哪些代码需要保留;这些编译条件可以用来控制程序运行平台的差异以及调试程序功能.</li>
+<li>删除注释: 所有注释会被移除,便于后续编译.</li>
+<li>插入行号信息:
+插入#line指令,用于记录原始文件位置,便于后续错误定位.</li>
+</ol>
+<p>预处理阶段的shell命令如下所示,</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -E prog.c</span><br><span class="line">gcc -E prog.c -o prog.i</span><br></pre></td></tr></table></figure>
+<p>gcc并不保留预处理后的文件,但是我们可以通过-E选项来让程序在预处理阶段完成以后停止编译,并且保留预处理信息.如果我们只使用-E选项,那么gcc会将预处理后的结果输出到标准输出上(也就是显示器),但是他会报一个错误,when
+writing output to : No such file or
+directory.这是因为gcc默认会将预处理的结果输出到一个文件里面,但我们并没有指定输出文件.故我们可以在-E之后再加上-o选项,来指定输出文件的名称,这样gcc就会将预处理的结果输出到指定的文件,而非标准输出.值得注意的是,预处理的结果文件后缀名没有强制标准,但为了便于区分,一般我们会使用.i作为后缀名.</p>
+<p><a id="org52cf737"></a></p>
+<h3 id="编译compilation">编译(Compilation)</h3>
+<p>gcc编译器的编译阶段指的是将源代码编译成汇编代码的过程,但这个阶段并不会进行汇编或链接操作.编译阶段的主要任务如下:</p>
+<ol type="1">
+<li>语法分析: 将源代码转换为语法树(AST),检查语法是否正确.</li>
+<li>语义分析:
+检查程序的变量类型,作用域和函数调用是否合理,同时构建符号表.</li>
+<li>中间代码生成: 将语法树转换为中间代码.</li>
+<li>优化: 对中间代码进行优化,提高执行效率.</li>
+<li>目标架构相关指令生成:
+将中间代码翻译成对应硬件的目标架构指令集,从而生成汇编代码.</li>
+</ol>
+<p>编译阶段的shell命令如下所示,</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -S prog.c</span><br><span class="line">gcc -S prog.i</span><br><span class="line">gcc -S prog.c -o test.s</span><br></pre></td></tr></table></figure>
+<p>我们发现gcc的-S选项既可以从源代码文件开始编译,也可以从预处理后的文件开始编译.不同于预处理阶段的不会保存预处理结果,编译阶段的结果在默认情况下会保存在同名的.s文件.当然我们也可以用-o选项来指定输出文件的名称,这样gcc就会将编译后的结果输出到指定的文件中.</p>
+<p>编译阶段的优化是一个非常重要的环节,因为它可以显著提高程序的执行效率.编译器会根据不同的优化级别进行不同程度的优化.在gcc中,我们可以通过-O选项来指定优化级别,具体如下:</p>
+<ol type="1">
+<li><p>-O0:
+不进行优化,编译速度最快,一般是默认的级别;其生成的代码直接对应源代码,方便调试;代码体积较大,运行速度较慢.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -S -O0 prog.c</span><br></pre></td></tr></table></figure></li>
+<li><p>-O0:
+不进行优化,编译速度最快,一般是默认的级别;其生成的代码直接对应源代码,方便调试;代码体积较大,运行速度较慢.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -S -O0 prog.c</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>C Language</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>C Language</tag>
+      </tags>
+  </entry>
 </search>
