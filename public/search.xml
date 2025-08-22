@@ -4764,6 +4764,7 @@ b
     <url>/2025/08/22/ANSI-UNIX/</url>
     <content><![CDATA[<h2 id="the-unix-system-interface">The Unix System Interface</h2>
 <p>Unix系统提供了一系列的系统调用,这些系统调用其实是操作系统内部的程序,其提供了用户程序调用的接口.我们将会经常借助系统调用来实现一些高效率的操作,或者访问标准库内没有的功能.</p>
+<span id="more"></span>
 <p><a id="orga545a05"></a></p>
 <h3 id="file-descriptors">File Descriptors</h3>
 <p>对于Unix系统而言,输入输出可以认为都是对文件进行读/写操作.这是因为对于Unix系统,所有的外围设备,如键盘,显示器等,都是Unix文件系统下的文件.由于输入输出都可以被认为是对文件的操作,因此Unix系统只需要提供一个统一的接口来处理所有外围设备和程序的通信交互.</p>
