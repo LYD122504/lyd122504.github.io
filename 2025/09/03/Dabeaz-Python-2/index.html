@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+<meta name="google-site-verification" content="yGZtoctpv_RvqHFSVUN8MfwIraR1EkJ8pEmc5Azxuss" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. 3 Strings Python与C&#x2F;C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如: 12345678910111213141516# S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pratical Python for dabeaz-Strings">
+<meta property="og:url" content="http://example.com/2025/09/03/Dabeaz-Python-2/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. 3 Strings Python与C&#x2F;C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如: 12345678910111213141516# S">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-03T13:42:15.000Z">
+<meta property="article:modified_time" content="2025-09-03T13:47:59.657Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/09/03/Dabeaz-Python-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Pratical Python for dabeaz-Strings | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/03/Dabeaz-Python-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pratical Python for dabeaz-Strings
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-09-03 21:42:15 / 修改时间：21:47:59" itemprop="dateCreated datePublished" datetime="2025-09-03T21:42:15+08:00">2025-09-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本笔记完全基于David Beazley的Python教程-<a
+target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h3 id="strings">3 Strings</h3>
+<p>Python与C/C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Single quote</span></span><br><span class="line">a=<span class="string">&#x27;Yeah but no but yeah but...&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Double quote</span></span><br><span class="line">b=<span class="string">&quot;Computer says no&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Triple quotes</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Look into my eyes, look into my eyes, the eyes, the eyes, the eyes,</span></span><br><span class="line"><span class="string">not around the eyes,</span></span><br><span class="line"><span class="string">don&#x27;t look around the eyes,</span></span><br><span class="line"><span class="string">look into my eyes, you&#x27;re under.</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
+<p>但我们前面提到的多行注释也可以用三引号表示,这是因为Python其实并没有多行注释的专用符号,我们通过三引号引导的多行字符串对程序进行解释,但不做赋值操作,程序会阅读后并不保存相关数据,也就认为其可用于注释.其次我们用三引号引导的字符串做注释的时候,如果其出现在函数,模块或者类的开头,那么其会被认作是该代码的文本字符串,我们可以通过.__doc__属性或者help函数来查看:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    这个函数用于计算两个数的和</span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">        a: 第一个数字</span></span><br><span class="line"><span class="string">        b: 第二个数字</span></span><br><span class="line"><span class="string">    返回:</span></span><br><span class="line"><span class="string">        两个数字的和</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">help</span>(add)  <span class="comment"># 查看函数的文档字符串</span></span><br><span class="line"><span class="built_in">print</span>(add.__doc__)</span><br></pre></td></tr></table></figure>
+<p>正是因为Python的字符串可以用单引号或双引号引导,因此我们可以不借助转义符来表示字符串中包含引号的情况,例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;He said, &#x27;Hello!&#x27;&quot;</span></span><br><span class="line">b=<span class="string">&#x27;She replied, &quot;Hi!&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>但是如果字符串中既包含单引号又包含双引号,那么我们还是需要用转义符\来表示.</p>
+<p>在C/C++中,字符串的每个字符在计算机内部都是以ASCII编码的形式存储的,当然更为现代的版本也是支持了UTF8编码.同样Python的字符串也是以Unicode编码形式存储的,或者说我们可以给程序一个字符的unicode编码,程序会将其转换为对应字符后存储.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&#x27;\xf1&#x27;</span> <span class="comment"># \x表示后面跟的是一个十六进制的数字,其后f1表示两个字节</span></span><br><span class="line">b=<span class="string">&#x27;\u2200&#x27;</span> <span class="comment"># \u表示是unicode编码,其后接的2200是四个十六进制数字,表示其码点为8704</span></span><br><span class="line">c=<span class="string">&#x27;\U0001D122&#x27;</span> <span class="comment"># \u和\U都表示unicode编码,但是\U后面需要接8个十六进制数字,不足8位需要在前面补0,其码点为119074</span></span><br><span class="line">d=<span class="string">&#x27;\N&#123;FOR ALL&#125;&#x27;</span> <span class="comment"># \N&#123;&#125;是通过字符名称来表示字符,其字符名称必须是Unicode标准中定义的名称</span></span><br></pre></td></tr></table></figure>
+<p>对于字符串索引,同样字符串也是从0开始索引,但与C/C++不同的是,Python支持负数索引,负数索引表示从字符串的末尾开始向前索引.例如,-1表示字符串的最后一个字符,-2表示导数第二个字符,以此类推:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello world&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s[<span class="number">0</span>]) <span class="comment"># H</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">1</span>]) <span class="comment"># d</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">5</span>]) <span class="comment"># w</span></span><br></pre></td></tr></table></figure>
+<p>Python也支持利用:指定字符串检索范围来作切片操作或者提取子字符串,若存在缺省指标,则默认为字符串的开头或者结尾:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = s[:<span class="number">5</span>]     <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line">e = s[<span class="number">6</span>:]     <span class="comment"># &#x27;world&#x27;</span></span><br><span class="line">f = s[<span class="number">3</span>:<span class="number">8</span>]    <span class="comment"># &#x27;lo wo&#x27;</span></span><br><span class="line">g = s[-<span class="number">5</span>:]    <span class="comment"># &#x27;world&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in¬
+in(检查子字符串是否在字符串中出现过)和*(重复字符串):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Concatenation</span></span><br><span class="line">a=<span class="string">&#x27;Hello&#x27;</span>+<span class="string">&#x27;World&#x27;</span> <span class="comment"># &#x27;HelloWorld&#x27;</span></span><br><span class="line">b=<span class="string">&#x27;Say&#x27;</span>+a <span class="comment"># &#x27;SayHelloWorld&#x27;</span></span><br><span class="line"><span class="comment"># Length</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a)) <span class="comment"># 10</span></span><br><span class="line"><span class="comment"># Membership test(in/not in)</span></span><br><span class="line">t=<span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line">f=<span class="string">&#x27;x&#x27;</span> <span class="keyword">in</span> a <span class="comment"># False,bool类型</span></span><br><span class="line">g=<span class="string">&#x27;hi&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line"><span class="comment"># Replication(s*n)</span></span><br><span class="line">rep=a*<span class="number">2</span> <span class="comment"># &#x27;HelloWorldHelloWorld&#x27;,他主要是同一个字符串的重复,类似于a+a+...+a(n个a相加)</span></span><br></pre></td></tr></table></figure>
+<p>Python的字符串还有很多内置的方法,可以通过.来调用,例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s.endswith(suffix)     <span class="comment"># 检查字符串后缀是否为suffix,如果有则返回True,否则返回False</span></span><br><span class="line">s.find(t)              <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.index(t)             <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.join(slist)          <span class="comment"># 以字符串s作为分隔符,将字符列表的所有元素连接成一个新的字符串</span></span><br><span class="line">s.replace(old,new)     <span class="comment"># 替换字符串s中所有old子字符串为new子字符串,返回一个新的字符串</span></span><br><span class="line">s.rfind(t)             <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.rindex(t)            <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.split([delim])       <span class="comment"># 以delim为分隔符切片s,如果不指定delim,则以空白字符(空格,换行,制表符等)为分隔符</span></span><br><span class="line">s.startswith(prefix)   <span class="comment"># 检查字符串前缀是否为prefix,如果有则返回True,否则返回False</span></span><br><span class="line">s.strip()              <span class="comment"># 删除字符串s两端的空白字符(空格,换行,制表符等),返回一个新的字符串</span></span><br></pre></td></tr></table></figure>
+<p>值得注意的是,Python的字符串是不可改变的,也就是我们不能通过索引赋值和方法来修改已有的字符串,只能通过对整体的重新赋值来改变字符串的值,如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">&#x27;  Hello   &#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.strip()) <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s) <span class="comment"># &#x27;  Hello   &#x27;,原字符串并没有改变</span></span><br></pre></td></tr></table></figure>
+<p>对于上面罗列的方法,我们需要指出以下几点:</p>
+<ol type="1">
+<li>join方法中传入的slist一定要是一个字符串列表,否则会报错.</li>
+<li>find和index方法的作用其实一样,但是唯一的不同在于find返回的是-1,而index会报出异常.因此在不确定子字符串是否存在的情况下,建议使用index方法.</li>
+<li>在replace方法中,如果old子字符串在s中不存在,他并不会报错,返回的值仍然是原字符串s.</li>
+</ol>
+<p>Python在普通的字符串之外还提供几类特殊的字符串,如字节字符串,原始字符串和格式化字符串.</p>
+<p>字节字符串(byte
+string)是以b或者B开头的字符串,其是以字节为单位进行存储的,每个元素默认是0-255之间的整数,适合处理二进制数据,网络传输或者文件I/O等操作.他和普通字符串最大的区别在于,在Python3中,普通字符串依靠Unicode编码,每个字符可以是汉字,英文或者特殊符号等;而字节字符串并不依赖编码规则,而是直接存储字节,因为计算机中存储的最小单元就是字节,所以字节字符串可以存储更多类型的内容,如视频,音频等等.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bstr=<span class="string">b&#x27;Hello&#x27;</span> <span class="comment"># 字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">0</span>]) <span class="comment"># 72,字节字符串的每个元素是0-255之间的整数</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">1</span>:<span class="number">4</span>]) <span class="comment"># b&#x27;ell&#x27;,字节字符串的切片操作返回的仍然是字节字符串</span></span><br></pre></td></tr></table></figure>
+<p>字节字符串并不能与普通字符串进行链接,否则会报类型错误;可以用索引访问每个字节,但是如果访问的是一个元素,返回的是字节对应的整数值,如果访问的是一个切片,返回的则是字节字符串.字节字符串和普通字符串之间可以通过encode和decode方法进行转换,如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">bstr=s.encode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 普通字符串转换为字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line">s2=bstr.decode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 字节字符串转换为普通字符串</span></span><br><span class="line"><span class="built_in">print</span>(s2) <span class="comment"># &#x27;Hello&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>这里的utf-8表示编码格式,当然也可以使用其他编码格式,如ascii,latin1等.</p>
+<p>原始字符串(raw
+string)是以r或者R开头的字符串,其最大的特点在于字符串中的转义字符并不会被处理,换言之,他不会处理字符串中出现的\和其后面的字符,而是将其作为普通字符进行存储.如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rs=<span class="string">r&#x27;C:\newfolder\test.txt&#x27;</span> <span class="comment"># 原始字符串</span></span><br><span class="line"><span class="built_in">print</span>(rs) <span class="comment"># C:\newfolder\test.txt</span></span><br></pre></td></tr></table></figure>
+<p>字符串是括号内包围的原始文本,与输入完全一致.这在反斜杠具有特殊意义的情况下很有用.例如:文件名,正则表达式等.原始字符串有如下的特点需要注意:</p>
+<ol type="1">
+<li><p>原始字符串不能以奇数个反斜杠结尾,因为这样最后一个反斜杠就不会有任何字符与之配对,会自动匹配引号,从而导致字符串没有结束符而报错.</p></li>
+<li><p>字符串前的r/R只影响转义,不会影响字符串内容的其他特性.</p>
+<p>r'C:\' # 正确,以偶数个反斜杠结尾 r'C:' #
+错误,以奇数个反斜杠结尾,会报错 len(r'Hello') # 12,原始字符串中的
+len('Hello') # 11,普通字符串中的</p></li>
+</ol>
+<p>格式化字符串(f-string)是以f或者F开头的字符串,其允许在字符串中嵌入表达式,这些表达式会在运行时被计算并替换为其结果.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="string">&#x27;Alce&#x27;</span></span><br><span class="line">age=<span class="number">25</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;My name is <span class="subst">&#123;name&#125;</span>, I am <span class="subst">&#123;age&#125;</span> years old.&quot;</span>) <span class="comment"># My name is Alce, I am 25 years old.</span></span><br></pre></td></tr></table></figure>
+<p>其基本的用法如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 表达式</span></span><br><span class="line">a, b = <span class="number">5</span>, <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;a&#125;</span>+<span class="subst">&#123;b&#125;</span>=<span class="subst">&#123;a+b&#125;</span>&quot;</span>) <span class="comment"># 5+10=15</span></span><br><span class="line"><span class="comment"># 函数调用</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;pi=<span class="subst">&#123;math.pi:<span class="number">.2</span>f&#125;</span>&quot;</span>) <span class="comment"># pi=3.14,保留两位小数</span></span><br><span class="line"><span class="comment"># 格式化</span></span><br><span class="line">value = <span class="number">1234.56789</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.2</span>f&#125;</span>&quot;</span>)   <span class="comment"># 保留两位小数 → 1234.57</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">10.2</span>f&#125;</span>&quot;</span>) <span class="comment"># 宽度10，右对齐 → &quot;   1234.57&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:&lt;<span class="number">10.2</span>f&#125;</span>&quot;</span>)<span class="comment"># 宽度10，左对齐 → &quot;1234.57   &quot;</span></span><br><span class="line">ratio=<span class="number">0.456</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.1</span>%&#125;</span>&quot;</span>)<span class="comment"># 百分比格式 → 45.6%</span></span><br><span class="line"><span class="comment">#这里需要注意百分比格式的%和f是不能共存的</span></span><br><span class="line">num=<span class="number">42</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;num:05x&#125;</span>&quot;</span>) <span class="comment"># 十六进制格式 → 00042</span></span><br></pre></td></tr></table></figure>
+<p>其有几个特点需要注意:</p>
+<ol type="1">
+<li>f-string中可以嵌入任意的Python表达式,包括函数调用,算术运算,条件表达式等,但是尽量不要太复杂,否则会影响代码的可读性.</li>
+<li>大括号本身需要转义,可以使用双大括号来表示单个大括号.</li>
+<li>f-string本身是支持转义字符的,但是在表达式中不支持转义字符.</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computer-Science/" rel="tag"># Computer Science</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/09/03/Dabeaz-Python-1/" rel="prev" title="Pratical Python for dabeaz-Introduction to Python">
+      <i class="fa fa-chevron-left"></i> Pratical Python for dabeaz-Introduction to Python
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#strings"><span class="nav-number">1.</span> <span class="nav-text">3 Strings</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
