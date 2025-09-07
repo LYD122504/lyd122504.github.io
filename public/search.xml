@@ -5232,7 +5232,7 @@ a{2,4}匹配aa,aaa,aaaa
 </tr>
 <tr>
 <td class="org-left">
-​s
+
 </td>
 <td class="org-left">
 匹配任意空白字符(空格,制表符,换行符)
@@ -5243,7 +5243,7 @@ a{2,4}匹配aa,aaa,aaaa
 </tr>
 <tr>
 <td class="org-left">
-​S
+
 </td>
 <td class="org-left">
  
