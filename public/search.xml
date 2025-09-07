@@ -4993,4 +4993,274 @@ len('Hello') # 11,普通字符串中的</p></li>
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Pratical Python for dabeaz-Regular expression</title>
+    <url>/2025/09/07/Dabeaz-Python-3/</url>
+    <content><![CDATA[<h3 id="regular-expressions">1.4 Regular Expressions</h3>
+<p>在上一节中提到了Python可以利用字符串的find和index方法来查找字符串,但是这种方法只能查找固定的字符串,也就是精确查找.而我们在正常使用过程中模糊查找其实更为常见,例如查找所有以a开头,以b结尾的字符串,这就需要利用正则表达式来实现搜索.</p>
+<span id="more"></span>
+<p>正则表达式的基本语法如下:</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col  class="org-left" />
+<col  class="org-left" />
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">
+符号
+</th>
+<th scope="col" class="org-left">
+含义
+</th>
+<th scope="col" class="org-left">
+示例
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">
+.
+</td>
+<td class="org-left">
+匹配除换行符外的任意单个字符
+</td>
+<td class="org-left">
+a.b匹配开头为a,结尾为b的连续三个字符
+</td>
+</tr>
+<tr>
+<td class="org-left">
+^
+</td>
+<td class="org-left">
+匹配字符串的开头
+</td>
+<td class="org-left">
+^abc匹配以abc开头的字符串
+</td>
+</tr>
+<tr>
+<td class="org-left">
+$
+</td>
+<td class="org-left">
+匹配字符串的结尾
+</td>
+<td class="org-left">
+$abc匹配以abc结尾的字符串
+</td>
+</tr>
+<tr>
+<td class="org-left">
+[]
+</td>
+<td class="org-left">
+定义字符集合,匹配其中任意一个字符
+</td>
+<td class="org-left">
+[aeiou]匹配任意一个原因字母
+</td>
+</tr>
+<tr>
+<td class="org-left">
+[^]
+</td>
+<td class="org-left">
+定义字符集合,匹配不在其中任意的一个字符
+</td>
+<td class="org-left">
+[^0-9]匹配任意非数字字符
+</td>
+</tr>
+<tr>
+<td class="org-left">
+-
+</td>
+<td class="org-left">
+字符类中表示范围
+</td>
+<td class="org-left">
+[a-z]匹配任意小写字母
+</td>
+</tr>
+<tr>
+<td class="org-left">
+*
+</td>
+<td class="org-left">
+匹配前面的子表达式零次或多次
+</td>
+<td class="org-left">
+a*e匹配开头有且仅有0个或多个a,结尾为e的字符
+</td>
+</tr>
+<tr>
+<td class="org-left">
++
+</td>
+<td class="org-left">
+匹配前面的子表达式一次或多次
+</td>
+<td class="org-left">
+a+e匹配开头有且仅有1个或多个a,结尾为e的字符
+</td>
+</tr>
+<tr>
+<td class="org-left">
+?
+</td>
+<td class="org-left">
+匹配前面的子表达式零次或者一次
+</td>
+<td class="org-left">
+colou?r匹配color和colour
+</td>
+</tr>
+<tr>
+<td class="org-left">
+{n}
+</td>
+<td class="org-left">
+精确匹配前面的子表达式n次
+</td>
+<td class="org-left">
+da{3}e匹配daaae
+</td>
+</tr>
+<tr>
+<td class="org-left">
+{n,}
+</td>
+<td class="org-left">
+至少匹配前面的子表达式n次
+</td>
+<td class="org-left">
+da{2,}e匹配daae,daaae等
+</td>
+</tr>
+<tr>
+<td class="org-left">
+{n,m}
+</td>
+<td class="org-left">
+匹配前面的子表达式n次到m次
+</td>
+<td class="org-left">
+a{2,4}匹配aa,aaa,aaaa
+</td>
+</tr>
+<tr>
+<td class="org-left">
+()
+</td>
+<td class="org-left">
+定义子表达式或捕获组
+</td>
+<td class="org-left">
+(ab)+匹配ab,abab等
+</td>
+</tr>
+</tbody>
+</table>
+<p>正则表达式里的特殊字符如果需要作为普通字符使用,则需要在其前面加上反斜杠\进行转义,如:</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col  class="org-left" />
+<col  class="org-left" />
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">
+符号
+</th>
+<th scope="col" class="org-left">
+含义
+</th>
+<th scope="col" class="org-left">
+等价符号
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+匹配任意数字
+</td>
+<td class="org-left">
+等价于[0-9]
+</td>
+</tr>
+<tr>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+匹配任意非数字
+</td>
+<td class="org-left">
+等价于[^0-9]
+</td>
+</tr>
+<tr>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+匹配任意单词字符(字母,数字,下划线)
+</td>
+<td class="org-left">
+[a-zA-Z0-9_]
+</td>
+</tr>
+<tr>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+匹配任意非单词字符(字母,数字,下划线)
+</td>
+<td class="org-left">
+[^a-zA-Z0-9_]
+</td>
+</tr>
+<tr>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+匹配任意空白字符(空格,制表符,换行符)
+</td>
+<td class="org-left">
+[ ]
+</td>
+</tr>
+<tr>
+<td class="org-left">
+§
+</td>
+<td class="org-left">
+ 
+</td>
+<td class="org-left">
+ 
+</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>
