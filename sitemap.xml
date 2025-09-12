@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2025/09/12/Dabeaz-Python-4/</loc>
+    
+    <lastmod>2025-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2025/09/07/Dabeaz-Python-3/</loc>
     
     <lastmod>2025-09-12</lastmod>
@@ -13,7 +22,7 @@
   <url>
     <loc>http://example.com/2025/09/03/Dabeaz-Python-2/</loc>
     
-    <lastmod>2025-09-03</lastmod>
+    <lastmod>2025-09-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
