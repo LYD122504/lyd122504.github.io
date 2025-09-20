@@ -4871,7 +4871,7 @@ umask.umask的值可以用shell的umask直接得到,本人所使用的是002,因
   </entry>
   <entry>
     <title>Pratical Python for dabeaz-Introduction to Python</title>
-    <url>/2025/09/03/Dabeaz-Python-1/</url>
+    <url>/2025/09/03/Practical-Python-Intro/</url>
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
 Python</a>.</p>
@@ -4923,79 +4923,8 @@ not,并不是C中的&amp;&amp; || !.</p>
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Strings</title>
-    <url>/2025/09/03/Dabeaz-Python-2/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h3 id="strings">3 Strings</h3>
-<p>Python与C/C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如:</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single quote</span></span><br><span class="line">a=<span class="string">&#x27;Yeah but no but yeah but...&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Double quote</span></span><br><span class="line">b=<span class="string">&quot;Computer says no&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Triple quotes</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Look into my eyes, look into my eyes, the eyes, the eyes, the eyes,</span></span><br><span class="line"><span class="string">not around the eyes,</span></span><br><span class="line"><span class="string">don&#x27;t look around the eyes,</span></span><br><span class="line"><span class="string">look into my eyes, you&#x27;re under.</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
-<p>但我们前面提到的多行注释也可以用三引号表示,这是因为Python其实并没有多行注释的专用符号,我们通过三引号引导的多行字符串对程序进行解释,但不做赋值操作,程序会阅读后并不保存相关数据,也就认为其可用于注释.其次我们用三引号引导的字符串做注释的时候,如果其出现在函数,模块或者类的开头,那么其会被认作是该代码的文本字符串,我们可以通过.__doc__属性或者help函数来查看:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    这个函数用于计算两个数的和</span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">        a: 第一个数字</span></span><br><span class="line"><span class="string">        b: 第二个数字</span></span><br><span class="line"><span class="string">    返回:</span></span><br><span class="line"><span class="string">        两个数字的和</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">help</span>(add)  <span class="comment"># 查看函数的文档字符串</span></span><br><span class="line"><span class="built_in">print</span>(add.__doc__)</span><br></pre></td></tr></table></figure>
-<p>正是因为Python的字符串可以用单引号或双引号引导,因此我们可以不借助转义符来表示字符串中包含引号的情况,例如:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&quot;He said, &#x27;Hello!&#x27;&quot;</span></span><br><span class="line">b=<span class="string">&#x27;She replied, &quot;Hi!&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>但是如果字符串中既包含单引号又包含双引号,那么我们还是需要用转义符\来表示.</p>
-<p>在C/C++中,字符串的每个字符在计算机内部都是以ASCII编码的形式存储的,当然更为现代的版本也是支持了UTF8编码.同样Python的字符串也是以Unicode编码形式存储的,或者说我们可以给程序一个字符的unicode编码,程序会将其转换为对应字符后存储.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&#x27;\xf1&#x27;</span> <span class="comment"># \x表示后面跟的是一个十六进制的数字,其后f1表示两个字节</span></span><br><span class="line">b=<span class="string">&#x27;\u2200&#x27;</span> <span class="comment"># \u表示是unicode编码,其后接的2200是四个十六进制数字,表示其码点为8704</span></span><br><span class="line">c=<span class="string">&#x27;\U0001D122&#x27;</span> <span class="comment"># \u和\U都表示unicode编码,但是\U后面需要接8个十六进制数字,不足8位需要在前面补0,其码点为119074</span></span><br><span class="line">d=<span class="string">&#x27;\N&#123;FOR ALL&#125;&#x27;</span> <span class="comment"># \N&#123;&#125;是通过字符名称来表示字符,其字符名称必须是Unicode标准中定义的名称</span></span><br></pre></td></tr></table></figure>
-<p>对于字符串索引,同样字符串也是从0开始索引,但与C/C++不同的是,Python支持负数索引,负数索引表示从字符串的末尾开始向前索引.例如,-1表示字符串的最后一个字符,-2表示导数第二个字符,以此类推:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello world&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s[<span class="number">0</span>]) <span class="comment"># H</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">1</span>]) <span class="comment"># d</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">5</span>]) <span class="comment"># w</span></span><br></pre></td></tr></table></figure>
-<p>Python也支持利用:指定字符串检索范围来作切片操作或者提取子字符串,若存在缺省指标,则默认为字符串的开头或者结尾,这里值得注意的是s[start:end]会包含start的索引,但不包含end:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d = s[:<span class="number">5</span>]     <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line">e = s[<span class="number">6</span>:]     <span class="comment"># &#x27;world&#x27;</span></span><br><span class="line">f = s[<span class="number">3</span>:<span class="number">8</span>]    <span class="comment"># &#x27;lo wo&#x27;</span></span><br><span class="line">g = s[-<span class="number">5</span>:]    <span class="comment"># &#x27;world&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in¬
-in(检查子字符串是否在字符串中出现过)和*(重复字符串):</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Concatenation</span></span><br><span class="line">a=<span class="string">&#x27;Hello&#x27;</span>+<span class="string">&#x27;World&#x27;</span> <span class="comment"># &#x27;HelloWorld&#x27;</span></span><br><span class="line">b=<span class="string">&#x27;Say&#x27;</span>+a <span class="comment"># &#x27;SayHelloWorld&#x27;</span></span><br><span class="line"><span class="comment"># Length</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a)) <span class="comment"># 10</span></span><br><span class="line"><span class="comment"># Membership test(in/not in)</span></span><br><span class="line">t=<span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line">f=<span class="string">&#x27;x&#x27;</span> <span class="keyword">in</span> a <span class="comment"># False,bool类型</span></span><br><span class="line">g=<span class="string">&#x27;hi&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line"><span class="comment"># Replication(s*n)</span></span><br><span class="line">rep=a*<span class="number">2</span> <span class="comment"># &#x27;HelloWorldHelloWorld&#x27;,他主要是同一个字符串的重复,类似于a+a+...+a(n个a相加)</span></span><br></pre></td></tr></table></figure>
-<p>Python的字符串还有很多内置的方法,可以通过.来调用,例如:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s.endswith(suffix)     <span class="comment"># 检查字符串后缀是否为suffix,如果有则返回True,否则返回False</span></span><br><span class="line">s.find(t)              <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.index(t)             <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.join(slist)          <span class="comment"># 以字符串s作为分隔符,将字符列表的所有元素连接成一个新的字符串</span></span><br><span class="line">s.replace(old,new)     <span class="comment"># 替换字符串s中所有old子字符串为new子字符串,返回一个新的字符串</span></span><br><span class="line">s.rfind(t)             <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.rindex(t)            <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.split([delim])       <span class="comment"># 以delim为分隔符切片s,如果不指定delim,则以空白字符(空格,换行,制表符等)为分隔符</span></span><br><span class="line">s.startswith(prefix)   <span class="comment"># 检查字符串前缀是否为prefix,如果有则返回True,否则返回False</span></span><br><span class="line">s.strip()              <span class="comment"># 删除字符串s两端的空白字符(空格,换行,制表符等),返回一个新的字符串</span></span><br></pre></td></tr></table></figure>
-<p>值得注意的是,Python的字符串是不可改变的,也就是我们不能通过索引赋值和方法来修改已有的字符串,只能通过对整体的重新赋值来改变字符串的值,如:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;  Hello   &#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.strip()) <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s) <span class="comment"># &#x27;  Hello   &#x27;,原字符串并没有改变</span></span><br></pre></td></tr></table></figure>
-<p>对于上面罗列的方法,我们需要指出以下几点:</p>
-<ol type="1">
-<li>join方法中传入的slist一定要是一个字符串列表,否则会报错.</li>
-<li>find和index方法的作用其实一样,但是唯一的不同在于find返回的是-1,而index会报出异常.因此在不确定子字符串是否存在的情况下,建议使用index方法.</li>
-<li>在replace方法中,如果old子字符串在s中不存在,他并不会报错,返回的值仍然是原字符串s.</li>
-</ol>
-<p>Python在普通的字符串之外还提供几类特殊的字符串,如字节字符串,原始字符串和格式化字符串.</p>
-<p>字节字符串(byte
-string)是以b或者B开头的字符串,其是以字节为单位进行存储的,每个元素默认是0-255之间的整数,适合处理二进制数据,网络传输或者文件I/O等操作.他和普通字符串最大的区别在于,在Python3中,普通字符串依靠Unicode编码,每个字符可以是汉字,英文或者特殊符号等;而字节字符串并不依赖编码规则,而是直接存储字节,因为计算机中存储的最小单元就是字节,所以字节字符串可以存储更多类型的内容,如视频,音频等等.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bstr=<span class="string">b&#x27;Hello&#x27;</span> <span class="comment"># 字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">0</span>]) <span class="comment"># 72,字节字符串的每个元素是0-255之间的整数</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">1</span>:<span class="number">4</span>]) <span class="comment"># b&#x27;ell&#x27;,字节字符串的切片操作返回的仍然是字节字符串</span></span><br></pre></td></tr></table></figure>
-<p>字节字符串并不能与普通字符串进行链接,否则会报类型错误;可以用索引访问每个字节,但是如果访问的是一个元素,返回的是字节对应的整数值,如果访问的是一个切片,返回的则是字节字符串.字节字符串和普通字符串之间可以通过encode和decode方法进行转换,如:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">bstr=s.encode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 普通字符串转换为字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line">s2=bstr.decode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 字节字符串转换为普通字符串</span></span><br><span class="line"><span class="built_in">print</span>(s2) <span class="comment"># &#x27;Hello&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>这里的utf-8表示编码格式,当然也可以使用其他编码格式,如ascii,latin1等.</p>
-<p>原始字符串(raw
-string)是以r或者R开头的字符串,其最大的特点在于字符串中的转义字符并不会被处理,换言之,他不会处理字符串中出现的\和其后面的字符,而是将其作为普通字符进行存储.如:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rs=<span class="string">r&#x27;C:\newfolder\test.txt&#x27;</span> <span class="comment"># 原始字符串</span></span><br><span class="line"><span class="built_in">print</span>(rs) <span class="comment"># C:\newfolder\test.txt</span></span><br></pre></td></tr></table></figure>
-<p>字符串是括号内包围的原始文本,与输入完全一致.这在反斜杠具有特殊意义的情况下很有用.例如:文件名,正则表达式等.原始字符串有如下的特点需要注意:</p>
-<ol type="1">
-<li><p>原始字符串不能以奇数个反斜杠结尾,因为这样最后一个反斜杠就不会有任何字符与之配对,会自动匹配引号,从而导致字符串没有结束符而报错.</p></li>
-<li><p>字符串前的r/R只影响转义,不会影响字符串内容的其他特性.</p>
-<p>r'C:\' # 正确,以偶数个反斜杠结尾 r'C:' #
-错误,以奇数个反斜杠结尾,会报错 len(r'Hello') # 12,原始字符串中的
-len('Hello') # 11,普通字符串中的</p></li>
-</ol>
-<p>格式化字符串(f-string)是以f或者F开头的字符串,其允许在字符串中嵌入表达式,这些表达式会在运行时被计算并替换为其结果.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name=<span class="string">&#x27;Alce&#x27;</span></span><br><span class="line">age=<span class="number">25</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;My name is <span class="subst">&#123;name&#125;</span>, I am <span class="subst">&#123;age&#125;</span> years old.&quot;</span>) <span class="comment"># My name is Alce, I am 25 years old.</span></span><br></pre></td></tr></table></figure>
-<p>其基本的用法如下:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 表达式</span></span><br><span class="line">a, b = <span class="number">5</span>, <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;a&#125;</span>+<span class="subst">&#123;b&#125;</span>=<span class="subst">&#123;a+b&#125;</span>&quot;</span>) <span class="comment"># 5+10=15</span></span><br><span class="line"><span class="comment"># 函数调用</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;pi=<span class="subst">&#123;math.pi:<span class="number">.2</span>f&#125;</span>&quot;</span>) <span class="comment"># pi=3.14,保留两位小数</span></span><br><span class="line"><span class="comment"># 格式化</span></span><br><span class="line">value = <span class="number">1234.56789</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.2</span>f&#125;</span>&quot;</span>)   <span class="comment"># 保留两位小数 → 1234.57</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">10.2</span>f&#125;</span>&quot;</span>) <span class="comment"># 宽度10，右对齐 → &quot;   1234.57&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:&lt;<span class="number">10.2</span>f&#125;</span>&quot;</span>)<span class="comment"># 宽度10，左对齐 → &quot;1234.57   &quot;</span></span><br><span class="line">ratio=<span class="number">0.456</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.1</span>%&#125;</span>&quot;</span>)<span class="comment"># 百分比格式 → 45.6%</span></span><br><span class="line"><span class="comment">#这里需要注意百分比格式的%和f是不能共存的</span></span><br><span class="line">num=<span class="number">42</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;num:05x&#125;</span>&quot;</span>) <span class="comment"># 十六进制格式 → 00042</span></span><br></pre></td></tr></table></figure>
-<p>其有几个特点需要注意:</p>
-<ol type="1">
-<li>f-string中可以嵌入任意的Python表达式,包括函数调用,算术运算,条件表达式等,但是尽量不要太复杂,否则会影响代码的可读性.</li>
-<li>大括号本身需要转义,可以使用双大括号来表示单个大括号.</li>
-<li>f-string本身是支持转义字符的,但是在表达式中不支持转义字符.</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Computer Science</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Pratical Python for dabeaz-Regular expression</title>
-    <url>/2025/09/07/Dabeaz-Python-3/</url>
+    <url>/2025/09/07/Practical-Python-Regular/</url>
     <content><![CDATA[<h3 id="regular-expression">4 Regular Expression</h3>
 <p>在上一节中提到了Python可以利用字符串的find和index方法来查找字符串,但是这种方法只能查找固定的字符串,也就是精确查找.而我们在正常使用过程中模糊查找其实更为常见,例如查找所有以a开头,以b结尾的字符串,这就需要利用正则表达式来实现搜索.</p>
 <p>正则表达式的基本语法如下:</p>
@@ -5432,10 +5361,82 @@ re.X(re.VERBOSE)
       </tags>
   </entry>
   <entry>
+    <title>Pratical Python for dabeaz-Strings</title>
+    <url>/2025/09/03/Practical-Python-String/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h3 id="strings">3 Strings</h3>
+<p>Python与C/C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如:</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single quote</span></span><br><span class="line">a=<span class="string">&#x27;Yeah but no but yeah but...&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Double quote</span></span><br><span class="line">b=<span class="string">&quot;Computer says no&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Triple quotes</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Look into my eyes, look into my eyes, the eyes, the eyes, the eyes,</span></span><br><span class="line"><span class="string">not around the eyes,</span></span><br><span class="line"><span class="string">don&#x27;t look around the eyes,</span></span><br><span class="line"><span class="string">look into my eyes, you&#x27;re under.</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
+<p>但我们前面提到的多行注释也可以用三引号表示,这是因为Python其实并没有多行注释的专用符号,我们通过三引号引导的多行字符串对程序进行解释,但不做赋值操作,程序会阅读后并不保存相关数据,也就认为其可用于注释.其次我们用三引号引导的字符串做注释的时候,如果其出现在函数,模块或者类的开头,那么其会被认作是该代码的文本字符串,我们可以通过.__doc__属性或者help函数来查看:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    这个函数用于计算两个数的和</span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">        a: 第一个数字</span></span><br><span class="line"><span class="string">        b: 第二个数字</span></span><br><span class="line"><span class="string">    返回:</span></span><br><span class="line"><span class="string">        两个数字的和</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="built_in">help</span>(add)  <span class="comment"># 查看函数的文档字符串</span></span><br><span class="line"><span class="built_in">print</span>(add.__doc__)</span><br></pre></td></tr></table></figure>
+<p>正是因为Python的字符串可以用单引号或双引号引导,因此我们可以不借助转义符来表示字符串中包含引号的情况,例如:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&quot;He said, &#x27;Hello!&#x27;&quot;</span></span><br><span class="line">b=<span class="string">&#x27;She replied, &quot;Hi!&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>但是如果字符串中既包含单引号又包含双引号,那么我们还是需要用转义符\来表示.</p>
+<p>在C/C++中,字符串的每个字符在计算机内部都是以ASCII编码的形式存储的,当然更为现代的版本也是支持了UTF8编码.同样Python的字符串也是以Unicode编码形式存储的,或者说我们可以给程序一个字符的unicode编码,程序会将其转换为对应字符后存储.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&#x27;\xf1&#x27;</span> <span class="comment"># \x表示后面跟的是一个十六进制的数字,其后f1表示两个字节</span></span><br><span class="line">b=<span class="string">&#x27;\u2200&#x27;</span> <span class="comment"># \u表示是unicode编码,其后接的2200是四个十六进制数字,表示其码点为8704</span></span><br><span class="line">c=<span class="string">&#x27;\U0001D122&#x27;</span> <span class="comment"># \u和\U都表示unicode编码,但是\U后面需要接8个十六进制数字,不足8位需要在前面补0,其码点为119074</span></span><br><span class="line">d=<span class="string">&#x27;\N&#123;FOR ALL&#125;&#x27;</span> <span class="comment"># \N&#123;&#125;是通过字符名称来表示字符,其字符名称必须是Unicode标准中定义的名称</span></span><br></pre></td></tr></table></figure>
+<p>对于字符串索引,同样字符串也是从0开始索引,但与C/C++不同的是,Python支持负数索引,负数索引表示从字符串的末尾开始向前索引.例如,-1表示字符串的最后一个字符,-2表示导数第二个字符,以此类推:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello world&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s[<span class="number">0</span>]) <span class="comment"># H</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">1</span>]) <span class="comment"># d</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">5</span>]) <span class="comment"># w</span></span><br></pre></td></tr></table></figure>
+<p>Python也支持利用:指定字符串检索范围来作切片操作或者提取子字符串,若存在缺省指标,则默认为字符串的开头或者结尾,这里值得注意的是s[start:end]会包含start的索引,但不包含end:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d = s[:<span class="number">5</span>]     <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line">e = s[<span class="number">6</span>:]     <span class="comment"># &#x27;world&#x27;</span></span><br><span class="line">f = s[<span class="number">3</span>:<span class="number">8</span>]    <span class="comment"># &#x27;lo wo&#x27;</span></span><br><span class="line">g = s[-<span class="number">5</span>:]    <span class="comment"># &#x27;world&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in¬
+in(检查子字符串是否在字符串中出现过)和*(重复字符串):</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Concatenation</span></span><br><span class="line">a=<span class="string">&#x27;Hello&#x27;</span>+<span class="string">&#x27;World&#x27;</span> <span class="comment"># &#x27;HelloWorld&#x27;</span></span><br><span class="line">b=<span class="string">&#x27;Say&#x27;</span>+a <span class="comment"># &#x27;SayHelloWorld&#x27;</span></span><br><span class="line"><span class="comment"># Length</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a)) <span class="comment"># 10</span></span><br><span class="line"><span class="comment"># Membership test(in/not in)</span></span><br><span class="line">t=<span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line">f=<span class="string">&#x27;x&#x27;</span> <span class="keyword">in</span> a <span class="comment"># False,bool类型</span></span><br><span class="line">g=<span class="string">&#x27;hi&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line"><span class="comment"># Replication(s*n)</span></span><br><span class="line">rep=a*<span class="number">2</span> <span class="comment"># &#x27;HelloWorldHelloWorld&#x27;,他主要是同一个字符串的重复,类似于a+a+...+a(n个a相加)</span></span><br></pre></td></tr></table></figure>
+<p>Python的字符串还有很多内置的方法,可以通过.来调用,例如:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s.endswith(suffix)     <span class="comment"># 检查字符串后缀是否为suffix,如果有则返回True,否则返回False</span></span><br><span class="line">s.find(t)              <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.index(t)             <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.join(slist)          <span class="comment"># 以字符串s作为分隔符,将字符列表的所有元素连接成一个新的字符串</span></span><br><span class="line">s.replace(old,new)     <span class="comment"># 替换字符串s中所有old子字符串为new子字符串,返回一个新的字符串</span></span><br><span class="line">s.rfind(t)             <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.rindex(t)            <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.split([delim])       <span class="comment"># 以delim为分隔符切片s,如果不指定delim,则以空白字符(空格,换行,制表符等)为分隔符</span></span><br><span class="line">s.startswith(prefix)   <span class="comment"># 检查字符串前缀是否为prefix,如果有则返回True,否则返回False</span></span><br><span class="line">s.strip()              <span class="comment"># 删除字符串s两端的空白字符(空格,换行,制表符等),返回一个新的字符串</span></span><br></pre></td></tr></table></figure>
+<p>值得注意的是,Python的字符串是不可改变的,也就是我们不能通过索引赋值和方法来修改已有的字符串,只能通过对整体的重新赋值来改变字符串的值,如:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;  Hello   &#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.strip()) <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s) <span class="comment"># &#x27;  Hello   &#x27;,原字符串并没有改变</span></span><br></pre></td></tr></table></figure>
+<p>对于上面罗列的方法,我们需要指出以下几点:</p>
+<ol type="1">
+<li>join方法中传入的slist一定要是一个字符串列表,否则会报错.</li>
+<li>find和index方法的作用其实一样,但是唯一的不同在于find返回的是-1,而index会报出异常.因此在不确定子字符串是否存在的情况下,建议使用index方法.</li>
+<li>在replace方法中,如果old子字符串在s中不存在,他并不会报错,返回的值仍然是原字符串s.</li>
+</ol>
+<p>Python在普通的字符串之外还提供几类特殊的字符串,如字节字符串,原始字符串和格式化字符串.</p>
+<p>字节字符串(byte
+string)是以b或者B开头的字符串,其是以字节为单位进行存储的,每个元素默认是0-255之间的整数,适合处理二进制数据,网络传输或者文件I/O等操作.他和普通字符串最大的区别在于,在Python3中,普通字符串依靠Unicode编码,每个字符可以是汉字,英文或者特殊符号等;而字节字符串并不依赖编码规则,而是直接存储字节,因为计算机中存储的最小单元就是字节,所以字节字符串可以存储更多类型的内容,如视频,音频等等.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bstr=<span class="string">b&#x27;Hello&#x27;</span> <span class="comment"># 字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">0</span>]) <span class="comment"># 72,字节字符串的每个元素是0-255之间的整数</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">1</span>:<span class="number">4</span>]) <span class="comment"># b&#x27;ell&#x27;,字节字符串的切片操作返回的仍然是字节字符串</span></span><br></pre></td></tr></table></figure>
+<p>字节字符串并不能与普通字符串进行链接,否则会报类型错误;可以用索引访问每个字节,但是如果访问的是一个元素,返回的是字节对应的整数值,如果访问的是一个切片,返回的则是字节字符串.字节字符串和普通字符串之间可以通过encode和decode方法进行转换,如:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">bstr=s.encode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 普通字符串转换为字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line">s2=bstr.decode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 字节字符串转换为普通字符串</span></span><br><span class="line"><span class="built_in">print</span>(s2) <span class="comment"># &#x27;Hello&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>这里的utf-8表示编码格式,当然也可以使用其他编码格式,如ascii,latin1等.</p>
+<p>原始字符串(raw
+string)是以r或者R开头的字符串,其最大的特点在于字符串中的转义字符并不会被处理,换言之,他不会处理字符串中出现的\和其后面的字符,而是将其作为普通字符进行存储.如:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rs=<span class="string">r&#x27;C:\newfolder\test.txt&#x27;</span> <span class="comment"># 原始字符串</span></span><br><span class="line"><span class="built_in">print</span>(rs) <span class="comment"># C:\newfolder\test.txt</span></span><br></pre></td></tr></table></figure>
+<p>字符串是括号内包围的原始文本,与输入完全一致.这在反斜杠具有特殊意义的情况下很有用.例如:文件名,正则表达式等.原始字符串有如下的特点需要注意:</p>
+<ol type="1">
+<li><p>原始字符串不能以奇数个反斜杠结尾,因为这样最后一个反斜杠就不会有任何字符与之配对,会自动匹配引号,从而导致字符串没有结束符而报错.</p></li>
+<li><p>字符串前的r/R只影响转义,不会影响字符串内容的其他特性.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">r&#x27;C:\path\to\file\\&#x27;</span> <span class="comment"># 正确,以偶数个反斜杠结尾</span></span><br><span class="line"><span class="string">r&#x27;C:\path\to\file\&#x27; # 错误,以奇数个反斜杠结尾,会报错</span></span><br><span class="line"><span class="string">len(r&#x27;</span>Hello\nWorld<span class="string">&#x27;) # 12,原始字符串中的\n不会被处理为换行符</span></span><br><span class="line"><span class="string">len(&#x27;</span>Hello\nWorld<span class="string">&#x27;) # 11,普通字符串中的\n被处理为换行符 </span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>格式化字符串(f-string)是以f或者F开头的字符串,其允许在字符串中嵌入表达式,这些表达式会在运行时被计算并替换为其结果.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name=<span class="string">&#x27;Alce&#x27;</span></span><br><span class="line">age=<span class="number">25</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;My name is <span class="subst">&#123;name&#125;</span>, I am <span class="subst">&#123;age&#125;</span> years old.&quot;</span>) <span class="comment"># My name is Alce, I am 25 years old.</span></span><br></pre></td></tr></table></figure>
+<p>其基本的用法如下:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 表达式</span></span><br><span class="line">a, b = <span class="number">5</span>, <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;a&#125;</span>+<span class="subst">&#123;b&#125;</span>=<span class="subst">&#123;a+b&#125;</span>&quot;</span>) <span class="comment"># 5+10=15</span></span><br><span class="line"><span class="comment"># 函数调用</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;pi=<span class="subst">&#123;math.pi:<span class="number">.2</span>f&#125;</span>&quot;</span>) <span class="comment"># pi=3.14,保留两位小数</span></span><br><span class="line"><span class="comment"># 格式化</span></span><br><span class="line">value = <span class="number">1234.56789</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.2</span>f&#125;</span>&quot;</span>)   <span class="comment"># 保留两位小数 → 1234.57</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">10.2</span>f&#125;</span>&quot;</span>) <span class="comment"># 宽度10，右对齐 → &quot;   1234.57&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:&lt;<span class="number">10.2</span>f&#125;</span>&quot;</span>)<span class="comment"># 宽度10，左对齐 → &quot;1234.57   &quot;</span></span><br><span class="line">ratio=<span class="number">0.456</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.1</span>%&#125;</span>&quot;</span>)<span class="comment"># 百分比格式 → 45.6%</span></span><br><span class="line"><span class="comment">#这里需要注意百分比格式的%和f是不能共存的</span></span><br><span class="line">num=<span class="number">42</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;num:05x&#125;</span>&quot;</span>) <span class="comment"># 十六进制格式 → 00042</span></span><br></pre></td></tr></table></figure>
+<p>其有几个特点需要注意:</p>
+<ol type="1">
+<li>f-string中可以嵌入任意的Python表达式,包括函数调用,算术运算,条件表达式等,但是尽量不要太复杂,否则会影响代码的可读性.</li>
+<li>大括号本身需要转义,可以使用双大括号来表示单个大括号.</li>
+<li>f-string本身是支持转义字符的,但是在表达式中不支持转义字符.</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Pratical Python for dabeaz-List, File and Functions</title>
-    <url>/2025/09/12/Dabeaz-Python-4/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
-<h3 id="5-List"><a href="#5-List" class="headerlink" title="5 List"></a>5 List</h3><p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
+    <url>/2025/09/12/Practical-Python-List/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h3 id="list">5 List</h3>
+<p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names=[<span class="string">&#x27;Elwood&#x27;</span>,<span class="string">&#x27;Jake&#x27;</span>,<span class="string">&#x27;Curtis&#x27;</span>]</span><br><span class="line">nums=[<span class="number">39</span>,<span class="number">38</span>,<span class="number">42</span>,<span class="number">65</span>,<span class="number">111</span>]</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 <p>我们通过input函数接收到的输入是字符串形式,我们可以用字符串的split方法将其转换为列表形式:</p>
@@ -5456,13 +5457,15 @@ re.X(re.VERBOSE)
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="built_in">sorted</span>(names,key=<span class="built_in">str</span>,reverse=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="built_in">print</span>(names)</span><br></pre></td></tr></table></figure>
 <p>这里我们需要指出的是列表是不支持数学运算的,因为他的加法被定义为拼接,乘法定义为重复.</p>
 <p><a id="org5172e51"></a></p>
-<h3 id="6-File-Management"><a href="#6-File-Management" class="headerlink" title="6 File Management"></a>6 File Management</h3><p>打开文件的语法:</p>
+<h3 id="file-management">6 File Management</h3>
+<p>打开文件的语法:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;foo.txt&#x27;</span>,<span class="string">&#x27;rt&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>open接受两个参数,第一个参数就是需要打开的文件位置,第二个参数表示以什么模式打开文件,r表示以只读方式,如果文件不存在,就会报错;w为以只写的方式打开,如果文件不存在,那就会创建一个新文件,如果文件存在就会覆盖原文件内容;a表示追加,并不会覆盖原文件内容,而是在文件的末尾追加内容;r+和w+都表示同时赋予读写权限,但区别在于r+不会覆盖原文件,而遇到文件不存在就会报错;而w+会覆盖原文件,但文件不存在会创建一个文件.rt中的t表示以文本模式读取文件的内容,默认都是文本模式读取,故可以省略;但如果我们希望以二进制方式读取那么就需要自己显式声明,用b表示.</p>
 <p>文件读取的语法:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data=f.read(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line">data=f.read()</span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
 <p>read方法会一次性读取到文件末尾,而read(n)则是读取n个字符.因此,我们的示例代码的意思是先读取两个字符并输出,然后再从第三个字符开始一直读取到最后再输出.如果我们将这两个读取函数换一下,那么第一次就会返回全部字符,第二次则是返回EOF.</p>
-<p>文件的关闭语法:<br>Python提供了一个手动的close方法,可以自己在程序中手动控制文件的关闭.</p>
+<p>文件的关闭语法:
+Python提供了一个手动的close方法,可以自己在程序中手动控制文件的关闭.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f.close()</span><br></pre></td></tr></table></figure>
 <p>但是在大项目中,同时打开多个文件,文件的关闭检查是一个十分困难的事情.因此python提供了with语句来简化了文件的关闭操作,他会在进入缩进代码块时打开文件,并在离开缩进代码块时自动关闭文件:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&#x27;rt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  statements</span><br></pre></td></tr></table></figure>
@@ -5472,7 +5475,8 @@ re.X(re.VERBOSE)
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  out.write(<span class="string">&#x27;Hello World\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>同时也可以利用输出重定向的方式来实现.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> out:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;Hello World&#x27;</span>,file=out)</span><br></pre></td></tr></table></figure>
-<h3 id="7-Functions"><a href="#7-Functions" class="headerlink" title="7 Functions"></a>7 Functions</h3><p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
+<h3 id="functions">7 Functions</h3>
+<p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun_name</span>:</span><br><span class="line">  statements</span><br><span class="line">  <span class="keyword">return</span> return_result</span><br></pre></td></tr></table></figure>
 <p>函数通过异常来报告错误,异常会导致函数中止;如果异常没有被处理,那么整个程序就会停止.为了调试目的,异常信息会描述发生了什么,错误发生的位置以及一个回溯信息,显示导致失败的其他函数调用.</p>
 <p>异常可以被捕捉和处理.捕捉异常可以使用try-except语句,</p>
