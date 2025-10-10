@@ -5783,6 +5783,7 @@ Python</a>.</p>
 <p>Python的赋值并非赋实际值,而是创建并赋值引用副本.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b=a</span><br><span class="line">c=[a,b]</span><br></pre></td></tr></table></figure>
 <p>这里我们设计了三个变量,但其实底层只有一个列表对象[1,2,3],有四个不同的引用指向他,如果我们修改其中任意一个量,都会导致所有引用的值变化.</p>
+<span id="more"></span>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">b.append(<span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(a) <span class="comment"># [1,2,3,4]</span></span><br><span class="line"><span class="built_in">print</span>(b) <span class="comment"># [1,2,3,4]</span></span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment"># [[1,2,3,4],[1,2,3,4]]</span></span><br></pre></td></tr></table></figure>
 <p>因此对于任意一个引用副本的变化都会导致全局引用副本的数值变化.因此这与其他的语言十分不同,需要牢记修改的谨慎性.由于赋值并不是赋实际值,而是赋引用副本.那么对变量的重新赋值并不会修改先前指向的内存结果,而只是修改引用指向的位置.</p>
 <p>is运算符可以用来判断两个变量是否对应相同的对象.其是通过比较对象身份的方式进行的,而对象身份则是用id()来获取.</p>
