@@ -4875,7 +4875,7 @@ umask.umask的值可以用shell的umask直接得到,本人所使用的是002,因
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
 Python</a>.</p>
-<h2 id="a-first-program">1 A First Program</h2>
+<h2 id="a-first-program">1.1 A First Program</h2>
 <p>在交互模式下,Python提供了下划线变量_,他会保存最后一个表达式的结果,例如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">37</span>*<span class="number">42</span></span><br><span class="line"><span class="number">1554</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_*<span class="number">2</span></span><br><span class="line"><span class="number">3108</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_+<span class="number">50</span></span><br><span class="line"><span class="number">3158</span></span><br></pre></td></tr></table></figure>
 <p>但这只在交互模式下有用,我们并不会在程序中使用.</p>
@@ -4905,7 +4905,7 @@ if:</p>
 <p>有时我们需要指定一个空代码块,用于if语句或者函数框架设计等,此时可以用pass关键字用来表示无操作语句.他并不会执行任何操作,只是一个占位符,可能用于后续代码的添加,例如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> a&gt;b:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a is less than or equal to b&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p><a id="orgecc21b8"></a></p>
-<h2 id="numbers">2 Numbers</h2>
+<h2 id="numbers">1.2 Numbers</h2>
 <p>Python有三种数字类型:bool,int,float和complex.这里值得注意的是,Python中并没有对浮点数进行进一步分类,而是归为了一类float,因此python中并没有float和double之分.</p>
 <p>bool类型可以与int和float类型进行混合运算,其结果类型仍与int和float相同,这相当于在运算过程中出现了隐式类型转换.在运算的过程中,True会被当做1,False会被当做0.</p>
 <p>在int和float类型对应的运算中,其有与C/C++类似但结果不同的运算符:</p>
@@ -4925,7 +4925,7 @@ not,并不是C中的&amp;&amp; || !.</p>
   <entry>
     <title>Pratical Python for dabeaz-Regular expression</title>
     <url>/2025/09/07/Practical-Python-Regular/</url>
-    <content><![CDATA[<h3 id="regular-expression">4 Regular Expression</h3>
+    <content><![CDATA[<h2 id="regular-expression">1.4 Regular Expression</h2>
 <p>在上一节中提到了Python可以利用字符串的find和index方法来查找字符串,但是这种方法只能查找固定的字符串,也就是精确查找.而我们在正常使用过程中模糊查找其实更为常见,例如查找所有以a开头,以b结尾的字符串,这就需要利用正则表达式来实现搜索.</p>
 <p>正则表达式的基本语法如下:</p>
 <span id="more"></span>
@@ -5366,7 +5366,7 @@ re.X(re.VERBOSE)
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
 Python</a>.</p>
-<h3 id="strings">3 Strings</h3>
+<h2 id="strings">1.3 Strings</h2>
 <p>Python与C/C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如:</p>
 <span id="more"></span>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single quote</span></span><br><span class="line">a=<span class="string">&#x27;Yeah but no but yeah but...&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Double quote</span></span><br><span class="line">b=<span class="string">&quot;Computer says no&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Triple quotes</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Look into my eyes, look into my eyes, the eyes, the eyes, the eyes,</span></span><br><span class="line"><span class="string">not around the eyes,</span></span><br><span class="line"><span class="string">don&#x27;t look around the eyes,</span></span><br><span class="line"><span class="string">look into my eyes, you&#x27;re under.</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
@@ -5435,7 +5435,7 @@ string)是以r或者R开头的字符串,其最大的特点在于字符串中的�
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
 Python</a>.</p>
-<h3 id="list">5 List</h3>
+<h2 id="list">1.5 List</h2>
 <p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names=[<span class="string">&#x27;Elwood&#x27;</span>,<span class="string">&#x27;Jake&#x27;</span>,<span class="string">&#x27;Curtis&#x27;</span>]</span><br><span class="line">nums=[<span class="number">39</span>,<span class="number">38</span>,<span class="number">42</span>,<span class="number">65</span>,<span class="number">111</span>]</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -5457,7 +5457,7 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="built_in">sorted</span>(names,key=<span class="built_in">str</span>,reverse=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="built_in">print</span>(names)</span><br></pre></td></tr></table></figure>
 <p>这里我们需要指出的是列表是不支持数学运算的,因为他的加法被定义为拼接,乘法定义为重复.</p>
 <p><a id="org5172e51"></a></p>
-<h3 id="file-management">6 File Management</h3>
+<h2 id="file-management">1.6 File Management</h2>
 <p>打开文件的语法:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;foo.txt&#x27;</span>,<span class="string">&#x27;rt&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>open接受两个参数,第一个参数就是需要打开的文件位置,第二个参数表示以什么模式打开文件,r表示以只读方式,如果文件不存在,就会报错;w为以只写的方式打开,如果文件不存在,那就会创建一个新文件,如果文件存在就会覆盖原文件内容;a表示追加,并不会覆盖原文件内容,而是在文件的末尾追加内容;r+和w+都表示同时赋予读写权限,但区别在于r+不会覆盖原文件,而遇到文件不存在就会报错;而w+会覆盖原文件,但文件不存在会创建一个文件.rt中的t表示以文本模式读取文件的内容,默认都是文本模式读取,故可以省略;但如果我们希望以二进制方式读取那么就需要自己显式声明,用b表示.</p>
@@ -5475,7 +5475,7 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  out.write(<span class="string">&#x27;Hello World\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>同时也可以利用输出重定向的方式来实现.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> out:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;Hello World&#x27;</span>,file=out)</span><br></pre></td></tr></table></figure>
-<h3 id="functions">7 Functions</h3>
+<h2 id="functions">1.7 Functions</h2>
 <p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun_name</span>:</span><br><span class="line">  statements</span><br><span class="line">  <span class="keyword">return</span> return_result</span><br></pre></td></tr></table></figure>
 <p>函数通过异常来报告错误,异常会导致函数中止;如果异常没有被处理,那么整个程序就会停止.为了调试目的,异常信息会描述发生了什么,错误发生的位置以及一个回溯信息,显示导致失败的其他函数调用.</p>
@@ -5486,6 +5486,51 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">raise</span> RuntimeError(<span class="string">&#x27;What a kerfuffle&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>这个异常同样会导致程序运行中断,也可以用try-except捕捉:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">&#x27;What a kerfuffle&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> RuntimeError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;异常处理完成&quot;</span>)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Practical-Python-Datatype</title>
+    <url>/2025/10/10/Practical-Python-Datatype/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="datatypes-and-data-structures">2.1 Datatypes and Data
+structures</h2>
+<p>None类型: None可选或缺失值的占位符.在条件语句中,认为是False.</p>
+<p>元组指的是一组值的组合,其利用如下的方式声明,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">49.1</span>)</span><br><span class="line">s=<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">49.1</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>()的存在对于定义元组并不是重要的,可以舍去.而我们还有如下两种特殊情况,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=() <span class="comment"># 0元组</span></span><br><span class="line">s=(<span class="string">&#x27;GooG&#x27;</span>,) <span class="comment"># 一元组</span></span><br><span class="line">s=<span class="string">&#x27;GOOG&#x27;</span>, </span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是一元组的声明是必须要有,在末尾的,否则会被视作基本数据类型.零元组的定义声明则必须要存在(),否则将无法区分语法错误和赋值.</p>
+<p>元组通常用于表示简单的记录或者结构.他是一个由多部分组成的单个对象,其包含的多个部分是允许具有不同的数据类型的.和列表一样,他也是一个有序集合,也就是他可以通过下标索引得到对应的值.但不同在于他无法修改元组内容,虽然我们可以通过当前元组去生成一个新元组的方式来覆盖原元组,但其与修改还是有执行逻辑上的差异.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=(s[<span class="number">0</span>],<span class="number">75</span>,s[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<p>我们可以认为元组是把几个相关对象打包成一个实体对象,这样的话,可以在函数调用之中同时传输几个相关对象.元组解包的方式则是利用左侧变量的赋值来获得,但要求左侧变量的数量与元组结构内的相匹配,至于类型则并不需要,因为Python的变量类型是可以通过程序自动调整的.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names,shares,prices=s</span><br></pre></td></tr></table></figure>
+<p>从我们上面的讨论中,元组可以被认为是只读列表,但一般而言,列表存放多个独立变量对象的数据集合,而元组则是描述一个不会改变的事物的属性.</p>
+<p>字典则是对于键与值的映射,所以其是键对的集合,这个与Hash表,关联数组十分类似,都可以通过键来访问对应的值.如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d=&#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;GOOG&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;share&#x27;</span>:<span class="number">100</span>,</span><br><span class="line">    <span class="string">&#x27;prices&#x27;</span>:<span class="number">470.10</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(d[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>与元组不可修改的性质不同,字典可以根据键名赋值的方式来修改或添加字典值,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s[<span class="string">&#x27;shares&#x27;</span>]+=<span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(s[<span class="string">&#x27;shares&#x27;</span>])</span><br><span class="line">s[<span class="string">&#x27;date&#x27;</span>]=<span class="string">&#x27;6/6/2024&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+<p>如果希望删除字典中的某个键对,我们可以利用del关键字来完成删除操作.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">del</span> s[<span class="string">&#x27;date&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure>
+<p>对于字典,有如下额外的操作</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">l=<span class="built_in">list</span>(d) <span class="comment"># 利用list()函数可以将字典的所有键提取成一个列表</span></span><br><span class="line"><span class="built_in">print</span>(l)</span><br></pre></td></tr></table></figure>
+<p>list函数会默认读取字典的键,换言之,字典其实有点像是某种意义的封装实体,外界访问字典仅可以通过其键来访问他的值,故而其读取会默认读取字典的键.所以从这个角度来看,如果利用for循环迭代访问字典,迭代的结果其实就是字典的key.</p>
+<p>字典提供了一个keys()方法来提取字典的键,其结果并不是常见的数据类型,而是dict_keys,他是一个关于字典键的动态视图.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">keys=d.keys()</span><br><span class="line"><span class="built_in">print</span>(keys)</span><br><span class="line"><span class="keyword">del</span> d[<span class="string">&#x27;account&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(keys)</span><br></pre></td></tr></table></figure>
+<p>这个动态视图的动态性指的是他可以同步更新对相关字典的改变,而不需要通过再赋值的方式来修改.同样,字典还提供了提取字典值的方法values,其结果类型是dict_values,他是关于字典值的动态视图.还提供了提取字典键值对的方法items,其结果类型是dict_items,他则是关于字典键值对的动态视图.
+如果我们存在一个已知的dict_items类型,可以利用dict函数直接生成一个字典.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d_item=d.items()</span><br><span class="line"><span class="built_in">print</span>(d_item)</span><br><span class="line">dnew=<span class="built_in">dict</span>(d_item)</span><br><span class="line"><span class="built_in">print</span>(dnew)</span><br></pre></td></tr></table></figure>
+<p>值得注意的是,这些东西只是提供了字典的某种动态视图,他并不支持下标访问也不支持修改,如果需要修改,那么需要修改原字典.</p>
+<p><a id="org3dadcbf"></a></p>
 ]]></content>
       <categories>
         <category>Python</category>
