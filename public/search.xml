@@ -5381,7 +5381,7 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello world&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s[<span class="number">0</span>]) <span class="comment"># H</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">1</span>]) <span class="comment"># d</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">5</span>]) <span class="comment"># w</span></span><br></pre></td></tr></table></figure>
 <p>Python也支持利用:指定字符串检索范围来作切片操作或者提取子字符串,若存在缺省指标,则默认为字符串的开头或者结尾,这里值得注意的是s[start:end]会包含start的索引,但不包含end:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d = s[:<span class="number">5</span>]     <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line">e = s[<span class="number">6</span>:]     <span class="comment"># &#x27;world&#x27;</span></span><br><span class="line">f = s[<span class="number">3</span>:<span class="number">8</span>]    <span class="comment"># &#x27;lo wo&#x27;</span></span><br><span class="line">g = s[-<span class="number">5</span>:]    <span class="comment"># &#x27;world&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in¬
+<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in/not
 in(检查子字符串是否在字符串中出现过)和*(重复字符串):</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Concatenation</span></span><br><span class="line">a=<span class="string">&#x27;Hello&#x27;</span>+<span class="string">&#x27;World&#x27;</span> <span class="comment"># &#x27;HelloWorld&#x27;</span></span><br><span class="line">b=<span class="string">&#x27;Say&#x27;</span>+a <span class="comment"># &#x27;SayHelloWorld&#x27;</span></span><br><span class="line"><span class="comment"># Length</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a)) <span class="comment"># 10</span></span><br><span class="line"><span class="comment"># Membership test(in/not in)</span></span><br><span class="line">t=<span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line">f=<span class="string">&#x27;x&#x27;</span> <span class="keyword">in</span> a <span class="comment"># False,bool类型</span></span><br><span class="line">g=<span class="string">&#x27;hi&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line"><span class="comment"># Replication(s*n)</span></span><br><span class="line">rep=a*<span class="number">2</span> <span class="comment"># &#x27;HelloWorldHelloWorld&#x27;,他主要是同一个字符串的重复,类似于a+a+...+a(n个a相加)</span></span><br></pre></td></tr></table></figure>
 <p>Python的字符串还有很多内置的方法,可以通过.来调用,例如:</p>
@@ -5496,7 +5496,7 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
       </tags>
   </entry>
   <entry>
-    <title>Practical-Python-Datatype</title>
+    <title>Pratical Python for dabeaz-Datatype</title>
     <url>/2025/10/10/Practical-Python-Datatype/</url>
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
@@ -5541,7 +5541,7 @@ structures</h2>
       </tags>
   </entry>
   <entry>
-    <title>Practical-Python-Container</title>
+    <title>Pratical Python for dabeaz-Container</title>
     <url>/2025/10/10/Practical-Python-Container/</url>
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
@@ -5611,7 +5611,7 @@ Python</a>.</p>
       </tags>
   </entry>
   <entry>
-    <title>Practical-Python-Collection</title>
+    <title>Pratical Python for dabeaz-Collection</title>
     <url>/2025/10/10/Practical-Python-Collection/</url>
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
@@ -5774,7 +5774,7 @@ d.clear()
       </tags>
   </entry>
   <entry>
-    <title>Practical-Python-Object</title>
+    <title>Pratical Python for dabeaz-Object</title>
     <url>/2025/10/10/Practical-Python-Object/</url>
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
@@ -5811,17 +5811,23 @@ Python</a>.</p>
       </tags>
   </entry>
   <entry>
-    <title>Practical-Python-Functions and Error</title>
+    <title>Pratical Python for dabeaz-Functions and Error</title>
     <url>/2025/10/21/Practical-Python-Functions/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
-<h2 id="3-1-Functions-and-Script-Writing"><a href="#3-1-Functions-and-Script-Writing" class="headerlink" title="3.1 Functions and Script Writing"></a>3.1 Functions and Script Writing</h2><p>Python的编程风格更推荐于使用由下向上的代码编写风格. 我们将函数视作程序的构建块,从较小的,较简单的函数开始编写,后面的函数将在先前函数的基础之上继续编写.</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="functions-and-script-writing">3.1 Functions and Script
+Writing</h2>
+<p>Python的编程风格更推荐于使用由下向上的代码编写风格.
+我们将函数视作程序的构建块,从较小的,较简单的函数开始编写,后面的函数将在先前函数的基础之上继续编写.</p>
 <p>在理想情况下,函数只对向函数输入的变量进行操作,避免对全局变量和未知的变量值变化带来的副作用.因此,构建函数的目的是模块化和可预测性.模块化是用来封装程序进程,从而利于程序编写和后期维护;可预测性,是为了避免函数造成一些未知的影响.</p>
 <span id="more"></span>
 <p>函数中的类型注释,其代码如下所示,</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">var_name:var_type</span>) -&gt; return_type:</span><br></pre></td></tr></table></figure>
 <p>这些提示并不会影响函数的作用,只是起一个注释效果,并且即使实际的输入输出类型与注释的不符,IDE或者编译器可能会警告,但并不会影响程序的执行.</p>
 <p><a id="org35ec0fa"></a></p>
-<h2 id="3-2-More-details-on-functions"><a href="#3-2-More-details-on-functions" class="headerlink" title="3.2 More details on functions"></a>3.2 More details on functions</h2><p>可以在函数参数里面设置一些默认值,那么这些值就是可选参数,使用函数时可以不对其赋值,这样的话,函数会自动调用默认值,但是前提是这些可选参数必须在参数列表的末尾.</p>
+<h2 id="more-details-on-functions">3.2 More details on functions</h2>
+<p>可以在函数参数里面设置一些默认值,那么这些值就是可选参数,使用函数时可以不对其赋值,这样的话,函数会自动调用默认值,但是前提是这些可选参数必须在参数列表的末尾.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">var1,var2,var3=init1,var4=init4</span>)</span><br></pre></td></tr></table></figure>
 <p>由于可选参数的存在,因此推荐参用关键字赋值的方式来传递函数参数,这样可以提高代码的清晰度和可读性.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fun(item1,item2,var3=item3)</span><br></pre></td></tr></table></figure>
@@ -5836,7 +5842,8 @@ Python</a>.</p>
 <p>事实上,如果修改值和重新分配变量名称是存在一些差异的;修改值可以直接利用自带方法就地修改,而如果重新通过设置同名局部变量赋值的方式,他并不会影响外层全局变量.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bar</span>(<span class="params">items</span>):</span><br><span class="line">    items=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">b=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">bar(b)</span><br><span class="line"><span class="built_in">print</span>(b) <span class="comment"># [1,2,3]</span></span><br></pre></td></tr></table></figure>
 <p><a id="org756e1b4"></a></p>
-<h2 id="3-3-Error-Checking"><a href="#3-3-Error-Checking" class="headerlink" title="3.3 Error Checking"></a>3.3 Error Checking</h2><p>Python不对函数参数类型或值执行类型检查或类型验证.函数将处理与函数语句兼容的数据类型.</p>
+<h2 id="error-checking">3.3 Error Checking</h2>
+<p>Python不对函数参数类型或值执行类型检查或类型验证.函数将处理与函数语句兼容的数据类型.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">return</span> a+b</span><br><span class="line">add(<span class="number">3</span>,<span class="number">4</span>) <span class="comment"># 7</span></span><br><span class="line">add(<span class="string">&#x27;Hello&#x27;</span>,<span class="string">&#x27; World&#x27;</span>) <span class="comment"># &#x27;Hello World&#x27;</span></span><br><span class="line">add(<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;4&#x27;</span>) <span class="comment"># &#x27;34&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>异常用于在程序发生错误的时候将错误信息发送给程序.除了程序本身运行中可能导致异常信息出现,也可以利用raise方式来手动引发异常.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(a,<span class="built_in">str</span>):</span><br><span class="line">        <span class="keyword">raise</span> RuntimeError(<span class="string">f&#x27;<span class="subst">&#123;a&#125;</span> is not right type&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
