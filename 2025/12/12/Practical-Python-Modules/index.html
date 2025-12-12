@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+<meta name="google-site-verification" content="yGZtoctpv_RvqHFSVUN8MfwIraR1EkJ8pEmc5Azxuss" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. 3.4 Modules模块可以认为是命名值的集合,换言之,模块其实和C++中的命名空间十分类似.模块中包含模块文件中定义的全局变量和定义的函数.当我们导入模块之后,如果需要调用模块中的命名值,只需要将模块名作为前缀调用即可. 在不同的模块中,是允许存在有相同名称的全局变量或函数的,对其调用如下所示 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pratical Python for dabeaz-Modules">
+<meta property="og:url" content="http://example.com/2025/12/12/Practical-Python-Modules/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. 3.4 Modules模块可以认为是命名值的集合,换言之,模块其实和C++中的命名空间十分类似.模块中包含模块文件中定义的全局变量和定义的函数.当我们导入模块之后,如果需要调用模块中的命名值,只需要将模块名作为前缀调用即可. 在不同的模块中,是允许存在有相同名称的全局变量或函数的,对其调用如下所示 12">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-12T07:58:08.000Z">
+<meta property="article:modified_time" content="2025-12-12T07:59:42.559Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/12/12/Practical-Python-Modules/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Pratical Python for dabeaz-Modules | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/12/Practical-Python-Modules/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pratical Python for dabeaz-Modules
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-12 15:58:08 / 修改时间：15:59:42" itemprop="dateCreated datePublished" datetime="2025-12-12T15:58:08+08:00">2025-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="3-4-Modules"><a href="#3-4-Modules" class="headerlink" title="3.4 Modules"></a>3.4 Modules</h2><p>模块可以认为是命名值的集合,换言之,模块其实和C++中的命名空间十分类似.模块中包含模块文件中定义的全局变量和定义的函数.当我们导入模块之后,如果需要调用模块中的命名值,只需要将模块名作为前缀调用即可. 在不同的模块中,是允许存在有相同名称的全局变量或函数的,对其调用如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># foo.py</span></span><br><span class="line">x=<span class="number">1</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># bar.py</span></span><br><span class="line">x=<span class="number">1</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bar</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> foo</span><br><span class="line"><span class="keyword">import</span> bar</span><br><span class="line"><span class="built_in">print</span>(foo.x)</span><br><span class="line"><span class="built_in">print</span>(bar.x)</span><br></pre></td></tr></table></figure>
+<p>因此,从上面的示例代码中,我们可以发现模块其实是互相独立的,所以模块其实可以做一些代码的命名上的隔离.但是上面我们导入模块的方式是利用import,如果我们采用下面的方式导入x,那他的隔离特性就会被我们破坏:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> foo <span class="keyword">import</span> x</span><br><span class="line"><span class="keyword">from</span> bar <span class="keyword">import</span> x</span><br></pre></td></tr></table></figure>
+<p>如果是这样的话,x只会是bar模块中的值,并不会出现前面的隔离情况.</p>
+<p>在程序导入模块的时候,模块的源文件会被完整执行到文件末尾.因此,如果源文件中存在某些全局范围下可执行的语句,在导入模块的同时这些语句会被执行.模块的命名空间中存储的是模块源文件中定义的全局变量以及函数文件.但是这里我们需要明确的一点是,这里存储的全局变量指的是在文件末尾的依然存在的全局变量,对于代码中间释放的全局变量则不会存储.</p>
+<p>导入模块的方式如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> modules <span class="comment"># 导入模块</span></span><br><span class="line"><span class="keyword">import</span> modules <span class="keyword">as</span> nickname <span class="comment"># 导入模块并重命名</span></span><br><span class="line"><span class="keyword">from</span> modules <span class="keyword">import</span> func <span class="comment"># 导入模块中的特定函数</span></span><br></pre></td></tr></table></figure>
+<p>这里有一些注意的点:模块只会在程序中导入一次,重复import相同的模块并不会重复执行模块的源代码,重复导入只会返回对之前加载模块的引用.因此,在jupyter或交互模式中,如果我们先导入了模块,再修改模块的代码,程序并不会做重复导入,我们需要重启解释器内核.</p>
+<p>Python中用sys.module来存储已经加载模块的字典,sys.path则是用来存储Python查找模块时的参考路径列表,值得注意的是当前工作目录总是最优先的.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="built_in">print</span>(sys.modules.keys()) <span class="comment"># 存储已经加载模块的键值</span></span><br><span class="line"><span class="built_in">print</span>(sys.path) <span class="comment"># 存储Python查找模块时的参考路径列表</span></span><br></pre></td></tr></table></figure>
+<p>这里的查找参考路径可能没有包含希望的模块,因为sys.path是一个列表,所以我们可以用append的方式把期待的路径添加进去.当然也可以通过环境变量的方式添加到搜索路径.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">&#x27;/project/foo/pyfiles&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>但一般来说并不推荐自己手动修改搜索路径,除非某些异常需要手动导入路径.</p>
+<p><a id="org741ec56"></a></p>
+<h2 id="3-5-Main-Module"><a href="#3-5-Main-Module" class="headerlink" title="3.5 Main Module"></a>3.5 Main Module</h2><p>Python和C/C++不同,他没有主函数或方法;但是Python具有主模块,主模块则是第一个运行的源文件.因此可以认为提供给Python解释器的文件就是主模块,在这个主模块文件调用的其他的模块则不是main模块.这里为了验证文件的调用形式,可以__name__来判断:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    statements</span><br></pre></td></tr></table></figure>
+<p>上面的代码表示如果文件以主模块文件的形式那他可以运行if条件的语句.如果不是以主模块文件的形式运行,那他的__name__变量为模块名.</p>
+<p>任意的源文件都可以以主模块或者库模块的形式运行或导入调用.模块的常用结构如下所示:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> module</span><br><span class="line">variable</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    statements</span><br></pre></td></tr></table></figure>
+<p>python不止可以利用IDE运行,也可以用命令行中调用解释器,所以和C/C++一样,python可以使用命令行参数,如下所示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python source.py</span><br><span class="line">python source.py data1.csv</span><br></pre></td></tr></table></figure>
+<p>python的命令行参数会以文本字符串的形式存储在sys.argv中.并且sys.argv的长度至少为1,因为他的第一个元素是希望运行的python源文件名.其余的参数会存储在sys.argv[i]中,其中i大于等于1.</p>
+<p>和C一样的,python的sys模块中也存储着输入输出和错误文件的变量,如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.stdout <span class="comment"># print输出的文件位置</span></span><br><span class="line">sys.stderr <span class="comment"># 错误和traceback输出的文件位置</span></span><br><span class="line">sys.stdin <span class="comment"># 输入文件的位置</span></span><br></pre></td></tr></table></figure>
+<p>同样,标准输入输出也可以通过重定向的方式来重新把输入输出的位置移动到期待的位置.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python prog.py &gt; text.txt</span><br><span class="line">cmd1|prog.py|cmd2</span><br></pre></td></tr></table></figure>
+<p>第一个语句会把prog.py的输出重新输出到text.txt上;第二个语句则是cmd1的输出会作为prog.py的输入,而prog.py的输出则会导出给cmd2.这里我们用prog.py直接可以运行,并没有调用解释器.这是因为我们在python文件的开头调用了#!命令,如下所示,</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /usr/bin/env python3</span></span><br></pre></td></tr></table></figure>
+<p>系统在读取到这一行指令的时候,会自动搜索用户环境变量中的python3解释器并调用.需要注意的是这个命令在Unix环境下生效,在Windows下效果并不是很好.而且这里如果希望可以让python源文件自动执行,在执行之前需要用chmod命令给他赋予可执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x source.py</span><br></pre></td></tr></table></figure>
+<p>对于命令行编译python文件,我们还可以手动修改命令行的环境变量.但这个并不是python的语法,而是shell语法.但对于某些需要移植的程序而言,是十分重要的,因此我们在此对他加以介绍.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setenv variable value</span><br><span class="line">setenv PATH /usr/local/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>第一条式子是设置环境变量的通用式,他只对当前shell进程和子进程生效,如果关闭了当前的shell进程,那么这些环境变量就会恢复默认值.第二个则是一个例子,我们发现他赋的值是并不是一个单独的值,而是在已有的PATH前面加上了一个环境,这里的:是用来分隔环境目录的,我们比较常用的就是在PATH前面加上一个值,如果把:放在$PATH后面那就是在已有的PATH后面加上一个环境.但这里我们不推荐使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenv PATH /usr/local/bin</span><br></pre></td></tr></table></figure>
+<p>这个语句会使得在这个shell里的环境变量被完全覆盖可能会有一些意想不到的错误.python中提供了一个字典来存储环境变量,如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ <span class="comment"># 字典</span></span><br></pre></td></tr></table></figure>
+<p>Python的程序退出除了正常运行完成,就是通过异常抛出的方式.给出如下的异常抛出方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">raise</span> SystemExit</span><br><span class="line"><span class="keyword">raise</span> SystemExit(exitcode)</span><br><span class="line"><span class="keyword">raise</span> SystemExit(<span class="string">&#x27;Information statements&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的exitcode只有零值的时候表示程序正常执行,对于非零值,都表示程序运行出错.除了通过raise抛出异常,还可以选择使用python的sys模块的exit方法实现.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.exit(code)</span><br></pre></td></tr></table></figure>
+<p><a id="org1832b0f"></a></p>
+<h2 id="3-6-Design-Discussion"><a href="#3-6-Design-Discussion" class="headerlink" title="3.6 Design Discussion"></a>3.6 Design Discussion</h2><p>本节有个比较有趣的程序的类型推断风格:鸭子类型.他一般用于动态语言或某些静态语言(Golang).静态语言的特点是在程序执行之前,代码编译时就可以知道所有变量的类型和方法返回值类型等.因为静态语言声明变量需要附带类型信息, 其是一块内存区域,</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">10</span>;</span><br><span class="line">    x=<span class="string">&quot;ss&quot;</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>例如上面这个代码在代码编译阶段就会报错.静态语言的优点是代码结构非常规范,便于调试,但有时候会显得很罗嗦.</p>
+<p>动态语言则是只有程序运行到这一行,程序才知道变量的类型.变量不需要在一开始声明变量的类型,本身也不会携带类型信息,他只与赋值的对象有关.其优点在于方便阅读,不需要写很多类型相关的代码,但其缺点在不方便调试,如果命名不规范容易出现阅读困难,不利于理解. 而鸭子类型指的是如果一个动物走起路来像鸭子,叫声也像鸭子,那么他就是鸭子.这样说来可能很抽象,其实鸭子类型就是动态类型语言的一种设计风格.一个对象的特征不是由父类决定,而是通过对象的方法决定.也就是我们并不关心对象的类型是什么样子的,我们只关心他的方法行为是什么结果.例如如下的代码,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">max</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">if</span> a&gt;b:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> b</span><br><span class="line"><span class="built_in">max</span>(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="built_in">max</span>(<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;3&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>上面的代码他都可以正确的比较整型和字符类型,对于这个函数而言,我们不关心输入的类型是什么,我们只关心是否能够运行,结果是否正确.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computer-Science/" rel="tag"># Computer Science</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/10/21/Practical-Python-Functions/" rel="prev" title="Pratical Python for dabeaz-Functions and Error">
+      <i class="fa fa-chevron-left"></i> Pratical Python for dabeaz-Functions and Error
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Modules"><span class="nav-number">1.</span> <span class="nav-text">3.4 Modules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-Main-Module"><span class="nav-number">2.</span> <span class="nav-text">3.5 Main Module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-Design-Discussion"><span class="nav-number">3.</span> <span class="nav-text">3.6 Design Discussion</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
