@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. 2.2 Container Python中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据. 我们先介绍集合的概念,其的赋值方式和字典十分类似,但是不同的是他只存储元素值,而字典存储键">
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. ContainerPython中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据. 我们先介绍集合的概念,其的赋值方式和字典十分类似,但是不同的是他只存储元素值,而字典存储键值对. 12s&#x3D;&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pratical Python for dabeaz-Container">
+<meta property="og:title" content="Pratical Python-Container">
 <meta property="og:url" content="http://example.com/2025/10/10/Practical-Python-Container/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. 2.2 Container Python中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据. 我们先介绍集合的概念,其的赋值方式和字典十分类似,但是不同的是他只存储元素值,而字典存储键">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. ContainerPython中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据. 我们先介绍集合的概念,其的赋值方式和字典十分类似,但是不同的是他只存储元素值,而字典存储键值对. 12s&#x3D;&amp;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-10T08:39:30.000Z">
-<meta property="article:modified_time" content="2025-12-04T12:29:09.190Z">
+<meta property="article:modified_time" content="2025-12-15T07:17:03.945Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Computer Science">
 <meta property="article:tag" content="Python">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>Pratical Python for dabeaz-Container | 还施水阁</title>
+  <title>Pratical Python-Container | 还施水阁</title>
   
 
 
@@ -216,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Pratical Python for dabeaz-Container
+          Pratical Python-Container
         </h1>
 
         <div class="post-meta">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-04 20:29:09" itemprop="dateModified" datetime="2025-12-04T20:29:09+08:00">2025-12-04</time>
+                <time title="修改时间：2025-12-15 15:17:03" itemprop="dateModified" datetime="2025-12-15T15:17:03+08:00">2025-12-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,11 +263,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="container">2.2 Container</h2>
-<p>Python中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据.</p>
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><p>Python中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据.</p>
 <p>我们先介绍集合的概念,其的赋值方式和字典十分类似,但是不同的是他只存储元素值,而字典存储键值对.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s=&#123;<span class="string">&#x27;IBM&#x27;</span>,<span class="string">&#x27;GOOG&#x27;</span>&#125; <span class="comment"># 集合赋值</span></span><br><span class="line">d=&#123;<span class="string">&#x27;IBM&#x27;</span>:<span class="number">90.1</span>,<span class="string">&#x27;GOOG&#x27;</span>:<span class="number">23.12</span>&#125; <span class="comment"># 字典赋值</span></span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -286,15 +283,14 @@ Python</a>.</p>
 <p>字典的键并不是强制要求是字符串,但要求其是不可变的,如元组;列表,集合和其他的字典都不可以作为字典的键.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">holiday=&#123;</span><br><span class="line">    (<span class="number">1</span>,<span class="number">3</span>):<span class="string">&#x27;New York&#x27;</span>,</span><br><span class="line">    (<span class="number">5</span>,<span class="number">6</span>):<span class="string">&#x27;Wuhan&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(holiday[<span class="number">1</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
 <p><a id="orgc8c4435"></a></p>
-<h2 id="sequence">2.3 Sequence</h2>
-<p>Python中给出了三种不同的序列类型:字符串,列表和元组.序列指有序的数据结构,因此他们可以按整数下标进行索引,同时可以获取其长度.</p>
+<h2 id="Sequence"><a href="#Sequence" class="headerlink" title="Sequence"></a>Sequence</h2><p>Python中给出了三种不同的序列类型:字符串,列表和元组.序列指有序的数据结构,因此他们可以按整数下标进行索引,同时可以获取其长度.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&#x27;Hello&#x27;</span> <span class="comment"># String</span></span><br><span class="line">b=[<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>] <span class="comment"># List</span></span><br><span class="line">c=(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">490.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Indexed order</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[-<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Length of sequence</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(b))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(c))</span><br></pre></td></tr></table></figure>
 <p>序列的基本操作:可以利用*来重复序列数据;+用来串联两个相同类型的序列数据,一定要是相同类型的,不同类型会报错</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a*<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(b*<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(c*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">a=(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">b=(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(a+b)</span><br></pre></td></tr></table></figure>
 <p>由于序列具有按下标索引的方式,因此序列可以做切片操作,从原序列中提取出子序列,其形式为s[start,end],其从s[start]一直提取到s[end-1].</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">9</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">2</span>:<span class="number">5</span>])</span><br><span class="line"><span class="built_in">print</span>(a[-<span class="number">5</span>:])</span><br><span class="line"><span class="built_in">print</span>(a[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
 <p>序列切片的注意点:</p>
-<ol type="1">
+<ol>
 <li>索引的开始和结束必须是整数</li>
 <li>切片提取的时候并不会提取尾值</li>
 <li>如果开始或结束有省略值,那么默认为序列开始或者末尾</li>
@@ -340,12 +336,12 @@ Python</a>.</p>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2025/10/10/Practical-Python-Datatype/" rel="prev" title="Pratical Python for dabeaz-Datatype">
-      <i class="fa fa-chevron-left"></i> Pratical Python for dabeaz-Datatype
+    <a href="/2025/10/10/Practical-Python-Datatype/" rel="prev" title="Pratical Python-Datatype">
+      <i class="fa fa-chevron-left"></i> Pratical Python-Datatype
     </a></div>
       <div class="post-nav-item">
-    <a href="/2025/10/10/Practical-Python-Collection/" rel="next" title="Pratical Python for dabeaz-Collection">
-      Pratical Python for dabeaz-Collection <i class="fa fa-chevron-right"></i>
+    <a href="/2025/10/10/Practical-Python-Collection/" rel="next" title="Pratical Python-Collection">
+      Pratical Python-Collection <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -405,7 +401,7 @@ Python</a>.</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#container"><span class="nav-number">1.</span> <span class="nav-text">2.2 Container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sequence"><span class="nav-number">2.</span> <span class="nav-text">2.3 Sequence</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Container"><span class="nav-number">1.</span> <span class="nav-text">Container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence"><span class="nav-number">2.</span> <span class="nav-text">Sequence</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -421,7 +417,7 @@ Python</a>.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

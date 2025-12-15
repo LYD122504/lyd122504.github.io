@@ -4870,13 +4870,10 @@ umask.umask的值可以用shell的umask直接得到,本人所使用的是002,因
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Introduction to Python</title>
+    <title>Pratical Python-Introduction to Python</title>
     <url>/2025/09/03/Practical-Python-Intro/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="a-first-program">1.1 A First Program</h2>
-<p>在交互模式下,Python提供了下划线变量_,他会保存最后一个表达式的结果,例如:</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="A-First-Program"><a href="#A-First-Program" class="headerlink" title="A First Program"></a>A First Program</h2><p>在交互模式下,Python提供了下划线变量_,他会保存最后一个表达式的结果,例如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">37</span>*<span class="number">42</span></span><br><span class="line"><span class="number">1554</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_*<span class="number">2</span></span><br><span class="line"><span class="number">3108</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_+<span class="number">50</span></span><br><span class="line"><span class="number">3158</span></span><br></pre></td></tr></table></figure>
 <p>但这只在交互模式下有用,我们并不会在程序中使用.</p>
 <span id="more"></span>
@@ -4886,8 +4883,7 @@ Python</a>.</p>
 <p>与C/C++不同,Python并不通过{}来表示代码块,而是通过代码的缩进来表示代码块,通常缩进4个空格,因此对于Python而言,代码的缩进并不是风格问题,而是语法的一部分.不同代码缩进表示不同的代码块,例如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> num_bills*bill_thickness&lt;sears_height:</span><br><span class="line">    <span class="built_in">print</span>(day,num_bills,num_bills*bill_thickness)</span><br><span class="line">    day=day+<span class="number">1</span> <span class="comment">#ERROR</span></span><br><span class="line">    num_bills=num_bills*<span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p>这样的话day=day+1就会报错,因为他并不在while循环的代码块内.反之如果day=day+1并不做缩进,那么他就不在while循环内,而是while循环后的第一条语句,因此day=day+1只会执行一次.</p>
-<p>Python的条件判断语句和C/C++类似,但是如果我们希望在if判断中检查多个条件,我们需要用elif来添加检查,而不是用else
-if:</p>
+<p>Python的条件判断语句和C/C++类似,但是如果我们希望在if判断中检查多个条件,我们需要用elif来添加检查,而不是用else if:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> a&gt;b:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a is greater than b&quot;</span>)</span><br><span class="line"><span class="keyword">elif</span> a==b:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a is equal to b&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a is less than b&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>Python中并不需要引入其他的包文件,就可以用print函数打印输出,并且print函数可以接受多个参数,并且会在参数间自动添加空格:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>,<span class="string">&quot;world!&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;The answer is&quot;</span>,<span class="number">42</span>)</span><br></pre></td></tr></table></figure>
@@ -4905,14 +4901,12 @@ if:</p>
 <p>有时我们需要指定一个空代码块,用于if语句或者函数框架设计等,此时可以用pass关键字用来表示无操作语句.他并不会执行任何操作,只是一个占位符,可能用于后续代码的添加,例如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> a&gt;b:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;a is less than or equal to b&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p><a id="orgecc21b8"></a></p>
-<h2 id="numbers">1.2 Numbers</h2>
-<p>Python有三种数字类型:bool,int,float和complex.这里值得注意的是,Python中并没有对浮点数进行进一步分类,而是归为了一类float,因此python中并没有float和double之分.</p>
+<h2 id="Numbers"><a href="#Numbers" class="headerlink" title="Numbers"></a>Numbers</h2><p>Python有三种数字类型:bool,int,float和complex.这里值得注意的是,Python中并没有对浮点数进行进一步分类,而是归为了一类float,因此python中并没有float和double之分.</p>
 <p>bool类型可以与int和float类型进行混合运算,其结果类型仍与int和float相同,这相当于在运算过程中出现了隐式类型转换.在运算的过程中,True会被当做1,False会被当做0.</p>
 <p>在int和float类型对应的运算中,其有与C/C++类似但结果不同的运算符:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>/<span class="number">2</span> <span class="comment"># 其结果为2.5,与C/C++的除法依赖于两侧操作数不同,python的/就是普通除法,无论两端操作数的类型,其结果都是float</span></span><br><span class="line"><span class="number">5</span>//<span class="number">2</span> <span class="comment">#其结果为2,这其实相当于C/C++的整数除法,但是要求两端操作数均为整数时,其结果类型才为int</span></span><br><span class="line"><span class="number">5.0</span>//<span class="number">2</span> <span class="comment">#其结果为2.0,两端操作数只要有一个为float时,其结果类型为float</span></span><br><span class="line"><span class="number">3</span>**<span class="number">2</span> <span class="comment">#其结果为9,其就是C/C++的power函数,只不过power函数要求两个量均为double类型,而**则允许有整数</span></span><br></pre></td></tr></table></figure>
 <p>同样与C/C++一样,int也是有位运算的,并且float由于浮点数存储方式的差异并没有位运算.</p>
-<p>与C/C++一样,Python也具有与或非三类逻辑运算符,但Python的运算符是and or
-not,并不是C中的&amp;&amp; || !.</p>
+<p>与C/C++一样,Python也具有与或非三类逻辑运算符,但Python的运算符是and or not,并不是C中的&amp;&amp; || !.</p>
 ]]></content>
       <categories>
         <category>Python</category>
@@ -4923,378 +4917,280 @@ not,并不是C中的&amp;&amp; || !.</p>
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Regular expression</title>
+    <title>Pratical Python-Regular expression</title>
     <url>/2025/09/07/Practical-Python-Regular/</url>
-    <content><![CDATA[<h2 id="regular-expression">1.4 Regular Expression</h2>
-<p>在上一节中提到了Python可以利用字符串的find和index方法来查找字符串,但是这种方法只能查找固定的字符串,也就是精确查找.而我们在正常使用过程中模糊查找其实更为常见,例如查找所有以a开头,以b结尾的字符串,这就需要利用正则表达式来实现搜索.</p>
+    <content><![CDATA[<h2 id="Regular-Expression"><a href="#Regular-Expression" class="headerlink" title="Regular Expression"></a>Regular Expression</h2><p>在上一节中提到了Python可以利用字符串的find和index方法来查找字符串,但是这种方法只能查找固定的字符串,也就是精确查找.而我们在正常使用过程中模糊查找其实更为常见,例如查找所有以a开头,以b结尾的字符串,这就需要利用正则表达式来实现搜索.</p>
 <p>正则表达式的基本语法如下:</p>
 <span id="more"></span>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
 <colgroup>
 <col  class="org-left" />
+
 <col  class="org-left" />
+
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">
-符号
-</th>
-<th scope="col" class="org-left">
-含义
-</th>
-<th scope="col" class="org-left">
-示例
-</th>
+<th scope="col" class="org-left">符号</th>
+<th scope="col" class="org-left">含义</th>
+<th scope="col" class="org-left">示例</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-left">
-.
-</td>
-<td class="org-left">
-匹配除换行符外的任意单个字符
-</td>
-<td class="org-left">
-a.b匹配开头为a,结尾为b的连续三个字符
-</td>
+<td class="org-left">.</td>
+<td class="org-left">匹配除换行符外的任意单个字符</td>
+<td class="org-left">a.b匹配开头为a,结尾为b的连续三个字符</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-^
-</td>
-<td class="org-left">
-匹配字符串的开头
-</td>
-<td class="org-left">
-^abc匹配以abc开头的字符串
-</td>
+<td class="org-left">\^</td>
+<td class="org-left">匹配字符串的开头</td>
+<td class="org-left">^abc匹配以abc开头的字符串</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-$
-</td>
-<td class="org-left">
-匹配字符串的结尾
-</td>
-<td class="org-left">
-$abc匹配以abc结尾的字符串
-</td>
+<td class="org-left">\$</td>
+<td class="org-left">匹配字符串的结尾</td>
+<td class="org-left">$abc匹配以abc结尾的字符串</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-[]
-</td>
-<td class="org-left">
-定义字符集合,匹配其中任意一个字符
-</td>
-<td class="org-left">
-[aeiou]匹配任意一个原因字母
-</td>
+<td class="org-left">[]</td>
+<td class="org-left">定义字符集合,匹配其中任意一个字符</td>
+<td class="org-left">[aeiou]匹配任意一个原因字母</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-[^]
-</td>
-<td class="org-left">
-定义字符集合,匹配不在其中任意的一个字符
-</td>
-<td class="org-left">
-[^0-9]匹配任意非数字字符
-</td>
+<td class="org-left">[^]</td>
+<td class="org-left">定义字符集合,匹配不在其中任意的一个字符</td>
+<td class="org-left">[^0-9]匹配任意非数字字符</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
--
-</td>
-<td class="org-left">
-字符类中表示范围
-</td>
-<td class="org-left">
-[a-z]匹配任意小写字母
-</td>
+<td class="org-left">-</td>
+<td class="org-left">字符类中表示范围</td>
+<td class="org-left">[a-z]匹配任意小写字母</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-*
-</td>
-<td class="org-left">
-匹配前面的子表达式零次或多次
-</td>
-<td class="org-left">
-a*e匹配开头有且仅有0个或多个a,结尾为e的字符
-</td>
+<td class="org-left">\*</td>
+<td class="org-left">匹配前面的子表达式零次或多次</td>
+<td class="org-left">a*e匹配开头有且仅有0个或多个a,结尾为e的字符</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-+
-</td>
-<td class="org-left">
-匹配前面的子表达式一次或多次
-</td>
-<td class="org-left">
-a+e匹配开头有且仅有1个或多个a,结尾为e的字符
-</td>
+<td class="org-left">+</td>
+<td class="org-left">匹配前面的子表达式一次或多次</td>
+<td class="org-left">a+e匹配开头有且仅有1个或多个a,结尾为e的字符</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-?
-</td>
-<td class="org-left">
-匹配前面的子表达式零次或者一次
-</td>
-<td class="org-left">
-colou?r匹配color和colour
-</td>
+<td class="org-left">?</td>
+<td class="org-left">匹配前面的子表达式零次或者一次</td>
+<td class="org-left">colou?r匹配color和colour</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-{n}
-</td>
-<td class="org-left">
-精确匹配前面的子表达式n次
-</td>
-<td class="org-left">
-da{3}e匹配daaae
-</td>
+<td class="org-left">{n}</td>
+<td class="org-left">精确匹配前面的子表达式n次</td>
+<td class="org-left">da{3}e匹配daaae</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-{n,}
-</td>
-<td class="org-left">
-至少匹配前面的子表达式n次
-</td>
-<td class="org-left">
-da{2,}e匹配daae,daaae等
-</td>
+<td class="org-left">{n,}</td>
+<td class="org-left">至少匹配前面的子表达式n次</td>
+<td class="org-left">da{2,}e匹配daae,daaae等</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-{n,m}
-</td>
-<td class="org-left">
-匹配前面的子表达式n次到m次
-</td>
-<td class="org-left">
-a{2,4}匹配aa,aaa,aaaa
-</td>
+<td class="org-left">{n,m}</td>
+<td class="org-left">匹配前面的子表达式n次到m次</td>
+<td class="org-left">a{2,4}匹配aa,aaa,aaaa</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-()
-</td>
-<td class="org-left">
-定义子表达式或捕获组
-</td>
-<td class="org-left">
-(ab)+匹配ab,abab等
-</td>
+<td class="org-left">()</td>
+<td class="org-left">定义子表达式或捕获组</td>
+<td class="org-left">(ab)+匹配ab,abab等</td>
 </tr>
 </tbody>
 </table>
+
 <p>正则表达式里的特殊字符如果需要作为普通字符使用,则需要在其前面加上反斜杠\进行转义,如:</p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
 <colgroup>
 <col  class="org-left" />
+
 <col  class="org-left" />
+
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">
-符号
-</th>
-<th scope="col" class="org-left">
-含义
-</th>
-<th scope="col" class="org-left">
-等价符号
-</th>
+<th scope="col" class="org-left">符号</th>
+<th scope="col" class="org-left">含义</th>
+<th scope="col" class="org-left">等价符号</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-left">
-​d
-</td>
-<td class="org-left">
-匹配任意数字
-</td>
-<td class="org-left">
-等价于[0-9]
-</td>
+<td class="org-left">\​d</td>
+<td class="org-left">匹配任意数字</td>
+<td class="org-left">等价于[0-9]</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-​D
-</td>
-<td class="org-left">
-匹配任意非数字
-</td>
-<td class="org-left">
-等价于[^0-9]
-</td>
+<td class="org-left">\​D</td>
+<td class="org-left">匹配任意非数字</td>
+<td class="org-left">等价于[^0-9]</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-​w
-</td>
-<td class="org-left">
-匹配任意单词字符(字母,数字,下划线)
-</td>
-<td class="org-left">
-[a-zA-Z0-9_]
-</td>
+<td class="org-left">\​w</td>
+<td class="org-left">匹配任意单词字符(字母,数字,下划线)</td>
+<td class="org-left">[a-zA-Z0-9_]</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-​W
-</td>
-<td class="org-left">
-匹配任意非单词字符(字母,数字,下划线)
-</td>
-<td class="org-left">
-[^a-zA-Z0-9_]
-</td>
+<td class="org-left">\​W</td>
+<td class="org-left">匹配任意非单词字符(字母,数字,下划线)</td>
+<td class="org-left">[^a-zA-Z0-9_]</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-​s
-</td>
-<td class="org-left">
-匹配任意空白字符(空格,制表符,换行符)
-</td>
-<td class="org-left">
-[ ​t​n]
-</td>
+<td class="org-left">\​s</td>
+<td class="org-left">匹配任意空白字符(空格,制表符,换行符)</td>
+<td class="org-left">[ \​t\​n]</td>
 </tr>
+
 <tr>
-<td class="org-left">
-​S
-</td>
-<td class="org-left">
-匹配任意非空白字符(空格,制表符,换行符)
-</td>
-<td class="org-left">
-[^ ​t ​n]
-</td>
+<td class="org-left">\​S</td>
+<td class="org-left">匹配任意非空白字符(空格,制表符,换行符)</td>
+<td class="org-left">[^ \​t \​n]</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-​b
-</td>
-<td class="org-left">
-边界匹配符,如果在左边出现要求是开头,右边则是结尾,同时出现则精确匹配
-</td>
-<td class="org-left">
-^,$,""
-</td>
+<td class="org-left">\​b</td>
+<td class="org-left">边界匹配符,如果在左边出现要求是开头,右边则是结尾,同时出现则精确匹配</td>
+<td class="org-left">^,$,""</td>
 </tr>
 </tbody>
 </table>
+
 <p>这里我们对前面提到的正则表达式的基本语法进行一些补充说明:</p>
-<ol type="1">
+<ol>
 <li><p>*,+,?和{n,m}这些量词都是贪婪的也就是他会尽可能多的匹配字符,如下:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">text=<span class="string">&quot;&lt;div&gt;abc&lt;/div&gt;&lt;div&gt;def&lt;/div&gt;&quot;</span></span><br><span class="line">re.findall(<span class="string">r&quot;&lt;div&gt;.*&lt;/div&gt;&quot;</span>,text) <span class="comment"># [&#x27;&lt;div&gt;abc&lt;/div&gt;&lt;div&gt;def&lt;/div&gt;&#x27;]</span></span><br></pre></td></tr></table></figure>
-<p>这里的.*会尽可能多的匹配字符,直到最后一个</p>
-</div>
-<p>为止.如果想让其变为非贪婪模式,则可以在量词后面加上?,如下:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非贪婪模式</span></span><br><span class="line">re.findall(<span class="string">r&quot;&lt;div&gt;.*?&lt;/div&gt;&quot;</span>, text)</span><br><span class="line"><span class="comment"># 结果: [&#x27;&lt;div&gt;abc&lt;/div&gt;&#x27;, &#x27;&lt;div&gt;def&lt;/div&gt;&#x27;]</span></span><br></pre></td></tr></table></figure></li>
+<p>这里的.*会尽可能多的匹配字符,直到最后一个&lt;/div&gt;为止.如果想让其变为非贪婪模式,则可以在量词后面加上?,如下:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非贪婪模式</span></span><br><span class="line">re.findall(<span class="string">r&quot;&lt;div&gt;.*?&lt;/div&gt;&quot;</span>, text)</span><br><span class="line"><span class="comment"># 结果: [&#x27;&lt;div&gt;abc&lt;/div&gt;&#x27;, &#x27;&lt;div&gt;def&lt;/div&gt;&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>匹配开头或者结尾的时候只写了部分模式,这并不会匹配整个字符串,而是匹配字符串的开头或者结尾部分,如下:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">re.findall(<span class="string">r&quot;^abc&quot;</span>, <span class="string">&quot;abcdef&quot;</span>) <span class="comment"># [&#x27;abc&#x27;]</span></span><br><span class="line">re.findall(<span class="string">r&quot;def$&quot;</span>, <span class="string">&quot;abcdef&quot;</span>) <span class="comment"># [&#x27;def&#x27;]</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">re.findall(<span class="string">r&quot;^abc&quot;</span>, <span class="string">&quot;abcdef&quot;</span>) <span class="comment"># [&#x27;abc&#x27;]</span></span><br><span class="line">re.findall(<span class="string">r&quot;def$&quot;</span>, <span class="string">&quot;abcdef&quot;</span>) <span class="comment"># [&#x27;def&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>忘记了对特殊字符做转义</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">re.findall(<span class="string">r&quot;d&#123;3&#125;.txt&quot;</span>,<span class="string">&quot;dddktxt&quot;</span>) <span class="comment"># [&#x27;dddktxt&#x27;]</span></span><br></pre></td></tr></table></figure></li>
-<li><p>字符集和字符分组混用错误:[abc]可以匹配单个字符'a','b'和'c';而(abc)匹配整个字符串"abc".</p></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">re.findall(<span class="string">r&quot;d&#123;3&#125;.txt&quot;</span>,<span class="string">&quot;dddktxt&quot;</span>) <span class="comment"># [&#x27;dddktxt&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符集和字符分组混用错误:[abc]可以匹配单个字符’a’,’b’和’c’;而(abc)匹配整个字符串”abc”.</p>
+</li>
 </ol>
 <p>re模块是Python标准库中用于正则表达式操作的模块,提供查找,匹配,替换,分组等功能.re模块的基本函数为</p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
 <colgroup>
 <col  class="org-left" />
+
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">
-函数
-</th>
-<th scope="col" class="org-left">
-作用
-</th>
+<th scope="col" class="org-left">函数</th>
+<th scope="col" class="org-left">作用</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-left">
-re.match(pattern,string)
-</td>
-<td class="org-left">
-从字符串开头匹配
-</td>
+<td class="org-left">re.match(pattern,string)</td>
+<td class="org-left">从字符串开头匹配</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.search(pattern,string)
-</td>
-<td class="org-left">
-搜索整个字符串,找到第一个匹配
-</td>
+<td class="org-left">re.search(pattern,string)</td>
+<td class="org-left">搜索整个字符串,找到第一个匹配</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.findall(pattern,string)
-</td>
-<td class="org-left">
-返回所有匹配的字符串列表
-</td>
+<td class="org-left">re.findall(pattern,string)</td>
+<td class="org-left">返回所有匹配的字符串列表</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.finditer(pattern,string)
-</td>
-<td class="org-left">
-返回迭代器,每个元素是Match对象
-</td>
+<td class="org-left">re.finditer(pattern,string)</td>
+<td class="org-left">返回迭代器,每个元素是Match对象</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.fullmatch(pattern,string)
-</td>
-<td class="org-left">
-整个字符串必须完全匹配
-</td>
+<td class="org-left">re.fullmatch(pattern,string)</td>
+<td class="org-left">整个字符串必须完全匹配</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.split(pattern,string)
-</td>
-<td class="org-left">
-按模式分割字符串
-</td>
+<td class="org-left">re.split(pattern,string)</td>
+<td class="org-left">按模式分割字符串</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.sub(pattern,repl,string)
-</td>
-<td class="org-left">
-替换匹配的部分
-</td>
+<td class="org-left">re.sub(pattern,repl,string)</td>
+<td class="org-left">替换匹配的部分</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.subn(pattern,repl,string)
-</td>
-<td class="org-left">
-返回(替换后字符串,替换次数)
-</td>
+<td class="org-left">re.subn(pattern,repl,string)</td>
+<td class="org-left">返回(替换后字符串,替换次数)</td>
 </tr>
 </tbody>
 </table>
+
 <p>返回的match对象的常用属性:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">m=re.search(<span class="string">r&quot;\d+&quot;</span>,<span class="string">&quot;abc123def&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(m.group()) <span class="comment"># 返回匹配的字符串&quot;123&quot;</span></span><br><span class="line"><span class="built_in">print</span>(m.start()) <span class="comment"># 返回匹配子串的起始索引,3</span></span><br><span class="line"><span class="built_in">print</span>(m.end()) <span class="comment"># 返回匹配子串的结束索引,6</span></span><br><span class="line"><span class="built_in">print</span>(m.span()) <span class="comment"># 返回(start,end),(3,6)</span></span><br></pre></td></tr></table></figure>
 <p>re模块提供了一个编译模式,可以提高后续使用相同的正则表达式的运行效率.re.compile的作用会将一个正则表达式编译成一个正则对象,后续可以重复使用这个对象来匹配字符串.这样的好处是</p>
-<ol type="1">
+<ol>
 <li>复用性强,不需要每次都写pattern,直接使用正则对象的方法.</li>
 <li>效率更高,编译过的正则对象会缓存,特别是同一个模式需要多次匹配时,具有更高的性能</li>
 </ol>
@@ -5302,55 +5198,47 @@ re.subn(pattern,repl,string)
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="comment"># re.compile的基本语法;pattern为正则表达式字符串,flags则是表示匹配模式</span></span><br><span class="line">regex=re.<span class="built_in">compile</span>(pattern,flags=<span class="number">0</span>)</span><br><span class="line">pattern=re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+&quot;</span>)</span><br><span class="line">text=<span class="string">&quot;Order123, Item456, Code789&quot;</span></span><br><span class="line"><span class="built_in">print</span>(pattern.findall(text))</span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> pattern.finditer(text):</span><br><span class="line">    <span class="built_in">print</span>(m.group(),m.span())</span><br></pre></td></tr></table></figure>
 <p>上面提到了re.compile的标准语法中存在一个flags变量,实际上re的每个函数都有这个变量,在此介绍flags变量的值及其作用:</p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
 <colgroup>
 <col  class="org-left" />
+
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">
-FLAGS
-</th>
-<th scope="col" class="org-left">
-作用
-</th>
+<th scope="col" class="org-left">FLAGS</th>
+<th scope="col" class="org-left">作用</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-left">
-re.I(re.IGNORECASE)
-</td>
-<td class="org-left">
-忽略大小写,匹配时不区分大小写
-</td>
+<td class="org-left">re.I(re.IGNORECASE)</td>
+<td class="org-left">忽略大小写,匹配时不区分大小写</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.M(re.MULTILINE)
-</td>
-<td class="org-left">
-让^和$作用于每一行的开头和结尾,默认仅匹配整个字符串的开头结尾
-</td>
+<td class="org-left">re.M(re.MULTILINE)</td>
+<td class="org-left">让^和$作用于每一行的开头和结尾,默认仅匹配整个字符串的开头结尾</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.S(re.DOTALL)
-</td>
-<td class="org-left">
-默认.不匹配换行,开启后可以匹配换行
-</td>
+<td class="org-left">re.S(re.DOTALL)</td>
+<td class="org-left">默认.不匹配换行,开启后可以匹配换行</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-re.X(re.VERBOSE)
-</td>
-<td class="org-left">
-正则里可以加空格和注释，提高可读性
-</td>
+<td class="org-left">re.X(re.VERBOSE)</td>
+<td class="org-left">正则里可以加空格和注释，提高可读性</td>
 </tr>
 </tbody>
 </table>
+
 ]]></content>
       <categories>
         <category>Python</category>
@@ -5361,13 +5249,10 @@ re.X(re.VERBOSE)
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Strings</title>
+    <title>Pratical Python-Strings</title>
     <url>/2025/09/03/Practical-Python-String/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="strings">1.3 Strings</h2>
-<p>Python与C/C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如:</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h2><p>Python与C/C++不同在于他并没有char类型,因此对于Python的字符串而言,他可以用单引号或者双引号来引导字符串.Python的字符串通常只能传入单行,遇到换行符会报错;但可以通过三引号来表示多行字符串,例如:</p>
 <span id="more"></span>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single quote</span></span><br><span class="line">a=<span class="string">&#x27;Yeah but no but yeah but...&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Double quote</span></span><br><span class="line">b=<span class="string">&quot;Computer says no&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Triple quotes</span></span><br><span class="line">c = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Look into my eyes, look into my eyes, the eyes, the eyes, the eyes,</span></span><br><span class="line"><span class="string">not around the eyes,</span></span><br><span class="line"><span class="string">don&#x27;t look around the eyes,</span></span><br><span class="line"><span class="string">look into my eyes, you&#x27;re under.</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
 <p>但我们前面提到的多行注释也可以用三引号表示,这是因为Python其实并没有多行注释的专用符号,我们通过三引号引导的多行字符串对程序进行解释,但不做赋值操作,程序会阅读后并不保存相关数据,也就认为其可用于注释.其次我们用三引号引导的字符串做注释的时候,如果其出现在函数,模块或者类的开头,那么其会被认作是该代码的文本字符串,我们可以通过.__doc__属性或者help函数来查看:</p>
@@ -5381,41 +5266,40 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello world&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s[<span class="number">0</span>]) <span class="comment"># H</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">1</span>]) <span class="comment"># d</span></span><br><span class="line"><span class="built_in">print</span>(s[-<span class="number">5</span>]) <span class="comment"># w</span></span><br></pre></td></tr></table></figure>
 <p>Python也支持利用:指定字符串检索范围来作切片操作或者提取子字符串,若存在缺省指标,则默认为字符串的开头或者结尾,这里值得注意的是s[start:end]会包含start的索引,但不包含end:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d = s[:<span class="number">5</span>]     <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line">e = s[<span class="number">6</span>:]     <span class="comment"># &#x27;world&#x27;</span></span><br><span class="line">f = s[<span class="number">3</span>:<span class="number">8</span>]    <span class="comment"># &#x27;lo wo&#x27;</span></span><br><span class="line">g = s[-<span class="number">5</span>:]    <span class="comment"># &#x27;world&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in/not
-in(检查子字符串是否在字符串中出现过)和*(重复字符串):</p>
+<p>Python的字符串操作有+(链接两个字符串),len(求字符串长度),in/not in(检查子字符串是否在字符串中出现过)和*(重复字符串):</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Concatenation</span></span><br><span class="line">a=<span class="string">&#x27;Hello&#x27;</span>+<span class="string">&#x27;World&#x27;</span> <span class="comment"># &#x27;HelloWorld&#x27;</span></span><br><span class="line">b=<span class="string">&#x27;Say&#x27;</span>+a <span class="comment"># &#x27;SayHelloWorld&#x27;</span></span><br><span class="line"><span class="comment"># Length</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a)) <span class="comment"># 10</span></span><br><span class="line"><span class="comment"># Membership test(in/not in)</span></span><br><span class="line">t=<span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line">f=<span class="string">&#x27;x&#x27;</span> <span class="keyword">in</span> a <span class="comment"># False,bool类型</span></span><br><span class="line">g=<span class="string">&#x27;hi&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> a <span class="comment"># True,bool类型</span></span><br><span class="line"><span class="comment"># Replication(s*n)</span></span><br><span class="line">rep=a*<span class="number">2</span> <span class="comment"># &#x27;HelloWorldHelloWorld&#x27;,他主要是同一个字符串的重复,类似于a+a+...+a(n个a相加)</span></span><br></pre></td></tr></table></figure>
 <p>Python的字符串还有很多内置的方法,可以通过.来调用,例如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s.endswith(suffix)     <span class="comment"># 检查字符串后缀是否为suffix,如果有则返回True,否则返回False</span></span><br><span class="line">s.find(t)              <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.index(t)             <span class="comment"># 在字符串s中查找字符串t第一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.join(slist)          <span class="comment"># 以字符串s作为分隔符,将字符列表的所有元素连接成一个新的字符串</span></span><br><span class="line">s.replace(old,new)     <span class="comment"># 替换字符串s中所有old子字符串为new子字符串,返回一个新的字符串</span></span><br><span class="line">s.rfind(t)             <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回-1</span></span><br><span class="line">s.rindex(t)            <span class="comment"># 从字符串s的末尾开始查找字符串t最后一次出现的位置,如果找不到返回异常ValueError</span></span><br><span class="line">s.split([delim])       <span class="comment"># 以delim为分隔符切片s,如果不指定delim,则以空白字符(空格,换行,制表符等)为分隔符</span></span><br><span class="line">s.startswith(prefix)   <span class="comment"># 检查字符串前缀是否为prefix,如果有则返回True,否则返回False</span></span><br><span class="line">s.strip()              <span class="comment"># 删除字符串s两端的空白字符(空格,换行,制表符等),返回一个新的字符串</span></span><br></pre></td></tr></table></figure>
 <p>值得注意的是,Python的字符串是不可改变的,也就是我们不能通过索引赋值和方法来修改已有的字符串,只能通过对整体的重新赋值来改变字符串的值,如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;  Hello   &#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.strip()) <span class="comment"># &#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s) <span class="comment"># &#x27;  Hello   &#x27;,原字符串并没有改变</span></span><br></pre></td></tr></table></figure>
 <p>对于上面罗列的方法,我们需要指出以下几点:</p>
-<ol type="1">
+<ol>
 <li>join方法中传入的slist一定要是一个字符串列表,否则会报错.</li>
 <li>find和index方法的作用其实一样,但是唯一的不同在于find返回的是-1,而index会报出异常.因此在不确定子字符串是否存在的情况下,建议使用index方法.</li>
 <li>在replace方法中,如果old子字符串在s中不存在,他并不会报错,返回的值仍然是原字符串s.</li>
 </ol>
 <p>Python在普通的字符串之外还提供几类特殊的字符串,如字节字符串,原始字符串和格式化字符串.</p>
-<p>字节字符串(byte
-string)是以b或者B开头的字符串,其是以字节为单位进行存储的,每个元素默认是0-255之间的整数,适合处理二进制数据,网络传输或者文件I/O等操作.他和普通字符串最大的区别在于,在Python3中,普通字符串依靠Unicode编码,每个字符可以是汉字,英文或者特殊符号等;而字节字符串并不依赖编码规则,而是直接存储字节,因为计算机中存储的最小单元就是字节,所以字节字符串可以存储更多类型的内容,如视频,音频等等.</p>
+<p>字节字符串(byte string)是以b或者B开头的字符串,其是以字节为单位进行存储的,每个元素默认是0-255之间的整数,适合处理二进制数据,网络传输或者文件I/O等操作.他和普通字符串最大的区别在于,在Python3中,普通字符串依靠Unicode编码,每个字符可以是汉字,英文或者特殊符号等;而字节字符串并不依赖编码规则,而是直接存储字节,因为计算机中存储的最小单元就是字节,所以字节字符串可以存储更多类型的内容,如视频,音频等等.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bstr=<span class="string">b&#x27;Hello&#x27;</span> <span class="comment"># 字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">0</span>]) <span class="comment"># 72,字节字符串的每个元素是0-255之间的整数</span></span><br><span class="line"><span class="built_in">print</span>(bstr[<span class="number">1</span>:<span class="number">4</span>]) <span class="comment"># b&#x27;ell&#x27;,字节字符串的切片操作返回的仍然是字节字符串</span></span><br></pre></td></tr></table></figure>
 <p>字节字符串并不能与普通字符串进行链接,否则会报类型错误;可以用索引访问每个字节,但是如果访问的是一个元素,返回的是字节对应的整数值,如果访问的是一个切片,返回的则是字节字符串.字节字符串和普通字符串之间可以通过encode和decode方法进行转换,如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">bstr=s.encode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 普通字符串转换为字节字符串</span></span><br><span class="line"><span class="built_in">print</span>(bstr) <span class="comment"># b&#x27;Hello&#x27;</span></span><br><span class="line">s2=bstr.decode(<span class="string">&#x27;utf-8&#x27;</span>) <span class="comment"># 字节字符串转换为普通字符串</span></span><br><span class="line"><span class="built_in">print</span>(s2) <span class="comment"># &#x27;Hello&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>这里的utf-8表示编码格式,当然也可以使用其他编码格式,如ascii,latin1等.</p>
-<p>原始字符串(raw
-string)是以r或者R开头的字符串,其最大的特点在于字符串中的转义字符并不会被处理,换言之,他不会处理字符串中出现的\和其后面的字符,而是将其作为普通字符进行存储.如:</p>
+<p>原始字符串(raw string)是以r或者R开头的字符串,其最大的特点在于字符串中的转义字符并不会被处理,换言之,他不会处理字符串中出现的\和其后面的字符,而是将其作为普通字符进行存储.如:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rs=<span class="string">r&#x27;C:\newfolder\test.txt&#x27;</span> <span class="comment"># 原始字符串</span></span><br><span class="line"><span class="built_in">print</span>(rs) <span class="comment"># C:\newfolder\test.txt</span></span><br></pre></td></tr></table></figure>
 <p>字符串是括号内包围的原始文本,与输入完全一致.这在反斜杠具有特殊意义的情况下很有用.例如:文件名,正则表达式等.原始字符串有如下的特点需要注意:</p>
-<ol type="1">
-<li><p>原始字符串不能以奇数个反斜杠结尾,因为这样最后一个反斜杠就不会有任何字符与之配对,会自动匹配引号,从而导致字符串没有结束符而报错.</p></li>
+<ol>
+<li><p>原始字符串不能以奇数个反斜杠结尾,因为这样最后一个反斜杠就不会有任何字符与之配对,会自动匹配引号,从而导致字符串没有结束符而报错.</p>
+</li>
 <li><p>字符串前的r/R只影响转义,不会影响字符串内容的其他特性.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">r&#x27;C:\path\to\file\\&#x27;</span> <span class="comment"># 正确,以偶数个反斜杠结尾</span></span><br><span class="line"><span class="string">r&#x27;C:\path\to\file\&#x27; # 错误,以奇数个反斜杠结尾,会报错</span></span><br><span class="line"><span class="string">len(r&#x27;</span>Hello\nWorld<span class="string">&#x27;) # 12,原始字符串中的\n不会被处理为换行符</span></span><br><span class="line"><span class="string">len(&#x27;</span>Hello\nWorld<span class="string">&#x27;) # 11,普通字符串中的\n被处理为换行符 </span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">r&#x27;C:\path\to\file\\&#x27;</span> <span class="comment"># 正确,以偶数个反斜杠结尾</span></span><br><span class="line"><span class="string">r&#x27;C:\path\to\file\&#x27; # 错误,以奇数个反斜杠结尾,会报错</span></span><br><span class="line"><span class="string">len(r&#x27;</span>Hello\nWorld<span class="string">&#x27;) # 12,原始字符串中的\n不会被处理为换行符</span></span><br><span class="line"><span class="string">len(&#x27;</span>Hello\nWorld<span class="string">&#x27;) # 11,普通字符串中的\n被处理为换行符 </span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>格式化字符串(f-string)是以f或者F开头的字符串,其允许在字符串中嵌入表达式,这些表达式会在运行时被计算并替换为其结果.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name=<span class="string">&#x27;Alce&#x27;</span></span><br><span class="line">age=<span class="number">25</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;My name is <span class="subst">&#123;name&#125;</span>, I am <span class="subst">&#123;age&#125;</span> years old.&quot;</span>) <span class="comment"># My name is Alce, I am 25 years old.</span></span><br></pre></td></tr></table></figure>
 <p>其基本的用法如下:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 表达式</span></span><br><span class="line">a, b = <span class="number">5</span>, <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;a&#125;</span>+<span class="subst">&#123;b&#125;</span>=<span class="subst">&#123;a+b&#125;</span>&quot;</span>) <span class="comment"># 5+10=15</span></span><br><span class="line"><span class="comment"># 函数调用</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;pi=<span class="subst">&#123;math.pi:<span class="number">.2</span>f&#125;</span>&quot;</span>) <span class="comment"># pi=3.14,保留两位小数</span></span><br><span class="line"><span class="comment"># 格式化</span></span><br><span class="line">value = <span class="number">1234.56789</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.2</span>f&#125;</span>&quot;</span>)   <span class="comment"># 保留两位小数 → 1234.57</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">10.2</span>f&#125;</span>&quot;</span>) <span class="comment"># 宽度10，右对齐 → &quot;   1234.57&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:&lt;<span class="number">10.2</span>f&#125;</span>&quot;</span>)<span class="comment"># 宽度10，左对齐 → &quot;1234.57   &quot;</span></span><br><span class="line">ratio=<span class="number">0.456</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;value:<span class="number">.1</span>%&#125;</span>&quot;</span>)<span class="comment"># 百分比格式 → 45.6%</span></span><br><span class="line"><span class="comment">#这里需要注意百分比格式的%和f是不能共存的</span></span><br><span class="line">num=<span class="number">42</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;num:05x&#125;</span>&quot;</span>) <span class="comment"># 十六进制格式 → 00042</span></span><br></pre></td></tr></table></figure>
 <p>其有几个特点需要注意:</p>
-<ol type="1">
+<ol>
 <li>f-string中可以嵌入任意的Python表达式,包括函数调用,算术运算,条件表达式等,但是尽量不要太复杂,否则会影响代码的可读性.</li>
 <li>大括号本身需要转义,可以使用双大括号来表示单个大括号.</li>
 <li>f-string本身是支持转义字符的,但是在表达式中不支持转义字符.</li>
@@ -5430,13 +5314,10 @@ string)是以r或者R开头的字符串,其最大的特点在于字符串中的�
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-List, File and Functions</title>
+    <title>Pratical Python-List, File and Functions</title>
     <url>/2025/09/12/Practical-Python-List/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="list">1.5 List</h2>
-<p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names=[<span class="string">&#x27;Elwood&#x27;</span>,<span class="string">&#x27;Jake&#x27;</span>,<span class="string">&#x27;Curtis&#x27;</span>]</span><br><span class="line">nums=[<span class="number">39</span>,<span class="number">38</span>,<span class="number">42</span>,<span class="number">65</span>,<span class="number">111</span>]</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 <p>我们通过input函数接收到的输入是字符串形式,我们可以用字符串的split方法将其转换为列表形式:</p>
@@ -5457,15 +5338,13 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="built_in">sorted</span>(names,key=<span class="built_in">str</span>,reverse=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="built_in">print</span>(names)</span><br></pre></td></tr></table></figure>
 <p>这里我们需要指出的是列表是不支持数学运算的,因为他的加法被定义为拼接,乘法定义为重复.</p>
 <p><a id="org5172e51"></a></p>
-<h2 id="file-management">1.6 File Management</h2>
-<p>打开文件的语法:</p>
+<h2 id="File-Management"><a href="#File-Management" class="headerlink" title="File Management"></a>File Management</h2><p>打开文件的语法:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;foo.txt&#x27;</span>,<span class="string">&#x27;rt&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>open接受两个参数,第一个参数就是需要打开的文件位置,第二个参数表示以什么模式打开文件,r表示以只读方式,如果文件不存在,就会报错;w为以只写的方式打开,如果文件不存在,那就会创建一个新文件,如果文件存在就会覆盖原文件内容;a表示追加,并不会覆盖原文件内容,而是在文件的末尾追加内容;r+和w+都表示同时赋予读写权限,但区别在于r+不会覆盖原文件,而遇到文件不存在就会报错;而w+会覆盖原文件,但文件不存在会创建一个文件.rt中的t表示以文本模式读取文件的内容,默认都是文本模式读取,故可以省略;但如果我们希望以二进制方式读取那么就需要自己显式声明,用b表示.</p>
 <p>文件读取的语法:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data=f.read(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line">data=f.read()</span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
 <p>read方法会一次性读取到文件末尾,而read(n)则是读取n个字符.因此,我们的示例代码的意思是先读取两个字符并输出,然后再从第三个字符开始一直读取到最后再输出.如果我们将这两个读取函数换一下,那么第一次就会返回全部字符,第二次则是返回EOF.</p>
-<p>文件的关闭语法:
-Python提供了一个手动的close方法,可以自己在程序中手动控制文件的关闭.</p>
+<p>文件的关闭语法:<br>Python提供了一个手动的close方法,可以自己在程序中手动控制文件的关闭.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f.close()</span><br></pre></td></tr></table></figure>
 <p>但是在大项目中,同时打开多个文件,文件的关闭检查是一个十分困难的事情.因此python提供了with语句来简化了文件的关闭操作,他会在进入缩进代码块时打开文件,并在离开缩进代码块时自动关闭文件:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&#x27;rt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  statements</span><br></pre></td></tr></table></figure>
@@ -5475,8 +5354,7 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  out.write(<span class="string">&#x27;Hello World\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>同时也可以利用输出重定向的方式来实现.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> out:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;Hello World&#x27;</span>,file=out)</span><br></pre></td></tr></table></figure>
-<h2 id="functions">1.7 Functions</h2>
-<p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun_name</span>:</span><br><span class="line">  statements</span><br><span class="line">  <span class="keyword">return</span> return_result</span><br></pre></td></tr></table></figure>
 <p>函数通过异常来报告错误,异常会导致函数中止;如果异常没有被处理,那么整个程序就会停止.为了调试目的,异常信息会描述发生了什么,错误发生的位置以及一个回溯信息,显示导致失败的其他函数调用.</p>
 <p>异常可以被捕捉和处理.捕捉异常可以使用try-except语句,</p>
@@ -5496,14 +5374,10 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Datatype</title>
+    <title>Pratical Python-Datatype</title>
     <url>/2025/10/10/Practical-Python-Datatype/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="datatypes-and-data-structures">2.1 Datatypes and Data
-structures</h2>
-<p>None类型: None可选或缺失值的占位符.在条件语句中,认为是False.</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Datatypes-and-Data-structures"><a href="#Datatypes-and-Data-structures" class="headerlink" title="Datatypes and Data structures"></a>Datatypes and Data structures</h2><p>None类型: None可选或缺失值的占位符.在条件语句中,认为是False.</p>
 <p>元组指的是一组值的组合,其利用如下的方式声明,</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">49.1</span>)</span><br><span class="line">s=<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">49.1</span></span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -5526,8 +5400,7 @@ structures</h2>
 <p>list函数会默认读取字典的键,换言之,字典其实有点像是某种意义的封装实体,外界访问字典仅可以通过其键来访问他的值,故而其读取会默认读取字典的键.所以从这个角度来看,如果利用for循环迭代访问字典,迭代的结果其实就是字典的key.</p>
 <p>字典提供了一个keys()方法来提取字典的键,其结果并不是常见的数据类型,而是dict_keys,他是一个关于字典键的动态视图.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">keys=d.keys()</span><br><span class="line"><span class="built_in">print</span>(keys)</span><br><span class="line"><span class="keyword">del</span> d[<span class="string">&#x27;account&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(keys)</span><br></pre></td></tr></table></figure>
-<p>这个动态视图的动态性指的是他可以同步更新对相关字典的改变,而不需要通过再赋值的方式来修改.同样,字典还提供了提取字典值的方法values,其结果类型是dict_values,他是关于字典值的动态视图.还提供了提取字典键值对的方法items,其结果类型是dict_items,他则是关于字典键值对的动态视图.
-如果我们存在一个已知的dict_items类型,可以利用dict函数直接生成一个字典.</p>
+<p>这个动态视图的动态性指的是他可以同步更新对相关字典的改变,而不需要通过再赋值的方式来修改.同样,字典还提供了提取字典值的方法values,其结果类型是dict_values,他是关于字典值的动态视图.还提供了提取字典键值对的方法items,其结果类型是dict_items,他则是关于字典键值对的动态视图. 如果我们存在一个已知的dict_items类型,可以利用dict函数直接生成一个字典.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d_item=d.items()</span><br><span class="line"><span class="built_in">print</span>(d_item)</span><br><span class="line">dnew=<span class="built_in">dict</span>(d_item)</span><br><span class="line"><span class="built_in">print</span>(dnew)</span><br></pre></td></tr></table></figure>
 <p>值得注意的是,这些东西只是提供了字典的某种动态视图,他并不支持下标访问也不支持修改,如果需要修改,那么需要修改原字典.</p>
 <p><a id="org3dadcbf"></a></p>
@@ -5541,13 +5414,10 @@ structures</h2>
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Container</title>
+    <title>Pratical Python-Container</title>
     <url>/2025/10/10/Practical-Python-Container/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="container">2.2 Container</h2>
-<p>Python中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据.</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><p>Python中提供了存储多个对象的容器,主要为列表,字典或集合.列表一般用于存储有序数据;字典则是用于存储无需数据;集合则是与字典类似,但其用于存储无序且不允许重复元素的数据.</p>
 <p>我们先介绍集合的概念,其的赋值方式和字典十分类似,但是不同的是他只存储元素值,而字典存储键值对.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=&#123;<span class="string">&#x27;IBM&#x27;</span>,<span class="string">&#x27;GOOG&#x27;</span>&#125; <span class="comment"># 集合赋值</span></span><br><span class="line">d=&#123;<span class="string">&#x27;IBM&#x27;</span>:<span class="number">90.1</span>,<span class="string">&#x27;GOOG&#x27;</span>:<span class="number">23.12</span>&#125; <span class="comment"># 字典赋值</span></span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -5566,15 +5436,14 @@ Python</a>.</p>
 <p>字典的键并不是强制要求是字符串,但要求其是不可变的,如元组;列表,集合和其他的字典都不可以作为字典的键.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">holiday=&#123;</span><br><span class="line">    (<span class="number">1</span>,<span class="number">3</span>):<span class="string">&#x27;New York&#x27;</span>,</span><br><span class="line">    (<span class="number">5</span>,<span class="number">6</span>):<span class="string">&#x27;Wuhan&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(holiday[<span class="number">1</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
 <p><a id="orgc8c4435"></a></p>
-<h2 id="sequence">2.3 Sequence</h2>
-<p>Python中给出了三种不同的序列类型:字符串,列表和元组.序列指有序的数据结构,因此他们可以按整数下标进行索引,同时可以获取其长度.</p>
+<h2 id="Sequence"><a href="#Sequence" class="headerlink" title="Sequence"></a>Sequence</h2><p>Python中给出了三种不同的序列类型:字符串,列表和元组.序列指有序的数据结构,因此他们可以按整数下标进行索引,同时可以获取其长度.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="string">&#x27;Hello&#x27;</span> <span class="comment"># String</span></span><br><span class="line">b=[<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>] <span class="comment"># List</span></span><br><span class="line">c=(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">490.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Indexed order</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[-<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Length of sequence</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(b))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(c))</span><br></pre></td></tr></table></figure>
 <p>序列的基本操作:可以利用*来重复序列数据;+用来串联两个相同类型的序列数据,一定要是相同类型的,不同类型会报错</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(a*<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(b*<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(c*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">a=(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">b=(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(a+b)</span><br></pre></td></tr></table></figure>
 <p>由于序列具有按下标索引的方式,因此序列可以做切片操作,从原序列中提取出子序列,其形式为s[start,end],其从s[start]一直提取到s[end-1].</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">9</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">2</span>:<span class="number">5</span>])</span><br><span class="line"><span class="built_in">print</span>(a[-<span class="number">5</span>:])</span><br><span class="line"><span class="built_in">print</span>(a[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
 <p>序列切片的注意点:</p>
-<ol type="1">
+<ol>
 <li>索引的开始和结束必须是整数</li>
 <li>切片提取的时候并不会提取尾值</li>
 <li>如果开始或结束有省略值,那么默认为序列开始或者末尾</li>
@@ -5611,13 +5480,10 @@ Python</a>.</p>
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Collection</title>
+    <title>Pratical Python-Collection</title>
     <url>/2025/10/10/Practical-Python-Collection/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="collection-module">2.4 Collection module</h2>
-<p>collection模块提供了一些用于数据处理的对象.如Counter计数器,defaultdict和deque等.在此我们只介绍这三个对象.</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Collection-module"><a href="#Collection-module" class="headerlink" title="Collection module"></a>Collection module</h2><p>collection模块提供了一些用于数据处理的对象.如Counter计数器,defaultdict和deque等.在此我们只介绍这三个对象.</p>
 <p>Counter其实是字典的一个子类,他与普通的字典的区别在于,他的键为待计数的元素,他的值为计数值或其余相关的数据;因此他的值虽然是计数值,但实际上是允许出现0或者负值的.此外,如果我们在字典中查找一个不存在的键,那么会返回一个KeyError异常,而如果对于Counter类查找一个不存在的键,他并不会报错,并且返回0,同时创建一个新键值对,计数值设为0.</p>
 <span id="more"></span>
 <p>Counter常见的实例化方法如下:</p>
@@ -5627,139 +5493,108 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(d.most_common(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
 <p>普通的字典是一对一的映射,也就是一个键只能对应一个值;我们可以利用的defaultdict来完成一对多的映射,其基本语法为</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line">d=defaultdict(default_factory)</span><br></pre></td></tr></table></figure>
-<p>这里的default_factory是一个可调用对象(比如int,list,set,str),用于生成默认值.如果在defaultdict中查找一个不存在的键,他并不会报错,而是依据可调用对象的方式生成一个默认值.例如int对应的默认值为0,list对应的默认值为[],set对应的默认值为set(),str对应的默认值为''.因此他的一对多映射由如下形式定义:</p>
+<p>这里的default_factory是一个可调用对象(比如int,list,set,str),用于生成默认值.如果在defaultdict中查找一个不存在的键,他并不会报错,而是依据可调用对象的方式生成一个默认值.例如int对应的默认值为0,list对应的默认值为[],set对应的默认值为set(),str对应的默认值为’’.因此他的一对多映射由如下形式定义:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line">d=default(<span class="built_in">list</span>)</span><br><span class="line">d=[<span class="string">&#x27;x&#x27;</span>].append(<span class="number">10</span>)</span><br><span class="line">d=[<span class="string">&#x27;x&#x27;</span>].append(<span class="number">20</span>)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br></pre></td></tr></table></figure>
 <p>deque是双端队列,因此他的队列两端的插入删除操作时间复杂度为O(1).当然可以把他当做stack或者queue使用,只需要调用输入输出方法的时候控制两端的输入输出.其基本语法为:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">d=deque(iterable=<span class="literal">None</span>,maxlen=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 <p>其中的iterable表示可以输入一个可迭代对象,用来初始化队列;maxlen表示双端队列的最大长度,如果超过了这个长度,那么就从另一端弹出元素.队列常用的操作如下</p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
 <colgroup>
 <col  class="org-left" />
+
 <col  class="org-left" />
+
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">
-方法
-</th>
-<th scope="col" class="org-left">
-功能
-</th>
-<th scope="col" class="org-left">
-示例
-</th>
+<th scope="col" class="org-left">方法</th>
+<th scope="col" class="org-left">功能</th>
+<th scope="col" class="org-left">示例</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-left">
-append(x)
-</td>
-<td class="org-left">
-在右端添加元素
-</td>
-<td class="org-left">
-d.append(i)
-</td>
+<td class="org-left">append(x)</td>
+<td class="org-left">在右端添加元素</td>
+<td class="org-left">d.append(i)</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-appendleft(x)
-</td>
-<td class="org-left">
-在左端添加元素
-</td>
-<td class="org-left">
-d.appendleft(i)
-</td>
+<td class="org-left">appendleft(x)</td>
+<td class="org-left">在左端添加元素</td>
+<td class="org-left">d.appendleft(i)</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-pop()
-</td>
-<td class="org-left">
-弹出右端元素
-</td>
-<td class="org-left">
-d.pop()
-</td>
+<td class="org-left">pop()</td>
+<td class="org-left">弹出右端元素</td>
+<td class="org-left">d.pop()</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-popleft()
-</td>
-<td class="org-left">
-弹出左端元素
-</td>
-<td class="org-left">
-d.popleft()
-</td>
+<td class="org-left">popleft()</td>
+<td class="org-left">弹出左端元素</td>
+<td class="org-left">d.popleft()</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-extend(iterable)
-</td>
-<td class="org-left">
-在右端批量添加元素
-</td>
-<td class="org-left">
-d.extend([3,4])
-</td>
+<td class="org-left">extend(iterable)</td>
+<td class="org-left">在右端批量添加元素</td>
+<td class="org-left">d.extend([3,4])</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-extendleft(iterable)
-</td>
-<td class="org-left">
-在左端批量添加元素(顺序反转)
-</td>
-<td class="org-left">
-d.extendleft([1,2])
-</td>
+<td class="org-left">extendleft(iterable)</td>
+<td class="org-left">在左端批量添加元素(顺序反转)</td>
+<td class="org-left">d.extendleft([1,2])</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-rotate(n)
-</td>
-<td class="org-left">
-向右旋转n步(负数向左)
-</td>
-<td class="org-left">
-d.rotate(1)
-</td>
+<td class="org-left">rotate(n)</td>
+<td class="org-left">向右旋转n步(负数向左)</td>
+<td class="org-left">d.rotate(1)</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-clear()
-</td>
-<td class="org-left">
-清空队列
-</td>
-<td class="org-left">
-d.clear()
-</td>
+<td class="org-left">clear()</td>
+<td class="org-left">清空队列</td>
+<td class="org-left">d.clear()</td>
 </tr>
 </tbody>
 </table>
+
 <p>这里需要强调的是关于extendleft和rotate的应用,我们用下面的示例代码来演示:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># extendleft</span></span><br><span class="line">d=deque([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">d.extendleft([<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="built_in">print</span>(d) <span class="comment"># deque([6,5,1,2,3,4])</span></span><br><span class="line"><span class="comment"># rotate</span></span><br><span class="line">d = deque([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">d.rotate(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(d)  <span class="comment"># deque([4, 1, 2, 3])</span></span><br><span class="line">d.rotate(-<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(d)  <span class="comment"># deque([2, 3, 4, 1])</span></span><br></pre></td></tr></table></figure>
 <p><a id="org97dfeb8"></a></p>
-<h2 id="list-comprehensions">2.5 List Comprehensions</h2>
-<p>列表推导式其实就是循环的一种高效写法,他可以视作将操作应用到序列中的每个元素来创建列表.</p>
+<h2 id="List-Comprehensions"><a href="#List-Comprehensions" class="headerlink" title="List Comprehensions"></a>List Comprehensions</h2><p>列表推导式其实就是循环的一种高效写法,他可以视作将操作应用到序列中的每个元素来创建列表.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">square=[s*s <span class="keyword">for</span> s <span class="keyword">in</span> x] <span class="comment"># 计算x每个元素的平方</span></span><br></pre></td></tr></table></figure>
 <p>不仅如此,还可以通过加if条件判断语句来过滤一些元素,如</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x=[<span class="number">1</span>,-<span class="number">2</span>,<span class="number">3</span>,-<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">square=[s*s <span class="keyword">for</span> s <span class="keyword">in</span> x <span class="keyword">if</span> s&gt;<span class="number">0</span>] <span class="comment"># 计算x中每个正元素的平方</span></span><br></pre></td></tr></table></figure>
 <p>因此列表推导式的通用格式如下:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[&lt;expression&gt; <span class="keyword">for</span> &lt;variable_name&gt; <span class="keyword">in</span> &lt;sequence&gt; <span class="keyword">if</span> &lt;condition&gt;]</span><br></pre></td></tr></table></figure>
 <p>比较常见的应用如下:</p>
-<ol type="1">
+<ol>
 <li><p>通过列表推导式收集特定的字典的值.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names=[stu[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names=[stu[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes]</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>可以执行类似数据库的查找操作</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">height_name=[stu[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes <span class="keyword">if</span> (stu[<span class="string">&#x27;height&#x27;</span>]&gt;<span class="number">170</span>)&amp;&amp;(stu[<span class="string">&#x27;height&#x27;</span>]&lt;<span class="number">180</span>)]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">height_name=[stu[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes <span class="keyword">if</span> (stu[<span class="string">&#x27;height&#x27;</span>]&gt;<span class="number">170</span>)&amp;&amp;(stu[<span class="string">&#x27;height&#x27;</span>]&lt;<span class="number">180</span>)]</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>可以同时执行列表函数操作</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">total=<span class="built_in">sum</span>([stu[<span class="string">&#x27;scores&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes])</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">total=<span class="built_in">sum</span>([stu[<span class="string">&#x27;scores&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes])</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>类似与列表推导式,其实还存在如集合推导式和字典推导式,在这快速介绍一下,集合推导式的作用其实是可以用来去除一下重复的元素,字典推导式则是在集合推导式的基础上指定键值对映射.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names=&#123;stu[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes&#125;</span><br><span class="line">names_score=&#123;stu[<span class="string">&#x27;name&#x27;</span>]:stu[<span class="string">&#x27;scores&#x27;</span>] <span class="keyword">for</span> stu <span class="keyword">in</span> classes&#125;</span><br></pre></td></tr></table></figure>
@@ -5774,13 +5609,10 @@ d.clear()
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Object</title>
+    <title>Pratical Python-Object</title>
     <url>/2025/10/10/Practical-Python-Object/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="objects">2.6 Objects</h2>
-<p>Python的赋值并非赋实际值,而是创建并赋值引用副本.</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><p>Python的赋值并非赋实际值,而是创建并赋值引用副本.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b=a</span><br><span class="line">c=[a,b]</span><br></pre></td></tr></table></figure>
 <p>这里我们设计了三个变量,但其实底层只有一个列表对象[1,2,3],有四个不同的引用指向他,如果我们修改其中任意一个量,都会导致所有引用的值变化.</p>
 <span id="more"></span>
@@ -5811,23 +5643,17 @@ Python</a>.</p>
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Functions and Error</title>
+    <title>Pratical Python-Functions and Error</title>
     <url>/2025/10/21/Practical-Python-Functions/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="functions-and-script-writing">3.1 Functions and Script
-Writing</h2>
-<p>Python的编程风格更推荐于使用由下向上的代码编写风格.
-我们将函数视作程序的构建块,从较小的,较简单的函数开始编写,后面的函数将在先前函数的基础之上继续编写.</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Functions-and-Script-Writing"><a href="#Functions-and-Script-Writing" class="headerlink" title="Functions and Script Writing"></a>Functions and Script Writing</h2><p>Python的编程风格更推荐于使用由下向上的代码编写风格. 我们将函数视作程序的构建块,从较小的,较简单的函数开始编写,后面的函数将在先前函数的基础之上继续编写.</p>
 <p>在理想情况下,函数只对向函数输入的变量进行操作,避免对全局变量和未知的变量值变化带来的副作用.因此,构建函数的目的是模块化和可预测性.模块化是用来封装程序进程,从而利于程序编写和后期维护;可预测性,是为了避免函数造成一些未知的影响.</p>
 <span id="more"></span>
 <p>函数中的类型注释,其代码如下所示,</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">var_name:var_type</span>) -&gt; return_type:</span><br></pre></td></tr></table></figure>
 <p>这些提示并不会影响函数的作用,只是起一个注释效果,并且即使实际的输入输出类型与注释的不符,IDE或者编译器可能会警告,但并不会影响程序的执行.</p>
 <p><a id="org35ec0fa"></a></p>
-<h2 id="more-details-on-functions">3.2 More details on functions</h2>
-<p>可以在函数参数里面设置一些默认值,那么这些值就是可选参数,使用函数时可以不对其赋值,这样的话,函数会自动调用默认值,但是前提是这些可选参数必须在参数列表的末尾.</p>
+<h2 id="More-details-on-functions"><a href="#More-details-on-functions" class="headerlink" title="More details on functions"></a>More details on functions</h2><p>可以在函数参数里面设置一些默认值,那么这些值就是可选参数,使用函数时可以不对其赋值,这样的话,函数会自动调用默认值,但是前提是这些可选参数必须在参数列表的末尾.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">var1,var2,var3=init1,var4=init4</span>)</span><br></pre></td></tr></table></figure>
 <p>由于可选参数的存在,因此推荐参用关键字赋值的方式来传递函数参数,这样可以提高代码的清晰度和可读性.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fun(item1,item2,var3=item3)</span><br></pre></td></tr></table></figure>
@@ -5842,8 +5668,7 @@ Writing</h2>
 <p>事实上,如果修改值和重新分配变量名称是存在一些差异的;修改值可以直接利用自带方法就地修改,而如果重新通过设置同名局部变量赋值的方式,他并不会影响外层全局变量.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bar</span>(<span class="params">items</span>):</span><br><span class="line">    items=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">b=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">bar(b)</span><br><span class="line"><span class="built_in">print</span>(b) <span class="comment"># [1,2,3]</span></span><br></pre></td></tr></table></figure>
 <p><a id="org756e1b4"></a></p>
-<h2 id="error-checking">3.3 Error Checking</h2>
-<p>Python不对函数参数类型或值执行类型检查或类型验证.函数将处理与函数语句兼容的数据类型.</p>
+<h2 id="Error-Checking"><a href="#Error-Checking" class="headerlink" title="Error Checking"></a>Error Checking</h2><p>Python不对函数参数类型或值执行类型检查或类型验证.函数将处理与函数语句兼容的数据类型.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">return</span> a+b</span><br><span class="line">add(<span class="number">3</span>,<span class="number">4</span>) <span class="comment"># 7</span></span><br><span class="line">add(<span class="string">&#x27;Hello&#x27;</span>,<span class="string">&#x27; World&#x27;</span>) <span class="comment"># &#x27;Hello World&#x27;</span></span><br><span class="line">add(<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;4&#x27;</span>) <span class="comment"># &#x27;34&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>异常用于在程序发生错误的时候将错误信息发送给程序.除了程序本身运行中可能导致异常信息出现,也可以利用raise方式来手动引发异常.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(a,<span class="built_in">str</span>):</span><br><span class="line">        <span class="keyword">raise</span> RuntimeError(<span class="string">f&#x27;<span class="subst">&#123;a&#125;</span> is not right type&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
@@ -5874,14 +5699,10 @@ Writing</h2>
       </tags>
   </entry>
   <entry>
-    <title>Pratical Python for dabeaz-Modules</title>
+    <title>Pratical Python-Modules</title>
     <url>/2025/12/12/Practical-Python-Modules/</url>
-    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
-href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="modules">3.4 Modules</h2>
-<p>模块可以认为是命名值的集合,换言之,模块其实和C++中的命名空间十分类似.模块中包含模块文件中定义的全局变量和定义的函数.当我们导入模块之后,如果需要调用模块中的命名值,只需要将模块名作为前缀调用即可.
-在不同的模块中,是允许存在有相同名称的全局变量或函数的,对其调用如下所示</p>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h2><p>模块可以认为是命名值的集合,换言之,模块其实和C++中的命名空间十分类似.模块中包含模块文件中定义的全局变量和定义的函数.当我们导入模块之后,如果需要调用模块中的命名值,只需要将模块名作为前缀调用即可. 在不同的模块中,是允许存在有相同名称的全局变量或函数的,对其调用如下所示</p>
 <span id="more"></span>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># foo.py</span></span><br><span class="line">x=<span class="number">1</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># bar.py</span></span><br><span class="line">x=<span class="number">1</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bar</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> foo</span><br><span class="line"><span class="keyword">import</span> bar</span><br><span class="line"><span class="built_in">print</span>(foo.x)</span><br><span class="line"><span class="built_in">print</span>(bar.x)</span><br></pre></td></tr></table></figure>
 <p>因此,从上面的示例代码中,我们可以发现模块其实是互相独立的,所以模块其实可以做一些代码的命名上的隔离.但是上面我们导入模块的方式是利用import,如果我们采用下面的方式导入x,那他的隔离特性就会被我们破坏:</p>
@@ -5897,8 +5718,7 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">&#x27;/project/foo/pyfiles&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>但一般来说并不推荐自己手动修改搜索路径,除非某些异常需要手动导入路径.</p>
 <p><a id="org741ec56"></a></p>
-<h2 id="main-module">3.5 Main Module</h2>
-<p>Python和C/C++不同,他没有主函数或方法;但是Python具有主模块,主模块则是第一个运行的源文件.因此可以认为提供给Python解释器的文件就是主模块,在这个主模块文件调用的其他的模块则不是main模块.这里为了验证文件的调用形式,可以__name__来判断:</p>
+<h2 id="Main-Module"><a href="#Main-Module" class="headerlink" title="Main Module"></a>Main Module</h2><p>Python和C/C++不同,他没有主函数或方法;但是Python具有主模块,主模块则是第一个运行的源文件.因此可以认为提供给Python解释器的文件就是主模块,在这个主模块文件调用的其他的模块则不是main模块.这里为了验证文件的调用形式,可以__name__来判断:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    statements</span><br></pre></td></tr></table></figure>
 <p>上面的代码表示如果文件以主模块文件的形式那他可以运行if条件的语句.如果不是以主模块文件的形式运行,那他的__name__变量为模块名.</p>
 <p>任意的源文件都可以以主模块或者库模块的形式运行或导入调用.模块的常用结构如下所示:</p>
@@ -5925,15 +5745,71 @@ Python</a>.</p>
 <p>这里的exitcode只有零值的时候表示程序正常执行,对于非零值,都表示程序运行出错.除了通过raise抛出异常,还可以选择使用python的sys模块的exit方法实现.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.exit(code)</span><br></pre></td></tr></table></figure>
 <p><a id="org1832b0f"></a></p>
-<h2 id="design-discussion">3.6 Design Discussion</h2>
-<p>本节有个比较有趣的程序的类型推断风格:鸭子类型.他一般用于动态语言或某些静态语言(Golang).静态语言的特点是在程序执行之前,代码编译时就可以知道所有变量的类型和方法返回值类型等.因为静态语言声明变量需要附带类型信息,
-其是一块内存区域,</p>
+<h2 id="Design-Discussion"><a href="#Design-Discussion" class="headerlink" title="Design Discussion"></a>Design Discussion</h2><p>本节有个比较有趣的程序的类型推断风格:鸭子类型.他一般用于动态语言或某些静态语言(Golang).静态语言的特点是在程序执行之前,代码编译时就可以知道所有变量的类型和方法返回值类型等.因为静态语言声明变量需要附带类型信息, 其是一块内存区域,</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="type">int</span> x=<span class="number">10</span>;</span><br><span class="line">    x=<span class="string">&quot;ss&quot;</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>例如上面这个代码在代码编译阶段就会报错.静态语言的优点是代码结构非常规范,便于调试,但有时候会显得很罗嗦.</p>
-<p>动态语言则是只有程序运行到这一行,程序才知道变量的类型.变量不需要在一开始声明变量的类型,本身也不会携带类型信息,他只与赋值的对象有关.其优点在于方便阅读,不需要写很多类型相关的代码,但其缺点在不方便调试,如果命名不规范容易出现阅读困难,不利于理解.
-而鸭子类型指的是如果一个动物走起路来像鸭子,叫声也像鸭子,那么他就是鸭子.这样说来可能很抽象,其实鸭子类型就是动态类型语言的一种设计风格.一个对象的特征不是由父类决定,而是通过对象的方法决定.也就是我们并不关心对象的类型是什么样子的,我们只关心他的方法行为是什么结果.例如如下的代码,</p>
+<p>动态语言则是只有程序运行到这一行,程序才知道变量的类型.变量不需要在一开始声明变量的类型,本身也不会携带类型信息,他只与赋值的对象有关.其优点在于方便阅读,不需要写很多类型相关的代码,但其缺点在不方便调试,如果命名不规范容易出现阅读困难,不利于理解. 而鸭子类型指的是如果一个动物走起路来像鸭子,叫声也像鸭子,那么他就是鸭子.这样说来可能很抽象,其实鸭子类型就是动态类型语言的一种设计风格.一个对象的特征不是由父类决定,而是通过对象的方法决定.也就是我们并不关心对象的类型是什么样子的,我们只关心他的方法行为是什么结果.例如如下的代码,</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">max</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">if</span> a&gt;b:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> b</span><br><span class="line"><span class="built_in">max</span>(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="built_in">max</span>(<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;3&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>上面的代码他都可以正确的比较整型和字符类型,对于这个函数而言,我们不关心输入的类型是什么,我们只关心是否能够运行,结果是否正确.</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Practical Python-Class</title>
+    <url>/2025/12/15/Practical-Python-Class/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h3 id="Introducing-Classes"><a href="#Introducing-Classes" class="headerlink" title="Introducing Classes"></a>Introducing Classes</h3><p>面向对象编程(Object Oriented Programming)指将代码用对象组合的方式拆分.其中对象中包含数据(属性)和行为(应用在对象的方法).Python提供了class语句用来定义新对象,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,x,y</span>):</span><br><span class="line">    self.x=x</span><br><span class="line">    self.y=y</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">self,dx,dy</span>):</span><br><span class="line">    self.x+=dx</span><br><span class="line">    self.y+=dy</span><br></pre></td></tr></table></figure>
+<p>这里Python作为动态语言,与C++最为不同的一点是,Python的类属性可以在程序运行中随意添加,但是很不推荐这么做,会让程序显得十分杂乱.</p>
+<p>在进行后续的讨论之前,我们先介绍一下Python中类的两种属性:实例属性和类属性.</p>
+<p>1.实例属性主要是在__init__初始化函数中利用self.name的方式定义.其特点为对象实例的数据独立,也就是不同的实例是不能互相调用对方的数据;本质上实例属性是对象的一个字典项,默认是存储在__dict__里面的;变量类型不固定,可以在程序运行中动态修改.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Player</span>:</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,x,y</span>):</span><br><span class="line">    self.x=x</span><br><span class="line">    self.y=y</span><br><span class="line">    self.health=<span class="number">100</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">self,dx,dy</span>):</span><br><span class="line">      self.x+=dx</span><br><span class="line">      self.y+=dy</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">left</span>(<span class="params">self,amt</span>):</span><br><span class="line">      self.move(-amt,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">damage</span>(<span class="params">self,pts</span>):</span><br><span class="line">      self.health-=pts</span><br></pre></td></tr></table></figure>
+<p>2.类属性.这种属性是直接写在类体定义里面,这种属性不属于某个特定的实例,而是属于类的本身.在初始化函数中,调用类属性的方式与前面的self.name不同,而是需要用class.name的方式调用.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Player</span>:</span><br><span class="line">  counter=<span class="number">0</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init</span>(<span class="params">self,x,y</span>):</span><br><span class="line">    self.x=x</span><br><span class="line">    self.y=y</span><br><span class="line">    Player.counter+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>类属性可以在任何实例化对象中调用.其特点是所有实例对象都可以调用同一个值;类属性可以被任何实例访问,但是实例属性是可以命名与类属性同名的变量,这样的话他就会覆盖类属性,无法在该实例中调用相关类属性.</p>
+<p>这里我们简要提到一下C++的类结构,与上述Python的类结构进行对比.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="type">int</span> a;</span><br><span class="line">  <span class="type">double</span> b;</span><br><span class="line">  <span class="type">static</span> <span class="type">int</span> counter;</span><br><span class="line">&#125;</span><br><span class="line">  <span class="type">int</span> MyClass::counter=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>这里的静态成员变量不属于对象,而属于类本身,任何对象都可以调用其值,这个和刚刚介绍的Python的类属性一样.而且在类结构中所使用的static int counter语句只是一个变量声明,并没有分配变量内存空间.因此需要在类外做一个变量定义和初始化语句.值得注意的是对于静态成员变量必须要放在类外做定义初始化.C++类的特点为类型固定,其内部变量类型和数量均在编译时确定;访问受限由private/protected/public控制;静态成员共享.</p>
+<p>在上面的C++类结构中,其可利用private做代码封装,类外无法随意访问private成员.而Python中并没有真正意义上的private变量,我们前面定义的类成员都可以在任意情况下被调用.但Python中提供了另一种解决方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BB</span>():</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">    self.__name=name</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">get_name</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> self.__name</span><br></pre></td></tr></table></figure>
+<p>这个__开头的变量并不能通过类.__name的方式调用,下面的代码可以展示</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">b=BB(<span class="string">&#x27;bb&#x27;</span>)</span><br><span class="line">d=BB(<span class="string">&#x27;dd&#x27;</span>)</span><br><span class="line">b.__name=<span class="string">&#x27;cc&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(b.__name) <span class="comment"># &#x27;cc&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(b.get_name()) <span class="comment"># &#x27;bb&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(d.get_name())</span><br><span class="line"><span class="built_in">print</span>(d.__name) <span class="comment"># 报错</span></span><br></pre></td></tr></table></figure>
+<p>这是因为虽然我们声明初始化的是__开头的变量,但在Python的执行中会将其改变为_类名__属性名的方式,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(d._BB__name)</span><br></pre></td></tr></table></figure>
+<p>所以其实他还是可以被调用的,只是他不能通过用定义的名字调用而已.</p>
+<p>我们为了后续的代码编写的规范,我们提供一个stackoverflow上提及的常用的程序规范.</p>
+<ol>
+<li>__foo__: 用于Python内部的名字,用来区别其他的用户自定义命名</li>
+<li>_foo: 约定指定变量是私有的,不应该用from module import 的方式来导入,其余性质与公用变量一致.</li>
+<li>__foo: 这个是Python程序中具有真实含义的作用,Python会将其变成_类名__name的变量名.</li>
+</ol>
+<p>类可以视作一组对实例执行各种操作的函数.实例则指代码中实际操作的对象.实例方法指对对象实例的方法.如果实例方法中需要处理对象中的属性,那么对象本身一般以第一个参数的方式传输.虽然我们常见的传输对象本身使用的是self,不过实际上这个只是约定俗成的约定,可以用其他的.这是因为类只是创建属性的容器,而不是变量的查找域,换言之,虽然我们在类当中定义了某些属性,但是我们并不能在实例函数中直接使用变量名的方式调用,我们应该选择用类.变量名的方式调用.</p>
+<p><a id="org5bd1a9f"></a></p>
+<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><p>继承则可以对现有的对象做特殊化修改.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span>:</span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span>(<span class="title class_ inherited__">Parent</span>):</span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>这里我们称Child类为子类,派生类.Parent类为基类,超类.</p>
+<p>继承可以认为是对曾经代码的扩展,一般用于添加新方法,重新定义已有方法或者添加新属性.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Stock</span>:</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,shares,price</span>):</span><br><span class="line">    self.name=name</span><br><span class="line">    self.shares=shares</span><br><span class="line">    self.price=price</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">cost</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> self.shares*self.price</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">sell</span>(<span class="params">self,nshares</span>):</span><br><span class="line">    self.shares-=nshares</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Mystock</span>(<span class="title class_ inherited__">Stock</span>):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">panic</span>(<span class="params">self</span>):</span><br><span class="line">    self.sell(self.shares)<span class="comment"># 添加新方法</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">cost</span>(<span class="params">self</span>):<span class="comment">#重新定义已有方法</span></span><br><span class="line">    actual_cost=<span class="built_in">super</span>().cost()</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.25</span>*actual_cost</span><br></pre></td></tr></table></figure>
+<p>上面的代码中提到了super.method().这个super()表示这个子类的父类,因此super.method()实际上就是调用父类的方法,可以用这种方法调用已有方法的不同版本.</p>
+<p>我们介绍在子类中定义新属性的方式,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyStock</span>(<span class="title class_ inherited__">Stock</span>):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,share,price,factor</span>):</span><br><span class="line">    <span class="built_in">super</span>().__init__(name,share,price)</span><br><span class="line">    self.factor=factor</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">cost</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> self.factor*<span class="built_in">super</span>().cost()</span><br></pre></td></tr></table></figure>
+<p>首先Python的变量必须初始化,因为他是一个动态语言,如果存在一个变量但他没有被赋值,程序是不可以为他分配内存空间的,所以我们如果希望在子类中添加新属性,我们其实需要重写子类的初始化函数,这里我们不对父类初始化的方式修改,就可以用super().__init()的方式来初始化父类属性.</p>
+<p>继承可以认为是组织某类相关对象的架构方式.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span>:</span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span>(<span class="title class_ inherited__">Shape</span>):</span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Triangle</span>(<span class="title class_ inherited__">Shape</span>):</span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>继承的作用一般是用于构建可重用,可扩展的代码框架.如先定义一个类框架,也就是基类,他可以提供一个通用的方法,通过继承基类的方式,我们对子类做特殊化定制的部分.</p>
+<p>类似于基本类型,我们也可以用isinstance的函数来判断类的关系.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span>:</span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span>(<span class="title class_ inherited__">Shape</span>):</span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line">c = Circle()</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">isinstance</span>(c, Circle))   <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">isinstance</span>(c, Shape))    <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">isinstance</span>(c, <span class="built_in">object</span>))   <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c) <span class="keyword">is</span> Circle) <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c) <span class="keyword">is</span> Shape) <span class="comment"># False</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(c) <span class="keyword">is</span> <span class="built_in">object</span>) <span class="comment"># False</span></span><br></pre></td></tr></table></figure>
+<p>从上面的代码中,我们可以发现isinstance(object,Class)判断obj是否为class或其任意子类的实例.type方法则是用于精确判断类的属性,他不会考虑类的包含关系,而isinstance是一种判断类的包含关系.isinstance方法用于判断对象是否可以被视作某个类型.</p>
+<p>子类存在如下的Liskov Substitution Principle(LSP,里式替换法则):子类对象必须能在任何需要父类对象的地方被替换使用,而不破坏程序的正确性.</p>
+<p>如果这个类没有父类,其实可以认为object为他的父类.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">shape</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>object可以视作所有对象的父类.</p>
 ]]></content>
       <categories>
         <category>Python</category>
