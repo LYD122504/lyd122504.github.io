@@ -23,21 +23,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="The SVD allows us to decompose data matrix \(X\) as the product of three matrices, \(U,\ V^T,\ \Sigma\), where essentially \(U\) contains information about the column space of \(X\), \(V\) contains i">
+  <meta name="description" content="Special Methods 类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVD-Matrix Approximation">
-<meta property="og:url" content="http://example.com/2024/04/19/SVD-Matrix%20Approximation/index.html">
+<meta property="og:title" content="Practical-Python-Special">
+<meta property="og:url" content="http://example.com/2025/12/18/Practical-Python-Special/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="The SVD allows us to decompose data matrix \(X\) as the product of three matrices, \(U,\ V^T,\ \Sigma\), where essentially \(U\) contains information about the column space of \(X\), \(V\) contains i">
+<meta property="og:description" content="Special Methods 类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-19T14:56:25.000Z">
-<meta property="article:modified_time" content="2024-12-17T12:55:30.314Z">
+<meta property="article:published_time" content="2025-12-18T13:11:28.000Z">
+<meta property="article:modified_time" content="2025-12-18T13:12:06.055Z">
 <meta property="article:author" content="Li Yaoda">
-<meta property="article:tag" content="Math">
-<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/04/19/SVD-Matrix%20Approximation/">
+<link rel="canonical" href="http://example.com/2025/12/18/Practical-Python-Special/">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>SVD-Matrix Approximation | 还施水阁</title>
+  <title>Practical-Python-Special | 还施水阁</title>
   
 
 
@@ -203,7 +203,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/19/SVD-Matrix%20Approximation/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/18/Practical-Python-Special/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
@@ -216,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SVD-Matrix Approximation
+          Practical-Python-Special
         </h1>
 
         <div class="post-meta">
@@ -225,23 +225,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-04-19 22:56:25" itemprop="dateCreated datePublished" datetime="2024-04-19T22:56:25+08:00">2024-04-19</time>
+              <time title="创建时间：2025-12-18 21:11:28 / 修改时间：21:12:06" itemprop="dateCreated datePublished" datetime="2025-12-18T21:11:28+08:00">2025-12-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-12-17 20:55:30" itemprop="dateModified" datetime="2024-12-17T20:55:30+08:00">2024-12-17</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Reduced-Order-Model/" itemprop="url" rel="index"><span itemprop="name">Reduced Order Model</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -263,136 +257,119 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>The SVD allows us to decompose data matrix <span
-class="math inline">\(X\)</span> as the product of three matrices, <span
-class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
-class="math inline">\(U\)</span> contains information about the column
-space of <span class="math inline">\(X\)</span>, <span
-class="math inline">\(V\)</span> contains information about the row
-space of <span class="math inline">\(X\)</span> and <span
-class="math inline">\(\Sigma\)</span> is a hierarchically ordered
-diagonal matrix, which tells you how important the various columns of
-<span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are.</p>
+        <h2 id="special-methods">Special Methods</h2>
+<p>类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.</p>
 <span id="more"></span>
-<p>In fact, the data matrix <span class="math inline">\(X\)</span> has
-only <span class="math inline">\(m\)</span> columns, it means there are
-at most <span class="math inline">\(m\)</span> linearly independence
-columns in this <span class="math inline">\(n\)</span>-dimensional
-vector space.So the first <span class="math inline">\(m\)</span> columns
-of <span class="math inline">\(U\)</span> are important in representing
-this data matrix. To explain this fact more deeply, we try to represent
-expansion as a sum of rank-1 matrices.</p>
-<p>Based on the Singular Value Decomposition,we can get the following
-equation, <span class="math display">\[
-X=U\Sigma V^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\ &amp;\sigma_m\\\ &amp;\ &amp;\ &amp;\ \\\ &amp;\ &amp;\
-&amp;\ \\\ &amp;\ &amp;\ &amp;\
-\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\ \\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T
-\]</span> Since <span class="math inline">\(\Sigma\)</span> is a
-diagnoal matrix, we can expand the above equation as follow, <span
-class="math display">\[
-X=U\Sigma
-V^T=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_mu_mv_m^T=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\
-&amp;\sigma_m\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\
-\\\cdots&amp;v_m^T&amp;\cdots\end{bmatrix}^T=\hat{U}\hat{\Sigma}V^T
-\]</span> Even though <span class="math inline">\(U\)</span> is a
-massive <span class="math inline">\(n\times n\)</span> matrix, there are
-only at most <span class="math inline">\(m\)</span> non-zeros singular
-values in <span class="math inline">\(\Sigma\)</span> that means the
-rank of data matrix <span class="math inline">\(X\)</span> satisfies
-<span class="math inline">\(rank(X)\leq m\)</span>. Actually,I can
-selcet the first <span class="math inline">\(m\)</span> columns of <span
-class="math inline">\(U\)</span>, the first <span
-class="math inline">\(m\times m\)</span> block of <span
-class="math inline">\(\Sigma\)</span> and the original <span
-class="math inline">\(V\)</span> to represent the data matrix <span
-class="math inline">\(X\)</span>. We always call <span
-class="math inline">\(X=\hat{U}\hat{\Sigma}V^T\)</span> as the economy
-SVD and <span class="math inline">\(X=U\Sigma V^T\)</span> as the full
-SVD. Since we consider the case of <span class="math inline">\(n\gg
-m\)</span>, <span class="math inline">\(\hat{U}\in \mathbb{R}^{n\times
-m}\)</span> and <span class="math inline">\(\hat{\Sigma}\in
-\mathbb{R}^{m\times m}\)</span> need lower storage.</p>
-<p>Therefore, we can give another explanation about SVD: we can
-decompose the data matrix X into the orthogonal basis <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>, where essentially you can rewrite this
-as a sum of rank-1 matrices, which increasingly improve the
-approximation of <span class="math inline">\(X\)</span>. According to
-this explanation, we can give out some interesting results like, the
-best rank-1 matrix that we can make to approximate <span
-class="math inline">\(X\)</span> is <span
-class="math inline">\(\sigma_1u_1v_1^T\)</span>; the best rank-2 matrix
-that we can make to approximate <span class="math inline">\(X\)</span>
-is <span
-class="math inline">\(\sigma_1u_1v_1^T+\sigma_2u_2v_2^T\)</span> and so
-on and so forth.</p>
-<p>Since we hope to use less data storage to approximate the real data
-as much as possible in practice, we often truncate at rank r. Oftentimes
-we have a lot of negligibly small singular values like <span
-class="math inline">\(\sigma_{r+1},\
-\sigma_{r+2},\cdots,\sigma_m\)</span>, it means that most of the
-information of <span class="math inline">\(X\)</span> is captured in the
-first <span class="math inline">\(r\)</span> singular values and the
-first <span class="math inline">\(r\)</span> singular vectors. So we can
-throw away all of low singular values and singular vectors and only keep
-the first <span class="math inline">\(r\)</span> columns of <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> and the first <span
-class="math inline">\(r\times r\)</span> submatrix in <span
-class="math inline">\(\Sigma\)</span>. Then we are going to define this
-truncated SVD as follows, <span class="math display">\[
-X\approx\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\u_1&amp;u_2&amp;\cdots&amp;u_r\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}\begin{bmatrix}\sigma_1&amp;\ &amp;\ &amp;\ \\\
-&amp;\sigma_2&amp;\ &amp;\ \\\ &amp;\ &amp;\ddots&amp;\ \\
-\ &amp;\ &amp;\
-&amp;\sigma_r\end{bmatrix}\begin{bmatrix}\cdots&amp;v_1^{T}&amp;\cdots\\\cdots&amp;v_2^T&amp;\cdots\\\
-&amp;\vdots&amp;\
-\\\cdots&amp;v_r^T&amp;\cdots\end{bmatrix}^T=\tilde{U}\tilde{\Sigma}\tilde{V}^T
-\]</span> Here we find that the truncated SVD <span
-class="math inline">\(\tilde{U}\tilde{\Sigma}\tilde{V}^T\)</span> is the
-best rank-<span class="math inline">\(r\)</span> matrix approximating
-the data matrix <span class="math inline">\(X\)</span>.Thus,
-high-dimensional data may be well described by a few dominant patterns
-given by the columns of <span class="math inline">\(\tilde{U}\)</span>
-and <span class="math inline">\(\tilde{V}\)</span>.Like the mentioned in
-the first section,we realize that the truncated singular vectors <span
-class="math inline">\(\tilde{U}\)</span> provides a coordinate
-transformation from the high-dimensional measurement space into a
-low-dimensional pattern space.</p>
-<p>The Eckart-Young theorem states that the absolute best approximation
-to the matrix <span class="math inline">\(X\)</span> of rank r,
-Theorem(Eckart-Young) The optimal rank-r approximation to <span
-class="math inline">\(X\)</span>, in a least-squares sense, is given by
-the rank-r SVD truncation <span
-class="math inline">\(\tilde{X}\)</span>, <span class="math display">\[
-argmin_{\tilde{X},\ s.t.\ rank(\tilde{X})=r}\left\Vert
-X-\tilde{X}\right\Vert_F=\tilde{U}\tilde{\Sigma}\tilde{V}^T
-\]</span> The Ecakrt-Young theorem guarantees that the best possible
-matrix approximation to <span class="math inline">\(X\)</span> of rank
-<span class="math inline">\(r\)</span> is given by the firsr <span
-class="math inline">\(r\)</span> truncated SVD.</p>
-<p>Finally,we should mention an important point. At beginning of
-discussing the SVD, we define the matrices <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are unitary. However,if we truncated at
-rank r,the truncated matrices <span
-class="math inline">\(\tilde{U}\)</span> and <span
-class="math inline">\(\tilde{V}\)</span> are no longer square matrices,
-so they are not unitary matrix again. They satisfy that <span
-class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
-\tilde{U}\tilde{U}^T\not=I\)</span></p>
+<p>对象有两种字符串表示形式,一种是我们常用的str()函数,一种则是将要介绍的repr()函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> date</span><br><span class="line">d=date(<span class="number">2025</span>,<span class="number">12</span>,<span class="number">18</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(d)) <span class="comment"># 2025-12-18</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">repr</span>(d)) <span class="comment"># datetime.date(2025,12,18)</span></span><br></pre></td></tr></table></figure>
+<p>str()函数我们前面已经介绍过了,在此我们只是提及一下其作用是输出一些适合展示的结果形式,他主要是在Python脚本的print中调用.repr()则是用于交互模式下的输出,他会生成更详细的表达形式.repr返回对象的官方字符串表示,其设计目标在于无歧义,尽量包含重建对象所需的信息,面向开发者/调试.在理想情况下,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="built_in">repr</span>(obj))==obj <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<p>这是一个约定,但并不是强制要求,repr是可以无法重建对象的,只需要保证对象描述的清晰即可.例如,如下的代码repr结果就是无法重建的,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">a = A()</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">repr</span>(a))</span><br><span class="line"><span class="comment"># &lt;__main__.A object at 0x0000019E611CD3D0&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面提到了eval函数,eval函数的完整语法是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(expression[,<span class="keyword">global</span>[,local]])</span><br></pre></td></tr></table></figure>
+<p>这里eval执行的是表达式而不是语句,因此如果输入x=1,会报错,因为他是赋值语句.eval会将字符串做Python表达式来解析执行,并且返回表达式的值.eval中表达式的变量依赖于命名空间,其中的global和local以字典的形式提供,分别表示全局命名空间和局部命名空间.其先在局部命名空间搜索,再在全局命名空间搜索,如果二者都没有找到,就会抛出NameError异常.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&quot;x+1&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&quot;x+1&quot;</span>,&#123;<span class="string">&quot;x&quot;</span>:<span class="number">10</span>&#125;))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&quot;a + b&quot;</span>, &#123;<span class="string">&quot;b&quot;</span>: <span class="number">2</span>&#125;, &#123;<span class="string">&quot;a&quot;</span>: <span class="number">1</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>数学运算符实际上存在如下的方法调用</p>
+<table>
+<thead>
+<tr class="header">
+<th>运算符</th>
+<th>特殊函数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a+b</td>
+<td>a.__add__(b)</td>
+</tr>
+<tr class="even">
+<td>a-b</td>
+<td>a.__sub__(b)</td>
+</tr>
+<tr class="odd">
+<td>a*b</td>
+<td>a.__mul__(b)</td>
+</tr>
+<tr class="even">
+<td>a/b</td>
+<td>a.__truediv__(b)</td>
+</tr>
+<tr class="odd">
+<td>a//b</td>
+<td>a.__floordiv__(b)</td>
+</tr>
+<tr class="even">
+<td>a%b</td>
+<td>a.__mod__(b)</td>
+</tr>
+<tr class="odd">
+<td>a&lt;&lt;b</td>
+<td>a.__lshift__(b)</td>
+</tr>
+<tr class="even">
+<td>a &gt;&gt; b</td>
+<td>a.__rshift__(b)</td>
+</tr>
+<tr class="odd">
+<td>a &amp; b</td>
+<td>a.__and__(b)</td>
+</tr>
+<tr class="even">
+<td>a ^ b</td>
+<td>a.__xor__(b)</td>
+</tr>
+<tr class="odd">
+<td>a ** b</td>
+<td>a.__pow__(b)</td>
+</tr>
+<tr class="even">
+<td>~a</td>
+<td>a.__invert__()</td>
+</tr>
+</tbody>
+</table>
+<p>容器的特殊方法:</p>
+<table>
+<thead>
+<tr class="header">
+<th>运算符</th>
+<th>特殊函数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>len(x)</td>
+<td>x.__len__()</td>
+</tr>
+<tr class="even">
+<td>x[a]</td>
+<td>x.__getitem__(a)</td>
+</tr>
+<tr class="odd">
+<td>x[a]=v</td>
+<td>x.__setitem__(a,v)</td>
+</tr>
+<tr class="even">
+<td>del x[a]</td>
+<td>x.__delitem__(a)</td>
+</tr>
+</tbody>
+</table>
+<p>其方法调用其实是分成两步:先是通过类.方法返回绑定方法,然后再调用这个绑定方法计算结果.我们用下面的代码将其拆分开</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s=Stock.cost <span class="comment"># 绑定方法</span></span><br><span class="line">s()<span class="comment"># 方法调用</span></span><br></pre></td></tr></table></figure>
+<p>绑定方法其实就是调用类方法的时候忘记加上了尾随括号.因此绑定方法通常是粗心且不明显错误的常见来源或者某些难以调试的错误行为.</p>
+<p>从上面的特殊函数中,我们其实可以知道存在一些如getattr,setattr等的函数,其中hasattr(item,iterable)是可以判断item是否在可迭代对象中.
+getattr的代码结构如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">getattr</span>(<span class="built_in">object</span>, name[, default])</span><br></pre></td></tr></table></figure>
+<p>如果object中存在名为name的属性返回该属性的值;如果不存在且提供了default返回default;如果不存在且没有提供default,抛出AttributeError.</p>
+<p><a id="org0956886"></a></p>
+<h2 id="defining-new-exception">Defining new Exception</h2>
+<p>前面提到的异常其实也是通过类来定义的,一切的异常都是继承于Exception,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NetworkError</span>(<span class="title class_ inherited__">Exception</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>异常一般是空类,用pass作为异常主体.因此我们可以基于此,创建用户自定义的异常层次结构</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AuthenticationError</span>(<span class="title class_ inherited__">NetworkError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProtocolError</span>(<span class="title class_ inherited__">NetworkError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p><a id="org7fad4ae"></a></p>
 
     </div>
 
@@ -402,8 +379,8 @@ class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Math/" rel="tag"># Math</a>
-              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+              <a href="/tags/Computer-Science/" rel="tag"># Computer Science</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
@@ -412,13 +389,10 @@ class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/18/SVD-Mathematical%20Overview/" rel="prev" title="SVD-Mathematical Overview">
-      <i class="fa fa-chevron-left"></i> SVD-Mathematical Overview
+    <a href="/2025/12/18/Practical-Python-MultiIn/" rel="prev" title="Pracitcal Python-Multiple Inheritance and MRO">
+      <i class="fa fa-chevron-left"></i> Pracitcal Python-Multiple Inheritance and MRO
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/05/28/SVD-Eckart_Young_Mirsky/" rel="next" title="SVD-Eckart-Young-Mirsky theorem">
-      SVD-Eckart-Young-Mirsky theorem <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -477,6 +451,7 @@ class="math inline">\(\tilde{U}^T\tilde{U}=\tilde{V}^TV=I,\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#special-methods"><span class="nav-number">1.</span> <span class="nav-text">Special Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defining-new-exception"><span class="nav-number">2.</span> <span class="nav-text">Defining new Exception</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
