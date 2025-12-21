@@ -5883,7 +5883,10 @@ L(C)=[C]+merge(L(P_1),L(P_2),\cdots,[P_1,P_2,\cdots])</script><p>其中$P_1,P_2,
   <entry>
     <title>Practical-Python-Special</title>
     <url>/2025/12/18/Practical-Python-Special/</url>
-    <content><![CDATA[<h2 id="special-methods">Special Methods</h2>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="special-methods">Special Methods</h2>
 <p>类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.</p>
 <span id="more"></span>
 <p>对象有两种字符串表示形式,一种是我们常用的str()函数,一种则是将要介绍的repr()函数</p>
@@ -5996,6 +5999,65 @@ getattr的代码结构如下所示</p>
 <p>异常一般是空类,用pass作为异常主体.因此我们可以基于此,创建用户自定义的异常层次结构</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AuthenticationError</span>(<span class="title class_ inherited__">NetworkError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProtocolError</span>(<span class="title class_ inherited__">NetworkError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <p><a id="org7fad4ae"></a></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Practical-Python-Dict</title>
+    <url>/2025/12/21/Practical-Python-Dict/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="dictionaries-revisited-object-implementation">Dictionaries
+Revisited (Object Implementation)</h2>
+<p>Python的对象在系统底层很大依赖于字典构建.换言之,Python对象本质上存放在一个字典里.</p>
+<p>在模块内部,字典会存放模块中所有的全局变量和函数.</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># foo.py</span></span><br><span class="line">x=<span class="number">42</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bar</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spam</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">globals</span>())</span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> foo</span><br><span class="line"><span class="built_in">print</span>(foo.__dict__)</span><br></pre></td></tr></table></figure>
+<p>我们前面提到的类的数据实际上也是存放在字典里的,定义的类其实可以看成对底层的一个封装.实例属性是存放在实例的__dict__字典中,他存放的是通过__init__函数初始化的实例属性或者代码运行中动态维护的实例名.变量名的方式.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,num</span>):</span><br><span class="line">        self.num=num</span><br><span class="line">                a = A(<span class="number">10</span>)</span><br><span class="line">                a.x = <span class="number">100</span>     <span class="comment"># 实例属性，遮蔽类属性</span></span><br><span class="line">                <span class="built_in">print</span>(a.__dict__)   <span class="comment"># &#x27;x&#x27;:100 &#x27;num&#x27;:10</span></span><br></pre></td></tr></table></figure>
+<p>这里我们会发现实例属性里面没有初始化函数__init__,这是因为初始化函数其实是类的方法,实例是类的实例化,因此可以调用其,但其自身是没有函数的.所以从这里我们就可以知道Python为什么可以在程序运行中动态增加实例属性了,因为他的实例属性的存储实际上就是维护实例字典的过程,动态增加实例属性,只不过是修改实例字典的过程.并且每个实例都会具有自己独特的实例字典,有多少个实例就会存储多少个实例字典.</p>
+<p>类属性和类方法都会存储在类字典里.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    x=<span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> A.x</span><br><span class="line">    <span class="built_in">print</span>(A.__dict__)</span><br></pre></td></tr></table></figure>
+<p>其结果比较多,我们稍微对每个结果加以解释.'<u><u>module</u></u>'映射的是类定义在的模块名,如果直接运行得到的就是__main__;类属性的对应关系,函数会返回一个<function>对象,后续我们会提到,不再赘述;'<u><u>dict</u></u>'他的返回不是一个字典,而是一个<attribute>对象,我们会在下面详细解释,他的作用是定义A的实例如何拥有并访问实例字典;'<u><u>weakref</u></u>'则表示一个弱引用机制.</p>
+<p>描述器(Descriptor)是Python对象模型里的一个协议,他可以控制属性访问行为,换言之,他其实就是类属性级别的访问控制器,决定你访问属性时发生什么.如果一个对象实现了以下三个方法的任意一个就可以认为其是描述器:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">__get__(self,instance,owner)</span><br><span class="line">__set__(self,instance,value)</span><br><span class="line">__delete__(self,instance)</span><br></pre></td></tr></table></figure>
+<p>如果只实现了__get__,那么他是non-data
+descriptor;如果实现了__set__或__delete__,那么他是data
+descriptor.non-data descriptor可以被实例属性覆盖,data
+descriptor不允许实例属性覆盖.</p>
+<p>非数据描述器的例子比较常见的就是类中的函数:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;method called&quot;</span></span><br><span class="line">    a=A()</span><br><span class="line">    <span class="comment"># a.f调用function的 __get__,返回bound method</span></span><br><span class="line"><span class="built_in">print</span>(a.f())   <span class="comment"># &quot;method called&quot;</span></span><br><span class="line"><span class="comment"># 实例属性遮蔽non-datadescriptor</span></span><br><span class="line">a.f = <span class="string">&quot;instance attribute&quot;</span></span><br><span class="line"><span class="built_in">print</span>(a.f)     <span class="comment"># &quot;instance attribute&quot;(覆盖了 class的f)</span></span><br></pre></td></tr></table></figure>
+<p>上述的例子我们可以看出他会被实例属性覆盖.</p>
+<p>数据描述器的例子:property实现了__get__和__set__,我们会在下一节内容进一步说明.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self._x=<span class="number">10</span></span><br><span class="line"><span class="meta">        @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">x</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self._x</span><br><span class="line">    b=B()</span><br><span class="line">    <span class="built_in">print</span>(b.x) <span class="comment"># 10</span></span><br><span class="line"></span><br><span class="line">b.__dict__[<span class="string">&#x27;x&#x27;</span>] = <span class="number">999</span></span><br><span class="line"><span class="built_in">print</span>(b.x)  <span class="comment"># 10(data descriptor优先,实例字典被遮蔽)</span></span><br></pre></td></tr></table></figure>
+<p>我们虽然在b中添加了实例属性x,但是Python会先查找类字典的data
+descriptor,关于其的访问永远优先于实例字典.</p>
+<p>我们在此解释一下上面提到的两个对象为什么会是解释器.我们从函数出发,其代码如下,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    a=A()</span><br><span class="line">    <span class="built_in">print</span>(A.__dict__[<span class="string">&#x27;f&#x27;</span>]) <span class="comment"># function 对象</span></span><br><span class="line">    <span class="built_in">print</span>(A.__dict__[<span class="string">&#x27;f&#x27;</span>].__get__(a,A) <span class="comment"># bound method</span></span><br></pre></td></tr></table></figure>
+<p>这里的A.__dict__['f']是一个function对象,function对象在底层实现了一个__get__方法,他返回的会是一个绑定对象,因此前面说的a.f其实和如下代码一样</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A.__dict__[<span class="string">&#x27;f&#x27;</span>].__get__(a,A) <span class="comment"># 绑定方法</span></span><br></pre></td></tr></table></figure>
+<p>这个function对象其实是一个非数据描述器,他不会覆盖实例属性.</p>
+<p>特殊属性__dict__是描述器,他的作用是用来访问实例字典.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">a=A()</span><br><span class="line"><span class="built_in">print</span>(A.__dict__[<span class="string">&#x27;__dict__&#x27;</span>]) <span class="comment"># attribute对象</span></span><br></pre></td></tr></table></figure>
+<p>这个attribute属性在底层实现了__get__函数,不允许随便__set__或__delete__.我们访问a.__dict__时,底层实现如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(A.__dict__[<span class="string">&#x27;__dict__&#x27;</span>].__get__(a,A))</span><br></pre></td></tr></table></figure>
+<p>他会返回一个实例字典,这个优先级高于实例字典,他可以控制字典的访问.他提供了安全访问实例字典的方法,可以防止破坏对象内部结构,是对象模型里最基础的描述器之一.</p>
+<p>综上,我们可以给出基于字典的查找属性方法的代码.为了判断描述器具体为数据描述器还是非数据描述器,我们先给出如下的判断函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">is_data_descriptor</span>(<span class="params">attr</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">hasattr</span>(attr,<span class="string">&quot;__set__&quot;</span>) <span class="keyword">or</span> <span class="built_in">hasattr</span>(attr,<span class="string">&quot;__delete__&quot;</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_non_data_descriptor</span>(<span class="params">attr</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">hasattr</span>(attr,<span class="string">&quot;__get__&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的hasattr函数表示如果对象有该属性则返回true否则返回false.加入描述器判断的getattr函数实现如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getattr</span>(<span class="params">obj,name</span>):</span><br><span class="line">    cls=obj.__class__</span><br><span class="line">    <span class="comment"># 查找MRO顺序的数据描述器</span></span><br><span class="line">    <span class="keyword">for</span> base <span class="keyword">in</span> cls.__mro__:</span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> base.__dict__:</span><br><span class="line">            attr=base.__dict__[name]</span><br><span class="line">            <span class="keyword">if</span> is_data_descriptor(attr):</span><br><span class="line">                <span class="keyword">return</span> attr.__get__(obj,cls)</span><br><span class="line">            <span class="comment"># 查实例字典</span></span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">in</span> obj.__dict__:</span><br><span class="line">        <span class="keyword">return</span> obj.__dict__[name]</span><br><span class="line">    <span class="comment"># 查非数据描述器或者普通类属性</span></span><br><span class="line">    <span class="keyword">for</span> base <span class="keyword">in</span> cls.__mro__:</span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> base.__dict__:</span><br><span class="line">            attr = base.__dict__[name]</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">hasattr</span>(attr, <span class="string">&quot;__get__&quot;</span>):</span><br><span class="line">                <span class="keyword">return</span> attr.__get__(obj, cls)</span><br><span class="line">            <span class="keyword">return</span> attr</span><br><span class="line">    <span class="keyword">raise</span> AttributeError(name)</span><br></pre></td></tr></table></figure>
+<p>可以用一些简单的例子加以测试,不再赘述.</p>
+<p>最后,我们介绍一下__slots__属性,在前面中我们提到了对象的属性在底层是利用字典维护的,并且这个字典可以动态增加,并且每个实例都有自己的实例字典,但这样的维护在大量实例的情况下十分消耗计算资源.__slots__属性则是提供了一种静态属性表,实例并不会创建实例字典,而是只能存放制定字段的结果.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    __slots__ = (<span class="string">&#x27;x&#x27;</span>,)</span><br><span class="line"><span class="built_in">print</span>(A.__dict__)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;__dict__&#x27;</span> <span class="keyword">in</span> A.__dict__)   <span class="comment"># False</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;x&#x27;</span> <span class="keyword">in</span> A.__dict__)          <span class="comment"># True</span></span><br><span class="line">a=A()</span><br><span class="line"><span class="built_in">print</span>(a.__slots__)</span><br></pre></td></tr></table></figure>
+<p>这样的A.__dict__返回中不会有'<u><u>dict</u></u>',因为他的实例并不会创建实例字典,其通过__slots__维护一个静态属性表.</p>
+<p><a id="org5e51c31"></a></p>
 ]]></content>
       <categories>
         <category>Python</category>
