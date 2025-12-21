@@ -5881,7 +5881,7 @@ L(C)=[C]+merge(L(P_1),L(P_2),\cdots,[P_1,P_2,\cdots])</script><p>其中$P_1,P_2,
       </tags>
   </entry>
   <entry>
-    <title>Practical-Python-Special</title>
+    <title>Practical Python-Special Methods and Exceptions</title>
     <url>/2025/12/18/Practical-Python-Special/</url>
     <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
 href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
