@@ -75,11 +75,10 @@ int等)</p></li>
 <p>这里其实主要的区别在于,我们在malloc的时候不仅为结构体开辟了空间,还为柔性数组开辟了空间.我们可以这么理解柔性数组成员,柔性数组成员其实就是一个指针,这个指针指向紧贴着结构体空间后的空间,当我们同时开辟结构体和柔性数组空间时,柔性数组成员其实就是指向柔性数组空间的首元素.因此,我们不需要将开辟空间的操作分开,而是一次性完成,这样就很好的解决了内存管理的问题.</p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -151,11 +150,10 @@ A的时候,只需要按照除了内部struct以外的成员变量来分析即可
 <p>其次我们上面讨论的内嵌类型只针对C++,在C中并没有这样的概念,所以在C中,我们需要为内嵌类型分配空间.</p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -286,11 +284,10 @@ Linux中给出了一个专属变量?来保存上一个执行命令的退出状�
 <p>如果空间分配成功,realloc返回指向新内存块的指针;否则,返回NULL,并且原来的内存块仍然保持不变(并没有释放).值得强调的是,realloc可能会将内存块移动到新地方(如果在原位置没有足够的空间容纳新的大小).如果移动成功,ptr会指向新位置.需要特别注意,旧的ptr指针需要被更新为realloc返回的新地址.如果内存分配失败,realloc返回NULL,而原始的内存块不会被释放.为避免内存泄漏,应该使用一个临时指针来接收realloc的返回值,并检查是否为NULL.</p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -496,11 +493,10 @@ class="math inline">\(O(n+m)\)</span></li>
 </ol>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -655,11 +651,10 @@ x rotated to the right by n positions.</p>
 <p><a id="org86951dd"></a></p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -768,11 +763,10 @@ stack.</p>
 <figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="comment">#事实上,我们还可以对上面的版本进行简化,GNU下的make命令可以自动推导文件以及文件依赖关系后面的命令，于是我们就没必要去在每一个[.o]文件后都写上类似的命令，因为，我们的make会自动识别，并自己推导命令。</span></span><br><span class="line">objects=main.o getch.o getop.o stack.o</span><br><span class="line"><span class="section">maincc: <span class="variable">$(objects)</span></span></span><br><span class="line">    g++ <span class="variable">$(objects)</span> -o maincc</span><br><span class="line"><span class="section">main.o:main.cpp</span></span><br><span class="line"><span class="section">getop.o:getop.cpp</span></span><br><span class="line"><span class="section">stack.o:stack.cpp</span></span><br><span class="line"><span class="section">getch.o:getch.cpp</span></span><br><span class="line">.PHONY clean: </span><br><span class="line">    rm -f  *.o</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -805,11 +799,10 @@ to语句.</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">set_false</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c;</span><br><span class="line">    <span class="keyword">if</span> (tokentype != <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        <span class="keyword">while</span> ((c = <span class="built_in">getch</span>()) != <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">            ;</span><br><span class="line">    tokentype = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    flag = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -929,11 +922,10 @@ directory.这是因为gcc默认会将预处理的结果输出到一个文件里�
 <p>其的缺点在于由于程序在运行时才进行链接,因此会增加程序的启动时间和运行时的开销,因为需要在运行时解析符号和地址.</p>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1124,11 +1116,10 @@ BSS段和代码段是程序编译完成就已经分配完成了, 无需等代码
 </ol>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -4862,11 +4853,10 @@ umask.umask的值可以用shell的umask直接得到,本人所使用的是002,因
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">lseek</span>(fd,<span class="number">0</span>,<span class="number">0</span>); <span class="comment">//将读写位置移动到文件开头</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>C Language</category>
+        <category>ANSI</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>C Language</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -6060,11 +6050,10 @@ descriptor,关于其的访问永远优先于实例字典.</p>
 <p><a id="orge2379c0"></a></p>
 ]]></content>
       <categories>
-        <category>Python</category>
+        <category>Practical Python</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
-        <tag>Python</tag>
+        <tag>cs:Python</tag>
       </tags>
   </entry>
   <entry>
