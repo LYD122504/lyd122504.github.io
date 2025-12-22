@@ -1284,8 +1284,7 @@ k?They are NPC problems</font></p>
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
-        <tag>Operation Research</tag>
+        <tag>Operations Research</tag>
       </tags>
   </entry>
   <entry>
@@ -1513,7 +1512,6 @@ class="math inline">\((X^TX)^{-1}\)</span> 的伪逆来代替.</p>
         <category>CS229</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
         <tag>Machine Learning</tag>
       </tags>
   </entry>
@@ -1752,7 +1750,6 @@ D\rvert\le\frac{n-1}{2}\)</span>?</font></p>
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -2001,7 +1998,6 @@ class="math inline">\(\vec{X}^TA\vec{X}=\vec{X}^TB^TB\vec{X}=(B\vec{X})^TB\vec{X
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -2240,7 +2236,6 @@ det(L_0(G))=\frac{1}{n}\mu_1\mu_2\cdots\mu_{n-1}
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -2536,7 +2531,6 @@ positive eigenvalues=# negative eigenvalues</font></p>
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -2698,7 +2692,6 @@ k-flow.</strong></p>
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -2946,7 +2939,6 @@ class="math inline">\(\Big||X|-|Y|\Big|\leq2\)</span></font></p>
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -3145,7 +3137,6 @@ face is bounded by a cycle.</font></p>
         <category>Graph Theory</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Operation Research</tag>
       </tags>
   </entry>
@@ -4207,10 +4198,9 @@ l
 <p>可以发现apropos实际上是检索命令简介中包含关键词的条目罗列出,让用户选择.</p>
 ]]></content>
       <categories>
-        <category>Linux</category>
+        <category>Linux从入门到精通</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
@@ -4743,10 +4733,9 @@ b
 <p><a id="org86fc6aa"></a></p>
 ]]></content>
       <categories>
-        <category>Linux</category>
+        <category>Linux从入门到精通</category>
       </categories>
       <tags>
-        <tag>Computer Science</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
