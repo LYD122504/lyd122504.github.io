@@ -6349,4 +6349,160 @@ object注册到事件循环,让事件循环意识到协程的存在.事件循环
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Producer</title>
+    <url>/2025/12/28/Practical-Python-Producer/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Producer-Consumer-Problems-and-Workflows"><a href="#Producer-Consumer-Problems-and-Workflows" class="headerlink" title="Producer/Consumer Problems and Workflows"></a>Producer/Consumer Problems and Workflows</h2><p>生成器generator是用来设置各种生产者/消费者问题和管道工具的解决方案.生产者-消费者问题是经典的并发问题之一,其基本思想是生产者负责产生数据;消费者则负责使用数据;两者之间通过某种缓冲区或者管道的方式进行数据交换.Python中的生成器则很适合实现这种模式,他们具有延迟求值的特性:生成器不会一次性返回所有数据,而是每次yield产生一个值给消费者.</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#producer</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">follow</span>(<span class="params">f</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;生产者:从文件逐行读取数据&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        line=f.readline()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> line:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">yield</span> line <span class="comment"># 生产数据</span></span><br><span class="line"><span class="comment">#consumer</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> follow(f): <span class="comment"># 消费数据</span></span><br><span class="line">        <span class="built_in">print</span>(line.strip())</span><br></pre></td></tr></table></figure>
+<p>这里的follow(f)是生成器,每次for循环迭代的时候,他才读取文件的一行并且返回.for line in follow(f)是消费者,每次从生成器获取数据并进行处理.yield是连接生产者与消费者的桥梁,生成器每次暂停,等待消费者获取数据.这里我们可以看出生成器避免了一次性读取文件导致的大量内存占用的问题.</p>
+<p>生成器的另一个重要的应用是数据处理流水线(pipeline).</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">producer-&gt;</span><span class="language-bash">processing-&gt;processing-&gt;consumer</span></span><br></pre></td></tr></table></figure>
+<p>生产者用于生产原始数据;加工阶段对数据进行处理或过滤,可以有多个阶段;消费者使用处理后的数据.中间阶段既是消费者(消费前一阶段的数据),又是生产者(产生下一阶段的数据).</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Producer</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">producer</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        <span class="keyword">yield</span> i  <span class="comment"># 生成 0~9 的整数</span></span><br><span class="line"><span class="comment"># Processing stage: square the number</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">square</span>(<span class="params">numbers</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="keyword">yield</span> n ** <span class="number">2</span>  <span class="comment"># 消费并生成新的数据</span></span><br><span class="line"><span class="comment"># Processing stage: filter even numbers</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">even_filter</span>(<span class="params">numbers</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">yield</span> n  <span class="comment"># 只输出偶数</span></span><br><span class="line"><span class="comment"># Consumer</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">consumer</span>(<span class="params">numbers</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Consumed:&quot;</span>, n)</span><br><span class="line"><span class="comment"># 设置流水线</span></span><br><span class="line">a = producer()</span><br><span class="line">b = square(a)</span><br><span class="line">c = even_filter(b)</span><br><span class="line">consumer(c)</span><br></pre></td></tr></table></figure>
+<p>数据在各阶段之间以惰性迭代的方式传递,而不是一次性全部生成.</p>
+<p>生成器的特点与优势:</p>
+<ol>
+<li>延迟计算: 数据在需要时才生成,适合大数据流或无限序列</li>
+<li>低内存占用: 不需要一次性存储所有数据,只保留当前迭代状态</li>
+<li>组合灵活: 可以轻松将多个生成器函数串联形成流水线;中间阶段可以修改,过滤或者扩展数据流</li>
+<li>简洁的生产者-消费者实现: 不需要额外的队列,锁等机制即可处理顺序数据流;如果需要多线程/多进程,可以在生成器基础上增加同步.</li>
+</ol>
+<p>无限流处理:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 无限整数生成器</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">naturals</span>():</span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line"><span class="comment"># 偶数过滤</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evens</span>(<span class="params">nums</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">yield</span> n</span><br><span class="line"><span class="comment"># 平方计算</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">squares</span>(<span class="params">nums</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">yield</span> n ** <span class="number">2</span></span><br><span class="line"><span class="comment"># Consumer：取前10个平方偶数</span></span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> islice</span><br><span class="line">a = naturals()</span><br><span class="line">b = evens(a)</span><br><span class="line">c = squares(b)</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> islice(c, <span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(n)</span><br></pre></td></tr></table></figure>
+<p><a id="orge7010f0"></a></p>
+<h2 id="Generator-Expressions"><a href="#Generator-Expressions" class="headerlink" title="Generator Expressions"></a>Generator Expressions</h2><p>生成器表达式可以认为是列表解析式的惰性版本,他们的形式上基本上完全一致只是用圆括号代替方括号,不立即生成结果,只在迭代时才计算.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">b=(<span class="number">2</span>*x <span class="keyword">for</span> x <span class="keyword">in</span> a)</span><br></pre></td></tr></table></figure>
+<p>此时b不是列表,是一个Generator object,没有数据存储,只有生成规则.他与普通列表解析的区别为</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方面</th>
+<th>列表解析</th>
+<th>生成器表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否立刻计算</td>
+<td>是</td>
+<td>否(惰性)</td>
+</tr>
+<tr>
+<td>是否占用内存</td>
+<td>保存完整列表</td>
+<td>几乎不占用内存</td>
+</tr>
+<tr>
+<td>是否可以重复使用</td>
+<td>是</td>
+<td>否(一次性)</td>
+</tr>
+<tr>
+<td>主要用途</td>
+<td>多次访问数据</td>
+<td>流式计算,一次计算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>因此这里需要提醒的是,生成器表达式只能使用一次,一旦消耗,不可以重复使用.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">nums=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">squares=(x*x <span class="keyword">for</span> x <span class="keyword">in</span> nums)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> squares:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> squares:</span><br><span class="line">    <span class="built_in">print</span>(x) <span class="comment"># 什么都没有</span></span><br></pre></td></tr></table></figure>
+<p>这是因为生成器内部维护一个当前位置;迭代结束后,状态耗尽;不会自动重置状态.生成器表达式的通用语法结构为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(expr <span class="keyword">for</span> x <span class="keyword">in</span> iterable <span class="keyword">if</span> condition)</span><br></pre></td></tr></table></figure>
+<p>生成器还可以用于函数参数,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sum</span>(x*x <span class="keyword">for</span> x <span class="keyword">in</span> nums)</span><br><span class="line"><span class="built_in">sum</span>([x*x <span class="keyword">for</span> x <span class="keyword">in</span> nums])</span><br></pre></td></tr></table></figure>
+<p>这里的区别在于第二个做法会先生成一个完整列表,而第一鞥是边算边加.如果出现如下的条件,建议先使用生成器表达式作为函数参数:</p>
+<ol>
+<li>数据只遍历一次</li>
+<li>中间结果不需要保存</li>
+<li>函数本身是消费型(如sum,max,any,all)</li>
+</ol>
+<p>生成器表达式适用于任意可迭代对象,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">b = (x*x <span class="keyword">for</span> x <span class="keyword">in</span> a)</span><br><span class="line">c = (-x <span class="keyword">for</span> x <span class="keyword">in</span> b)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> c:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>他其实和前面的生产者/消费者问题一样.本质上是一样的,数据以”流”的形式经过一系列变换.</p>
+<p>生成器的核心使用场景:</p>
+<ol>
+<li><p>用迭代而不是数据结构思考问题:生成器表示如何一步步处理数据,这对处理文件,日志分析,网络流,大规模数据十分重要.</p>
+</li>
+<li><p>流式处理:经典例子,过滤文件的数据行</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;somefile.txt&#x27;</span>)</span><br><span class="line">lines = (line <span class="keyword">for</span> line <span class="keyword">in</span> f <span class="keyword">if</span> <span class="keyword">not</span> line.startswith(<span class="string">&#x27;#&#x27;</span>))</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">    ...</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<p>文件不需要一次性读取入内存,每行只处理一次,非常适合大文件.</p>
+</li>
+<li><p>内存效率和性能:生成器的优势不是”更快算法”.而是更低峰值内存,更好的可组合性,更清晰的数据流结构.</p>
+</li>
+</ol>
+<p>itertools模块提供的是通用的迭代模式,零内存或极低内存开销,可以无限生成数据.本质上是把常见的for-loop模板封装成函数.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>核心用途</th>
+<th>基本用法示例</th>
+<th>典型使用场景</th>
+<th>重要注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chain(a,b,&#x2026;)</td>
+<td>顺序拼接多个可迭代对象</td>
+<td>chain(a, b)</td>
+<td>多个数据源合并为一条数据流</td>
+<td>不创建新列表,按顺序消费</td>
+</tr>
+<tr>
+<td>count(start=0,step=1)</td>
+<td>无限整数序列</td>
+<td>count(1)</td>
+<td>生成索引,时间步,编号</td>
+<td>无限生成,必须搭配终止条件</td>
+</tr>
+<tr>
+<td>cycle(s)</td>
+<td>无限循环迭代</td>
+<td>cycle([1,2,3])</td>
+<td>轮询资源,周期性模式</td>
+<td>会缓存整个 s</td>
+</tr>
+<tr>
+<td>dropwhile(p,s)</td>
+<td>丢弃开头满足条件的元素</td>
+<td>dropwhile(x&lt;0,data)</td>
+<td>跳过文件头,前导无效数据</td>
+<td>一旦失败,后续不再检查条件</td>
+</tr>
+<tr>
+<td>groupby(s,key)</td>
+<td>按相邻键分组</td>
+<td>groupby(data,key=f)</td>
+<td>日志按字段聚类</td>
+<td>数据必须先排序</td>
+</tr>
+<tr>
+<td>repeat(x,n)</td>
+<td>重复常量值</td>
+<td>repeat(0,5)</td>
+<td>填充,占位,参数广播</td>
+<td>n=None时为无限</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于一些功能单一的生成器函数其实可以直接写成生成器表达式.如原函数为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">filter_symbols</span>(<span class="params">rows, names</span>):</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> rows:</span><br><span class="line">        <span class="keyword">if</span> row[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">in</span> names:</span><br><span class="line">            <span class="keyword">yield</span> row</span><br></pre></td></tr></table></figure>
+<p>生成器表达式为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rows = (row <span class="keyword">for</span> row <span class="keyword">in</span> rows <span class="keyword">if</span> row[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">in</span> names)</span><br></pre></td></tr></table></figure>
+<p>生成器表达式和 itertools对于管道搭建而言,是这个架构的”轻量级零件”,用来消除不必要的中间函数,可以提升代码可读性和组合性.</p>
+]]></content>
+      <categories>
+        <category>Practical Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>

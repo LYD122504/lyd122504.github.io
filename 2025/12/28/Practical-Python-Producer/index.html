@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+<meta name="google-site-verification" content="yGZtoctpv_RvqHFSVUN8MfwIraR1EkJ8pEmc5Azxuss" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Producer&#x2F;Consumer Problems and Workflows生成器generator是用来设置各种生产者&#x2F;消费者问题和管道工具的解决方案.生产者-消费者问题是经典的并发问题之一,其基本思想是生产者负责产生数据;消费者则负责使用数据;两者之间通过某种缓冲区或者管道的方式进行数据交换.P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Producer">
+<meta property="og:url" content="http://example.com/2025/12/28/Practical-Python-Producer/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Producer&#x2F;Consumer Problems and Workflows生成器generator是用来设置各种生产者&#x2F;消费者问题和管道工具的解决方案.生产者-消费者问题是经典的并发问题之一,其基本思想是生产者负责产生数据;消费者则负责使用数据;两者之间通过某种缓冲区或者管道的方式进行数据交换.P">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-28T09:39:10.000Z">
+<meta property="article:modified_time" content="2025-12-28T09:40:10.874Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/12/28/Practical-Python-Producer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Producer | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/28/Practical-Python-Producer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Producer
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-28 17:39:10 / 修改时间：17:40:10" itemprop="dateCreated datePublished" datetime="2025-12-28T17:39:10+08:00">2025-12-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Producer-Consumer-Problems-and-Workflows"><a href="#Producer-Consumer-Problems-and-Workflows" class="headerlink" title="Producer/Consumer Problems and Workflows"></a>Producer/Consumer Problems and Workflows</h2><p>生成器generator是用来设置各种生产者/消费者问题和管道工具的解决方案.生产者-消费者问题是经典的并发问题之一,其基本思想是生产者负责产生数据;消费者则负责使用数据;两者之间通过某种缓冲区或者管道的方式进行数据交换.Python中的生成器则很适合实现这种模式,他们具有延迟求值的特性:生成器不会一次性返回所有数据,而是每次yield产生一个值给消费者.</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#producer</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">follow</span>(<span class="params">f</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;生产者:从文件逐行读取数据&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        line=f.readline()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> line:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">yield</span> line <span class="comment"># 生产数据</span></span><br><span class="line"><span class="comment">#consumer</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> follow(f): <span class="comment"># 消费数据</span></span><br><span class="line">        <span class="built_in">print</span>(line.strip())</span><br></pre></td></tr></table></figure>
+<p>这里的follow(f)是生成器,每次for循环迭代的时候,他才读取文件的一行并且返回.for line in follow(f)是消费者,每次从生成器获取数据并进行处理.yield是连接生产者与消费者的桥梁,生成器每次暂停,等待消费者获取数据.这里我们可以看出生成器避免了一次性读取文件导致的大量内存占用的问题.</p>
+<p>生成器的另一个重要的应用是数据处理流水线(pipeline).</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">producer-&gt;</span><span class="language-bash">processing-&gt;processing-&gt;consumer</span></span><br></pre></td></tr></table></figure>
+<p>生产者用于生产原始数据;加工阶段对数据进行处理或过滤,可以有多个阶段;消费者使用处理后的数据.中间阶段既是消费者(消费前一阶段的数据),又是生产者(产生下一阶段的数据).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Producer</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">producer</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        <span class="keyword">yield</span> i  <span class="comment"># 生成 0~9 的整数</span></span><br><span class="line"><span class="comment"># Processing stage: square the number</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">square</span>(<span class="params">numbers</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="keyword">yield</span> n ** <span class="number">2</span>  <span class="comment"># 消费并生成新的数据</span></span><br><span class="line"><span class="comment"># Processing stage: filter even numbers</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">even_filter</span>(<span class="params">numbers</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">yield</span> n  <span class="comment"># 只输出偶数</span></span><br><span class="line"><span class="comment"># Consumer</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">consumer</span>(<span class="params">numbers</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Consumed:&quot;</span>, n)</span><br><span class="line"><span class="comment"># 设置流水线</span></span><br><span class="line">a = producer()</span><br><span class="line">b = square(a)</span><br><span class="line">c = even_filter(b)</span><br><span class="line">consumer(c)</span><br></pre></td></tr></table></figure>
+<p>数据在各阶段之间以惰性迭代的方式传递,而不是一次性全部生成.</p>
+<p>生成器的特点与优势:</p>
+<ol>
+<li>延迟计算: 数据在需要时才生成,适合大数据流或无限序列</li>
+<li>低内存占用: 不需要一次性存储所有数据,只保留当前迭代状态</li>
+<li>组合灵活: 可以轻松将多个生成器函数串联形成流水线;中间阶段可以修改,过滤或者扩展数据流</li>
+<li>简洁的生产者-消费者实现: 不需要额外的队列,锁等机制即可处理顺序数据流;如果需要多线程/多进程,可以在生成器基础上增加同步.</li>
+</ol>
+<p>无限流处理:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无限整数生成器</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">naturals</span>():</span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line"><span class="comment"># 偶数过滤</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evens</span>(<span class="params">nums</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">yield</span> n</span><br><span class="line"><span class="comment"># 平方计算</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">squares</span>(<span class="params">nums</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">yield</span> n ** <span class="number">2</span></span><br><span class="line"><span class="comment"># Consumer：取前10个平方偶数</span></span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> islice</span><br><span class="line">a = naturals()</span><br><span class="line">b = evens(a)</span><br><span class="line">c = squares(b)</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> islice(c, <span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(n)</span><br></pre></td></tr></table></figure>
+<p><a id="orge7010f0"></a></p>
+<h2 id="Generator-Expressions"><a href="#Generator-Expressions" class="headerlink" title="Generator Expressions"></a>Generator Expressions</h2><p>生成器表达式可以认为是列表解析式的惰性版本,他们的形式上基本上完全一致只是用圆括号代替方括号,不立即生成结果,只在迭代时才计算.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">b=(<span class="number">2</span>*x <span class="keyword">for</span> x <span class="keyword">in</span> a)</span><br></pre></td></tr></table></figure>
+<p>此时b不是列表,是一个Generator object,没有数据存储,只有生成规则.他与普通列表解析的区别为</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方面</th>
+<th>列表解析</th>
+<th>生成器表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否立刻计算</td>
+<td>是</td>
+<td>否(惰性)</td>
+</tr>
+<tr>
+<td>是否占用内存</td>
+<td>保存完整列表</td>
+<td>几乎不占用内存</td>
+</tr>
+<tr>
+<td>是否可以重复使用</td>
+<td>是</td>
+<td>否(一次性)</td>
+</tr>
+<tr>
+<td>主要用途</td>
+<td>多次访问数据</td>
+<td>流式计算,一次计算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>因此这里需要提醒的是,生成器表达式只能使用一次,一旦消耗,不可以重复使用.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nums=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">squares=(x*x <span class="keyword">for</span> x <span class="keyword">in</span> nums)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> squares:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> squares:</span><br><span class="line">    <span class="built_in">print</span>(x) <span class="comment"># 什么都没有</span></span><br></pre></td></tr></table></figure>
+<p>这是因为生成器内部维护一个当前位置;迭代结束后,状态耗尽;不会自动重置状态.生成器表达式的通用语法结构为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(expr <span class="keyword">for</span> x <span class="keyword">in</span> iterable <span class="keyword">if</span> condition)</span><br></pre></td></tr></table></figure>
+<p>生成器还可以用于函数参数,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sum</span>(x*x <span class="keyword">for</span> x <span class="keyword">in</span> nums)</span><br><span class="line"><span class="built_in">sum</span>([x*x <span class="keyword">for</span> x <span class="keyword">in</span> nums])</span><br></pre></td></tr></table></figure>
+<p>这里的区别在于第二个做法会先生成一个完整列表,而第一鞥是边算边加.如果出现如下的条件,建议先使用生成器表达式作为函数参数:</p>
+<ol>
+<li>数据只遍历一次</li>
+<li>中间结果不需要保存</li>
+<li>函数本身是消费型(如sum,max,any,all)</li>
+</ol>
+<p>生成器表达式适用于任意可迭代对象,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">b = (x*x <span class="keyword">for</span> x <span class="keyword">in</span> a)</span><br><span class="line">c = (-x <span class="keyword">for</span> x <span class="keyword">in</span> b)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> c:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>他其实和前面的生产者/消费者问题一样.本质上是一样的,数据以”流”的形式经过一系列变换.</p>
+<p>生成器的核心使用场景:</p>
+<ol>
+<li><p>用迭代而不是数据结构思考问题:生成器表示如何一步步处理数据,这对处理文件,日志分析,网络流,大规模数据十分重要.</p>
+</li>
+<li><p>流式处理:经典例子,过滤文件的数据行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;somefile.txt&#x27;</span>)</span><br><span class="line">lines = (line <span class="keyword">for</span> line <span class="keyword">in</span> f <span class="keyword">if</span> <span class="keyword">not</span> line.startswith(<span class="string">&#x27;#&#x27;</span>))</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">    ...</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<p>文件不需要一次性读取入内存,每行只处理一次,非常适合大文件.</p>
+</li>
+<li><p>内存效率和性能:生成器的优势不是”更快算法”.而是更低峰值内存,更好的可组合性,更清晰的数据流结构.</p>
+</li>
+</ol>
+<p>itertools模块提供的是通用的迭代模式,零内存或极低内存开销,可以无限生成数据.本质上是把常见的for-loop模板封装成函数.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>核心用途</th>
+<th>基本用法示例</th>
+<th>典型使用场景</th>
+<th>重要注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chain(a,b,&#x2026;)</td>
+<td>顺序拼接多个可迭代对象</td>
+<td>chain(a, b)</td>
+<td>多个数据源合并为一条数据流</td>
+<td>不创建新列表,按顺序消费</td>
+</tr>
+<tr>
+<td>count(start=0,step=1)</td>
+<td>无限整数序列</td>
+<td>count(1)</td>
+<td>生成索引,时间步,编号</td>
+<td>无限生成,必须搭配终止条件</td>
+</tr>
+<tr>
+<td>cycle(s)</td>
+<td>无限循环迭代</td>
+<td>cycle([1,2,3])</td>
+<td>轮询资源,周期性模式</td>
+<td>会缓存整个 s</td>
+</tr>
+<tr>
+<td>dropwhile(p,s)</td>
+<td>丢弃开头满足条件的元素</td>
+<td>dropwhile(x&lt;0,data)</td>
+<td>跳过文件头,前导无效数据</td>
+<td>一旦失败,后续不再检查条件</td>
+</tr>
+<tr>
+<td>groupby(s,key)</td>
+<td>按相邻键分组</td>
+<td>groupby(data,key=f)</td>
+<td>日志按字段聚类</td>
+<td>数据必须先排序</td>
+</tr>
+<tr>
+<td>repeat(x,n)</td>
+<td>重复常量值</td>
+<td>repeat(0,5)</td>
+<td>填充,占位,参数广播</td>
+<td>n=None时为无限</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于一些功能单一的生成器函数其实可以直接写成生成器表达式.如原函数为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">filter_symbols</span>(<span class="params">rows, names</span>):</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> rows:</span><br><span class="line">        <span class="keyword">if</span> row[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">in</span> names:</span><br><span class="line">            <span class="keyword">yield</span> row</span><br></pre></td></tr></table></figure>
+<p>生成器表达式为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rows = (row <span class="keyword">for</span> row <span class="keyword">in</span> rows <span class="keyword">if</span> row[<span class="string">&#x27;name&#x27;</span>] <span class="keyword">in</span> names)</span><br></pre></td></tr></table></figure>
+<p>生成器表达式和 itertools对于管道搭建而言,是这个架构的”轻量级零件”,用来消除不必要的中间函数,可以提升代码可读性和组合性.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/28/Practical-Python-Coroutine/" rel="prev" title="Practical Python-Coroutine">
+      <i class="fa fa-chevron-left"></i> Practical Python-Coroutine
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Producer-Consumer-Problems-and-Workflows"><span class="nav-number">1.</span> <span class="nav-text">Producer&#x2F;Consumer Problems and Workflows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generator-Expressions"><span class="nav-number">2.</span> <span class="nav-text">Generator Expressions</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
