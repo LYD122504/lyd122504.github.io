@@ -196,6 +196,83 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/01/03/Practical-Python-Static/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/01/03/Practical-Python-Static/" class="post-title-link" itemprop="url">Practical-Python-Static</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-01-03 16:50:47 / 修改时间：16:52:09" itemprop="dateCreated datePublished" datetime="2026-01-03T16:50:47+08:00">2026-01-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a id="org1dfe10a"></a></p>
+<p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Static-and-class-methods"><a href="#Static-and-class-methods" class="headerlink" title="Static and class methods"></a>Static and class methods</h2><p>我们之前介绍了装饰器和一些Python预定义的装饰器.这些预定义装饰器是用于在类中定义中指定特殊类型的方法.一般有staticmethod,classmethod和property.其中property,我们前面已经介绍过了property,他将类中的方法伪装成属性.通过property,可以在保持对象接口简洁的同时,对属性访问进行控制.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/01/03/Practical-Python-Static/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/01/03/Practical-Python-Closure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -221,7 +298,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2026-01-03 09:31:31 / 修改时间：09:33:43" itemprop="dateCreated datePublished" datetime="2026-01-03T09:31:31+08:00">2026-01-03</time>
+              <time title="创建时间：2026-01-03 09:31:31 / 修改时间：16:51:44" itemprop="dateCreated datePublished" datetime="2026-01-03T09:31:31+08:00">2026-01-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,9 +321,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="returning-function-and-closures">Returning function and
-closures</h2>
-<p>在Python中,函数和整数,字符串一样都是对象.因此函数可以作为另一个函数的返回值,函数可以赋值给变量,函数可以作为参数传递.如</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Returning-function-and-closures"><a href="#Returning-function-and-closures" class="headerlink" title="Returning function and closures"></a>Returning function and closures</h2><p>在Python中,函数和整数,字符串一样都是对象.因此函数可以作为另一个函数的返回值,函数可以赋值给变量,函数可以作为参数传递.如</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x,y</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_add</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Adding&#x27;</span>,x,y)</span><br><span class="line">        <span class="keyword">return</span> x+y</span><br><span class="line">    <span class="keyword">return</span> do_add</span><br><span class="line">a=add(<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
 <p>这里的add函数并没有执行加法,而是返回了一个执行加法的新函数do_add.这里的变量a指向的是函数do_add,因此可以用a()的方式来调用内部函数.</p>
           <!--noindex-->
@@ -927,94 +1003,6 @@ Python</a>.</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/15/Practical-Python-Class/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/12/15/Practical-Python-Class/" class="post-title-link" itemprop="url">Practical Python-Class</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-12-15 15:14:04" itemprop="dateCreated datePublished" datetime="2025-12-15T15:14:04+08:00">2025-12-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:19:12" itemprop="dateModified" datetime="2025-12-22T15:19:12+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="introducing-classes">Introducing Classes</h2>
-<p>面向对象编程(Object Oriented
-Programming)指将代码用对象组合的方式拆分.其中对象中包含数据(属性)和行为(应用在对象的方法).Python提供了class语句用来定义新对象,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,x,y</span>):</span><br><span class="line">    self.x=x</span><br><span class="line">    self.y=y</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">self,dx,dy</span>):</span><br><span class="line">    self.x+=dx</span><br><span class="line">    self.y+=dy</span><br></pre></td></tr></table></figure>
-<p>这里Python作为动态语言,与C++最为不同的一点是,Python的类属性可以在程序运行中随意添加,但是很不推荐这么做,会让程序显得十分杂乱.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/12/15/Practical-Python-Class/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1086,7 +1074,7 @@ Programming)指将代码用对象组合的方式拆分.其中对象中包含数�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
