@@ -6926,4 +6926,149 @@ lambda</h2>
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Practical Python-Debug</title>
+    <url>/2026/01/04/Practical-Python-Debug/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="debugging">Debugging</h2>
+<p>调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.</p>
+<span id="more"></span>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;C:\Users\Liyaoda\Nutstore\1\Computer\Learned\Pratical_Python\Chapter8\demo\Ch8_Sec3.py&quot;, line 21, in &lt;module&gt;</span><br><span class="line">    process()</span><br><span class="line">  File &quot;C:\Users\Liyaoda\Nutstore\1\Computer\Learned\Pratical_Python\Chapter8\demo\Ch8_Sec3.py&quot;, line 19, in process</span><br><span class="line">    result = normalize(data)</span><br><span class="line">             ^^^^^^^^^^^^^^^</span><br><span class="line">  File &quot;C:\Users\Liyaoda\Nutstore\1\Computer\Learned\Pratical_Python\Chapter8\demo\Ch8_Sec3.py&quot;, line 5, in normalize</span><br><span class="line">    total = sum(values)</span><br><span class="line">            ^^^^^^^^^^^</span><br><span class="line">TypeError: &#x27;int&#x27; object is not iterable</span><br></pre></td></tr></table></figure>
+<p>阅读Traceback的方式其实是从最后一行开始,因为最后一行是异常的直接原因,然后在慢慢向上回溯,从而可以了解错误是如何被逐层调用传播出来的.值得注意的是,异常点往往并不是错误发生的地方,而是错误暴露的地方.</p>
+<p>如果我们直接用python解释器去处理含错误的程序,他遇到错误之后会崩溃并退出.但我们仍可以通过python
+-i的方式保留解释器运行.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -i Ch8_Sec3.py</span><br></pre></td></tr></table></figure>
+<p>他的含义是脚本执行完,即使是因为异常退出,解释器也不会退出,当前的作用域,变量,对象仍然存在.我们可以直接现场调用一些变量来检查程序内部状态.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(x)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">locals</span>()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">globals</span>()</span><br></pre></td></tr></table></figure>
+<p>本质上这等价于在C/C++崩溃后还能冻结现场,是一种轻量级事后调试.但是值得注意的是,-i他只能保留全局变量和定义的函数,类和模块,对于函数内部的局部变量是不能检查的.</p>
+<p>虽然上面提到了一些调试方式,但实际上print仍然是最简单的调试方式.但是对于调试,更为建议的是选择使用repr()函数,因为repr函数返回的字符串会更为符合调试分析的精确表达.因为在调试过程中,我们更期待的是返回变量的类型,精度以及是否被隐式转换,如果直接print可能会被解释器做一些隐匿的美化,导致信息被隐藏.</p>
+<p>上面的python
+-i只能检查全局变量的正确与否,我们可以用pdb来做交互式调试.在python3.7以上的版本,可以通过breakpoint()来直接调用pdb</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">some_function</span>():</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">breakpoint</span>()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>这里推荐使用breakpoint()的原因是可以通过环境变量切换调试器,不强耦合pdb.加了断点之后,程序运行到这个断点,运行停止,进入REPL和调用栈上下文,然后可以逐行执行,检查变量和修改状态.我们也可以直接调用调试器来运行程序,</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 -m pdb Ch8_Sec3.py</span><br></pre></td></tr></table></figure>
+<p>程序从第一行就进入调试器.我们可以在程序中提前设断点,控制执行路径,检查初始化阶段的状态.pdb常见的命令如下所示</p>
+<table>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>w</td>
+<td>查看当前调用栈（极其重要）</td>
+</tr>
+<tr class="even">
+<td>u / d</td>
+<td>在调用栈中上下移动</td>
+</tr>
+<tr class="odd">
+<td>l</td>
+<td>查看当前代码</td>
+</tr>
+<tr class="even">
+<td>a</td>
+<td>查看当前函数参数</td>
+</tr>
+<tr class="odd">
+<td>p expr</td>
+<td>打印表达式</td>
+</tr>
+<tr class="even">
+<td>s</td>
+<td>单步进入</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>单步执行（不进入函数）</td>
+</tr>
+<tr class="even">
+<td>c</td>
+<td>继续运行</td>
+</tr>
+<tr class="odd">
+<td>b</td>
+<td>设置断点</td>
+</tr>
+</tbody>
+</table>
+<p>调试器实际上就是在时间轴,调用栈和函数局部状态三个调试维度上调试程序.设置断点的常用方式如下所示</p>
+<table>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>断点设置方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>b 45</td>
+<td>当前文件第45行</td>
+</tr>
+<tr class="even">
+<td>b file.py</td>
+<td>指定文件的第45行</td>
+</tr>
+<tr class="odd">
+<td>b foo</td>
+<td>当前文件的函数foo()</td>
+</tr>
+<tr class="even">
+<td>b module.foo</td>
+<td>模块中的foo()</td>
+</tr>
+</tbody>
+</table>
+<p>实际上,按函数名下断点通常比行号更稳定.</p>
+<p><a id="org61aedbc"></a></p>
+]]></content>
+      <categories>
+        <category>Practical Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Practical Python-Packages</title>
+    <url>/2026/01/04/Practical-Python-Pack/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a
+href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="packages">Packages</h2>
+<p>任意一个python文件就是一个模块,这里的模块解决的是代码复用与命名空间隔离.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># foo.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">grok</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> foo</span><br><span class="line">foo.grok(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>但是在大型程序中,具有大量的模块文件,如果仍然通过模块管理代码,会使得主程序被大量的模块文件隐藏,因此对于大量代码组织架构的程序中,包代替模块成为管理代码的好方式.</p>
+<span id="more"></span>
+<p>包实际上就是模块的集合加上层级命名空间,形式上来看,包就是一个目录以及__init__.py文件.包解决的问题是大规模代码的组织问题,模块名冲突问题,以及应用与库的结构分离问题.但如果我们只是简单的将模块文件放入包目录里面,那么程序的运行会立刻崩溃.这是因为包内模块之间的导入方式不同以及包内模块不能直接当做脚本运行.</p>
+<p>我们常见的导入模块的方式为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> fileparse</span><br></pre></td></tr></table></figure>
+<p>如果fileparse模块在包目录内,那么他就会报错,这是因为此时fileparse并不是顶层模块,而应该用pack.modules的方式调用.正确的导入方式可以简单的分为两种:绝对导入,不推荐使用在包内模块的互相调用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pack <span class="keyword">import</span> module</span><br><span class="line"><span class="keyword">import</span> pack.module</span><br><span class="line"><span class="keyword">from</span> pack.module <span class="keyword">import</span> func</span><br></pre></td></tr></table></figure>
+<p>他的缺点是将包名写死,如果我们在后续程序运行中修改了包名,那么就要逐一修改包名,比较麻烦.因此Python官方更为推荐的包内导入方式为相对导入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#.表示当前包</span></span><br><span class="line"><span class="comment">#..表示上一级包</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> module</span><br><span class="line"><span class="keyword">from</span> .module <span class="keyword">import</span> func</span><br></pre></td></tr></table></figure>
+<p>相对导入只能用于包内模块,不能应用到顶层脚本.</p>
+<p>包内模块不能直接当脚本运行,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python porty/pcost.py</span><br></pre></td></tr></table></figure>
+<p>这是因为Python将porty/pcost.py当做孤立文件,sys.path中没有porty的父目录,所以相对导入和包结构就会全部失效.我们可以用python
+-m的方式来运行模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m porty.pcost</span><br></pre></td></tr></table></figure>
+<p>Python先把当前目录加入sys.path再以模块的方式执行,包结构完整可见.或者我们也可以用顶层脚本的方式调用,此时我们需要在和包目录同级的地方创建一个python文件并用如下代码调用,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># print-report.py</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> porty.report <span class="keyword">import</span> main</span><br><span class="line">main(sys.argv)</span><br></pre></td></tr></table></figure>
+<p>这里需要牢记脚本永远在包外,包内只放库代码.</p>
+<p>包里面我们一开始创建了一个__init__.py,他并非一个占位文件,他的核心作用是声明这是一个包并且组织对外的API接口.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># porty/__init__.py</span></span><br><span class="line"><span class="keyword">from</span> .pcost <span class="keyword">import</span> portfolio_cost</span><br><span class="line"><span class="keyword">from</span> .report <span class="keyword">import</span> portfolio_report</span><br><span class="line"><span class="comment">#main.py</span></span><br><span class="line"><span class="keyword">from</span> porty <span class="keyword">import</span> portfolio_cost</span><br></pre></td></tr></table></figure>
+<p>这一个顶层文件的工程意义是控制用户应该看到什么,隐藏内部实现细节和提供稳定接口</p>
+]]></content>
+      <categories>
+        <category>Practical Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>

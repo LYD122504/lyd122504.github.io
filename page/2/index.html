@@ -196,6 +196,172 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/22/Practical-Python-Encap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/12/22/Practical-Python-Encap/" class="post-title-link" itemprop="url">Practical Python-Encapsulation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-22 11:29:16 / 修改时间：15:20:48" itemprop="dateCreated datePublished" datetime="2025-12-22T11:29:16+08:00">2025-12-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本笔记完全基于David Beazley的Python教程-<a
+target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="encapsulation-techniques">Encapsulation Techniques</h2>
+<p>类的使用会试图封装内部实现细节.因为类的主要作用之一是封装对象数据和内部实现细节,但是会提供一些public接口供外部调用.这一特点在C++体现的尤为明显,他通过严格的访问控制机制来实现代码的封装.但是Python中并没有提供严格的封装机制以及访问控制机制.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/12/22/Practical-Python-Encap/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/21/Practical-Python-Dict/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/12/21/Practical-Python-Dict/" class="post-title-link" itemprop="url">Practical Python-Objects and Dictionaries</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-12-21 20:15:24" itemprop="dateCreated datePublished" datetime="2025-12-21T20:15:24+08:00">2025-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-22 15:20:33" itemprop="dateModified" datetime="2025-12-22T15:20:33+08:00">2025-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本笔记完全基于David Beazley的Python教程-<a
+target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="dictionaries-revisited-object-implementation">Dictionaries
+Revisited (Object Implementation)</h2>
+<p>Python的对象在系统底层很大依赖于字典构建.换言之,Python对象本质上存放在一个字典里.</p>
+<p>在模块内部,字典会存放模块中所有的全局变量和函数.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/12/21/Practical-Python-Dict/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/18/Practical-Python-Special/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -882,180 +1048,6 @@ Python</a>.</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/10/Practical-Python-Datatype/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/10/10/Practical-Python-Datatype/" class="post-title-link" itemprop="url">Pratical Python-Datatype</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-10-10 16:25:41" itemprop="dateCreated datePublished" datetime="2025-10-10T16:25:41+08:00">2025-10-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:20:22" itemprop="dateModified" datetime="2025-12-22T15:20:22+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="datatypes-and-data-structures">Datatypes and Data
-structures</h2>
-<p>None类型: None可选或缺失值的占位符.在条件语句中,认为是False.</p>
-<p>元组指的是一组值的组合,其利用如下的方式声明,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s=(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">49.1</span>)</span><br><span class="line">s=<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">49.1</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/10/10/Practical-Python-Datatype/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/12/Practical-Python-List/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/12/Practical-Python-List/" class="post-title-link" itemprop="url">Pratical Python-List, File and Functions</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-09-12 19:12:35" itemprop="dateCreated datePublished" datetime="2025-09-12T19:12:35+08:00">2025-09-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:21:46" itemprop="dateModified" datetime="2025-12-22T15:21:46+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="list">List</h2>
-<p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">names=[<span class="string">&#x27;Elwood&#x27;</span>,<span class="string">&#x27;Jake&#x27;</span>,<span class="string">&#x27;Curtis&#x27;</span>]</span><br><span class="line">nums=[<span class="number">39</span>,<span class="number">38</span>,<span class="number">42</span>,<span class="number">65</span>,<span class="number">111</span>]</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/09/12/Practical-Python-List/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1127,7 +1119,7 @@ Python</a>.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
