@@ -6688,4 +6688,242 @@ lambda</h2>
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Practical Python-Testing</title>
+    <url>/2026/01/04/Practical-Python-Test/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><p>Python动态特性使得测试对大多数程序至关重要.编译器的静态编译并不能帮你查到程序错误,唯一发现错误的方式就是运行代码,并确保测试了他的所有功能.</p>
+<span id="more"></span>
+<p>assert语句是程序的内部检查.如果表达式不为真,他就会引发一个AssertError异常.他的常用的语法是</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">assert</span> &lt;expression&gt; [, <span class="string">&#x27;Diagnostic message&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>一般来说,我们不会使用他来做用户输入检测.他的作用一般是用于程序内部检查和不变式(应该始终是真的条件)</p>
+<p>Contract Programming(契约编程)或者也称之为Design by Contract(设计契约),广泛使用断言是设计软件的一种方法,他规定软件设计者应该为软件的组件定义精确的接口规范.如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(x, <span class="built_in">int</span>), <span class="string">&#x27;Expected int&#x27;</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(y, <span class="built_in">int</span>), <span class="string">&#x27;Expected int&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"><span class="built_in">print</span>(add(<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(add(<span class="string">&#x27;hello&#x27;</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>这样的代码检查可以快速发现那些没有使用适当参数的参数.断言也可以做一些简单的代码测试,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x,y</span>):</span><br><span class="line">    <span class="keyword">return</span> x+y</span><br><span class="line"><span class="keyword">assert</span> add(<span class="number">2</span>,<span class="number">2</span>)==<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>这样我们就可以将测试和代码放在同一个模块中.这样的优点是如果代码有错误,那么导入模块就会直接报错崩溃.这其实有点像是常见的冒烟测试,冒烟测试是一种最基础,快速的验证性测试,用于确认系统或软件在经历一次构建,部署或重大修改之后,核心功能是否处于可用状态.它的目标不是发现细节错误,而是尽早暴露致命问题,以判断是否值得继续进行后续,更深入的测试.其主要特点在于</p>
+<ol>
+<li>覆盖面小但关键:只测试最核心,最重要的功能路径</li>
+<li>测试深度浅:不涉及复杂逻辑,边界条件或异常场景</li>
+<li>执行迅速:通常几分钟内完成</li>
+<li>结论明确:只有通过/不通过,用于决定是否继续后续工作</li>
+</ol>
+<p>除了内置的assert检查,Python还有提供了unittest模块.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># test_simple.py</span></span><br><span class="line"><span class="keyword">import</span> simple</span><br><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="comment"># Notice that it inherits from unittest.TestCase</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestAdd</span>(unittest.TestCase):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_simple</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Test with simple integer arguments</span></span><br><span class="line">        r = simple.add(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">        self.assertEqual(r, <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_str</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Test with strings</span></span><br><span class="line">        r = simple.add(<span class="string">&#x27;hello&#x27;</span>, <span class="string">&#x27;world&#x27;</span>)</span><br><span class="line">        self.assertEqual(r, <span class="string">&#x27;helloworld&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>测试类必须要继承unittest.TestCase.每个测试函数都要以test开头.unittest也内置了一些断言,每个断言都对应着不同的情况.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>断言语句</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>self.assertTrue(expr)</td>
+<td>断言expr为真</td>
+</tr>
+<tr>
+<td>self.assertEqual(x,y)</td>
+<td>断言x等于y</td>
+</tr>
+<tr>
+<td>self.assertNotEqual(x,y)</td>
+<td>断言x不等于y</td>
+</tr>
+<tr>
+<td>self.assertAlmostEqual(x,y,places)</td>
+<td>断言x和y在小数点后places位内相等</td>
+</tr>
+<tr>
+<td>self.assertRaises(exc,callable,arg1,..)</td>
+<td>断言调用 callable(arg1, arg2, &#x2026;)时会抛出exc异常</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>除了unittest模块外,其实还有一个pytest标准测试框架,他强调简洁,可扩展,可读性强.他的特点在于</p>
+<ol>
+<li>零样本:测试函数可以直接用test_开头,不需要继承基类</li>
+<li>断言重写:使用原生的assert,失败给出结构化可读性极强的错误信息</li>
+<li>Fixture机制:用以来注入方式管理测试资源</li>
+<li>高度可扩展: 丰富的插件生态</li>
+<li>与unittest兼容:可以运行基于unittest.TestCase的测试</li>
+</ol>
+<p>pytest 会自动发现:文件名为test_*.py或*_test.py的自动执行或函数名为test_*自动调用测试.</p>
+<p><a id="org9f65edf"></a></p>
+]]></content>
+      <categories>
+        <category>Practical Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Practical-Python-Logging</title>
+    <url>/2026/01/04/Practical-Python-Logging/</url>
+    <content><![CDATA[<p>本笔记完全基于David Beazley的Python教程-<a href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Logging-error-handling-and-diagnostics"><a href="#Logging-error-handling-and-diagnostics" class="headerlink" title="Logging,error handling and diagnostics"></a>Logging,error handling and diagnostics</h2><p>logging模块解决的是一个工程级别的诊断信息管理问题:如何在不污染业务逻辑的前提下,记录那些对程序分析有用的信息,并且允许用户自行决定是否查看这些信息.这个之前我们其实也有一些做法,我们将其罗列在下面的表格</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>print()</td>
+<td>无级别,无法关闭,无法重定向</td>
+</tr>
+<tr>
+<td>pass</td>
+<td>丢失执行信息,丢失诊断信息</td>
+</tr>
+<tr>
+<td>logging</td>
+<td>可分级,可配置,可集中管理</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以对于日志模块而言,强调的是行为(记录日志)和策略(如何输出)分离.因此logging的设计是分层的,其中有Logger,Handler,Formatter和Filter.</p>
+<span id="more"></span>
+<p>我们从Logger出发,讨论日志模块.logging提供了getLogger函数来返回一个logging.Logger对象,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">log=logging.getLogger(__name__)</span><br></pre></td></tr></table></figure>
+<p>这里的__name__是模块名,每个模块都有自己的log,如果getLogger同名,那么他其实是返回的同一个对象,因为Logger是按照名字全局缓存,并且可以通过名字共享配置.一个Logger实例其实代表日志命名空间的一个节点,他并非一个临时对象,而是一个长期存在且可复用的单例式对象.这些Logger会构成一个日志的命名树.Logger的日志等级的显示方式并不一定是打印在屏幕,而是受其内部配置决定.常见的日志等级如下所示</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRITICAL</td>
+<td>程序无法继续</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>操作失败</td>
+</tr>
+<tr>
+<td>WARNING</td>
+<td>异常但可以继续</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>关键运行信息</td>
+</tr>
+<tr>
+<td>DEBUG</td>
+<td>细节诊断信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一般来说,默认输出是WARNING以上的警告信息.其常见用法为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">name=__name__</span><br><span class="line">log=logging.getLogger(name)</span><br><span class="line">log.debug(<span class="string">&quot;Debug message from %s&quot;</span>, name)</span><br><span class="line">log.info(<span class="string">&quot;Info message from %s&quot;</span>, name)</span><br><span class="line">log.warning(<span class="string">&quot;Warning message from %s&quot;</span>, name)</span><br><span class="line">log.error(<span class="string">&quot;Error message from %s&quot;</span>, name)</span><br><span class="line">log.critical(<span class="string">&quot;Critical message from %s&quot;</span>, name)</span><br></pre></td></tr></table></figure>
+<p>上面的这些日志代码并不负责调整日志输出的形式,如果我们需要自定义一些日志配置,可以利用basicConifg函数来修改.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(</span><br><span class="line">    filename=<span class="string">&#x27;app.log&#x27;</span>,</span><br><span class="line">    level=logging.WARNING,</span><br><span class="line">    <span class="built_in">format</span>=<span class="string">&#x27;%(levelname)s:%(name)s:%(message)s&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>上面的代码一般出现在程序开头,用于告诉程序把日志写到哪里,写多少,怎么写.如果我们不做任何操作,那么默认的level是WARNING,输出的地方是stderr.我们也可以精确的控制某个特定的版块,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logging.getLogger(<span class="string">&#x27;fileparse&#x27;</span>).setLevel(logging.DEBUG)</span><br></pre></td></tr></table></figure>
+<p>只打开fileparse日志的debug播报等级.</p>
+<p>Logger用于接受日志事件,那么Handler决定往哪里写,Formatter决定写入的形式,Filter决定要不要写.Handler是日志的输出通道.他负责回答这个日志写到哪里,如终端,文件,缓冲区等.常见的Handler类型如下所示</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StreamHandler</td>
+<td>输出到流(默认是stderr)</td>
+</tr>
+<tr>
+<td>FileHandler</td>
+<td>输出到文件</td>
+</tr>
+<tr>
+<td>RotatingFileHandler</td>
+<td>文件滚动</td>
+</tr>
+<tr>
+<td>TimeRotatingFileHandler</td>
+<td>按时间滚动</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logger = logging.getLogger(<span class="string">&quot;demo&quot;</span>)</span><br><span class="line">logger.setLevel(logging.DEBUG)</span><br><span class="line"><span class="comment"># Handler 1：终端</span></span><br><span class="line">h1 = logging.StreamHandler()</span><br><span class="line">h1.setLevel(logging.INFO)</span><br><span class="line"><span class="comment"># Handler 2：文件</span></span><br><span class="line">h2 = logging.FileHandler(<span class="string">&quot;app.log&quot;</span>)</span><br><span class="line">h2.setLevel(logging.WARNING)</span><br><span class="line">logger.addHandler(h1)</span><br><span class="line">logger.addHandler(h2)</span><br><span class="line">logger.debug(<span class="string">&quot;debug&quot;</span>)</span><br><span class="line">logger.info(<span class="string">&quot;info&quot;</span>)</span><br><span class="line">logger.warning(<span class="string">&quot;warning&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>如果我们同时给logger配置了多个Handler.同一条日志被赋值并且依次发送给每一个满足条件的Handler.其余的RotatingFileHandler表示当日志文件满足某个条件,当前文件被封存并重命名,新的日志写入一个全新的文件.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> logging.handlers <span class="keyword">import</span> RotatingFileHandler</span><br><span class="line">handler = RotatingFileHandler(</span><br><span class="line">    <span class="string">&quot;app.log&quot;</span>,</span><br><span class="line">    maxBytes=<span class="number">1024</span>,     <span class="comment"># 单个文件最大字节数</span></span><br><span class="line">    backupCount=<span class="number">3</span>      <span class="comment"># 最多保留多少个旧文件</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>其可以限制单个日志文件的大小,同时保留历史日志,他能够保存一共n+1个日志,RotatingFileHandler主要是基于文件大小做一个轮转.而对于TimeRotatingFileHandler则是基于时间做轮转.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> logging.handlers <span class="keyword">import</span> TimedRotatingFileHandler</span><br><span class="line">handler = TimedRotatingFileHandler(</span><br><span class="line">    <span class="string">&quot;app.log&quot;</span>,</span><br><span class="line">    when=<span class="string">&quot;D&quot;</span>,       <span class="comment"># 每天</span></span><br><span class="line">    interval=<span class="number">1</span>,</span><br><span class="line">    backupCount=<span class="number">7</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>这里的when关键字决定轮转的时间单位,上面的when=”D”,interval=1,表示每天轮转一次,如果考虑when=’H’,interval=6,那么就是每六小时轮转一次.如果超过了backupCount,那么最旧的文件就会被自动删除.TimeRotating并不是实时记录器,他只发生在当前时间越过轮转点.</p>
+<p>Formatter则是决定记录的日志应该是以什么形式写入.其主要的调用方式如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">formatter = logging.Formatter(</span><br><span class="line">    <span class="string">&quot;%(levelname)s:%(name)s:%(message)s&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>这里面常用的字段为</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%(levelname)s</td>
+<td>日志级别</td>
+</tr>
+<tr>
+<td>%(name)s</td>
+<td>logger 名</td>
+</tr>
+<tr>
+<td>%(message)s</td>
+<td>日志内容</td>
+</tr>
+<tr>
+<td>%(asctime)s</td>
+<td>时间</td>
+</tr>
+<tr>
+<td>%(filename)s</td>
+<td>文件名</td>
+</tr>
+<tr>
+<td>%(lineno)d</td>
+<td>行号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Formatter并不是挂载在Logger上,而是挂载在Handler上.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">handler.setFormatter(formatter)</span><br></pre></td></tr></table></figure>
+<p>Filter则是对日志做一个筛选,考虑是否需要将这个信息写入日志,和前面提到的播报level不同的是,Filter可以基于任意的条件.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyFilter</span>(logging.Filter):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">filter</span>(<span class="params">self, record</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;password&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> record.getMessage()</span><br></pre></td></tr></table></figure>
+<p>这里返回值True表示通过,False表示拦截.Filter则是既可以挂载在Logger上,也可以挂载在Handler上.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.addFilter(...)</span><br><span class="line">handler.addFilter(...)</span><br></pre></td></tr></table></figure>
+<p>如果挂载在Logger上,那他会自动作用在所有的Handler上.如果挂载在Handler上,那他只会作用在这个Handler.</p>
+<p>给一个完整的代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="comment"># 基本配置</span></span><br><span class="line">logging.basicConfig(</span><br><span class="line">    level=logging.WARNING,  <span class="comment"># 兜底级别</span></span><br><span class="line">    <span class="built_in">format</span>=<span class="string">&quot;%(levelname)s:%(name)s:%(message)s&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 构造过滤器类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IgnoreKeywordFilter</span>(logging.Filter):</span><br><span class="line">    <span class="comment">#-&gt;表示设计上应该返回什么类型,提高可读性</span></span><br><span class="line">    <span class="comment">#record:logging.LogRecord表示参数类型注解</span></span><br><span class="line">    <span class="comment">#表示record这个参数在设计和语义上应当是一个logging.LogRecord对象</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">filter</span>(<span class="params">self, record: logging.LogRecord</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;ignore&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> record.getMessage()</span><br><span class="line"><span class="comment"># 创建Logger对象</span></span><br><span class="line">logger = logging.getLogger(<span class="string">&quot;demo.app&quot;</span>)</span><br><span class="line">logger.setLevel(logging.DEBUG)  <span class="comment"># Logger 总闸门</span></span><br><span class="line"><span class="comment"># 如果True,会调用logger的handler之后,再去调用root logger</span></span><br><span class="line">logger.propagate = <span class="literal">False</span>        <span class="comment"># 避免重复输出到 root logger</span></span><br><span class="line"><span class="comment"># 创建新的formatter</span></span><br><span class="line">console_formatter = logging.Formatter(</span><br><span class="line">    fmt=<span class="string">&quot;%(levelname)s - %(message)s&quot;</span></span><br><span class="line">)</span><br><span class="line">file_formatter = logging.Formatter(</span><br><span class="line">    fmt=<span class="string">&quot;%(asctime)s [%(levelname)s] &quot;</span></span><br><span class="line">        <span class="string">&quot;%(name)s %(filename)s:%(lineno)d - %(message)s&quot;</span>,</span><br><span class="line">    datefmt=<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 创建不同的Handler</span></span><br><span class="line"><span class="comment"># 控制台 Handler</span></span><br><span class="line">console_handler = logging.StreamHandler(sys.stderr)</span><br><span class="line">console_handler.setLevel(logging.INFO)</span><br><span class="line">console_handler.setFormatter(console_formatter)</span><br><span class="line">console_handler.addFilter(IgnoreKeywordFilter())</span><br><span class="line"><span class="comment"># 文件 Handler</span></span><br><span class="line">file_handler = logging.FileHandler(<span class="string">&quot;app.log&quot;</span>, mode=<span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">file_handler.setLevel(logging.DEBUG)</span><br><span class="line">file_handler.setFormatter(file_formatter)</span><br><span class="line">file_handler.addFilter(IgnoreKeywordFilter())</span><br><span class="line"><span class="comment"># 绑定 Handler 到 Logger</span></span><br><span class="line">logger.addHandler(console_handler)</span><br><span class="line">logger.addHandler(file_handler)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    logger.debug(<span class="string">&quot;This is a DEBUG message&quot;</span>)</span><br><span class="line">    logger.info(<span class="string">&quot;Application started&quot;</span>)</span><br><span class="line">    logger.warning(<span class="string">&quot;Low disk space&quot;</span>)</span><br><span class="line">    logger.error(<span class="string">&quot;Something went wrong&quot;</span>)</span><br><span class="line">    <span class="comment"># 这条会被 Filter 丢弃</span></span><br><span class="line">    logger.warning(<span class="string">&quot;This message should be ignored&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="number">1</span> / <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">        logger.exception(<span class="string">&quot;Unhandled exception occurred&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p><a id="org27ec2d3"></a></p>
+]]></content>
+      <categories>
+        <category>Practical Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>
