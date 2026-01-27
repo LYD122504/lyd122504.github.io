@@ -600,4 +600,11 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://example.com/categories/Advanced-Python/</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 </urlset>

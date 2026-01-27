@@ -7072,7 +7072,7 @@ Python</a>.</p>
       </tags>
   </entry>
   <entry>
-    <title>Advanced-Python-Data.md</title>
+    <title>Advanced Python-Data Handling</title>
     <url>/2026/01/28/Advanced-Python-Data/</url>
     <content><![CDATA[<p><a id="org3d97304"></a></p>
 <h1 id="Python-Review"><a href="#Python-Review" class="headerlink" title="Python Review"></a>Python Review</h1><p>在之前Practical Python系列笔记中,我们只是简要介绍了一下数值型变量的运算符,在此我们介绍一下数值型变量的常用方法:</p>
@@ -7335,7 +7335,7 @@ Python</a>.</p>
 <p>如果我们需要完全复制某个对象以及其中的所有元素,那么可以选择使用copy模块的deepcopy函数.这也是唯一安全的方式来复制变量.</p>
 ]]></content>
       <categories>
-        <category>Practical Python</category>
+        <category>Advanced Python</category>
       </categories>
       <tags>
         <tag>Python</tag>
