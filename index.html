@@ -196,6 +196,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/05/Advanced-Python-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/02/05/Advanced-Python-Object/" class="post-title-link" itemprop="url">Advanced Python-Classes and Objects</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-02-05 23:31:38 / 修改时间：23:36:18" itemprop="dateCreated datePublished" datetime="2026-02-05T23:31:38+08:00">2026-02-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="classes-and-objects">Classes and Objects</h1>
+<p><a id="org704c65d"></a></p>
+<h2 id="objects">Objects</h2>
+<p>面向对象编程其实就像是基于行为的自下而上的建模.一个对象则会包含一些内部状态和一些对内部状态的操作.因此,对于一个对象而言,其中包含的数据和行为是密不可分的,数据是对象的属性,而行为则是体现了对象的特性.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/02/05/Advanced-Python-Object/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/01/28/Advanced-Python-Data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -713,10 +791,16 @@ Python</a>.</p>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2026-01-03 09:31:31 / 修改时间：16:51:44" itemprop="dateCreated datePublished" datetime="2026-01-03T09:31:31+08:00">2026-01-03</time>
+              <time title="创建时间：2026-01-03 09:31:31" itemprop="dateCreated datePublished" datetime="2026-01-03T09:31:31+08:00">2026-01-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-01-29 23:46:13" itemprop="dateModified" datetime="2026-01-29T23:46:13+08:00">2026-01-29</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -738,8 +822,12 @@ Python</a>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
-<h2 id="Returning-function-and-closures"><a href="#Returning-function-and-closures" class="headerlink" title="Returning function and closures"></a>Returning function and closures</h2><p>在Python中,函数和整数,字符串一样都是对象.因此函数可以作为另一个函数的返回值,函数可以赋值给变量,函数可以作为参数传递.如</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a
+target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="returning-function-and-closures">Returning function and
+closures</h2>
+<p>在Python中,函数和整数,字符串一样都是对象.因此函数可以作为另一个函数的返回值,函数可以赋值给变量,函数可以作为参数传递.如</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x,y</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_add</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Adding&#x27;</span>,x,y)</span><br><span class="line">        <span class="keyword">return</span> x+y</span><br><span class="line">    <span class="keyword">return</span> do_add</span><br><span class="line">a=add(<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
 <p>这里的add函数并没有执行加法,而是返回了一个执行加法的新函数do_add.这里的变量a指向的是函数do_add,因此可以用a()的方式来调用内部函数.</p>
           <!--noindex-->
@@ -925,85 +1013,6 @@ Problems and Workflows</h2>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/28/Practical-Python-Coroutine/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/12/28/Practical-Python-Coroutine/" class="post-title-link" itemprop="url">Practical Python-Coroutine</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-12-28 16:39:36 / 修改时间：16:42:15" itemprop="dateCreated datePublished" datetime="2025-12-28T16:39:36+08:00">2025-12-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="coroutine">Coroutine</h2>
-<p>协程函数是使用async def定义的函数.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>其在调用不会执行函数体,仅返回一个coroutine
-object,只创建了一个可等待对象(awaitable).协程对象是协程函数的返回值,本质上是一种可等待对象,他的内部保存函数体,局部变量,当前执行位置(尚未开始/挂起点).他的调度状态一般为CREATED/RUNNING/SUSPENDED/FINISHED,用于调度分析.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/12/28/Practical-Python-Coroutine/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1075,7 +1084,7 @@ object,只创建了一个可等待对象(awaitable).协程对象是协程函数�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
