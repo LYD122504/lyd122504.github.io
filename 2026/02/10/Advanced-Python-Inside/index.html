@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+<meta name="google-site-verification" content="yGZtoctpv_RvqHFSVUN8MfwIraR1EkJ8pEmc5Azxuss" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="Inside Python Objects  Underlying dictionary 字典是命名化值的集合,用户自定义的对象的底层使用字典,如实例数据和类成员.换言之,整个对象系统的底层是基于字典.实例的__dict__字典属性会用于存储实例数据,在创建实例属性并赋值的时候,实际上就是对__dict__字典的元素填充.并且不同实例的__dict__字典属性是私用的,并不会互通共享.换言之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Python-Inside Python Objects">
+<meta property="og:url" content="http://example.com/2026/02/10/Advanced-Python-Inside/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Inside Python Objects  Underlying dictionary 字典是命名化值的集合,用户自定义的对象的底层使用字典,如实例数据和类成员.换言之,整个对象系统的底层是基于字典.实例的__dict__字典属性会用于存储实例数据,在创建实例属性并赋值的时候,实际上就是对__dict__字典的元素填充.并且不同实例的__dict__字典属性是私用的,并不会互通共享.换言之">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-10T07:05:42.000Z">
+<meta property="article:modified_time" content="2026-02-10T07:09:05.084Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/02/10/Advanced-Python-Inside/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Advanced Python-Inside Python Objects | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/10/Advanced-Python-Inside/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Python-Inside Python Objects
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-02-10 15:05:42 / 修改时间：15:09:05" itemprop="dateCreated datePublished" datetime="2026-02-10T15:05:42+08:00">2026-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="inside-python-objects">Inside Python Objects</h1>
+<p><a id="org96f57f2"></a></p>
+<h2 id="underlying-dictionary">Underlying dictionary</h2>
+<p>字典是命名化值的集合,用户自定义的对象的底层使用字典,如实例数据和类成员.换言之,整个对象系统的底层是基于字典.实例的__dict__字典属性会用于存储实例数据,在创建实例属性并赋值的时候,实际上就是对__dict__字典的元素填充.并且不同实例的__dict__字典属性是私用的,并不会互通共享.换言之,其实就是如果程序中创建了100个实例,那么也会有100个不同的实例字典.与实例的__dict__字典不同的是,类也是存在__dict__字典属性的,其是用于存储类成员.类和对象在逻辑上是具有很强的联系的,也就是实例是类的可操作对象,类提供了实例的数据属性和操作行为.实例的__class__属性返回的是其实例化的类,因此可以从实例反连接到类.</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Stock</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,shares,price</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">        self.shares=shares</span><br><span class="line">        self.price=price</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cost</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.price*self.shares</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sell</span>(<span class="params">self,nshares</span>):</span><br><span class="line">        self.shares-=nshares</span><br><span class="line"><span class="built_in">print</span>(Stock.__dict__)</span><br><span class="line">s=Stock(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">490.10</span>)</span><br><span class="line"><span class="built_in">print</span>(s.__dict__)</span><br><span class="line"><span class="built_in">print</span>(s.__class__)</span><br></pre></td></tr></table></figure>
+<p>实例字典是私有的,而类字典则是所有实例都可以共享.</p>
+<p>Python通过.操作符来实现对属性的调用,如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x=obj.name <span class="comment"># Getting</span></span><br><span class="line">obj.name=value <span class="comment"># Setting</span></span><br><span class="line"><span class="keyword">del</span> obj.name <span class="comment"># Deleting</span></span><br></pre></td></tr></table></figure>
+<p>这些操作其实可以直接反映到底层字典,因此修改和删除实例数据会直接在底层字典上更新.如果我们希望读取实例的某个属性,程序会优先在局部实例字典中查找,如果没有,再查找类字典.这种查找方式会使类成员被所有实例共享.</p>
+<p><a id="orgcc766f3"></a></p>
+<h2 id="inheritance">Inheritance</h2>
+<p>继承在前面已经提到了很多次,这里主要是介绍一下关于多重继承的继承结构和方法调用上.Python允许类从多个父类中继承,其相关的直接父类会以元组的形式存储在每个类的__bases__属性中,但对于父类的父类并不会存储返回.而在类属性中,还有一个类似的属性__base__,他会返回第一个直接父类,一般用于单继承.__bases__属性会提供指向父类的链接,从而可以扩展用于查找属性的搜索过程.因此完整的搜索链其实是先查找局部实例字典,再查找类字典,最后查找父类字典.</p>
+<p>在继承层次结构上,属性是通过沿着继承树查找.若只是单继承,则查找线路只有一个直线,程序会在第一个匹配的对象时停止并返回.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(<span class="title class_ inherited__">object</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(<span class="title class_ inherited__">A</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>(<span class="title class_ inherited__">B</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">E</span>(<span class="title class_ inherited__">D</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="built_in">print</span>(E.__mro__)</span><br></pre></td></tr></table></figure>
+<p>这种继承链会在类完成继承的时候预计算,并且存储在类的__mro__属性.多继承的MRO会比较复杂,但是我们在前面已经提到了相关的算法,如感兴趣可以查阅.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(<span class="title class_ inherited__">object</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">object</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(A,B): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>(<span class="title class_ inherited__">B</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">E</span>(C,D): <span class="keyword">pass</span></span><br><span class="line"><span class="built_in">print</span>(E.__mro__)</span><br></pre></td></tr></table></figure>
+<p>在类方法的重写中,如果我们需要调用父类的方法,当然可以直接明确的指出所使用的父类名称,如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self,x</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Base.spam(<span class="subst">&#123;x&#125;</span>)&quot;</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self,x</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;A.spam(<span class="subst">&#123;x&#125;</span>)&quot;</span>)</span><br><span class="line">        Base.spam(x)</span><br></pre></td></tr></table></figure>
+<p>这样会很明确,但是如果继承结构的变化会使得程序的修改和维护变得困难.因此为了重写方法,我们一般选择使用super()函数.super()函数会调用给MRO上的下一个匹配的类,而不是直接父类,因此在不同的MRO中,同一个类的super()返回的可能不是同一个类,这里我们需要额外注意.</p>
+<p>我们简要介绍一下继承设计的几个原则:第一,需要有兼容的方法参数,重写方法在整个继承结构中必须存在兼容参数..如果方法参数各不相同,那么可以使用关键字参数.代码如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self,x</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Base.spam(<span class="subst">&#123;x&#125;</span>)&quot;</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self,x</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;A.spam(<span class="subst">&#123;x&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().spam(x)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;B.spam(<span class="subst">&#123;x&#125;</span>, <span class="subst">&#123;y&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().spam(x)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(A, B):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;C.spam(<span class="subst">&#123;x&#125;</span>, <span class="subst">&#123;y&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().spam(x, y)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    c = C()</span><br><span class="line">    c.spam(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">except</span> TypeError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;错误: <span class="subst">&#123;e&#125;</span>\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>这里会因为类C调用类A的spam函数,并且传入两个参数,这与类A的spam函数的所需参数不同,因此会报错.故而需要采用关键字参数,如下所示,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BaseFixed</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self, x, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;BaseFixed.spam(x=<span class="subst">&#123;x&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="comment"># 消耗掉已处理的参数，传递剩余参数</span></span><br><span class="line">        kwargs.pop(<span class="string">&#x27;extra&#x27;</span>, <span class="literal">None</span>)  <span class="comment"># 可选：清理特定参数</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AFixed</span>(<span class="title class_ inherited__">BaseFixed</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self, x, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;AFixed.spam(x=<span class="subst">&#123;x&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().spam(x, **kwargs)  <span class="comment"># 安全传递所有未使用参数</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BFixed</span>(<span class="title class_ inherited__">BaseFixed</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self, x, y, **kwargs</span>):  <span class="comment"># 可安全添加新参数</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;BFixed.spam(x=<span class="subst">&#123;x&#125;</span>, y=<span class="subst">&#123;y&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().spam(x, **kwargs)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CFixed</span>(AFixed, BFixed):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">spam</span>(<span class="params">self, x, y, z=<span class="literal">None</span>, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;CFixed.spam(x=<span class="subst">&#123;x&#125;</span>, y=<span class="subst">&#123;y&#125;</span>, z=<span class="subst">&#123;z&#125;</span>)&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().spam(x, y=y, z=z, **kwargs)</span><br><span class="line"><span class="comment"># 测试：MRO 顺序为 CFixed -&gt; AFixed -&gt; BFixed -&gt; BaseFixed -&gt; object</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MRO:&quot;</span>, [cls.__name__ <span class="keyword">for</span> cls <span class="keyword">in</span> CFixed.__mro__])</span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line">c_fixed = CFixed()</span><br><span class="line">c_fixed.spam(<span class="number">1</span>, y=<span class="number">2</span>, z=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>关键字参数的存在可以安全的传递一些额外的参数.第二,方法链必须要终止,super()函数不可以永远调用,因为MRO的长度是有限的;第三,在任何地方都可以使用super()函数.</p>
+<p><a id="orge4b006e"></a></p>
+<h2 id="descriptor">Descriptor</h2>
+<p>描述符是Python最强大但常被忽略的元编程工具,其用于实现property,classmethod等高级特性的底层实现.描述符指的是实现了描述符协议(<u><u>get</u></u>,__set__,__delete__中至少一个)的类实例.若类试图访问类中的某个属性,我们会检测其是否具有描述器符特征,如果有,那么他的相关调用就会被描述符覆盖.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Descriptor</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,owner</span>):</span><br><span class="line">        <span class="keyword">return</span> instance.__dict__[self.name]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self,instance,value</span>):</span><br><span class="line">        instance.__dict__[self.name]=value</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__delete__</span>(<span class="params">self,instance</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    a=Descriptor(<span class="string">&#x27;a&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>从上面的代码来看,我们发现描述符的实例其实是类属性,但是他其实操作的是实例字典,也就是他会拦截实例属性的访问行为.</p>
+<p>Python属性访问遵循严格优先级,这是理解描述符的关键:</p>
+<figure>
+<img
+src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260210/2026-02-09_11-04-34_screenshot.icn4ugmr5.png"
+alt="2026-02-09_11-04-34_screenshot" />
+<figcaption
+aria-hidden="true">2026-02-09_11-04-34_screenshot</figcaption>
+</figure>
+<p>数据描述符指的是实现了__set__或__delete__的描述符类,他会拦截赋值写入;非数据描述符指的则是只实现了__get__方法,他不会拦截对实例字典的访问,相反他会被实例字典覆盖.查找的路线是数据描述符,实例字典,非数据描述符,类字典.给出如下的代码实例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DataDesc</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self, instance, owner</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;__get__: <span class="subst">&#123;instance=&#125;</span>, <span class="subst">&#123;owner=&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> instance.__dict__.get(<span class="string">&#x27;attr&#x27;</span>, <span class="string">&#x27;default&#x27;</span>)    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self, instance, value</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;__set__: <span class="subst">&#123;value=&#125;</span>&#x27;</span>)</span><br><span class="line">        instance.__dict__[<span class="string">&#x27;attr&#x27;</span>] = value</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    attr = DataDesc()  <span class="comment"># 数据描述符（有 __set__）</span></span><br><span class="line">a = A()</span><br><span class="line">a.attr = <span class="number">42</span>          <span class="comment"># → __set__: value=42（被拦截）</span></span><br><span class="line"><span class="built_in">print</span>(a.attr)        <span class="comment"># → __get__: instance=&lt;A...&gt;, owner=&lt;class &#x27;A&#x27;&gt; → 42</span></span><br><span class="line"><span class="built_in">print</span>(a.__dict__)    <span class="comment"># → &#123;&#x27;attr&#x27;: 42&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上面的a.attr试图访问的是实例字典的属性,但是被数据描述符拦截,从而调用数据描述符的方法.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NonDataDesc</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self, instance, owner</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;__get__ called&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;from descriptor&#x27;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    attr = NonDataDesc()  <span class="comment"># 非数据描述符（无 __set__）</span></span><br><span class="line">b = B()</span><br><span class="line"><span class="built_in">print</span>(b.attr)</span><br><span class="line">b.attr = <span class="string">&#x27;instance value&#x27;</span>  <span class="comment"># 直接写入实例字典，不触发 __set__</span></span><br><span class="line"><span class="built_in">print</span>(b.attr)              <span class="comment"># → &#x27;instance value&#x27;（实例字典优先）</span></span><br><span class="line"><span class="built_in">print</span>(B.attr)              <span class="comment"># → __get__ called → &#x27;from descriptor&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>这里我们先调用b.attr时,发现他会调用非数据描述符的get方法,如果我们对b.attr赋值以后,那么他的相关调用就会被实例字典覆盖,除非我们用类属性的方式调用,因为非数据描述符本质上是一个类属性.</p>
+<p>从上面的代码,我们可以看出描述符其实是包含了实例,类和数值的信息.在程序编写中我们需要注意的是,self是描述符本身,instance则表示是操作的实例对象.虽然他的调用从形式上来看和实例字典是一样的,但是我们可以把他用如下的方式拆解.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">q=A.__dict__[<span class="string">&#x27;attr&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(q) <span class="comment"># &lt;__main__.DataDesc object at 0x00000279B19DA930&gt;</span></span><br><span class="line">q.__set__(a,<span class="number">43</span>) <span class="comment"># __set__: value=43</span></span><br><span class="line"><span class="built_in">print</span>(q.__get__(a,a.__class__))</span><br><span class="line"><span class="comment"># __get__: instance=&lt;__main__.A object at 0x000001FCD0FDA9F0&gt;, owner=&lt;class &#x27;__main__.A&#x27;&gt;</span></span><br><span class="line"><span class="comment"># 43</span></span><br></pre></td></tr></table></figure>
+<p>我们通过代码实现可以知道,描述符是可以存储和检索数据的,他会直接操作实例底层字典,来实现对数据的读写操作.这也就是我们前面提到的,描述符是一个类属性,但是他的操作对象则是实例对象的底层字典.因此许多重要的类行为都是通过描述符实现的,例如实例方法,静态方法,类方法以及property装饰器,我们在后续会给出一些自定义的实现.我们前面提到过函数的调用是分成两个步骤的,先通过.操作符查找到绑定方法,再用()操作符去调用相关方法.就此我们用描述符的角度去解释一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> stock</span><br><span class="line">s=stock.Stock(<span class="string">&#x27;GOOG&#x27;</span>,<span class="number">100</span>,<span class="number">490.10</span>)</span><br><span class="line"><span class="comment"># class attribute lookup</span></span><br><span class="line">value=stock.Stock.__dict__[<span class="string">&#x27;cost&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(value)</span><br><span class="line"><span class="comment">#descriptor check</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(value,<span class="string">&#x27;__get__&#x27;</span>)) <span class="comment"># true</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(value,<span class="string">&#x27;__set__&#x27;</span>)) <span class="comment"># false</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hasattr</span>(value,<span class="string">&#x27;__delete__&#x27;</span>)) <span class="comment"># false</span></span><br><span class="line"><span class="comment">#invocation</span></span><br><span class="line">result=value.__get__(s,stock.Stock)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="built_in">print</span>(result())</span><br></pre></td></tr></table></figure>
+<p>故而可知value其实就是一个非数据描述符,对其进行赋值后,会返回一个绑定方法,但这个其实只是一个返回设定,如果我们自定义了一个返回为字符串,那么就是字符串,只是我们可以通过描述符进一步解释实例方法的调用.因此非数据描述符被激发的前提是在实例字典上没有匹配的属性,他才会被激发.</p>
+<p>__slots__和__dict__不同的是他在实例创建之初,就会预先检查类字典中是否有同名属性,如有则报错,若没有,那么就会计算分配一个数组空间.从底层来看,每个slot名都会创建一个描述符用来完成在指定的位置进行简单的读取写入操作.但我们仍然可以自定义一个描述符,但需要注意的是如果我们希望可以实现对slots的描述符,那么类属性和slots必须要分开,不然是无法创建slots数组的,我们给出正确的代码示例.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Descriptor</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        self.name=<span class="string">&#x27;_&#x27;</span>+name</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,cls</span>):</span><br><span class="line">        <span class="keyword">if</span> instance==<span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(instance,self.name)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self,instance,value</span>):</span><br><span class="line">        <span class="built_in">setattr</span>(instance,self.name,value)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    __slots__=(<span class="string">&#x27;_x&#x27;</span>,<span class="string">&#x27;_y&#x27;</span>)</span><br><span class="line">    x=Descriptor(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">    y=Descriptor(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">a=A()</span><br><span class="line">a.x=<span class="number">10</span></span><br><span class="line">a.y=<span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(a.x)</span><br><span class="line"><span class="built_in">print</span>(a.y)</span><br></pre></td></tr></table></figure>
+<p>这里我们不用前面常见的操作底层字典的方式是因为slots并没有像底层字典一样提供存储空间,而是向程序宣告允许的属性名是什么,其相关的内部空间由底层程序控制,因此我们需要调用setattr和getattr等属性访问函数.其次,这里的类A中在类字典中是具有属性x和y的,而对于实例slots的_x和_y则是通过调用类属性的数据描述符x和y操作.同样slots也是支持删除操作的,因为slots的主要目的其实是为了内存优化和属性限制,也就是控制某些属性的存在.</p>
+<p>描述符的主要作用其实是描述数据,提供比property装饰器更为精细的控制,可以使用更少的重复代码.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numbers</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Integer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self,instance,value</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(value,<span class="built_in">int</span>):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">&#x27;Expected an integer&#x27;</span>)</span><br><span class="line">        instance.__dict__[self.name]=value</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">String</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,maxlen</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">        self.maxlen=maxlen</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,cls</span>):</span><br><span class="line">        <span class="keyword">return</span> instance.__dict__[self.name]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self,instance,value</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(value,<span class="built_in">str</span>):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">&#x27;Expected a string&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(value)&gt;self.maxlen:</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">&#x27;The length must be less than 8&#x27;</span>)</span><br><span class="line">        instance.__dict__[self.name]=value</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Real</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,cls</span>):</span><br><span class="line">        <span class="keyword">return</span> instance.__dict__[self.name]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self,instance,value</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(value,(<span class="built_in">int</span>,<span class="built_in">float</span>)):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">&#x27;Expected an integer or float&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(value,numbers.Real):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">&#x27;The number must be real&#x27;</span>)</span><br><span class="line">        instance.__dict__[self.name]=value</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Stock</span>:</span><br><span class="line">    name=String(<span class="string">&#x27;name&#x27;</span>,maxlen=<span class="number">8</span>)</span><br><span class="line">    shares=Integer(<span class="string">&#x27;shares&#x27;</span>)</span><br><span class="line">    price=Real(<span class="string">&#x27;price&#x27;</span>)</span><br><span class="line">s=Stock()</span><br><span class="line">s.name=<span class="string">&#x27;Hello&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.name)</span><br></pre></td></tr></table></figure>
+<p>这里我们可以发现Integer其实没有设置get方法,这是因为Python内部其实也是有get方法的,如果我们在描述符内不去设置get方法,那么程序就会调用程序自带的get方法,这要求我们所调用的名字和实例字典里的名字需要完全一样.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Integer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        self.name=<span class="string">&#x27;_&#x27;</span>+name</span><br><span class="line">s.shares=<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(s.shares) <span class="comment"># &lt;__main__.Integer object at 0x000002A278692300&gt;</span></span><br><span class="line"><span class="built_in">print</span>(s._shares) <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<p>其实如果我们省略了get方法的话,可以认为就是直接去访问实例字典.get方法可以被两种方式调用,一是通过绑定实例的方式,也就是直接使用实例调用;二则是通过类调用,这样他不会绑定实例.这里我们可以知道上面的描述符对get方法的实现存在一个问题,因为它本质上是一个类方法,但是我们的实现中只考虑实例调用的情况,所以我们需要补充一下get方法,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Descriptor</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,cls</span>):</span><br><span class="line">        <span class="keyword">if</span> instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="comment"># If no instance given, return the descriptor</span></span><br><span class="line">            <span class="comment"># object itself</span></span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># Return the instance value</span></span><br><span class="line">            <span class="keyword">return</span> instance.__dict__[self.name]</span><br></pre></td></tr></table></figure>
+<p>我们在前面中定义描述符的时候,实例属性的名称需要显示给出,但一般而言我们为了方便起见都会定义成原来的名字,如果多次出现,会使得代码十分臃肿.因此Python3.6版本以上提供了名称设置器的方法以简化描述符的实例化.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Descriptor</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="literal">None</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self, instance, cls</span>):</span><br><span class="line">        <span class="keyword">if</span> instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">return</span> instance.__dict__[self.name]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set_name__</span>(<span class="params">self, cls, name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Spam</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    x=Descriptor() <span class="comment"># x.__set_name__(Spam,&#x27;x&#x27;)</span></span><br></pre></td></tr></table></figure>
+<p>我们可以让类的多个属性分别绑定在同一个描述符,但是不可以让同一个属性绑定在多个描述符上,如果发生了,那么后定义的会覆盖前定义的.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Integer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="literal">None</span></span>):</span><br><span class="line">        self.storage_name = name <span class="keyword">if</span> name <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="string">&#x27;_&#x27;</span> + name    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set_name__</span>(<span class="params">self, owner, name</span>):</span><br><span class="line">        <span class="comment"># Python 3.6+ 自动捕获属性名（推荐）</span></span><br><span class="line">        <span class="keyword">if</span> self.storage_name <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.storage_name = <span class="string">&#x27;_&#x27;</span> + name  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self, instance, owner</span>):</span><br><span class="line">        <span class="keyword">if</span> instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(instance, self.storage_name)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self, instance, value</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(value, <span class="built_in">int</span>):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f&quot;<span class="subst">&#123;self.storage_name&#125;</span> must be int&quot;</span>)</span><br><span class="line">        <span class="built_in">setattr</span>(instance, self.storage_name, value)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line">    x = Integer()  <span class="comment"># 实例1：管理 x</span></span><br><span class="line">    y = Integer()  <span class="comment"># 实例2：管理 y </span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line">p = Point(<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line"><span class="built_in">print</span>(p.x, p.y)  <span class="comment"># 10 20</span></span><br><span class="line">p.x = <span class="number">30</span>         <span class="comment"># → Integer实例1的__set__</span></span><br><span class="line">p.y = <span class="number">40</span>         <span class="comment"># → Integer实例2的__set__</span></span><br><span class="line"><span class="built_in">print</span>(p.x, p.y)  <span class="comment"># 30 40</span></span><br></pre></td></tr></table></figure>
+<p>这里x和y是两个独立的Integer实例,并且他们通过__set_name__方法来获得唯一的实例属性名,他们不会互相干扰,各自管理自己的属性.</p>
+<p>我们给出一些描述符的简单实现,覆盖静态方法,类方法,property装饰器等场景.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Mystatic</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,func</span>):</span><br><span class="line">        self.func=func</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,owner</span>):</span><br><span class="line">        <span class="comment"># 无论是实例访问还是类访问都返回函数</span></span><br><span class="line">        <span class="keyword">return</span> self.func</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Math</span>:</span><br><span class="line"><span class="meta">    @Mystatic</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x,y</span>):</span><br><span class="line">        <span class="keyword">return</span> x+y</span><br><span class="line"><span class="built_in">print</span>(Math.add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">m=Math()</span><br><span class="line"><span class="built_in">print</span>(m.add(<span class="number">2</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>这里的特点就是get方法返回的是self.func,并没有和任何类,实例进行绑定.因此对这个方法而言,其实在实现逻辑上并不属于类和实例,只是在编程逻辑上应该属于类.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Myclass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,func</span>):</span><br><span class="line">        self.func=func</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,cls</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args,**kwargs</span>):</span><br><span class="line">            <span class="keyword">return</span> self.func(cls,*args,**kwargs)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Date</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, year, month, day</span>):</span><br><span class="line">        self.year = year</span><br><span class="line">        self.month = month</span><br><span class="line">        self.day = day</span><br><span class="line"><span class="meta">    @Myclass</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">today</span>(<span class="params">cls</span>):</span><br><span class="line">        <span class="keyword">import</span> datetime</span><br><span class="line">        now = datetime.date.today()</span><br><span class="line">        <span class="keyword">return</span> cls(now.year, now.month, now.day)</span><br><span class="line">d = Date.today()</span><br><span class="line"><span class="built_in">print</span>(d.year)     <span class="comment"># 2026</span></span><br></pre></td></tr></table></figure>
+<p>属性访问Date.today触发描述符协议,调用MyClass.__get__(None,Date),此时get方法会返回一个闭包wrapper,他捕获了owner=Date和原始函数self.func.此时调用Date.today,其实就是调用的就是wrapper函数,只是wrapper函数已经给定了第一个参数为类,所以他其实就是一个类方法.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Myproperty</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,fget=<span class="literal">None</span>,fset=<span class="literal">None</span>,fdel=<span class="literal">None</span>,doc=<span class="literal">None</span></span>):</span><br><span class="line">        self.fget=fget <span class="comment"># gettr 函数</span></span><br><span class="line">        self.fset=fset <span class="comment"># settr 函数</span></span><br><span class="line">        self.fdel=fdel <span class="comment"># deleter 函数</span></span><br><span class="line">        self.__doc__=doc <span class="keyword">or</span> (fget.__doc__ <span class="keyword">if</span> fget <span class="keyword">else</span> <span class="literal">None</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,owner</span>):</span><br><span class="line">        <span class="keyword">if</span> instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">if</span> self.fget <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> AttributeError(<span class="string">&quot;unreadable attribute&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> self.fget(instance)  <span class="comment"># 调用 getter</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__set__</span>(<span class="params">self,instance,value</span>):</span><br><span class="line">        <span class="keyword">if</span> self.fset <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> AttributeError</span><br><span class="line">        self.fset(instance,value)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__delete__</span>(<span class="params">self,instance</span>):</span><br><span class="line">        <span class="keyword">if</span> self.deleter <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> AttributeError</span><br><span class="line">        self.fdel(instance)  <span class="comment"># 调用 deleter</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">setter</span>(<span class="params">self, fset</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">type</span>(self)(self.fget, fset, self.fdel, self.__doc__)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">deleter</span>(<span class="params">self, fdel</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">type</span>(self)(self.fget, self.fset, fdel, self.__doc__)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, radius</span>):</span><br><span class="line">        self._radius = radius    </span><br><span class="line"><span class="meta">    @Myproperty</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">radius</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;圆的半径&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> self._radius </span><br><span class="line"><span class="meta">    @radius.setter</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">radius</span>(<span class="params">self, value</span>):</span><br><span class="line">        <span class="keyword">if</span> value &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;半径不能为负&quot;</span>)</span><br><span class="line">        self._radius = value   </span><br><span class="line"><span class="meta">    @radius.deleter</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">radius</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">del</span> self._radius</span><br><span class="line">c = Circle(<span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(c.radius)    <span class="comment"># 5（触发 __get__ → fget）</span></span><br><span class="line">c.radius = <span class="number">10</span>      <span class="comment"># 触发 __set__ → fset</span></span><br><span class="line"><span class="keyword">del</span> c.radius       <span class="comment"># 触发 __delete__ → fdel </span></span><br></pre></td></tr></table></figure>
+<p>我们首先用Myproperty装饰器装饰了radius函数,相当于用了如下代码,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">radius=Myproperty(radius)</span><br></pre></td></tr></table></figure>
+<p>此时的radius就是Myproperty的一个实例对象.而后的radius.setter和deleter用来填充需要的其他相关代码.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CachedProperty</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,func</span>):</span><br><span class="line">        self.__name__=func.__name__</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__get__</span>(<span class="params">self,instance,owner</span>):</span><br><span class="line">        <span class="keyword">if</span> instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Called get function&#x27;</span>)</span><br><span class="line">        value=self.func(instance)</span><br><span class="line">        <span class="built_in">setattr</span>(instance,self.__name__,value)</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,data</span>):</span><br><span class="line">        self._data=data</span><br><span class="line"><span class="meta">    @CachedProperty</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">processed_data</span>(<span class="params">self</span>):</span><br><span class="line">        result=[x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> self._data]</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">obj=MyClass([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="built_in">print</span>(obj.processed_data)</span><br><span class="line"><span class="comment"># Called get function</span></span><br><span class="line"><span class="comment"># [1, 4, 9, 16, 25]</span></span><br><span class="line"><span class="built_in">print</span>(obj.processed_data)</span><br><span class="line"><span class="comment"># [1, 4, 9, 16, 25]</span></span><br></pre></td></tr></table></figure>
+<p>这里我们发现他调用了两次相同的函数,但实际上非数据描述符只调用了一次,因为调用非数据描述符的时候在实例字典中设置了一个同名属性,从而覆盖非数据描述符的调用.</p>
+<p><a id="orgb9447a9"></a></p>
+<h2 id="attribute-access-methods">Attribute Access Methods</h2>
+<p>类可以通过实现特定的特殊方法来拦截对属性的访问操作,如获取(get),设置(set)和删除(delete).其中的调用流程大体如下所示,获取流程:我们调用obj.x,在程序内部会先试用obj.__getattribute__('x'),如果程序没有找到相应的属性,则会调用obj.__getattr__('x')作为后备安全方法.设置流程:我们调用obj.x=val,在程序内部会直接调用obj.__setattr__('x',val).删除流程:我们调用del
+obj.x,在程序内部会直接调用obj.__delattr__('x').</p>
+<p>getattribute方法的语法结构如下所示,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__getattribute__(self,name)</span><br></pre></td></tr></table></figure>
+<p>每次读取属性时都会调用这个方法,无论属性是否存在.他的默认行为是按顺序查找描述符,而后是实例字典,最后则是基类(沿着MRO向上查找).如果上面的查找流程都没有查找的同名属性,那么就会调用__getattr__作为备用函数.</p>
+<p>getattr方法的语法结构如下所示,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__getattr__(self,name)</span><br></pre></td></tr></table></figure>
+<p>他的整个调用方式和上面的getattribute方法一致,他只有在上面的getattribute方法查找不到的时候才会被调用.其默认行为是会抛出异常AttributeError.我们可以自定义修改设置,从而适合实现动态属性,默认值返回,代理转发等功能.</p>
+<p>我们用如下的代码解释二者的区别,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Demo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.existing = <span class="string">&#x27;I exist&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getattribute__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;__getattribute__ 被调用: &quot;<span class="subst">&#123;name&#125;</span>&quot;&#x27;</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">super</span>().__getattribute__(name)</span><br><span class="line">        <span class="keyword">except</span> AttributeError:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;标准查找失败,需要触发getattr&quot;</span>)</span><br><span class="line">            <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;__getattr__ 被调用（后备）: &#x27;<span class="subst">&#123;name&#125;</span>&#x27;&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;默认值: <span class="subst">&#123;name&#125;</span>&quot;</span></span><br><span class="line">obj=Demo()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n--- 访问存在的属性 ---&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(obj.existing)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\n--- 访问不存在的属性 ---&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(obj.missing)</span><br></pre></td></tr></table></figure>
+<p>上面我们可以发现,存在的属性会直接调用getattribute方法,并能够查找直接返回值.而缺失的属性则是getattribute方法同样也会被调用,但是他会返回一个异常,同时自动调用getattr方法.所以这两个方法的核心区别是__getattribute__方法的优先级是最高的,只要读取属性就不需要被调用;__getattr__方法仅在属性缺失的时候作为后备被调用.</p>
+<p>setattr方法的语法结构如下,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__setattr__(self,name,value)</span><br></pre></td></tr></table></figure>
+<p>其只在每次对属性赋值的时候才会调用.默认行为是检查是否为数据描述符,如果是,那么就调用内部的set方法,否则,就会在实例字典中存入到相应属性中.delattr方法的语法结构如下,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__delattr__(self,name)</span><br></pre></td></tr></table></figure>
+<p>其只在属性删除的时候才会被调用.默认行为是检查是否为数据描述符,如果是,那么就会调用内部的delete方法,否则,就会从实例字典中删除属性.上述的类方法都可以通过重定义的方式来自定义属性访问方法,以符合更多的应用场景,如创建包装对象,代理或其他的情况.</p>
+<p>代理转发场景</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Proxy</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,obj</span>):</span><br><span class="line">        self._obj=obj</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;getattr: &#x27;</span>,name)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(self._obj,name)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,rad</span>):</span><br><span class="line">        self.radius=rad</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">area</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">import</span> math</span><br><span class="line">        <span class="keyword">return</span> math.pi*self.radius**<span class="number">2</span></span><br><span class="line">c=Circle(<span class="number">4.0</span>)</span><br><span class="line"><span class="built_in">print</span>(c.radius)</span><br><span class="line"><span class="built_in">print</span>(c.area())</span><br><span class="line">p=Proxy(c)</span><br><span class="line"><span class="built_in">print</span>(p)</span><br><span class="line"><span class="built_in">print</span>(p.radius)</span><br><span class="line"><span class="built_in">print</span>(p.area())</span><br></pre></td></tr></table></figure>
+<p>这里的Proxy持有内部对象_obj,其会用于存储外部的类,从而形成对_obj的代理访问.所有不存在于Proxy类自身的属性访问都会触发__getatttr__,同时将调用请求转发给内部对象_obj.适合于实现日志记录,权限控制,远程调用等包装逻辑.</p>
+<p>委托模式场景</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;A.foo&#x27;</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">bar</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;A.bar&#x27;</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self._a=A()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">bar</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;B.bar&#x27;</span>)</span><br><span class="line">        self._a.bar()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(self._a,name)</span><br><span class="line">b=B()</span><br><span class="line">b.foo()<span class="comment"># 输出: A.foo(委托给A)</span></span><br><span class="line">b.bar()  <span class="comment"># 输出: B.bar → A.bar(B自定义+委托)</span></span><br></pre></td></tr></table></figure>
+<p>委托可以作为继承的一个替代方案,从而实现更为灵活的组合式设计.需要注意的是,__getattr__不会拦截特殊方法,例如__len__,__getitem__等,如果需要支持,必须要显式实现,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self._a=A()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self,index</span>):</span><br><span class="line">        <span class="keyword">return</span> self._a[index]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(self._a),name)</span><br></pre></td></tr></table></figure>
+<p><a id="org9881db1"></a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/02/05/Advanced-Python-Object/" rel="prev" title="Advanced Python-Classes and Objects">
+      <i class="fa fa-chevron-left"></i> Advanced Python-Classes and Objects
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#inside-python-objects"><span class="nav-number">1.</span> <span class="nav-text">Inside Python Objects</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#underlying-dictionary"><span class="nav-number">1.1.</span> <span class="nav-text">Underlying dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inheritance"><span class="nav-number">1.2.</span> <span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#descriptor"><span class="nav-number">1.3.</span> <span class="nav-text">Descriptor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attribute-access-methods"><span class="nav-number">1.4.</span> <span class="nav-text">Attribute Access Methods</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

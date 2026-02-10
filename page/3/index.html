@@ -196,6 +196,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/10/Practical-Python-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/10/10/Practical-Python-Object/" class="post-title-link" itemprop="url">Pratical Python-Object</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-10-10 16:46:53" itemprop="dateCreated datePublished" datetime="2025-10-10T16:46:53+08:00">2025-10-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-22 15:22:18" itemprop="dateModified" datetime="2025-12-22T15:22:18+08:00">2025-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本笔记完全基于David Beazley的Python教程-<a
+target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
+Python</a>.</p>
+<h2 id="objects">Objects</h2>
+<p>Python的赋值并非赋实际值,而是创建并赋值引用副本.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b=a</span><br><span class="line">c=[a,b]</span><br></pre></td></tr></table></figure>
+<p>这里我们设计了三个变量,但其实底层只有一个列表对象[1,2,3],有四个不同的引用指向他,如果我们修改其中任意一个量,都会导致所有引用的值变化.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/10/10/Practical-Python-Object/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/10/Practical-Python-Collection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -962,89 +1049,6 @@ exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/26/ANSI-Chapter7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/26/ANSI-Chapter7/" class="post-title-link" itemprop="url">输入和输出(Chapter7)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-05-26 21:40:03" itemprop="dateCreated datePublished" datetime="2025-05-26T21:40:03+08:00">2025-05-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:10:59" itemprop="dateModified" datetime="2025-12-22T15:10:59+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ANSI/" itemprop="url" rel="index"><span itemprop="name">ANSI</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a id="orga2619a4"></a></p>
-<h2 id="标准输入输出">标准输入输出</h2>
-<p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/05/26/ANSI-Chapter7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1116,7 +1120,7 @@ exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
