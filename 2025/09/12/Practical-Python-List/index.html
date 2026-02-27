@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. List 列表是Python中存储有序值集合的主要类型,用如下的方式创建: 12names&#x3D;[&amp;#x27;Elwood&amp;#x27;,&amp;#x27;Jake&amp;#x27;,&amp;#x27;Curtis&amp;#x27;]nums&#x3D;[39,38,42,65,111]">
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. List列表是Python中存储有序值集合的主要类型,用如下的方式创建: 12names&#x3D;[&amp;#x27;Elwood&amp;#x27;,&amp;#x27;Jake&amp;#x27;,&amp;#x27;Curtis&amp;#x27;]nums&#x3D;[39,38,42,65,111]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pratical Python-List, File and Functions">
 <meta property="og:url" content="http://example.com/2025/09/12/Practical-Python-List/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. List 列表是Python中存储有序值集合的主要类型,用如下的方式创建: 12names&#x3D;[&amp;#x27;Elwood&amp;#x27;,&amp;#x27;Jake&amp;#x27;,&amp;#x27;Curtis&amp;#x27;]nums&#x3D;[39,38,42,65,111]">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. List列表是Python中存储有序值集合的主要类型,用如下的方式创建: 12names&#x3D;[&amp;#x27;Elwood&amp;#x27;,&amp;#x27;Jake&amp;#x27;,&amp;#x27;Curtis&amp;#x27;]nums&#x3D;[39,38,42,65,111]">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-12T11:12:35.000Z">
 <meta property="article:modified_time" content="2025-12-22T07:21:46.058Z">
@@ -262,11 +262,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="list">List</h2>
-<p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>列表是Python中存储有序值集合的主要类型,用如下的方式创建:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">names=[<span class="string">&#x27;Elwood&#x27;</span>,<span class="string">&#x27;Jake&#x27;</span>,<span class="string">&#x27;Curtis&#x27;</span>]</span><br><span class="line">nums=[<span class="number">39</span>,<span class="number">38</span>,<span class="number">42</span>,<span class="number">65</span>,<span class="number">111</span>]</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 <p>我们通过input函数接收到的输入是字符串形式,我们可以用字符串的split方法将其转换为列表形式:</p>
@@ -287,15 +284,13 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="built_in">sorted</span>(names,key=<span class="built_in">str</span>,reverse=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="built_in">print</span>(names)</span><br></pre></td></tr></table></figure>
 <p>这里我们需要指出的是列表是不支持数学运算的,因为他的加法被定义为拼接,乘法定义为重复.</p>
 <p><a id="org5172e51"></a></p>
-<h2 id="file-management">File Management</h2>
-<p>打开文件的语法:</p>
+<h2 id="File-Management"><a href="#File-Management" class="headerlink" title="File Management"></a>File Management</h2><p>打开文件的语法:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f=<span class="built_in">open</span>(<span class="string">&#x27;foo.txt&#x27;</span>,<span class="string">&#x27;rt&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>open接受两个参数,第一个参数就是需要打开的文件位置,第二个参数表示以什么模式打开文件,r表示以只读方式,如果文件不存在,就会报错;w为以只写的方式打开,如果文件不存在,那就会创建一个新文件,如果文件存在就会覆盖原文件内容;a表示追加,并不会覆盖原文件内容,而是在文件的末尾追加内容;r+和w+都表示同时赋予读写权限,但区别在于r+不会覆盖原文件,而遇到文件不存在就会报错;而w+会覆盖原文件,但文件不存在会创建一个文件.rt中的t表示以文本模式读取文件的内容,默认都是文本模式读取,故可以省略;但如果我们希望以二进制方式读取那么就需要自己显式声明,用b表示.</p>
 <p>文件读取的语法:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data=f.read(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line">data=f.read()</span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
 <p>read方法会一次性读取到文件末尾,而read(n)则是读取n个字符.因此,我们的示例代码的意思是先读取两个字符并输出,然后再从第三个字符开始一直读取到最后再输出.如果我们将这两个读取函数换一下,那么第一次就会返回全部字符,第二次则是返回EOF.</p>
-<p>文件的关闭语法:
-Python提供了一个手动的close方法,可以自己在程序中手动控制文件的关闭.</p>
+<p>文件的关闭语法:<br>Python提供了一个手动的close方法,可以自己在程序中手动控制文件的关闭.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.close()</span><br></pre></td></tr></table></figure>
 <p>但是在大项目中,同时打开多个文件,文件的关闭检查是一个十分困难的事情.因此python提供了with语句来简化了文件的关闭操作,他会在进入缩进代码块时打开文件,并在离开缩进代码块时自动关闭文件:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&#x27;rt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  statements</span><br></pre></td></tr></table></figure>
@@ -305,8 +300,7 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">  out.write(<span class="string">&#x27;Hello World\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>同时也可以利用输出重定向的方式来实现.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;outfile&#x27;</span>,<span class="string">&#x27;wt&#x27;</span>) <span class="keyword">as</span> out:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;Hello World&#x27;</span>,file=out)</span><br></pre></td></tr></table></figure>
-<h2 id="functions">Functions</h2>
-<p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><p>函数是一系列执行任务并返回结果的语句,需要使用return关键词显式指定函数的返回值.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun_name</span>:</span><br><span class="line">  statements</span><br><span class="line">  <span class="keyword">return</span> return_result</span><br></pre></td></tr></table></figure>
 <p>函数通过异常来报告错误,异常会导致函数中止;如果异常没有被处理,那么整个程序就会停止.为了调试目的,异常信息会描述发生了什么,错误发生的位置以及一个回溯信息,显示导致失败的其他函数调用.</p>
 <p>异常可以被捕捉和处理.捕捉异常可以使用try-except语句,</p>
@@ -399,7 +393,7 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">1.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-management"><span class="nav-number">2.</span> <span class="nav-text">File Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#functions"><span class="nav-number">3.</span> <span class="nav-text">Functions</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">1.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Management"><span class="nav-number">2.</span> <span class="nav-text">File Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions"><span class="nav-number">3.</span> <span class="nav-text">Functions</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,7 +409,7 @@ Python提供了一个手动的close方法,可以自己在程序中手动控制�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

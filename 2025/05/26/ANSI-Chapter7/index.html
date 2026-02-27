@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="标准输入输出 标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三">
+  <meta name="description" content="标准输入输出标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="输入和输出(Chapter7)">
 <meta property="og:url" content="http://example.com/2025/05/26/ANSI-Chapter7/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="标准输入输出 标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三">
+<meta property="og:description" content="标准输入输出标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-26T13:40:03.000Z">
 <meta property="article:modified_time" content="2025-12-22T07:10:59.658Z">
@@ -263,13 +263,11 @@
 
       
         <p><a id="orga2619a4"></a></p>
-<h2 id="标准输入输出">标准输入输出</h2>
-<p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
+<h2 id="标准输入输出"><a href="#标准输入输出" class="headerlink" title="标准输入输出"></a>标准输入输出</h2><p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件<stdio.h>中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
 <span id="more"></span>
 <p>我们可以通过符号&lt;来实现输入重定向,其可将键盘输入替换为文件输入,如</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prog &lt;infile //将infile文件的内容作为prog的输入,这里的prog是一个可执行文件</span><br></pre></td></tr></table></figure>
-<p>这样的重定向会是prog的输入流来自于infile文件,而不是键盘输入.值得注意的是,虽然我们在命令行中会通过这个操作做输入重定向,但是这并不会被视作命令行参数,因为对于程序而言,从什么来源获得输入流并不重要.
-进一步, 我们可以通过管道机制,将一个程序的输出作为另一个程序的输入,如</p>
+<p>这样的重定向会是prog的输入流来自于infile文件,而不是键盘输入.值得注意的是,虽然我们在命令行中会通过这个操作做输入重定向,但是这并不会被视作命令行参数,因为对于程序而言,从什么来源获得输入流并不重要. 进一步, 我们可以通过管道机制,将一个程序的输出作为另一个程序的输入,如</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prog1 | prog2 //将prog1的输出作为prog2的输入</span><br></pre></td></tr></table></figure>
 <p>相应的,我们可以通过符号&gt;来实现输出重定向,其可以将屏幕输出替换为文件输出,如</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prog &gt;outfile //将prog的输出重定向到outfile文件中</span><br></pre></td></tr></table></figure>
@@ -278,45 +276,37 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Content infile | .\prog.exe</span><br></pre></td></tr></table></figure>
 <p>但是输出重定向可以正常使用.</p>
 <p><a id="orge11e183"></a></p>
-<h2 id="printf函数">Printf函数</h2>
-<p>主要是对于精度和宽度的控制的一些补充,%m.n的形式解释的比较模糊，具体对不同的类型有不同的效果；</p>
-<ol type="1">
+<h2 id="Printf函数"><a href="#Printf函数" class="headerlink" title="Printf函数"></a>Printf函数</h2><p>主要是对于精度和宽度的控制的一些补充,%m.n的形式解释的比较模糊，具体对不同的类型有不同的效果；</p>
+<ol>
 <li>对字符串类型(字符数组)而言，m用来控制输出的长度，如果长度超过m，则忽略其存在，不然则以右对齐，并做空格补全，n表示控制输出的字符个数，一旦n大于字符长度则完成字符输出即可</li>
 <li>对整型数据而言，m用来控制输出长度，如果长度超过m，则忽略其存在，不然则以右对齐，并做空格补全，n则用于控制其输出数字长度，如果n大于其长度，那么会在输出的int左端补0；不然则默认输出。</li>
 <li>对浮点型数据而言，n指的是控制输出的小数部分，如果n大于小数部分的长度，那么就四舍五入；反之则在后面补0；在n控制了以后，如果长度超过了m，那么就完整输出；不然就在左侧补空格</li>
 </ol>
 <p><a id="orgc652375"></a></p>
-<h2 id="variable-length-argument-lists">Variable-length argument
-lists</h2>
-<p>我们通过查看printf的函数声明可以发现,printf的参数列表是一个可变长参数列表,其声明如下:</p>
+<h2 id="Variable-length-argument-lists"><a href="#Variable-length-argument-lists" class="headerlink" title="Variable-length argument lists"></a>Variable-length argument lists</h2><p>我们通过查看printf的函数声明可以发现,printf的参数列表是一个可变长参数列表,其声明如下:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">printf</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>这里的…表示可变长参数列表.在C语言中,头文件stdarg.h中定义了一组宏,这些宏可以帮助我们遍历可变长参数列表.</p>
-<ol type="1">
-<li>va_list类型用于声明一个变量,其将一次引用各参数,一般用ap来记作va_list类型变量,其为argument_
-pointer的缩写.</li>
+<p>这里的&#x2026;表示可变长参数列表.在C语言中,头文件stdarg.h中定义了一组宏,这些宏可以帮助我们遍历可变长参数列表.</p>
+<ol>
+<li>va<em>list类型用于声明一个变量,其将一次引用各参数,一般用ap来记作va_list类型变量,其为argument</em> pointer的缩写.</li>
 <li>va_start将ap初始化为指向第一个无名参数的参数指针.在使用ap之前,必须先调用va_start.此外,参数列表中必须存在一个有名参数,以便va_start能够找到无名参数列表的起始位置.</li>
 <li>va_arg将返回一个参数,并将安排指向下一个参数.va_arg使用一个类型名来决定返回的对象类型,指针移动的步长.</li>
 <li>va_end必须在函数返回前调用,其将完成一些必要的清理工作.</li>
 </ol>
 <p><a id="org6728d5a"></a></p>
-<h2 id="scanf-函数">Scanf 函数</h2>
-<p>scanf的一些进一步说明：</p>
-<ol type="1">
+<h2 id="Scanf-函数"><a href="#Scanf-函数" class="headerlink" title="Scanf 函数"></a>Scanf 函数</h2><p>scanf的一些进一步说明：</p>
+<ol>
 <li>空白字符会使scanf函数在读操作中略去输入中的一个或多个空白字符。空白字符可以是空格，制表符和新行符。非空白符使得scanf函数在读取过程中剔除与这个非空白字符相同的字符。</li>
 <li>控制串中的空白符使scanf在输入流中跳过一个或多个空白行。本质上，控制串中的空白符使scanf在输入流中读取，但不保存结果直到遇到第一个非空白字符</li>
 <li>如果format写的是“%d,%d”那么输入的时候也要用,作为分隔符；如果没有写，那么就需要用空格或制表符等空白字符。</li>
 <li>虽然scanf会忽略空白字符，但是在读取单字符时，其并不会被忽略；并且scanf在读取字符串时，遇到空白字符会中断读取，只记录空白字符以前的，我们可以通过额外设置参数，来使其读取</li>
 </ol>
-<p>这里有个很好玩的点需要注意,double类型的变量在scanf中的占位符是%lf,而不是%f,因为%f会损失一些精度;但是在printf其占位符可以是%f.
-还有一些sscanf之类的,其实只是将scanf的输入流换成了字符串流,其余的操作都是一样的.</p>
+<p>这里有个很好玩的点需要注意,double类型的变量在scanf中的占位符是%lf,而不是%f,因为%f会损失一些精度;但是在printf其占位符可以是%f. 还有一些sscanf之类的,其实只是将scanf的输入流换成了字符串流,其余的操作都是一样的.</p>
 <p><a id="orgb8fea54"></a></p>
-<h2 id="file-access">File Access</h2>
-<p>cat命令用于链接文件并打印到标准输出设备上,其主要作用是用于查看和链接文件内容.我们可以利用输入输出重定向的方式,用其覆盖文件内容,&gt;是输出重定向,会覆盖原文件的内容;&gt;&gt;则是在原有的文件的基础上追加内容.</p>
+<h2 id="File-Access"><a href="#File-Access" class="headerlink" title="File Access"></a>File Access</h2><p>cat命令用于链接文件并打印到标准输出设备上,其主要作用是用于查看和链接文件内容.我们可以利用输入输出重定向的方式,用其覆盖文件内容,&gt;是输出重定向,会覆盖原文件的内容;&gt;&gt;则是在原有的文件的基础上追加内容.</p>
 <p>在读取文件内容之前,需要用fopen函数来打开外部文件,此时返回文件指针,后续会用于读取和写入文件内容.文件指针指向一个结构体,其中包含文件的信息,如缓冲区的位置,缓冲区当前的字符位置,文件是否正在被读取或写入以及是否有错误或到达文件末尾.但这个已经在stdio.h封装完成,用户不需要考虑这些细节.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FILE* fp=<span class="built_in">fopen</span>(name,mode);</span><br></pre></td></tr></table></figure>
-<p>name表示文件路径,且其中需要包含文件名;mode则表示如何使用打开的文件,'r'表示只读,'w'表示只写,'a'表示追加.如果某些系统将文件分为文本文件和二进制文件,那么对于后者的模式我们必须在模式字符串后加上'b',如'wb'表示以二进制方式打开文件进行写操作.值得注意的是,如果我们对于文件采用写或者追加操作,即使文件不存在,系统也会试图创建一个文件.但是写和追加操作的不同在于,写操作会完全覆盖原有文件内容,而追加操作则是在保持原有文件的基础之上在其后追加内容.而我们如果对于文件采用读操作,那么一旦文件不存在,系统就会报错;一旦fopen报错,他的返回值就是NULL.</p>
-<p>getc返回文件的下一个字符,其需要输入一个文件指针,用来表明其要读取的文件.如果到文件末尾或者读取文件发生错误,那么其会返回EOF;putc则是getc的反面,其作用则是一个输出函数,将字符c写入到fp指向的文件,并返回写入的
-字符.如果发生错误,则返回EOF.值得注意的是,getc和putc并不是函数而是一个宏.</p>
+<p>name表示文件路径,且其中需要包含文件名;mode则表示如何使用打开的文件,’r’表示只读,’w’表示只写,’a’表示追加.如果某些系统将文件分为文本文件和二进制文件,那么对于后者的模式我们必须在模式字符串后加上’b’,如’wb’表示以二进制方式打开文件进行写操作.值得注意的是,如果我们对于文件采用写或者追加操作,即使文件不存在,系统也会试图创建一个文件.但是写和追加操作的不同在于,写操作会完全覆盖原有文件内容,而追加操作则是在保持原有文件的基础之上在其后追加内容.而我们如果对于文件采用读操作,那么一旦文件不存在,系统就会报错;一旦fopen报错,他的返回值就是NULL.</p>
+<p>getc返回文件的下一个字符,其需要输入一个文件指针,用来表明其要读取的文件.如果到文件末尾或者读取文件发生错误,那么其会返回EOF;putc则是getc的反面,其作用则是一个输出函数,将字符c写入到fp指向的文件,并返回写入的<br>字符.如果发生错误,则返回EOF.值得注意的是,getc和putc并不是函数而是一个宏.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">getc</span><span class="params">(FILE *fp)</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">putc</span><span class="params">(<span class="type">int</span> c,FILE *fp)</span></span></span><br></pre></td></tr></table></figure>
 <p>当一个C语言程序运行的时候,操作系统会自动打开标准输入,标准输出和标准错误三个文件,并提供相应的三个文件指针stdin,stdout,stderr.这三个文件指针在头文件stdio.h中给出声明.一般而言,stdin对应于键盘,stdout和stderr对应于屏幕;但是stdin和stdout可以通过输入输出重定向或者管道操作来将对应的设备进行修改.</p>
 <p>getc和putc提供了从文件读写单个字符的方式,而类似于scanf和printf,我们同样有从文件中格式化读写的函数fscanf和fprinf</p>
@@ -325,26 +315,22 @@ pointer的缩写.</li>
 <p>最后,我们在完成对文件的操作以后,我们需要用fclose来断开文件指针和外部文件的链接,并释放文件指针以供其他文件使用.这是因为大部分的操作系统其实控制了一个程序最多可以同时打开的文件数.因此如果我们不需要某个文件,应该及时关闭.fclose的另一个作用其实就是会强制将缓冲区中尚未写入磁盘的剩余数据立即刷新到文件中,其可以保证缓冲区数据正确保存.而缓冲区的存在是因为当程序如果频繁调用putc或者fprintf等函数向文件写入数据,如果每次写入操作都要操作磁盘,那么程序运行就会十分低效;因此就需要用缓冲区,数据会先暂存在内存的缓冲区中,当缓冲区被填满时,系统才会直接写入磁盘,这样可以减少磁盘操作的次数,显著提升了程序性能.如果最后没有用fclose,虽然大部分系统执行完程序会自动刷新缓冲区,但一旦出现程序异常终止可能就会有数据泄漏的风险.</p>
 <p>如果我们不需要stdin和stdout,实际上也可以用fclose把他们关闭了,如果我们需要可以用freopen函数把他重新打开,一般来是重新打开会把标准输入输出文件重定向为本地文件.</p>
 <p><a id="org6eb367c"></a></p>
-<h2 id="error-handing">Error Handing</h2>
-<p>这里我们需要明确的是,前面所提到的输入输出重定向和管道操作是针对stdout和stdin的,而srderr是独立于stdout的一个文件指针,故其一直指向屏幕.其次,标准库函数exit()也提供了一种终止调用程序的执行方式.任何调用这个程序的参数进程都可以获得exit的参数值.因此可以借此来定位程序的报错位置.一般而言,参数值0表示一切正常,而非0值则表示出现了异常情况.exit的调用会为已经打开的输出文件调用fclose函数,以将缓冲区中的所有输出写入相应的文件.</p>
-<p>在shell中运行的每个命令都用了退出状态码,退出状态码一般是一个0~255的整数值,在命令结束的时候会由命令传给shell.
-Linux中给出了一个专属变量?来保存上一个执行命令的退出状态码,必须要在查看的命令后马上查看.</p>
+<h2 id="Error-Handing"><a href="#Error-Handing" class="headerlink" title="Error Handing"></a>Error Handing</h2><p>这里我们需要明确的是,前面所提到的输入输出重定向和管道操作是针对stdout和stdin的,而srderr是独立于stdout的一个文件指针,故其一直指向屏幕.其次,标准库函数exit()也提供了一种终止调用程序的执行方式.任何调用这个程序的参数进程都可以获得exit的参数值.因此可以借此来定位程序的报错位置.一般而言,参数值0表示一切正常,而非0值则表示出现了异常情况.exit的调用会为已经打开的输出文件调用fclose函数,以将缓冲区中的所有输出写入相应的文件.</p>
+<p>在shell中运行的每个命令都用了退出状态码,退出状态码一般是一个0~255的整数值,在命令结束的时候会由命令传给shell. Linux中给出了一个专属变量?来保存上一个执行命令的退出状态码,必须要在查看的命令后马上查看.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $?</span><br></pre></td></tr></table></figure>
 <p>默认状态下,shell会以脚本中的最后一个命令作为退出状态码.exit()其实可以自定义制定shell命令的退出状态码.由于退出状态码的取值范围为0~255,所以如果不在这个范围内,会通过取模运算来使其控制在范围内.</p>
 <p>exit函数的优势在于:</p>
-<ol type="1">
+<ol>
 <li>其可以在其他函数调用,而不仅仅是main函数中调用.</li>
 </ol>
 <p>exit()是一个库函数,通常定义在stdlib.h.这个函数的主要功能是终止程序的执行并返回一个状态码到调用进程,一般是os或者是shell.由于exit只是一个库函数,因此可以在程序的任何位置,任何函数或方法内部调用,而不仅仅在main,这意味着只要在运行过程中遇到了不可恢复的错误或者某个特定的错误条件,可以立即调用exit来终止程序,不需要用多层函数调用一直返回到main函数.</p>
-<ol type="1">
+<ol>
 <li>可以用模式查找程序查找这些调用.</li>
 </ol>
 <p>当我们正在维护或者调试大型程序,可以用模式匹配工具快速定位所有调用exit的位置.这是因为很多情况过早或过晚进行程序终止可能导致了代码的bug.</p>
-<p>exit是一个带参数的函数,执行完以后会将控制权交给内核;而return只是一个关键字,其执行完会将控制权交给调用函数而非内核.其次,我们讨论exit()和exit_
-()的差异;exit()需要处理一些善后工作后,再将控制权交给内核,而exit_
-()则是立即将控制权交给内核.因此exit()其实是exit_()的一个封装,其流程如下所示:</p>
-<ol type="1">
-<li>exit函数逆序调用通过atexit或者on_exit登记的终止处理程序_;</li>
+<p>exit是一个带参数的函数,执行完以后会将控制权交给内核;而return只是一个关键字,其执行完会将控制权交给调用函数而非内核.其次,我们讨论exit()和exit<em> ()的差异;exit()需要处理一些善后工作后,再将控制权交给内核,而exit</em> ()则是立即将控制权交给内核.因此exit()其实是exit_()的一个封装,其流程如下所示:</p>
+<ol>
+<li>exit函数逆序调用通过atexit或者on<em>exit登记的终止处理程序</em>;</li>
 <li>然后按需多次调用fclose,关闭所有标准I/O流;</li>
 <li>删除由tmpfile函数创建的临时文件.</li>
 </ol>
@@ -357,24 +343,19 @@ Linux中给出了一个专属变量?来保存上一个执行命令的退出状�
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">feof</span><span class="params">(FILE* stream)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>feof函数判断文件是否读取到文件末尾.如果文件没有到达文件末尾,那么feof函数返回0;否则,feof函数将返回一个非零值.因为feof其实是通过判断fp是否已经读取到了EOF字符,所以我们在调用feof函数之前需要用fgetc函数或者fgets函数读取,然后再判定.</p>
 <p><a id="orgcafc95e"></a></p>
-<h2 id="line-input-and-output">Line Input and Output</h2>
-<p>标准库提供了一个从文件中读取行的函数fgets,其函数原型为</p>
+<h2 id="Line-Input-and-Output"><a href="#Line-Input-and-Output" class="headerlink" title="Line Input and Output"></a>Line Input and Output</h2><p>标准库提供了一个从文件中读取行的函数fgets,其函数原型为</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span> *<span class="title">fgets</span><span class="params">(<span class="type">char</span> *line,<span class="type">int</span> maxline,FILE *fp)</span></span></span><br></pre></td></tr></table></figure>
-<p>fgets函数从fp指向的文件中读取下一个输入行(包括换行符),将其存放到字符数组line中.输入的maxline表示最多一次性读取maxline-1个字符,这是因为字符串的最后的字符是需要用'\0'占据,因此只能输入maxline-1个字符.通常情况,fgets返回line,如果遇到了文件结尾或者发生了错误,则返回NULL.</p>
+<p>fgets函数从fp指向的文件中读取下一个输入行(包括换行符),将其存放到字符数组line中.输入的maxline表示最多一次性读取maxline-1个字符,这是因为字符串的最后的字符是需要用’\0’占据,因此只能输入maxline-1个字符.通常情况,fgets返回line,如果遇到了文件结尾或者发生了错误,则返回NULL.</p>
 <p>输出函数fputs将一个字符串(不需要包含换行符)写入到一个文件中:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">fputs</span><span class="params">(<span class="type">char</span> *line,FILE *fp)</span></span></span><br></pre></td></tr></table></figure>
-<p>如果发生错误,该函数会返回EOF,否则会返回一个非负值.
-与fgets,fputs类似的是,C语言提供了gets和puts两个库函数,但他们只对stdin文件和stdout文件进行操作.需要注意的是,gets函数在读取字符串时将删除结尾的换行符,而puts函数在写入字符串时则会在结尾补上一个换行符.</p>
+<p>如果发生错误,该函数会返回EOF,否则会返回一个非负值. 与fgets,fputs类似的是,C语言提供了gets和puts两个库函数,但他们只对stdin文件和stdout文件进行操作.需要注意的是,gets函数在读取字符串时将删除结尾的换行符,而puts函数在写入字符串时则会在结尾补上一个换行符.</p>
 <p><a id="org30336ed"></a></p>
-<h2 id="miscellaneous-functions">Miscellaneous Functions</h2>
-<p><a id="orgfdc6cfd"></a></p>
-<h3 id="command-execution">Command Execution</h3>
-<p>函数system(char*s)执行包含在字符串s的命令,然后继续执行当前程序.而s的内容则很大程度上与使用的操作系统有关.在Unix环境下,有如下demo</p>
+<h2 id="Miscellaneous-Functions"><a href="#Miscellaneous-Functions" class="headerlink" title="Miscellaneous Functions"></a>Miscellaneous Functions</h2><p><a id="orgfdc6cfd"></a></p>
+<h3 id="Command-Execution"><a href="#Command-Execution" class="headerlink" title="Command Execution"></a>Command Execution</h3><p>函数system(char*s)执行包含在字符串s的命令,然后继续执行当前程序.而s的内容则很大程度上与使用的操作系统有关.在Unix环境下,有如下demo</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">system</span>(<span class="string">&quot;date&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>会先去执行程序date,其就是在标准输出上输出当天的日期和时间.system函数会返回一个整型的状态值,其值来自于执行的命令并于具体的系统有关.在UNIX系统中其返回exit的状态值.</p>
 <p><a id="org324f2b9"></a></p>
-<h3 id="存储管理函数">存储管理函数</h3>
-<p>malloc函数的函数声明如下所示:</p>
+<h3 id="存储管理函数"><a href="#存储管理函数" class="headerlink" title="存储管理函数"></a>存储管理函数</h3><p>malloc函数的函数声明如下所示:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">malloc</span><span class="params">(<span class="type">size_t</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>当分配成功时,其会返回一个无类型指针,该指针指向一个n个字节长度的空闲空间,但是这些空间是没有经过初始化的.我们需要先对无类型指针做一个强类型转换,同时对得到指针指向的空间初始化或者赋值;分配失败则会分配NULL.</p>
 <p>calloc函数的函数声明如下所示:</p>
@@ -468,8 +449,7 @@ Linux中给出了一个专属变量?来保存上一个执行命令的退出状�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">标准输入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#printf%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">Printf函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable-length-argument-lists"><span class="nav-number">3.</span> <span class="nav-text">Variable-length argument
-lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scanf-%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">Scanf 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-access"><span class="nav-number">5.</span> <span class="nav-text">File Access</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#error-handing"><span class="nav-number">6.</span> <span class="nav-text">Error Handing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#line-input-and-output"><span class="nav-number">7.</span> <span class="nav-text">Line Input and Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#miscellaneous-functions"><span class="nav-number">8.</span> <span class="nav-text">Miscellaneous Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#command-execution"><span class="nav-number">8.1.</span> <span class="nav-text">Command Execution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">8.2.</span> <span class="nav-text">存储管理函数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">标准输入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Printf%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">Printf函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variable-length-argument-lists"><span class="nav-number">3.</span> <span class="nav-text">Variable-length argument lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scanf-%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">Scanf 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Access"><span class="nav-number">5.</span> <span class="nav-text">File Access</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-Handing"><span class="nav-number">6.</span> <span class="nav-text">Error Handing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Line-Input-and-Output"><span class="nav-number">7.</span> <span class="nav-text">Line Input and Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Miscellaneous-Functions"><span class="nav-number">8.</span> <span class="nav-text">Miscellaneous Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-Execution"><span class="nav-number">8.1.</span> <span class="nav-text">Command Execution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">8.2.</span> <span class="nav-text">存储管理函数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -485,7 +465,7 @@ lists</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

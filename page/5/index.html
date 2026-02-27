@@ -196,6 +196,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/30/CS229%20Notes%20for%20Lecture%202/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/" class="post-title-link" itemprop="url">CS229 Notes for Lecture 2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-07-30 17:08:19" itemprop="dateCreated datePublished" datetime="2024-07-30T17:08:19+08:00">2024-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-22 15:14:27" itemprop="dateModified" datetime="2025-12-22T15:14:27+08:00">2025-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS229/" itemprop="url" rel="index"><span itemprop="name">CS229</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><p><a id="org8b14315"></a></p>
+<h2 id="Introduction-of-supervised-learning"><a href="#Introduction-of-supervised-learning" class="headerlink" title="Introduction of supervised learning"></a>Introduction of supervised learning</h2><p>在介绍监督学习(Supervised learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
+<ul>
+<li><p>$m$: 训练样本的数量</p>
+</li>
+<li><p>$n$: 特征的数量</p>
+</li>
+<li><p>$x$: 输入变量(input variable), 或称为输入特征(input feature/attribute)</p>
+</li>
+<li><p>$y$: 输出变量(output variable), 或称为目标变量(target variable)</p>
+</li>
+<li><p>$(x,y)$: 表示训练样本; $(x^{(i)}, y^{(i)})$: 第 i 个训练样本($i^{th}$ training example)</p>
+</li>
+<li><p>$\mathcal{X}$: 输入变量的空间(input space)</p>
+</li>
+<li><p>$\mathcal{Y}$: 输出变量的空间(output space)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/SVD-Linear%20Regression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -250,20 +346,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Now we are ready to talk about building linear regression models from
-data. When we have gotten measurement data in experiments, it is
-important to construct a linear regression model as a predictive model.
-The basic structure of the linear regression is defined as follows,
-<span class="math display">\[
-Ax=b
-\]</span> where <span class="math inline">\(A\in\mathbb{R}^{n\times
-m}\)</span> and <span class="math inline">\(b\in\mathbb{R}^{n}\)</span>
-are given by the measurement. Therefore, building a linear regression is
-equal to solve the linear system <span
-class="math inline">\(Ax=b\)</span>. Here we just consider the over
-determined system <span class="math inline">\(n&gt;m\)</span> since it
-is often what we have in modern data. We will use the least square
-estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
+          <p>Now we are ready to talk about building linear regression models from data. When we have gotten measurement data in experiments, it is important to construct a linear regression model as a predictive model. The basic structure of the linear regression is defined as follows,</p>
+<script type="math/tex; mode=display">
+Ax=b</script><p>where $A\in\mathbb{R}^{n\times m}$ and $b\in\mathbb{R}^{n}$ are given by the measurement. Therefore, building a linear regression is equal to solve the linear system $Ax=b$. Here we just consider the over determined system $n&gt;m$ since it is often what we have in modern data. We will use the least square estimate to solve the vector $x$.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/21/SVD-Linear%20Regression/#more" rel="contents">
@@ -344,16 +429,7 @@ estimate to solve the vector <span class="math inline">\(x\)</span>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>In many physics problem, we always encounter the solution of the
-linear equation <span class="math inline">\(Ax=b\)</span>. Classically,
-we solve this linear equation in the case that <span
-class="math inline">\(A\)</span> is a square and invertible matrix. In
-fact, this case is too special to better model the real world. Based on
-the singular value decomposition which we have introduced, we can
-generalize this linear equation to the case that <span
-class="math inline">\(A\)</span> is a non-square matrix. Actually, when
-we consider the data analysis and data modeling, the matrix <span
-class="math inline">\(A\)</span> is always a non-square matrix.</p>
+          <p>In many physics problem, we always encounter the solution of the linear equation $Ax=b$. Classically, we solve this linear equation in the case that $A$ is a square and invertible matrix. In fact, this case is too special to better model the real world. Based on the singular value decomposition which we have introduced, we can generalize this linear equation to the case that $A$ is a non-square matrix. Actually, when we consider the data analysis and data modeling, the matrix $A$ is always a non-square matrix.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/18/SVD-Linear%20System%20and%20Pseudo%20Inverse/#more" rel="contents">
@@ -434,13 +510,7 @@ class="math inline">\(A\)</span> is always a non-square matrix.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>In the singular value decomposition of the data matrix <span
-class="math inline">\(X\)</span>, we have the two unitary matrices <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span>. We have introduced that the unitary
-matrices satisfy <span class="math inline">\(U^TU=UU^T=I\)</span> and
-<span class="math inline">\(VV^T=V^TV=I\)</span>. Here these identity
-matrices have different size.</p>
+          <p>In the singular value decomposition of the data matrix $X$, we have the two unitary matrices $U$ and $V$. We have introduced that the unitary matrices satisfy $U^TU=UU^T=I$ and $VV^T=V^TV=I$. Here these identity matrices have different size.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/16/SVD-Unitary%20Transformation/#more" rel="contents">
@@ -521,17 +591,7 @@ matrices have different size.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="dominant-correlation">Dominant Correlation</h2>
-<p>Here we introduce one of the most useful interpretation of the SVD.
-It is in terms of correlations among the columns of <span
-class="math inline">\(X\)</span> and correlations among the rows of
-<span class="math inline">\(X\)</span>. We claim that the matrix <span
-class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> given by the SVD can be seen as the
-eigenvectors of a correlation matrix given by <span
-class="math inline">\(XX^T\)</span> or <span
-class="math inline">\(X^TX\)</span>. Now we try to explain this
-claim.</p>
+          <h2 id="Dominant-Correlation"><a href="#Dominant-Correlation" class="headerlink" title="Dominant Correlation"></a>Dominant Correlation</h2><p>Here we introduce one of the most useful interpretation of the SVD. It is in terms of correlations among the columns of $X$ and correlations among the rows of $X$. We claim that the matrix $U$ and $V$ given by the SVD can be seen as the eigenvectors of a correlation matrix given by $XX^T$ or $X^TX$. Now we try to explain this claim.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/06/05/SVD-Dominnant%20Correlation/#more" rel="contents">
@@ -612,31 +672,20 @@ claim.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Firstly, we introduce three different kinds of matrix norms and based
-on singular value decomposition, verify that these norms are only
-related to singular values.</p>
-<ol type="1">
+          <p>Firstly, we introduce three different kinds of matrix norms and based on singular value decomposition, verify that these norms are only related to singular values.</p>
+<ol>
 <li>2-norm (Spectral norm)</li>
 </ol>
-<p><span class="math display">\[
-\left\Vert
-A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma
-V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1
-\]</span></p>
-<ol type="1">
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_2=\sqrt{\lambda_{max}(A^TA)}=\sqrt{\lambda_{max}(U\Sigma V^TV\Sigma U^T)}=\sqrt{\lambda_{max}(\Sigma^2)}=\sigma_1</script><ol>
 <li>Frobenius norm</li>
 </ol>
-<p><span class="math display">\[
-\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma
-U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}
-\]</span></p>
-<ol type="1">
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_F=\sqrt{tr(A^TA)}=\sqrt{tr(U\Sigma V^TV\Sigma U^T)}=\sqrt{tr(\Sigma^2)}=\sqrt{\sum_{i=1}^m\sigma_i^2}</script><ol>
 <li>Nuclear norm</li>
 </ol>
-<p><span class="math display">\[
-\left\Vert
-A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
-\]</span></p>
+<script type="math/tex; mode=display">
+\left\Vert A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i</script>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/05/28/SVD-Eckart_Young_Mirsky/#more" rel="contents">
@@ -717,17 +766,7 @@ A\right\Vert_N=\sigma_1+\sigma_2+\dots+\sigma_m=\sum_{i=1}^m\sigma_i
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>The SVD allows us to decompose data matrix <span
-class="math inline">\(X\)</span> as the product of three matrices, <span
-class="math inline">\(U,\ V^T,\ \Sigma\)</span>, where essentially <span
-class="math inline">\(U\)</span> contains information about the column
-space of <span class="math inline">\(X\)</span>, <span
-class="math inline">\(V\)</span> contains information about the row
-space of <span class="math inline">\(X\)</span> and <span
-class="math inline">\(\Sigma\)</span> is a hierarchically ordered
-diagonal matrix, which tells you how important the various columns of
-<span class="math inline">\(U\)</span> and <span
-class="math inline">\(V\)</span> are.</p>
+          <p>The SVD allows us to decompose data matrix $X$ as the product of three matrices, $U,\ V^T,\ \Sigma$, where essentially $U$ contains information about the column space of $X$, $V$ contains information about the row space of $X$ and $\Sigma$ is a hierarchically ordered diagonal matrix, which tells you how important the various columns of $U$ and $V$ are.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/04/19/SVD-Matrix%20Approximation/#more" rel="contents">
@@ -808,20 +847,10 @@ class="math inline">\(V\)</span> are.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>​ Firstly, we consider a large data matrix <span
-class="math inline">\(X\in \mathbb{C}^{n\times m}\)</span>:</p>
-<p><span class="math display">\[
-X=\begin{bmatrix}\vdots&amp;\vdots&amp;\
-&amp;\vdots\\x_1&amp;x_2&amp;\cdots&amp;x_m\\\vdots&amp;\vdots&amp;\
-&amp;\vdots\end{bmatrix}
-\]</span> The column <span class="math inline">\(x_k\in
-\mathbb{C}^n\)</span> is obtained from simulations or experiments.
-Here,we always consider the column vectors may also represent the state
-of a physical system that is evolving in time.The column are often
-called snapshots and <span class="math inline">\(m\)</span> is the
-number of snapshots in <span class="math inline">\(X\)</span>.</p>
-<p>The Singular Value Decomposition allows us to decompose any
-complex-valued matrix as the product of three other matrices,</p>
+          <p>​    Firstly, we consider a large data matrix $X\in \mathbb{C}^{n\times m}$:</p>
+<script type="math/tex; mode=display">
+X=\begin{bmatrix}\vdots&\vdots&\ &\vdots\\x_1&x_2&\cdots&x_m\\\vdots&\vdots&\ &\vdots\end{bmatrix}</script><p>The column $x_k\in \mathbb{C}^n$ is obtained from simulations or experiments. Here,we always consider the column vectors may also represent the state of a physical system that is evolving in time.The column are often called snapshots and $m$ is the number of snapshots in $X$.</p>
+<p>The Singular Value Decomposition allows us to decompose any complex-valued matrix as the product of three other matrices,</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/04/18/SVD-Mathematical%20Overview/#more" rel="contents">
@@ -902,166 +931,128 @@ complex-valued matrix as the product of three other matrices,</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="文件目录管理">文件目录管理</h1>
-<p>下表罗列了Linux文件系统中主要目录的内容</p>
-<div data-align="center">
+          <h1 id="文件目录管理"><a href="#文件目录管理" class="headerlink" title="文件目录管理"></a>文件目录管理</h1><p>下表罗列了Linux文件系统中主要目录的内容</p>
+<div align="center">
+
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
 <colgroup>
 <col  class="org-center" />
 </colgroup>
+
 <colgroup>
 <col  class="org-center" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-center">
-目 录
-</th>
-<th scope="col" class="org-center">
-内 容
-</th>
+<th scope="col" class="org-center">目  录</th>
+<th scope="col" class="org-center">内  容</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-center">
-/bin
-</td>
-<td class="org-center">
-构建最小系统所需要的命令(最常用的命令)
-</td>
+<td class="org-center">/bin</td>
+<td class="org-center">构建最小系统所需要的命令(最常用的命令)</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/boot
-</td>
-<td class="org-center">
-内核和启动文件
-</td>
+<td class="org-center">/boot</td>
+<td class="org-center">内核和启动文件</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/dev
-</td>
-<td class="org-center">
-各种设备文件
-</td>
+<td class="org-center">/dev</td>
+<td class="org-center">各种设备文件</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/etc
-</td>
+<td class="org-center">/etc</td>
 <td ·class="org-center">系统软件的启动和配置文件</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/home
-</td>
-<td class="org-center">
-用户的主目录(用户所有数据,极其重要)
-</td>
+<td class="org-center">/home</td>
+<td class="org-center">用户的主目录(用户所有数据,极其重要)</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/lib
-</td>
-<td class="org-center">
-C编译器的库
-</td>
+<td class="org-center">/lib</td>
+<td class="org-center">C编译器的库</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/media
-</td>
-<td class="org-center">
-可移动介质的安装点
-</td>
+<td class="org-center">/media</td>
+<td class="org-center">可移动介质的安装点</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/opt
-</td>
-<td class="org-center">
-可选的应用软件包(用deb包安装的部分软件在这)
-</td>
+<td class="org-center">/opt</td>
+<td class="org-center">可选的应用软件包(用deb包安装的部分软件在这)</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/proc
-</td>
-<td class="org-center">
-进程的映像
-</td>
+<td class="org-center">/proc</td>
+<td class="org-center">进程的映像</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/root
-</td>
-<td class="org-center">
-根用户root的主目录
-</td>
+<td class="org-center">/root</td>
+<td class="org-center">根用户root的主目录</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/sbin
-</td>
-<td class="org-center">
-和系统操作有关的命令
-</td>
+<td class="org-center">/sbin</td>
+<td class="org-center">和系统操作有关的命令</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/tmp
-</td>
-<td class="org-center">
-临时文件存放点
-</td>
+<td class="org-center">/tmp</td>
+<td class="org-center">临时文件存放点</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/usr
-</td>
-<td class="org-center">
-非系统的程序和命令(apt安装的位置)
-</td>
+<td class="org-center">/usr</td>
+<td class="org-center">非系统的程序和命令(apt安装的位置)</td>
 </tr>
 </tbody>
+
 <tbody>
 <tr>
-<td class="org-center">
-/var
-</td>
-<td class="org-center">
-系统专用的数据和配置文件
-</td>
+<td class="org-center">/var</td>
+<td class="org-center">系统专用的数据和配置文件</td>
 </tr>
 </tbody>
 </table>
+
 </div>
+
 <p><a id="org8d61c7d"></a></p>
           <!--noindex-->
             <div class="post-button">
@@ -1143,94 +1134,12 @@ C编译器的库
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="shell-基本命令">Shell 基本命令</h1>
-<p>Bash提供了命令行补全的特性.我们可以利用Tab键来完成命令以及文件名的自动补全.如果以已输入的字符开头的文件不止一个,那么连续输入两次Tab键,shell将会以列表的形式给出所有以输入字符开头的文件名.</p>
+          <h1 id="Shell-基本命令"><a href="#Shell-基本命令" class="headerlink" title="Shell 基本命令"></a>Shell 基本命令</h1><p>Bash提供了命令行补全的特性.我们可以利用Tab键来完成命令以及文件名的自动补全.如果以已输入的字符开头的文件不止一个,那么连续输入两次Tab键,shell将会以列表的形式给出所有以输入字符开头的文件名.</p>
 <p>同样我们可以补全Linux命令,这是因为Linux的命令本质上是一些可执行文件,所以可以认为命令补全和文件名补全其实是同一件事.</p>
 <p>此外,Shell在查找文件中存在通配符的专用符号,其为*,?,[].这些通配符可以搜索并匹配文件名的一部分,从而可以做到批量检索文件.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/03/30/linux-1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/27/Graph8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/27/Graph8/" class="post-title-link" itemprop="url">Lecture series on graph theory 8</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-27 11:24:05" itemprop="dateCreated datePublished" datetime="2022-05-27T11:24:05+08:00">2022-05-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:16:49" itemprop="dateModified" datetime="2025-12-22T15:16:49+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graph-Theory/" itemprop="url" rel="index"><span itemprop="name">Graph Theory</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Proof of the coloring-flow duality theorem</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/27/Graph8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1321,7 +1230,7 @@ C编译器的库
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

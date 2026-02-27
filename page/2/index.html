@@ -196,6 +196,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/01/03/Practical-Python-Closure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/01/03/Practical-Python-Closure/" class="post-title-link" itemprop="url">Practical Python-Closure</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-01-03 09:31:31" itemprop="dateCreated datePublished" datetime="2026-01-03T09:31:31+08:00">2026-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-01-29 23:46:13" itemprop="dateModified" datetime="2026-01-29T23:46:13+08:00">2026-01-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Returning-function-and-closures"><a href="#Returning-function-and-closures" class="headerlink" title="Returning function and closures"></a>Returning function and closures</h2><p>在Python中,函数和整数,字符串一样都是对象.因此函数可以作为另一个函数的返回值,函数可以赋值给变量,函数可以作为参数传递.如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x,y</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_add</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Adding&#x27;</span>,x,y)</span><br><span class="line">        <span class="keyword">return</span> x+y</span><br><span class="line">    <span class="keyword">return</span> do_add</span><br><span class="line">a=add(<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的add函数并没有执行加法,而是返回了一个执行加法的新函数do_add.这里的变量a指向的是函数do_add,因此可以用a()的方式来调用内部函数.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/01/03/Practical-Python-Closure/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/01/01/Practical-Python-Anony/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -250,11 +334,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="variable-argument-functions">Variable argument functions</h2>
-<p>在我们前面介绍的函数模型中,函数的调用参数是固定的:</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Variable-argument-functions"><a href="#Variable-argument-functions" class="headerlink" title="Variable argument functions"></a>Variable argument functions</h2><p>在我们前面介绍的函数模型中,函数的调用参数是固定的:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">a,b,c</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <p>这表示函数的参数数量固定,参数名称固定,外部调用必须要严格匹配.一旦程序需求变化,那么接口就会破坏兼容性.因此为了解决这一问题,Python引入可变参数,为了满足如下三个目标:接口数量稳定,调用方式自然以及函数内部能统一处理参数集合.</p>
           <!--noindex-->
@@ -331,12 +412,8 @@ Python</a>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="producerconsumer-problems-and-workflows">Producer/Consumer
-Problems and Workflows</h2>
-<p>生成器generator是用来设置各种生产者/消费者问题和管道工具的解决方案.生产者-消费者问题是经典的并发问题之一,其基本思想是生产者负责产生数据;消费者则负责使用数据;两者之间通过某种缓冲区或者管道的方式进行数据交换.Python中的生成器则很适合实现这种模式,他们具有延迟求值的特性:生成器不会一次性返回所有数据,而是每次yield产生一个值给消费者.</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Producer-Consumer-Problems-and-Workflows"><a href="#Producer-Consumer-Problems-and-Workflows" class="headerlink" title="Producer/Consumer Problems and Workflows"></a>Producer/Consumer Problems and Workflows</h2><p>生成器generator是用来设置各种生产者/消费者问题和管道工具的解决方案.生产者-消费者问题是经典的并发问题之一,其基本思想是生产者负责产生数据;消费者则负责使用数据;两者之间通过某种缓冲区或者管道的方式进行数据交换.Python中的生成器则很适合实现这种模式,他们具有延迟求值的特性:生成器不会一次性返回所有数据,而是每次yield产生一个值给消费者.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/12/28/Practical-Python-Producer/#more" rel="contents">
@@ -386,10 +463,16 @@ Problems and Workflows</h2>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-12-28 16:39:36 / 修改时间：16:42:15" itemprop="dateCreated datePublished" datetime="2025-12-28T16:39:36+08:00">2025-12-28</time>
+              <time title="创建时间：2025-12-28 16:39:36" itemprop="dateCreated datePublished" datetime="2025-12-28T16:39:36+08:00">2025-12-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-02-08 09:34:21" itemprop="dateModified" datetime="2026-02-08T09:34:21+08:00">2026-02-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -411,11 +494,9 @@ Problems and Workflows</h2>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="coroutine">Coroutine</h2>
-<p>协程函数是使用async def定义的函数.</p>
+          <h2 id="Coroutine"><a href="#Coroutine" class="headerlink" title="Coroutine"></a>Coroutine</h2><p>协程函数是使用async def定义的函数.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>其在调用不会执行函数体,仅返回一个coroutine
-object,只创建了一个可等待对象(awaitable).协程对象是协程函数的返回值,本质上是一种可等待对象,他的内部保存函数体,局部变量,当前执行位置(尚未开始/挂起点).他的调度状态一般为CREATED/RUNNING/SUSPENDED/FINISHED,用于调度分析.</p>
+<p>其在调用不会执行函数体,仅返回一个coroutine object,只创建了一个可等待对象(awaitable).协程对象是协程函数的返回值,本质上是一种可等待对象,他的内部保存函数体,局部变量,当前执行位置(尚未开始/挂起点).他的调度状态一般为CREATED/RUNNING/SUSPENDED/FINISHED,用于调度分析.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/12/28/Practical-Python-Coroutine/#more" rel="contents">
@@ -490,11 +571,8 @@ object,只创建了一个可等待对象(awaitable).协程对象是协程函数�
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="iteration-protocol">Iteration protocol</h2>
-<p>在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现.</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Iteration-protocol"><a href="#Iteration-protocol" class="headerlink" title="Iteration protocol"></a>Iteration protocol</h2><p>在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_<span class="built_in">iter</span>=obj.__iter__()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x=_<span class="built_in">iter</span>.__next__()</span><br><span class="line">        <span class="comment"># statements</span></span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 <p>这里的obj表示一个可迭代对象,而_iter则表示迭代器对象.根据上面的底层实现来看,循环迭代的行为是基于迭代器对象.</p>
           <!--noindex-->
@@ -571,11 +649,8 @@ Python</a>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="encapsulation-techniques">Encapsulation Techniques</h2>
-<p>类的使用会试图封装内部实现细节.因为类的主要作用之一是封装对象数据和内部实现细节,但是会提供一些public接口供外部调用.这一特点在C++体现的尤为明显,他通过严格的访问控制机制来实现代码的封装.但是Python中并没有提供严格的封装机制以及访问控制机制.</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Encapsulation-Techniques"><a href="#Encapsulation-Techniques" class="headerlink" title="Encapsulation Techniques"></a>Encapsulation Techniques</h2><p>类的使用会试图封装内部实现细节.因为类的主要作用之一是封装对象数据和内部实现细节,但是会提供一些public接口供外部调用.这一特点在C++体现的尤为明显,他通过严格的访问控制机制来实现代码的封装.但是Python中并没有提供严格的封装机制以及访问控制机制.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/12/22/Practical-Python-Encap/#more" rel="contents">
@@ -656,12 +731,8 @@ Python</a>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="dictionaries-revisited-object-implementation">Dictionaries
-Revisited (Object Implementation)</h2>
-<p>Python的对象在系统底层很大依赖于字典构建.换言之,Python对象本质上存放在一个字典里.</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Dictionaries-Revisited-Object-Implementation"><a href="#Dictionaries-Revisited-Object-Implementation" class="headerlink" title="Dictionaries Revisited (Object Implementation)"></a>Dictionaries Revisited (Object Implementation)</h2><p>Python的对象在系统底层很大依赖于字典构建.换言之,Python对象本质上存放在一个字典里.</p>
 <p>在模块内部,字典会存放模块中所有的全局变量和函数.</p>
           <!--noindex-->
             <div class="post-button">
@@ -743,11 +814,8 @@ Revisited (Object Implementation)</h2>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="special-methods">Special Methods</h2>
-<p>类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Special-Methods"><a href="#Special-Methods" class="headerlink" title="Special Methods"></a>Special Methods</h2><p>类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/12/18/Practical-Python-Special/#more" rel="contents">
@@ -828,8 +896,7 @@ Python</a>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="multiple-inheritance-and-mro">Multiple Inheritance and MRO</h2>
-<p>继承是面向对象编程中用于建立类型层次关系的机制.子类(subclass)继承父类(superclass)的属性和方法;子类对象可以被当做父类对象使用.</p>
+          <h2 id="Multiple-Inheritance-and-MRO"><a href="#Multiple-Inheritance-and-MRO" class="headerlink" title="Multiple Inheritance and MRO"></a>Multiple Inheritance and MRO</h2><p>继承是面向对象编程中用于建立类型层次关系的机制.子类(subclass)继承父类(superclass)的属性和方法;子类对象可以被当做父类对象使用.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span>: <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span>(<span class="title class_ inherited__">Parent</span>): <span class="keyword">pass</span>  </span><br></pre></td></tr></table></figure>
 <p>其在程序设计中的作用:代码复用;抽象公共接口;建立类型约束.</p>
           <!--noindex-->
@@ -912,103 +979,13 @@ Python</a>.</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="introducing-classes">Introducing Classes</h2>
-<p>面向对象编程(Object Oriented
-Programming)指将代码用对象组合的方式拆分.其中对象中包含数据(属性)和行为(应用在对象的方法).Python提供了class语句用来定义新对象,</p>
+          <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Introducing-Classes"><a href="#Introducing-Classes" class="headerlink" title="Introducing Classes"></a>Introducing Classes</h2><p>面向对象编程(Object Oriented Programming)指将代码用对象组合的方式拆分.其中对象中包含数据(属性)和行为(应用在对象的方法).Python提供了class语句用来定义新对象,</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,x,y</span>):</span><br><span class="line">        self.x=x</span><br><span class="line">        self.y=y</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">self,dx,dy</span>):</span><br><span class="line">        self.x+=dx</span><br><span class="line">        self.y+=dy</span><br></pre></td></tr></table></figure>
 <p>这里Python作为动态语言,与C++最为不同的一点是,Python的类属性可以在程序运行中随意添加,但是很不推荐这么做,会让程序显得十分杂乱.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/12/15/Practical-Python-Class/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/12/Practical-Python-Modules/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/12/12/Practical-Python-Modules/" class="post-title-link" itemprop="url">Pratical Python-Modules</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-12-12 15:58:08" itemprop="dateCreated datePublished" datetime="2025-12-12T15:58:08+08:00">2025-12-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:21:56" itemprop="dateModified" datetime="2025-12-22T15:21:56+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="modules">Modules</h2>
-<p>模块可以认为是命名值的集合,换言之,模块其实和C++中的命名空间十分类似.模块中包含模块文件中定义的全局变量和定义的函数.当我们导入模块之后,如果需要调用模块中的命名值,只需要将模块名作为前缀调用即可.
-在不同的模块中,是允许存在有相同名称的全局变量或函数的,对其调用如下所示</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/12/12/Practical-Python-Modules/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1099,7 +1076,7 @@ Python</a>.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

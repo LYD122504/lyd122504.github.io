@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Iteration protocol 在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现. 1234567_iter&#x3D;obj.__iter__()while True:    try:        x&#x3D;_iter.__ne">
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Iteration protocol在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现. 1234567_iter&#x3D;obj.__iter__()while True:    try:        x&#x3D;_iter.__next__(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Practical Python-Iterator and Generator">
 <meta property="og:url" content="http://example.com/2025/12/25/Practical-Python-Generator/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Iteration protocol 在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现. 1234567_iter&#x3D;obj.__iter__()while True:    try:        x&#x3D;_iter.__ne">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Iteration protocol在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现. 1234567_iter&#x3D;obj.__iter__()while True:    try:        x&#x3D;_iter.__next__(">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-25T15:06:09.000Z">
 <meta property="article:modified_time" content="2025-12-25T15:07:31.143Z">
@@ -256,11 +256,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="iteration-protocol">Iteration protocol</h2>
-<p>在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现.</p>
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Iteration-protocol"><a href="#Iteration-protocol" class="headerlink" title="Iteration protocol"></a>Iteration protocol</h2><p>在前面的讨论中,我们多次使用了容器迭代的程序,但是我们并没有深入了解过的迭代循环的底层实现,因此我们在此先介绍他的底层实现.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_<span class="built_in">iter</span>=obj.__iter__()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x=_<span class="built_in">iter</span>.__next__()</span><br><span class="line">        <span class="comment"># statements</span></span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 <p>这里的obj表示一个可迭代对象,而_iter则表示迭代器对象.根据上面的底层实现来看,循环迭代的行为是基于迭代器对象.</p>
 <span id="more"></span>
@@ -277,9 +274,7 @@ Python</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">it = <span class="built_in">iter</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="built_in">list</span>(it)  <span class="comment"># [1,2,3]</span></span><br><span class="line"><span class="built_in">list</span>(it)  <span class="comment"># []</span></span><br></pre></td></tr></table></figure>
 <p>这其实就是iterator和iterable的关键区别</p>
 <p><a id="org9628608"></a></p>
-<h2 id="customizing-iteration-with-generators">Customizing Iteration
-with Generators</h2>
-<p>生成器generator指的是一个定义迭代的函数.</p>
+<h2 id="Customizing-Iteration-with-Generators"><a href="#Customizing-Iteration-with-Generators" class="headerlink" title="Customizing Iteration with Generators"></a>Customizing Iteration with Generators</h2><p>生成器generator指的是一个定义迭代的函数.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">countdown</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">while</span> n&gt;<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        n-=<span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>从上面的代码中,我们意识到生成器其实是任意使用yield语句的函数.与普通的函数不同,调用生成器函数会创建一个生成器对象,但并不会立刻执行函数.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=countdown(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(x) <span class="comment"># &lt;generator object countdown at 0x0000020956043850&gt;</span></span><br></pre></td></tr></table></figure>
@@ -288,8 +283,7 @@ with Generators</h2>
 <p>生成器本身就是一个迭代器,他满足我们之前提及的迭代器协议,即__iter__()函数返回生成器本身做迭代器;__next__()函数返回下一个值或者抛出StopIteration异常.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gen = (x*x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>))</span><br><span class="line"><span class="built_in">iter</span>(gen) <span class="keyword">is</span> gen        <span class="comment"># True</span></span><br><span class="line"><span class="built_in">next</span>(gen)               <span class="comment"># 调用 __next__()</span></span><br></pre></td></tr></table></figure>
 <p>这里我们用到了一个类似于列表表达式的东西,他其实是生成器表达式,他返回的会是一个生成器对象,我们会在后续的笔记中介绍这一用法,在此不再赘述.</p>
-<p>我们开始介绍Generator的运行流程.首次调用next()方法,会先从函数的第一行开始执行,一直遇到yield
-value的语句,他会返回value,然后就是生成器的十分重要的性质了,他会冻结当前执行现场(包括栈帧,局部变量和指令指针等);后续调用next()方法,会从上次yield的下一行开始执行,直到再次遇到yield返回新值;若函数结束,则会抛出StopIteration.</p>
+<p>我们开始介绍Generator的运行流程.首次调用next()方法,会先从函数的第一行开始执行,一直遇到yield value的语句,他会返回value,然后就是生成器的十分重要的性质了,他会冻结当前执行现场(包括栈帧,局部变量和指令指针等);后续调用next()方法,会从上次yield的下一行开始执行,直到再次遇到yield返回新值;若函数结束,则会抛出StopIteration.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">demo</span>():</span><br><span class="line">    x=<span class="number">1</span></span><br><span class="line">    <span class="keyword">yield</span> x</span><br><span class="line">    x+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">yield</span> x</span><br><span class="line"><span class="comment"># 执行流程 next-&gt;yield 1(x=1被保存)</span></span><br><span class="line"><span class="comment"># 执行流程 next-&gt;yield 2(x=2被保存)</span></span><br><span class="line"><span class="comment"># 执行流程 next-&gt;StopIteration</span></span><br></pre></td></tr></table></figure>
 <p>yield的语义表示他会产生一个值并暂停函数执行,保存当前的执行状态.这使得Generator本质上是一个可恢复执行的协程原型.</p>
 <p>协程原型通常指一种尚未具备完整并发调度机制但已经体现协程核心语义的语言结构.换言之,他可以实现暂停和恢复执行的能力,但是他的调度并不是通过系统完成的,而是需要用户或者库函数显式控制.协程的本质能力有三点:可挂起,可恢复以及保持执行状态,而Generator已经具备了这三个能力,因此理论上生成器已经是一个完整的协程交互模型.但是其与真正的协程还差一个调度器来实现他的自动调度.</p>
@@ -301,45 +295,41 @@ value的语句,他会返回value,然后就是生成器的十分重要的性质�
 <p>这一过程中我们将yield返回的值改成了一个表达式,并且提供了值双向传播的方式:外部到协程是send函数,协程到外部是yield语句.这里的send函数会传入值之后继续向后执行,类似于赋值后执行next函数.但这里我们距离真正的协程还差几个问题,没有调度器,没有并发,需要用户手动send/next.</p>
 <p>利用协程调用协程,给出一个可组合协程的demo.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sub</span>():</span><br><span class="line">    x=<span class="keyword">yield</span></span><br><span class="line">    <span class="keyword">yield</span> x*<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;done&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    result=<span class="keyword">yield</span> <span class="keyword">from</span> sub()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;sub returned:&quot;</span>,result)</span><br><span class="line">m=main()</span><br><span class="line"><span class="built_in">next</span>(m)</span><br><span class="line"><span class="built_in">print</span>(m.send(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
-<p>这里的第一个next在main()函数中会运行到yield
-from语句,并进入sub函数在x=yield语句停止;紧接着,send(10),会给x赋上10,并返回20且冻结函数状态.如果我们再用一个next,首先他会执行return
-done,并且在main中打印结果同时抛出终止迭代的异常.这里其实我们实现了协程的自动转发,具有了函数调用级组合性.</p>
+<p>这里的第一个next在main()函数中会运行到yield from语句,并进入sub函数在x=yield语句停止;紧接着,send(10),会给x赋上10,并返回20且冻结函数状态.如果我们再用一个next,首先他会执行return done,并且在main中打印结果同时抛出终止迭代的异常.这里其实我们实现了协程的自动转发,具有了函数调用级组合性.</p>
 <p>现代的协程原型代码如下所示:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="built_in">print</span>(name, <span class="string">&quot;start&quot;</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(name, <span class="string">&quot;end&quot;</span>)</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.gather(</span><br><span class="line">        coro(<span class="string">&quot;A&quot;</span>),</span><br><span class="line">        coro(<span class="string">&quot;B&quot;</span>)</span><br><span class="line">    )</span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
-<p>我们逐行解释上述代码,async
-def定义的是原生协程函数,调用他的时候并不会执行函数体,而是生成一个coroutine
-object,这个和我们前面介绍的Generator一样只是前者生成的是可迭代对象,而async
-def生成的则是可await对象.但值得注意的是coroutine
-object只能await一次,如果希望多次await需要进一步做封装成Task,不在此介绍.</p>
-<p>coro函数体的第一个print函数并不会在coro("A")的时候调用,而是会在事件循环调度开始的时候才执行.asyncio.sleep(1)返回一个awaitable对象,这个对象会注册一个1s后的回调,并且将当前协程挂起,把控制权交还给事件循环.await的简单理解像是工作停止后告诉事件循环先去处理其他的任务,1s后再回来运行.下一个print则是在sleep(1)完成后,事件循环在1s后重新调度该协程的时候继续执行.</p>
+<p>我们逐行解释上述代码,async def定义的是原生协程函数,调用他的时候并不会执行函数体,而是生成一个coroutine object,这个和我们前面介绍的Generator一样只是前者生成的是可迭代对象,而async def生成的则是可await对象.但值得注意的是coroutine object只能await一次,如果希望多次await需要进一步做封装成Task,不在此介绍.</p>
+<p>coro函数体的第一个print函数并不会在coro(“A”)的时候调用,而是会在事件循环调度开始的时候才执行.asyncio.sleep(1)返回一个awaitable对象,这个对象会注册一个1s后的回调,并且将当前协程挂起,把控制权交还给事件循环.await的简单理解像是工作停止后告诉事件循环先去处理其他的任务,1s后再回来运行.下一个print则是在sleep(1)完成后,事件循环在1s后重新调度该协程的时候继续执行.</p>
 <p>原生协程函数main()中的asyncio.gather()函数的作用,其中的coro()函数用于创建两个协程对象但并不会执行协程对象.asyncio.gather则是用于接受多个awaitable对象,并且把他们注册到事件循环,并发调度,并且返回一个新的awaitable对象.这里是用的并发调度而不是并行调度,因此本质上还是单线程协作式并发.</p>
 <p>最后的asyncio.run(main())则是创建了事件循环,执行main()协程,并且关闭事件循环清理资源.</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>语句</th>
 <th>作用</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>async def</td>
 <td>定义协程</td>
 </tr>
-<tr class="even">
+<tr>
 <td>await</td>
 <td>让出控制权</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>asyncio.gather</td>
 <td>管理并发</td>
 </tr>
-<tr class="even">
+<tr>
 <td>asyncio.run</td>
 <td>驱动事件循环</td>
 </tr>
 </tbody>
 </table>
+</div>
 
     </div>
 
@@ -423,8 +413,7 @@ object只能await一次,如果希望多次await需要进一步做封装成Task,�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iteration-protocol"><span class="nav-number">1.</span> <span class="nav-text">Iteration protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#customizing-iteration-with-generators"><span class="nav-number">2.</span> <span class="nav-text">Customizing Iteration
-with Generators</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Iteration-protocol"><span class="nav-number">1.</span> <span class="nav-text">Iteration protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Customizing-Iteration-with-Generators"><span class="nav-number">2.</span> <span class="nav-text">Customizing Iteration with Generators</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -440,7 +429,7 @@ with Generators</span></a></li></ol></div>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

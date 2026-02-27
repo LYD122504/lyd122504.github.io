@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="Gcc&#x2F;G++ compiler options 所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为 1gcc prog.c -o exec 这里的prog.c表示C语言的源码文件,而-o exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a">
+  <meta name="description" content="Gcc&#x2F;G++ compiler options所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为 1gcc prog.c -o exec 这里的prog.c表示C语言的源码文件,而-o exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ANSI-gcc.md">
 <meta property="og:url" content="http://example.com/2025/06/07/ANSI-gcc/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="Gcc&#x2F;G++ compiler options 所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为 1gcc prog.c -o exec 这里的prog.c表示C语言的源码文件,而-o exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a">
+<meta property="og:description" content="Gcc&#x2F;G++ compiler options所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为 1gcc prog.c -o exec 这里的prog.c表示C语言的源码文件,而-o exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-07T13:47:48.000Z">
 <meta property="article:modified_time" content="2025-12-22T07:11:20.658Z">
@@ -262,114 +262,95 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="gccg-compiler-options">Gcc/G++ compiler options</h2>
-<p>所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为</p>
+        <h2 id="Gcc-G-compiler-options"><a href="#Gcc-G-compiler-options" class="headerlink" title="Gcc/G++ compiler options"></a>Gcc/G++ compiler options</h2><p>所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc prog.c -o exec</span><br></pre></td></tr></table></figure>
-<p>这里的prog.c表示C语言的源码文件,而-o
-exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.</p>
+<p>这里的prog.c表示C语言的源码文件,而-o exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.</p>
 <p>虽然我们只用了一条命令就完成了程序的编译,但实际上编译过程其实是分为四个阶段进行的,即预处理(Preprocessing),编译(Compilation),汇编(Assembly)和链接(Linking).</p>
 <span id="more"></span>
 <p><a id="orgcc1cd4b"></a></p>
-<h3 id="预处理preprocessing">预处理(Preprocessing)</h3>
-<p>预处理阶段的主要任务如下:</p>
-<ol type="1">
-<li>头文件展开:
-处理#include指令,把所需要的头文件内容插入到当前位置.</li>
+<h3 id="预处理-Preprocessing"><a href="#预处理-Preprocessing" class="headerlink" title="预处理(Preprocessing)"></a>预处理(Preprocessing)</h3><p>预处理阶段的主要任务如下:</p>
+<ol>
+<li>头文件展开: 处理#include指令,把所需要的头文件内容插入到当前位置.</li>
 <li>宏定义替换: 替换所有宏定义(#define)为其定义的内容.</li>
-<li>处理条件编译:
-根据#if,#ifdef,#ifndef,#else,#elif和#endif指令,来决定程序中哪些代码需要保留;这些编译条件可以用来控制程序运行平台的差异以及调试程序功能.</li>
+<li>处理条件编译: 根据#if,#ifdef,#ifndef,#else,#elif和#endif指令,来决定程序中哪些代码需要保留;这些编译条件可以用来控制程序运行平台的差异以及调试程序功能.</li>
 <li>删除注释: 所有注释会被移除,便于后续编译.</li>
-<li>插入行号信息:
-插入#line指令,用于记录原始文件位置,便于后续错误定位.</li>
+<li>插入行号信息: 插入#line指令,用于记录原始文件位置,便于后续错误定位.</li>
 </ol>
 <p>预处理阶段的shell命令如下所示,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -E prog.c</span><br><span class="line">gcc -E prog.c -o prog.i</span><br></pre></td></tr></table></figure>
-<p>gcc并不保留预处理后的文件,但是我们可以通过-E选项来让程序在预处理阶段完成以后停止编译,并且保留预处理信息.如果我们只使用-E选项,那么gcc会将预处理后的结果输出到标准输出上(也就是显示器),但是他会报一个错误,when
-writing output to : No such file or
-directory.这是因为gcc默认会将预处理的结果输出到一个文件里面,但我们并没有指定输出文件.故我们可以在-E之后再加上-o选项,来指定输出文件的名称,这样gcc就会将预处理的结果输出到指定的文件,而非标准输出.值得注意的是,预处理的结果文件后缀名没有强制标准,但为了便于区分,一般我们会使用.i作为后缀名.</p>
+<p>gcc并不保留预处理后的文件,但是我们可以通过-E选项来让程序在预处理阶段完成以后停止编译,并且保留预处理信息.如果我们只使用-E选项,那么gcc会将预处理后的结果输出到标准输出上(也就是显示器),但是他会报一个错误,when writing output to : No such file or directory.这是因为gcc默认会将预处理的结果输出到一个文件里面,但我们并没有指定输出文件.故我们可以在-E之后再加上-o选项,来指定输出文件的名称,这样gcc就会将预处理的结果输出到指定的文件,而非标准输出.值得注意的是,预处理的结果文件后缀名没有强制标准,但为了便于区分,一般我们会使用.i作为后缀名.</p>
 <p><a id="org722cc17"></a></p>
-<h3 id="编译compilation">编译(Compilation)</h3>
-<p>gcc编译器的编译阶段指的是将源代码编译成汇编代码的过程,但这个阶段并不会进行汇编或链接操作.编译阶段的主要任务如下:</p>
-<ol type="1">
+<h3 id="编译-Compilation"><a href="#编译-Compilation" class="headerlink" title="编译(Compilation)"></a>编译(Compilation)</h3><p>gcc编译器的编译阶段指的是将源代码编译成汇编代码的过程,但这个阶段并不会进行汇编或链接操作.编译阶段的主要任务如下:</p>
+<ol>
 <li>语法分析: 将源代码转换为语法树(AST),检查语法是否正确.</li>
-<li>语义分析:
-检查程序的变量类型,作用域和函数调用是否合理,同时在汇编代码中嵌入符号的声明和引用信息.</li>
+<li>语义分析: 检查程序的变量类型,作用域和函数调用是否合理,同时在汇编代码中嵌入符号的声明和引用信息.</li>
 <li>中间代码生成: 将语法树转换为中间代码.</li>
 <li>优化: 对中间代码进行优化,提高执行效率.</li>
-<li>目标架构相关指令生成:
-将中间代码翻译成对应硬件的目标架构指令集,从而生成汇编代码.</li>
+<li>目标架构相关指令生成: 将中间代码翻译成对应硬件的目标架构指令集,从而生成汇编代码.</li>
 </ol>
 <p>编译阶段的shell命令如下所示,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcc -S prog.c</span><br><span class="line">gcc -S prog.i</span><br><span class="line">gcc -S prog.c -o test.s</span><br></pre></td></tr></table></figure>
 <p>我们发现gcc的-S选项既可以从源代码文件开始编译,也可以从预处理后的文件开始编译.不同于预处理阶段的不会保存预处理结果,编译阶段的结果在默认情况下会保存在同名的.s文件.当然我们也可以用-o选项来指定输出文件的名称,这样gcc就会将编译后的结果输出到指定的文件中.</p>
 <p>编译阶段的优化是一个非常重要的环节,因为它可以显著提高程序的执行效率.编译器会根据不同的优化级别进行不同程度的优化.在gcc中,我们可以通过-O选项来指定优化级别,具体如下:</p>
-<ol type="1">
-<li><p>-O0(不优化):
-不进行优化,编译速度最快,一般是默认的级别;其生成的代码直接对应源代码,方便调试;代码体积较大,运行速度较慢.适用于开发调试阶段(确保代码逻辑正确);需要精确匹配源码和汇编代码的情况.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O0 prog.c</span><br></pre></td></tr></table></figure></li>
-<li><p>-O1(基本优化):
-平衡优化和编译速度,进行一些简单的优化:删除未使用的代码块;合并常量;简单的循环优化(如减少临时变量存储);内联代码量小的函数.适用于需要一定优化但不想牺牲太多调试体验的情况.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O0 prog.c</span><br></pre></td></tr></table></figure></li>
-<li><p>-O2(推荐优化级别):
-相比起-O1,他的优化策略更为激进,适用于发布版本:循环优化;指令调度;函数内联;更多的常量传播和死代码删除.代码的运行速度显著提升,但是其所需的编译时间会更长.调试的信息可能有所丢失,因为某些变量会被优化.适用于生产环境发布版本,需要较高的运行效率.值得注意的是,并不是更为激进的优化策略就能保证代码文件的大小更小,有时候-O2的优化会导致代码体积变大,因为编译器可能会将一些函数内联到调用处,从而增加代码的重复量.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O2 prog.c</span><br></pre></td></tr></table></figure></li>
-<li><p>-O3(激进优化):
-他是gcc提供的最激进的优化基本,会可能导致代码的体积进一步变大:自动向量化(如使用SIMD指令集);更激进的内联和循环优化;可能改变浮点运算行为(影响精度).运行速度可能比-O2更快,但也可能引入问题(如代码膨胀或浮点误差).调试的信息可能会被改动的比较大,因此调试更为困难.适用于高性能计算(HPC),数值计算等对速度要求极高的场景.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O3 prog.c</span><br></pre></td></tr></table></figure></li>
-<li><p>-Os(优化代码大小):
-其是在-O2的基础上优先减少代码体积;禁用可能增加代码大小的优化(如循环展开).适用于嵌入式系统,
-内存受限的环境(如微控制器)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S  -Os prog.c</span><br></pre></td></tr></table></figure></li>
+<ol>
+<li><p>-O0(不优化): 不进行优化,编译速度最快,一般是默认的级别;其生成的代码直接对应源代码,方便调试;代码体积较大,运行速度较慢.适用于开发调试阶段(确保代码逻辑正确);需要精确匹配源码和汇编代码的情况.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O0 prog.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-O1(基本优化): 平衡优化和编译速度,进行一些简单的优化:删除未使用的代码块;合并常量;简单的循环优化(如减少临时变量存储);内联代码量小的函数.适用于需要一定优化但不想牺牲太多调试体验的情况.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O0 prog.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-O2(推荐优化级别): 相比起-O1,他的优化策略更为激进,适用于发布版本:循环优化;指令调度;函数内联;更多的常量传播和死代码删除.代码的运行速度显著提升,但是其所需的编译时间会更长.调试的信息可能有所丢失,因为某些变量会被优化.适用于生产环境发布版本,需要较高的运行效率.值得注意的是,并不是更为激进的优化策略就能保证代码文件的大小更小,有时候-O2的优化会导致代码体积变大,因为编译器可能会将一些函数内联到调用处,从而增加代码的重复量.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O2 prog.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-O3(激进优化): 他是gcc提供的最激进的优化基本,会可能导致代码的体积进一步变大:自动向量化(如使用SIMD指令集);更激进的内联和循环优化;可能改变浮点运算行为(影响精度).运行速度可能比-O2更快,但也可能引入问题(如代码膨胀或浮点误差).调试的信息可能会被改动的比较大,因此调试更为困难.适用于高性能计算(HPC),数值计算等对速度要求极高的场景.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S -O3 prog.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-Os(优化代码大小): 其是在-O2的基础上优先减少代码体积;禁用可能增加代码大小的优化(如循环展开).适用于嵌入式系统, 内存受限的环境(如微控制器)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S  -Os prog.c</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>可以用如下命令来查看gcc默认启用了哪些优化选项,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -Q --help=optimizers | grep enabled</span><br></pre></td></tr></table></figure>
 <p><a id="orga4cc90a"></a></p>
-<h3 id="汇编assembly">汇编(Assembly)</h3>
-<p>汇编阶段是在编译阶段得到的汇编代码的基础之上,用汇编器解析汇编指令,将其转换为CPU可直接执行的二进制指令(机器码)</p>
+<h3 id="汇编-Assembly"><a href="#汇编-Assembly" class="headerlink" title="汇编(Assembly)"></a>汇编(Assembly)</h3><p>汇编阶段是在编译阶段得到的汇编代码的基础之上,用汇编器解析汇编指令,将其转换为CPU可直接执行的二进制指令(机器码)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c prog.c -o test.o</span><br></pre></td></tr></table></figure>
-<p>这里虽然我们只给出了从源代码文件开始编译的指令,但实际上可以从任意的中间文件(.i/.s)开始编译.同样,与编译阶段类似,gcc
--c会默认生成一个同名的后缀为.o的机器码文件;需值得注意的是,这个同名文件指的是与操作的文件同名,不一定会与源文件同名.</p>
+<p>这里虽然我们只给出了从源代码文件开始编译的指令,但实际上可以从任意的中间文件(.i/.s)开始编译.同样,与编译阶段类似,gcc -c会默认生成一个同名的后缀为.o的机器码文件;需值得注意的是,这个同名文件指的是与操作的文件同名,不一定会与源文件同名.</p>
 <p>其主要任务如下:</p>
-<ol type="1">
-<li>符号与重定位信息处理:
-为变量,函数等符号创建表,记录其位置与类型;生成重定位信息,以支持连接器在最终链接时解析地址.</li>
-<li>节区分布:
-将代码和数据分配到不同的节区(如.text节区存放代码,.data节区存放初始化数据,.bss节区存放未初始化数据),以便于链接器处理.</li>
-<li>生成目标文件:
-将处理后的机器码和符号表信息写入目标文件(.o文件),以供链接器使用.</li>
+<ol>
+<li>符号与重定位信息处理: 为变量,函数等符号创建表,记录其位置与类型;生成重定位信息,以支持连接器在最终链接时解析地址.</li>
+<li>节区分布: 将代码和数据分配到不同的节区(如.text节区存放代码,.data节区存放初始化数据,.bss节区存放未初始化数据),以便于链接器处理.</li>
+<li>生成目标文件: 将处理后的机器码和符号表信息写入目标文件(.o文件),以供链接器使用.</li>
 </ol>
 <p><a id="org775eb54"></a></p>
-<h3 id="链接linking">链接(Linking)</h3>
-<p>链接阶段的主要任务是将多个目标文件(.o文件)和库文件(.a/.so)合并成一个可执行文件或共享库.</p>
+<h3 id="链接-Linking"><a href="#链接-Linking" class="headerlink" title="链接(Linking)"></a>链接(Linking)</h3><p>链接阶段的主要任务是将多个目标文件(.o文件)和库文件(.a/.so)合并成一个可执行文件或共享库.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc prog.o -o exec</span><br></pre></td></tr></table></figure>
 <p>这里调用的是gnu的ld连接器,完成链接操作.</p>
 <p>其主要任务如下:</p>
-<ol type="1">
-<li><p>符号解析:
-检查所有.o文件中使用的函数和变量名;找出它们的定义位置并建立正确的引用关系.
-如:在main.o中用到了foo函数,但foo定义在foo.o中,链接器会将foo.o中的foo函数地址填入main.o的引用位置.</p></li>
-<li><p>重定位:
-每个.o文件内部的地址是从零开始的虚拟地址;连接器需要把这些地址重新计算成全局地址,也就是程序运行时的实际地址;修改目标文件中相关位置(代码和数据段)来修正地址引用.</p></li>
-<li><p>合并节区:
-将所有.o文件的相同节区合并成一个节区,如将所有的.text节区合并成一个大的.text节区,以便于最终生成可执行文件.</p></li>
-<li><p>符号表和重定位信息清理:
-可执行文件通常不再保留完整的符号表(除非带调试信息);重定位表信息也会被清除,因为地址已固定.</p></li>
-<li><p>链接库文件:
-如果使用了静态库(.a)或动态库(.so),链接器会将所需的库文件合并到最终的可执行文件中;对于动态库,链接器会记录库的路径和符号信息,以便运行时加载.</p></li>
+<ol>
+<li><p>符号解析: 检查所有.o文件中使用的函数和变量名;找出它们的定义位置并建立正确的引用关系. 如:在main.o中用到了foo函数,但foo定义在foo.o中,链接器会将foo.o中的foo函数地址填入main.o的引用位置.</p>
+</li>
+<li><p>重定位: 每个.o文件内部的地址是从零开始的虚拟地址;连接器需要把这些地址重新计算成全局地址,也就是程序运行时的实际地址;修改目标文件中相关位置(代码和数据段)来修正地址引用.</p>
+</li>
+<li><p>合并节区: 将所有.o文件的相同节区合并成一个节区,如将所有的.text节区合并成一个大的.text节区,以便于最终生成可执行文件.</p>
+</li>
+<li><p>符号表和重定位信息清理: 可执行文件通常不再保留完整的符号表(除非带调试信息);重定位表信息也会被清除,因为地址已固定.</p>
+</li>
+<li><p>链接库文件: 如果使用了静态库(.a)或动态库(.so),链接器会将所需的库文件合并到最终的可执行文件中;对于动态库,链接器会记录库的路径和符号信息,以便运行时加载.</p>
+</li>
 </ol>
-<h4 id="静态链接static-linking">静态链接(static linking)</h4>
-<p>静态链接就是以一组可以重定位目标文件和命令行参数作为输入,生成一个完全链接的可以加载和运行的可执行目标文件作为输出.这其实是因为在大型程序下,我们会出现多个目标文件之间存在相互调用的情况,为了满足这种互相调用的关系,我们需要将这些源文件产生的目标文件做一个链接,从而形成一个可以执行的程序.由很多目标文件进行链接形成的是静态库,换言之,静态库也可以简单看成是一组目标文件的集合,也就是很多目标文件经过压缩打包后形成的一个文件.</p>
+<h4 id="静态链接-static-linking"><a href="#静态链接-static-linking" class="headerlink" title="静态链接(static linking)"></a>静态链接(static linking)</h4><p>静态链接就是以一组可以重定位目标文件和命令行参数作为输入,生成一个完全链接的可以加载和运行的可执行目标文件作为输出.这其实是因为在大型程序下,我们会出现多个目标文件之间存在相互调用的情况,为了满足这种互相调用的关系,我们需要将这些源文件产生的目标文件做一个链接,从而形成一个可以执行的程序.由很多目标文件进行链接形成的是静态库,换言之,静态库也可以简单看成是一组目标文件的集合,也就是很多目标文件经过压缩打包后形成的一个文件.</p>
 <p>其主要的缺点:</p>
-<ol type="1">
-<li><p>浪费内存空间,因为每个可执行程序中对所有需要的目标文件都要有一个副本,所以如果有多个程序使用同一个库,每个程序都会包含这个库的副本,导致内存浪费.</p></li>
-<li><p>更新不便,如果库文件有更新,需要重新编译所有依赖这个库的程序,这在大型项目中可能非常麻烦.</p></li>
+<ol>
+<li><p>浪费内存空间,因为每个可执行程序中对所有需要的目标文件都要有一个副本,所以如果有多个程序使用同一个库,每个程序都会包含这个库的副本,导致内存浪费.</p>
+</li>
+<li><p>更新不便,如果库文件有更新,需要重新编译所有依赖这个库的程序,这在大型项目中可能非常麻烦.</p>
+</li>
 </ol>
 <p>其的优点在于由于可执行文件已经具备了所有执行程序所需的任何东西,因此其在运行时速度会更快.</p>
-<h4 id="动态链接dynamic-linking">动态链接(dynamic linking)</h4>
-<p>动态链接是为了解决静态链接所提及的浪费内存和更新不便的问题而提出的.动态链接的基本思想是把程序按照模块拆分成各个相对独立部分,在程序运行时才将它们链接在一起形成一个完整的程序.其流程如下:</p>
+<h4 id="动态链接-dynamic-linking"><a href="#动态链接-dynamic-linking" class="headerlink" title="动态链接(dynamic linking)"></a>动态链接(dynamic linking)</h4><p>动态链接是为了解决静态链接所提及的浪费内存和更新不便的问题而提出的.动态链接的基本思想是把程序按照模块拆分成各个相对独立部分,在程序运行时才将它们链接在一起形成一个完整的程序.其流程如下:</p>
 <p>假设现在有两个程序prog1.o和prog2.o,这两者共用同一个库lib.o,假设首先运行程序prog1,系统首先加载prog1.o,当系统发现prog1.o中用到了lib.o,即prog1.o依赖于lib.o,那么系统接着加载lib.o,如果prog1.o和lib.o还依赖于其他目标文件,则依次全部加载到内存中.当prog2运行时,同样的加载prog2.o,然后发现program2.o依赖于lib.o,但是此时lib.o已经存在于内存中,这个时候就不再进行重新加载,而是将内存中已经存在的lib.o映射到prog2的虚拟地址空间中,从而进行链接(这个链接过程和静态链接类似)形成可执行程序.</p>
 <p>其主要的优点:</p>
-<ol type="1">
+<ol>
 <li>节省内存空间,因为多个程序可以共享同一个库文件的内存映射,避免了重复加载相同的库.</li>
 <li>更新方便,如果库文件有更新,只需要替换库文件即可,不需要重新编译所有依赖这个库的程序,只要保证接口不变即可.</li>
 </ol>
@@ -457,7 +438,7 @@ directory.这是因为gcc默认会将预处理的结果输出到一个文件里�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gccg-compiler-options"><span class="nav-number">1.</span> <span class="nav-text">Gcc&#x2F;G++ compiler options</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86preprocessing"><span class="nav-number">1.1.</span> <span class="nav-text">预处理(Preprocessing)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91compilation"><span class="nav-number">1.2.</span> <span class="nav-text">编译(Compilation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96assembly"><span class="nav-number">1.3.</span> <span class="nav-text">汇编(Assembly)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5linking"><span class="nav-number">1.4.</span> <span class="nav-text">链接(Linking)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5static-linking"><span class="nav-number">1.4.1.</span> <span class="nav-text">静态链接(static linking)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5dynamic-linking"><span class="nav-number">1.4.2.</span> <span class="nav-text">动态链接(dynamic linking)</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gcc-G-compiler-options"><span class="nav-number">1.</span> <span class="nav-text">Gcc&#x2F;G++ compiler options</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86-Preprocessing"><span class="nav-number">1.1.</span> <span class="nav-text">预处理(Preprocessing)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-Compilation"><span class="nav-number">1.2.</span> <span class="nav-text">编译(Compilation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96-Assembly"><span class="nav-number">1.3.</span> <span class="nav-text">汇编(Assembly)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5-Linking"><span class="nav-number">1.4.</span> <span class="nav-text">链接(Linking)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5-static-linking"><span class="nav-number">1.4.1.</span> <span class="nav-text">静态链接(static linking)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5-dynamic-linking"><span class="nav-number">1.4.2.</span> <span class="nav-text">动态链接(dynamic linking)</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -473,7 +454,7 @@ directory.这是因为gcc默认会将预处理的结果输出到一个文件里�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

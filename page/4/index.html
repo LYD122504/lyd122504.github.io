@@ -196,6 +196,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/22/ANSI-UNIX/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/22/ANSI-UNIX/" class="post-title-link" itemprop="url">ANSI-The UNIX System Interface</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-08-22 16:28:27" itemprop="dateCreated datePublished" datetime="2025-08-22T16:28:27+08:00">2025-08-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-12-22 15:11:44" itemprop="dateModified" datetime="2025-12-22T15:11:44+08:00">2025-12-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ANSI/" itemprop="url" rel="index"><span itemprop="name">ANSI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="The-Unix-System-Interface"><a href="#The-Unix-System-Interface" class="headerlink" title="The Unix System Interface"></a>The Unix System Interface</h2><p>Unix系统提供了一系列的系统调用,这些系统调用其实是操作系统内部的程序,其提供了用户程序调用的接口.我们将会经常借助系统调用来实现一些高效率的操作,或者访问标准库内没有的功能.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/08/22/ANSI-UNIX/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/06/07/ANSI-gcc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -250,11 +331,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="gccg-compiler-options">Gcc/G++ compiler options</h2>
-<p>所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为</p>
+          <h2 id="Gcc-G-compiler-options"><a href="#Gcc-G-compiler-options" class="headerlink" title="Gcc/G++ compiler options"></a>Gcc/G++ compiler options</h2><p>所谓程序的重定向,其实这里的程序并不是指C语言的源码程序,而是经过gcc编译器编译后的可执行文件.我们比较常用的gcc编译命令为</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc prog.c -o exec</span><br></pre></td></tr></table></figure>
-<p>这里的prog.c表示C语言的源码文件,而-o
-exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.</p>
+<p>这里的prog.c表示C语言的源码文件,而-o exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o选项,那么gcc编译器会默认将编译后的可执行文件命名为a.out.</p>
 <p>虽然我们只用了一条命令就完成了程序的编译,但实际上编译过程其实是分为四个阶段进行的,即预处理(Preprocessing),编译(Compilation),汇编(Assembly)和链接(Linking).</p>
           <!--noindex-->
             <div class="post-button">
@@ -337,8 +416,7 @@ exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o
 
       
           <p><a id="orga2619a4"></a></p>
-<h2 id="标准输入输出">标准输入输出</h2>
-<p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件&lt;stdio.h&gt;中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
+<h2 id="标准输入输出"><a href="#标准输入输出" class="headerlink" title="标准输入输出"></a>标准输入输出</h2><p>标准的输入设备一般指键盘,而标准的输出设备一般指屏幕.我们一般使用EOF作为判断输入流结束的标志,而符号常数EOF在头文件<stdio.h>中定义,一般而言其值会被设定成-1.在Windows电脑下,我们可以通过Ctrl+Z来输入EOF,而在Linux下,我们可以通过Ctrl+D来输入EOF;特别注意的是Ctrl+Z必须在行首输入,如果使用的是VS,则需要连续输入三次Ctrl+Z才可以发送EOF.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/05/26/ANSI-Chapter7/#more" rel="contents">
@@ -581,11 +659,7 @@ exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="复杂声明chapter-5">复杂声明(Chapter 5)</h2>
-<p>由于C语言设计指针的声明需要嵌套大量的括号且并不能简单的从左到右阅读,
-因此给定一个复杂的声明, 我们极难快速分析出其含义. 在此,
-我们需要写一个程序用来实现将C语言的复杂声明转换为文本,
-同理还有一个将文本转为声明的程序.</p>
+          <h2 id="复杂声明-Chapter-5"><a href="#复杂声明-Chapter-5" class="headerlink" title="复杂声明(Chapter 5)"></a>复杂声明(Chapter 5)</h2><p>由于C语言设计指针的声明需要嵌套大量的括号且并不能简单的从左到右阅读, 因此给定一个复杂的声明, 我们极难快速分析出其含义. 在此, 我们需要写一个程序用来实现将C语言的复杂声明转换为文本, 同理还有一个将文本转为声明的程序.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/01/21/ANSI-complicated/#more" rel="contents">
@@ -666,21 +740,8 @@ exec表示将编译后的可执行文件命名为exec.如果我们不去指定-o
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2
-id="逆波兰表达式计算器代码chapter4">逆波兰表达式计算器代码(Chapter4)</h2>
-<p><a id="org3f3d92b"></a></p>
-<h3 id="逆波兰表达式">逆波兰表达式</h3>
-<p>我们使用最为频繁的计算表达式其实是中缀表达式,
-也就是操作符在两个操作数之间. 这个的缺点在于,
-加减乘除的优先级并不是简单的从左到右计算的, 而是存在一定的优先级.
-因此如果我们想要得到想要的结果, 就必须使用括号来辅助我们的计算,
-而括号的嵌套则会使计算的复杂度大幅增加. 所以, 我们引入逆波兰表达式,
-也就是所谓的后缀表达式, 其特点在于将操作符直接置于操作数之后.
-其具体的用法如, <span class="math inline">\((3-4)*5\)</span>
-的逆波兰表达式为 <span class="math inline">\(3\ 4\ -\ 5\ *\)</span>;
-<span class="math inline">\(3-4*5\)</span> 的逆波兰表达式为 <span
-class="math inline">\(3\ 4\ 5\ *\ -\)</span>. 逆波兰表达式的优点在于,
-他不需要括号, 也不需要考虑优先级, 只需要按照顺序进行计算即可.</p>
+          <h2 id="逆波兰表达式计算器代码-Chapter4"><a href="#逆波兰表达式计算器代码-Chapter4" class="headerlink" title="逆波兰表达式计算器代码(Chapter4)"></a>逆波兰表达式计算器代码(Chapter4)</h2><p><a id="org3f3d92b"></a></p>
+<h3 id="逆波兰表达式"><a href="#逆波兰表达式" class="headerlink" title="逆波兰表达式"></a>逆波兰表达式</h3><p>我们使用最为频繁的计算表达式其实是中缀表达式, 也就是操作符在两个操作数之间. 这个的缺点在于, 加减乘除的优先级并不是简单的从左到右计算的, 而是存在一定的优先级. 因此如果我们想要得到想要的结果, 就必须使用括号来辅助我们的计算, 而括号的嵌套则会使计算的复杂度大幅增加. 所以, 我们引入逆波兰表达式, 也就是所谓的后缀表达式, 其特点在于将操作符直接置于操作数之后. 其具体的用法如, $(3-4)<em>5$ 的逆波兰表达式为 $3\ 4\ -\ 5\ </em>$; $3-4<em>5$ 的逆波兰表达式为 $3\ 4\ 5\ </em>\ -$. 逆波兰表达式的优点在于, 他不需要括号, 也不需要考虑优先级, 只需要按照顺序进行计算即可.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/12/30/ANSI-cacul/#more" rel="contents">
@@ -761,16 +822,7 @@ class="math inline">\(3\ 4\ 5\ *\ -\)</span>. 逆波兰表达式的优点在于,
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="位运算操作符2.9-bitwise-operators">位运算操作符(2.9 Bitwise
-Operators)</h2>
-<p>在C语言中提供了六种位运算操作符, 分别为: 按位取与(&amp;),
-按位取或(|), 按位取异或(^),
-按位左移(<a id="orgc4f59dc"></a>)和按位取反(~).
-值得注意的是这些操作符只能用于操作整数的数据类型,不论其是有符号整数还是无符号整数.
-进一步, 整数类型的数据类型为 char, short, int 和 long
-(根据在计算机内占据的字节多少排序). 至于浮点数,
-由于位运算会直接操作二进制位, 因此可能会对浮点数的值造成难以预知的结果,
-因此从语法层面直接禁止了对浮点数的位运算操作.</p>
+          <h2 id="位运算操作符-2-9-Bitwise-Operators"><a href="#位运算操作符-2-9-Bitwise-Operators" class="headerlink" title="位运算操作符(2.9 Bitwise Operators)"></a>位运算操作符(2.9 Bitwise Operators)</h2><p>在C语言中提供了六种位运算操作符, 分别为: 按位取与(&amp;), 按位取或(|), 按位取异或(^), 按位左移(<a id="orgc4f59dc"></a>)和按位取反(~). 值得注意的是这些操作符只能用于操作整数的数据类型,不论其是有符号整数还是无符号整数. 进一步, 整数类型的数据类型为 char, short, int 和 long (根据在计算机内占据的字节多少排序). 至于浮点数, 由于位运算会直接操作二进制位, 因此可能会对浮点数的值造成难以预知的结果, 因此从语法层面直接禁止了对浮点数的位运算操作.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/12/21/ANSI-bit/#more" rel="contents">
@@ -851,11 +903,7 @@ Operators)</h2>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="extern-的用法">Extern 的用法</h3>
-<p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前,
-用来标识变量或者函数的定义在别的文件中已经给出,
-告知编译器运行到此变量或函数时, 在其他位置寻找其定义.
-其常见的用法如下:</p>
+          <h3 id="Extern-的用法"><a href="#Extern-的用法" class="headerlink" title="Extern 的用法"></a>Extern 的用法</h3><p>在 C 语言中, 修饰符 extern 用在变量或者函数声明之前, 用来标识变量或者函数的定义在别的文件中已经给出, 告知编译器运行到此变量或函数时, 在其他位置寻找其定义. 其常见的用法如下:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/09/11/ANSI-extern/#more" rel="contents">
@@ -936,114 +984,10 @@ Operators)</h2>
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写;
-其针对的问题是如何在主串(文本串)中找到某种类型的子串,
-也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的,
-在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和
-KMP 算法的两种不同的实现思路.</p>
+          <p>在C语言程序设计这本书的第四章中提到了strindex 函数的编写; 其针对的问题是如何在主串(文本串)中找到某种类型的子串, 也就是我们常说的字符串匹配问题. 显然这个方法是存在朴素求解算法的, 在此我们将介绍除朴素求解算法以外的, 另一种优化的匹配算法, 即 KMP 算法和 KMP 算法的两种不同的实现思路.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/08/28/ANSI-KMP/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/30/CS229%20Notes%20for%20Lecture%202/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/" class="post-title-link" itemprop="url">CS229 Notes for Lecture 2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-07-30 17:08:19" itemprop="dateCreated datePublished" datetime="2024-07-30T17:08:19+08:00">2024-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-22 15:14:27" itemprop="dateModified" datetime="2025-12-22T15:14:27+08:00">2025-12-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS229/" itemprop="url" rel="index"><span itemprop="name">CS229</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="lecture-1">Lecture 1</h1>
-<p><a id="org8b14315"></a></p>
-<h2 id="introduction-of-supervised-learning">Introduction of supervised
-learning</h2>
-<p>在介绍监督学习(Supervised
-learning)之前,我们先罗列一些常用的符号,以便于后续的讨论:</p>
-<ul>
-<li><p><span class="math inline">\(m\)</span>: 训练样本的数量</p></li>
-<li><p><span class="math inline">\(n\)</span>: 特征的数量</p></li>
-<li><p><span class="math inline">\(x\)</span>: 输入变量(input variable),
-或称为输入特征(input feature/attribute)</p></li>
-<li><p><span class="math inline">\(y\)</span>: 输出变量(output
-variable), 或称为目标变量(target variable)</p></li>
-<li><p><span class="math inline">\((x,y)\)</span>: 表示训练样本; <span
-class="math inline">\((x^{(i)}, y^{(i)})\)</span>: 第 i 个训练样本(<span
-class="math inline">\(i^{th}\)</span> training example)</p></li>
-<li><p><span class="math inline">\(\mathcal{X}\)</span>:
-输入变量的空间(input space)</p></li>
-<li><p><span class="math inline">\(\mathcal{Y}\)</span>:
-输出变量的空间(output space)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/07/30/CS229%20Notes%20for%20Lecture%202/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1134,7 +1078,7 @@ class="math inline">\(i^{th}\)</span> training example)</p></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

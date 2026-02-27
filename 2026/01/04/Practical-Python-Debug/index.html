@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Debugging 调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.">
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Debugging调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Practical Python-Debug">
 <meta property="og:url" content="http://example.com/2026/01/04/Practical-Python-Debug/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Debugging 调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Debugging调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-04T11:19:55.000Z">
 <meta property="article:modified_time" content="2026-01-04T11:22:37.685Z">
@@ -256,100 +256,99 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="debugging">Debugging</h2>
-<p>调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.</p>
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p>调试的开始都是从Traceback开始.当Python程序方程未补货异常的时候,解释器就会打印Traceback(错误回溯),他包含调用栈(函数是如何一层层调用到出错位置的),精确的出错行号,异常类型和异常信息.</p>
 <span id="more"></span>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;C:\Users\Liyaoda\Nutstore\1\Computer\Learned\Pratical_Python\Chapter8\demo\Ch8_Sec3.py&quot;, line 21, in &lt;module&gt;</span><br><span class="line">    process()</span><br><span class="line">  File &quot;C:\Users\Liyaoda\Nutstore\1\Computer\Learned\Pratical_Python\Chapter8\demo\Ch8_Sec3.py&quot;, line 19, in process</span><br><span class="line">    result = normalize(data)</span><br><span class="line">             ^^^^^^^^^^^^^^^</span><br><span class="line">  File &quot;C:\Users\Liyaoda\Nutstore\1\Computer\Learned\Pratical_Python\Chapter8\demo\Ch8_Sec3.py&quot;, line 5, in normalize</span><br><span class="line">    total = sum(values)</span><br><span class="line">            ^^^^^^^^^^^</span><br><span class="line">TypeError: &#x27;int&#x27; object is not iterable</span><br></pre></td></tr></table></figure>
 <p>阅读Traceback的方式其实是从最后一行开始,因为最后一行是异常的直接原因,然后在慢慢向上回溯,从而可以了解错误是如何被逐层调用传播出来的.值得注意的是,异常点往往并不是错误发生的地方,而是错误暴露的地方.</p>
-<p>如果我们直接用python解释器去处理含错误的程序,他遇到错误之后会崩溃并退出.但我们仍可以通过python
--i的方式保留解释器运行.</p>
+<p>如果我们直接用python解释器去处理含错误的程序,他遇到错误之后会崩溃并退出.但我们仍可以通过python -i的方式保留解释器运行.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -i Ch8_Sec3.py</span><br></pre></td></tr></table></figure>
 <p>他的含义是脚本执行完,即使是因为异常退出,解释器也不会退出,当前的作用域,变量,对象仍然存在.我们可以直接现场调用一些变量来检查程序内部状态.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(x)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">locals</span>()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">globals</span>()</span><br></pre></td></tr></table></figure>
 <p>本质上这等价于在C/C++崩溃后还能冻结现场,是一种轻量级事后调试.但是值得注意的是,-i他只能保留全局变量和定义的函数,类和模块,对于函数内部的局部变量是不能检查的.</p>
 <p>虽然上面提到了一些调试方式,但实际上print仍然是最简单的调试方式.但是对于调试,更为建议的是选择使用repr()函数,因为repr函数返回的字符串会更为符合调试分析的精确表达.因为在调试过程中,我们更期待的是返回变量的类型,精度以及是否被隐式转换,如果直接print可能会被解释器做一些隐匿的美化,导致信息被隐藏.</p>
-<p>上面的python
--i只能检查全局变量的正确与否,我们可以用pdb来做交互式调试.在python3.7以上的版本,可以通过breakpoint()来直接调用pdb</p>
+<p>上面的python -i只能检查全局变量的正确与否,我们可以用pdb来做交互式调试.在python3.7以上的版本,可以通过breakpoint()来直接调用pdb</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">some_function</span>():</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">breakpoint</span>()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 <p>这里推荐使用breakpoint()的原因是可以通过环境变量切换调试器,不强耦合pdb.加了断点之后,程序运行到这个断点,运行停止,进入REPL和调用栈上下文,然后可以逐行执行,检查变量和修改状态.我们也可以直接调用调试器来运行程序,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pdb Ch8_Sec3.py</span><br></pre></td></tr></table></figure>
 <p>程序从第一行就进入调试器.我们可以在程序中提前设断点,控制执行路径,检查初始化阶段的状态.pdb常见的命令如下所示</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>w</td>
 <td>查看当前调用栈（极其重要）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>u / d</td>
 <td>在调用栈中上下移动</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>l</td>
 <td>查看当前代码</td>
 </tr>
-<tr class="even">
+<tr>
 <td>a</td>
 <td>查看当前函数参数</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>p expr</td>
 <td>打印表达式</td>
 </tr>
-<tr class="even">
+<tr>
 <td>s</td>
 <td>单步进入</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>n</td>
 <td>单步执行（不进入函数）</td>
 </tr>
-<tr class="even">
+<tr>
 <td>c</td>
 <td>继续运行</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>b</td>
 <td>设置断点</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>调试器实际上就是在时间轴,调用栈和函数局部状态三个调试维度上调试程序.设置断点的常用方式如下所示</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>断点设置方式</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>b 45</td>
 <td>当前文件第45行</td>
 </tr>
-<tr class="even">
+<tr>
 <td>b file.py</td>
 <td>指定文件的第45行</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>b foo</td>
 <td>当前文件的函数foo()</td>
 </tr>
-<tr class="even">
+<tr>
 <td>b module.foo</td>
 <td>模块中的foo()</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>实际上,按函数名下断点通常比行号更稳定.</p>
 <p><a id="org61aedbc"></a></p>
 
@@ -435,7 +434,7 @@ Python</a>.</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#debugging"><span class="nav-number">1.</span> <span class="nav-text">Debugging</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugging"><span class="nav-number">1.</span> <span class="nav-text">Debugging</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -451,7 +450,7 @@ Python</a>.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

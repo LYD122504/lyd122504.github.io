@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Special Methods 类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.">
+  <meta name="description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Special Methods类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Practical Python-Special Methods and Exceptions">
 <meta property="og:url" content="http://example.com/2025/12/18/Practical-Python-Special/index.html">
 <meta property="og:site_name" content="还施水阁">
-<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Special Methods 类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.">
+<meta property="og:description" content="本笔记完全基于David Beazley的Python教程-Practical Python. Special Methods类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-18T13:11:28.000Z">
 <meta property="article:modified_time" content="2025-12-22T07:22:43.595Z">
@@ -262,11 +262,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本笔记完全基于David Beazley的Python教程-<a
-target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical
-Python</a>.</p>
-<h2 id="special-methods">Special Methods</h2>
-<p>类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.</p>
+        <p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
+<h2 id="Special-Methods"><a href="#Special-Methods" class="headerlink" title="Special Methods"></a>Special Methods</h2><p>类可以定义特殊方法,这些方法对于Python是具有特殊含义的.他们一般在开头和结尾都会用__,例如我们前面常用的__init__初始化函数.在此,我们只关注几个例子,作为范例.</p>
 <span id="more"></span>
 <p>对象有两种字符串表示形式,一种是我们常用的str()函数,一种则是将要介绍的repr()函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> date</span><br><span class="line">d=date(<span class="number">2025</span>,<span class="number">12</span>,<span class="number">18</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(d)) <span class="comment"># 2025-12-18</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">repr</span>(d)) <span class="comment"># datetime.date(2025,12,18)</span></span><br></pre></td></tr></table></figure>
@@ -279,101 +276,103 @@ Python</a>.</p>
 <p>这里eval执行的是表达式而不是语句,因此如果输入x=1,会报错,因为他是赋值语句.eval会将字符串做Python表达式来解析执行,并且返回表达式的值.eval中表达式的变量依赖于命名空间,其中的global和local以字典的形式提供,分别表示全局命名空间和局部命名空间.其先在局部命名空间搜索,再在全局命名空间搜索,如果二者都没有找到,就会抛出NameError异常.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&quot;x+1&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&quot;x+1&quot;</span>,&#123;<span class="string">&quot;x&quot;</span>:<span class="number">10</span>&#125;))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="string">&quot;a + b&quot;</span>, &#123;<span class="string">&quot;b&quot;</span>: <span class="number">2</span>&#125;, &#123;<span class="string">&quot;a&quot;</span>: <span class="number">1</span>&#125;))</span><br></pre></td></tr></table></figure>
 <p>数学运算符实际上存在如下的方法调用</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>运算符</th>
 <th>特殊函数</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>a+b</td>
 <td>a.__add__(b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>a-b</td>
 <td>a.__sub__(b)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>a*b</td>
 <td>a.__mul__(b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>a/b</td>
 <td>a.__truediv__(b)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>a//b</td>
 <td>a.__floordiv__(b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>a%b</td>
 <td>a.__mod__(b)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>a&lt;&lt;b</td>
 <td>a.__lshift__(b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>a &gt;&gt; b</td>
 <td>a.__rshift__(b)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>a &amp; b</td>
 <td>a.__and__(b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>a ^ b</td>
 <td>a.__xor__(b)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>a ** b</td>
 <td>a.__pow__(b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>~a</td>
 <td>a.__invert__()</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>容器的特殊方法:</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>运算符</th>
 <th>特殊函数</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>len(x)</td>
 <td>x.__len__()</td>
 </tr>
-<tr class="even">
+<tr>
 <td>x[a]</td>
 <td>x.__getitem__(a)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>x[a]=v</td>
 <td>x.__setitem__(a,v)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>del x[a]</td>
 <td>x.__delitem__(a)</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>其方法调用其实是分成两步:先是通过类.方法返回绑定方法,然后再调用这个绑定方法计算结果.我们用下面的代码将其拆分开</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s=Stock.cost <span class="comment"># 绑定方法</span></span><br><span class="line">s()<span class="comment"># 方法调用</span></span><br></pre></td></tr></table></figure>
 <p>绑定方法其实就是调用类方法的时候忘记加上了尾随括号.因此绑定方法通常是粗心且不明显错误的常见来源或者某些难以调试的错误行为.</p>
-<p>从上面的特殊函数中,我们其实可以知道存在一些如getattr,setattr等的函数,其中hasattr(item,iterable)是可以判断item是否在可迭代对象中.
-getattr的代码结构如下所示</p>
+<p>从上面的特殊函数中,我们其实可以知道存在一些如getattr,setattr等的函数,其中hasattr(item,iterable)是可以判断item是否在可迭代对象中. getattr的代码结构如下所示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">getattr</span>(<span class="built_in">object</span>, name[, default])</span><br></pre></td></tr></table></figure>
 <p>如果object中存在名为name的属性返回该属性的值;如果不存在且提供了default返回default;如果不存在且没有提供default,抛出AttributeError.</p>
 <p><a id="org0956886"></a></p>
-<h2 id="defining-new-exception">Defining new Exception</h2>
-<p>前面提到的异常其实也是通过类来定义的,一切的异常都是继承于Exception,</p>
+<h2 id="Defining-new-Exception"><a href="#Defining-new-Exception" class="headerlink" title="Defining new Exception"></a>Defining new Exception</h2><p>前面提到的异常其实也是通过类来定义的,一切的异常都是继承于Exception,</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NetworkError</span>(<span class="title class_ inherited__">Exception</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <p>异常一般是空类,用pass作为异常主体.因此我们可以基于此,创建用户自定义的异常层次结构</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AuthenticationError</span>(<span class="title class_ inherited__">NetworkError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProtocolError</span>(<span class="title class_ inherited__">NetworkError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
@@ -461,7 +460,7 @@ getattr的代码结构如下所示</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#special-methods"><span class="nav-number">1.</span> <span class="nav-text">Special Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defining-new-exception"><span class="nav-number">2.</span> <span class="nav-text">Defining new Exception</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Special-Methods"><span class="nav-number">1.</span> <span class="nav-text">Special Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Defining-new-Exception"><span class="nav-number">2.</span> <span class="nav-text">Defining new Exception</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -477,7 +476,7 @@ getattr的代码结构如下所示</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
