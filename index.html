@@ -196,6 +196,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/06/Advanced-Python-MetaProgramming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/03/06/Advanced-Python-MetaProgramming/" class="post-title-link" itemprop="url">Advanced Python-MetaProgramming</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-06 23:04:46 / 修改时间：23:05:36" itemprop="dateCreated datePublished" datetime="2026-03-06T23:04:46+08:00">2026-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="metaprogramming">MetaProgramming</h1>
+<p><a id="org68f7d6f"></a></p>
+<h2 id="decorators">Decorators</h2>
+<p>在编写程序中存在大量代码重复的问题,其在编写过程会十分枯燥无聊,并且后续难以维护.元编程涉及编写操作其他代码的代码问题.其相应的应用示例为宏(Marco),包装器(wrapper),切面(aspect).因此其本质上是对代码进行操作.元编程的核心动力是DRY原则(Don't
+Repeat Yourself).
+当发现存在大量代码结构类似的情况,则可以用元编程.与C/C++的宏在编译前处理文本,Python的元编程是在运行的时候操作对象(func,class).其会更加的灵活,更加的动态.装饰器是一个创建另一个函数包装器的函数.包装器则是一个全新的函数,但是他的工作原理和原有函数是完全相同的,接受相同的函数参数可以返回相同的返回值,但是可以增加一些额外的操作.装饰器本质上是接受函数作为参数并返回新函数的高阶函数.理想的装饰器应该是对被装饰器的调用者是透明的,也就是即使换成被装饰了的函数,其调用和返回也不应该导致代码出错.而额外的输出则是由包装器函数实现,但仍然依靠原始函数获得结果</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/03/06/Advanced-Python-MetaProgramming/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/27/Advanced-Python-Work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -923,83 +1003,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/01/03/Practical-Python-Static/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/01/03/Practical-Python-Static/" class="post-title-link" itemprop="url">Practical-Python-Static</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-01-03 16:50:47 / 修改时间：16:52:09" itemprop="dateCreated datePublished" datetime="2026-01-03T16:50:47+08:00">2026-01-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Practical-Python/" itemprop="url" rel="index"><span itemprop="name">Practical Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a id="org1dfe10a"></a></p>
-<p>本笔记完全基于David Beazley的Python教程-<a target="_blank" rel="noopener" href="https://dabeaz-course.github.io/practical-python/Notes/Contents.html">Practical Python</a>.</p>
-<h2 id="Static-and-class-methods"><a href="#Static-and-class-methods" class="headerlink" title="Static and class methods"></a>Static and class methods</h2><p>我们之前介绍了装饰器和一些Python预定义的装饰器.这些预定义装饰器是用于在类中定义中指定特殊类型的方法.一般有staticmethod,classmethod和property.其中property,我们前面已经介绍过了property,他将类中的方法伪装成属性.通过property,可以在保持对象接口简洁的同时,对属性访问进行控制.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/01/03/Practical-Python-Static/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1071,7 +1074,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
