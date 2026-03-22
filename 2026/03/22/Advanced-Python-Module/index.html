@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+<meta name="google-site-verification" content="yGZtoctpv_RvqHFSVUN8MfwIraR1EkJ8pEmc5Azxuss" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="Modules and Packages  Modules 模块化和包机制是Python管理复杂性的核心手段,也是代码复用的基础.每个源文件都是一个模块,import用于加载并执行一个模块.我们在到如模块的同时也到入了其定义的命名空间. 1234import foofoo.grok()# 相当于如下的调用方式foo.__dict__[&amp;#x27;grok&amp;#x27;]()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Python-Modules and Packages">
+<meta property="og:url" content="http://example.com/2026/03/22/Advanced-Python-Module/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Modules and Packages  Modules 模块化和包机制是Python管理复杂性的核心手段,也是代码复用的基础.每个源文件都是一个模块,import用于加载并执行一个模块.我们在到如模块的同时也到入了其定义的命名空间. 1234import foofoo.grok()# 相当于如下的调用方式foo.__dict__[&amp;#x27;grok&amp;#x27;]()">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260322/2026-03-21_13-52-19_screenshot.41ymfwjtbv.png">
+<meta property="og:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260322/2026-03-21_14-05-35_screenshot.5j4rhnny2k.png">
+<meta property="article:published_time" content="2026-03-22T08:36:09.000Z">
+<meta property="article:modified_time" content="2026-03-22T08:46:18.913Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260322/2026-03-21_13-52-19_screenshot.41ymfwjtbv.png">
+
+<link rel="canonical" href="http://example.com/2026/03/22/Advanced-Python-Module/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Advanced Python-Modules and Packages | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/22/Advanced-Python-Module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Python-Modules and Packages
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-22 16:36:09 / 修改时间：16:46:18" itemprop="dateCreated datePublished" datetime="2026-03-22T16:36:09+08:00">2026-03-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="modules-and-packages">Modules and Packages</h1>
+<p><a id="org7e8c577"></a></p>
+<h2 id="modules">Modules</h2>
+<p>模块化和包机制是Python管理复杂性的核心手段,也是代码复用的基础.每个源文件都是一个模块,import用于加载并执行一个模块.我们在到如模块的同时也到入了其定义的命名空间.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> foo</span><br><span class="line">foo.grok()</span><br><span class="line"><span class="comment"># 相当于如下的调用方式</span></span><br><span class="line">foo.__dict__[<span class="string">&#x27;grok&#x27;</span>]()</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>所以module的命名空间本质上就是一个字典,在主程序中可以用module.__dict__访问,这也意味着你可以在运行时动态修改模块的内容.模块文件中其实还有一些特殊变量定义,如__file__表示源文件名称,__name__表示模块名称,__doc__表示模块文档字符串.因为主程序其实也可以认为是一个模块文件,只不过他的模块名是main.上面提到的__name__属性是区分源文件是直接运行还是被导入执行的关键,如果文件是直接运行的,那么name就是main,而如果被导入的,那么name就是模块文件名,这就是编写可复用模块的标准模式.</p>
+<p>我们在此简要介绍一下模块导入的流程,以如下的伪代码解释,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> types</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">import_module</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="comment"># 定位模块文件并获取源代码</span></span><br><span class="line">    filename=find_module(name)</span><br><span class="line">    code=<span class="built_in">open</span>(filename).read()</span><br><span class="line">    <span class="comment"># 创建enclosing模块对象</span></span><br><span class="line">    mod=types.ModuleType(name)</span><br><span class="line">    <span class="comment"># 运行源代码</span></span><br><span class="line">    <span class="built_in">exec</span>(code,mod.__dict__,mod.__dict__)</span><br><span class="line">    <span class="keyword">return</span> mod</span><br></pre></td></tr></table></figure>
+<p>源代码在模块字典中通过exec执行,存储的内容就是执行完exec的结果.所以导入的机制为寻找模块文件,创建一个新的模块对象,在该对象的命名空间的字典中执行文件代码.所以模块文件的全局变量实际上会变成模块对象的属性.import语句将模块对象插入到导入模块的文件所使用的字典.其流程是先加载和执行模块,然后创建一个模块变量,指向这个模块对象.每个模块都只会加载一次,重复import就只会返回之前加载过的以前模块的引用.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(sys.modules))</span><br></pre></td></tr></table></figure>
+<p>sys.modules指的是所有已经加载模块的字典.模块是一个单例模式,如果在不同地方多次导入,它们指向的是内存中同一个模块对象,这也意味着模块级的全局变量在所有调用文件之间是共享的.我们在此简单的引入模块的单例模式,其伪代码如下所示,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> types</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">import_module</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="comment"># 检查模块缓存</span></span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">in</span> sys.modules:</span><br><span class="line">        <span class="keyword">return</span> sys.modules[name]</span><br><span class="line">    filename=find_module(name)</span><br><span class="line">    code=<span class="built_in">open</span>(filename).read()</span><br><span class="line">    mod=types.ModuleType(name)</span><br><span class="line">    <span class="built_in">exec</span>(code,mod.__dict__,mod.__dict__)</span><br><span class="line">    <span class="keyword">return</span> mod</span><br></pre></td></tr></table></figure>
+<p>我们通过如下代码选择性导入模块中的一部分变量,适用于频繁适用的变量名,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> var</span><br></pre></td></tr></table></figure>
+<p>但这不会改变导入的工作方式,模块依旧会被加载和执行,然后会在程序中复制变量名,大体如下所示,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grok=sys.modules[<span class="string">&#x27;foo&#x27;</span>].grok</span><br></pre></td></tr></table></figure>
+<p>我们可以用如下代码获取模块中的所有代码并将它们放入调用文件的命名空间,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<p>但他只适用于不以_开头的变量,所以我们可以用_name来定义模块中不想被导入的值.需要提醒的是import
+*被视作一个编程的坏习惯,其污染了当前命名空间,使代码来源不清晰,而以下划线开头的名称被视为私有,不会被通配符导入.</p>
+<p>在上面我们提及了模块不可以被重复加载,但是实际上我们可以调用importlib使得模块可重新加载.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> importlib</span><br><span class="line">importlib.reload(foo)</span><br></pre></td></tr></table></figure>
+<p><a id="org5e98ebd"></a></p>
+<h2 id="packages">Packages</h2>
+<p>Python库的标准做法是组织为位于顶层包名下的分层模块集,如下所示,</p>
+<p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260322/2026-03-21_13-52-19_screenshot.41ymfwjtbv.png" style="zoom:50%;" /></p>
+<p>这样的层次命名结构可以避免在大型程序中的命名冲突.为了创建Python中的包,应该先创建模块库的层次结构,将文件组织在具有所需结构的目录中,</p>
+<p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260322/2026-03-21_14-05-35_screenshot.5j4rhnny2k.png" style="zoom:50%;" /></p>
+<p>这里我们可以看见创建包在每个目录文件中创建__init__.py,这个文件可以是空的,但是必须要存在.他的存在会告知Python解释器该目录应该视作一个包.一旦我们设置了init.py,那我们就可以使用import语句导入包.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> packagename.foo</span><br><span class="line"><span class="keyword">import</span> packagename.parsers.xml</span><br><span class="line"><span class="keyword">from</span> packagename.parsers <span class="keyword">import</span> xml</span><br></pre></td></tr></table></figure>
+<p>几乎所有内容的工作方式与以前一样,只是import语句会具备多层级别.这里我们需要注意到子模块的相对导入会失效,也就是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># spam/</span></span><br><span class="line"><span class="comment">#     foo.py</span></span><br><span class="line"><span class="comment">#     __init__.py</span></span><br><span class="line"><span class="comment">#     bar.py</span></span><br><span class="line"><span class="comment"># bar.py</span></span><br><span class="line"><span class="keyword">import</span> foo <span class="comment"># Fails</span></span><br></pre></td></tr></table></figure>
+<p>所以这可以解决了顶层包和子模块之间的名称冲突,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bar.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br></pre></td></tr></table></figure>
+<p>这里import导入方式是绝对的,从顶层开始往下查找的.在包内部,直接使用import语句会被是做绝对导入,他会在sys.path查找系统级的包,而不是在同级目录下查找,这样可以避免包内模块意外覆盖标准模块.我们需要用绝对导入的方式来获取包内模块,它需要调用顶层包的名称,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> spam <span class="keyword">import</span> foo</span><br></pre></td></tr></table></figure>
+<p>但这样如果我们修改包结构的话,那么这样的绝对导入就需要修改整体的代码,因此Python又提供了包相对导入的方法,其中.表示当前包,..表示父包.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bar.py</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> foo <span class="comment"># Imports ./foo.py</span></span><br><span class="line"><span class="keyword">from</span> .foo <span class="keyword">import</span> name <span class="comment"># Load a specific name</span></span><br><span class="line"><span class="keyword">from</span> .grok <span class="keyword">import</span> blah <span class="comment"># Imports ./grok/blah.py</span></span><br></pre></td></tr></table></figure>
+<p>相对导入使得包内部重构更容易,但只能在包内使用,不可以用作顶层脚本的直接导入.包内也会定义一些有用的特殊变量,如__package__为封装包的名称,__path__则是子模块的搜索路径,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xml</span><br><span class="line"><span class="built_in">print</span>(xml.__package__)</span><br><span class="line"><span class="built_in">print</span>(xml.__path__)</span><br></pre></td></tr></table></figure>
+<p><a id="org6e82cfb"></a></p>
+<h2 id="init__-file">__init__ File</h2>
+<p>__init__.py的主要用途是将多个源文件缝合到一个顶层导入中.__init__.py是包的入口,不仅标记目录为包,还可以执行初始化代码,或者导出子模块的内容,简化用户的段数路径.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># foo.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:<span class="keyword">pass</span></span><br><span class="line"><span class="comment">#bar.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bar</span>:<span class="keyword">pass</span></span><br><span class="line"><span class="comment">#__init__.py</span></span><br><span class="line"><span class="keyword">from</span> .foo <span class="keyword">import</span> Foo</span><br><span class="line"><span class="keyword">from</span> .bar <span class="keyword">import</span> Bar</span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> spam</span><br><span class="line">f = spam.Foo()</span><br><span class="line">b = spam.Bar()</span><br></pre></td></tr></table></figure>
+<p>用户会只看到一个统一的顶层包,将跨子模块的拆分隐藏起来.这是一个优秀的API设计模式,内部实现可以分散在多个文件中以方便维护,但对外只暴露一个简洁的接口.不仅如此,我们可以在子模块中定义__all__列表用于控制from
+module import *传导的变量属性,可以隐藏一些子模块的内部实现,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># foo.py</span></span><br><span class="line">__all__ = [<span class="string">&#x27;Foo&#x27;</span>]</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>(<span class="title class_ inherited__">object</span>): <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>: <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>这样的话,如果在__init__.py中导入foo中的全部变量,其实只有类Foo,而没有func函数.所以__all__列表明确声明了模块的公共API.它不仅控制import
+*的行为,也是给阅读代码的人看的文档,表明哪些内容是稳定的接口,哪些是内部实现.</p>
+<p><a id="orgba6baaa"></a></p>
+<h2 id="main-module">Main Module</h2>
+<p>上面的导入模块中,我们需要十分小心包内的循环导入,应该小心的遵循控制流,因此定义的顺序十分重要.例如A导入B,B导入A,模块执行完成前就会尝试访问一个未定义的内容,那就会报错.一般来说都是因为导入放在模块的顶部,如果需要改正这一问题一般是将导入语句放在不同的地方,避免循环依赖.将导入语句移动到函数内部或者类定义之后,可以出现延迟导入,避免执行时候的冲突.最好的解决方案通常是重构代码,将共享内容提取到一个单独的模块中,打破循环依赖.</p>
+<p>将指定模块作为主程序运行,这样可以将支持的脚本或者应用程序封装在包里面.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m module</span><br></pre></td></tr></table></figure>
+<p>-m标志告诉Python查找模块并执行它,即使该模块在包内部.我们也可以为包提供一个主入口程序点__main__.py,使得包目录可以执行,这样的话我们可以直接使用python
+-m
+package,他会自动执行__main__.py,这样可以让包像前面的程序一样简单运行.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/19/Advanced-Python-Generator/" rel="prev" title="Advanced Python-Generator">
+      <i class="fa fa-chevron-left"></i> Advanced Python-Generator
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#modules-and-packages"><span class="nav-number">1.</span> <span class="nav-text">Modules and Packages</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#modules"><span class="nav-number">1.1.</span> <span class="nav-text">Modules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#packages"><span class="nav-number">1.2.</span> <span class="nav-text">Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#init__-file"><span class="nav-number">1.3.</span> <span class="nav-text">__init__ File</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main-module"><span class="nav-number">1.4.</span> <span class="nav-text">Main Module</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
