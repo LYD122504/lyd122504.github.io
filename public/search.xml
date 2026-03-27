@@ -5699,4 +5699,83 @@ package,他会自动执行__main__.py,这样可以让包像前面的程序一样
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Python入门实战项目</title>
+    <url>/2026/03/27/PythonProject/</url>
+    <content><![CDATA[<h1 id="python编程从入门到实践项目">Python编程从入门到实践项目</h1>
+<p><a id="orgd508d23"></a></p>
+<h2 id="alien-invasion外星人入侵项目">Alien
+Invasion(外星人入侵项目)</h2>
+<ul>
+<li><p>在for循环中,不应该从列表或编组中删除条目,因此最好是遍历副本的方式.如果直接对列表做删除条目,那么代码如下所示,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">        numbers.remove(n)</span><br><span class="line"><span class="built_in">print</span>(numbers)</span><br><span class="line"><span class="comment"># 结果为[1,2,3]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<span id="more"></span>
+<p>这是因为当n读取到第一个2的时候,numbers会把他移除,同时将后续的项往前挪了一位,也就是将第2位的2移动到了第一位的2的地方,此时n则会继续向后移动,所以会保留一个2.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">numbers=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> numbers.copy():</span><br><span class="line">    <span class="keyword">if</span> n==<span class="number">2</span>:</span><br><span class="line">        numbers.remove(n)</span><br><span class="line"><span class="built_in">print</span>(numbers)</span><br><span class="line"><span class="comment"># [1,3]</span></span><br></pre></td></tr></table></figure>
+<p>这是因为用了copy()获得了原来的副本,原来列表的删除不会影响副本,所以会将2删干净.</p>
+<ul>
+<li><p>主循环包含尽可能少的代码,只需要看函数名字就知道处理的过程</p></li>
+<li><p>round函数一般使用于精确到小数点后多少位,其中小数位数由第二个实参指定.如果将第二个实参设定为负数,那么round就会把他圆整到10,100,1000等整数倍.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">round</span>(number,-<span class="number">1</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>python中的{:,}是一个比较常用的占位符,他的主要作用是给数字添加千分位分隔符.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">number = <span class="number">1234567.8</span></span><br><span class="line"><span class="comment"># 使用 f-string (推荐)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;number:,&#125;</span>&quot;</span>) </span><br><span class="line"><span class="comment"># 输出: 1,234,567.89</span></span><br><span class="line"><span class="comment"># 使用 format() 函数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&#123;:,&#125;&quot;</span>.<span class="built_in">format</span>(<span class="number">10000</span>))</span><br><span class="line"><span class="comment"># 输出: 10,000</span></span><br></pre></td></tr></table></figure>
+<p><a id="org6145280"></a></p>
+<h2 id="data-visual数据可视化项目">Data Visual(数据可视化项目)</h2>
+<p><a id="org172fba6"></a></p>
+<h3 id="matplotlib.pyplot静态绘图">matplotlib.pyplot(静态绘图)</h3>
+<p>常用的导入这个包的指令是</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<p>plt.figure的作用是创建一个新的绘图窗口,其中figsize接受一个元组(width,height);dpi则表示图像的分辨率,默认参数为80像素每英寸.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.figure(figsize=(width,height),dpi=<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<p>plt.plot的作用则是绘制线图,前面两个参数表示x轴数据和y轴数据,linewidth控制线条的粗细,alpha的作用则是指定颜色的透明度,alpha为0表示完全透明,1是默认设置,表示完全不透明.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.plot(input_values,output_values,linewidth=<span class="number">5</span>,aplha=<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
+<p>plt.scatter的作用则是绘制散点图.前两个的参数表示x轴数据和y轴数据,参数s的作用则是控制散点的大小,可以用固定的浮点数控制,也可以用数值列表的方式控制大小关系.参数c的作用则是控制散点的颜色,可以是颜色字符串,也可以是一个数值列表映射到cmap.cmap是一个颜色映射,如plt.cm.Blues,数值越大颜色越深.edgecolors表示点的轮廓颜色,设置为'none'可使得密集散点更具整体感.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.scatter(x,y,s=<span class="number">40</span>,c=y,cmap=plt.cm.Blues,edgecolors=<span class="string">&#x27;none&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>plt.fill_between的作用是在两条曲线内填充阴影,常用于表示误差区间或气温范围.他的基本参数需要输入一个x值序列和两个y值序列,用于定位两条曲线.facecolor指定采用的填充颜色,alpha则是设置透明度(0-1之间).</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.fillbetween(x,y1,y2,facecolor=<span class="string">&#x27;blue&#x27;</span>,alpha=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<p>如果我们希望隐藏所绘制图像的坐标轴,如果我们直接使用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.axes().get_xaxis().set_visible(<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>会覆盖原来的图,所以我们需要先用plt.gca()来获取原来的图像的坐标轴对象,再将其设置为不可见,代码如下所示,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ax = plt.gca() </span><br><span class="line">ax.get_xaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">ax.get_yaxis().set_visible(<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p><a id="org248a462"></a></p>
+<h3 id="plotly.express交互式绘图">plotly.express(交互式绘图)</h3>
+<p>常用的导入这个包的指令是</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br></pre></td></tr></table></figure>
+<p>px.bar的作用是生成交互式条形图.我们可以直接输入x对应的数据和y对应的数据,也可以输入dataframe对象,并在x中指定所需要的列名,y中指定所需要的列名.title用于传入一个标题字符串,labels接受一个字典,用于指定x和y轴的名称.hover_name指定悬停在数据条上时显示的标题字段.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">px.bar(dataframe,x,y,title,labels,hover_name</span><br></pre></td></tr></table></figure>
+<p>px.scatter的作用是生成交互式散点图.基本都是一样的,size和color与前面提到x,y一样可以关联到DataFrame的列名,实现根据额外数据自动调整散点大小和颜色深浅.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">px.scatter(dataframe,x,y,size,color,hover_name)</span><br></pre></td></tr></table></figure>
+<p>fig.update_layout的作用是更新图表的布局.xaxis_dtick设置坐标轴刻度的步长(如设置为1,那么每个整数刻度都会显示).</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.update_layout(xaxis_dtick=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>fig.update_traces可以用于定制图像呈现的数据.中
+marker_打头的参数都会影响图形上的标记,maker_color是将每个标记的颜色都设定成某个颜色,marker_opacity设置不透明度.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.update_traces(marker_color=<span class="string">&#x27;SteelBlue&#x27;</span>, marker_opacity=<span class="number">0.6</span>)</span><br></pre></td></tr></table></figure>
+<p><a id="org0b83c0a"></a></p>
+<h3 id="数据处理和网络请求">数据处理和网络请求</h3>
+<p>我们先介绍json模块,其调用方式为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br></pre></td></tr></table></figure>
+<p>json.loads的作用是将JSON格式的字符串转换为Python对象,通常是字典或者列表</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">json.loads(contents)</span><br></pre></td></tr></table></figure>
+<p>json.dumps的作用是将Python对象转化为JSON字符串,indent的作用是一个美化输出,指定嵌套层级的缩进空格数.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">json.dumps(obj,indent=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>其次是requests模块,其调用方式为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br></pre></td></tr></table></figure>
+<p>requests.get的作用是向服务器发送HTTP
+GET请求,参数headers字段常用于设置接受的数据格式,例如Github
+API要求指定vnd.github.v3+json</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 显式的指定Github API的版本同时要求返回JSON格式</span></span><br><span class="line">headers=&#123;<span class="string">&quot;Accept&quot;</span>:<span class="string">&quot;application/vnd.github.v3+json&quot;</span>&#125;</span><br><span class="line"><span class="comment"># requests调用API</span></span><br><span class="line">r=requests.get(url,headers=headers)</span><br></pre></td></tr></table></figure>
+<p>r.statuscode返回响应状态码,200表示请求成功,可以继续处理数据,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r.status_code</span><br></pre></td></tr></table></figure>
+<p>r.json直接将API返回的响应体解析为Python字典/列表</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r.json()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python从入门到实践</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>
