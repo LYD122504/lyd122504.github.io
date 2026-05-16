@@ -6008,4 +6008,169 @@ P(\theta)=\prod_j \frac{1}{2b}\mathrm{exp}\left(
         <tag>Machine Learning</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Machine Learning-Introduction(2)</title>
+    <url>/2026/05/16/ML-intro-2-md/</url>
+    <content><![CDATA[<h1 id="监督学习方法概论-下"><a href="#监督学习方法概论-下" class="headerlink" title="监督学习方法概论(下)"></a>监督学习方法概论(下)</h1><h2 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h2><p><a id="orgadd7c83"></a></p>
+<h3 id="训练误差和测试误差"><a href="#训练误差和测试误差" class="headerlink" title="训练误差和测试误差"></a>训练误差和测试误差</h3><p>机器学习的目的是让学习的模型不仅对已知训练数据而且还要对未知数据能很好的预测能力.如果我们给定损失函数,那么基于损失函数的训练误差和测试误差是机器学习中评估模型优劣的标准.我们考虑学习的模型为 $Y=\hat{f}(X)$, 训练误差是模型对训练数据集的平均损失,</p>
+<script type="math/tex; mode=display">
+R_{emp}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}(x_i))</script><p>这里的 $N$ 是训练样本集的容量.测试误差则是模型对测试数据集的平均损失:</p>
+<script type="math/tex; mode=display">
+e_{test}=\frac{1}{N'}\sum_{i=1}^{N'}L(y_i,\hat{f}(x_{i}))</script><p>其中 $N’$ 是测试样本容量.我们考虑特殊的损失函数为0-1损失函数,那么测试误差其实就是测试集上的错误率,</p>
+<script type="math/tex; mode=display">
+e_{test}=\frac{1}{N'}\sum_{i=1}^{N'}I(y_i\not=\hat{f}(x_i))</script><p>这里的 $I$ 表示一个指示函数.既然可以定义一个错误率,那么我们可以定义正确率,</p>
+<script type="math/tex; mode=display">
+r_{test}=\frac{1}{N'}\sum_{i=1}^{N'}I(y_i=\hat{f}(x_i))</script><p>显然这两个比率存在 $e<em>{test}+r</em>{test}=1$ 的数学关系.我们希望学得的模型在训练误差小的同时获得尽可能小的测试误差,因为我们习得的模型更希望用来预测未知的数据.通常,我们将学习模型对未知数据的预测能力称为泛化能力.</p>
+<p><a id="orgf72b8b0"></a></p>
+<h3 id="过拟合和模型选择"><a href="#过拟合和模型选择" class="headerlink" title="过拟合和模型选择"></a>过拟合和模型选择</h3><p>显然,为了获得更小的训练误差,我们可以不断增加模型的复杂度,让模型的自由度高于样本的多样性.但这会引来一个严重的问题,就是真实模型的复杂度可能远低于我们训练到的模型,这样的话,用这个模型去拟合未知数据,未必能获得好结果,这就是常见的过拟合现象.过拟合是指学习时选择的模型所包含的参数过多,以至于出现模型对已知数据预测的好,但对未知数据预测效果差的现象.因此我们希望通过模型选择的方式旨在避免过拟合并提高模型的预测能力.我们给出一个过拟合的理解.过拟合其实可以认为是在采样中数据存在噪声扰动,而复杂的模型会学到这种噪声扰动,从而会影响未知数据的预测.</p>
+<p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260516/2026-05-05_23-23-49_screenshot.7axsjgzyay.png" alt="2026-05-05_23-23-49_screenshot" style="zoom: 50%;" /></p>
+<p>该图描述了训练误差和测试误差与模型的复杂度之间的关系.当模型的复杂度增大的时候,训练误差会逐渐减少并趋向于0;而测试误差会先减小,达到最小值之后再慢慢增大.当选择的模型复杂度过大的时候,就会出现过拟合现象.为了尽可能缓解过拟合现象,我们可以通过加样本容量的方式,这样可以稀释采样噪音的影响,因为大量的样本采样会出现大量的正负噪声,从而可以相互抵消;如果模型的自由度低于样本的丰富度,那么模型就会在可能的空间中逐渐逼近真实模型,不会出现过拟合现象;样本更具有普适性.</p>
+<p><a id="org1c38662"></a></p>
+<h2 id="正则化和交叉验证"><a href="#正则化和交叉验证" class="headerlink" title="正则化和交叉验证"></a>正则化和交叉验证</h2><p>下面介绍两种常用的模型选择方法,正则化和交叉验证.</p>
+<p><a id="orgd2f4643"></a></p>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>我们前面已经提到了正则化就是结构风险最小化策略的实现.正则化项一般是模型复杂度的单调递增函数,模型越复杂,正则化值就越大,例如我们比较常见的是模型参数向量的范数.常见的正则化主要是L2正则化和L1正则化,我们逐个介绍正则化的作用.</p>
+<p>为了简便起见,我们用L2正则化作为例子,来展示为什么正则化项可以抵消模型过拟合现象.我们首先以梯度下降的角度来看正则化的作用,当我们对损失函数引入L2正则化,那么目标优化函数的形式为</p>
+<script type="math/tex; mode=display">
+J(w)=J_0(w)+\frac{\lambda}{2}\left\Vert w\right\Vert_2^2=J_0(w)+\frac{\lambda}{2}\sum_{j=1}^d w_j^2</script><p>这里的$\lambda&gt;0$ 是正则化强度超参数.我们希望能够获得目标优化函数的最小,所以我们采用梯度下降法的方式来计算,我们考虑对目标函数求偏导,</p>
+<script type="math/tex; mode=display">
+\frac{\partial J(w)}{\partial w}=\frac{\partial J_0(w)}{\partial w}+\lambda w</script><p>按照学习率 $\eta$ 进行权重更新,其公式如下,</p>
+<script type="math/tex; mode=display">
+w_{new}=w_{old}-\eta\frac{\partial J(w_{old})}{\partial w}=(1-\eta\lambda)w_{old}-\eta\frac{\partial J_0(w_{old})}{\partial w}</script><p>这里我们发现新参数的修正起点并不是我们常见的旧参数,而是一个比旧参数小的某个数值,因为一般来说学习率和正则化系数都是较小的正数,所以衰减系数应该是略小于1的正常数.这意味着,在每次基于数据误差更新权重之前,正则化都会先将当前权重按比例缩小后再做优化操作.这里我们需要进一步解释为什么权重变小就可以防止过拟合现象,因为巨大的权重意味着即使输入特征 $x$ 的微小变化都会通过权重被剧烈放大,导致预测函数曲线变得极其扭曲和陡峭.所以我们通过强行压低权重,使得函数曲线被迫变得平滑,所以无法拟合异常噪声点.</p>
+<p>正则化作用的另一个角度则是通过约束问题出发.我们如果不做任何约束,那么权重的计算可以通过如下的无条件约束优化问题,</p>
+<script type="math/tex; mode=display">
+w_{\star}=\mathrm{argmin}_wJ_0(w)</script><p>但这样的话,我们为了获得尽可能小的无条件约束优化问题的最优解,会使得权重变得十分大,也就是出现了过拟合现象.所以防止过拟合最直观的想法就是我们在这个优化问题的基础上补充一个不等式约束,</p>
+<script type="math/tex; mode=display">
+\left\Vert w\right\Vert_2^2\leq C</script><p>这里 $C$ 是一个常数,表示我们允许的参数最大平方和.为了解决这个带约束条件优化问题,我们通过引入增广拉格朗日乘子函数,</p>
+<script type="math/tex; mode=display">
+L(w,\alpha)=J_0(w)+\alpha(\left\Vert w\right\Vert_2^2-C)</script><p>并且同时引出了KKT条件,</p>
+<script type="math/tex; mode=display">
+\alpha\geq0,\left\Vert w_{\star}\right\Vert^2\leq C,\alpha(\left\Vert w_{\star}\right\Vert^2- C)=0</script><p>如果模型的参数已经满足了最大平方和约束,那么$\alpha$ 就会要求严格为0,这样的话,增广拉格朗日乘子函数就会退化成原来的损失函数,并不会加上正则化项.但如果模型参数不满足这个条件,那么就会把模型参数拉到不等式边界,这时候拉格朗日乘子就是一个恒正的常数.显然,拉格朗日乘子$\alpha$ 和$C$ 都是固定的常数,所以他的存在不会影响求导和寻找最优解,可以被忽略.因此寻找最优解就等价于无约束最小化正则化损失函数公式.</p>
+<p>进一步,我们以线性回归 $\hat{y}=Xw$为例来解释正则化的作用.首先我们不考虑正则化的情况,最小化均方误差 $L(w)=(y-Xw)^T(y-Xw)$,令导数为0,就可以求得解析解为,</p>
+<script type="math/tex; mode=display">
+w_{OLS}=(X^TX)^{-1}X^Ty</script><p>这里的问题主要会出现在 $(X^TX)^{-1}$,我们对$X^TX$ 进行特征值分解$X^TX=V\Sigma V^T$,其中的$\Sigma$ 为对角矩阵,对角线上的元素是特征值,那么他的逆矩阵就是$(X^TX)^{-1}=V\Sigma^{-1} V^T$.这也就意味着我们计算权重的时候是需要计算样本的特征值倒数.如果数据的样本太少,少于特征数,或者特征之间存在高度相关性(多重共线性),矩阵就会接近奇异矩阵,也就是某些特征值约等于0,所以会导致计算的权重出现数值爆炸,这其实也是过拟合在矩阵角度的原因.我们引入L2正则化项,可以得到正则化损失函数 $J(w)=(y-Xw)^T(y-Xw)+\lambda w^Tw$,求导可得</p>
+<script type="math/tex; mode=display">
+w_{Ridge}=(X^TX+\lambda I)^{-1}X^Ty</script><p>这里求逆的部分在原来的特征值的基础上统一增加了$\lambda$.,此时算逆矩阵,就算原矩阵奇异,那么由于正则化系数恒正,这个逆矩阵的元素不会趋向于无穷大,而是被正则化系数控制,从而防止权重爆炸的可能,使得求解出的参数稳定可控,从而避免过拟合.</p>
+<p>L1正则化项的作用和L2正则化项作用是一样的,但是L1正则化会使得权重稀疏化,现在我们暂时不考虑L1正则化的作用,我们主要讨论L1正则化的稀疏性.首先,我们从梯度下降的角度来解释L1正则化的稀疏性,我们考虑L1正则化损失函数为$J(w)=J_0(w)+\lambda \left\Vert w\right\Vert_1$,同样我们还是采用梯度下降的方法来迭代计算权重</p>
+<script type="math/tex; mode=display">
+w_{new}=w_{old}-\eta\frac{\partial J(w_{old})}{\partial w}=w_{old}-\eta\frac{\partial J_0(w_{old})}{\partial w}-\lambda\eta\mathrm{sgn}(w)</script><p>这里的$\mathrm{sgn}(w)$ 表示 $|w|$的次微分,其具体形式为</p>
+<script type="math/tex; mode=display">
+\mathrm{sgn}(w)=\begin{cases}&1,w>0\\&-1,w<0\\&0,w=0\end{cases}</script><p>其实本身这个函数在0处是不可导的,但是由于他的不可导点是一个零测集,所以我们可以定义一个弱导数也就是所谓的次微分.从上面的梯度下降形式,我们可以很明显的看出L1正则化和L2正则化的不同,L2正则化是在不加正则化的基础上步进修改了一个$\lambda\eta w$,如果$w$ 靠近0,那么这个修正就会比较小,甚至于可以忽略;而L1正则化则是无论w取何值,他的步进修正都是相同的值,除非$w=0$,所以L1正则化就比较容易出现稀疏的情况.其次,我们从贝叶斯定理的角度出发,我们前面介绍了L1正则化就是Laplace分布,那么我们此时给出Gauss分布和Laplace分布的概率分布图</p>
+<p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260516/2026-05-09_00-02-40_screenshot.7axsjh0tzr.png" alt="2026-05-09_00-02-40_screenshot" style="zoom:67%;" /></p>
+<p>其中红线是Laplace分布,而蓝线是Gauss分布,显然Laplace分布在0点附近更集中,所以权重采样会更倾向于在接近于0的地方采样,而Gauss分布在0附近变化很平滑,虽然他是峰值,所以他的采样范围更大,不具备稀疏性.</p>
+<p>正则化的作用是选择经验风险和模型复杂度同时较小的模型.正则化符合奥卡姆剃刀原理.奥卡姆剃刀原理应用在模型选择时,在所有可能选择的模型中,能够很好地解释一直数据并且十分简单才是最好的模型.</p>
+<p><a id="org9db69f5"></a></p>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p>如果给定的样本数据充足,进行模型选择的一种简单方法是随机地将数据集分成三部分,分别为训练集,验证集和测试集.训练集用来训练模型,验证集用于模型的选择,而测试集用于最终对学习模型的评估.这里我们解释一下验证集和测试集的不同,验证集用于调模型的超参数,用来监测过拟合现象,需要多次使用;测试集则是只在最后评价模型的时候使用.但上面的情况是数据充足的情况下,可以将数据集拆分成三个使用,但是在实际应用中,数据是不充足的,因此交叉验证方法是比较常用的方法.他的基本想法是重复地使用数据,把给定的数据进行切分,将切分的数据集组合成训练集和测试集,在此基础上反复地进行训练,测试和模型选择.</p>
+<ol>
+<li><p>简单交叉验证</p>
+<p>首先随机的将数据集分成两部分,一部分作为训练集,一部分作为测试集.然后用训练集在各种条件下训练模型,得到不同的学习模型.在测试集上评价各个模型的测试误差,选出测试误差最小的模型.</p>
+</li>
+<li><p>S折交叉验证</p>
+<p>首先随机将数据切分成S个互不相交且大小相同的子集,并且利用S-1个子集的数据训练模型,利用余下的子集测试模型,将这一个过程对可能的S种选择重复进行,并给出S次评测中平均测试误差最小的模型.</p>
+</li>
+<li><p>留一交叉验证</p>
+<p>他其实是S折交叉验证的一个特例,令S=N即可,他在数据缺乏的时候使用.这里的N表示给定数据集的容量.</p>
+</li>
+</ol>
+<p><a id="org8776f04"></a></p>
+<h2 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h2><p><a id="org2bc59a6"></a></p>
+<h3 id="泛化误差"><a href="#泛化误差" class="headerlink" title="泛化误差"></a>泛化误差</h3><p>学习方法的泛化能力是指学习模型对未知数据的预测能力,我们通常用测试误差来代替评价学习模型的泛化能力,但实际上这种代替十分依赖于测试集的容量,如果测试集容量比较小,那么他的评价结果未必可靠.所以理论上我们应该用期望损失的方式,但他的问题我们其实也提到过一是我们并不知道真实的联合概率分布,二则是我们不可能对连续情况下的每个样本计算损失函数.</p>
+<p><a id="orgdcaaa87"></a></p>
+<h3 id="泛化误差上界"><a href="#泛化误差上界" class="headerlink" title="泛化误差上界"></a>泛化误差上界</h3><p>由于我们上面所说的泛化能力应该是期望损失,而我们却用测试误差的方式来代替,因此这里需要引入泛化误差上界概念.对比两个方法的泛化能力,我们可以通过对比泛化误差的上界,泛化误差上界的性质在于他是关于样本容量的函数,当样本容量变大的时候,泛化上界会趋向于0;同时他也是假设空间的函数,当假设空间容量变大的时候,表示模型越难学,从而泛化误差上界就越大.</p>
+<p>我们需要给出一个泛化误差上界的例子,为了简单起见,我们考虑一个二分类问题的泛化误差上界,同时假设空间为 $\mathcal{H}={h<em>1,h_2,\cdots,h_M}$,其中$M$ 表示假设空间容量.训练数据集$T={(x_i,y_i}</em>{i=1}^N$,其中 $N$ 表示样本空间容量.为了方便起见,我们考虑损失函数在[0,1]区间内取值,其余有界区间可以认为是这个区间的平移拉伸,所以不考虑.</p>
+<p>在讨论泛化误差上界之前,我们先引入Hoeffding引理.</p>
+<blockquote>
+<p><strong>Hoeffding 引理</strong><br>若$X$ 为实随机变量且$a\leq X\leq b$,对于$\forall\lambda\in\mathbb{R}$,我们有如下不等式成立:$E(e^{\lambda X})\leq\mathrm{exp}(\lambda E(X)+\frac{\lambda^2(b-a)^2}{8})$;或者其的等价形式成立,$E(e^{\lambda (X-E(X))})\leq\mathrm{exp}(\frac{\lambda^2(b-a)^2}{8})$</p>
+</blockquote>
+<p><code>The Proof of Hoeffding Lemma</code> 我们引入实随机变量$x=X-E(X)$,其中 $E(x)=0$.所以由于 $f(x)=e^{\lambda x}$ 为凸函数,对于 $\forall x\in[a,b]$,利用Jensen不等式可得</p>
+<script type="math/tex; mode=display">
+e^{\lambda x}\leq \frac{b-x}{b-a}e^{\lambda a}+\frac{x-a}{b-a}e^{\lambda b}</script><p>对两边取期望可得 $E(e^{\lambda x})\leq \frac{b}{b-a}e^{\lambda a}-\frac{a}{b-a}e^{\lambda b}$.我们令 $p=\frac{-a}{b-a}$,注意到 $1-p=\frac{b}{b-a}$,代入可得</p>
+<script type="math/tex; mode=display">
+E(e^{\lambda x})\leq (1-p)e^{\lambda a}+pe^{\lambda b}</script><p>设 $u=\lambda(b-a)$,定义函数 $\phi(u)=-pu+\ln(1-p+pe^u)$,通过对其的泰勒展开可以得到 $\phi(0)=0,\phi’(0)=0,\phi’’(u)\leq \frac{1}{4}$,所以有如下展开式,</p>
+<script type="math/tex; mode=display">
+\phi(u)=\phi(0)+\phi'(0)u+\frac{\phi''(\theta)}{2}u^2\leq \frac{u^2}{8}</script><p>基于此,我们可以得到估计式 $E(e^{\lambda x})\leq e^{\phi(u)}\leq \mathrm{exp}(\frac{\lambda^2(b-a)^2}{8})$.</p>
+<blockquote>
+<p><strong>Hoeffding 不等式</strong><br>若${X<em>i}</em>{i=1}^N$ 为一系列相互独立的随机变量且$a_i\leq X_i\leq b_i$,$\bar{X}=\frac{1}{N}\sum X_i$,有如下不等式成立:$P(\bar{X}-E(\bar{X})\geq\epsilon)\leq\mathrm{exp}(-\frac{2N^2\epsilon^2}{\sum(b_i-a_i)^2})$</p>
+</blockquote>
+<p><code>The proof of Hoeffding inequality</code> 令 $Z_i=X_i-E(X_i)$,那么有 $E(Z_i)=0,\ Z_i\in[a_i-E(X_i),b_i-E(X_i)]$,他只是对原来的区间做了一个平移操作而已.这里我们需要引入一个Markov不等式,他的意思是,对于一个非负随机变量 $X$ 而言,有 $P(X\geq a)\leq \frac{E(X)}{a}$.我们可以简单的给出上面的证明,</p>
+<script type="math/tex; mode=display">
+E(X)=\int_{-\infty}^{\infty}xf(x)dx\geq\int_a^{\infty}xf(x)dx\geq a\int_a^{\infty}f(x)dx=aP(x\geq a)</script><p>这里的$f(x)$ 表示随机变量的概率密度函数.</p>
+<p>所以我们基于Markov不等式可以得到</p>
+<script type="math/tex; mode=display">
+P(\sum Z_i\geq N\epsilon)=P(e^{\lambda\sum Z_i}\geq e^{\lambda N\epsilon})\leq e^{-\lambda N\epsilon}\prod_{i=1}^NE(e^{\lambda Z_i})</script><p>基于前面证明的Hoeffding引理,我们可以得到</p>
+<script type="math/tex; mode=display">
+P(\sum Z_i\geq N\epsilon)\leq e^{-\lambda N\epsilon}\prod_{i=1}^NE(e^{\lambda Z_i})\leq e^{-\lambda N\epsilon+\frac{\lambda^2\sum(b_i-a_i)^2}{8}}</script><p>取 $\lambda=\frac{4N\epsilon}{\sum(b_i-a_i)^2}$ 使得上式指数最小,代入可得估计式成立.</p>
+<blockquote>
+<p><strong>泛化误差上界</strong><br>对二分类问题而言,如果假设空间是有限个函数组成的集合 $\mathcal{H}={h_1,\cdots,h_M}$,对于任意一个函数 $h\in \mathcal{H}$,至少以概率 $1-\delta$,$0&lt;\delta&lt;1$,有以下不等式成立:$R(f)\leq \hat{R}(f)+\epsilon(M,N,\delta)$;<br>其中$\epsilon(M,N,\delta)=\sqrt{\frac{1}{2N}\left(\ln(M)-\ln(\delta)\right)}$</p>
+</blockquote>
+<p><code>Proof</code> 从我们前面给出的期望损失和经验风险的定义,同时结合Hoeffding不等式,我们可以得到对于固定的函数 $h$有,</p>
+<script type="math/tex; mode=display">
+P(R(h)-\hat{R}(h)\geq\epsilon)\leq e^{-2N\epsilon^2}</script><p>但在机器学习里这个函数并不是简单的固定,而是根据数据选取的,所以我们要对假设空间中所有可能的函数都控制,得到一个统一的上界.我们考察存在一个函数使得大误差的事件概率为</p>
+<script type="math/tex; mode=display">
+P(\exists h\in \mathcal{H}:R(h)-\hat{R}(h)\geq\epsilon)=P\left(\cup_{h\in \mathcal{H}}\{R(h)-\hat{R}(h)\geq\epsilon\}\right)</script><p>我们利用布尔不等式(其含义是如果 $X<em>1,\cdots,X_d$ 为$d$个独立事件,那么他们其中至少发生一个的概率小于等于单个事件独立发生的概率之和,也就是 $P(\cup</em>{i=1}^dX_i)\leq\sum P(X_i)$) 可得,</p>
+<script type="math/tex; mode=display">
+P(\exists h\in \mathcal{H}:R(h)-\hat{R}(h)\geq\epsilon)\leq\sum_{h\in \mathcal{H}}P\left(R(h)-\hat{R}(h)\geq\epsilon\right)\leq Me^{-2N\epsilon^2}</script><p>此时令这种坏事件发生的概率最大值为$\delta=Me^{-2N\epsilon^2}$,我们通过求解就可以得到$\epsilon=\sqrt{\frac{1}{2N}\left(\ln(M)-\ln(\delta)\right)}$.</p>
+<p><a id="org6d068dc"></a></p>
+<h2 id="生成模型和判别模型"><a href="#生成模型和判别模型" class="headerlink" title="生成模型和判别模型"></a>生成模型和判别模型</h2><p><a id="org8b6d82b"></a></p>
+<h3 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h3><p>生成模型原理上是先利用样本数据学习样本的联合概率分布,基于此求出条件概率分布作为预测的模型,也就是生成模型.他称之为生成模型,是因为模型表示了给定输入在联合概率分布情况下获得输出的生成关系.生成模型的特点在于他关注于样本数据的分布情况,反映同类数据本身的相似度,并不关心各类数据的边界在哪里.利用生成模型做分类问题,会将输入代入各种类别的底层概率模型计算并选取概率最大的那个类别.从生成模型的关注上,我们可以看出生成模型的核心其实是贝叶斯原理,典型的生成模型有朴素贝叶斯,贝叶斯网络,隐马尔可夫模型.  </p>
+<p>生成模型可以得到判别模型,但是判别模型不能反过来得到生成模型.除此之外,当模型中存在隐变量的时候,隐变量的意思是由于样本数据缺失或者样本容量小,我们不能很好的找到引起某个现象的原因,我们将这种在起作用的但无法观测的因素叫做隐变量.这个时候仍然可以利用生成方法学习,但不能利用判别模型操作.因为生成模型其实是针对输入和输出直接建立概率分布模型,所以如果出现上面的样本缺失情况,我们仍然可以使用EM算法来处理.甚至于考虑一个极端情况,完全没有标签信息,那样的话生成模型就会变成无监督学习的内容.</p>
+<p>生成模型的优点在于他可以直接获得样本数据底层的概率分布,因此他实际携带的信息比判别模型更加丰富;模型可以通过增量学习的方式得到,增量学习指的是我们先通过一组样本数据学得基础模型,在后续过程中,不断的加入新数据使得模型在确保已学习的知识以外学得新知识;收敛速度更快,样本容量增加的时候,生成模型可以快速逼近真实模型;生成模型的缺点在于学习和计算过程十分复杂,由于学习了更多的样本底层概率模型,所以计算量消耗大;在训练过程中会对特征进行一些假设,如果不满足这些假设,那么很可能生成模型效果并不会很好.</p>
+<p><a id="org7bf77af"></a></p>
+<h3 id="判别模型"><a href="#判别模型" class="headerlink" title="判别模型"></a>判别模型</h3><p>判别模型则是通过数据直接学习决策函数或者条件概率分布作为预测模型.所以判别模型不关心数据底层的联合概率分布情况,他只想要学习到对于这样的输入,我应该预测什么样的输出.从判别模型的关注上来说,其实判别模型并不会去学习数据的底层概率分布,而是学习不同类别之间的最优分割界面,从而更凸显的是学习异类样本的差异性.典型的判别模型有k近邻法,决策树,logistic回归模型,最大熵模型,支持向量机和条件随机场.</p>
+<p>判别模型的优点在于关注的是不同类别数据之间的边界,能够清晰的分辨出多类或某一类与其他类之间的差异,因此准确率相对较高;计算量比较小,这是因为生成模型需要计算样本数据的底层概率分布,所以需要更大的数据量,而判别模型只需要找到各类别样本的分割面,所以他的数据量和计算量相比起来更小.他的缺点在于不能反映训练数据的本身特性和收敛速度更慢.</p>
+<p><a id="org39ecca5"></a></p>
+<h2 id="监督学习应用"><a href="#监督学习应用" class="headerlink" title="监督学习应用"></a>监督学习应用</h2><p><a id="org46f6b54"></a></p>
+<h3 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h3><p>分类问题一般指的是问题的预测输出是有限个离散值,而输入的类型则并不重要.评价分类器性能的指标一般是分类准确率,其定义是对于给定的测试数据,分类正确的样本与总样本的比值,其实就是在0-1损失函数下的样本损失.但是需要注意的是这一评价指标并不能完全衡量分类器的效果,因为如果我们考虑的是极端的样本不平衡情况,例如一百个红球和一个黑球,显然我们更希望把少量样本预测准确,但实际上如果为了追求高准确率,我们直接让预测默认为红球即可,我们并不希望如此.一般来说这种情况,我们要么重新采样获得更多的少数样本,要么就是通过插值或者其他的算法,伪造出一部分少数样本,使得样本尽可能平衡,再或者提高少数样本预测失败的损失代价.</p>
+<p>对于二分类问题,常用的评价指标是精确率和召回率.在此之前我们需要引入混淆矩阵的概念,</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">真实值\预测值</th>
+<th scope="col" class="org-left">真(1)</th>
+<th scope="col" class="org-left">假(0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">真(1)</td>
+<td class="org-left">TP(真阳性)</td>
+<td class="org-left">FN(假阴性)</td>
+</tr>
+
+<tr>
+<td class="org-left">假(0)</td>
+<td class="org-left">FP(假阳性)</td>
+<td class="org-left">TN(真阴性)</td>
+</tr>
+</tbody>
+</table>
+
+<p>其中TP表示将真值预测为真,FN则是将真值预测成假,FP表示将假值预测成真,TN表示将假值预测成假.精确率表示判别为真的样本中真正是真的样本比例:</p>
+<script type="math/tex; mode=display">
+P=\frac{TP}{TP+FP}</script><p>召回率表示样本中真样本预测的准确率,</p>
+<script type="math/tex; mode=display">
+R=\frac{TP}{TP+FN}</script><p>其实从上面的表达式中我们可以看出精确率和召回率并不一定可以同时达到最小的.简单来说,如果我们的分类阈值给的尽可能的宽松,那么所有的样本都会被定为真,那么召回率就是1,但是精确率可能会比较小,所以同时优化二者可能会出现一些竞争对抗的情况.同时我们引入一种综合评分 $F_1$,他是精确率和召回率的调和均值,也就是</p>
+<script type="math/tex; mode=display">
+\frac{2}{F_1}=\frac{1}{P}+\frac{1}{R}\Rightarrow F_1=\frac{2TP}{2TP+FN+FP}</script><p>当精确率和召回率都偏高的时候，综合评分 $F_1$ 也会偏高.</p>
+<p><a id="orgddfdfec"></a></p>
+<h3 id="标注问题"><a href="#标注问题" class="headerlink" title="标注问题"></a>标注问题</h3><p>标注问题可以认为是分类问题的一个推广,但是他绝不是普通的分类问题,因为普通的分类问题中样本之间是相互独立的,而标注问题中需要考虑样本中的上下文联系.标注问题的输入是一个观测序列,输出则是一组标记序列或状态序列.这个问题的目标在于学习一个模型,使他可以对观测序列得到标记序列作为预测.但是他的输出空间却是十分庞大的,因为每个位置的标记虽然可能是一个比较小的可能容量,但他却会随着标记序列的长度指数级增长.同样标注问题常用的指标和评价分类模型的指标一样,有标注准确率,精准率和召回率,他的定义和分类模型一样.常用的统计学习方法有隐马尔可夫模型,条件随机场.</p>
+<p><a id="org260b695"></a></p>
+<h3 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h3><p>回归问题则是用来预测输入变量与输出变量之间关系的模型,他学习的其实是从输入变量到输出变量的一个映射函数,所以对于回归问题的学习其实是等价于函数拟合的过程,选择一条函数曲线使其很好的拟合已知数据且很好的预测未知数据.一般来说对于回归问题,我们都会用平方损失函数来处理,这样的话这个优化问题就可以用最小二乘法处理.</p>
+]]></content>
+      <categories>
+        <category>统计学习方法</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
 </search>

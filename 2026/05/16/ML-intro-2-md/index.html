@@ -23,28 +23,36 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="还施水阁">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="监督学习方法概论(下)模型评估与模型选择 训练误差和测试误差机器学习的目的是让学习的模型不仅对已知训练数据而且还要对未知数据能很好的预测能力.如果我们给定损失函数,那么基于损失函数的训练误差和测试误差是机器学习中评估模型优劣的标准.我们考虑学习的模型为 $Y&#x3D;\hat{f}(X)$, 训练误差是模型对训练数据集的平均损失,  R_{emp}(\hat{f})&#x3D;\frac{1}{N}\sum_{i&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning-Introduction(2)">
+<meta property="og:url" content="http://example.com/2026/05/16/ML-intro-2-md/index.html">
 <meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="监督学习方法概论(下)模型评估与模型选择 训练误差和测试误差机器学习的目的是让学习的模型不仅对已知训练数据而且还要对未知数据能很好的预测能力.如果我们给定损失函数,那么基于损失函数的训练误差和测试误差是机器学习中评估模型优劣的标准.我们考虑学习的模型为 $Y&#x3D;\hat{f}(X)$, 训练误差是模型对训练数据集的平均损失,  R_{emp}(\hat{f})&#x3D;\frac{1}{N}\sum_{i&#x3D;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260516/2026-05-05_23-23-49_screenshot.7axsjgzyay.png">
+<meta property="og:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260516/2026-05-09_00-02-40_screenshot.7axsjh0tzr.png">
+<meta property="article:published_time" content="2026-05-16T14:04:06.000Z">
+<meta property="article:modified_time" content="2026-05-16T14:09:18.006Z">
 <meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260516/2026-05-05_23-23-49_screenshot.7axsjgzyay.png">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2026/05/16/ML-intro-2-md/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>还施水阁</title>
+  <title>Machine Learning-Introduction(2) | 还施水阁</title>
   
 
 
@@ -190,9 +198,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -208,10 +217,9 @@
       <meta itemprop="name" content="还施水阁">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/05/16/ML-intro-2-md/" class="post-title-link" itemprop="url">Machine Learning-Introduction(2)</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Machine Learning-Introduction(2)
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -234,6 +242,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -244,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="监督学习方法概论-下"><a href="#监督学习方法概论-下" class="headerlink" title="监督学习方法概论(下)"></a>监督学习方法概论(下)</h1><h2 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h2><p><a id="orgadd7c83"></a></p>
+        <h1 id="监督学习方法概论-下"><a href="#监督学习方法概论-下" class="headerlink" title="监督学习方法概论(下)"></a>监督学习方法概论(下)</h1><h2 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h2><p><a id="orgadd7c83"></a></p>
 <h3 id="训练误差和测试误差"><a href="#训练误差和测试误差" class="headerlink" title="训练误差和测试误差"></a>训练误差和测试误差</h3><p>机器学习的目的是让学习的模型不仅对已知训练数据而且还要对未知数据能很好的预测能力.如果我们给定损失函数,那么基于损失函数的训练误差和测试误差是机器学习中评估模型优劣的标准.我们考虑学习的模型为 $Y=\hat{f}(X)$, 训练误差是模型对训练数据集的平均损失,</p>
 <script type="math/tex; mode=display">
 R_{emp}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}(x_i))</script><p>这里的 $N$ 是训练样本集的容量.测试误差则是模型对测试数据集的平均损失:</p>
@@ -399,755 +414,34 @@ R=\frac{TP}{TP+FN}</script><p>其实从上面的表达式中我们可以看出�
 <p><a id="org260b695"></a></p>
 <h3 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h3><p>回归问题则是用来预测输入变量与输出变量之间关系的模型,他学习的其实是从输入变量到输出变量的一个映射函数,所以对于回归问题的学习其实是等价于函数拟合的过程,选择一条函数曲线使其很好的拟合已知数据且很好的预测未知数据.一般来说对于回归问题,我们都会用平方损失函数来处理,这样的话这个优化问题就可以用最小二乘法处理.</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/05/03/ML-intro-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/05/03/ML-intro-1/" class="post-title-link" itemprop="url">Machine Learning-Introduction(1)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-05-03 01:05:07 / 修改时间：01:20:56" itemprop="dateCreated datePublished" datetime="2026-05-03T01:05:07+08:00">2026-05-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">统计学习方法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="监督学习方法概论上">监督学习方法概论(上)</h1>
-<p>监督学习是从标注数据中学习模型的机器学习问题.</p>
-<p><a id="orgfe9c227"></a></p>
-<h2 id="统计学习">统计学习</h2>
-<p>统计学习是基于数据构建概率统计模型并加以预测分析的问题.其是一种数据驱动问题,其目的是对数据进行预测与分析.统计学习研究的对象是数据,其从数据出发,提取数据的特征,抽象出数据的模型,发现数据中的只是,又回到对数据的分析与预测中.这里存在对数据的基本假设是同类数据具有一定的统计规律性,这里的同类数据表示具有某种共同性质的数据.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/05/03/ML-intro-1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/27/PythonProject/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/03/27/PythonProject/" class="post-title-link" itemprop="url">Python入门实战项目</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-03-27 16:59:48 / 修改时间：17:02:02" itemprop="dateCreated datePublished" datetime="2026-03-27T16:59:48+08:00">2026-03-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">Python从入门到实践</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="python编程从入门到实践项目">Python编程从入门到实践项目</h1>
-<p><a id="orgd508d23"></a></p>
-<h2 id="alien-invasion外星人入侵项目">Alien
-Invasion(外星人入侵项目)</h2>
-<ul>
-<li><p>在for循环中,不应该从列表或编组中删除条目,因此最好是遍历副本的方式.如果直接对列表做删除条目,那么代码如下所示,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">        numbers.remove(n)</span><br><span class="line"><span class="built_in">print</span>(numbers)</span><br><span class="line"><span class="comment"># 结果为[1,2,3]</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/03/27/PythonProject/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/03/ML-intro-1/" rel="prev" title="Machine Learning-Introduction(1)">
+      <i class="fa fa-chevron-left"></i> Machine Learning-Introduction(1)
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/22/Advanced-Python-Module/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/03/22/Advanced-Python-Module/" class="post-title-link" itemprop="url">Advanced Python-Modules and Packages</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-03-22 16:36:09 / 修改时间：16:46:18" itemprop="dateCreated datePublished" datetime="2026-03-22T16:36:09+08:00">2026-03-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="modules-and-packages">Modules and Packages</h1>
-<p><a id="org7e8c577"></a></p>
-<h2 id="modules">Modules</h2>
-<p>模块化和包机制是Python管理复杂性的核心手段,也是代码复用的基础.每个源文件都是一个模块,import用于加载并执行一个模块.我们在到如模块的同时也到入了其定义的命名空间.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> foo</span><br><span class="line">foo.grok()</span><br><span class="line"><span class="comment"># 相当于如下的调用方式</span></span><br><span class="line">foo.__dict__[<span class="string">&#x27;grok&#x27;</span>]()</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/03/22/Advanced-Python-Module/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/19/Advanced-Python-Generator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/03/19/Advanced-Python-Generator/" class="post-title-link" itemprop="url">Advanced Python-Generator</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-03-19 20:27:01 / 修改时间：20:31:27" itemprop="dateCreated datePublished" datetime="2026-03-19T20:27:01+08:00">2026-03-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="iteratorsgenerators-and-coroutines">Iterators,Generators and
-Coroutines</h1>
-<p><a id="orgdb44a50"></a></p>
-<h2 id="iterator">Iterator</h2>
-<p>迭代定义经常发生在循环遍历项的时候发生调用,代码如下所示,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=[<span class="number">2</span>,<span class="number">4</span>,<span class="number">10</span>,<span class="number">37</span>,<span class="number">62</span>]</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> a:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure>
-<p>这是一个十分常见的代码编程模式,常见于循环,列表推导式等.他的迭代语法原型为</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> obj:</span><br><span class="line">    <span class="comment"># statements</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/03/19/Advanced-Python-Generator/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/06/Advanced-Python-MetaProgramming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/03/06/Advanced-Python-MetaProgramming/" class="post-title-link" itemprop="url">Advanced Python-MetaProgramming</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2026-03-06 23:04:46" itemprop="dateCreated datePublished" datetime="2026-03-06T23:04:46+08:00">2026-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-03-22 20:03:11" itemprop="dateModified" datetime="2026-03-22T20:03:11+08:00">2026-03-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="metaprogramming">MetaProgramming</h1>
-<p><a id="org68f7d6f"></a></p>
-<h2 id="decorators">Decorators</h2>
-<p>在编写程序中存在大量代码重复的问题,其在编写过程会十分枯燥无聊,并且后续难以维护.元编程涉及编写操作其他代码的代码问题.其相应的应用示例为宏(Marco),包装器(wrapper),切面(aspect).因此其本质上是对代码进行操作.元编程的核心动力是DRY原则(Don't
-Repeat Yourself).
-当发现存在大量代码结构类似的情况,则可以用元编程.与C/C++的宏在编译前处理文本,Python的元编程是在运行的时候操作对象(func,class).其会更加的灵活,更加的动态.装饰器是一个创建另一个函数包装器的函数.包装器则是一个全新的函数,但是他的工作原理和原有函数是完全相同的,接受相同的函数参数可以返回相同的返回值,但是可以增加一些额外的操作.装饰器本质上是接受函数作为参数并返回新函数的高阶函数.理想的装饰器应该是对被装饰器的调用者是透明的,也就是即使换成被装饰了的函数,其调用和返回也不应该导致代码出错.而额外的输出则是由包装器函数实现,但仍然依靠原始函数获得结果</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/03/06/Advanced-Python-MetaProgramming/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/27/Advanced-Python-Work/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/27/Advanced-Python-Work/" class="post-title-link" itemprop="url">Advanced Python-Working with Code</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-02-27 09:30:52 / 修改时间：09:33:06" itemprop="dateCreated datePublished" datetime="2026-02-27T09:30:52+08:00">2026-02-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Working-with-Code"><a href="#Working-with-Code" class="headerlink" title="Working with Code"></a>Working with Code</h1><p><a id="orge8c233a"></a></p>
-<h2 id="Variable-Arguments"><a href="#Variable-Arguments" class="headerlink" title="Variable Arguments"></a>Variable Arguments</h2><p>函数参数表示函数可以操作传入的参数,其中的基本传入方式有如下两种:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">func(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) <span class="comment"># 位置参数</span></span><br><span class="line">func(x=<span class="number">1</span>,y=<span class="number">2</span>,z=<span class="number">3</span>) <span class="comment"># 关键字参数</span></span><br></pre></td></tr></table></figure>
-<p>我们可以混合使用这两种参数传入风格,但是位置参数必须始终在关键字参数前面传入,而且需要遵守每个参数都必须有且仅有一个值,如</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">x,*args</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">func(<span class="number">1</span>,x=<span class="number">1</span>) <span class="comment"># 这会报错</span></span><br></pre></td></tr></table></figure>
-<p>混合使用参数风格增加了调用的灵活性,尤其是当函数参数比较多的时候,关键字参数能够提高代码的可读性.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/02/27/Advanced-Python-Work/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/23/Advanced-Python-Function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/23/Advanced-Python-Function/" class="post-title-link" itemprop="url">Advanced Python-Function</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2026-02-23 16:22:11 / 修改时间：16:25:23" itemprop="dateCreated datePublished" datetime="2026-02-23T16:22:11+08:00">2026-02-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h1><p><a id="orgdaca2da"></a></p>
-<h2 id="Function-Arguments"><a href="#Function-Arguments" class="headerlink" title="Function Arguments"></a>Function Arguments</h2><p>函数是程序的基本构建单元,如模块的顶层函数,类的方法.程序的几乎所有代码应该封装在函数中.Python函数的设计原则,我们希望函数是自包含的(self-contained),仅操作输入的参数.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/02/23/Advanced-Python-Function/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/10/Advanced-Python-Inside/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/10/Advanced-Python-Inside/" class="post-title-link" itemprop="url">Advanced Python-Inside Python Objects</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2026-02-10 15:05:42" itemprop="dateCreated datePublished" datetime="2026-02-10T15:05:42+08:00">2026-02-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-03-19 20:32:38" itemprop="dateModified" datetime="2026-03-19T20:32:38+08:00">2026-03-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="inside-python-objects">Inside Python Objects</h1>
-<p><a id="org96f57f2"></a></p>
-<h2 id="underlying-dictionary">Underlying dictionary</h2>
-<p>字典是命名化值的集合,用户自定义的对象的底层使用字典,如实例数据和类成员.换言之,整个对象系统的底层是基于字典.实例的__dict__字典属性会用于存储实例数据,在创建实例属性并赋值的时候,实际上就是对__dict__字典的元素填充.并且不同实例的__dict__字典属性是私用的,并不会互通共享.换言之,其实就是如果程序中创建了100个实例,那么也会有100个不同的实例字典.与实例的__dict__字典不同的是,类也是存在__dict__字典属性的,其是用于存储类成员.类和对象在逻辑上是具有很强的联系的,也就是实例是类的可操作对象,类提供了实例的数据属性和操作行为.实例的__class__属性返回的是其实例化的类,因此可以从实例反连接到类.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/02/10/Advanced-Python-Inside/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/05/Advanced-Python-Object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/02/05/Advanced-Python-Object/" class="post-title-link" itemprop="url">Advanced Python-Classes and Objects</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2026-02-05 23:31:38" itemprop="dateCreated datePublished" datetime="2026-02-05T23:31:38+08:00">2026-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-02-26 23:43:39" itemprop="dateModified" datetime="2026-02-26T23:43:39+08:00">2026-02-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Classes-and-Objects"><a href="#Classes-and-Objects" class="headerlink" title="Classes and Objects"></a>Classes and Objects</h1><p><a id="org704c65d"></a></p>
-<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><p>面向对象编程其实就像是基于行为的自下而上的建模.一个对象则会包含一些内部状态和一些对内部状态的操作.因此,对于一个对象而言,其中包含的数据和行为是密不可分的,数据是对象的属性,而行为则是体现了对象的特性.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/02/05/Advanced-Python-Object/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -1199,6 +493,7 @@ Repeat Yourself).
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E6%A6%82%E8%AE%BA-%E4%B8%8B"><span class="nav-number">1.</span> <span class="nav-text">监督学习方法概论(下)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.</span> <span class="nav-text">模型评估与模型选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E8%AF%AF%E5%B7%AE%E5%92%8C%E6%B5%8B%E8%AF%95%E8%AF%AF%E5%B7%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">训练误差和测试误差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88%E5%92%8C%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.2.</span> <span class="nav-text">过拟合和模型选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96%E5%92%8C%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">1.2.</span> <span class="nav-text">正则化和交叉验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">1.2.2.</span> <span class="nav-text">交叉验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%8C%96%E8%83%BD%E5%8A%9B"><span class="nav-number">1.3.</span> <span class="nav-text">泛化能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%8C%96%E8%AF%AF%E5%B7%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">泛化误差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%8C%96%E8%AF%AF%E5%B7%AE%E4%B8%8A%E7%95%8C"><span class="nav-number">1.3.2.</span> <span class="nav-text">泛化误差上界</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%88%A4%E5%88%AB%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">生成模型和判别模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">生成模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E5%88%AB%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">判别模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E5%BA%94%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">监督学习应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.1.</span> <span class="nav-text">分类问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E6%B3%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.2.</span> <span class="nav-text">标注问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.3.</span> <span class="nav-text">回归问题</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
