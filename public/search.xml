@@ -6341,444 +6341,203 @@ class="math inline">\(F_1\)</span> 也会偏高.</p>
   <entry>
     <title>Machine Learning-线性回归与分类模型(CS229)</title>
     <url>/2026/06/09/ML-LR-CS229/</url>
-    <content><![CDATA[<h2 id="linear-regression">Linear Regression</h2>
-<p>在前面提到的回归问题中,如果我们进一步假设函数 <span
-class="math inline">\(h_\theta\)</span> 是一个线性函数,即 <span
-class="math inline">\(h_\theta(x)=\theta_{0}+\theta_1x_1+\theta_2x_2\)</span>.这里我们引入一个虚变量
-<span
-class="math inline">\(x_0=1\)</span>,这样的话我们就可以将线性函数中的截距(在机器学习,我们一般称之为偏重)转换为常见的权重系数的形式,所以我们可以将线性函数进一步表示为
-<span class="math display">\[
-h_\theta(x)=\theta_0x_0+\theta_1x_1+\cdots+\theta_nx_n=\theta^Tx
-\]</span> <span id="more"></span></p>
-<p>我们需要说明的是这里的特征 <span class="math inline">\(x\)</span>
-并不是我们样本里设置的特征向量,而是加上了虚变量的特征向量.这里的 <span
-class="math inline">\(\theta\in \mathbb{R}^{n+1}\)</span>
-是一个参数向量,如果我们得到了他的数值,那么我们就可以唯一确定了一个线性模型,因此我们的学习目标就在于确定一个最优的参数向量,使得我们的模型在训练集上的学习效果尽可能的好.而这里所谓的效果尽可能的好,我们需要通过前文提到的平方损失函数来衡量,其形式如下,
-<span class="math display">\[
-J(\theta)=\frac{1}{2}\sum_{i=1}^M \left(
-h_{\theta}(x^{(i)}-y^{(i)}\right)^2
-\]</span> 所以我们希望选择能够选择合适的 <span
-class="math inline">\(\theta\)</span> 来使得 <span
-class="math inline">\(J(\theta)\)</span>
-尽可能的小.需要注意的是,我们虽然在这里使用的是平方损失函数,但不代表着只有平方损失函数才可以用于衡量,可以根据自己的需求来选择合适的损失函数,我们后续的流程是与损失函数的具体形式无关的,只关心如何找到这个合适的参数使得损失函数最小.</p>
+    <content><![CDATA[<h2 id="Linear-Regression"><a href="#Linear-Regression" class="headerlink" title="Linear Regression"></a>Linear Regression</h2><p>在前面提到的回归问题中,如果我们进一步假设函数 $h<em>\theta$ 是一个线性函数,即 $h</em>\theta(x)=\theta_{0}+\theta_1x_1+\theta_2x_2$.这里我们引入一个虚变量 $x_0=1$,这样的话我们就可以将线性函数中的截距(在机器学习,我们一般称之为偏重)转换为常见的权重系数的形式,所以我们可以将线性函数进一步表示为</p>
+<script type="math/tex; mode=display">
+h_\theta(x)=\theta_0x_0+\theta_1x_1+\cdots+\theta_nx_n=\theta^Tx</script><span id="more"></span>
+<p>我们需要说明的是这里的特征 $x$ 并不是我们样本里设置的特征向量,而是加上了虚变量的特征向量.这里的 $\theta\in \mathbb{R}^{n+1}$ 是一个参数向量,如果我们得到了他的数值,那么我们就可以唯一确定了一个线性模型,因此我们的学习目标就在于确定一个最优的参数向量,使得我们的模型在训练集上的学习效果尽可能的好.而这里所谓的效果尽可能的好,我们需要通过前文提到的平方损失函数来衡量,其形式如下,</p>
+<script type="math/tex; mode=display">
+J(\theta)=\frac{1}{2}\sum_{i=1}^M \left( h_{\theta}(x^{(i)}-y^{(i)}\right)^2</script><p>所以我们希望选择能够选择合适的 $\theta$ 来使得 $J(\theta)$ 尽可能的小.需要注意的是,我们虽然在这里使用的是平方损失函数,但不代表着只有平方损失函数才可以用于衡量,可以根据自己的需求来选择合适的损失函数,我们后续的流程是与损失函数的具体形式无关的,只关心如何找到这个合适的参数使得损失函数最小.</p>
 <p><a id="org75d1673"></a></p>
-<h3 id="gradient-descent">Gradient Descent</h3>
-<p>我们引入梯度下降法的具体流程,</p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><p>我们引入梯度下降法的具体流程,</p>
 <p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260609/2026-06-05_19-38-21_screenshot.7ehffegr9o.png" style="zoom: 80%;" /></p>
-<p>这里的初始值 <span class="math inline">\(\theta_0\)</span>
-的选取一般来说是依赖于经验;其次我们设置了一个容忍度 <span
-class="math inline">\(\kappa\)</span>,当前后两步更新小于这个阈值的时候,我们可以认为他已经达到了稳定的最优结果.
-<span class="math inline">\(\alpha\)</span>
-则是学习率,其实可以认为就是梯度下降的步长,他的选取依据经验的,而且在一些现代的机器学习算法中,<span
-class="math inline">\(\alpha\)</span>
-很可能是和迭代次数有关的函数,当迭代次数越大,学习率会越趋近于0,但是无论如何,学习率都会独立于样本.我们从梯度下降的算法更新中,可以发现如果损失函数关于<span
-class="math inline">\(\theta\)</span>
-并不是恒凸的话,那么最后得到的参数向量很可能会陷入局部最小,但是我们考虑的平方损失函数是一个凸函数,所以对他而言,局部最小就是全局最小,这也是我们使用平方损失函数的一个优点.我们展开对损失函数的偏导项,
-<span class="math display">\[
-\frac{\partial}{\partial\theta_j}J(\theta)=\sum
-\frac{1}{2}\frac{\partial}{\partial\theta_j}\left(
-h(x^{(i)})-y^{(i)}\right)^2=\sum \left(
-h(x^{(i)})-y^{(i)}\right)x_j^{(i)}
-\]</span>
-从这个形式中我们可以发现每次梯度下降的修正量和预测误差有关,这其实和我们直观感受是符合,也就是如果预测误差太大,我们希望调整更大;反之则更小.综合来说我们给出一个更紧凑的向量形式,
-<span class="math display">\[
-\theta^{m+1}=\theta^m-\alpha\sum_{i=1}^M\left(
-h(x^{(i)})-y^{(i)}\right)x^{(i)}
-\]</span>
-在这里,我们发现这个算法需要使用全部样本集的信息来计算预测误差,并在此基础上更新到下一步参数向量.但是他的问题在于在更新每一步的时候扫描整个样本集,如果样本集很大,那么他的计算效率就很低,我们称这样的梯度下降为批梯度下降.为了能够获得更快的计算效率,我们引入随机梯度下降(SGD).</p>
-<p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260609/2026-06-05_22-30-10_screenshot.3rbvrvkys2.png" style="zoom:50%;" />
-不同于批梯度下降,他每次在样本集中随机挑选出 <span
-class="math inline">\(B\)</span> 个样本,其样本容量满足 <span
-class="math inline">\(B\ll M\)</span>,最极端的情况就是只随机挑选 <span
-class="math inline">\(1\)</span> 个样本.我们只针对这 <span
-class="math inline">\(B\)</span>
-个样本计算损失函数的偏导进行参数更新,所以他的计算效率就会有极大的提升.虽然他的计算效率有了极大的提升,但是他的问题在于他可能不会收敛到全局最优解,而是在真实最优解附近来回震荡,这可以视作是离散计算带来的误差,我们是可以接受的.</p>
+<p>这里的初始值 $\theta_0$ 的选取一般来说是依赖于经验;其次我们设置了一个容忍度 $\kappa$,当前后两步更新小于这个阈值的时候,我们可以认为他已经达到了稳定的最优结果. $\alpha$ 则是学习率,其实可以认为就是梯度下降的步长,他的选取依据经验的,而且在一些现代的机器学习算法中,$\alpha$ 很可能是和迭代次数有关的函数,当迭代次数越大,学习率会越趋近于0,但是无论如何,学习率都会独立于样本.我们从梯度下降的算法更新中,可以发现如果损失函数关于$\theta$ 并不是恒凸的话,那么最后得到的参数向量很可能会陷入局部最小,但是我们考虑的平方损失函数是一个凸函数,所以对他而言,局部最小就是全局最小,这也是我们使用平方损失函数的一个优点.我们展开对损失函数的偏导项,</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial\theta_j}J(\theta)=\sum \frac{1}{2}\frac{\partial}{\partial\theta_j}\left( h(x^{(i)})-y^{(i)}\right)^2=\sum \left( h(x^{(i)})-y^{(i)}\right)x_j^{(i)}</script><p>从这个形式中我们可以发现每次梯度下降的修正量和预测误差有关,这其实和我们直观感受是符合,也就是如果预测误差太大,我们希望调整更大;反之则更小.综合来说我们给出一个更紧凑的向量形式,</p>
+<script type="math/tex; mode=display">
+\theta^{m+1}=\theta^m-\alpha\sum_{i=1}^M\left( h(x^{(i)})-y^{(i)}\right)x^{(i)}</script><p>在这里,我们发现这个算法需要使用全部样本集的信息来计算预测误差,并在此基础上更新到下一步参数向量.但是他的问题在于在更新每一步的时候扫描整个样本集,如果样本集很大,那么他的计算效率就很低,我们称这样的梯度下降为批梯度下降.为了能够获得更快的计算效率,我们引入随机梯度下降(SGD).</p>
+<p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260609/2026-06-05_22-30-10_screenshot.3rbvrvkys2.png" style="zoom:50%;" /><br>不同于批梯度下降,他每次在样本集中随机挑选出 $B$ 个样本,其样本容量满足 $B\ll M$,最极端的情况就是只随机挑选 $1$ 个样本.我们只针对这 $B$ 个样本计算损失函数的偏导进行参数更新,所以他的计算效率就会有极大的提升.虽然他的计算效率有了极大的提升,但是他的问题在于他可能不会收敛到全局最优解,而是在真实最优解附近来回震荡,这可以视作是离散计算带来的误差,我们是可以接受的.</p>
 <p><a id="orga2ee4fc"></a></p>
-<h3 id="normal-equation">Normal equation</h3>
-<p>实际上对于平方损失函数求解最优参数向量,不仅可以通过梯度下降的方式得到,还可以用正规方程的方式,我们在这里简单的介绍一下他的思路,
-<span class="math display">\[
-J(\theta)=\frac{1}{2}(X\theta-y)^T(X\theta-y)=\frac{1}{2}(\theta^TX^TX\theta-2\theta^{T}X^{T}y+y^Ty)
-\]</span> 这里的 <span class="math inline">\(X\)</span>,<span
-class="math inline">\(y\)</span> 是将样本拼接得到的矩阵和向量,其形式为,
-<span class="math display">\[
-X=\begin{pmatrix}\cdots(x^{(1)})^T\cdots\\\cdots(x^{(2)})^T\cdots\\\quad\vdots\quad\\\cdots(x^{(M)})^T\cdots
-\end{pmatrix},\quad
-y=\begin{pmatrix}y^{(1)}\\y^{(2)}\\\vdots\\y^{(M)}\end{pmatrix}
-\]</span>
-我们希望找到一个参数向量使得损失函数最小,其实就是求解下面的方程 <span
-class="math display">\[
-\nabla_{\theta}
-J(\theta)=X^TX\theta-X^Ty=0\Rightarrow\theta=(X^TX)^{-1}X^Ty
-\]</span>
-但实际上这个正规方程的求解方式并不能是用于所有的情况,一是如果样本特征很大,那么矩阵
-<span class="math inline">\(X^TX\)</span>
-的维度很大,从而计算他的逆需要极大的计算量;二则是如果样本容量小于特征数,或者特征之间存在高度相关性,那么矩阵
-<span class="math inline">\(X^TX\)</span>
-就会接近于奇异矩阵,从而导致计算的权重出现数值爆炸,这其实也是过拟合在矩阵角度的原因.所以正规方程更多只是一个理论可行方案.</p>
+<h3 id="Normal-equation"><a href="#Normal-equation" class="headerlink" title="Normal equation"></a>Normal equation</h3><p>实际上对于平方损失函数求解最优参数向量,不仅可以通过梯度下降的方式得到,还可以用正规方程的方式,我们在这里简单的介绍一下他的思路,</p>
+<script type="math/tex; mode=display">
+J(\theta)=\frac{1}{2}(X\theta-y)^T(X\theta-y)=\frac{1}{2}(\theta^TX^TX\theta-2\theta^{T}X^{T}y+y^Ty)</script><p>这里的 $X$,$y$ 是将样本拼接得到的矩阵和向量,其形式为,</p>
+<script type="math/tex; mode=display">
+X=\begin{pmatrix}\cdots(x^{(1)})^T\cdots\\\cdots(x^{(2)})^T\cdots\\\quad\vdots\quad\\\cdots(x^{(M)})^T\cdots \end{pmatrix},\quad y=\begin{pmatrix}y^{(1)}\\y^{(2)}\\\vdots\\y^{(M)}\end{pmatrix}</script><p>我们希望找到一个参数向量使得损失函数最小,其实就是求解下面的方程</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta} J(\theta)=X^TX\theta-X^Ty=0\Rightarrow\theta=(X^TX)^{-1}X^Ty</script><p>但实际上这个正规方程的求解方式并不能是用于所有的情况,一是如果样本特征很大,那么矩阵 $X^TX$ 的维度很大,从而计算他的逆需要极大的计算量;二则是如果样本容量小于特征数,或者特征之间存在高度相关性,那么矩阵 $X^TX$ 就会接近于奇异矩阵,从而导致计算的权重出现数值爆炸,这其实也是过拟合在矩阵角度的原因.所以正规方程更多只是一个理论可行方案.</p>
 <p><a id="org34a860d"></a></p>
-<h3 id="probability-interpretation">Probability Interpretation</h3>
-<p>类似于前面我们提到的正则化概率解释,我们也可以对线性回归模型进行概率解释,解释为什么我们只需要最小化平方损失函数就可以得到一个效果优秀的线性回归模型.我们假设样本数据的生成过程是在线性模型的基础上加上一个误差项得到的,也就是
-<span class="math display">\[
-y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}
-\]</span> 这个误差项 <span class="math inline">\(\epsilon^{(i)}\)</span>
-的作用其实是用来捕捉未建模的殷素影响或者采样引入的随机噪声.
-我们假设误差项 <span class="math inline">\(\epsilon^{(i)}\)</span>
-满足以下的性质:</p>
-<ol type="1">
-<li><span
-class="math inline">\(E(\epsilon^{(i)})=0\)</span>,这条式子表示我们的采样无偏重的.这表示我们在大量采样的过程中,噪声不会带来额外的信息,也就是取平均值之后,我们就不关心统计意义上的噪声值.</li>
-<li>误差是统计意义上相互独立的,<span
-class="math inline">\(E(\epsilon^{(i)}\epsilon^{(j)})=E(\epsilon^{(i)})E(\epsilon^{(j)}),\
-i\not=j\)</span>.</li>
+<h3 id="Probability-Interpretation"><a href="#Probability-Interpretation" class="headerlink" title="Probability Interpretation"></a>Probability Interpretation</h3><p>类似于前面我们提到的正则化概率解释,我们也可以对线性回归模型进行概率解释,解释为什么我们只需要最小化平方损失函数就可以得到一个效果优秀的线性回归模型.我们假设样本数据的生成过程是在线性模型的基础上加上一个误差项得到的,也就是</p>
+<script type="math/tex; mode=display">
+y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}</script><p>这个误差项 $\epsilon^{(i)}$ 的作用其实是用来捕捉未建模的殷素影响或者采样引入的随机噪声. 我们假设误差项 $\epsilon^{(i)}$ 满足以下的性质:</p>
+<ol>
+<li>$E(\epsilon^{(i)})=0$,这条式子表示我们的采样无偏重的.这表示我们在大量采样的过程中,噪声不会带来额外的信息,也就是取平均值之后,我们就不关心统计意义上的噪声值.</li>
+<li>误差是统计意义上相互独立的,$E(\epsilon^{(i)}\epsilon^{(j)})=E(\epsilon^{(i)})E(\epsilon^{(j)}),\ i\not=j$.</li>
 </ol>
-<p>我们进一步假设误差服从均值为 <span
-class="math inline">\(0\)</span>,方差为 <span
-class="math inline">\(\sigma^2\)</span>
-的正态分布,从概率密度函数的角度来看, <span class="math display">\[
-p(\epsilon,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(
-\frac{\epsilon^2}{2\sigma^2}\right)
-\]</span> 这里的 <span class="math inline">\(\epsilon\)</span>
-是我们上面提到误差,我们可以得到他的具体表达式为 <span
-class="math inline">\(\epsilon^{(i)}=y^{(i)}-\theta^Tx^{(i)}\)</span>,代入上式可得关于
-<span class="math inline">\(y^{(i)}\)</span> 的概率密度函数, <span
-class="math display">\[
-p(y^{(i)}|x^{(i)},\theta,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(
-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
-\]</span> 这表示如果我们给定了参数 <span
-class="math inline">\(\theta\)</span>,那么我们就确定了关于 <span
-class="math inline">\(y^{(i)}\)</span>
-的概率分布,我们为了使得得到的概率分布更符合数据,就需要最大化这个概率密度函数,也就是最大似然估计,我们给出如下的似然函数,
-<span class="math display">\[
-L(\theta)=p(y|x;\theta)=\prod_{i=1}^Mp(y^{(i)}|x^{(i)},\theta,\sigma^2)=\prod_{i=1}^M\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(
-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
-\]</span>
-由于样本之间的独立性,所以我们可以将样本集的联合概率分布表示为单个样本的概率分布的乘积.我们希望最大化这个似然函数,但是似然函数的形式以连乘的形式出现,比较复杂,所以我们引入了对数似然函数,他可以将连乘转换为连加的形式,从而简化计算,我们给出如下的对数似然函数,
-<span class="math display">\[
-l(\theta)=\ln L(\theta)=\sum_{i=1}^M \ln
-p(y^{(i)}|x^{(i)},\theta,\sigma^2)=-\frac{M}{2}\ln(2\pi)-M\ln\sigma-\frac{1}{2\sigma^2}\sum_{i=1}^M(y^{(i)}-\theta^Tx^{(i)})^2
-\]</span>
-去除一些与样本和参数无关的常数项,我们可以将最大化似然函数的目标做如下的等价转换,
-<span class="math display">\[
-\max_{\theta} l(\theta)\Leftrightarrow
-\min_{\theta}\sum_{i=1}^M(y^{(i)}-\theta^Tx^{(i)})^2
-\]</span>
-所以我们得到了最小化平方损失函数的概率解释其实就是最大化对数似然函数的过程,而最大化对数似然函数又是最大化似然函数的过程,所以我们得到了最小化平方损失函数的概率解释.需要注意的是,我们在这里的概率解释是基于误差项服从正态分布的假设,如果误差项不满足这个假设,那么我们得到的概率解释就不成立了.</p>
+<p>我们进一步假设误差服从均值为 $0$,方差为 $\sigma^2$ 的正态分布,从概率密度函数的角度来看,</p>
+<script type="math/tex; mode=display">
+p(\epsilon,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left( \frac{\epsilon^2}{2\sigma^2}\right)</script><p>这里的 $\epsilon$ 是我们上面提到误差,我们可以得到他的具体表达式为 $\epsilon^{(i)}=y^{(i)}-\theta^Tx^{(i)}$,代入上式可得关于 $y^{(i)}$ 的概率密度函数,</p>
+<script type="math/tex; mode=display">
+p(y^{(i)}|x^{(i)},\theta,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left( \frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)</script><p>这表示如果我们给定了参数 $\theta$,那么我们就确定了关于 $y^{(i)}$ 的概率分布,我们为了使得得到的概率分布更符合数据,就需要最大化这个概率密度函数,也就是最大似然估计,我们给出如下的似然函数,</p>
+<script type="math/tex; mode=display">
+L(\theta)=p(y|x;\theta)=\prod_{i=1}^Mp(y^{(i)}|x^{(i)},\theta,\sigma^2)=\prod_{i=1}^M\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left( \frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)</script><p>由于样本之间的独立性,所以我们可以将样本集的联合概率分布表示为单个样本的概率分布的乘积.我们希望最大化这个似然函数,但是似然函数的形式以连乘的形式出现,比较复杂,所以我们引入了对数似然函数,他可以将连乘转换为连加的形式,从而简化计算,我们给出如下的对数似然函数,</p>
+<script type="math/tex; mode=display">
+l(\theta)=\ln L(\theta)=\sum_{i=1}^M \ln p(y^{(i)}|x^{(i)},\theta,\sigma^2)=-\frac{M}{2}\ln(2\pi)-M\ln\sigma-\frac{1}{2\sigma^2}\sum_{i=1}^M(y^{(i)}-\theta^Tx^{(i)})^2</script><p>去除一些与样本和参数无关的常数项,我们可以将最大化似然函数的目标做如下的等价转换,</p>
+<script type="math/tex; mode=display">
+\max_{\theta} l(\theta)\Leftrightarrow \min_{\theta}\sum_{i=1}^M(y^{(i)}-\theta^Tx^{(i)})^2</script><p>所以我们得到了最小化平方损失函数的概率解释其实就是最大化对数似然函数的过程,而最大化对数似然函数又是最大化似然函数的过程,所以我们得到了最小化平方损失函数的概率解释.需要注意的是,我们在这里的概率解释是基于误差项服从正态分布的假设,如果误差项不满足这个假设,那么我们得到的概率解释就不成立了.</p>
 <p><a id="orga6b7543"></a></p>
-<h3 id="local-weighted-linear-regression">Local weighted Linear
-Regression</h3>
-<p>我们在上面的线性回归模型中,发现不管我们希望预测的点在什么位置,我们会使用全部样本集上的所有信息,但是实际上如果我们的样本集采样跨度很大的时候,他可能并不适合用来预测某个特定位置的点.因此我们引入了局部加权线性回归的概念,他的意思是在预测某个特定位置的点的时候,我们先依据样本距离预测点的距离赋给样本信息不同的权重,距离预测点越近的样本权重越大,反之则越小,从而使得我们在预测的时候更加倾向于使用距离预测点较近的样本信息.我们给出局部加权线性回归的损失函数,
-<span class="math display">\[
-J(\theta)=\sum_{i=1}^M w^{(i)}(y^{(i)}-\theta^Tx^{(i)})^2
-\]</span> 其中的权重系数通过如下的方式计算, <span
-class="math display">\[
-w^{(i)}=\exp\left( -\frac{(x^{(i)}-x)^2}{2\tau^2}\right)
-\]</span> 这里的 <span class="math inline">\(x\)</span>
-表示我们希望预测的点,如果距离比较小,那么权重就会趋向于1,反之则会趋向于0.
-<span class="math inline">\(\tau\)</span>
-的作用是用来控制权重衰减速度,也被称之为带宽参数.</p>
+<h3 id="Local-weighted-Linear-Regression"><a href="#Local-weighted-Linear-Regression" class="headerlink" title="Local weighted Linear Regression"></a>Local weighted Linear Regression</h3><p>我们在上面的线性回归模型中,发现不管我们希望预测的点在什么位置,我们会使用全部样本集上的所有信息,但是实际上如果我们的样本集采样跨度很大的时候,他可能并不适合用来预测某个特定位置的点.因此我们引入了局部加权线性回归的概念,他的意思是在预测某个特定位置的点的时候,我们先依据样本距离预测点的距离赋给样本信息不同的权重,距离预测点越近的样本权重越大,反之则越小,从而使得我们在预测的时候更加倾向于使用距离预测点较近的样本信息.我们给出局部加权线性回归的损失函数,</p>
+<script type="math/tex; mode=display">
+J(\theta)=\sum_{i=1}^M w^{(i)}(y^{(i)}-\theta^Tx^{(i)})^2</script><p>其中的权重系数通过如下的方式计算,</p>
+<script type="math/tex; mode=display">
+w^{(i)}=\exp\left( -\frac{(x^{(i)}-x)^2}{2\tau^2}\right)</script><p>这里的 $x$ 表示我们希望预测的点,如果距离比较小,那么权重就会趋向于1,反之则会趋向于0. $\tau$ 的作用是用来控制权重衰减速度,也被称之为带宽参数.</p>
 <p><a id="orgef1de1b"></a></p>
-<h2 id="binary-classification">Binary Classification</h2>
-<p><a id="org4d45e38"></a></p>
-<h3 id="logistic-regression">Logistic Regression</h3>
-<p>我们上面提到的线性回归模型是一个函数 <span
-class="math inline">\(f:\mathbb{R}^d\rightarrow
-\mathbb{R}\)</span>,他的输出是一个连续值.而在二分类问题中,我们希望得到一个映射函数
-<span class="math inline">\(f:\mathbb{R}^d\rightarrow
-\{0,1\}\)</span>,他的输出是一个离散值.为了实现这个目标,我们先引入sigmoid函数,其定义为
-<span class="math display">\[
-g(z)=\frac{1}{1+e^{-z}}
-\]</span> 他的优势在于他可以将实数压缩到 <span
-class="math inline">\((0,1)\)</span>区间上,换言之,他可以将我们线性回归得到输出值转换为某种概率值.综上我们可以得到如下的回归模型,
-<span class="math display">\[
-h_\theta(x)=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}
-\]</span>
-我们发现这个模型仍然是一个线性模型,我们只是对于线性模型的输出施加了一个非线性变换,使得将线性模型的输出压缩到
-<span
-class="math inline">\((0,1)\)</span>区间上,从而使得我们可以将这个输出值解释为某个类别的概率.其实我们只是希望找到一个压缩函数,使得线性模型的输出可以被解释为概率值,所以我们也可以选择其他的压缩函数.但后续我们会给出sigmoid函数的优点,他可以被更为广泛的线性模型解释.甚至于我们可以选择一个更为极端的压缩函数:阶跃函数,其形式为</p>
+<h2 id="Binary-Classification"><a href="#Binary-Classification" class="headerlink" title="Binary Classification"></a>Binary Classification</h2><p><a id="org4d45e38"></a></p>
+<h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><p>我们上面提到的线性回归模型是一个函数 $f:\mathbb{R}^d\rightarrow \mathbb{R}$,他的输出是一个连续值.而在二分类问题中,我们希望得到一个映射函数 $f:\mathbb{R}^d\rightarrow {0,1}$,他的输出是一个离散值.为了实现这个目标,我们先引入sigmoid函数,其定义为</p>
+<script type="math/tex; mode=display">
+g(z)=\frac{1}{1+e^{-z}}</script><p>他的优势在于他可以将实数压缩到 $(0,1)$区间上,换言之,他可以将我们线性回归得到输出值转换为某种概率值.综上我们可以得到如下的回归模型,</p>
+<script type="math/tex; mode=display">
+h_\theta(x)=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}</script><p>我们发现这个模型仍然是一个线性模型,我们只是对于线性模型的输出施加了一个非线性变换,使得将线性模型的输出压缩到 $(0,1)$区间上,从而使得我们可以将这个输出值解释为某个类别的概率.其实我们只是希望找到一个压缩函数,使得线性模型的输出可以被解释为概率值,所以我们也可以选择其他的压缩函数.但后续我们会给出sigmoid函数的优点,他可以被更为广泛的线性模型解释.甚至于我们可以选择一个更为极端的压缩函数:阶跃函数,其形式为</p>
 <p><img src="https://github.com/LYD122504/picx-images-hosting/raw/master/20260609/2026-06-06_22-04-48_screenshot.7w7h3zhtvl.png" style="zoom:50%;" /></p>
-<p>但这样其实太过于激进了,他的导数就会变成一个常数,不会
-提供任何关于样本的信息,并且他并不光滑,所以在优化的过程中会出现很多问题.因此我们使用sigmoid函数,可以视作阶跃函数的一种近似,因为他足够光滑,并且他的导数可以提供关于样本的有用信息,从而使得我们可以通过梯度下降的方式来优化参数
-<span class="math inline">\(\theta\)</span>.我们给出sigmoid函数的导数,
-<span class="math display">\[
-g&#39;(z)=\frac{e^{-z}}{(1+e^{-z})^2}=\frac{1}{1+e^{-z}}\left(
-1-\frac{1}{1+e^{-z}}\right)=g(z)(1-g(z))
-\]</span> 我们给出Logistics回归模型的概率解释, <span
-class="math display">\[
-p(y=1|x;\theta)=h_\theta(x),\quad p(y=0|x;\theta)=1-h_\theta(x)
-\]</span>
-那么对于单个样本而言,他其实就是一个伯努利分布,我们可以将他的概率密度函数表示为
-<span class="math display">\[
-p(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y}
-\]</span> 我们给出整个样本集的似然函数, <span class="math display">\[
-L(\theta)=\prod_{i=1}^Mp(y^{(i)}|x^{(i)};\theta)=\prod_{i=1}^M(h_\theta(x^{(i)}))^{y^{(i)}}(1-h_\theta(x^{(i)}))^{1-y^{(i)}}
-\]</span> 那么相应的对数似然函数为 <span class="math display">\[
-l(\theta)=\ln L(\theta)=\sum_{i=1}^M \left( y^{(i)}\ln
-h_\theta(x^{(i)})+(1-y^{(i)})\ln (1-h_\theta(x^{(i)})) \right)
-\]</span>
-我们希望最大化这个对数似然函数,因此不同于之前的梯度下降方法,我们选择使用梯度上升方法,他的更新方式只是沿着梯度的正方向更新参数
-<span class="math inline">\(\theta\)</span>,我们给出梯度上升的更新方式,
-<span class="math display">\[
-\theta^{n+1}=\theta^n+\alpha\nabla_\theta l(\theta)
-\]</span> 这里我们需要推导一下对数似然函数的梯度, <span
-class="math display">\[
+<p>但这样其实太过于激进了,他的导数就会变成一个常数,不会 提供任何关于样本的信息,并且他并不光滑,所以在优化的过程中会出现很多问题.因此我们使用sigmoid函数,可以视作阶跃函数的一种近似,因为他足够光滑,并且他的导数可以提供关于样本的有用信息,从而使得我们可以通过梯度下降的方式来优化参数 $\theta$.我们给出sigmoid函数的导数,</p>
+<script type="math/tex; mode=display">
+g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}=\frac{1}{1+e^{-z}}\left( 1-\frac{1}{1+e^{-z}}\right)=g(z)(1-g(z))</script><p>我们给出Logistics回归模型的概率解释,</p>
+<script type="math/tex; mode=display">
+p(y=1|x;\theta)=h_\theta(x),\quad p(y=0|x;\theta)=1-h_\theta(x)</script><p>那么对于单个样本而言,他其实就是一个伯努利分布,我们可以将他的概率密度函数表示为</p>
+<script type="math/tex; mode=display">
+p(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y}</script><p>我们给出整个样本集的似然函数,</p>
+<script type="math/tex; mode=display">
+L(\theta)=\prod_{i=1}^Mp(y^{(i)}|x^{(i)};\theta)=\prod_{i=1}^M(h_\theta(x^{(i)}))^{y^{(i)}}(1-h_\theta(x^{(i)}))^{1-y^{(i)}}</script><p>那么相应的对数似然函数为</p>
+<script type="math/tex; mode=display">
+l(\theta)=\ln L(\theta)=\sum_{i=1}^M \left( y^{(i)}\ln h_\theta(x^{(i)})+(1-y^{(i)})\ln (1-h_\theta(x^{(i)})) \right)</script><p>我们希望最大化这个对数似然函数,因此不同于之前的梯度下降方法,我们选择使用梯度上升方法,他的更新方式只是沿着梯度的正方向更新参数 $\theta$,我们给出梯度上升的更新方式,</p>
+<script type="math/tex; mode=display">
+\theta^{n+1}=\theta^n+\alpha\nabla_\theta l(\theta)</script><p>这里我们需要推导一下对数似然函数的梯度,</p>
+<script type="math/tex; mode=display">
 \begin{align*}
-\frac{\partial}{\partial\theta_j}l(\theta)&amp;=\sum_{i=1}^M \left(
-\frac{y^{(i)}}{g(\theta^Tx^{(i)})}-\frac{1-y^{(i)}}{1-g(\theta^Tx^{(i)})}
-\right)\frac{\partial }{\partial\theta_j}g(\theta^Tix^{(i)})\\
-&amp;=\sum_{i=1}^M \left(
-\frac{y^{(i)}}{g(\theta^Tx^{(i)})}-\frac{1-y^{(i)}}{1-g(\theta^Tx^{(i)})}\right)g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))x_j^{(i)}\\
-&amp;=\sum_{i=1}^M\left(
-y^{(i)}(1-g(\theta^Tx^{(i)}))-(1-y^{(i)})g(\theta^Tx^{(i)})\right)x_j^{(i)}\\
-&amp;=\sum_{i=1}^M\left( y^{(i)}-h_\theta(x^{(i)})\right)x_j^{(i)}
-\end{align*}
-\]</span> 所以我们可以得到完整的梯度上升更新方式, <span
-class="math display">\[
-\theta^{n+1}=\theta^n+\alpha\sum_{i=1}^M\left(
-y^{(i)}-h_\theta(x^{(i)})\right)x^{(i)}
-\]</span>
-从形式上其实我们发现这样的更新方式和上面提到的线性回归模型差别不大,后续我们会提到这些东西其实都是广义线性模型的特例,因此他们会有很多相似之处.</p>
+\frac{\partial}{\partial\theta_j}l(\theta)&=\sum_{i=1}^M \left( \frac{y^{(i)}}{g(\theta^Tx^{(i)})}-\frac{1-y^{(i)}}{1-g(\theta^Tx^{(i)})} \right)\frac{\partial }{\partial\theta_j}g(\theta^Tix^{(i)})\\
+&=\sum_{i=1}^M \left( \frac{y^{(i)}}{g(\theta^Tx^{(i)})}-\frac{1-y^{(i)}}{1-g(\theta^Tx^{(i)})}\right)g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))x_j^{(i)}\\
+&=\sum_{i=1}^M\left( y^{(i)}(1-g(\theta^Tx^{(i)}))-(1-y^{(i)})g(\theta^Tx^{(i)})\right)x_j^{(i)}\\
+&=\sum_{i=1}^M\left( y^{(i)}-h_\theta(x^{(i)})\right)x_j^{(i)}
+\end{align*}</script><p>所以我们可以得到完整的梯度上升更新方式,</p>
+<script type="math/tex; mode=display">
+\theta^{n+1}=\theta^n+\alpha\sum_{i=1}^M\left( y^{(i)}-h_\theta(x^{(i)})\right)x^{(i)}</script><p>从形式上其实我们发现这样的更新方式和上面提到的线性回归模型差别不大,后续我们会提到这些东西其实都是广义线性模型的特例,因此他们会有很多相似之处.</p>
 <p><a id="org79a8767"></a></p>
-<h3 id="newton-iteration">Newton Iteration</h3>
-<p>虽然我们上面提到了利用梯度上升的方式来优化参数 <span
-class="math inline">\(\theta\)</span>,但他的收敛速度并不是特别快,但是我们发现我们希望得到的是最大化对数似然函数的参数
-<span class="math inline">\(\theta\)</span>,那么他一定满足 <span
-class="math inline">\(\nabla_{\theta}l(\theta)=0\)</span>,因此我们就可以将优化问题转换为非线性方程求根的问题,那我们就可以使用牛顿迭代法来求解这个非线性方程,我们给出牛顿迭代的更新方式,
-<span class="math display">\[
-\theta^{n+1}=\theta^n-H^{-1}\nabla_\theta l(\theta)
-\]</span> 这里的 <span class="math inline">\(H\)</span>
-是对数似然函数的海森矩阵,我们给出他每一项的形式为 <span
-class="math inline">\(H_{ij}=\frac{\partial^2l(\theta)}{\partial\theta_i
-\partial\theta_j}\)</span>.牛顿迭代方法的有点在于他的收敛速度非常快,基本上3-4步就能收敛到最优解附近,但是他的缺点在于每一步都需要计算海森矩阵的逆,计算开销十分大.</p>
-<p>在此我们粗略的比较一下我们已知的优化方法的性质,设样本量为 <span
-class="math inline">\(M\)</span>,特征数为 <span
-class="math inline">\(d\)</span>,mini batch为 <span
-class="math inline">\(b\)</span>,目标精度为 <span
-class="math inline">\(\epsilon\)</span>,我们给出如下的比较表格,</p>
+<h3 id="Newton-Iteration"><a href="#Newton-Iteration" class="headerlink" title="Newton Iteration"></a>Newton Iteration</h3><p>虽然我们上面提到了利用梯度上升的方式来优化参数 $\theta$,但他的收敛速度并不是特别快,但是我们发现我们希望得到的是最大化对数似然函数的参数 $\theta$,那么他一定满足 $\nabla_{\theta}l(\theta)=0$,因此我们就可以将优化问题转换为非线性方程求根的问题,那我们就可以使用牛顿迭代法来求解这个非线性方程,我们给出牛顿迭代的更新方式,</p>
+<script type="math/tex; mode=display">
+\theta^{n+1}=\theta^n-H^{-1}\nabla_\theta l(\theta)</script><p>这里的 $H$ 是对数似然函数的海森矩阵,我们给出他每一项的形式为 $H_{ij}=\frac{\partial^2l(\theta)}{\partial\theta_i \partial\theta_j}$.牛顿迭代方法的有点在于他的收敛速度非常快,基本上3-4步就能收敛到最优解附近,但是他的缺点在于每一步都需要计算海森矩阵的逆,计算开销十分大.</p>
+<p>在此我们粗略的比较一下我们已知的优化方法的性质,设样本量为 $M$,特征数为 $d$,mini batch为 $b$,目标精度为 $\epsilon$,我们给出如下的比较表格,</p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+
 <colgroup>
 <col  class="org-left" />
+
 <col  class="org-left" />
+
 <col  class="org-left" />
+
 <col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">
-名称
-</th>
-<th scope="col" class="org-left">
-单步所需数据量
-</th>
-<th scope="col" class="org-left">
-计算复杂度
-</th>
-<th scope="col" class="org-left">
-达到精度所需步数
-</th>
+<th scope="col" class="org-left">名称</th>
+<th scope="col" class="org-left">单步所需数据量</th>
+<th scope="col" class="org-left">计算复杂度</th>
+<th scope="col" class="org-left">达到精度所需步数</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td class="org-left">
-BGD
-</td>
-<td class="org-left">
-n
-</td>
-<td class="org-left">
-O(nd)
-</td>
-<td class="org-left">
-O(1/ε )
-</td>
+<td class="org-left">BGD</td>
+<td class="org-left">n</td>
+<td class="org-left">O(nd)</td>
+<td class="org-left">O(1/&epsilon; )</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-SGD
-</td>
-<td class="org-left">
-1
-</td>
-<td class="org-left">
-O(d)
-</td>
-<td class="org-left">
-O(1/ε<sup>2</sup>)
-</td>
+<td class="org-left">SGD</td>
+<td class="org-left">1</td>
+<td class="org-left">O(d)</td>
+<td class="org-left">O(1/&epsilon;<sup>2</sup>)</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-mini-batch GD
-</td>
-<td class="org-left">
-b
-</td>
-<td class="org-left">
-O(bd)
-</td>
-<td class="org-left">
-O(1/bε<sup>2</sup>)
-</td>
+<td class="org-left">mini-batch GD</td>
+<td class="org-left">b</td>
+<td class="org-left">O(bd)</td>
+<td class="org-left">O(1/b&epsilon;<sup>2</sup>)</td>
 </tr>
+
+
 <tr>
-<td class="org-left">
-Newton Iteration
-</td>
-<td class="org-left">
-n
-</td>
-<td class="org-left">
-O(nd<sup>2</sup> +d<sup>3</sup>)
-</td>
-<td class="org-left">
-O(loglog(1/ε ))
-</td>
+<td class="org-left">Newton Iteration</td>
+<td class="org-left">n</td>
+<td class="org-left">O(nd<sup>2</sup> +d<sup>3</sup>)</td>
+<td class="org-left">O(loglog(1/&epsilon; ))</td>
 </tr>
 </tbody>
 </table>
+
+
 <p><a id="org34d2534"></a></p>
-<h2 id="generalized-linear-models">Generalized Linear Models</h2>
-<p><a id="orge537744"></a></p>
-<h3 id="exponential-family">Exponential Family</h3>
-<p>我们引入指数族分布的概念,指数族分布的概率函数为如下的形式 <span
-class="math display">\[
-p(y;\eta)=b(y)\mathrm{exp}\{\eta^TT(y)-a(\eta)\}
-\]</span> 这里的 <span class="math inline">\(\eta\)</span>
-被称为自然参数或者典范参数, <span
-class="math inline">\(T(y)\)</span>则表示对于 <span
-class="math inline">\(y\)</span> 的充分统计量,他其实是对数据 <span
-class="math inline">\(y\)</span>
-的信息进一步加工.我们在此为了简化起见,可以认为考虑的充分统计量所携带的信息就是数据本身,也就是
-<span
-class="math inline">\(T(y)=y\)</span>.从这个角度我们可以知道,自然参数
-<span class="math inline">\(\eta\)</span> 的维度和数据 <span
-class="math inline">\(y\)</span>
-是一个同维度的向量.从概率密度函数中,我们发现 <span
-class="math inline">\(b(y)\)</span>的作用更多的是依据已有数据构造一个缩放因子,他与自然参数
-<span class="math inline">\(\eta\)</span>
-无关;我们可以看到自然参数和数据以线性模型的形式耦合在一起;<span
-class="math inline">\(a(\eta)\)</span>被称为对数划分函数(log partition
-function),他与我们的已知数据无关,但由于 <span
-class="math inline">\(a(\eta)\)</span>
-的作用是为了归一化概率密度函数,也就是 <span class="math display">\[
-\int p(y;\eta)dy=1\Rightarrow a(\eta)=\int b(y)e^{\eta^TT(y)}dy
-\]</span> 这里我们假设数据 <span class="math inline">\(y\)</span>
-在一个连续空间上取值,如果我们考虑离散情况也是可以的,在这不去赘述.从这个确定
-<span class="math inline">\(a(\eta)\)</span> 的方式,我们可以发现的是虽然
-<span class="math inline">\(a(\eta)\)</span> 与 <span
-class="math inline">\(y\)</span>
-无关,但实际上他集合了数据的所有信息.我们给出相应的证明, <span
-class="math display">\[
+<h2 id="Generalized-Linear-Models"><a href="#Generalized-Linear-Models" class="headerlink" title="Generalized Linear Models"></a>Generalized Linear Models</h2><p><a id="orge537744"></a></p>
+<h3 id="Exponential-Family"><a href="#Exponential-Family" class="headerlink" title="Exponential Family"></a>Exponential Family</h3><p>我们引入指数族分布的概念,指数族分布的概率函数为如下的形式</p>
+<script type="math/tex; mode=display">
+p(y;\eta)=b(y)\mathrm{exp}\{\eta^TT(y)-a(\eta)\}</script><p>这里的 $\eta$ 被称为自然参数或者典范参数, $T(y)$则表示对于 $y$ 的充分统计量,他其实是对数据 $y$ 的信息进一步加工.我们在此为了简化起见,可以认为考虑的充分统计量所携带的信息就是数据本身,也就是 $T(y)=y$.从这个角度我们可以知道,自然参数 $\eta$ 的维度和数据 $y$ 是一个同维度的向量.从概率密度函数中,我们发现 $b(y)$的作用更多的是依据已有数据构造一个缩放因子,他与自然参数 $\eta$ 无关;我们可以看到自然参数和数据以线性模型的形式耦合在一起;$a(\eta)$被称为对数划分函数(log partition function),他与我们的已知数据无关,但由于 $a(\eta)$ 的作用是为了归一化概率密度函数,也就是</p>
+<script type="math/tex; mode=display">
+\int p(y;\eta)dy=1\Rightarrow a(\eta)=\int b(y)e^{\eta^TT(y)}dy</script><p>这里我们假设数据 $y$ 在一个连续空间上取值,如果我们考虑离散情况也是可以的,在这不去赘述.从这个确定 $a(\eta)$ 的方式,我们可以发现的是虽然 $a(\eta)$ 与 $y$ 无关,但实际上他集合了数据的所有信息.我们给出相应的证明,</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\int p(y;\eta)dy=\int b(y)\mathrm{exp}\{\eta^TT(y)-a(\eta)\}dy=1\\
-&amp;\frac{d}{d\eta}\int p(y;\eta)dy=\int
-b(y)\mathrm{exp}\{\eta^TT(y)-a(\eta)\}(T(y)-a&#39;(\eta))dy=0\\
-&amp;\Rightarrow\int(T(y)-a&#39;(\eta))p(y;\eta)dy=0\Rightarrow
-a&#39;(\eta)=\mathbb{E}(T(y))\\
-&amp;\frac{d^2}{d\eta^2}\int
-p(y;\eta)dy=\frac{d}{d\eta}\int(T(y)-a&#39;(\eta))p(y;\eta)dy=0\\
-&amp;\Rightarrow\int-a&#39;&#39;(\eta)p(y;\eta)dy+\int
-p(y;\eta)(T(y)-a&#39;(\eta))^2dy=0\\
-&amp;\Rightarrow
-a&#39;&#39;(\eta)=\mathbb{E}((T-\mathbb{E}(T))^2)=Var(T)\geq0
-\end{aligned}
-\]</span> 这里我们可以得知 <span class="math inline">\(a(\eta)\)</span>
-是一个凸函数,他在后续的优化过程中十分重要.我们选择最优参数向量 <span
-class="math inline">\(\eta\)</span>,希望他能够使得概率密度函数最大化,但由于概率密度函数的形式复杂性,因此我们从最大化对数概率密度函数出发,给出如下分析,
-<span class="math display">\[
-f(\eta):=\ln p(y;\eta)=\ln b(y)+\eta^Ty-a(\eta)\Rightarrow
-f&#39;&#39;(\eta)=-a&#39;&#39;(\eta)\leq 0
-\]</span> 所以 <span class="math inline">\(f(\eta)\)</span>
-是一个凹函数,这表明我们在使用梯度上升法计算最优参数的时候不会因为陷入局部最优而导致模型效果极差,因为这个问题只有全局最优点,所以具有极高的训练稳定性.为了表示指数族分布的框架是一类比较广泛的概率分布,我们以伯努利分布为例,来展示其概率分布函数的指数族分布形式.我们假设一个时间发生与否对应的标签为0和1,其发生的概率为
-<span class="math inline">\(\phi\)</span>.那么伯努利分布的概率密度函数为
-<span class="math display">\[
-p(y;\phi)=\phi^y(1-\phi)^{1-y}
-\]</span> 我们推导其指数族分布形式 <span class="math display">\[
-p=\mathrm{exp}\{y\ln\phi+(1-y)\ln(1-\phi)\}=\mathrm{exp}\{y\ln
-\frac{\phi}{1-\phi}+\ln(1-\phi)\}
-\]</span> 这里我们记 <span class="math inline">\(\eta=\ln
-\frac{\phi}{1-\phi},\ T(y)=y,\ a(\eta)=\ln(1+e^{\eta})\)</span>.</p>
+&\int p(y;\eta)dy=\int b(y)\mathrm{exp}\{\eta^TT(y)-a(\eta)\}dy=1\\
+&\frac{d}{d\eta}\int p(y;\eta)dy=\int b(y)\mathrm{exp}\{\eta^TT(y)-a(\eta)\}(T(y)-a'(\eta))dy=0\\
+&\Rightarrow\int(T(y)-a'(\eta))p(y;\eta)dy=0\Rightarrow a'(\eta)=\mathbb{E}(T(y))\\
+&\frac{d^2}{d\eta^2}\int p(y;\eta)dy=\frac{d}{d\eta}\int(T(y)-a'(\eta))p(y;\eta)dy=0\\
+&\Rightarrow\int-a''(\eta)p(y;\eta)dy+\int p(y;\eta)(T(y)-a'(\eta))^2dy=0\\
+&\Rightarrow a''(\eta)=\mathbb{E}((T-\mathbb{E}(T))^2)=Var(T)\geq0
+\end{aligned}</script><p>这里我们可以得知 $a(\eta)$ 是一个凸函数,他在后续的优化过程中十分重要.我们选择最优参数向量 $\eta$,希望他能够使得概率密度函数最大化,但由于概率密度函数的形式复杂性,因此我们从最大化对数概率密度函数出发,给出如下分析,</p>
+<script type="math/tex; mode=display">
+f(\eta):=\ln p(y;\eta)=\ln b(y)+\eta^Ty-a(\eta)\Rightarrow f''(\eta)=-a''(\eta)\leq 0</script><p>所以 $f(\eta)$ 是一个凹函数,这表明我们在使用梯度上升法计算最优参数的时候不会因为陷入局部最优而导致模型效果极差,因为这个问题只有全局最优点,所以具有极高的训练稳定性.为了表示指数族分布的框架是一类比较广泛的概率分布,我们以伯努利分布为例,来展示其概率分布函数的指数族分布形式.我们假设一个时间发生与否对应的标签为0和1,其发生的概率为 $\phi$.那么伯努利分布的概率密度函数为</p>
+<script type="math/tex; mode=display">
+p(y;\phi)=\phi^y(1-\phi)^{1-y}</script><p>我们推导其指数族分布形式</p>
+<script type="math/tex; mode=display">
+p=\mathrm{exp}\{y\ln\phi+(1-y)\ln(1-\phi)\}=\mathrm{exp}\{y\ln \frac{\phi}{1-\phi}+\ln(1-\phi)\}</script><p>这里我们记 $\eta=\ln \frac{\phi}{1-\phi},\ T(y)=y,\ a(\eta)=\ln(1+e^{\eta})$.</p>
 <p><a id="org8a5bf98"></a></p>
-<h3 id="generalized-linear-model">Generalized Linear Model</h3>
-<p>上面我们介绍的主要是指数族分布的概念,在此我们基于指数族分布的基础上引入线性模型,从而得到广义线性模型的概念.我们先给出三个基础假设,</p>
-<ol type="1">
-<li><span class="math inline">\(y|x;\theta\sim
-ExponentialFamily(\eta)\)</span>.他表示当我们给定 <span
-class="math inline">\(x\)</span> 和 <span
-class="math inline">\(\theta\)</span> 后,那么 <span
-class="math inline">\(y\)</span> 的分布就会变成参数为 <span
-class="math inline">\(\eta\)</span> 的指数族分布.</li>
-<li>在给定 <span class="math inline">\(x\)</span>
-后,我们的目标是预测充分统计量在已知 <span
-class="math inline">\(x\)</span>
-的情况下的精确值.只是一般来说我们考虑的充分统计量都是 <span
-class="math inline">\(T(y)=y\)</span>,那么我们的回归模型的输出就变成了学得一个映射函数,其满足
-<span class="math inline">\(h(x)=\mathbb{E}(y|x)\)</span></li>
-<li>自然参数可以由输入线性得出,即 <span
-class="math inline">\(\eta=\theta^Tx\)</span></li>
+<h3 id="Generalized-Linear-Model"><a href="#Generalized-Linear-Model" class="headerlink" title="Generalized Linear Model"></a>Generalized Linear Model</h3><p>上面我们介绍的主要是指数族分布的概念,在此我们基于指数族分布的基础上引入线性模型,从而得到广义线性模型的概念.我们先给出三个基础假设,</p>
+<ol>
+<li>$y|x;\theta\sim ExponentialFamily(\eta)$.他表示当我们给定 $x$ 和 $\theta$ 后,那么 $y$ 的分布就会变成参数为 $\eta$ 的指数族分布.</li>
+<li>在给定 $x$ 后,我们的目标是预测充分统计量在已知 $x$ 的情况下的精确值.只是一般来说我们考虑的充分统计量都是 $T(y)=y$,那么我们的回归模型的输出就变成了学得一个映射函数,其满足 $h(x)=\mathbb{E}(y|x)$</li>
+<li>自然参数可以由输入线性得出,即 $\eta=\theta^Tx$</li>
 </ol>
-<p>这三个假设并不是一定成立的,更多是我们为了设计广义线性模型所强制需要的.其实我们前面讲的大部分线性模型都是这个广义线性模型的一个特例.例如我们前面提到过的线性回归模型,我们可以认为他在输入和参数固定的情况下服从一个高斯分布,而高斯分布是指数族分布的一个特殊情况,所以假设1成立.我们假设2和3成立的情况下,那么有对应的回归模型的输出应该有如下形式,
-<span class="math display">\[
-h_{\theta}(x)=\mathbb{E}(y|x;\theta)=\mu=\eta=\theta^Tx
-\]</span>
-这就是我们线性回归模型的输出函数形式.同理,我们可以考虑Logistic回归的问题,他在输入和参数固定的时候就是一个伯努利分布,前面我们已经推导了伯努利分布是指数族分布的特殊情况,同样假设2和3成立的情况下,我们有
-<span class="math display">\[
-h_{\theta}(x)=\mathbb{E}(y|x;\theta)=\phi=\frac{1}{1+e^{-\eta}}=\frac{1}{1+e^{-\theta^Tx}}
-\]</span>
-在这里我们复原了sigmoid函数的形式,这也就是为什么我们需要用sigmoid函数作为压缩函数的一个原因,他能够和广义线性模型相联系.</p>
+<p>这三个假设并不是一定成立的,更多是我们为了设计广义线性模型所强制需要的.其实我们前面讲的大部分线性模型都是这个广义线性模型的一个特例.例如我们前面提到过的线性回归模型,我们可以认为他在输入和参数固定的情况下服从一个高斯分布,而高斯分布是指数族分布的一个特殊情况,所以假设1成立.我们假设2和3成立的情况下,那么有对应的回归模型的输出应该有如下形式,</p>
+<script type="math/tex; mode=display">
+h_{\theta}(x)=\mathbb{E}(y|x;\theta)=\mu=\eta=\theta^Tx</script><p>这就是我们线性回归模型的输出函数形式.同理,我们可以考虑Logistic回归的问题,他在输入和参数固定的时候就是一个伯努利分布,前面我们已经推导了伯努利分布是指数族分布的特殊情况,同样假设2和3成立的情况下,我们有</p>
+<script type="math/tex; mode=display">
+h_{\theta}(x)=\mathbb{E}(y|x;\theta)=\phi=\frac{1}{1+e^{-\eta}}=\frac{1}{1+e^{-\theta^Tx}}</script><p>在这里我们复原了sigmoid函数的形式,这也就是为什么我们需要用sigmoid函数作为压缩函数的一个原因,他能够和广义线性模型相联系.上面我们发现了提到的模型在梯度下降或梯度上升的时候都会出现 $\theta^{n+1}=\theta^n-\alpha(y-h_{\theta}(x))x$,这里我们用GLM的角度来解释这种情况的发生.我们以单个样本的对数似然函数为例,由于前面我们提过最小化平方损失函数等价于最大化对数似然函数,所以这种考虑是合理的.</p>
+<script type="math/tex; mode=display">
+l(\theta)=\ln p(y|x;\theta)=\theta^Txy-a(\theta^Tx)+\ln b(y)</script><p>现在我们需要求这个对数似然函数对某个具体参数 $\theta_j$ 的偏导数,</p>
+<script type="math/tex; mode=display">
+\frac{\partial l}{\partial\theta_j}=yx_j-a'(\eta)x_j=yx_j-\mathbb{E}(y|x;\theta)x_j=(y-h_{\theta}(x))x_j</script><p>这里我们利用了我们前面证明的 $a(\eta)$ 的一阶导数等于充分统计量的期望和假设2中的模型输出是充分统计量的期望.将其代入参数更新公式,我们就可以得到我们前面常见的更新公式,所以这也解释了为什么我们前面的更新公式如此类似,因为本质上都是GLM的特例.</p>
 <p><a id="org7d081a5"></a></p>
-<h3 id="softmax-regression">Softmax regression</h3>
-<p>在广义线性模型的帮助下,我们其实可以将二分类模型推广到多分类模型.假设现在有个分类问题,他的分类标签有
-<span class="math inline">\(k\)</span> 个,也就是 <span
-class="math inline">\(y\in\{1,2,\dots,k\}\)</span>.
-为了导出概率模型的密度函数,我们引入每个事件发生的概率 <span
-class="math inline">\(\phi_i,(i=1,2,\dots,k)\)</span>.需要注意的是,虽然我们引入了
-<span class="math inline">\(k\)</span>
-个概率,但是我们在实际分析的时候将只会使用 <span
-class="math inline">\(k-1\)</span> 个,因为如果已知前 <span
-class="math inline">\(k-1\)</span> 个概率,那么最后一个是显然的,<span
-class="math inline">\(\phi_k=1-\sum_{i=1}^{k-1}\phi_i\)</span>.其次,不同于我们在二项分布中只是简单使用标签的0,1就可以做到概率的一个分类,对于多分类模型中,我们需要引入独热编码(One-hot
-code)的概念,当 <span class="math inline">\(y=i\)</span> 时,充分统计量,
-或者编码结果 <span class="math inline">\(T(y)\)</span>的形式为除了第
-<span class="math inline">\(i\)</span> 个位置为 <span
-class="math inline">\(1\)</span>,其余为0的列向量.我们需要说明的是独热编码一般是用来处理无序分类的,因为如果是无序分类,我们仍然采用序列编码就会为他引入序关系,可能会破坏已有数据关系,而独热编码的优点在于任意两个编码的距离是相等的,但他的缺点在于我们将一个变量升维成了一个向量,可能会带来维度灾难的问题.</p>
-<p>在引入后面的概率密度函数之前,我们需要引入一个指示函数用来表示我们考虑的标签是否在相应类别中.我们引入指示函数
-<span
-class="math inline">\(\mathit{I}(A)\)</span>,其表示当事件A为真的时候,他会返回1,反之则会返回0.所以我们可以将上面的充分统计量写成一个更数学化的形式,也就是
-<span
-class="math inline">\((T(y))_i=\mathit{I}(y=i)\)</span>.不仅如此,指示函数的期望等于该指示事件发生的概率,所以我们有
-<span class="math inline">\(E[(T(y))_i]=P(y=i)=\phi_i\)</span>.
-我们简要的证明一下, <span class="math display">\[
-E[(T(y))_i]=E[\mathit{I}(y=i)]=1\cdot P(y=i)+0\cdot P(y\not=i)=\phi_i
-\]</span> 所以我们可以得到如下的概率密度函数为 <span
-class="math display">\[
+<h3 id="Softmax-regression"><a href="#Softmax-regression" class="headerlink" title="Softmax regression"></a>Softmax regression</h3><p>在广义线性模型的帮助下,我们其实可以将二分类模型推广到多分类模型.假设现在有个分类问题,他的分类标签有 $k$ 个,也就是 $y\in{1,2,\dots,k}$. 为了导出概率模型的密度函数,我们引入每个事件发生的概率 $\phi<em>i,(i=1,2,\dots,k)$.需要注意的是,虽然我们引入了 $k$ 个概率,但是我们在实际分析的时候将只会使用 $k-1$ 个,因为如果已知前 $k-1$ 个概率,那么最后一个是显然的,$\phi_k=1-\sum</em>{i=1}^{k-1}\phi_i$.其次,不同于我们在二项分布中只是简单使用标签的0,1就可以做到概率的一个分类,对于多分类模型中,我们需要引入独热编码(One-hot code)的概念,当 $y=i$ 时,充分统计量, 或者编码结果 $T(y)$的形式为除了第 $i$ 个位置为 $1$,其余为0的列向量.我们需要说明的是独热编码一般是用来处理无序分类的,因为如果是无序分类,我们仍然采用序列编码就会为他引入序关系,可能会破坏已有数据关系,而独热编码的优点在于任意两个编码的距离是相等的,但他的缺点在于我们将一个变量升维成了一个向量,可能会带来维度灾难的问题.</p>
+<p>在引入后面的概率密度函数之前,我们需要引入一个指示函数用来表示我们考虑的标签是否在相应类别中.我们引入指示函数 $\mathit{I}(A)$,其表示当事件A为真的时候,他会返回1,反之则会返回0.所以我们可以将上面的充分统计量写成一个更数学化的形式,也就是 $(T(y))_i=\mathit{I}(y=i)$.不仅如此,指示函数的期望等于该指示事件发生的概率,所以我们有 $E[(T(y))_i]=P(y=i)=\phi_i$. 我们简要的证明一下,</p>
+<script type="math/tex; mode=display">
+E[(T(y))_i]=E[\mathit{I}(y=i)]=1\cdot P(y=i)+0\cdot P(y\not=i)=\phi_i</script><p>所以我们可以得到如下的概率密度函数为</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-p&amp;=\prod_{i=1}^k\phi_i^{\mathit{I}(y=i)}=\prod_{i=1}^{k-1}\phi_i^{\mathit{I}(y=i)}\phi_k^{1-\sum_{j=1}^{k-1}\mathit{I}(y=j)}\\
-&amp;=\exp\left(\sum_{i=1}^{k-1}(T(y))_i\ln
-\phi_i+\left(1-\sum_{j=1}^{k-1}(T(y))_j\right)\ln\phi_k\right)\\
-&amp;=\exp\left(\sum_{i=1}^{k-1}(T(y))_i\ln(\phi_i/\phi_k)+\ln\phi_k\right)
-\end{aligned}
-\]</span> 所以这里我们可以得到指数族分布的一些参数, <span
-class="math display">\[
-\eta=\begin{pmatrix}\ln(\phi_1/\phi_k)\\\ln(\phi_2/\phi_k)\\\vdots\\\ln(\phi_{k-1}/\phi_k)\end{pmatrix},\
-a(\eta)=-\ln(\phi_k)
-\]</span> 从上面向量 <span class="math inline">\(\eta\)</span>
-的结构,我们可以得到如下的推导 <span class="math display">\[
-\eta_i=\ln(\phi_i/\phi_k)\Rightarrow\phi_k
-e^{\eta_i}=\phi_i\Rightarrow\phi_i=\frac{e^{\eta_i}}{\sum_{i=1}^ke^{\eta_i}}
-\]</span>
-我们发现从自然参数映射到事件概率的函数其实就是Softmax函数,我们之前引入的Sigmoid函数就是他的一个特例.最后我们引入GLM的一些假设,也就是
-<span class="math inline">\(\eta_i=\theta_i^Tx\)</span>,这里的 <span
-class="math inline">\(\theta_i\in \mathbb{R}^{d+1}\)</span>,<span
-class="math inline">\(i=1,2,\dots,k-1\)</span>,为了符号简便,我们假设
-<span
-class="math inline">\(\theta_k=0\)</span>.那么根据前面事件概率的公式,我们有
-<span class="math display">\[
-\phi_i=\frac{e^{\eta_i}}{\sum_{i=1}^ke^{\eta_i}}=\frac{e^{\theta_i^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}}
-\]</span> 根据前面GLM的输出,我们有如下假设 <span class="math display">\[
-h_{\theta}(x)=\mathbb{E}(y|x;\theta)=\begin{pmatrix}\phi_1,\phi_2,\dots,\phi_{k-1}\end{pmatrix}^T=\begin{pmatrix}\frac{e^{\theta_1^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}},\frac{e^{\theta_2^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}},\dots,\frac{e^{\theta_{k-1}^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}}\end{pmatrix}^T
-\]</span> 同样对于如何确定这些参数 <span
-class="math inline">\(\theta\)</span>,其实就是最大化我们已知数据的概率,而后无非使用梯度上升或者牛顿方法,不在此赘述了.</p>
+p&=\prod_{i=1}^k\phi_i^{\mathit{I}(y=i)}=\prod_{i=1}^{k-1}\phi_i^{\mathit{I}(y=i)}\phi_k^{1-\sum_{j=1}^{k-1}\mathit{I}(y=j)}\\
+&=\exp\left(\sum_{i=1}^{k-1}(T(y))_i\ln \phi_i+\left(1-\sum_{j=1}^{k-1}(T(y))_j\right)\ln\phi_k\right)\\
+&=\exp\left(\sum_{i=1}^{k-1}(T(y))_i\ln(\phi_i/\phi_k)+\ln\phi_k\right)
+\end{aligned}</script><p>所以这里我们可以得到指数族分布的一些参数,</p>
+<script type="math/tex; mode=display">
+\eta=\begin{pmatrix}\ln(\phi_1/\phi_k)\\\ln(\phi_2/\phi_k)\\\vdots\\\ln(\phi_{k-1}/\phi_k)\end{pmatrix},\ a(\eta)=-\ln(\phi_k)</script><p>从上面向量 $\eta$ 的结构,我们可以得到如下的推导</p>
+<script type="math/tex; mode=display">
+\eta_i=\ln(\phi_i/\phi_k)\Rightarrow\phi_k e^{\eta_i}=\phi_i\Rightarrow\phi_i=\frac{e^{\eta_i}}{\sum_{i=1}^ke^{\eta_i}}</script><p>我们发现从自然参数映射到事件概率的函数其实就是Softmax函数,我们之前引入的Sigmoid函数就是他的一个特例.最后我们引入GLM的一些假设,也就是 $\eta_i=\theta_i^Tx$,这里的 $\theta_i\in \mathbb{R}^{d+1}$,$i=1,2,\dots,k-1$,为了符号简便,我们假设 $\theta_k=0$.那么根据前面事件概率的公式,我们有</p>
+<script type="math/tex; mode=display">
+\phi_i=\frac{e^{\eta_i}}{\sum_{i=1}^ke^{\eta_i}}=\frac{e^{\theta_i^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}}</script><p>根据前面GLM的输出,我们有如下假设</p>
+<script type="math/tex; mode=display">
+h_{\theta}(x)=\mathbb{E}(y|x;\theta)=\begin{pmatrix}\phi_1,\phi_2,\dots,\phi_{k-1}\end{pmatrix}^T=\begin{pmatrix}\frac{e^{\theta_1^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}},\frac{e^{\theta_2^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}},\dots,\frac{e^{\theta_{k-1}^Tx}}{\sum_{i=1}^ke^{\theta_i^Tx}}\end{pmatrix}^T</script><p>同样对于如何确定这些参数 $\theta$,其实就是最大化我们已知数据的概率,而后无非使用梯度上升或者牛顿方法,不在此赘述了.</p>
 ]]></content>
       <categories>
         <category>CS229</category>
