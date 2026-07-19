@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260609/2026-06-05_22-30-10_screenshot.3rbvrvkys2.png">
 <meta property="og:image" content="https://github.com/LYD122504/picx-images-hosting/raw/master/20260609/2026-06-06_22-04-48_screenshot.7w7h3zhtvl.png">
 <meta property="article:published_time" content="2026-06-09T12:40:52.000Z">
-<meta property="article:modified_time" content="2026-06-16T15:23:31.456Z">
+<meta property="article:modified_time" content="2026-07-13T15:05:23.383Z">
 <meta property="article:author" content="Li Yaoda">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-16 23:23:31" itemprop="dateModified" datetime="2026-06-16T23:23:31+08:00">2026-06-16</time>
+                <time title="修改时间：2026-07-13 23:05:23" itemprop="dateModified" datetime="2026-07-13T23:05:23+08:00">2026-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,7 +281,7 @@ class="math inline">\(\theta\in \mathbb{R}^{n+1}\)</span>
 是一个参数向量,如果我们得到了他的数值,那么我们就可以唯一确定了一个线性模型,因此我们的学习目标就在于确定一个最优的参数向量,使得我们的模型在训练集上的学习效果尽可能的好.而这里所谓的效果尽可能的好,我们需要通过前文提到的平方损失函数来衡量,其形式如下,
 <span class="math display">\[
 J(\theta)=\frac{1}{2}\sum_{i=1}^M \left(
-h_{\theta}(x^{(i)}-y^{(i)}\right)^2
+h_{\theta}(x^{(i)})-y^{(i)}\right)^2
 \]</span> 所以我们希望选择能够选择合适的 <span
 class="math inline">\(\theta\)</span> 来使得 <span
 class="math inline">\(J(\theta)\)</span>
@@ -360,7 +360,7 @@ i\not=j\)</span>.</li>
 class="math inline">\(0\)</span>,方差为 <span
 class="math inline">\(\sigma^2\)</span>
 的正态分布,从概率密度函数的角度来看, <span class="math display">\[
-p(\epsilon,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(
+p(\epsilon,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(-
 \frac{\epsilon^2}{2\sigma^2}\right)
 \]</span> 这里的 <span class="math inline">\(\epsilon\)</span>
 是我们上面提到误差,我们可以得到他的具体表达式为 <span
@@ -368,14 +368,14 @@ class="math inline">\(\epsilon^{(i)}=y^{(i)}-\theta^Tx^{(i)}\)</span>,代入上�
 <span class="math inline">\(y^{(i)}\)</span> 的概率密度函数, <span
 class="math display">\[
 p(y^{(i)}|x^{(i)},\theta,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(
-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
+-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
 \]</span> 这表示如果我们给定了参数 <span
 class="math inline">\(\theta\)</span>,那么我们就确定了关于 <span
 class="math inline">\(y^{(i)}\)</span>
 的概率分布,我们为了使得得到的概率分布更符合数据,就需要最大化这个概率密度函数,也就是最大似然估计,我们给出如下的似然函数,
 <span class="math display">\[
 L(\theta)=p(y|x;\theta)=\prod_{i=1}^Mp(y^{(i)}|x^{(i)},\theta,\sigma^2)=\prod_{i=1}^M\frac{1}{\sqrt{2\pi}\sigma}\mathrm{exp}\left(
-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
+-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}\right)
 \]</span>
 由于样本之间的独立性,所以我们可以将样本集的联合概率分布表示为单个样本的概率分布的乘积.我们希望最大化这个似然函数,但是似然函数的形式以连乘的形式出现,比较复杂,所以我们引入了对数似然函数,他可以将连乘转换为连加的形式,从而简化计算,我们给出如下的对数似然函数,
 <span class="math display">\[
@@ -586,7 +586,7 @@ class="math inline">\(a(\eta)\)</span>被称为对数划分函数(log partition
 function),他与我们的已知数据无关,但由于 <span
 class="math inline">\(a(\eta)\)</span>
 的作用是为了归一化概率密度函数,也就是 <span class="math display">\[
-\int p(y;\eta)dy=1\Rightarrow a(\eta)=\int b(y)e^{\eta^TT(y)}dy
+\int p(y;\eta)dy=1\Rightarrow a(\eta)=\ln\int b(y)e^{\eta^TT(y)}dy
 \]</span> 这里我们假设数据 <span class="math inline">\(y\)</span>
 在一个连续空间上取值,如果我们考虑离散情况也是可以的,在这不去赘述.从这个确定
 <span class="math inline">\(a(\eta)\)</span> 的方式,我们可以发现的是虽然
