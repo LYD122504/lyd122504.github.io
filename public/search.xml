@@ -6800,4 +6800,465 @@ class="math inline">\(\theta\)</span>,其实就是最大化我们已知数据的
         <tag>Machine Learning</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Machine Learning-生成式模型(CS229)</title>
+    <url>/2026/08/08/ML-GDA-CS229/</url>
+    <content><![CDATA[<h2 id="generative-learning-algorithms">Generative Learning
+Algorithms</h2>
+<p>前面提到的分类方法都是判别式学习方法,他通过建模 <span
+class="math inline">\(p(y|x)\)</span>
+来寻找决策边界,从而实现分类的目的.而生成式学习方法则是通过建模联合分布
+<span class="math inline">\(p(x,y)=p(x|y)p(y)\)</span>
+来获得对于数据的理解,其中 <span class="math inline">\(p(y)\)</span>
+表示对于类别的先验概率.并且当我们得到了联合分布之后,我们可以通过贝叶斯公式得到分类判别所需要的概率公式如下,</p>
+<p><span class="math display">\[
+p(y|x)=\frac{p(x|y)p(y)}{p(x)}=\frac{p(x|y)p(y)}{\sum_{i=1}^kp(x|y=i)p(y=i)}
+\]</span></p>
+<p>我们以高斯判别分析和朴素贝叶斯为例,来说明生成式学习方法的基本思想.</p>
+<p><a id="org00438e7"></a></p>
+<span id="more"></span>
+<h3 id="gaussian-discriminant-analysis">Gaussian Discriminant
+Analysis</h3>
+<p>高斯判别分析(GDA)是一个典型的生成式分类模型,他的目标是为了将数据分类到不同的类别中.其给出的一个重要假设是,在给定类别的情况下,样本特征服从正态分布.我们给出更为数学化的形式.首先我们假设样本特征为
+<span class="math inline">\(x\in \mathbb{R}^d\)</span>,
+这里我们不考虑偏置项,因此在样本特征中不需要包含虚特征 <span
+class="math inline">\(x_0=1\)</span>.并且我们假设给定类别 <span
+class="math inline">\(y\)</span> 的情况下,样本特征服从正态分布,也就是
+<span class="math inline">\(p(x|y)\sim
+\mathcal{N}(\mu,\Sigma)\)</span>.从这里我们需要注意的是,我们的这种假设其实暗含了样本特征是连续的,样本类别是离散的;对于样本特征离散的情况,我们将在后续的朴素贝叶斯中进行讨论.</p>
+<p>我们简要介绍一下多元正态分布的形式.如果随机变量 <span
+class="math inline">\(z\)</span> 满足 <span class="math inline">\(z\sim
+\mathcal{N}(\mu,\Sigma)\)</span>,其中均值 <span
+class="math inline">\(\mu\in \mathbb{R}^d\)</span>,协方差矩阵 <span
+class="math inline">\(\Sigma\in \mathbb{R}^{d\times d}\)</span>
+是一个对称正定矩阵.从概率密度函数的角度来看,我们有如下的形式,</p>
+<p><span class="math display">\[
+p(z;\mu,\Sigma)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{\frac{1}{2}}}\mathrm{exp}\left(
+-\frac{1}{2}(z-\mu)^T\Sigma^{-1}(z-\mu)\right)
+\]</span></p>
+<p>所以说,如果我们确定了 <span class="math inline">\(\mu\)</span> 和
+<span
+class="math inline">\(\Sigma\)</span>,就可以唯一确定一个多元正态分布.对于多元正态分布的矩性质,我们有如下的结论,如果
+<span class="math inline">\(z\sim N(\mu,\Sigma)\)</span>,那么 <span
+class="math inline">\(E(z)=\mu\)</span>, <span
+class="math inline">\(Cov(z)=E((z-E(z))(z-E(z))^T)=\Sigma\)</span>.协方差矩阵可以用来捕捉两个坐标之间的相关性.
+为了简便起见,我们假设样本类别为二分类问题,也就是 <span
+class="math inline">\(y\in\{0,1\}\)</span>.我们给出高斯判别分析的假设,</p>
+<ol type="1">
+<li>样本类别服从伯努利分布,也就是 <span
+class="math inline">\(p(y=1)=\phi,\ p(y=0)=1-\phi\)</span></li>
+<li>给定类别 <span class="math inline">\(y=0\)</span>
+的情况下,样本特征服从正态分布 <span class="math inline">\(p(x|y=0)\sim
+\mathcal{N}(\mu_0,\Sigma)\)</span></li>
+<li>给定类别 <span class="math inline">\(y=1\)</span>
+的情况下,样本特征服从正态分布 <span class="math inline">\(p(x|y=1)\sim
+\mathcal{N}(\mu_1,\Sigma)\)</span></li>
+</ol>
+<p>这里我们假设两个类别的样本特征服从正态分布的同时,还要求他们的协方差矩阵相同,这其实只是为了简化模型的复杂度,事实上我们可以不需要这个假设,后续我们会提到各种推广情况,其中会包含协方差矩阵不相同的情况.和之前的模型一样,我们希望通过最大化似然函数来求解参数
+<span
+class="math inline">\(\phi,\mu_0,\mu_1,\Sigma\)</span>,他的含义其实是最大化观测到给定样本的概率.我们给出似然函数的形式,</p>
+<p><span class="math display">\[
+L(\phi,\mu_0,\mu_1,\Sigma)=\prod_{i=1}^np(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\Sigma)=\prod_{i=1}^np(x^{(i)}|y^{(i)};\mu_0,\mu_1,\Sigma)p(y^{(i)};\phi)
+\]</span></p>
+<p>所以我们希望最大化这个似然函数,虽然从流程上来看我们和前面的是一样的,但是这里生成式模型最大化的是由联合分布密度函数组成的似然函数,而判别式模型最大化的则是由条件概率分布组成的似然函数.这是因为生成式模型施加了对于
+<span class="math inline">\(p(x|y)\)</span> 和 <span
+class="math inline">\(p(y)\)</span>
+的假设,因此我们直接建模了联合分布,而判别式模型只对条件分布做了一个假设,所以我们只能建模条件分布.同样我们可以将最大化似然函数的目标等价转换为最大化对数似然函数的目标,我们给出如下的形式,:</p>
+<p><span class="math display">\[
+\mathrm{argmax}_{\phi,\mu_0,\mu_1,\Sigma}l(\phi,\mu_0,\mu_1,\Sigma)=\mathrm{argmax}_{\phi,\mu_0,\mu_1,\Sigma}\sum_{i=1}^n\ln
+p(x^{(i)}|y^{(i)};\mu_0,\mu_1,\Sigma)+\sum_{i=1}^n\ln p(y^{(i)};\phi)
+\]</span></p>
+<p>我们给出如下的具体概率密度函数形式:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;p(x^{(i)}|y^{(i)};\mu_0,\Sigma)=\frac{1}{(2\pi)^{d/2}|\Sigma|^{\frac{1}{2}}}\mathrm{exp}\left(
+-\frac{1}{2}(x^{(i)}-\mu_{y^{(i)}})^T\Sigma^{-1}(x^{(i)}-\mu_{y^{(i)}})\right)\\
+&amp;p(y^{(i)})=\phi^{y^{(i)}}(1-\phi)^{1-y^{(i)}}
+\end{aligned}
+\]</span></p>
+<p>代入具体的概率密度函数,我们可以得到具体的对数似然函数形式如下,</p>
+<p><span class="math display">\[
+l(\phi,\mu_0,\mu_1,\Sigma)=-\frac{nd}{2}\ln(2\pi)-\frac{n}{2}\ln|\Sigma|-\frac{1}{2}\sum_{i=1}^n(x^{(i)}-\mu_{y^{(i)}})^T\Sigma^{-1}(x^{(i)}-\mu_{y^{(i)}})+\sum_{i=1}^ny^{(i)}\ln\phi+\sum_{i=1}^n(1-y^{(i)})\ln(1-\phi)
+\]</span></p>
+<p>我们分别对参数求导,并令其为0,我们可以得到如下的参数公式:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\frac{\partial l}{\partial
+\phi}=\sum_{i=1}^n\frac{y^{(i)}}{\phi}-\frac{1-y^{(i)}}{1-\phi}=0\Rightarrow
+\phi=\frac{1}{n}\sum_{i=1}^ny^{(i)}=\frac{1}{n}\sum_{i=1}^n\mathit{I}(y^{(i)}=1)\\
+&amp;l|_{\mu_0}=-\frac{1}{2}\sum_{i=1}^{n}\mathit{I}(y^{(i)}=0)(x^{(i)}-\mu_0)^T\Sigma^{-1}(x^{(i)}-\mu_0)
+\\
+&amp;\frac{\partial l}{\partial
+\mu_0}=-\frac{1}{2}\sum_{i=1}^n\mathit{I}(y^{(i)}=0)(-2\Sigma^{-1}(x^{(i)}-\mu_0))=0\Rightarrow
+\mu_0=\frac{\sum_{i=1}^n\mathit{I}(y^{(i)}=0)x^{(i)}}{\sum_{i=1}^n\mathit{I}(y^{(i)}=0)}\\
+&amp;\mu_1=\frac{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)x^{(i)}}{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)}
+\end{aligned}
+\]</span></p>
+<p>对于协方差矩阵,我们分析对数似然对 <span
+class="math inline">\(\Lambda=\Sigma^{-1}\)</span> 的导数,其存在如下关系
+<span class="math inline">\(|\Sigma|=|\Lambda|^{-1}\)</span>,因此 <span
+class="math inline">\(\ln|\Sigma|=-\ln|\Lambda|\)</span>.对数似然关于
+<span class="math inline">\(\Lambda\)</span> 的部分为</p>
+<p><span class="math display">\[
+l|_{\Lambda}=\frac{n}{2}\ln|\Lambda|-\frac{1}{2}\sum_{i=1}^n(x^{(i)}-\mu_{y^{(i)}})^T\Lambda(x^{(i)}-\mu_{y^{(i)}})
+\]</span></p>
+<p>从迹的角度来看,我们有如下关系, <span
+class="math inline">\(\mathrm{tr}(AB)=\mathrm{tr}(BA)\)</span>,所以我们简要证明一下,</p>
+<p><span class="math display">\[
+\mathrm{tr}(XY)=\sum_{i=1}^n\sum_{j=1}^nX_{ij}Y_{ji}=\sum_{j=1}^n\sum_{i=1}^nY_{ji}X_{ij}=\mathrm{tr}(YX)
+\]</span></p>
+<p>所以可以基于迹的性质,我们可以将对数似然可以进一步修改得,</p>
+<p><span class="math display">\[
+\begin{aligned}
+l|_{\Lambda}&amp;=\frac{n}{2}\ln|\Lambda|-\frac{1}{2}\sum_{i=1}^n\mathrm{tr}((x^{(i)}-\mu_{y^{(i)}})^T\Lambda(x^{(i)}-\mu_{y^{(i)}}))\\
+&amp;=\frac{n}{2}\ln|\Lambda|-\frac{1}{2}\sum_{i=1}^n\mathrm{tr}(\Lambda(x^{(i)}-\mu_{y^{(i)}})(x^{(i)}-\mu_{y^{(i)}})^T)
+\end{aligned}
+\]</span></p>
+<p>我们采用矩阵导数的形式,其具有如下结论, <span
+class="math inline">\(\frac{\mathrm{d}}{\mathrm{d}\Lambda}\ln|\Lambda|=\Lambda^{-T}=\Lambda^{-1}=\Sigma\)</span>,
+<span
+class="math inline">\(\frac{\mathrm{d}}{\mathrm{d}\Lambda}\mathrm{tr}(\Lambda
+A)=A^T\)</span>;基于此我们可以得到对数似然函数关于 <span
+class="math inline">\(\Lambda\)</span> 的导数为</p>
+<p><span class="math display">\[
+\frac{\mathrm{d}}{\mathrm{d}\Lambda}l|_{\Lambda}=\frac{n}{2}\Sigma-\frac{1}{2}\sum_{i=1}^n(x^{(i)}-\mu_{y^{(i)}})(x^{(i)}-\mu_{y^{(i)}})^T=0\Rightarrow
+\Sigma=\frac{1}{n}\sum_{i=1}^n(x^{(i)}-\mu_{y^{(i)}})(x^{(i)}-\mu_{y^{(i)}})^T
+\]</span></p>
+<p>所以我们其实已经得到了高斯判别分析的参数的精确解,从而可以得到高斯判别分析的多元正态分布模型.基于此,我们用高斯判别分析的模型进行样本分类,也就是我们需要计算给定样本特征
+<span class="math inline">\(x\)</span>
+的情况下,样本属于某个类别的概率.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;p(y=1|x)=\frac{p(x|y=1)p(y=1)}{p(x)}=\frac{p(x|y=1)p(y=1)}{p(x|y=0)p(y=0)+p(x|y=1)p(y=1)}=\frac{1}{1+\frac{p(x|y=0)p(y=0)}{p(x|y=1)p(y=1)}}\\
+&amp;\frac{p(x|y=0)p(y=0)}{p(x|y=1)p(y=1)}=\exp\left(\ln\frac{p(x|y=0)p(y=0)}{p(x|y=1)p(y=1)}\right)=\exp\left(-\ln\frac{p(x|y=1)p(y=1)}{p(x|y=0)p(y=0)}\right)=\exp(-z)\\
+&amp;z=\ln\frac{p(x|y=1)}{p(x|y=0)}+\ln\frac{p(y=1)}{p(y=0)}=-\frac{1}{2}(x-\mu_1)^T\Sigma^{-1}(x-\mu_1)+\frac{1}{2}(x-\mu_0)^T\Sigma^{-1}(x-\mu_0)+\ln\frac{\phi}{1-\phi}\\
+&amp;\quad=(\mu_1-\mu_0)^T\Sigma^{-1}x-\frac{1}{2}\mu_1^T\Sigma^{-1}\mu_1+\frac{1}{2}\mu_0^T\Sigma^{-1}\mu_0+\ln\frac{\phi}{1-\phi}:=\theta^Tx+\theta_0\\
+&amp;p(y=1|x)=\frac{1}{1+\exp(-\theta^Tx-\theta_0)}
+\end{aligned}
+\]</span></p>
+<p>所以我们可以发现高斯判别分析的分类器形式上和前面提到的逻辑回归得到的线性判别器是一样的.所以我们先考虑一下他的决策边界
+<span
+class="math inline">\(p(y=1|x)=p(x=0|x)=1/2\)</span>,从这里代入我们前面给出的后验概率公式:</p>
+<p><span class="math display">\[
+\frac{1}{1+\exp(\theta^Tx+\theta_0)}=\frac{1}{2}\Rightarrow
+\exp(\theta^Tx+\theta_0)=1\Rightarrow \theta^Tx+\theta_0=0
+\]</span></p>
+<p>这里我们发现,高斯判别分析的决策边界其实也是一个超平面,因此其实高斯判别分析和逻辑回归的决策边界是一样的,但是他们的模型假设不同,所以他们的参数求解方式也不同.</p>
+<p>但这里我们需要注意的是,我们前面其实是对高斯判别分布的参数进行了一个假设,也就是我们考虑两个类别样本的协方差矩阵是相同的,但其实如果我们不考虑这个假设,允许两个类别具有不同的协方差矩阵,也就是
+<span class="math inline">\(x|y=0\sim \mathcal{N}(\mu_0,\Sigma_0),\
+x|y=1\sim
+\mathcal{N}(\mu_1,\Sigma_1)\)</span>.此时我们可以得到相应的协方差矩阵的形式为</p>
+<p><span class="math display">\[
+\Sigma_j=\frac{1}{\sum_{i=1}^n\mathit{I}(y^{(i)}=j)}\sum_{i=1}^n\mathit{I}(y^{(i)}=j)(x^{(i)}-\mu_j)(x^{(i)}-\mu_j)^T,\
+j=0,1.
+\]</span></p>
+<p>此时我们计算之前提到的对数比 <span
+class="math inline">\(z\)</span>:</p>
+<p><span class="math display">\[
+z=\frac{1}{2}x^T(\Sigma_0^{-1}-\Sigma_1^{-1})x-(\mu_1^T\Sigma_1^{-1}-\mu_0^T\Sigma_0^{-1})x-\frac{1}{2}\mu_1^T\Sigma_1^{-1}\mu_1
++ \frac{1}{2}\mu_0^T\Sigma_0^{-1}\mu_0 -
+\frac{1}{2}\ln\frac{\vert{}\Sigma_1\vert{}}{\vert{}\Sigma_0\vert{}} +
+\ln\frac{\phi}{1-\phi}
+\]</span></p>
+<p>从这里我们发现,此时 <span class="math inline">\(z\)</span> 是一个关于
+<span class="math inline">\(x\)</span>
+的二次函数,所以我们可以发现,如果我们不对协方差矩阵做相同的假设,那么高斯判别分析的决策边界就不再是一个超平面了,而是一个二次曲面.</p>
+<p>这里我们需要简单讨论一下高斯判别分析和逻辑回归的区别,我们知道,逻辑回归是一个判别式学习方法,而高斯判别分析是一个生成式学习方法.LDA/LR通过建模条件概率来寻找一个决策边界,从而进行分类判断,因此由于他提供更少的模型假设,所以他在具体训练过程中更加稳定并且对假设的正确性更不敏感.而GDA给出了更强的模型假设,并且有更好的数据效率(这表示在假设基本正确的情况下,他可以用更少的数据达到更好的效果).但我们发现在形式上来说,GDA和LR的决策边界上是一样的,但从上面的过程中我们发现,LR是通过最小化损失函数来确定参数,而GDA则可以通过上面的模型参数精确解来确定参数,所以在实际应用中,二者的结果未必是一样的.我们在GDA中假设了样本特征服从正态分布和类别服从伯努利分布,但这个未必是正确的,所以如果我们给的这个假设是对的,那么GDA的效果会更好,如果假设不成立,那么LR的效果会更好.所以在实际应用中,GDA和LDA的表现优劣十分难以对比.</p>
+<p>但是我们需要说明的是,GDA虽然可以导出LDA的形式,但他并非是唯一可以导出LR形式的联合分布模型.例如我们假设样本特征为
+<span class="math inline">\(x\in
+\mathbb{N}\)</span>,同时考虑样本服从泊松分布,也就是 <span
+class="math inline">\(p(x|y=j)=\frac{e^{-\lambda_j}\lambda_j^x}{x!},\
+j=0,1\)</span>.我们假设样本类别服从伯努利分布,也就是 <span
+class="math inline">\(p(y=1)=\phi\)</span>.我们可以得到相应的对数比为</p>
+<p><span class="math display">\[
+z=\ln\frac{p(x|y=1)p(y=1)}{p(x|y=0)p(y=0)}=x\ln\frac{\lambda_1}{\lambda_0}-(\lambda_1-\lambda_0)+\ln\frac{\phi}{1-\phi}
+\]</span></p>
+<p>所以从上面说的,我们可以知道如果我们需要完成一个模型建模,需要提供两个知识源,一个是样本的分布假设,另一个是数据.如果我们拥有大量的数据,那么我们就完全可以通过数据学习知识,而不是施加额外的假设,因为可能存在假设错误的情况.例如DNN以来大量数据,而不是施加额外的假设.但如果数据量不足的时候,因此需要尽可能多用先验分布假设.</p>
+<p><a id="orge2873df"></a></p>
+<h3 id="naive-bayes">Naive Bayes</h3>
+<p>我们在此介绍一下朴素贝叶斯分类器.为了简便起见,我们以文本分类问题为例,初步介绍一下朴素贝叶斯分类器的基本思想.假设我们有一个文本分类问题,我们希望将文本分为两类,也就是
+<span
+class="math inline">\(y\in\{0,1\}\)</span>.我们假设文本的特征是由词袋模型构成的,也就是我们将文本中的每个词作为一个特征,并且统计每个词在文本中出现的次数.假设我们的词汇表大小为
+<span class="math inline">\(d\)</span>,也就是我们有 <span
+class="math inline">\(d\)</span>
+个不同的词,那么对于每个文本,我们可以得到一个 <span
+class="math inline">\(d\)</span> 维的特征向量 <span
+class="math inline">\(x\in \{0,1\}^d\)</span>,其中 <span
+class="math inline">\(x_j\)</span> 表示第 <span
+class="math inline">\(j\)</span>
+个词在文本中是否出现.所以这里文本长度和我们得到的编码长度是无关的,这样的编码方式不关心词语顺序,用词频率,只关心是否出现词语.</p>
+<p>为了简化联合概率分布的计算,我们引入朴素贝叶斯假设,即给定样本类别
+<span class="math inline">\(y\)</span> 的情况下,特征向量中的各个特征
+<span class="math inline">\(x_1, x_2, \dots, x_d\)</span>
+是条件独立的.需要强调的是,这里我们并不能假设 <span
+class="math inline">\(x_1, \dots, x_d\)</span>
+是绝对独立的,而是依赖于类别 <span class="math inline">\(y\)</span>
+的条件独立.基于这个假设,我们可以将联合概率分布拆解为各个特征条件概率的连乘:</p>
+<p><span class="math display">\[
+p(x|y)=p(x_1,x_2,\dots,x_d|y)=\prod_{j=1}^dp(x_j|y)
+\]</span></p>
+<p>这里我们需要注意的是,朴素贝叶斯假设并不是说各个单词是否出现是相互独立的,而是说在给定类别
+<span class="math inline">\(y\)</span>
+的情况下他们是条件独立的.例如在垃圾邮件中,"buy" 和 "money"
+两个单词显然可能存在一定的相关性,但是朴素贝叶斯为了简化模型,忽略了这种给定类别之后的特征相关性.虽然这个假设在实际问题中往往并不严格成立,但是朴素贝叶斯在很多文本分类问题中仍然能够取得比较好的效果.</p>
+<p>为了构造具体的概率模型,我们引入如下参数,<span
+class="math inline">\(\phi_y=p(y=1)\)</span>以及对于每一个特征 <span
+class="math inline">\(x_j\)</span>,</p>
+<p><span class="math display">\[
+\phi_{j|y=1}=p(x_j=1|y=1),\qquad \phi_{j|y=0}=p(x_j=1|y=0).
+\]</span></p>
+<p>因为我们现在考虑的是二值特征 <span
+class="math inline">\(x_j\in\{0,1\}\)</span>,所以相应地有</p>
+<p><span class="math display">\[
+p(x_j=0|y=1)=1-\phi_{j|y=1},\qquad p(x_j=0|y=0)=1-\phi_{j|y=0}.
+\]</span></p>
+<p>因此我们可以将单个特征的条件概率写成一个更加紧凑的形式,</p>
+<p><span class="math display">\[
+p(x_j|y=k)=\phi_{j|y=k}^{x_j}(1-\phi_{j|y=k})^{1-x_j},k=0,1.
+\]</span></p>
+<p>所以根据前面的条件独立假设,我们只需要确定 <span
+class="math inline">\(\phi_y,\phi_{j|y=0},\phi_{j|y=1}\)</span>
+这些参数,就可以得到完整的生成式模型.</p>
+<p>和前面的生成式学习算法一样,我们通过最大似然估计来确定这些参数.假设训练集中一共有
+<span class="math inline">\(n\)</span> 个样本 <span
+class="math inline">\(\{(x^{(i)},y^{(i)})\}_{i=1}^n\)</span>,那么整个训练集的似然函数为</p>
+<p><span class="math display">\[
+L=\prod_{i=1}^np(x^{(i)},y^{(i)})=\prod_{i=1}^np(x^{(i)}|y^{(i)})p(y^{(i)}).
+\]</span></p>
+<p>根据朴素贝叶斯的条件独立假设,我们可以进一步得到</p>
+<p><span class="math display">\[
+L=\prod_{i=1}^n\left[p(y^{(i)})\prod_{j=1}^dp(x_j^{(i)}|y^{(i)})\right].
+\]</span></p>
+<p>因此我们可以分别计算类别先验概率和各个条件概率的最大似然估计.</p>
+<p>我们先考虑参数 <span
+class="math inline">\(\phi_y\)</span>.与前面GDA中的推导完全相同,关于
+<span class="math inline">\(\phi_y\)</span> 的对数似然函数可以写成</p>
+<p><span class="math display">\[
+l(\phi_y)=\sum_{i=1}^n\left(y^{(i)}\ln\phi_y+(1-y^{(i)})\ln(1-\phi_y)\right).
+\]</span></p>
+<p>对 <span class="math inline">\(\phi_y\)</span>
+求导并令其为0,我们有</p>
+<p><span class="math display">\[
+\frac{\partial
+l}{\partial\phi_y}=\sum_{i=1}^n\left(\frac{y^{(i)}}{\phi_y}-\frac{1-y^{(i)}}{1-\phi_y}\right)=0,
+\]</span></p>
+<p>从而得到</p>
+<p><span class="math display">\[
+\phi_y=\frac{1}{n}\sum_{i=1}^ny^{(i)}=\frac{1}{n}\sum_{i=1}^n\mathit{I}(y^{(i)}=1).
+\]</span></p>
+<p>所以 <span class="math inline">\(\phi_y\)</span>
+的最大似然估计实际上就是训练集中 <span
+class="math inline">\(y=1\)</span> 的样本所占的比例.</p>
+<p>下面我们考虑参数 <span
+class="math inline">\(\phi_{j|y=1}\)</span>.由于这个参数只与类别 <span
+class="math inline">\(y=1\)</span> 中第 <span
+class="math inline">\(j\)</span>
+个特征是否出现有关,所以在对数似然函数中只需要保留满足 <span
+class="math inline">\(y^{(i)}=1\)</span> 的样本.于是有</p>
+<p><span class="math display">\[
+l(\phi_{j|y=1})=\sum_{i:y^{(i)}=1}\left[x_j^{(i)}\ln\phi_{j|y=1}+(1-x_j^{(i)})\ln(1-\phi_{j|y=1})\right].
+\]</span></p>
+<p>对 <span class="math inline">\(\phi_{j|y=1}\)</span> 求导可以得到</p>
+<p><span class="math display">\[
+\frac{\partial
+l}{\partial\phi_{j|y=1}}=\sum_{i:y^{(i)}=1}\left(\frac{x_j^{(i)}}{\phi_{j|y=1}}-\frac{1-x_j^{(i)}}{1-\phi_{j|y=1}}\right)=0.
+\]</span></p>
+<p>整理可以得到</p>
+<p><span class="math display">\[
+\phi_{j|y=1}=\frac{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)x_j^{(i)}}{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)}.
+\]</span></p>
+<p>同理,</p>
+<p><span class="math display">\[
+\phi_{j|y=0}=\frac{\sum_{i=1}^n\mathit{I}(y^{(i)}=0)x_j^{(i)}}{\sum_{i=1}^n\mathit{I}(y^{(i)}=0)}.
+\]</span></p>
+<p>从这里其实可以非常直观地理解这些参数的含义.例如 <span
+class="math inline">\(\phi_{j|y=1}\)</span> 就表示在所有类别为 <span
+class="math inline">\(y=1\)</span> 的文本中,第 <span
+class="math inline">\(j\)</span>
+个单词出现的文本所占的比例.所以朴素贝叶斯虽然从概率模型的角度进行了建模,但是最终得到的参数估计实际上就是对训练集中不同事件出现频率的统计.</p>
+<p>在确定这些参数之后,对于一个新的样本 <span
+class="math inline">\(x\)</span>,我们可以利用贝叶斯公式计算他的后验概率,</p>
+<p><span class="math display">\[
+p(y|x)=\frac{p(x|y)p(y)}{\sum_{k=0}^1p(x|y=k)p(y=k)}.
+\]</span></p>
+<p>如果我们只是希望进行分类,那么分母对于不同类别来说是相同的,因此并不需要真正计算这个归一化常数,我们只需要比较
+<span class="math inline">\(p(x|y)p(y)\)</span>
+的大小.所以最后的分类结果可以写成</p>
+<p><span class="math display">\[
+\hat y=\mathop{\mathrm{argmax}}_{y\in\{0,1\}}p(y)\prod_{j=1}^dp(x_j|y).
+\]</span></p>
+<p>在实际计算中,由于大量概率相乘可能会得到非常小的数并产生数值下溢,所以通常会取对数,将连乘转换为连加,</p>
+<p><span class="math display">\[
+\hat y=\mathop{\mathrm{argmax}}_{y\in\{0,1\}}\left(\ln
+p(y)+\sum_{j=1}^d\ln p(x_j|y)\right).
+\]</span></p>
+<p>上面的最大似然估计虽然形式非常简单,但是他存在一个比较明显的问题.假设第
+<span class="math inline">\(j\)</span> 个单词在训练集中所有 <span
+class="math inline">\(y=1\)</span>
+的文本中都没有出现过,那么根据前面的最大似然估计我们会得到</p>
+<p><span class="math display">\[
+\phi_{j|y=1}=\frac{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)x_j^{(i)}}{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)}=0.
+\]</span></p>
+<p>那么如果一个新的文本中恰好出现了这个单词,也就是 <span
+class="math inline">\(x_j=1\)</span>,我们就会得到 <span
+class="math inline">\(p(x_j=1|y=1)=0.\)</span>
+但是由于朴素贝叶斯中的条件概率是以连乘的形式出现的,</p>
+<p><span class="math display">\[
+p(x|y=1)=\prod_{j=1}^dp(x_j|y=1),
+\]</span></p>
+<p>所以只要其中任意一个概率为0,就会导致整个 <span
+class="math inline">\(p(x|y=1)=0\)</span>.这意味着即使其他所有特征都非常支持类别
+<span
+class="math inline">\(y=1\)</span>,仅仅因为某一个单词在有限的训练数据中没有出现过,模型就会直接认为这个样本不可能属于
+<span class="math inline">\(y=1\)</span>,这种结果显然太过于绝对.</p>
+<p>为了解决这个问题,我们引入Laplace
+smoothing.他的基本思想是在统计实际样本之前,假设每一种可能的结果都已经人为地出现过一次.由于我们当前考虑的是伯努利特征
+<span class="math inline">\(x_j\in\{0,1\}\)</span>,因此 <span
+class="math inline">\(x_j\)</span> 一共有两种可能的取值.所以经过Laplace
+smoothing之后,我们可以将参数估计修改为</p>
+<p><span class="math display">\[
+\phi_{j|y=k}=\frac{1+\sum_{i=1}^n\mathit{I}(y^{(i)}=k)x_j^{(i)}}{2+\sum_{i=1}^n\mathit{I}(y^{(i)}=k)},k=0,1.
+\]</span></p>
+<p>这里分子中的 <span class="math inline">\(+1\)</span>
+可以理解为我们事先假设 <span class="math inline">\(x_j=1\)</span>
+已经出现过一次,而分母中的 <span class="math inline">\(+2\)</span>
+则是因为我们同时假设了 <span class="math inline">\(x_j=0\)</span> 和
+<span class="math inline">\(x_j=1\)</span>
+各出现过一次.这样得到的概率就不会严格等于0或者1,从而可以避免某一个从未出现过的特征将整个条件概率直接变成0.更一般地,如果一个离散随机变量一共有
+<span class="math inline">\(k\)</span> 种可能的取值,那么Laplace
+smoothing可以写成 <span
+class="math inline">\(\phi_j=\frac{N_j+1}{N+k},\)</span> 其中 <span
+class="math inline">\(N_j\)</span> 表示第 <span
+class="math inline">\(j\)</span> 种结果在训练数据中实际出现的次数,而
+<span class="math inline">\(N\)</span>
+表示总的样本数.所以前面的伯努利模型只是取 <span
+class="math inline">\(k=2\)</span> 的一个特殊情况.</p>
+<p>前面我们在介绍Naive
+Bayes时采用的文本表示方式实际上对应一种特殊的事件模型,叫做Bernoulli
+event model.在Bernoulli event
+model中,我们对于词典中的每一个单词只关心一个问题:这个单词是否在当前文本中出现过.因此如果词典大小为
+<span class="math inline">\(|V|\)</span>,一封邮件可以表示为</p>
+<p><span class="math display">\[
+x=(x_1,x_2,\dots,x_{|V|}),\qquad x_j\in\{0,1\}.
+\]</span></p>
+<p>其中 <span class="math inline">\(x_j=1\)</span> 表示第 <span
+class="math inline">\(j\)</span>
+个单词至少出现过一次.所以如果一个单词在一封邮件中出现1次和出现10次,对于Bernoulli
+event model来说并没有区别,对应的特征都是 <span
+class="math inline">\(x_j=1\)</span>.在生成这封邮件时,模型首先根据类别先验概率
+<span class="math inline">\(p(y)\)</span>
+决定邮件属于哪一个类别,然后对于词典中的每一个单词 <span
+class="math inline">\(j\)</span>,按照概率 <span
+class="math inline">\(p(x_j=1|y)=\phi_{j|y}\)</span>独立决定这个单词是否出现在邮件中.因此一封邮件的联合概率为</p>
+<p><span class="math display">\[
+p(x,y)=p(y)\prod_{j=1}^{|V|}p(x_j|y).
+\]</span></p>
+<p>这就是我们前面一直讨论的Naive Bayes模型.</p>
+<p>但是对于文本数据来说,这种表示方式会丢失一个比较重要的信息,也就是单词出现的次数.例如如果单词
+"free"
+在一封垃圾邮件中连续出现了很多次,那么直观上这种信息可能比他只出现一次更加能够说明这是一封垃圾邮件.但是Bernoulli
+event
+model无法区分这两种情况.因此对于文本分类还可以使用另一种事件模型,叫做Multinomial
+event model.在Multinomial event model中,特征的含义发生了变化.现在 <span
+class="math inline">\(x_j\)</span> 不再表示“词典中的第 <span
+class="math inline">\(j\)</span>
+个单词有没有出现”,而是表示“当前文本中的第 <span
+class="math inline">\(j\)</span> 个位置上出现的是词典中的哪个单词”.</p>
+<p>假设词典大小为 <span class="math inline">\(|V|\)</span>,那么<span
+class="math inline">\(x_j\in\{1,2,\dots,|V|\}.\)</span>
+如果一封邮件一共有 <span class="math inline">\(d\)</span>
+个单词,那么这封邮件就可以表示为<span
+class="math inline">\(x=(x_1,x_2,\dots,x_d).\)</span>
+这里需要特别注意Bernoulli event model和Multinomial event model中下标
+<span class="math inline">\(j\)</span> 的含义并不一样.在Bernoulli event
+model中, <span class="math inline">\(j\)</span> 对应词典中的第 <span
+class="math inline">\(j\)</span> 个单词;而在Multinomial event model中,
+<span class="math inline">\(j\)</span> 对应当前文本中的第 <span
+class="math inline">\(j\)</span> 个位置.因此在Multinomial event
+model中,文本的长度 <span class="math inline">\(d\)</span>
+对于不同邮件可以不同.例如假设词典中的第1个单词是 "a",第35000个单词是
+"neurips".如果一封邮件的开头为 "A NeurIPS …",那么我们可能有<span
+class="math inline">\(x_1=1,\qquad x_2=35000.\)</span> Multinomial event
+model同样首先根据先验概率 <span class="math inline">\(p(y)\)</span>
+产生类别 <span class="math inline">\(y\)</span>.然后在给定 <span
+class="math inline">\(y\)</span>
+的条件下,依次产生邮件中的每一个单词.对于第一个位置,从分布 <span
+class="math inline">\(p(x_1|y)\)</span> 中产生 <span
+class="math inline">\(x_1\)</span>;对于第二个位置,从相同的分布中产生
+<span class="math inline">\(x_2\)</span>,并且假设在给定 <span
+class="math inline">\(y\)</span> 的情况下不同位置的单词相互独立.因此</p>
+<p><span class="math display">\[
+p(x,y)=p(y)p(x|y)=p(y)\prod_{j=1}^d p(x_j|y).
+\]</span></p>
+<p>这个公式从形式上看与Bernoulli event
+model完全一样,但是需要注意他们内部随机变量的含义并不一样.在Bernoulli
+event model中,<span
+class="math inline">\(x_j\sim\text{Bernoulli},\)</span>而在Multinomial
+event model中, <span class="math inline">\(x_j\)</span>
+可以取词典中的任意一个单词编号,因此他服从一个离散的多类别分布.</p>
+<p>我们定义<span class="math inline">\(\phi_y=p(y=1),\)</span>
+以及对于词典中的第 <span class="math inline">\(k\)</span> 个单词,</p>
+<p><span class="math display">\[
+\phi_{k|y=m}=p(x_j=k|y=m),m=0,1.
+\]</span></p>
+<p>这里我们假设 <span class="math inline">\(p(x_j|y)\)</span> 对所有位置
+<span class="math inline">\(j\)</span>
+都是相同的,也就是说模型并不考虑一个单词出现在邮件开头、中间或者结尾的区别.因为对于给定类别
+<span
+class="math inline">\(y\)</span>,一个位置上一定会产生词典中的某一个单词,所以有</p>
+<p><span class="math display">\[
+\sum_{k=1}^{|V|}\phi_{k|y=1}=1,\qquad \sum_{k=1}^{|V|}\phi_{k|y=0}=1.
+\]</span></p>
+<p>整个训练集的似然函数为</p>
+<p><span class="math display">\[
+L(\phi_y,\phi_{k|y=0},\phi_{k|y=1})=\prod_{i=1}^n
+p(x^{(i)},y^{(i)})=\prod_{i=1}^n\left(\prod_{j=1}^{d_i}p(x_j^{(i)}|y^{(i)})\right)p(y^{(i)}).
+\]</span></p>
+<p>通过最大似然估计可以得到<span
+class="math inline">\(\phi_y=\frac{\sum_{i=1}^n\mathit{I}(y^{(i)}=1)}{n}.\)</span>
+对于类别 <span class="math inline">\(y=1\)</span>,词典中第 <span
+class="math inline">\(k\)</span> 个单词对应的参数为</p>
+<p><span class="math display">\[
+\phi_{k|y=m}=\frac{\sum_{i=1}^n\sum_{j=1}^{d_i}\mathit{I}(x_j^{(i)}=k,y^{(i)}=m)}{\sum_{i=1}^n\mathit{I}(y^{(i)}=m)d_i},m=0,1.
+\]</span></p>
+<p>这个公式同样可以直接从频率的角度理解.对于<span
+class="math inline">\(\phi_{k|y=1},\)</span>分子表示所有类别为1的训练文本中第
+<span class="math inline">\(k\)</span>
+个单词一共出现了多少次,而分母表示所有类别为1的训练文本中一共有多少个单词.因此</p>
+<p><span class="math display">\[
+\phi_{k|y=1}=\frac{\text{类别1的文本中单词 \(k\)
+出现的总次数}}{\text{类别1的文本中所有单词的总数量}}.
+\]</span></p>
+<p>这里和Bernoulli event
+model的区别就非常明显了.在Bernoulli模型中,同一个单词在一封文本中无论出现多少次最多只贡献一次;而在Multinomial模型中,如果一个单词在一封文本中出现10次,那么这10次都会被统计进去.</p>
+<p>Multinomial event model同样存在零概率问题.如果某个单词 <span
+class="math inline">\(k\)</span> 从来没有在类别 <span
+class="math inline">\(y=1\)</span>
+的训练文本中出现过,那么最大似然估计会得到<span
+class="math inline">\(\phi_{k|y=1}=0.\)</span>因此在实际使用时同样需要进行Laplace
+smoothing.由于一个位置上的 <span class="math inline">\(x_j\)</span>
+一共有 <span class="math inline">\(|V|\)</span>
+种可能的取值,所以我们给词典中的每一个单词加入一个伪计数.最终得到</p>
+<p><span class="math display">\[
+\phi_{k|y=m}=\frac{1+\sum_{i=1}^n\sum_{j=1}^{d_i}\mathit{I}(x_j^{(i)}=k,y^{(i)}=m)}{|V|+\sum_{i=1}^n\mathit{I}(y^{(i)}=m)d_i},m=0,1.
+\]</span></p>
+<p>这里分母中不再像Bernoulli event model那样加2,而是加 <span
+class="math inline">\(|V|\)</span>.原因就在于Bernoulli变量只有 <span
+class="math inline">\(0\)</span> 和 <span
+class="math inline">\(1\)</span> 两种可能的结果,而Multinomial event
+model中的一个单词位置一共有 <span class="math inline">\(|V|\)</span>
+种可能的结果.</p>
+<p>所以这两个模型最核心的区别可以理解为Bernoulli event
+model关心的是这个单词有没有出现,而Multinomial event
+model关心的是这个单词出现了多少次. 在文本分类问题中,Multinomial event
+model通常是一种非常自然的选择,因为词频本身往往包含有用的信息.虽然Naive
+Bayes的条件独立假设在真实文本中显然并不严格成立,但是这种方法结构简单、参数容易估计、计算开销非常小.</p>
+]]></content>
+      <categories>
+        <category>CS229</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
 </search>
