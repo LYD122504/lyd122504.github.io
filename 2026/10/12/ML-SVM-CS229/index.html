@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+<meta name="google-site-verification" content="yGZtoctpv_RvqHFSVUN8MfwIraR1EkJ8pEmc5Azxuss" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="Support Vector Machines 在之前的二分类问题中,我们考虑的是通过一个线性函数确定分类边界,例如使用 \(h_\theta(x)&#x3D;g(\theta^Tx)\),根据 \(\theta^Tx\) 的正负判断样本类别.但是对于线性可分的数据集而言,一般不止一个超平面可以将两类样本分开.那么我们应该选择哪一个超平面? SVM(也就是Support Vector Machin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning-支持向量机(CS229)">
+<meta property="og:url" content="http://example.com/2026/10/12/ML-SVM-CS229/index.html">
+<meta property="og:site_name" content="还施水阁">
+<meta property="og:description" content="Support Vector Machines 在之前的二分类问题中,我们考虑的是通过一个线性函数确定分类边界,例如使用 \(h_\theta(x)&#x3D;g(\theta^Tx)\),根据 \(\theta^Tx\) 的正负判断样本类别.但是对于线性可分的数据集而言,一般不止一个超平面可以将两类样本分开.那么我们应该选择哪一个超平面? SVM(也就是Support Vector Machin">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-10-12T07:30:46.000Z">
+<meta property="article:modified_time" content="2026-10-12T07:34:01.934Z">
+<meta property="article:author" content="Li Yaoda">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/10/12/ML-SVM-CS229/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Machine Learning-支持向量机(CS229) | 还施水阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/LYD122504" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">还施水阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/10/12/ML-SVM-CS229/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Machine Learning-支持向量机(CS229)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-10-12 15:30:46 / 修改时间：15:34:01" itemprop="dateCreated datePublished" datetime="2026-10-12T15:30:46+08:00">2026-10-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS229/" itemprop="url" rel="index"><span itemprop="name">CS229</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="support-vector-machines">Support Vector Machines</h2>
+<p>在之前的二分类问题中,我们考虑的是通过一个线性函数确定分类边界,例如使用
+<span class="math inline">\(h_\theta(x)=g(\theta^Tx)\)</span>,根据 <span
+class="math inline">\(\theta^Tx\)</span>
+的正负判断样本类别.但是对于线性可分的数据集而言,一般不止一个超平面可以将两类样本分开.那么我们应该选择哪一个超平面?
+SVM(也就是Support Vector
+Machine)的思路是,不仅希望分类正确,还希望分类边界和距离他最近的样本之间有尽可能大的间隔.我们先讨论线性可分的情况(Optimal
+Margin Classifier),然后再讨论不完全线性可分的情况.</p>
+<span id="more"></span>
+<p><a id="org476d09c"></a></p>
+<h3 id="optimal-margin-classifier">Optimal Margin Classifier</h3>
+<p>为了后面统一表示两类样本,我们将原来 <span
+class="math inline">\(y\in\{0,1\}\)</span> 的标签改记为 <span
+class="math inline">\(y\in\{-1,1\}\)</span>,并定义分类函数 <span
+class="math inline">\(f(x)=w^Tx+b\)</span>,对应的预测结果为 <span
+class="math inline">\(h_{w,b}(x)=g(f(x))\)</span>,这里 <span
+class="math inline">\(g(z)=1\)</span> if <span
+class="math inline">\(z\geq0\)</span>,否则 <span
+class="math inline">\(g(z)=-1\)</span>.因此当 <span
+class="math inline">\(y^{(i)}=1\)</span> 时我们希望 <span
+class="math inline">\(w^Tx^{(i)}+b&gt;0\)</span>,当 <span
+class="math inline">\(y^{(i)}=-1\)</span> 时则希望 <span
+class="math inline">\(w^Tx^{(i)}+b&lt;0\)</span>.这两种情况实际上可以统一写成
+<span class="math inline">\(y^{(i)}(w^Tx^{(i)}+b)&gt;0\)</span>.</p>
+<p>我们首先定义样本 <span
+class="math inline">\((x^{(i)},y^{(i)})\)</span> 关于 <span
+class="math inline">\((w,b)\)</span> 的函数间隔为 <span
+class="math inline">\(\hat\gamma^{(i)}=y^{(i)}(w^Tx^{(i)}+b)\)</span>.所以当
+<span class="math inline">\(\hat\gamma^{(i)}&gt;0\)</span>
+时,意味着该样本被正确分类.对于整个训练集,定义 <span
+class="math inline">\(\hat\gamma=\min_i\hat\gamma^{(i)}\)</span>,也就是由最靠近分类边界的样本决定整个数据集的函数间隔.直观上我们希望
+<span class="math inline">\(\hat\gamma\)</span>
+尽可能大,但是这里存在一个问题:如果将 <span
+class="math inline">\((w,b)\)</span> 同时乘以正数 <span
+class="math inline">\(c\)</span>,分类超平面实际上没有发生变化,但函数间隔却会放大
+<span class="math inline">\(c\)</span>
+倍.因此直接最大化他并不能真实反映样本与超平面之间的距离.</p>
+<p>为了解决这个问题,我们接下来考虑几何间隔.假设 <span
+class="math inline">\(x^{(i)}\)</span> 到超平面 <span
+class="math inline">\(w^Tx+b=0\)</span> 的有符号间隔为 <span
+class="math inline">\(\gamma^{(i)}\)</span>,由于 <span
+class="math inline">\(w\)</span> 是超平面的法向量,沿着单位法向量 <span
+class="math inline">\(w/\|w\|\)</span> 进行投影,可以将样本的投影点写为
+<span
+class="math inline">\(x^{(i)}-y^{(i)}\gamma^{(i)}w/\|w\|\)</span>.因为投影点位于超平面上,所以</p>
+<p><span class="math display">\[
+w^T\left(x^{(i)}-y^{(i)}\gamma^{(i)}\frac{w}{\|w\|}\right)+b=0\Rightarrow\quad\gamma^{(i)}=\frac{y^{(i)}(w^Tx^{(i)}+b)}{\|w\|}=\frac{\hat\gamma^{(i)}}{\|w\|}.
+\]</span></p>
+<p>因此整个数据集的几何间隔为 <span
+class="math inline">\(\gamma=\min_i\gamma^{(i)}=\hat\gamma/\|w\|\)</span>.他和函数间隔的区别在于,如果同时缩放
+<span
+class="math inline">\(w,b\)</span>,分子和分母会按照相同倍数变化,所以
+<span class="math inline">\(\gamma\)</span>
+不会被这样的缩放影响.我们希望找到的正是能够最大化 <span
+class="math inline">\(\gamma\)</span>
+的分类超平面.按照这个目标,我们首先可以将问题写为</p>
+<p><span class="math display">\[
+\max_{w,b,\gamma}\ \gamma\qquad
+\mathrm{s.t.}\quad \frac{y^{(i)}(w^Tx^{(i)}+b)}{\|w\|}\geq\gamma,\quad
+i=1,\ldots,n.
+\]</span></p>
+<p>如果对参数做尺度归一化,令 <span
+class="math inline">\(\|w\|=1\)</span>,则可以把约束中的分母去掉;但是
+<span class="math inline">\(\|w\|=1\)</span>
+是一个非凸的等式约束,并不方便直接求解.由于参数缩放不会改变几何间隔,我们可以换一种归一化方式:固定数据集中最小的函数间隔为
+<span
+class="math inline">\(\hat\gamma=1\)</span>.于是原来的目标相当于最大化
+<span
+class="math inline">\(\hat\gamma/\|w\|=1/\|w\|\)</span>,而约束则变成
+<span
+class="math inline">\(y^{(i)}(w^Tx^{(i)}+b)\geq1\)</span>.因此最后得到</p>
+<p><span class="math display">\[
+\boxed{\begin{aligned}
+\min_{w,b}\quad&amp;\frac12\|w\|^2\\
+\mathrm{s.t.}\quad&amp;y^{(i)}(w^Tx^{(i)}+b)\geq1,\quad i=1,\ldots,n.
+\end{aligned}}
+\]</span></p>
+<p>这就是硬间隔SVM的原始优化问题.其中 <span
+class="math inline">\(\frac12\|w\|^2\)</span> 和 <span
+class="math inline">\(\|w\|\)</span>
+对应相同的最优解,只是前者在求导时更方便.这里需要数据线性可分,我们后面再考虑不可分的情况.</p>
+<p><a id="org24e9286"></a></p>
+<h3 id="lagrange-duality-and-kkt">Lagrange Duality and KKT</h3>
+<p>为了处理上面的约束优化问题,我们先引入一般优化问题的拉格朗日优化性.例如一个只有等式约束的问题可以写成
+<span class="math inline">\(\min_z f(z)\)</span> s.t. <span
+class="math inline">\(h_j(z)=0\)</span>,这时我们引入乘子 <span
+class="math inline">\(\beta_j\)</span>,将约束合并进Lagrange函数.进一步考虑同时包含不等式约束的一般情况:
+<span class="math display">\[
+\min_z f(z),\qquad \mathrm{s.t.}\quad g_i(z)\leq0\ (i=1,\ldots,k),\quad
+h_j(z)=0\ (j=1,\ldots,\ell).
+\]</span> 对应的Lagrange函数定义为 <span class="math inline">\(\mathcal
+L(z,\alpha,\beta)=f(z)+\sum_{i=1}^k\alpha_i
+g_i(z)+\sum_{j=1}^{\ell}\beta_jh_j(z)\)</span>,其中 <span
+class="math inline">\(\alpha_i\geq0\)</span>,而 <span
+class="math inline">\(\beta_j\)</span> 没有符号限制.对于固定的 <span
+class="math inline">\(z\)</span>,我们先考虑 <span
+class="math inline">\(\Theta_p(z)=\sup_{\alpha\geq0,\beta}\mathcal
+L(z,\alpha,\beta)\)</span>.如果 <span class="math inline">\(z\)</span>
+满足全部原始约束,则 <span
+class="math inline">\(\Theta_p(z)=f(z)\)</span>;否则总可以利用被违反的约束将对应乘子放大,使得
+<span
+class="math inline">\(\Theta_p(z)=+\infty\)</span>.所以原始问题可以等价地写为
+<span
+class="math inline">\(p^*=\inf_z\Theta_p(z)=\inf_z\sup_{\alpha\geq0,\beta}\mathcal
+L(z,\alpha,\beta)\)</span>.</p>
+<p>我们进一步交换最小化和最大化的先后顺序.先定义对偶函数 <span
+class="math inline">\(\Theta_d(\alpha,\beta)=\inf_z\mathcal
+L(z,\alpha,\beta)\)</span>,然后得到对偶问题 <span
+class="math inline">\(d^*=\sup_{\alpha\geq0,\beta}\Theta_d(\alpha,\beta)\)</span>.一般来说有
+<span class="math display">\[
+\underbrace{\sup_{\alpha\geq0,\beta}\inf_z\mathcal
+L(z,\alpha,\beta)}_{d^*}
+\ \leq\
+\underbrace{\inf_z\sup_{\alpha\geq0,\beta}\mathcal
+L(z,\alpha,\beta)}_{p^*}.
+\]</span>
+这就是弱对偶性.如果原问题是满足适当条件的凸优化问题,并且存在满足等式约束、严格满足不等式约束的可行点(Slater
+condition),那么可以得到强对偶性,也就是 <span
+class="math inline">\(d^*=p^*\)</span>.在这种情况下我们可以利用对偶问题求解原始问题.与此对应的KKT条件可以统一写为</p>
+<p><span class="math display">\[\begin{cases}
+\nabla_z\mathcal L(z^*,\alpha^*,\beta^*)=0,\\
+g_i(z^*)\leq0,\quad h_j(z^*)=0,\\
+\alpha_i^*\geq0,\\
+\alpha_i^*g_i(z^*)=0.
+\end{cases}\]</span></p>
+<p>这里最后一个条件称为互补松弛条件,他的意思是如果某个不等式约束在最优点处仍有严格余量,那么相应的Lagrange乘子必须为0.后面支持向量的解释就依赖于这个条件.对于硬间隔SVM，我们将他的约束写成
+<span
+class="math inline">\(g_i(w,b)=1-y^{(i)}(w^Tx^{(i)}+b)\leq0\)</span>,所以对应的Lagrange函数为</p>
+<p><span class="math display">\[
+\mathcal
+L(w,b,\alpha)=\frac12\|w\|^2-\sum_{i=1}^n\alpha_i\big[y^{(i)}(w^Tx^{(i)}+b)-1\big],\qquad\alpha_i\geq0.
+\]</span></p>
+<p>为了得到对偶函数,首先对 <span class="math inline">\(w,b\)</span>
+分别求偏导并令其为0:</p>
+<p><span class="math display">\[\begin{align*}
+\nabla_w\mathcal L&amp;=w-\sum_{i=1}^n\alpha_i y^{(i)}x^{(i)}=0
+\quad\Rightarrow\quad w=\sum_{i=1}^n\alpha_i y^{(i)}x^{(i)},\\
+\frac{\partial\mathcal L}{\partial b}&amp;=-\sum_{i=1}^n\alpha_i
+y^{(i)}=0
+\quad\Rightarrow\quad \sum_{i=1}^n\alpha_i y^{(i)}=0.
+\end{align*}\]</span></p>
+<p>将这两个结果代回原来的Lagrange函数,我们首先展开得到</p>
+<p><span class="math display">\[\begin{align*}
+\mathcal L
+&amp;=\frac12\|w\|^2-w^T\sum_i\alpha_i y^{(i)}x^{(i)}
+-b\sum_i\alpha_i y^{(i)}+\sum_i\alpha_i\\
+&amp;=\sum_i\alpha_i-\frac12\left\|\sum_i\alpha_i
+y^{(i)}x^{(i)}\right\|^2\\
+&amp;=\sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_j
+y^{(i)}y^{(j)}(x^{(i)})^Tx^{(j)}.
+\end{align*}\]</span></p>
+<p>所以最终我们得到只与 <span class="math inline">\(\alpha\)</span>
+有关的对偶问题:</p>
+<p><span class="math display">\[\boxed{\begin{aligned}
+\max_\alpha\quad&amp;W(\alpha)=\sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_j
+y^{(i)}y^{(j)}(x^{(i)})^Tx^{(j)}\\
+\mathrm{s.t.}\quad&amp;\alpha_i\geq0,\qquad \sum_i\alpha_i y^{(i)}=0.
+\end{aligned}}\]</span></p>
+<p>注意这里的 <span class="math inline">\(b\)</span>
+在代回的过程中消失了,但并不是说分类器不需要 <span
+class="math inline">\(b\)</span>.根据KKT,有 <span
+class="math inline">\(\alpha_i[1-y^{(i)}(w^Tx^{(i)}+b)]=0\)</span>,因此对于
+<span class="math inline">\(\alpha_i&gt;0\)</span> 的样本,必有 <span
+class="math inline">\(y^{(i)}(w^Tx^{(i)}+b)=1\)</span>.也就是说这些样本恰好落在两侧的支持超平面上,我们称这些样本为支持向量;如果
+<span class="math inline">\(y^{(i)}(w^Tx^{(i)}+b)&gt;1\)</span>,则必有
+<span
+class="math inline">\(\alpha_i=0\)</span>.因此最终的法向量只由具有非零乘子的训练样本决定.</p>
+<p>我们还可以按照草稿里的几何思路恢复 <span
+class="math inline">\(b\)</span>.在给定 <span
+class="math inline">\(w\)</span>
+后,记正类中沿法向量投影最靠近分界面的值为 <span
+class="math inline">\(p=\min_{i:y^{(i)}=1}w^Tx^{(i)}\)</span>,负类中最靠近分界面的值为
+<span
+class="math inline">\(q=\max_{i:y^{(i)}=-1}w^Tx^{(i)}\)</span>.为了让分类面处于这两侧最近样本的正中间,我们令
+<span class="math inline">\(p+b=1\)</span>, <span
+class="math inline">\(q+b=-1\)</span>,所以 <span
+class="math inline">\(b=-(p+q)/2\)</span>.这与任取一个满足 <span
+class="math inline">\(\alpha_s&gt;0\)</span> 的支持向量,利用 <span
+class="math inline">\(b=y^{(s)}-w^Tx^{(s)}\)</span>
+得到的结果是一致的.这里使用的是最靠近分界面的正负类样本,而不是各自距离最远的样本.</p>
+<p>最后,由于 <span class="math inline">\(w=\sum_i\alpha_i
+y^{(i)}x^{(i)}\)</span>,分类函数可以写为 <span
+class="math inline">\(f(x)=\sum_i\alpha_i y^{(i)}\langle
+x^{(i)},x\rangle+b\)</span>.他只通过训练样本与待预测样本之间的内积进行计算,所以和前面的kernel
+method可以自然联系起来:如果引入映射 <span
+class="math inline">\(\phi\)</span>,我们只需要将这里的内积替换成 <span
+class="math inline">\(K(x^{(i)},x)=\langle\phi(x^{(i)}),\phi(x)\rangle\)</span>
+即可.</p>
+<p><a id="orgbb9cbf7"></a></p>
+<h3 id="soft-margin-svm">Soft-Margin SVM</h3>
+<p>前面讨论的硬间隔SVM要求数据线性可分,但是实际数据中可能存在噪声、异常值或者两类样本本身就有所重叠.如果仍然要求所有样本满足
+<span
+class="math inline">\(y^{(i)}(w^Tx^{(i)}+b)\geq1\)</span>,就可能无法找到可行解.所以我们希望放宽条件,允许部分样本进入间隔带甚至分类错误,同时对违反约束的程度进行惩罚.</p>
+<p>具体来说,我们为每个样本引入一个松弛变量 <span
+class="math inline">\(\xi_i\geq0\)</span>,把原来必须满足的间隔约束改写成
+<span
+class="math inline">\(y^{(i)}(w^Tx^{(i)}+b)\geq1-\xi_i\)</span>,并在目标函数中加入
+<span class="math inline">\(C\sum_i\xi_i\)</span>,于是得到</p>
+<p><span class="math display">\[
+\boxed{\begin{aligned}
+\min_{w,b,\xi}\quad&amp;\frac12\|w\|^2+C\sum_{i=1}^n\xi_i\\
+\mathrm{s.t.}\quad&amp;y^{(i)}(w^Tx^{(i)}+b)\geq1-\xi_i,\quad
+\xi_i\geq0.
+\end{aligned}}
+\]</span></p>
+<p>这里的 <span class="math inline">\(\xi_i\)</span>
+衡量样本违反原来间隔约束的程度,而 <span class="math inline">\(C\)</span>
+控制我们对这种违反的惩罚.当 <span class="math inline">\(C\)</span>
+越大时,模型越不愿意接受大的松弛;当 <span
+class="math inline">\(C\)</span>
+较小时,模型对这样的违反会更加宽容,从而允许得到更宽的间隔.</p>
+<p>接下来我们依照硬间隔中相同的思路构造Lagrange函数.分别对两组约束引入乘子
+<span class="math inline">\(\alpha_i\geq0\)</span> 和 <span
+class="math inline">\(r_i\geq0\)</span>,那么</p>
+<p><span class="math display">\[
+\mathcal L=\frac12\|w\|^2+C\sum_i\xi_i
+-\sum_i\alpha_i\big[y^{(i)}(w^Tx^{(i)}+b)-1+\xi_i\big]-\sum_i r_i\xi_i.
+\]</span></p>
+<p>我们对 <span class="math inline">\(w,b,\xi_i\)</span>
+分别求偏导,有</p>
+<p><span class="math display">\[\nabla_w\mathcal L=0,\
+\frac{\partial\mathcal L}{\partial b}=0,\ \frac{\partial\mathcal
+L}{\partial\xi_i}=0\ \Rightarrow\ w=\sum_i\alpha_i y^{(i)}x^{(i)},\
+\sum_i\alpha_i y^{(i)}=0,\ C-\alpha_i-r_i=0.\]</span></p>
+<p>由于 <span
+class="math inline">\(\alpha_i,r_i\geq0\)</span>,所以第三个式子给出了
+<span class="math inline">\(0\leq\alpha_i\leq
+C\)</span>.而把这些条件代回Lagrange函数以后,与硬间隔得到相同形式的对偶目标,但多出一个约束条件:
+<span class="math display">\[
+\boxed{\begin{aligned}
+\max_\alpha\quad&amp;W(\alpha)=\sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_j
+y^{(i)}y^{(j)}\langle x^{(i)},x^{(j)}\rangle\\
+\mathrm{s.t.}\quad&amp;0\leq\alpha_i\leq C,\qquad \sum_i\alpha_i
+y^{(i)}=0.
+\end{aligned}}
+\]</span>
+这里同样可以把内积替换成kernel,从而得到非线性SVM.从KKT条件分析这次多出来的约束.两组互补松弛条件分别是
+<span
+class="math inline">\(\alpha_i[1-\xi_i-y^{(i)}f(x^{(i)})]=0\)</span> 和
+<span class="math inline">\(r_i\xi_i=0\)</span>,同时 <span
+class="math inline">\(r_i=C-\alpha_i\)</span>.于是我们可以分成三种情况:</p>
+<ul>
+<li>如果 <span class="math inline">\(\alpha_i=0\)</span>,那么 <span
+class="math inline">\(r_i=C&gt;0\)</span>,所以 <span
+class="math inline">\(\xi_i=0\)</span>,并且 <span
+class="math inline">\(y^{(i)}f(x^{(i)})\geq1\)</span>.这样的样本满足间隔约束,不会对
+<span class="math inline">\(w\)</span> 产生贡献.</li>
+<li>如果 <span class="math inline">\(0&lt;\alpha_i&lt;C\)</span>,那么
+<span class="math inline">\(r_i&gt;0\)</span>,所以 <span
+class="math inline">\(\xi_i=0\)</span>;又因为 <span
+class="math inline">\(\alpha_i&gt;0\)</span>,所以 <span
+class="math inline">\(y^{(i)}f(x^{(i)})=1\)</span>.这类样本恰好落在间隔边界上.</li>
+<li>如果 <span class="math inline">\(\alpha_i=C\)</span>,那么 <span
+class="math inline">\(r_i=0\)</span>,并且由 <span
+class="math inline">\(\alpha_i&gt;0\)</span> 得到 <span
+class="math inline">\(y^{(i)}f(x^{(i)})=1-\xi_i\leq1\)</span>.他可能位于间隔边界上、间隔内部或者分类错误,需要结合
+<span class="math inline">\(\xi_i\)</span> 判断.</li>
+</ul>
+<p>由此我们也可以知道,如果要通过样本恢复 <span
+class="math inline">\(b\)</span>,最方便的是选取满足 <span
+class="math inline">\(0&lt;\alpha_i&lt;C\)</span> 的样本,因为此时有
+<span class="math inline">\(y^{(i)}f(x^{(i)})=1\)</span>,所以 <span
+class="math inline">\(b=y^{(i)}-\sum_j\alpha_j y^{(j)}\langle
+x^{(j)},x^{(i)}\rangle\)</span>.</p>
+<p><a id="org5f35ca0"></a></p>
+<h3 id="sequential-minimal-optimization-smo">Sequential Minimal
+Optimization (SMO)</h3>
+<p>前面最终得到了一个关于 <span
+class="math inline">\(\alpha_1,\ldots,\alpha_n\)</span>
+的对偶优化问题.一个自然的想法是使用坐标上升算法:每次固定其他参数,只优化其中一个
+<span class="math inline">\(\alpha_i\)</span>.但是在SVM中,参数还需要满足
+<span class="math inline">\(\sum_i\alpha_i
+y^{(i)}=0\)</span>,如果只调整一个 <span
+class="math inline">\(\alpha_i\)</span>,一般会破坏这个等式约束.所以SMO(Sequential
+Minimal
+Optimization)的核心在于,每次选取两个乘子进行联合更新,并固定其余所有参数.</p>
+<p>不妨令要更新的是 <span
+class="math inline">\(\alpha_1,\alpha_2\)</span>,其余 <span
+class="math inline">\(\alpha_3,\ldots,\alpha_n\)</span>
+全部固定.将等式约束改写为 <span class="math inline">\(\alpha_1
+y^{(1)}+\alpha_2 y^{(2)}=\zeta\)</span>,其中 <span
+class="math inline">\(\zeta=-\sum_{i=3}^n\alpha_i y^{(i)}\)</span>
+是一个常数.因为 <span
+class="math inline">\(y^{(i)}\in\{-1,1\}\)</span>,所以 <span
+class="math display">\[
+\alpha_1=\big(\zeta-\alpha_2y^{(2)}\big)y^{(1)},\qquad
+\alpha_1^{\mathrm{new}}=\alpha_1^{\mathrm{old}}+y^{(1)}y^{(2)}\big(\alpha_2^{\mathrm{old}}-\alpha_2^{\mathrm{new}}\big).
+\]</span> 所以只要确定 <span
+class="math inline">\(\alpha_2\)</span>,另一参数实际上也就被确定了.原来的二元约束优化问题因此可以转换成关于
+<span class="math inline">\(\alpha_2\)</span>
+的一元问题.我们把这个关系继续代入对偶目标 <span
+class="math inline">\(W(\alpha)=\sum_i\alpha_i-\frac12\|w\|^2\)</span>,先分别展开其中的两部分.对于线性SVM,有</p>
+<p><span class="math display">\[w=\sum_{i=1}^n\alpha_i
+y^{(i)}x^{(i)}=(\zeta-\alpha_2 y^{(2)})x^{(1)}+\alpha_2
+y^{(2)}x^{(2)}+\sum_{i=3}^n\alpha_i y^{(i)}x^{(i)}=u+\alpha_2
+y^{(2)}(x^{(2)}-x^{(1)}),\]</span></p>
+<p>其中我们将不随 <span class="math inline">\(\alpha_2\)</span>
+变化的部分记为 <span class="math inline">\(u=\zeta
+x^{(1)}+\sum_{i=3}^n\alpha_i y^{(i)}x^{(i)}\)</span>.另一方面,</p>
+<p><span
+class="math display">\[\sum_{i=1}^n\alpha_i=(\zeta-\alpha_2y^{(2)})y^{(1)}+\alpha_2+\sum_{i=3}^n\alpha_i=\zeta
+y^{(1)}+\sum_{i=3}^n\alpha_i+(1-y^{(1)}y^{(2)})\alpha_2.\]</span></p>
+<p>将两个式子代入 <span
+class="math inline">\(W(\alpha)\)</span>,并把所有与 <span
+class="math inline">\(\alpha_2\)</span> 无关的项合并为常数 <span
+class="math inline">\(D\)</span>,就有</p>
+<p><span class="math display">\[\begin{aligned}
+W(\alpha_2)&amp;=\zeta
+y^{(1)}+\sum_{i=3}^n\alpha_i+(1-y^{(1)}y^{(2)})\alpha_2-\frac12\left\|u+\alpha_2
+y^{(2)}(x^{(2)}-x^{(1)})\right\|^2\\
+&amp;=-\frac12\|x^{(2)}-x^{(1)}\|^2\alpha_2^2+\big[1-y^{(1)}y^{(2)}-y^{(2)}u^T(x^{(2)}-x^{(1)})\big]\alpha_2+D.
+\end{aligned}\]</span></p>
+<p>因此原来的对偶问题就变成了一个关于 <span
+class="math inline">\(\alpha_2\)</span>
+的一元二次函数最大化问题.如果使用kernel,二次项中的 <span
+class="math inline">\(\|x^{(2)}-x^{(1)}\|^2\)</span> 可以对应改为 <span
+class="math inline">\(K(x^{(1)},x^{(1)})+K(x^{(2)},x^{(2)})-2K(x^{(1)},x^{(2)})\)</span>.</p>
+<p>不过我们不能直接在整个实数范围内最大化这个一元二次函数,因为还需要保证
+<span class="math inline">\(0\leq\alpha_1,\alpha_2\leq C\)</span>.由
+<span class="math inline">\(\alpha_1 y^{(1)}+\alpha_2
+y^{(2)}=\zeta\)</span> 可以发现,当两者标签不同的时候,被固定的是 <span
+class="math inline">\(\alpha_2-\alpha_1\)</span>;当两者标签相同的时候,被固定的是
+<span
+class="math inline">\(\alpha_1+\alpha_2\)</span>.把他们分别代入约束条件,就可以得到
+<span class="math inline">\(\alpha_2\)</span> 的可行区间 <span
+class="math inline">\([L,H]\)</span>:</p>
+<ul>
+<li>当 <span class="math inline">\(y^{(1)}\ne y^{(2)}\)</span> 时,令
+<span
+class="math inline">\(D_{12}=\alpha_2^{\mathrm{old}}-\alpha_1^{\mathrm{old}}\)</span>,则
+<span class="math inline">\(L=\max(0,D_{12})\)</span>, <span
+class="math inline">\(H=\min(C,C+D_{12})\)</span>.</li>
+<li>当 <span class="math inline">\(y^{(1)}=y^{(2)}\)</span> 时,令 <span
+class="math inline">\(S_{12}=\alpha_1^{\mathrm{old}}+\alpha_2^{\mathrm{old}}\)</span>,则
+<span class="math inline">\(L=\max(0,S_{12}-C)\)</span>, <span
+class="math inline">\(H=\min(C,S_{12})\)</span>.</li>
+</ul>
+<p>于是我们可以先求一元二次函数的无约束极值点,再将其截断到 <span
+class="math inline">\([L,H]\)</span> 内,最后根据等式约束更新 <span
+class="math inline">\(\alpha_1\)</span>.如果这个二次函数的二次项系数为0,则需要比较可行区间端点的目标值,而不能直接使用除以二次项系数的更新式.</p>
+<p>在完成两个乘子的更新之后,还需要更新分类器的偏置 <span
+class="math inline">\(b\)</span>.我们在前面已经知道,对于满足 <span
+class="math inline">\(0&lt;\alpha_i&lt;C\)</span> 的样本,KKT条件给出
+<span class="math inline">\(y^{(i)}f(x^{(i)})=1\)</span>,也就是 <span
+class="math inline">\(f(x^{(i)})=y^{(i)}\)</span>.所以有 <span
+class="math display">\[
+b=y^{(i)}-\sum_j\alpha_j y^{(j)}K(x^{(j)},x^{(i)}).
+\]</span>
+最后重复上述步骤,每次选取两个需要更新的参数并检查KKT条件,直到所有参数在给定的容忍度下基本满足最优性条件.从这个角度看,SMO并没有修改原来的SVM目标函数,而是利用对偶问题中的等式约束,把一个大的优化问题转换成一系列比较容易求解的二元子问题.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/09/28/ML-Kernel-CS229/" rel="prev" title="Machine Learning-核方法(CS229)">
+      <i class="fa fa-chevron-left"></i> Machine Learning-核方法(CS229)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#support-vector-machines"><span class="nav-number">1.</span> <span class="nav-text">Support Vector Machines</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#optimal-margin-classifier"><span class="nav-number">1.1.</span> <span class="nav-text">Optimal Margin Classifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lagrange-duality-and-kkt"><span class="nav-number">1.2.</span> <span class="nav-text">Lagrange Duality and KKT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soft-margin-svm"><span class="nav-number">1.3.</span> <span class="nav-text">Soft-Margin SVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequential-minimal-optimization-smo"><span class="nav-number">1.4.</span> <span class="nav-text">Sequential Minimal
+Optimization (SMO)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Li Yaoda"
+      src="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+  <p class="site-author-name" itemprop="name">Li Yaoda</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LYD122504" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LYD122504" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:302536585@qq.com" title="E-Mail → mailto:302536585@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Yaoda</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
