@@ -7822,4 +7822,430 @@ b=y^{(i)}-\sum_j\alpha_j y^{(j)}K(x^{(j)},x^{(i)}).
         <tag>Machine Learning</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Machine Learning-模型选择</title>
+    <url>/2026/11/02/ML-Model-CS229/</url>
+    <content><![CDATA[<h1 id="model-selection-and-generalization">Model Selection and
+Generalization</h1>
+<p>在机器学习中,我们不仅希望模型能够拟合训练数据,还希望它对未见样本也有良好的预测能力.因此,model
+selection的核心问题是:给定有限且带有噪声的数据集,应该如何选择合适的模型?设训练集
+<span
+class="math inline">\(S=\{(x^{(i)},y^{(i)})\}_{i=1}^{n}\)</span>,学习算法由
+<span class="math inline">\(S\)</span> 得到 <span
+class="math inline">\(h_S\)</span>.以平方损失为例,训练误差是在已见样本上的平均误差:</p>
+<p><span class="math display">\[
+\hat R_S(h_S)=\frac1n\sum_{i=1}^{n}(y^{(i)}-h_S(x^{(i)}))^2.
+\]</span></p>
+<p>而我们真正关心的泛化能力是它在同一任务的未见样本上的表现,即</p>
+<p><span class="math display">\[
+R(h_S)=\mathbb E_{(x,y)\sim\mathcal D}[(y-h_S(x))^2].
+\]</span></p>
+<p>即使训练样本和未见样本来自同一分布,较低的训练误差也不能保证较低的测试误差,因为模型可能学到了这批数据中特有的波动.</p>
+<span id="more"></span>
+<p><a id="org754c3ad"></a></p>
+<h2 id="underfitting-and-overfitting">Underfitting and Overfitting</h2>
+<p>如果模型的表达能力不足,连目标关系的主要规律也难以表示,训练误差和测试误差往往都较大,这就是欠拟合,通常与high
+bias有关.如果模型过于灵活,它可能把训练样本中的偶然波动甚至噪声也拟合进去,得到很低的训练误差,却在未见样本上表现较差,这就是过拟合,通常与high
+variance有关.选择模型类别时,我们已经赋予学习过程某种inductive
+bias,也就是对可能函数的限制或偏好.随着模型复杂度变化,bias,variance,训练误差和测试误差可能呈现不同趋势;复杂度适中时测试误差最低是有用的直觉,但曲线形状取决于样本量,算法和正则化方式,不能当成普遍定理.设
+<span class="math inline">\(d\)</span> 表示模型的复杂度,<span
+class="math inline">\(d_*\)</span>
+表示足以表达目标关系的大致复杂度.在一个简化的情形下,可以把上述直觉整理为下表.这里的"最低"和"上升"描述的是可能出现的趋势,并不是对任意数据分布都成立的定理.</p>
+<table>
+<thead>
+<tr>
+<th>误差或性质</th>
+<th><span class="math inline">\(d&lt;d_*\)</span></th>
+<th><span class="math inline">\(d=d_*\)</span></th>
+<th><span class="math inline">\(d&gt;d_*\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(\mathrm{Bias}^2\)</span></td>
+<td>较大</td>
+<td>可较小</td>
+<td>可接近 0</td>
+</tr>
+<tr>
+<td>Variance</td>
+<td>较低</td>
+<td>较低</td>
+<td>可能随 <span class="math inline">\(d\)</span> 增大</td>
+</tr>
+<tr>
+<td>Test error</td>
+<td>较高</td>
+<td>可以较低</td>
+<td>可能回升</td>
+</tr>
+<tr>
+<td>Training error</td>
+<td>较高</td>
+<td>较低</td>
+<td>可能趋近 0</td>
+</tr>
+</tbody>
+</table>
+<p><a id="orge84fd59"></a></p>
+<h2 id="bias-variance-decomposition-and-regularization">Bias-Variance
+Decomposition and Regularization</h2>
+<p>为了更准确地理解这种关系,固定一个测试输入 <span
+class="math inline">\(x\)</span>,设真实条件均值为 <span
+class="math inline">\(h_*(x)\)</span>,新样本满足 <span
+class="math inline">\(y=h_*(x)+\epsilon\)</span>,其中 <span
+class="math inline">\(\mathbb E[\epsilon\mid x]=0\)</span>,<span
+class="math inline">\(\operatorname{Var}(\epsilon\mid
+x)=\sigma^2\)</span>,并且新样本噪声与训练集 <span
+class="math inline">\(S\)</span> 独立.由于训练集本身是随机抽取的,学得的
+<span class="math inline">\(h_S(x)\)</span> 也会随 <span
+class="math inline">\(S\)</span> 改变.现在考察 <span
+class="math inline">\(\mathbb
+E_{S,\epsilon}[(y-h_S(x))^2]\)</span>,先直接展开平方:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E_{S,\epsilon}[(y-h_S(x))^2]
+&amp;=\mathbb E_{S,\epsilon}[(h_*(x)+\epsilon-h_S(x))^2]\\
+&amp;=\mathbb E[\epsilon^2]+2\mathbb E[\epsilon(h_*(x)-h_S(x))]
+  +\mathbb E_S[(h_*(x)-h_S(x))^2]\\
+&amp;=\sigma^2+\mathbb E_S[(h_*(x)-h_S(x))^2].
+\end{aligned}
+\]</span></p>
+<p>中间的交叉项为零,依据是新样本噪声零均值且独立于 <span
+class="math inline">\(S\)</span>.接下来定义不同训练集下的平均预测 <span
+class="math inline">\(h_{\mathrm{avg}}(x)=\mathbb
+E_S[h_S(x)]\)</span>.把 <span
+class="math inline">\(h_*(x)-h_S(x)\)</span> 写成 <span
+class="math inline">\((h_*(x)-h_{\mathrm{avg}}(x))+(h_{\mathrm{avg}}(x)-h_S(x))\)</span>,再次展开:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E_S[(h_*(x)-h_S(x))^2]
+&amp;=(h_*(x)-h_{\mathrm{avg}}(x))^2
+  +2(h_*(x)-h_{\mathrm{avg}}(x))\mathbb
+E_S[h_{\mathrm{avg}}(x)-h_S(x)]\\
+&amp;\quad+\mathbb E_S[(h_S(x)-h_{\mathrm{avg}}(x))^2]\\
+&amp;=(h_*(x)-h_{\mathrm{avg}}(x))^2
+  +\operatorname{Var}_S(h_S(x)).
+\end{aligned}
+\]</span></p>
+<p>因此,在这些条件下,固定 <span class="math inline">\(x\)</span>
+处的期望平方预测误差为</p>
+<p><span class="math display">\[
+\boxed{ \mathbb E_{S,\epsilon}[(y-h_S(x))^2]
+=\underbrace{\sigma^2}_{\text{noise}}
++\underbrace{(h_*(x)-h_{\mathrm{avg}}(x))^2}_{\text{bias}^2}
++\underbrace{\operatorname{Var}_S(h_S(x))}_{\text{variance}}. }
+\]</span></p>
+<p>其中噪声是给定当前特征 <span class="math inline">\(x\)</span>
+后仍无法预测的随机部分;偏差是平均预测 <span
+class="math inline">\(h_{\mathrm{avg}}(x)\)</span> 与真实条件均值 <span
+class="math inline">\(h_*(x)\)</span> 的差;方差是预测 <span
+class="math inline">\(h_S(x)\)</span>
+随训练集变化的幅度.这里的数值偏差与前面所说的inductive
+bias有联系,但两者定义不同.限制模型复杂度可能增大偏差,却也可能降低方差;增加复杂度则可能改善拟合能力,同时使结果更依赖训练样本.具体如何取舍,还要看样本量,算法和后续采用的正则化.</p>
+<p>既希望模型有足够的表达能力,又不希望它追随训练样本的噪声,就需要对拟合过程施加适当约束.一种办法是正则化:对于参数
+<span class="math inline">\(\theta\)</span>,把原训练目标 <span
+class="math inline">\(J(\theta)\)</span> 改为<span
+class="math inline">\(J_\lambda(\theta)=J(\theta)+\lambda R(\theta),\
+\lambda\ge 0\)</span>,其中 <span
+class="math inline">\(R(\theta)\)</span>
+衡量我们希望限制的参数性质.例如,取 <span
+class="math inline">\(R(\theta)=\frac12\|\theta\|_2^2\)</span>
+会对较大的参数范数施加代价.正则化在拟合数据与限制模型之间建立权衡,但不保证任何正则强度都能降低测试误差.</p>
+<p>在线性回归中,<span class="math inline">\(L_2\)</span> 正则化得到
+Ridge Regression.令 <span class="math inline">\(X\in\mathbb R^{n\times
+d}\)</span>,<span class="math inline">\(y\in\mathbb
+R^n\)</span>.下面暂不把截距写入 <span
+class="math inline">\(\theta\)</span>,只对特征系数施加惩罚;如果模型包含截距,通常将它单独处理,不计入
+<span class="math inline">\(L_2\)</span> 惩罚.考虑</p>
+<p><span class="math display">\[
+\hat\theta_\rho=\arg\min_{\theta\in\mathbb R^d}
+\left\{\frac12\|X\theta-y\|_2^2+\frac\rho2\|\theta\|_2^2\right\},\qquad
+\rho&gt;0.
+\]</span></p>
+<p>当 <span class="math inline">\(n&lt;d\)</span> 时,<span
+class="math inline">\(X\)</span> 有非平凡零空间.若 <span
+class="math inline">\(v\in\ker X\)</span>,则 <span
+class="math inline">\(X(\theta_0+v)=X\theta_0\)</span>,也就是说,沿着
+<span class="math inline">\(v\)</span>
+改变参数不会改变训练样本上的预测.若还存在 <span
+class="math inline">\(\theta_0\)</span> 使 <span
+class="math inline">\(X\theta_0=y\)</span>,便有多个精确拟合解;这一精确解的存在需要
+<span class="math inline">\(y\in\operatorname{col}(X)\)</span>,不能仅由
+<span class="math inline">\(n&lt;d\)</span> 推出.加入 <span
+class="math inline">\(\rho\|\theta\|_2^2/2\)</span> 后,对 <span
+class="math inline">\(\theta\)</span> 求梯度并令其为零,依次得到 <span
+class="math inline">\(X^\top(X\theta-y)+\rho\theta=0,\ (X^\top X+\rho
+I)\theta=X^\top y\)</span>,所以</p>
+<p><span class="math display">\[
+\boxed{\hat\theta_\rho=(X^\top X+\rho I)^{-1}X^\top y.}
+\]</span></p>
+<p>即使 <span
+class="math inline">\(n&lt;d\)</span>,上述逆矩阵仍存在,因为任意非零
+<span class="math inline">\(v\)</span> 都满足 <span
+class="math inline">\(v^\top(X^\top X+\rho
+I)v=\|Xv\|_2^2+\rho\|v\|_2^2&gt;0\)</span>. 因此 <span
+class="math inline">\(\rho&gt;0\)</span> 时 Ridge 有唯一解;当 <span
+class="math inline">\(\rho\to0^+\)</span>
+且无正则最小二乘解不唯一时,它趋向其中欧氏范数最小的一解.</p>
+<p>为比较 OLS 与 Ridge,暂时考虑另一种情形:<span
+class="math inline">\(X\)</span> 固定且列满秩,<span
+class="math inline">\(y=X\theta_*+\varepsilon\)</span>,其中 <span
+class="math inline">\(\mathbb E[\varepsilon\mid X]=0\)</span>,<span
+class="math inline">\(\operatorname{Cov}(\varepsilon\mid
+X)=\sigma^2I_n\)</span>.这时 OLS 有唯一解:</p>
+<p><span class="math display">\[
+\hat\theta_{\mathrm{OLS}}=(X^\top X)^{-1}X^\top y =\theta_*+(X^\top
+X)^{-1}X^\top\varepsilon, \qquad
+\operatorname{Cov}(\hat\theta_{\mathrm{OLS}}\mid X)=\sigma^2(X^\top
+X)^{-1}.
+\]</span></p>
+<p>设 <span class="math inline">\(X^\top X=Q\Lambda Q^\top\)</span>,其中
+<span class="math inline">\(Q\)</span> 正交,<span
+class="math inline">\(\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_d)\)</span>
+且 <span class="math inline">\(\lambda_j&gt;0\)</span>.于是 OLS 在第
+<span class="math inline">\(j\)</span> 个特征方向的参数估计方差是 <span
+class="math inline">\(\sigma^2/\lambda_j\)</span>;小特征值会放大噪声.Ridge
+的随机部分仍来自 <span class="math inline">\(\varepsilon\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat\theta_\rho
+&amp;=(X^\top X+\rho I)^{-1}X^\top X\theta_*
++(X^\top X+\rho I)^{-1}X^\top\varepsilon,\\
+\operatorname{Cov}(\hat\theta_\rho\mid X)
+&amp;=\sigma^2(X^\top X+\rho I)^{-1}X^\top X(X^\top X+\rho I)^{-1}\\
+&amp;=\sigma^2Q\operatorname{diag}\!\left(\frac{\lambda_j}{(\lambda_j+\rho)^2}\right)_{j=1}^{d}Q^\top.
+\end{aligned}
+\]</span></p>
+<p>与同一方向上的 OLS 参数方差相比,Ridge 的比例为 <span
+class="math inline">\(\lambda_j^2/(\lambda_j+\rho)^2&lt;1\)</span>,因此较小的特征值方向尤其能看到
+variance 被压低.但 Ridge 同时引入参数估计的条件 bias:</p>
+<p><span class="math display">\[
+\mathbb E[\hat\theta_\rho\mid X]-\theta_* =-\rho(X^\top X+\rho
+I)^{-1}\theta_*.
+\]</span></p>
+<p>这就是用一定的偏差换取方差减少的权衡;参数方差下降本身并不保证完整的测试误差一定下降.</p>
+<p>除了在目标函数中约束参数,限制过拟合还可以从训练过程或数据入手.例如,dropout
+在训练时随机将部分单元的激活值置零,数据增强则在保持标签语义的前提下对已有数据作合理变换,以构造更多训练样本.它们与
+Ridge
+的形式不同,但都提醒我们:不能只看训练样本是否被拟合,还要考察模型对未见样本是否稳定.</p>
+<p><a id="org3ea8f1d"></a></p>
+<h2 id="modern-twist">Modern Twist</h2>
+<p>还需要注意的是,参数数量多于训练样本并不直接等于泛化失败.当 <span
+class="math inline">\(d&gt;n\)</span> 且 <span
+class="math inline">\(X\)</span> 行满秩时,对于任意训练标签 <span
+class="math inline">\(y\)</span> 都可以找到满足 <span
+class="math inline">\(X\theta=y\)</span> 的参数,从而使训练误差为
+0.但这样的参数通常不唯一,不同训练算法与正则化方式会选择不同的解,它们在未见样本上的表现也可能相差很大.</p>
+<p>在复杂度接近能够精确插值训练数据的临界位置时,求解可能对样本扰动很敏感,测试误差可能出现峰值;继续增大模型规模后,测试误差在一些任务中又会下降.这种定性形状常被称为
+double
+descent.下面的曲线只表示其中一种可能的现象,不表示模型复杂度和测试误差必然遵循固定函数关系.</p>
+<p><img
+src="https://github.com/LYD122504/picx-images-hosting/raw/master/2026-10-19_20-53-51_screenshot.2658bd.png" /></p>
+<p>这也提示我们:偏差-方差分解本身仍成立,但它并没有规定模型容量增加时方差必然单调上升.过参数化区域中,优化算法的implicit
+bias(对某些解的隐式偏好)有时会起到类似显式正则化的作用.例如,在标准线性最小二乘中,从零初始化的适当梯度下降会选择最小范数解;一般神经网络的情况则更复杂.另外,原分布上的泛化能力良好,也不自动保证数据分布偏移下的鲁棒性,因此有必要单独评估模型面对数据分布变化时的性能.</p>
+<p><a id="org78ae347"></a></p>
+<h2 id="model-selection">Model Selection</h2>
+<p>从这条曲线也可以看出,训练误差不是选择模型的充分依据.设候选模型由
+<span class="math inline">\(M_\gamma\)</span> 表示,其中 <span
+class="math inline">\(\gamma\)</span>
+是多项式次数,正则化强度等选择项.即使固定 <span
+class="math inline">\(\gamma\)</span>,我们仍需在训练集上学习模型内部参数
+<span class="math inline">\(\theta\)</span>;完成训练后,才能比较不同
+<span class="math inline">\(\gamma\)</span>
+对未见样本的预测能力.因此,模型内部参数的拟合与模型类别或超参数的选择是两个不同的步骤,不能都用同一批样本上的训练误差来评价.</p>
+<p>一种直接的办法是将现有数据分成 训练集(Training set),验证集(Dev
+set)和测试集(Test set)三部分:</p>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training set</td>
+<td>拟合候选模型内部参数 <span
+class="math inline">\(\theta\)</span></td>
+</tr>
+<tr>
+<td>Dev set</td>
+<td>比较候选模型,选择超参数 <span
+class="math inline">\(\gamma\)</span></td>
+</tr>
+<tr>
+<td>Test set</td>
+<td>在模型选择规则确定之后,进行独立的最终泛化评估</td>
+</tr>
+</tbody>
+</table>
+<p>对于给定的 <span
+class="math inline">\(\gamma\)</span>,先只用训练集得到 <span
+class="math inline">\(\hat\theta_\gamma\)</span>,再计算其在验证集上的误差,选择验证误差较小的候选.令
+<span class="math inline">\(A\)</span> 表示样本索引集合,<span
+class="math inline">\(L_A(h)=|A|^{-1}\sum_{i\in
+A}(y^{(i)}-h(x^{(i)}))^2\)</span> 表示其平均平方误差,<span
+class="math inline">\(J_{\gamma,\mathrm{Train}}(\theta)\)</span>
+表示给定候选方案的训练目标,这一过程可以写成</p>
+<p><span class="math display">\[
+\boxed{ \hat\theta_\gamma=\arg\min_\theta
+J_{\gamma,\mathrm{Train}}(\theta), \qquad \hat\gamma=\arg\min_\gamma
+L_{\mathrm{Dev}}(h_{\gamma,\hat\theta_\gamma}). }
+\]</span></p>
+<p>例如对于 Ridge regression,<span
+class="math inline">\(J_{\gamma,\mathrm{Train}}(\theta)=\frac12\sum_{i\in\mathrm{Train}}(y^{(i)}-h_{\gamma,\theta}(x^{(i)}))^2+\frac\rho2\|\theta\|_2^2\)</span>,其中
+<span class="math inline">\(\rho\)</span>
+是候选方案的一部分;验证集比较的则是所得预测函数在验证样本上的误差.关键是每个候选方案都只能依据训练集拟合其内部参数,然后才用验证集比较.只按训练误差选择时,高次数模型可能因为更容易记住训练样本而占优;验证集提供了一个没有参与该候选参数拟合的比较依据.</p>
+<p>以多项式回归为例,先考虑 <span class="math inline">\(\hat
+y=\theta_0+\theta_1x+\theta_2x^2\)</span>.对于二次模型,<span
+class="math inline">\(\theta_0,\theta_1,\theta_2\)</span>
+由训练集上的损失最小化得到;随后可以把一次,二次及更高次数模型作为不同候选,也可以比较不同的
+Ridge 强度 <span
+class="math inline">\(\rho\)</span>.每个候选都应重新在同一训练集上拟合,再将所得函数应用于验证集.多项式次数改变的是函数类别,<span
+class="math inline">\(\rho\)</span> 改变的是拟合时的约束,而 <span
+class="math inline">\(\theta\)</span>
+是给定这些选择以后学得的参数.学习率之类的训练设置也可能影响实际求解过程,但不应与模型内部参数混为一谈.</p>
+<p>验证集的评价仍然参与了选择.如果不断查看验证误差,据此修改候选模型,特征或超参数范围,最终方案也会逐渐适应验证集.因此,测试集应保持独立,直到模型结构,参数拟合方式和选择规则都确定后才作最后评价.此时在测试集上计算的误差才是对整个选模流程的一次独立检验;看过测试结果后再继续调参,就不能把同一结果当作未受选择影响的最终评价.</p>
+<p><a id="orge1c67d3"></a></p>
+<h3 id="k-fold-cross-validation">K-fold Cross Validation</h3>
+<p>但当数据较少时,一次划分还会带来数据有效性问题:验证集样本留得太小,验证误差容易受少数样本影响;留得太大,每个候选模型又只能用较少样本训练.K-fold
+cross
+validation(K折交叉验证)让不同数据折轮流承担验证任务.将可用于训练和选择的数据
+<span class="math inline">\(S\)</span> 分成大小相近的 <span
+class="math inline">\(S_1,\ldots,S_K\)</span>.对于同一个候选 <span
+class="math inline">\(\gamma\)</span>,第 <span
+class="math inline">\(k\)</span> 轮在 <span
+class="math inline">\(S\setminus S_k\)</span> 上重新拟合,得到 <span
+class="math inline">\(\hat\theta_\gamma^{(-k)}\)</span>,再在未参与这一轮拟合的
+<span class="math inline">\(S_k\)</span> 上计算误差 <span
+class="math inline">\(E_{\gamma,k}\)</span>.完成 <span
+class="math inline">\(K\)</span> 轮后,用各折误差的平均值比较候选:</p>
+<p><span class="math display">\[
+E_{\mathrm{cv}}(\gamma) =\frac1K\sum_{k=1}^{K}E_{\gamma,k}, \qquad
+E_{\gamma,k}=L_{S_k}(h_{\gamma,\hat\theta_\gamma^{(-k)}}).
+\]</span></p>
+<p>这里各折大小近似相同,所以可以直接取平均;如需严格按每个验证样本等权计算,可改用
+<span class="math inline">\(|S_k|\)</span>
+加权平均.每一轮都必须重新训练,因为第 <span
+class="math inline">\(k\)</span>
+折只有在该轮没有参与拟合时,它的误差才可用于验证.选定 <span
+class="math inline">\(\hat\gamma=\arg\min_\gamma
+E_{\mathrm{cv}}(\gamma)\)</span>
+后,可以用全部可供训练的数据重新拟合这个模型,最后再用独立的测试集评价.K-fold利用了多次划分来减少对单次验证集划分的依赖,但每个候选通常需要训练
+<span class="math inline">\(K\)</span>
+次,所以数据利用率与计算效率需要一并考虑.</p>
+<p><a id="org76c8546"></a></p>
+<h3 id="successive-halving">Successive Halving</h3>
+<p>数据有效性关注有限样本如何被更有效地用于验证;计算效率关注在有限算力下,如何更有效地比较候选配置.最基本的网格搜索会为每一种超参数组合完整训练一个模型.当需要同时调整多个超参数时,组合数量会快速增长.设第
+<span class="math inline">\(j\)</span> 个超参数有 <span
+class="math inline">\(m_j\)</span> 个候选值,一共有 <span
+class="math inline">\(p\)</span> 个超参数,那么网格中的候选总数为</p>
+<p><span class="math display">\[
+\boxed{N_{\mathrm{grid}}=\prod_{j=1}^{p}m_j.}
+\]</span></p>
+<p>例如学习率有 5 个选择,批大小有 4 个,Ridge/weight decay强度有 5
+个,网络深度有 4 个,则 <span
+class="math inline">\(N_{\mathrm{grid}}=5\times4\times5\times4=400\)</span>.若每个候选完整训练需要
+<span class="math inline">\(C\)</span> 单位计算量,总预算约为 <span
+class="math inline">\(400C\)</span>(尚未计入验证和调度开销).而对于<span
+class="math inline">\(\rho\)</span>
+等跨多个数量级的正参数通常适合先按对数尺度搜索,例如 <span
+class="math inline">\(\{10^{-4},10^{-3},10^{-2},10^{-1},1,10\}\)</span>,找到效果较好的尺度之后,再围绕表现较好的范围细化.</p>
+<p>这种逐一训练到底的策略可能浪费算力:一些明显较差的配置在训练早期就能被识别,却仍然占用完整预算.Successive
+Halving(逐次减半)的思想是:先给每个候选很少的资源,比较中期验证结果,淘汰表现较差的一半,再把更多资源分配给留下的候选,循环执行.假设候选模型为
+<span class="math inline">\(M_1,\ldots,M_8\)</span>,一个模型完整训练需要
+8 个 epoch.采用减半因子 <span
+class="math inline">\(\eta=2\)</span>,每轮大致保留排名前一半的配置.训练预算
+<em>累计</em> 为 <span class="math inline">\(1,2,4,8\)</span> 个
+epoch.每轮都用事先确定的验证指标比较,不允许直接拿独立 Test set
+来筛选候选.</p>
+<p><img
+src="https://github.com/LYD122504/picx-images-hosting/raw/master/2026-10-19_20-55-07_screenshot.ba02d5.png" />
+若保留 checkpoint 并在上一轮基础上继续训练,各轮新增计算预算如下:</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+<col style="width: 30%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>轮次</th>
+<th>存活模型数</th>
+<th>每个模型累计 epoch</th>
+<th>每个模型本轮新增 epoch</th>
+<th>本轮新增模型-epoch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>8</td>
+<td>1</td>
+<td>1</td>
+<td>8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>4</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>8</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>合计</td>
+<td></td>
+<td></td>
+<td></td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>如果对 8 个候选都完整训练 8 个 epoch,则需要 <span
+class="math inline">\(8\times8=64\)</span>
+个模型-epoch;上述示例的新增训练成本为 <span
+class="math inline">\(8+4+4+4=20\)</span> 个模型-epoch.在"每个模型每个
+epoch 成本相同,训练可续接"这一简化假设下,节约的训练预算为 <span
+class="math inline">\(44/64=68.75\%\)</span>.这只是说明机制,不是
+Successive Halving
+的普适节省比例;验证开销,不同模型的单轮成本等也会影响实际结果.</p>
+<p>这个例子中,随着候选数从 <span
+class="math inline">\(8\to4\to2\to1\)</span> 缩减,幸存者得到的
+<em>累计</em> 训练预算从 <span
+class="math inline">\(1\to2\to4\to8\)</span>
+增长.每轮存活模型数乘以该轮的累计预算都是
+8,但这个乘积重复计入了前几轮已完成的训练;如果沿用
+checkpoint,只统计本轮新增训练,实际成本应按表中计算.</p>
+<p>Successive Halving
+依赖较早阶段的验证分数能够提供一定预测信息.如果某个配置前期学习较慢,后期才变好,它可能被过早淘汰.因此,节省算力并不等于保证选出全局最佳配置.</p>
+<p>Hyperband 在 Successive Halving
+的基础上,采用多组不同的初始候选数量与初始资源预算(brackets):有的组先广泛试很多配置,每个只训练一点;有的组少试一些配置,但给每个更多初始资源.这样在"探索更多候选"与"充分训练潜力候选"之间作权衡.Hyperband
+并不是让每个模型都训练到完成,而是更有策略地分配总预算.</p>
+<p>Random search,Bayesian optimization,population-based training
+与基于梯度的超参数优化也属于计算效率相关的方法:它们通过不同方式决定下一步该试哪组配置,或如何动态调整训练资源.这里最重要的不是记住所有算法细节,而是理解它们共同面临的有限算力约束.</p>
+]]></content>
+      <categories>
+        <category>CS229</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
 </search>

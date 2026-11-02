@@ -196,6 +196,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/11/02/ML-Model-CS229/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
+      <meta itemprop="name" content="Li Yaoda">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还施水阁">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/11/02/ML-Model-CS229/" class="post-title-link" itemprop="url">Machine Learning-模型选择</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-11-02 17:22:22 / 修改时间：17:34:46" itemprop="dateCreated datePublished" datetime="2026-11-02T17:22:22+08:00">2026-11-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS229/" itemprop="url" rel="index"><span itemprop="name">CS229</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="model-selection-and-generalization">Model Selection and
+Generalization</h1>
+<p>在机器学习中,我们不仅希望模型能够拟合训练数据,还希望它对未见样本也有良好的预测能力.因此,model
+selection的核心问题是:给定有限且带有噪声的数据集,应该如何选择合适的模型?设训练集
+<span
+class="math inline">\(S=\{(x^{(i)},y^{(i)})\}_{i=1}^{n}\)</span>,学习算法由
+<span class="math inline">\(S\)</span> 得到 <span
+class="math inline">\(h_S\)</span>.以平方损失为例,训练误差是在已见样本上的平均误差:</p>
+<p><span class="math display">\[
+\hat R_S(h_S)=\frac1n\sum_{i=1}^{n}(y^{(i)}-h_S(x^{(i)}))^2.
+\]</span></p>
+<p>而我们真正关心的泛化能力是它在同一任务的未见样本上的表现,即</p>
+<p><span class="math display">\[
+R(h_S)=\mathbb E_{(x,y)\sim\mathcal D}[(y-h_S(x))^2].
+\]</span></p>
+<p>即使训练样本和未见样本来自同一分布,较低的训练误差也不能保证较低的测试误差,因为模型可能学到了这批数据中特有的波动.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/11/02/ML-Model-CS229/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/10/12/ML-SVM-CS229/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -946,92 +1036,6 @@ Coroutines</h1>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/06/Advanced-Python-MetaProgramming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LYD122504/picture@main/20220328/liyaoda.jpg">
-      <meta itemprop="name" content="Li Yaoda">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="还施水阁">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2026/03/06/Advanced-Python-MetaProgramming/" class="post-title-link" itemprop="url">Advanced Python-MetaProgramming</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2026-03-06 23:04:46" itemprop="dateCreated datePublished" datetime="2026-03-06T23:04:46+08:00">2026-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-03-22 20:03:11" itemprop="dateModified" datetime="2026-03-22T20:03:11+08:00">2026-03-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Python/" itemprop="url" rel="index"><span itemprop="name">Advanced Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="metaprogramming">MetaProgramming</h1>
-<p><a id="org68f7d6f"></a></p>
-<h2 id="decorators">Decorators</h2>
-<p>在编写程序中存在大量代码重复的问题,其在编写过程会十分枯燥无聊,并且后续难以维护.元编程涉及编写操作其他代码的代码问题.其相应的应用示例为宏(Marco),包装器(wrapper),切面(aspect).因此其本质上是对代码进行操作.元编程的核心动力是DRY原则(Don't
-Repeat Yourself).
-当发现存在大量代码结构类似的情况,则可以用元编程.与C/C++的宏在编译前处理文本,Python的元编程是在运行的时候操作对象(func,class).其会更加的灵活,更加的动态.装饰器是一个创建另一个函数包装器的函数.包装器则是一个全新的函数,但是他的工作原理和原有函数是完全相同的,接受相同的函数参数可以返回相同的返回值,但是可以增加一些额外的操作.装饰器本质上是接受函数作为参数并返回新函数的高阶函数.理想的装饰器应该是对被装饰器的调用者是透明的,也就是即使换成被装饰了的函数,其调用和返回也不应该导致代码出错.而额外的输出则是由包装器函数实现,但仍然依靠原始函数获得结果</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/03/06/Advanced-Python-MetaProgramming/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1103,7 +1107,7 @@ Repeat Yourself).
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
